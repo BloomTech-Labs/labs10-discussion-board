@@ -15,9 +15,10 @@ const router = express.Router();
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
+// get top (limit 10) daily posts ordered by vote_count
 router.get('/top-daily', async (req, res, next) => {
 	try {
-		postsDB.getTopDailyPosts().then(topDailyPosts => res.json(topDailyPosts))
+		postsDB.getTopDailyPosts().then(topDailyPosts => res.json(topDailyPosts));
 	} catch (err) {
 		next(err);
 	}
