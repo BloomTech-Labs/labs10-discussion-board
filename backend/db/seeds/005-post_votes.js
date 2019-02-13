@@ -10,7 +10,7 @@ const generateSeeds = () => {
     arr.push({
       post_id: getRandomIntInclusive(1, 20),
       user_id: i + 1,
-      type: getRandomIntInclusive(0, 5) > 1 ? 1 : 0, // 2/3 chance of receiving an upvote
+      type: getRandomIntInclusive(0, 5) > 1 ? 1 : -1, // 2/3 chance of receiving an upvote
     });
   }
   return arr;
