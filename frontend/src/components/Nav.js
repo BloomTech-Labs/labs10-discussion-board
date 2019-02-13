@@ -1,34 +1,57 @@
 import React from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import LoginDropdown from './LoginDropdown.js';
+import chevron from '../img/chevron.png';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
-  background-color: black;
-  color: white;
+  display: flex;
+  justify-content: flex-end;
 `;
+
+const Auth = styled.div`
+  margin: 25px;
+  font-size: 24px;
+`;
+const Register = styled.a`
+  margin-right: 20px;
+  cursor: pointer;
+`;
+const Login = styled.a`
+  margin-left: 20px;
+  cursor: pointer;
+`;
+
+const Signout = styled.a``;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = props => {
+const Nav = props => {
   return (
     <DivWrapper>
-      {props.loggingInLoadingMessage ? (
-        <div>Logging in...</div>
+      {props.isLoggedIn ? (
+        <Signout>Signout</Signout>
       ) : (
-        <div>
-          <h1>This is the LandingView Component</h1>
-        </div>
+        <Auth>
+          <Register>Register</Register> |{' '}
+          <Login isOpen>
+            Login &nbsp;
+            <img src={chevron} alt='' />
+          </Login>
+          <LoginDropdown />
+        </Auth>
       )}
     </DivWrapper>
   );
 };
 
-// LandingView.propTypes = {
+// Nav.propTypes = {
 //   propertyName: PropTypes.string
 // }
 
@@ -42,4 +65,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {}
-)(LandingView);
+)(Nav);

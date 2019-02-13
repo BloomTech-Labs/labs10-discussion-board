@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import Nav from './components/Nav.js';
 import LandingView from './views/LandingView.js';
 
 const DivWrapper = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -23,8 +25,8 @@ class App extends Component {
     return (
       <DivWrapper>
         <GlobalStyle />
+        <Nav />
         <LandingView />
-        hello world
       </DivWrapper>
     );
   }
