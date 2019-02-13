@@ -1,5 +1,7 @@
 # labs10-discussion-board
 
+## Project Name: Symposium
+
 # Table of Contents
 
 # Setup, Install and Execute
