@@ -1,24 +1,20 @@
-import axios from 'axios';
+import axios	from 'axios';
+
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 /***************************************************************************************************
  ********************************************* Actions *******************************************
  **************************************************************************************************/
-export const USER_LOGIN_LOADING = 'USER_LOGIN_LOADING';
-export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
-export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
+export const TOP_POSTS_LOADING = 'TOP_POSTS_LOADING';
+export const TOP_POSTS_SUCCESS = 'TOP_POSTS_SUCCESS';
+export const TOP_POSTS_FAILURE = 'TOP_POSTS_FAILURE';
 
 /***************************************************************************************************
- ****************************************** Action Creators ****************************************
+ ********************************************** Actions ********************************************
  **************************************************************************************************/
-export const login = () => dispatch => {
-  // tell me what to do auth0
-};
-
-export const register = () => dispatch => {
-  // tell me what to do auth0
-};
-
-export const logout = () => dispatch => {
-  // tell me what to do auth0
+export const getTopPosts = () => dispatch => {
+	dispatch({ type: TOP_POSTS_LOADING });
+	return axios.get(`${ backendURL }/posts/top-daily`)
+		.then(res => dispatch({ type: TOP_POSTS_SUCCESS, payload: res.data }))
+		.catch(err => console.log(err));
 };

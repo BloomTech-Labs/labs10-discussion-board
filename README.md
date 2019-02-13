@@ -45,8 +45,7 @@
   - server.js
   - package.json
   - knexfile.js
-  - .gitignore
-  - yarn.lock
+  - .gitigno.lock
   - README.md
 
 - frontend
@@ -83,7 +82,6 @@
   - .gitignore
   - package-lock.json
   - package.json
-  - yarn.lock
   - README.md
 - README.md
 - LICENSE (MIT)
@@ -102,19 +100,15 @@
 
 # Project Links
 
-Heroku Deployment (Developer View) - https://dashboard.heroku.com/apps/lambda-discussion-board
-Heroku Deployment (Customer View) - https://lambda-discussion-board.herokuapp.com/
-
-Heroku Test Deployment (Developer View) -
-Setup Gatsby - https://www.youtube.com/watch?v=5VGu6NWzLs4
-
-Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
-
-Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
-
-Balsamiq - https://balsamiq.cloud/snv27r3/pryeqxi/r2278
-
-Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
+- Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p1jIRjf7sgpsJKtFQhmnBK3LK3w6c/edit
+- Heroku Deployment (Developer View) - https://dashboard.heroku.com/apps/symposium-backend/deploy/github
+- Heroku Deployment (Customer View) - https://symposium-backend.herokuapp.com/
+- Setup Gatsby - https://www.youtube.com/watch?v=5VGu6NWzLs4
+- Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
+- Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
+- Balsamiq - https://balsamiq.cloud/snv27r3/pryeqxi/r2278
+- Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
+- Lambda Capstone Defense Rubric - https://docs.google.com/spreadsheets/d/1r3kOKVvkILBalLkNLTJFQ-gXf2FoPoaWooLcw2nifUk/edit#gid=0
 
 # Table Schema's
 
@@ -196,10 +190,10 @@ Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
 - many post_id's can have many user_id's vote on it
 - one vote per relationship/row between user_id and post_id
 
-| Field   | Data Type                         |
-| ------- | --------------------------------- |
-| post_id | int(foreign key)                  |
-| user_id | int(foreign key)                  |
+| Field   | Data Type                             |
+| ------- | ------------------------------------- |
+| post_id | int(foreign key)                      |
+| user_id | int(foreign key)                      |
 | type    | integer(1 for upvote -1 for downvote) |
 
 ## category_follows
