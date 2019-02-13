@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
+// middleware
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './store/reducers';
+
+// reducers
+import {
+	UsersReducer,
+} from './store/reducers/index.js';
+
+const rootReducer = combineReducers({
+  users: UsersReducer,
+});
 
 let store;
 if (process.env.NODE_ENV === 'development') {
@@ -16,10 +26,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+	<Provider store = { store }>
+		<Router>
+			<Route path = '/' component = { App } />
+		</Router>
+	</Provider>,
+	document.getElementById('root')
 );

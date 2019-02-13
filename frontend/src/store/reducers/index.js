@@ -1,10 +1,5 @@
-const initialState = {};
+import { UsersReducer } from './UsersReducer.js';
 
-export const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
+export {
+  UsersReducer,
 };
-
-export default rootReducer;
