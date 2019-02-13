@@ -9,10 +9,26 @@ const getUsers = () => {
 const findById = (id) => {
   return db('users')
     .where({ id: Number(id) })
-    .first();
+    .first(); 
+}
+
+//Create a new user
+const insert = (user) => {
+  return db('users')
+    .insert(user)
+    .then(ids => ({ id: ids[0] }));
+}
+
+//Update a user
+function update(id, user) {
+  return db('users')
+    .where('id', Number(id))
+    .update(user);
 }
 
 module.exports = {
   getUsers,
-  findById
+  findById,
+  insert,
+  update,
 };
