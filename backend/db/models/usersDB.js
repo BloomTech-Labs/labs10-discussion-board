@@ -6,17 +6,21 @@ const getUsers = () => {
 };
 
 //Gets a user by their id
-const findById = (id) => {
-  return db('users')
-    .where({ id: Number(id) });
-}
+const findById = id => {
+  return db('users').where({ id: Number(id) });
+};
+
+//Gets a user by their username
+const findByUsername = username => {
+  return db('users').where('username', username);
+};
 
 //Create a new user
-const insert = (user) => {
+const insert = user => {
   return db('users')
     .insert(user)
     .then(ids => ({ id: ids[0] }));
-}
+};
 
 //Update a user
 function update(id, user) {
@@ -28,6 +32,7 @@ function update(id, user) {
 module.exports = {
   getUsers,
   findById,
+  findByUsername,
   insert,
-  update,
+  update
 };
