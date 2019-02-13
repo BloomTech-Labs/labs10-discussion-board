@@ -1,17 +1,18 @@
 const faker = require('faker')
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-}
+const {
+  getRandomIntInclusive,
+  getRandomUserId,
+  numOfDiscussions,
+  numOfPosts
+} = require('../../config/globals.js');
 
 const generateSeeds = () => {
-  let arr = []
-  for (let i=0; i < 20; i++){
+  let arr = [];
+  for (let i=1; i <= numOfPosts; i++){
     arr.push({
-        user_id: i+1,
-        discussion_id: getRandomIntInclusive(1,5),
+        user_id: getRandomUserId(),
+        discussion_id: getRandomIntInclusive(1, numOfDiscussions),
         body: faker.lorem.sentence(),
         created_at: faker.date.recent(3)
     })
