@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "client-install": " cd ../frontend yarn install",
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "server": "nodemon index.js",
     "frontend": "cd ../frontend && yarn start",
     "symposium": "concurrently \"yarn server\" \"yarn frontend\""
