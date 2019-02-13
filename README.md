@@ -231,5 +231,3 @@ Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
 | role        | string (required) (super mod, mod)   |
 | user_id     | foreign Key (id in users table)      |
 | category_id | Foreign Key (id in categories table) |
-
-PR check David 
