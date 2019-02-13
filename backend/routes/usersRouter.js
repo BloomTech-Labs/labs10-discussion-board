@@ -16,10 +16,11 @@ const router = express.Router();
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
-// Gets a list of users with just the user id and display name
+
+// Gets a list of users with mock data (user id, username, email, status, password)
 router.get('/', async (req, res, next) => {
   try {
-    res.status(200).json(['Success']);
+    usersDB.getUsers().then(users => res.json(users))
   } catch (err) {
     next(err);
   }
