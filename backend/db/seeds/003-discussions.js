@@ -1,20 +1,39 @@
+const faker = require('faker')
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+}
+
+const titleArr =[
+  'React Hooks',
+  'New in Python',
+  'One Piece Theories',
+  'Kobe Bryant: GOAT or NO?',
+  'Simpsons: How Long Will They Go?',
+]
+
+const generateSeeds = () => {
+  let arr = []
+  for (let i=0; i < 5; i++){
+    arr.push({
+        user_id: i+1,
+        category_id: getRandomIntInclusive(1,7),
+        title: titleArr[i],
+        body: faker.lorem.sentence(),
+        created_at: faker.date.recent(3)
+    })
+  }
+  return arr
+}
+
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('discussions').del()
     .then(function () {
       // Inserts seed entries
-      return knex('discussions').insert([
-        {user_id: 1, category_id: 1, title: 'React Hooks', 
-          body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. '},
-        {user_id: 4, category_id: 1, title: 'New in Python', 
-          body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ' },
-        {user_id: 5, category_id: 4, title: 'One Piece Theories', 
-          body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. '},
-        {user_id: 3, category_id: 2, title: 'Kobe Bryant: GOAT or NO?', 
-          body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. '},
-        {user_id: 10, category_id: 5, title: 'Simpsons: How Long Will They Go?', 
-          body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. '}
-      ]);
+      return knex('discussions').insert(generateSeeds());
     });
 };
