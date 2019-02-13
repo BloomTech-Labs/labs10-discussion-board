@@ -14,9 +14,9 @@ exports.up = function(knex, Promise) {
 			.inTable('users')
 			.notNullable();
 
-		// true for upvote / false for downvote
+		// 1 for upvote / -1 for downvote
 		tbl
-			.boolean('type')
+			.integer('type')
 			.notNullable();
 	});
 };
