@@ -17,10 +17,19 @@ const router = express.Router();
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
-// Gets a list of users with mock data (user id, username, email, status, password)
+// Gets a list of users with mock data (user id, username, email, status, password, id)
 router.get('/', async (req, res, next) => {
   try {
     usersDB.getUsers().then(users => res.json(users))
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    usersDB.findById(id).then(users => res.json(users))
   } catch (err) {
     next(err);
   }
