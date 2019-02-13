@@ -5,14 +5,14 @@ exports.up = function(knex, Promise) {
 
       //Foreign Key 'users_id'
       tbl
-      .integer('user_id')
-      .references('id')
-      .inTable('users')
-      
+        .integer('user_id')
+        .references('id')
+        .inTable('users');
+
       // Other Columns
       tbl
         .string('name')
-        .notNullable()
+        .notNullable();
     });
   };
   
