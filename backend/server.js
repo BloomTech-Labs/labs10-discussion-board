@@ -26,8 +26,12 @@ server.get('/', (req, res) => {
 });
 
 // Routes/Endpoints
-const { usersRouter } = require('./routes/index.js');
+const {
+  postsRouter,
+  usersRouter,
+} = require('./routes/index.js');
 server.use('/users', usersRouter);
+server.use('/posts', postsRouter);
 
 server.use(errorHandler); // This line needs to be after all routes
 
