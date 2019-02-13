@@ -1,26 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// views
-import { TopDiscussionsView } from './index.js';
+// components
+import { TopPost } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const LandingViewWrapper = styled.div`
-  background-color: green;
-  width: 90%;
+const TopPostsViewWrapper = styled.div`
+	padding: 10px;
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = () => {
-  return (
-    <LandingViewWrapper>
-      <TopDiscussionsView />
-    </LandingViewWrapper>
-  );
+const TopPostsView = () => {
+	return (
+		<TopPostsViewWrapper>
+			<TopPost />
+		</TopPostsViewWrapper>
+	);
 };
 
-export default LandingView;
+export default TopPostsView;
