@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import meeting from '../img/meeting.png';
+import meeting from '../assets/img/meeting.png';
 import { Nav } from '../components/index.js';
 
 const StyledHeader = styled.div`
