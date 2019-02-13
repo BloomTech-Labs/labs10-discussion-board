@@ -1,5 +1,3 @@
-const faker = require('faker')
-
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -8,12 +6,12 @@ function getRandomIntInclusive(min, max) {
 
 const generateSeeds = () => {
   let arr = [];
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 500; i++) {
     arr.push({
       post_id: getRandomIntInclusive(1, 20),
-      user_id: i + 5,
-      type: faker.random.boolean(),
-    })
+      user_id: i + 1,
+      type: getRandomIntInclusive(0, 5) > 1 ? 1 : 0, // 2/3 chance of receiving an upvote
+    });
   }
   return arr;
 }
