@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 
+// components
+import { Nav } from './components/index.js';
+
 // views
 import { LandingView } from './views/index.js';
 
 const AppWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	flex-direction: column;
-	height: 100vh;
-	width: 100vw;
-	background: gray;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: gray;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -30,14 +33,15 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 class App extends Component {
-	render() {
-		return (
-			<AppWrapper>
-				<GlobalStyle />
-				<Route exact path = '/' component = { LandingView} />
-			</AppWrapper>
-		);
-	}
+  render() {
+    return (
+      <AppWrapper>
+        <GlobalStyle />
+        <Nav />
+        <Route exact path='/' component={LandingView} />
+      </AppWrapper>
+    );
+  }
 }
 
 export default App;

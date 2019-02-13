@@ -1,10 +1,35 @@
-import {} from "../actions/index.js";
+import {
+  USER_LOGIN_LOADING,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE
+} from '../actions/index.js';
 
-const initialState = {};
+const initialState = {
+  isLoggedIn: false,
+  loggingInLoadingMessage: false
+};
 
 export const UsersReducer = (state = initialState, action) => {
-	switch(action.type) {
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case USER_LOGIN_LOADING:
+      return {
+        ...state,
+        isLoggedIn: false,
+        loggingInLoadingMessage: true
+      };
+    case USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: true,
+        loggingInLoadingMessage: false
+      };
+    case USER_LOGIN_FAILURE:
+      return {
+        ...state,
+        isLoggedIn: false,
+        loggingInLoadingMessage: false
+      };
+    default:
+      return state;
+  }
 };

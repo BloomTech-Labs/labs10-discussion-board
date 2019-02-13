@@ -26,10 +26,8 @@ server.get('/', (req, res) => {
 });
 
 // Routes/Endpoints
-const {
-  postsRouter,
-  usersRouter,
-} = require('./routes/index.js');
+const { authRouter, postsRouter, usersRouter } = require('./routes/index.js');
+server.use('/auth', authRouter);
 server.use('/users', usersRouter);
 server.use('/posts', postsRouter);
 
