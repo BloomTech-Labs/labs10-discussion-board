@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import LoginDropdown from './LoginDropdown.js';
+import { LoginDropdown } from './index.js';
 import chevron from '../img/chevron.png';
 // import PropTypes from 'prop-types';
 
@@ -12,6 +12,7 @@ import chevron from '../img/chevron.png';
 const DivWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-self: flex-end;
 `;
 
 const Auth = styled.div`
