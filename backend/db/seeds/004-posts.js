@@ -13,7 +13,7 @@ const generateSeeds = () => {
         user_id: i+1,
         discussion_id: getRandomIntInclusive(1,5),
         body: faker.lorem.sentence(),
-        created_at: faker.date.recent()
+        created_at: faker.date.recent(3)
     })
   }
   return arr
