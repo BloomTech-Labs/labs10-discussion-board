@@ -1,5 +1,3 @@
-const faker = require('faker')
-
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -7,24 +5,22 @@ function getRandomIntInclusive(min, max) {
 }
 
 const generateSeeds = () => {
-  let arr = []
-  for (let i=0; i < 5; i++){
+  let arr = [];
+  for (let i = 0; i < 500; i++) {
     arr.push({
-        user_id: i+1,
-        category_id: getRandomIntInclusive(1,7),
-        title: faker.lorem.sentence(4),
-        body: faker.lorem.sentences(3),
-        created_at: faker.date.recent(3)
-    })
+      discussion_id: getRandomIntInclusive(1, 5),
+      user_id: i + 1,
+      type: getRandomIntInclusive(0, 5) > 1 ? 1 : -1, // 2/3 chance of receiving an upvote
+    });
   }
-  return arr
+  return arr;
 }
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('discussions').del()
+  return knex('discussion_votes').del()
     .then(function () {
       // Inserts seed entries
-      return knex('discussions').insert(generateSeeds());
+      return knex('discussion_votes').insert(generateSeeds());
     });
 };
