@@ -1,5 +1,6 @@
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import TopPost from './TopPost.js';
+import Header from './Header.js';
 
-export { LoginDropdown, Nav, TopPost };
+export { LoginDropdown, Nav, TopPost, Header };

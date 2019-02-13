@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 
 // components
-import { Nav } from './components/index.js';
+import { Header } from './components/index.js';
 
 // views
 import { LandingView } from './views/index.js';
@@ -37,7 +37,7 @@ class App extends Component {
     return (
       <AppWrapper>
         <GlobalStyle />
-        <Nav />
+        <Header />
         <Route exact path='/' component={LandingView} />
       </AppWrapper>
     );
