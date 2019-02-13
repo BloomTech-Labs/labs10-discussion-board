@@ -200,7 +200,7 @@ Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
 | ------- | --------------------------------- |
 | post_id | int(foreign key)                  |
 | user_id | int(foreign key)                  |
-| type    | bool(1 for upvote 0 for downvote) |
+| type    | integer(1 for upvote -1 for downvote) |
 
 ## category_follows
 

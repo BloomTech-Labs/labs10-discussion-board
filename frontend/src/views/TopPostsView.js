@@ -1,45 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 
-// views
-import { TopDiscussionsView } from './index.js';
+// components
+import { TopPost } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const LandingViewWrapper = styled.div`
-  background-color: green;
-  width: 90%;
+const TopPostsViewWrapper = styled.div`
+	padding: 10px;
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = props => {
-  return (
-    <LandingViewWrapper>
-      {props.loggingInLoadingMessage ? (
-        <div>Logging in...</div>
-      ) : (
-        <TopDiscussionsView />
-      )}
-    </LandingViewWrapper>
-  );
+const TopPostsView = () => {
+	return (
+		<TopPostsViewWrapper>
+			<TopPost />
+		</TopPostsViewWrapper>
+	);
 };
 
-// LandingView.propTypes = {
-//   propertyName: PropTypes.string
-// }
-
-const mapStateToProps = state => {
-  return {
-    isLoggedIn: state.isLoggedIn,
-    loggingInLoadingMessage: state.loggingInLoadingMessage
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {}
-)(LandingView);
+export default TopPostsView;
