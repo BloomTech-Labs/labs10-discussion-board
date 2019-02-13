@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 // views
 import { TopDiscussionsView } from './index.js';
@@ -15,12 +16,30 @@ const LandingViewWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = () => {
+const LandingView = props => {
   return (
     <LandingViewWrapper>
-      <TopDiscussionsView />
+      {props.loggingInLoadingMessage ? (
+        <div>Logging in...</div>
+      ) : (
+        <TopDiscussionsView />
+      )}
     </LandingViewWrapper>
   );
 };
 
-export default LandingView;
+// LandingView.propTypes = {
+//   propertyName: PropTypes.string
+// }
+
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+    loggingInLoadingMessage: state.loggingInLoadingMessage
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {}
+)(LandingView);
