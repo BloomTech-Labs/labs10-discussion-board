@@ -9,6 +9,8 @@ const getTopDailyPosts = () => {
 			'u.username',
 			'p.discussion_id',
 			'd.title as discussion_title',
+			'd.category_id',
+			'c.name as category_name',
 			'p.body',
 			'p.created_at',
 		)
@@ -16,10 +18,11 @@ const getTopDailyPosts = () => {
 		.join('post_votes as pv', 'pv.post_id', 'p.id')
 		.join('users as u', 'u.id', 'p.user_id')
 		.join('discussions as d', 'd.id', 'p.discussion_id')
+		.join('categories as c', 'c.id', 'd.category_id')
 		// this whereRaw gets the created_at dates that are 24 hours away from the current time
 		.whereRaw("created_at >= ?", [new Date(new Date().getTime() - (24 * 60 * 60 * 1000))])
 		.limit(10)
-		.groupBy('p.id', 'u.username', 'd.title')
+		.groupBy('p.id', 'u.username', 'd.title', 'c.name', 'd.category_id')
 		.orderBy('vote_count', 'desc');
 };
 
