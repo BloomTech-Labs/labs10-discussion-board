@@ -18,7 +18,7 @@ const router = express.Router();
  **************************************************************************************************/
 
 // Gets a list of users with mock data (user id, username, email, status, password, id)
-router.get('/', async (req, res, next) => {
+router.get('/', (req, res, next) => {
   try {
     usersDB.getUsers().then(users => res.json(users))
   } catch (err) {
@@ -27,17 +27,17 @@ router.get('/', async (req, res, next) => {
 });
 
 // Gets a user by their ID (mock data)
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
-    usersDB.findById(id).then(users => res.json(users))
+    usersDB.findById(id).then(user => res.json(user))
   } catch (err) {
     next(err);
   }
 });
     
 // Updates a user
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
     const { username, password, email, status } = req.body;
