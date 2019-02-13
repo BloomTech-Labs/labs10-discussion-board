@@ -12,17 +12,19 @@ import logger from 'redux-logger';
 // reducers
 import {
 	UsersReducer,
+	PostsReducer,
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
-  users: UsersReducer,
+	users: UsersReducer,
+	posts: PostsReducer,
 });
 
 let store;
 if (process.env.NODE_ENV === 'development') {
-  store = createStore(rootReducer, applyMiddleware(thunk, logger));
+	store = createStore(rootReducer, applyMiddleware(thunk, logger));
 } else {
-  store = createStore(rootReducer, applyMiddleware(thunk));
+	store = createStore(rootReducer, applyMiddleware(thunk));
 }
 
 ReactDOM.render(
