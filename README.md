@@ -45,8 +45,7 @@
   - server.js
   - package.json
   - knexfile.js
-  - .gitignore
-  - yarn.lock
+  - .gitigno.lock
   - README.md
 
 - frontend
@@ -83,7 +82,6 @@
   - .gitignore
   - package-lock.json
   - package.json
-  - yarn.lock
   - README.md
 - README.md
 - LICENSE (MIT)
