@@ -1,32 +1,48 @@
 import React from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
-
-// components
-import { TopDiscussions } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionsViewWrapper = styled.div`
-	border: 2px solid black;
+const TopDiscussionWrapper = styled.div`
+	margin: 5px;
 	padding: 10px;
+	border: 1px solid black;
 
-	hr {
-		border-color: black;
+	.title {
+		font-weight: bold;
 	}
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussionsView = () => {
+const TopDiscussion = ({ discussion }) => {
+	const {
+		id,
+		user_id,
+		username,
+		category_id,
+		category_name,
+		title,
+		body,
+		created_at,
+	} = discussion;
 	return (
-		<TopDiscussionsViewWrapper>
-			<h1>Top Discussions</h1>
-			<hr />
-			<TopDiscussions />
-		</TopDiscussionsViewWrapper>
+		<TopDiscussionWrapper>
+			<div>
+				<span className = 'title'>{ title }</span>&#8201;
+				<span>/d/{ category_name }</span>
+			</div>
+
+			<div>
+				<span>{ username }</span>&#8201;
+				<span> - { moment(created_at).fromNow() }</span>
+			</div>
+			<p>{ body }</p>
+		</TopDiscussionWrapper>
 	);
 };
 
-export default TopDiscussionsView;
+export default TopDiscussion;
