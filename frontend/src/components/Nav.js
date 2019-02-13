@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { LoginDropdown } from './index.js';
-import chevron from '../img/chevron.png';
+import chevron from '../assets/img/chevron.png';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************

@@ -13,8 +13,8 @@ const AppWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 95vw;
   background: gray;
 `;
 
