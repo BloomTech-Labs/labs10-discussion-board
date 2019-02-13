@@ -22,7 +22,7 @@ function generateToken(id, username) {
     'Should configure local .env file for secretString'; // hard coding this in the code is bad practice
 
   const options = {
-    expiresIn: '24h' // 60 seconds... otherValues(20, '2 days', '10h', '7d'), a number represents seconds (not milliseconds)
+    expiresIn: '12h' // 60 seconds... otherValues(20, '2 days', '10h', '7d'), a number represents seconds (not milliseconds)
   };
 
   return jwt.sign(payload, secret, options);
@@ -74,23 +74,31 @@ router.post('/register', (req, res, next) => {
     });
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   // Check username exist AND client password matches hash password in db
   const userCreds = req.body;
-
-  db.findByUsername(userCreds.username)
-    .first() // returns the first single object (containing the user found) in the array. If no objects were found, an empty array is returned.
-    .then(user => {
-      // If user object was obtained AND...
-      // the client password matches the db hash password
-      if (user && bcrypt.compareSync(userCreds.password, user.password)) {
-        const token = generateToken(user.id, user.username);
-        res.status(201).json({ id: user.id, token });
-      } else {
-        next({ code: 401 });
-      }
-    })
-    .catch(err => next(err));
+  try {
+    const user = await db.findByUsername(userCreds.username);
+    // If user object was obtained AND...
+    // the client password matches the db hash password
+    if (user && bcrypt.compareSync(userCreds.password, user.password)) {
+      const token = await generateToken(user.id, user.username);
+      res.status(200).json([{ id: user.id, token }]);
+    } else {
+      throw { code: 401 };
+    }
+  } catch (err) {
+    if (err.code === 401) {
+      res.status(401).json([
+        {
+          error: 401,
+          message: 'invalid username/password'
+        }
+      ]);
+    } else {
+      next(err);
+    }
+  }
 });
 
 module.exports = router;
