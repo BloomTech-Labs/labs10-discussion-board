@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Spinner from '../../assets/gif/spinner/Spinner'; //need to move to assets folder
-import { getProfiles } from '../../store/actions/index';
+import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
+import { getProfiles } from '../store/actions/index';
 import styled from 'styled-components';
 
 /***************************************************************************************************
