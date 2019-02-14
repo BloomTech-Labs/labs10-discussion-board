@@ -42,7 +42,6 @@ router.put('/:id', (req, res, next) => {
     const { id } = req.params;
     const { username, password, email, status } = req.body;
     const newUser = { username, password, email, status };
-    console.log("user", id, newUser)
     usersDB.update(id, newUser).then(user => res.json(user));
   } catch (err) {
 		next(err);

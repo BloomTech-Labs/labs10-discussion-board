@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 
 // middleware
@@ -14,17 +14,24 @@ import {
 	UsersReducer,
 	PostsReducer,
 	DiscussionsReducer,
+	ProfilesReducer,
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
 	users: UsersReducer,
 	posts: PostsReducer,
 	discussions: DiscussionsReducer,
+	profiles: ProfilesReducer,
 });
 
 let store;
 if (process.env.NODE_ENV === 'development') {
-	store = createStore(rootReducer, applyMiddleware(thunk, logger));
+	store = createStore(
+		rootReducer,
+		compose(
+			applyMiddleware(thunk, logger),
+			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+		));
 } else {
 	store = createStore(rootReducer, applyMiddleware(thunk));
 }
