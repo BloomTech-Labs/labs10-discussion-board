@@ -45,16 +45,13 @@ const WrappedDiv = styled.div`
  **************************************************************************************************/
 class Profiles extends Component {
     componentDidMount() {
-      console.log('work')
       this.props.getProfiles();
     }
   
     render() {
-      console.log('profile props', this.props.profiles);
       const { profiles, loading } = this.props.profiles;
       let profileItems;
       
-      console.log('profiles', profiles)
     if (profiles === null || loading ) {
         profileItems = <Spinner />;
     } else {
