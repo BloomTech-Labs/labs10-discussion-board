@@ -19,7 +19,7 @@ align-self: center;
 const Title = styled.div`
 align-self: flex-end;
 margin-left: 50px;
-font-size: 30px;
+font-size: 40px;
 
 `
 
