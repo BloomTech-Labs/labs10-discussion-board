@@ -7,6 +7,7 @@ import { Header } from './components/index.js';
 
 // views
 import { LandingView } from './views/index.js';
+import { CategoriesView } from './views/index.js';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -39,6 +40,7 @@ class App extends Component {
         <GlobalStyle />
         <Header />
         <Route exact path='/' component={LandingView} />
+        <Route path='/test' component={CategoriesView} />
       </AppWrapper>
     );
   }

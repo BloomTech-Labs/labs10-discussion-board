@@ -14,12 +14,14 @@ import {
 	UsersReducer,
 	PostsReducer,
 	DiscussionsReducer,
+	CategoriesReducer
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
 	users: UsersReducer,
 	posts: PostsReducer,
 	discussions: DiscussionsReducer,
+	categories: CategoriesReducer
 });
 
 let store;
