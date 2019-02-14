@@ -13,11 +13,13 @@ import logger from 'redux-logger';
 import {
 	UsersReducer,
 	PostsReducer,
+	DiscussionsReducer,
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
 	users: UsersReducer,
 	posts: PostsReducer,
+	discussions: DiscussionsReducer,
 });
 
 let store;
