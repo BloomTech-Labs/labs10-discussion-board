@@ -9,7 +9,7 @@ const initialState = {
 };
 
   
-export default function(state = initialState, action) {
+export const ProfilesReducer = (state = initialState, action) =>{
   switch (action.type) {
     case GET_PROFILES_SUCCESS:
       return {

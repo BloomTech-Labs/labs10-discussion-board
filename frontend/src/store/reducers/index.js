@@ -1,5 +1,5 @@
 import { UsersReducer } from './UsersReducer.js';
 import { PostsReducer } from './PostsReducer.js';
-import { ProfileReducer } from './ProfileReducer.js';
+import { ProfilesReducer } from './ProfilesReducer.js';
 
-export { UsersReducer, PostsReducer, ProfileReducer };
+export { UsersReducer, PostsReducer, ProfilesReducer };
