@@ -149,7 +149,7 @@ const safePwdSqlLetters = [
   '0'
 ];
 
-const accountStatusTypes = ['innactive', 'active', 'banned'];
+const accountStatusTypes = ['inactive', 'active', 'banned'];
 const accountRoleTypes = [
   'user',
   'gold_member',
