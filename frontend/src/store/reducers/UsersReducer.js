@@ -6,7 +6,8 @@ import {
 
 const initialState = {
   isLoggedIn: false,
-  loggingInLoadingMessage: false
+  loggingInLoadingMessage: false,
+  token: ''
 };
 
 export const UsersReducer = (state = initialState, action) => {
