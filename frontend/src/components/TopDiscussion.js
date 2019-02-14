@@ -16,6 +16,7 @@ import styled from 'styled-components';
 	}
 	:hover {
 		background-color:  rgba(255, 255, 255, 0.13);
+		cursor: pointer;
 	}
 `;
 
