@@ -28,12 +28,12 @@ router.get('/top-daily', async (req, res, next) => {
 //GET All Discussions
 router.get('/all', (req, res) => {
 	return discussionsDB.getDiscussions()
-		.then(d => {
-			res.status(200).json(d)
-		})
-		.catch(err =>{
-			res.status(500).json(err)
-		})
+	.then(d => {
+		res.status(200).json(d)
+	})
+	.catch(err =>{
+		res.status(500).json(err)
+	})
 });
 
 //GET Discussion by Discussion ID
@@ -43,7 +43,7 @@ router.get('/:id', (req, res) => {
 	.then(d => {
 		res.status(200).json(d)
 	})
-
+	.catch(err => res.status(500).json(err))
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)
@@ -53,6 +53,7 @@ router.get('/user/:user_id', (req, res) => {
 	.then(d => {
 		res.status(200).json(d)
 	})
+	.catch(err => res.status(500).json(err))
 });
 
 //GET Discussion by Category ID
@@ -62,6 +63,7 @@ router.get('/category/:category_id', (req, res) => {
 	.then(d => {
 		res.status(200).json(d)
 	})
+	.catch(err => res.status(500).json(err))
 });
 
 //Add Discussion
@@ -72,6 +74,7 @@ router.post('/add', (req, res) => {
 		res.status(200).json({
 			message: 'Discussion topic has been posted!'
 		})
+	.catch(err => res.status(500).json(err))
 	})
 });
 
@@ -85,6 +88,7 @@ router.put('/update/:id', (req, res) => {
 		res.status(200).json({
 			message: 'Your discussion topic has been updated!'
 		})
+	.catch(err => res.status(500).json(err))
 	})
 });
 
@@ -97,6 +101,7 @@ router.delete('/delete/:id', (req, res) => {
 		res.status(200).json({
 			message: 'Your discussion topic has been deleted!'
 		})
+	.catch(err => res.status(500).json(err))
 	})
 })
 
