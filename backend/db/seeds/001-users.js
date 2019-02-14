@@ -9,7 +9,7 @@ const generateSeeds = () => {
   for (let i = 0; i < numOfFakeUsers; i++) {
     arr.push({
       username: faker.internet.userName(),
-      password: bcrypt.hashSync('pass', numOfHashes),
+      password: 'pass',
       email: faker.internet.email(),
       status: 'active'
     });
@@ -24,25 +24,25 @@ const generateSeeds = () => {
   });
   arr.push({
     username: 'carlos',
-    password: bcrypt.hashSync('pass2', numOfHashes),
+    password: bcrypt.hashSync('carlos', numOfHashes),
     email: null,
     status: 'active'
   });
   arr.push({
     username: 'david',
-    password: bcrypt.hashSync('pass3', numOfHashes),
+    password: bcrypt.hashSync('david', numOfHashes),
     email: null,
     status: 'active'
   });
   arr.push({
     username: 'huth',
-    password: bcrypt.hashSync('pass4', numOfHashes),
+    password: bcrypt.hashSync('huth', numOfHashes),
     email: null,
     status: 'active'
   });
   arr.push({
     username: 'lucas',
-    password: bcrypt.hashSync('pass5', numOfHashes),
+    password: bcrypt.hashSync('lucas', numOfHashes),
     email: null,
     status: 'active'
   });

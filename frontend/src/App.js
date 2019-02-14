@@ -40,7 +40,7 @@ class App extends Component {
         <Header />
         <Route exact path='/home' component={LandingView} />
         <Route exact path='/profiles' component={Profiles} />
-        <Route path='/test' component={CategoriesView} />
+        <Route path='/categories' component={CategoriesView} />
       </AppWrapper>
     );
   }
