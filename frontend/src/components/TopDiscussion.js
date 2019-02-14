@@ -5,13 +5,17 @@ import styled from 'styled-components';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionWrapper = styled.div`
+
+ const TopDiscussionWrapper = styled.div`
 	margin: 5px;
 	padding: 10px;
 	border: 1px solid black;
 
 	.title {
 		font-weight: bold;
+	}
+	:hover {
+		background-color:  rgba(255, 255, 255, 0.13);
 	}
 `;
 
@@ -33,7 +37,7 @@ const TopDiscussion = ({ discussion }) => {
 		<TopDiscussionWrapper>
 			<div>
 				<span className = 'title'>{ title }</span>&#8201;
-				<span>/d/{ category_name }</span>
+				<span> - { category_name }</span>
 			</div>
 
 			<div>
