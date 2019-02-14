@@ -38,7 +38,7 @@ class App extends Component {
       <AppWrapper>
         <GlobalStyle />
         <Header />
-        <Route exact path='/' component={LandingView} />
+        <Route exact path='/home' component={LandingView} />
       </AppWrapper>
     );
   }
