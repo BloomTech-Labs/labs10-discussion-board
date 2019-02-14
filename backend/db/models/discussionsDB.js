@@ -14,9 +14,11 @@ const getTopDailyDiscussions = () => {
             'd.created_at',
         )
         .sum('dv.type as vote_count')
+        .count('p.id as post_count')
         .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
         .join('users as u', 'u.id', 'd.user_id')
         .join('categories as c', 'c.id', 'd.category_id')
+        .join('posts as p', 'p.discussion_id', 'd.id')
         // this whereRaw gets the created_at dates that are 24 hours away from the current time
         .whereRaw("d.created_at >= ?", [new Date(new Date().getTime() - (24 * 60 * 60 * 1000))])
         .limit(10)
