@@ -5,13 +5,17 @@ import Spinner from './Spinner'; //need to move to assets folder
 import { getProfiles } from '../../store/actions/index.js';
 
 
+
+/***************************************************************************************************
+ ********************************************* Component *******************************************
+ **************************************************************************************************/
 class Profiles extends Component {
     componentDidMount() {
       this.props.getProfiles();
     }
   
     render() {
-      const { profiles, loading } = this.props.getprofiles;
+      const { profiles, loading } = this.props.profile;
       let profileItems;
   
     if (profiles === null || loading) {
