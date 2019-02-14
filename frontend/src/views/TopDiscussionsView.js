@@ -39,7 +39,7 @@ const TopDiscussionsHeader = styled.div`
 	.x0 {
 		width: 600px;
 		display: flex;
-		justify-content: flex-end
+		justify-content: flex-end;
 		font-size: 40px;
 		padding-right: 40px;
 	}
