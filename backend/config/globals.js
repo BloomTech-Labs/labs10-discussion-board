@@ -1,10 +1,10 @@
 // Variables
-const numOfFakeUsers = 10;
+const numOfFakeUsers = 500; // must be same as numOfPostVotes
 const numOfHashes = 10;
 const numOfDiscussions = 100;
-const numOfPosts = 100;
-const numOfPostVotes = 10;
-const numOfDiscussionVotes = 100;
+const numOfPosts = 50;
+const numOfPostVotes = 500; // must be same as numOfFakeUsers
+const numOfDiscussionVotes = 10000;
 const safeUsrnameSqlLetters = [
   '-',
   '_',

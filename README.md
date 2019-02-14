@@ -103,6 +103,7 @@
 - Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p1jIRjf7sgpsJKtFQhmnBK3LK3w6c/edit
 - Heroku Deployment (Developer View) - https://dashboard.heroku.com/apps/symposium-backend/deploy/github
 - Heroku Deployment (Customer View) - https://symposium-backend.herokuapp.com/
+- Netlify Deployment (Customer VIew) - https://symposium-frontend.netlify.com/
 - Setup Gatsby - https://www.youtube.com/watch?v=5VGu6NWzLs4
 - Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
 - Trello - https://trello.com/b/stxWpBla/labs10-discussion-board

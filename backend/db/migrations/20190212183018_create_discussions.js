@@ -1,37 +1,31 @@
 exports.up = function(knex, Promise) {
-    return knex.schema.createTable('discussions', function(tbl) {
-      // Primary Key 'id'
-      tbl.increments();
+  return knex.schema.createTable('discussions', function(tbl) {
+    // Primary Key 'id'
+    tbl.increments();
 
-      //Foreign Key 'users_id'
-      tbl
-        .integer('user_id')
-        .references('id')
-        .inTable('users')
-        .notNullable();
+    //Foreign Key 'users_id'
+    tbl
+      .integer('user_id')
+      .references('id')
+      .inTable('users')
+      .notNullable();
 
-     //Foreign Key 'category_id'
-      tbl  
-        .integer('category_id')
-        .references('id')
-        .inTable('categories')
-        .notNullable();
+    //Foreign Key 'category_id'
+    tbl
+      .integer('category_id')
+      .references('id')
+      .inTable('categories')
+      .notNullable();
 
-      // Other Columns
-      tbl
-        .string('title')
-        .notNullable();
+    // Other Columns
+    tbl.string('title').notNullable();
 
-      tbl
-        .text('body', 400);
-        
-      tbl
-        .string('created_at')
-        .defaultTo(knex.fn.now());
-    });
-  };
-  
-  exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists('discussions');
-  };
-  
+    tbl.text('body', 400);
+
+    tbl.string('created_at').defaultTo(knex.fn.now());
+  });
+};
+
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTableIfExists('discussions');
+};
