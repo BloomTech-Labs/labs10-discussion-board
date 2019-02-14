@@ -7,6 +7,7 @@ import { Header } from './components/index.js';
 
 // views
 import { LandingView } from './views/index.js';
+import { Profiles } from './components/index.js'; //non-functional, need to transition to views folder
 
 const AppWrapper = styled.div`
   display: flex;
@@ -39,6 +40,7 @@ class App extends Component {
         <GlobalStyle />
         <Header />
         <Route exact path='/home' component={LandingView} />
+        <Route exact path='/profiles' component={Profiles} />
       </AppWrapper>
     );
   }
