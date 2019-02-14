@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "client-install": " cd ../frontend yarn install",
+    "client-install": " cd ../frontend yarn",
     "start": "nodemon index.js",
     "server": "nodemon index.js",
     "frontend": "cd ../frontend && yarn start",
@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "faker": "^4.1.0",
     "express-validator": "^5.3.1",
     "helmet": "^3.15.1",
     "jsonwebtoken": "^8.4.0",
@@ -35,8 +36,6 @@
     "pg": "^7.8.0"
   },
   "devDependencies": {
-    "faker": "^4.1.0",
-    "ng-faker": "^1.1.0",
     "nodemon": "^1.18.10"
   }
 }
