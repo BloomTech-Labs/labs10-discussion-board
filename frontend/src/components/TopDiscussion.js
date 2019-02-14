@@ -13,10 +13,17 @@ import styled from 'styled-components';
 
 	.title {
 		font-weight: bold;
+		font-size: 18px;
 	}
 	:hover {
 		background-color:  rgba(255, 255, 255, 0.13);
 		cursor: pointer;
+	}
+	.nameanddate {
+		font-size: 14px;
+	}
+	p {
+		margin-left: 10px;
 	}
 `;
 
@@ -41,7 +48,7 @@ const TopDiscussion = ({ discussion }) => {
 				<span> - { category_name }</span>
 			</div>
 
-			<div>
+			<div className = 'nameanddate'>
 				<span>{ username }</span>&#8201;
 				<span> - { moment(created_at).fromNow() }</span>
 			</div>
