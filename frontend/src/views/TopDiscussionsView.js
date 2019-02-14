@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Discuss from '../assets/img/Discuss.png';
 
-// views
-import { TopPostsView }	from './index.js';
+// components
+import { TopDiscussions } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -36,15 +36,15 @@ const TopDiscussionsHeader = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussions = () => {
+const TopDiscussionsView = () => {
 	return (
 		<TopDiscussionsViewWrapper>
 			<TopDiscussionsImage src={Discuss} alt='Top discussions' />
 			<TopDiscussionsHeader><h1>Top Discussions</h1></TopDiscussionsHeader>
 			<hr />
-			<TopPostsView />
+			<TopDiscussions />
 		</TopDiscussionsViewWrapper>
 	);
 };
 
-export default TopDiscussions;
+export default TopDiscussionsView;
