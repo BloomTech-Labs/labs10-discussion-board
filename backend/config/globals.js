@@ -149,7 +149,13 @@ const safePwdSqlLetters = [
   '0'
 ];
 
-const status = ['innactive', 'active', 'banned'];
+const accountStatusTypes = ['inactive', 'active', 'banned'];
+const accountRoleTypes = [
+  'user',
+  'gold_member',
+  'moderator',
+  'super_moderator'
+];
 
 // Methods
 const getRandomIntInclusive = (min, max) => {
@@ -185,6 +191,8 @@ module.exports = {
   numOfDiscussionVotes,
   safeUsrnameSqlLetters,
   safePwdSqlLetters,
+  accountStatusTypes,
+  accountRoleTypes,
 
   // methods
   getRandomIntInclusive,

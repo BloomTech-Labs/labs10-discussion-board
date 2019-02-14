@@ -1,13 +1,11 @@
 import {
 	// Actions
-	USER_LOGIN_LOADING,
-	USER_LOGIN_SUCCESS,
-	USER_LOGIN_FAILURE,
+	GET_CATEGORIES_LOADING,
+	GET_CATEGORIES_SUCCESS,
+	GET_CATEGORIES_FAILURE,
 	// Action Creators
-	register,
-	login,
-	logout
-} from './UsersActions.js';
+	getCategories,
+} from './CategoriesActions.js';
 
 import {
 	// Actions
@@ -36,7 +34,23 @@ import {
 	getProfiles
 } from './ProfileActions.js';
 
+import {
+	// Actions
+	USER_LOGIN_LOADING,
+	USER_LOGIN_SUCCESS,
+	USER_LOGIN_FAILURE,
+	// Action Creators
+	register,
+	login,
+	logout
+} from './UsersActions.js';
+
 export {
+	//Categories Actions
+	GET_CATEGORIES_LOADING,
+	GET_CATEGORIES_SUCCESS,
+	GET_CATEGORIES_FAILURE,
+
 	// Discussion Actions
 	TOP_DISCUSSIONS_LOADING,
 	TOP_DISCUSSIONS_SUCCESS,
@@ -57,6 +71,9 @@ export {
 	TOP_POSTS_LOADING,
 	TOP_POSTS_SUCCESS,
 	TOP_POSTS_FAILURE,
+
+	// Categories Action Creators
+	getCategories,
 
 	// Discussion Action Creators
 	getTopDiscussions,

@@ -7,9 +7,12 @@ const db = require('../db/models/usersDB.js');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const { check } = require('express-validator/check');
 const {
   safeUsrnameSqlLetters,
-  safePwdSqlLetters
+  safePwdSqlLetters,
+  accountStatusTypes,
+  numOfHashes
 } = require('../config/globals.js');
 
 /***************************************************************************************************
@@ -56,66 +59,63 @@ const validateNewPassword = password => {
   return true;
 };
 
+const validateStatusSelected = status => {
+  if (status === '') return false;
+
+  if (accountStatusTypes.includes(status)) {
+    return true;
+  }
+  return false;
+};
+
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
-router.post('/register', (req, res, next) => {
-  // Precondition - Username must be unique and not used in database
-  let newUserCreds = req.body;
+router.post('/register', async (req, res, next) => {
   try {
     // username and password must keep rules of syntax
-    if (!validateNewUsername(newUserCreds.username)) {
+    if (!req.body.username || !validateNewUsername(req.body.username)) {
       throw { code: 400 };
-    } else if (!validateNewPassword(newUserCreds.password)) {
+    } else if (!req.body.password || !validateNewPassword(req.body.password)) {
       throw { code: 400 };
-    }
+    } else if (!req.body.status || !validateStatusSelected(req.body.status))
+      throw { code: 400 };
 
-    // no trailing spaces for email
-    if (req.body.email) newUserCreds.email = newUserCreds.email.trim();
+    let email = null;
+    // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
+    if (req.body.email && check(req.body.email).isEmail())
+      email = req.body.email.trim();
 
-    res.status(201).json([{ message: 'success' }]);
+    // ensure new user added is only passing the props needed into the database
+    const newUserCreds = {
+      username: req.body.username,
+      password: bcrypt.hashSync(req.body.password, numOfHashes), // bcryptjs hash stored in db (not the actual password)
+      email: email,
+      status: req.body.status
+    };
+
+    const userAddedResults = await db.insert(newUserCreds);
+    res
+      .status(201)
+      .json([{ message: 'success', usersAdded: userAddedResults.rowCount }]);
   } catch (err) {
-    next(err);
+    // Postgress error code
+    if (err.code === '23505') {
+      res.status(409).json({ 'http error code': 409, message: err.detail });
+    } else {
+      next(err);
+    }
   }
-
-  // // only the database administrator can set this this value
-  // if (newUserCreds.is_admin) {
-  //   newUserCreds.is_admin = false;
-  // }
-
-  // // Creates a hash password to store in the database...
-  // newUserCreds.password = bcrypt.hashSync(
-  //   newUserCreds.password,
-  //   12 // db.settings.pwdHashLength
-  // );
-
-  // // Adds a single user to the database
-  // db.addUser(newUserCreds)
-  //   .then(Ids => {
-  //     try {
-  //       const token = generateToken(Ids[0], newUserCreds.username);
-  //       res.status(201).send({ id: Ids[0], token });
-  //     } catch (err) {
-  //       next(err);
-  //     }
-  //   })
-  //   .catch(err => {
-  //     if (err.errno === 19) {
-  //       res
-  //         .status(400)
-  //         .json({ error: 'username/display_name/email already taken' });
-  //     } else {
-  //       next(err);
-  //     }
-  //   });
 });
 
 router.post('/login', async (req, res, next) => {
-  // Check username exist AND client password matches hash password in db
-  const userCreds = req.body;
   try {
-    if (!userCreds.username) throw { code: 401 };
-    if (!userCreds.password) throw { code: 401 };
+    if (!req.body.username || req.body.username === '') throw { code: 401 };
+    if (!req.body.password || req.body.password === '') throw { code: 401 };
+    const userCreds = {
+      username: req.body.username,
+      password: req.body.password
+    };
     const user = await db.findByUsername(userCreds.username);
     // If user object was obtained AND...
     // the client password matches the db hash password

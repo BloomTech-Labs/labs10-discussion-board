@@ -26,10 +26,10 @@ router.get('/top-daily', async (req, res, next) => {
 });
 
 //GET All Discussions
-router.get('/all', (req, res) => {
+router.get('/', (req, res) => {
 	return discussionsDB.getDiscussions()
-	.then(d => {
-		res.status(200).json(d)
+	.then(discussMap => {
+		res.status(200).json(discussMap)
 	})
 	.catch(err =>{
 		res.status(500).json(err)
@@ -40,8 +40,8 @@ router.get('/all', (req, res) => {
 router.get('/:id', (req, res) => {
 	const id = req.params.id
 	return discussionsDB.findById(id)
-	.then(d => {
-		res.status(200).json(d)
+	.then(discussMap => {
+		res.status(200).json(discussMap)
 	})
 	.catch(err => res.status(500).json(err))
 });
@@ -50,8 +50,8 @@ router.get('/:id', (req, res) => {
 router.get('/user/:user_id', (req, res) => {
 	const {user_id} = req.params
 	return discussionsDB.findByUserId(user_id)
-	.then(d => {
-		res.status(200).json(d)
+	.then(discussMap => {
+		res.status(200).json(discussMap)
 	})
 	.catch(err => res.status(500).json(err))
 });
@@ -60,8 +60,8 @@ router.get('/user/:user_id', (req, res) => {
 router.get('/category/:category_id', (req, res) => {
 	const {category_id} = req.params
 	return discussionsDB.findByCategoryId(category_id)
-	.then(d => {
-		res.status(200).json(d)
+	.then(discussMap => {
+		res.status(200).json(discussMap)
 	})
 	.catch(err => res.status(500).json(err))
 });
@@ -70,10 +70,10 @@ router.get('/category/:category_id', (req, res) => {
 router.post('/add', (req, res) => {
 	const discussion = req.body
 	return discussionsDB.insert(discussion)
-	.then(d => {
-		res.status(200).json({
+	.then(discussMap => {
+		res.status(200).json([{
 			message: 'Discussion topic has been posted!'
-		})
+		}])
 	.catch(err => res.status(500).json(err))
 	})
 });
@@ -84,10 +84,10 @@ router.put('/update/:id', (req, res) => {
 	const id = req.params.id
 	const discussion = req.body
 	return discussionsDB.update(discussion, id)
-	.then(d => {
-		res.status(200).json({
+	.then(discussMap => {
+		res.status(200).json([{
 			message: 'Your discussion topic has been updated!'
-		})
+		}])
 	.catch(err => res.status(500).json(err))
 	})
 });
@@ -97,10 +97,10 @@ router.put('/update/:id', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
 	const id = req.params.id
 	return discussionsDB.remove(id)
-	.then(d => {
-		res.status(200).json({
+	.then(discussMap => {
+		res.status(200).json([{
 			message: 'Your discussion topic has been deleted!'
-		})
+		}])
 	.catch(err => res.status(500).json(err))
 	})
 })

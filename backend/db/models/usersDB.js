@@ -19,9 +19,7 @@ const findByUsername = username => {
 
 //Create a new user
 const insert = user => {
-  return db('users')
-    .insert(user)
-    .then(ids => ({ id: ids[0] }));
+  return db('users').insert(user);
 };
 
 //Update a user
