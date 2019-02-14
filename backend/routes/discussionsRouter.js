@@ -26,7 +26,7 @@ router.get('/top-daily', async (req, res, next) => {
 });
 
 //GET All Discussions
-router.get('/all', (req, res) => {
+router.get('/', (req, res) => {
 	return discussionsDB.getDiscussions()
 	.then(d => {
 		res.status(200).json(d)
