@@ -5,7 +5,8 @@ import {
   } from '../actions/index';
   
 const initialState = {
-    profiles: []
+    profiles: [],
+    loading: false
 };
 
   
