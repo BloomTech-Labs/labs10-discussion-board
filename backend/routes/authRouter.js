@@ -7,6 +7,10 @@ const db = require('../db/models/usersDB.js');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const {
+  safeUsrnameSqlLetters,
+  safePwdSqlLetters
+} = require('../config/globals.js');
 
 /***************************************************************************************************
  ******************************************** middleware *******************************************
@@ -28,50 +32,82 @@ function generateToken(id, username) {
   return jwt.sign(payload, secret, options);
 }
 
+const validateNewUsername = username => {
+  if (username === '') return false;
+
+  usernameArr = username.split('');
+  for (let i = 0; i < usernameArr.length; i++) {
+    if (!safeUsrnameSqlLetters.includes(usernameArr[i])) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const validateNewPassword = password => {
+  if (password === '') return false;
+
+  password = password.split('');
+  for (let i = 0; i < password.length; i++) {
+    if (!safePwdSqlLetters.includes(password[i])) {
+      return false;
+    }
+  }
+  return true;
+};
+
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 router.post('/register', (req, res, next) => {
   // Precondition - Username must be unique and not used in database
   let newUserCreds = req.body;
+  try {
+    // username and password must keep rules of syntax
+    if (!validateNewUsername(newUserCreds.username)) {
+      throw { code: 400 };
+    } else if (!validateNewPassword(newUserCreds.password)) {
+      throw { code: 400 };
+    }
 
-  // no trailing spaces for unique properties
-  newUserCreds.username = newUserCreds.username.trim();
-  req.body.display_name
-    ? (newUserCreds.display_name = newUserCreds.display_name.trim())
-    : (newUserCreds.display_name = newUserCreds.username.trim());
-  if (req.body.email) newUserCreds.email = newUserCreds.email.trim();
+    // no trailing spaces for email
+    if (req.body.email) newUserCreds.email = newUserCreds.email.trim();
 
-  // only the database administrator can set this this value
-  if (newUserCreds.is_admin) {
-    newUserCreds.is_admin = false;
+    res.status(201).json([{ message: 'success' }]);
+  } catch (err) {
+    next(err);
   }
 
-  // Creates a hash password to store in the database...
-  newUserCreds.password = bcrypt.hashSync(
-    newUserCreds.password,
-    12 // db.settings.pwdHashLength
-  );
+  // // only the database administrator can set this this value
+  // if (newUserCreds.is_admin) {
+  //   newUserCreds.is_admin = false;
+  // }
 
-  // Adds a single user to the database
-  db.addUser(newUserCreds)
-    .then(Ids => {
-      try {
-        const token = generateToken(Ids[0], newUserCreds.username);
-        res.status(201).send({ id: Ids[0], token });
-      } catch (err) {
-        next(err);
-      }
-    })
-    .catch(err => {
-      if (err.errno === 19) {
-        res
-          .status(400)
-          .json({ error: 'username/display_name/email already taken' });
-      } else {
-        next(err);
-      }
-    });
+  // // Creates a hash password to store in the database...
+  // newUserCreds.password = bcrypt.hashSync(
+  //   newUserCreds.password,
+  //   12 // db.settings.pwdHashLength
+  // );
+
+  // // Adds a single user to the database
+  // db.addUser(newUserCreds)
+  //   .then(Ids => {
+  //     try {
+  //       const token = generateToken(Ids[0], newUserCreds.username);
+  //       res.status(201).send({ id: Ids[0], token });
+  //     } catch (err) {
+  //       next(err);
+  //     }
+  //   })
+  //   .catch(err => {
+  //     if (err.errno === 19) {
+  //       res
+  //         .status(400)
+  //         .json({ error: 'username/display_name/email already taken' });
+  //     } else {
+  //       next(err);
+  //     }
+  //   });
 });
 
 router.post('/login', async (req, res, next) => {
@@ -83,7 +119,7 @@ router.post('/login', async (req, res, next) => {
     // the client password matches the db hash password
     if (user && bcrypt.compareSync(userCreds.password, user.password)) {
       const token = await generateToken(user.id, user.username);
-      res.status(200).json([{ id: user.id, token }]);
+      res.status(201).json([{ id: user.id, token }]);
     } else {
       throw { code: 401 };
     }
