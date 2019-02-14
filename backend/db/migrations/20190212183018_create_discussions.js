@@ -21,6 +21,13 @@ exports.up = function(knex, Promise) {
       tbl
         .string('title')
         .notNullable();
+
+      tbl
+        .text('body', 400);
+        
+      tbl
+        .string('created_at')
+        .defaultTo(knex.fn.now());
     });
   };
   

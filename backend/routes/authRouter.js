@@ -3,49 +3,139 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const usersDB = require('../db/models/usersDB.js');
-// const bcrypt = require('bcryptjs');
+const db = require('../db/models/usersDB.js');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const { check } = require('express-validator/check');
+const {
+  safeUsrnameSqlLetters,
+  safePwdSqlLetters,
+  accountStatusTypes,
+  numOfHashes
+} = require('../config/globals.js');
 
 /***************************************************************************************************
  ******************************************** middleware *******************************************
  **************************************************************************************************/
-function generateToken(id, username, isAdmin) {
+function generateToken(id, username) {
   const payload = {
     id: id,
-    username: username,
-    is_admin: isAdmin
+    username: username
   };
 
   const secret =
-    process.env.JWT_SECRET ||
+    process.env.SECURE_KEY ||
     'Should configure local .env file for secretString'; // hard coding this in the code is bad practice
 
   const options = {
-    expiresIn: '24h' // 60 seconds... otherValues(20, '2 days', '10h', '7d'), a number represents seconds (not milliseconds)
+    expiresIn: '12h' // 60 seconds... otherValues(20, '2 days', '10h', '7d'), a number represents seconds (not milliseconds)
   };
 
   return jwt.sign(payload, secret, options);
 }
 
+const validateNewUsername = username => {
+  if (username === '') return false;
+
+  usernameArr = username.split('');
+  for (let i = 0; i < usernameArr.length; i++) {
+    if (!safeUsrnameSqlLetters.includes(usernameArr[i])) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const validateNewPassword = password => {
+  if (password === '') return false;
+
+  password = password.split('');
+  for (let i = 0; i < password.length; i++) {
+    if (!safePwdSqlLetters.includes(password[i])) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const validateStatusSelected = status => {
+  if (status === '') return false;
+
+  if (accountStatusTypes.includes(status)) {
+    return true;
+  }
+  return false;
+};
+
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
-// Gets a list of users with just the user id and display name
 router.post('/register', async (req, res, next) => {
   try {
-    res.status(200).json(['Success']);
+    // username and password must keep rules of syntax
+    if (!req.body.username || !validateNewUsername(req.body.username)) {
+      throw { code: 400 };
+    } else if (!req.body.password || !validateNewPassword(req.body.password)) {
+      throw { code: 400 };
+    } else if (!req.body.status || !validateStatusSelected(req.body.status))
+      throw { code: 400 };
+
+    let email = null;
+    // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
+    if (req.body.email && check(req.body.email).isEmail())
+      email = req.body.email.trim();
+
+    // ensure new user added is only passing the props needed into the database
+    const newUserCreds = {
+      username: req.body.username,
+      password: bcrypt.hashSync(req.body.password, numOfHashes), // bcryptjs hash stored in db (not the actual password)
+      email: email,
+      status: req.body.status
+    };
+
+    const userAddedResults = await db.insert(newUserCreds);
+    res
+      .status(201)
+      .json([{ message: 'success', usersAdded: userAddedResults.rowCount }]);
   } catch (err) {
-    next(err);
+    // Postgress error code
+    if (err.code === '23505') {
+      res.status(409).json({ 'http error code': 409, message: err.detail });
+    } else {
+      next(err);
+    }
   }
 });
 
 router.post('/login', async (req, res, next) => {
   try {
-    res.status(200).json(['Success']);
+    if (!req.body.username || req.body.username === '') throw { code: 401 };
+    if (!req.body.password || req.body.password === '') throw { code: 401 };
+    const userCreds = {
+      username: req.body.username,
+      password: req.body.password
+    };
+    const user = await db.findByUsername(userCreds.username);
+    // If user object was obtained AND...
+    // the client password matches the db hash password
+    if (user && bcrypt.compareSync(userCreds.password, user.password)) {
+      const token = await generateToken(user.id, user.username);
+      res.status(201).json([{ id: user.id, token }]);
+    } else {
+      throw { code: 401 };
+    }
   } catch (err) {
-    next(err);
+    if (err.code === 401) {
+      res.status(401).json([
+        {
+          error: 401,
+          message: 'invalid username/password'
+        }
+      ]);
+    } else {
+      next(err);
+    }
   }
 });
 

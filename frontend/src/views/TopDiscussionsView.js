@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import Discuss from '../assets/img/Discuss.png';
 
-// views
-import { TopPostsView }	from './index.js';
+
+// components
+import { TopDiscussions } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -16,17 +18,39 @@ const TopDiscussionsViewWrapper = styled.div`
 	}
 `;
 
+const TopDiscussionsImage = styled.img`
+	src: url(${props => props.src});
+	display: flex;
+	height: 150px;
+	width: 150px;
+`;
+
+const TopDiscussionsHeader = styled.div`
+	display: flex;
+	margin: 20px 0 20px 25px;
+`;
+
+const TopDiscussionsTitle = styled.div`
+	display: flex;
+	align-self: center;
+	margin-left: 50px;
+	font-size: 28px;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussions = () => {
+const TopDiscussionsView = () => {
 	return (
 		<TopDiscussionsViewWrapper>
-			<h1>Top Discussions</h1>
+			<TopDiscussionsHeader>
+				<TopDiscussionsImage src={Discuss} alt='Top discussions' />
+				<TopDiscussionsTitle><h1>Top Discussions</h1></TopDiscussionsTitle>
+			</TopDiscussionsHeader>
 			<hr />
-			<TopPostsView />
+			<TopDiscussions />
 		</TopDiscussionsViewWrapper>
 	);
 };
 
-export default TopDiscussions;
+export default TopDiscussionsView;
