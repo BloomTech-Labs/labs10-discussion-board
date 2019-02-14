@@ -114,6 +114,8 @@ router.post('/login', async (req, res, next) => {
   // Check username exist AND client password matches hash password in db
   const userCreds = req.body;
   try {
+    if (!userCreds.username) throw { code: 401 };
+    if (!userCreds.password) throw { code: 401 };
     const user = await db.findByUsername(userCreds.username);
     // If user object was obtained AND...
     // the client password matches the db hash password

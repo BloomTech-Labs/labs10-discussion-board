@@ -13,7 +13,7 @@ const findById = id => {
 //Gets a user by their username
 const findByUsername = username => {
   return db('users')
-    .where('username', username)
+    .whereRaw('LOWER(username) = ?', username.toLowerCase())
     .first();
 };
 
