@@ -8,7 +8,11 @@ export const GET_PROFILES_FAILURE = 'GET_PROFILES_FAILURE';
 
 export const getProfiles = () => dispatch => {
     dispatch({ type: GET_PROFILES_LOADING});
+    console.log('is this working')
     axios.get(`${ backendURL }/users`)
-      .then(res => dispatch({ type: GET_PROFILES_SUCCESS, payload: res.data }))
+      .then(res => {
+      console.log('reducers data', res.data)
+      dispatch({ type: GET_PROFILES_SUCCESS, payload: res.data }) }
+      )
       .catch(err => console.log(err));
     };
