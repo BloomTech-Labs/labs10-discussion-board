@@ -2,6 +2,6 @@ import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import TopPost from './TopPost.js';
 import Header from './Header.js';
-import GetProfile from './GetProfile';
+import ProfileItem from './Profiles/ProfileItem.js';
 
-export { LoginDropdown, Nav, TopPost, Header, GetProfile };
+export { LoginDropdown, Nav, TopPost, Header, ProfileItem };
