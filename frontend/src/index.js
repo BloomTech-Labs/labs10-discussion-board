@@ -15,6 +15,7 @@ import {
 	PostsReducer,
 	DiscussionsReducer,
 	ProfilesReducer,
+	CategoriesReducer
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
 	posts: PostsReducer,
 	discussions: DiscussionsReducer,
 	profiles: ProfilesReducer,
+	categories: CategoriesReducer
 });
 
 let store;
