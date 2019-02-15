@@ -2,7 +2,9 @@ const db = require('../dbConfig.js');
 
 //gets All Categories
 const getCategories = () => {
-    return db('categories')
+    return db('categories as c')
+        .select('u.username as user_username', 'c.name', 'c.id', 'c.user_id', 'u.id')
+        .join('users as u', 'u.id', 'c.user_id')
 };
 
 //Find By ID (categories own ID)
@@ -13,6 +15,13 @@ const findById = (id) => {
 //Find by User ID (Original Creator)
 const findByUserId = (user_id) => {
     return db('categories').where('user_id', user_id)
+};
+
+const getUsernameByUserId = (user_id) => {
+    return db('categories as c')
+        .select('u.username as user_username', 'c.id', 'c.user_id', 'u.id')
+        .join('users as u', 'u.id', 'c.user_id')
+        .where(`c.${user_id}`)
 };
 
 //AUTHORIZED ACCESS
@@ -41,6 +50,7 @@ module.exports = {
     getCategories,
     findById,
     findByUserId,
+    getUsernameByUserId,
     insert,
     update,
     remove

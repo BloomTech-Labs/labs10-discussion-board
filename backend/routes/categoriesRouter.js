@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
 //GET Category by User ID (Super-Mod/Creator)
 router.get('/user/:user_id', (req, res) => {
 	const {user_id} = req.params
-	return categoriesDB.findByUserId(user_id)
+	return categoriesDB.getUsernameByUserId(user_id)
 	.then(categoryMap => {
 		res.status(200).json(categoryMap)
 	})
