@@ -12,7 +12,8 @@ exports.up = function(knex, Promise) {
       .unsigned()
       .notNullable()
       .references('id')
-      .inTable('categories');
+      .inTable('categories')
+      .onDelete('CASCADE');
 
     // users reference key
     tbl
@@ -20,7 +21,8 @@ exports.up = function(knex, Promise) {
       .unsigned()
       .notNullable()
       .references('id')
-      .inTable('users');
+      .inTable('users')
+      .onDelete('CASCADE');
 
     // Role: super_moderator and moderator Only
     tbl.string('role', 32).notNullable();

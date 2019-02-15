@@ -161,18 +161,6 @@
 
 > Relational Tables
 
-## category_votes
-
-- many user_id's can vote on many category_id's
-- many category_id's can have many user_id's vote on it
-- one vote per many relationships between user_id and category_id
-
-| Field       | Data Type                         |
-| ----------- | --------------------------------- |
-| category_id | int(foreign key)                  |
-| user_id     | int(foreign key)                  |
-| type        | bool(1 for upvote 0 for downvote) |
-
 ## discussion_votes
 
 - many user_id's can vote on many discussion_id's
