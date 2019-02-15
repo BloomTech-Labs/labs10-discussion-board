@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CategoryName = styled.div`
-    margin: 5px 20px;
+    margin: 5px 25px;
     font-weight: bold;
 
     :hover {
@@ -12,7 +12,7 @@ const CategoryName = styled.div`
 `
 
 const CreatedBy = styled.div`
-    margin: 5px 20px;
+    margin: 5px 25px;
 `
 
 //import moment and add created_At in the migrations if wish to include 
