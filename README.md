@@ -156,22 +156,10 @@
 | Field     | Data Type (note, mods are individual roles assigned to a specific category) |
 | --------- | --------------------------------------------------------------------------- |
 | user_id   | foreign Key (id in users table)                                             |
-| avatar    | String (optional)(base64, or http link)                                     |
+| avatar    | Text (optional)(base64, or http link)                                       |
 | user_type | String (required) (user, gold-user, admin, and owner)                       |
 
 > Relational Tables
-
-## category_votes
-
-- many user_id's can vote on many category_id's
-- many category_id's can have many user_id's vote on it
-- one vote per many relationships between user_id and category_id
-
-| Field       | Data Type                         |
-| ----------- | --------------------------------- |
-| category_id | int(foreign key)                  |
-| user_id     | int(foreign key)                  |
-| type        | bool(1 for upvote 0 for downvote) |
 
 ## discussion_votes
 
