@@ -13,7 +13,12 @@ exports.up = function(knex, Promise) {
       tbl
         .string('name')
         .notNullable();
+
+      tbl
+        .string('created_at')
+        .defaultTo(knex.fn.now());
     });
+
   };
   
   exports.down = function(knex, Promise) {

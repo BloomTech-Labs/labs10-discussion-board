@@ -7,6 +7,7 @@ const Categories = ({ category }) => {
     const {
         id,
         user_id,
+        user_username,
         name
     } = category;
 
@@ -16,7 +17,7 @@ const Categories = ({ category }) => {
                 <span> { name } </span>
             </div>
             <div>
-                <span>Created By: {user_id} </span>
+                <span>Created By: {user_username} </span>
             </div>
         </div>
     )
