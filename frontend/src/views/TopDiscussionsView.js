@@ -30,18 +30,18 @@ const TopDiscussionsImage = styled.img`
 const TopDiscussionsHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
-	margin: 20px 0 20px 25px;
+	margin: 5px;
 
 	.logotopd {
 		display: flex;
 	}
 
 	.x0 {
-		width: 600px;
+		width: 400px;
 		display: flex;
 		justify-content: flex-end;
 		font-size: 40px;
-		padding-right: 40px;
+		padding-right: 10px;
 	}
 `;
 
@@ -49,7 +49,7 @@ const TopDiscussionsTitle = styled.div`
 	display: flex;
 	align-self: center;
 	font-size: 28px;
-	margin-left: 50px;
+	margin-left: 30px;
 `;
 
 /***************************************************************************************************
