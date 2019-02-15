@@ -1,5 +1,5 @@
 import React from 'react';
-
+import moment from 'moment';
 
 //import moment and add created_At in the migrations if wish to include 
 //a timestamp of creation
@@ -19,7 +19,7 @@ const Categories = ({ category }) => {
             </div>
             <div>
                 <span>Created By: {user_username} </span>
-                <span>Created At: {created_at} </span>
+                <span>Created At: { moment(created_at).fromNow() }</span>
             </div>
         </div>
     );
