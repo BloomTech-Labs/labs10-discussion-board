@@ -48,4 +48,14 @@ router.put('/:id', (req, res, next) => {
 	}
 });
 
+// Delete a user by their ID
+router.delete('/:id', (req, res, next) => {
+  try {
+    const { id } = req.params;
+    usersDB.remove(id).then(removedUser => res.json(removedUser));
+  } catch (err) {
+		next(err);
+	}
+});
+
 module.exports = router;

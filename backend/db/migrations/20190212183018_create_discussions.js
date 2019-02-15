@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
       .integer('user_id')
       .references('id')
       .inTable('users')
-      .notNullable();
+      .onDelete('SET NULL');
 
     //Foreign Key 'category_id'
     tbl

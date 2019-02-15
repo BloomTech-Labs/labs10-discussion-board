@@ -23,16 +23,24 @@ const insert = user => {
 };
 
 //Update a user
-function update(id, user) {
+const update = (id, user) => {
   return db('users')
     .where('id', Number(id))
     .update(user);
 }
+
+const remove= id => {
+  return db('users')
+    .where('id', Number(id))
+    .del();
+}
+
 
 module.exports = {
   getUsers,
   findById,
   findByUsername,
   insert,
-  update
+  update,
+  remove
 };
