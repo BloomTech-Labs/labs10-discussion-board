@@ -17,6 +17,7 @@ const TopDiscussionsViewWrapper = styled.div`
 
 	hr {
 		border-color: black;
+		margin-top: -10px;
 	}
 `;
 
