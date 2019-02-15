@@ -18,6 +18,15 @@ import {
 
 import {
 	// Actions
+	HANDLE_DISCUSSION_VOTE_LOADING,
+	HANDLE_DISCUSSION_VOTE_SUCCESS,
+	HANDLE_DISCUSSION_VOTE_FAILURE,
+	// Action Creators
+	handleDiscussionVote,
+} from './DiscussionVotesActions';
+
+import {
+	// Actions
 	TOP_POSTS_LOADING,
 	TOP_POSTS_SUCCESS,
 	TOP_POSTS_FAILURE,
@@ -45,6 +54,14 @@ import {
 	logout
 } from './UsersActions.js';
 
+
+//*************************************************************************************************
+//*************************************************************************************************
+//*************************************************************************************************
+//*************************************************************************************************
+//*************************************************************************************************
+
+
 export {
 	//Categories Actions
 	GET_CATEGORIES_LOADING,
@@ -55,6 +72,11 @@ export {
 	TOP_DISCUSSIONS_LOADING,
 	TOP_DISCUSSIONS_SUCCESS,
 	TOP_DISCUSSIONS_FAILURE,
+
+	// Discussion Vote Actions
+	HANDLE_DISCUSSION_VOTE_LOADING,
+	HANDLE_DISCUSSION_VOTE_SUCCESS,
+	HANDLE_DISCUSSION_VOTE_FAILURE,
 
 	// Users Actions
 	USER_LOGIN_LOADING,
@@ -77,6 +99,9 @@ export {
 
 	// Discussion Action Creators
 	getTopDiscussions,
+
+	// Discussion Vote Action Creators
+	handleDiscussionVote,
 
 	// Users Action Creators
 	register,

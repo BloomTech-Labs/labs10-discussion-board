@@ -17,12 +17,18 @@ const VoteCountWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const VoteCount = ({ vote_count }) => {
+const VoteCount = ({ vote_count, handleVote }) => {
 	return (
 		<VoteCountWrapper>
-			<i className = 'fas fa-arrow-alt-circle-up' />
+			<i
+				className = 'fas fa-arrow-alt-circle-up'
+				onClick = { () => handleVote(1) }
+			/>
 			<div>{ vote_count }</div>
-			<i className = 'fas fa-arrow-alt-circle-down' />
+			<i
+				className = 'fas fa-arrow-alt-circle-down'
+				onClick = { () => handleVote(-1) }
+			/>
 		</VoteCountWrapper>
 	);
 };

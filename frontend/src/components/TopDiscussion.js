@@ -35,7 +35,7 @@ const TopDiscussionWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussion = ({ discussion }) => {
+const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 	const {
 		body,
 		category_id,
@@ -48,9 +48,10 @@ const TopDiscussion = ({ discussion }) => {
 		username,
 		vote_count,
 	} = discussion;
+	const handleVote = type => handleDiscussionVote(id, type);
 	return (
 		<TopDiscussionWrapper>
-			<VoteCount vote_count = { vote_count } />
+			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
 			<div>
 				<div>
 					<span className = 'title'>{ title }</span>&#8201;
