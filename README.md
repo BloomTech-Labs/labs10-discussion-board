@@ -103,6 +103,7 @@
 - Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p1jIRjf7sgpsJKtFQhmnBK3LK3w6c/edit
 - Heroku Deployment (Developer View) - https://dashboard.heroku.com/apps/symposium-backend/deploy/github
 - Heroku Deployment (Customer View) - https://symposium-backend.herokuapp.com/
+- Netlify Deployment (Customer VIew) - https://symposium-frontend.netlify.com/
 - Setup Gatsby - https://www.youtube.com/watch?v=5VGu6NWzLs4
 - Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
 - Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
@@ -155,22 +156,10 @@
 | Field     | Data Type (note, mods are individual roles assigned to a specific category) |
 | --------- | --------------------------------------------------------------------------- |
 | user_id   | foreign Key (id in users table)                                             |
-| avatar    | String (optional)(base64, or http link)                                     |
+| avatar    | Text (optional)(base64, or http link)                                       |
 | user_type | String (required) (user, gold-user, admin, and owner)                       |
 
 > Relational Tables
-
-## category_votes
-
-- many user_id's can vote on many category_id's
-- many category_id's can have many user_id's vote on it
-- one vote per many relationships between user_id and category_id
-
-| Field       | Data Type                         |
-| ----------- | --------------------------------- |
-| category_id | int(foreign key)                  |
-| user_id     | int(foreign key)                  |
-| type        | bool(1 for upvote 0 for downvote) |
 
 ## discussion_votes
 
