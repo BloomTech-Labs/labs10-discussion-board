@@ -156,7 +156,7 @@
 | Field     | Data Type (note, mods are individual roles assigned to a specific category) |
 | --------- | --------------------------------------------------------------------------- |
 | user_id   | foreign Key (id in users table)                                             |
-| avatar    | String (optional)(base64, or http link)                                     |
+| avatar    | Text (optional)(base64, or http link)                                       |
 | user_type | String (required) (user, gold-user, admin, and owner)                       |
 
 > Relational Tables
