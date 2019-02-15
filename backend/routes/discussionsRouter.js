@@ -19,7 +19,8 @@ const router = express.Router();
 // get top (limit 10) daily discussions ordered by vote_count
 router.get('/top-daily', async (req, res, next) => {
 	try {
-		discussionsDB.getTopDailyDiscussions().then(topDailyDiscussions => res.json(topDailyDiscussions));
+		const topDailyDiscussions = await discussionsDB.getTopDailyDiscussions();
+		return res.status(200).json(topDailyDiscussions);
 	} catch (err) {
 		next(err);
 	}
