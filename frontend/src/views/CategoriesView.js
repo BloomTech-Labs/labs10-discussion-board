@@ -10,7 +10,7 @@ const CategoriesView = () => {
                 <CategoriesList />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default CategoriesView;

@@ -8,7 +8,8 @@ const Categories = ({ category }) => {
         id,
         user_id,
         user_username,
-        name
+        name,
+        created_at
     } = category;
 
     return(
@@ -18,9 +19,10 @@ const Categories = ({ category }) => {
             </div>
             <div>
                 <span>Created By: {user_username} </span>
+                <span>Created At: {created_at} </span>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Categories;

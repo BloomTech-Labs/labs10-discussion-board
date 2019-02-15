@@ -8,14 +8,15 @@ exports.up = function(knex, Promise) {
       .integer('user_id')
       .references('id')
       .inTable('users')
-      .notNullable();
+      .onDelete('SET NULL');
 
     //Foreign Key 'discussion_id'
     tbl
       .integer('discussion_id') //6
       .references('id')
       .inTable('discussions')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
 
     // Other Columns
     tbl.text('body').notNullable();
