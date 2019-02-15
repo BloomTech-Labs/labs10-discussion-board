@@ -5,6 +5,7 @@ import {
 } from '../actions/index.js';
 
 const initialState = {
+  user_id: 0,
   isLoggedIn: false,
   loggingInLoadingMessage: false,
   token: ''
