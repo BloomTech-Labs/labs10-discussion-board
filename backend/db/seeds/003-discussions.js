@@ -16,10 +16,10 @@ const generateSeeds = () => {
         title: faker.lorem.sentence(4),
         body: faker.lorem.sentences(3),
         created_at: faker.date.recent(3)
-    })
-  }
+    });
+  };
   return arr;
-}
+};
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries

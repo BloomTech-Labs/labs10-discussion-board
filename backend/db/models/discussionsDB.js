@@ -67,7 +67,7 @@ const remove = (id) => {
     return db('discussions')
             .where('id', id)
             .del()
-}
+};
 
 module.exports = {
     getTopDailyDiscussions,

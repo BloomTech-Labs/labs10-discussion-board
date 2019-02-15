@@ -13,7 +13,6 @@ const CategoryWrapper = styled.div`
 class CategoriesList extends Component {
     componentDidMount = () => this.props.getCategories();
     render() {
-        console.log('in the CategoriesList', this.props)
         const { categories } = this.props;
         return(
             <CategoryWrapper>
@@ -24,6 +23,7 @@ class CategoriesList extends Component {
                         category = {category}
                     />)
                 }
+
             </CategoryWrapper>
         )
     }

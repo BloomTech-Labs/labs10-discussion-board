@@ -1,8 +1,14 @@
 import React from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
 
+const SingleCategory = styled.div`
+    width: 300px;
+    margin: 5px 10px;
+`
+
 const CategoryName = styled.div`
-    margin: 5px 25px;
+    margin: 10px 0;
     font-weight: bold;
 
     :hover {
@@ -11,25 +17,24 @@ const CategoryName = styled.div`
     }
 `
 
-const CreatedBy = styled.div`
-    margin: 5px 25px;
-`
-
 //import moment and add created_At in the migrations if wish to include 
 //a timestamp of creation
 const Categories = ({ category }) => {
     const {
         id,
         user_id,
-        name
+        user_username,
+        name,
+        created_at
     } = category;
 
     return(
-        <div>
+        <SingleCategory>
             <CategoryName><span> { name } </span></CategoryName>
-            <CreatedBy><span>Created By: {user_id} </span></CreatedBy>
-        </div>
-    )
-}
+            <div className = 'createdBy'><span>Created By: {user_username} </span></div>
+            <div className = 'createdAt'><span>Created At: { moment(created_at).fromNow() }</span></div>
+        </SingleCategory>
+    );
+};
 
 export default Categories;

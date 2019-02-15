@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { CategoriesList } from '../components/index.js'
 
 const CategoriesWrapper = styled.div`
+    width: 90%;
 
     .header {
         text-align: center;
@@ -12,7 +13,7 @@ const CategoriesWrapper = styled.div`
 
     hr {
         border-color: black;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 `
 
@@ -27,5 +28,7 @@ const CategoriesView = () => {
         </CategoriesWrapper>
     )
 }
+
+
 
 export default CategoriesView;
