@@ -3,11 +3,12 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const db = require('../db/models/usersDB.js');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const base64Img = require('base64-img');
 const jwt = require('jsonwebtoken');
 const { check } = require('express-validator/check');
+const db = require('../db/models/usersDB.js');
 const {
   safeUsrnameSqlLetters,
   safePwdSqlLetters,
@@ -72,6 +73,17 @@ const validateStatusSelected = status => {
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 router.post('/register', async (req, res, next) => {
+  /* use this example later to store as avatar
+
+    const url = 'https://static.techspot.com/images2/news/bigimage/2018/09/2018-09-04-image-6.png';
+		base64Img.requestBase64(url, function(err, res, body) {
+			// console.log("ERR", err);
+			// console.log("RES", res);
+			console.log("BODY", body.slice(0, 30));
+			// console.log(body);
+		});
+  */
+
   try {
     // username and password must keep rules of syntax
     if (!req.body.username || !validateNewUsername(req.body.username)) {

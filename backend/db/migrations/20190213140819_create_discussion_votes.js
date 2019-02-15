@@ -5,7 +5,8 @@ exports.up = function(knex, Promise) {
       .integer('discussion_id')
       .references('id')
       .inTable('discussions')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
 
     //Foreign Key 'user_id'
     tbl

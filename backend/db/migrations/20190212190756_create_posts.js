@@ -15,7 +15,8 @@ exports.up = function(knex, Promise) {
       .integer('discussion_id') //6
       .references('id')
       .inTable('discussions')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
 
     // Other Columns
     tbl.text('body').notNullable();
