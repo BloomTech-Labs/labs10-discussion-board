@@ -12,5 +12,6 @@ export const getProfiles = () => dispatch => {
       .then(res => {
       dispatch({ type: GET_PROFILES_SUCCESS, payload: res.data }) }
       )
-      .catch(err => console.log(err));
+      .catch(err => dispatch({ type: GET_PROFILES_FAILURE, payload: err }));
 };
+
