@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import { Categories } from '../components/index.js';
 
 import { getCategories } from '../store/actions/index.js';
 
+const CategoryWrapper = styled.div`
+    display: flex;
+`
 
 class CategoriesList extends Component {
     componentDidMount = () => this.props.getCategories();
     render() {
         const { categories } = this.props;
         return(
-            <div>
+            <CategoryWrapper>
                 {
                     categories.map((category, index) => 
                     <Categories 
@@ -19,10 +23,11 @@ class CategoriesList extends Component {
                         category = {category}
                     />)
                 }
-            </div>
-        );
-    };
-};
+
+            </CategoryWrapper>
+        )
+    }
+}
 
 const mapStateToProps = state => ({
 	categories: state.categories.categories,
