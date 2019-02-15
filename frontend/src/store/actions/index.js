@@ -48,13 +48,11 @@ import {
   USER_LOGIN_LOADING,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
-  USER_SIGNOUT_LOADING,
   USER_SIGNOUT_SUCCESS,
-  USER_SIGNOUT_FAILURE,
   // Action Creators
   register,
   login,
-  signout
+  signout,
 } from './UsersActions.js';
 
 
@@ -85,6 +83,7 @@ export {
 	USER_LOGIN_LOADING,
 	USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
+  
   USER_SIGNOUT_SUCCESS,
 
 	// Profile Actions
@@ -110,7 +109,7 @@ export {
 	// Users Action Creators
 	register,
 	login,
-	logout,
+  signout,
 
 	// Profile Action Creators
 	getProfiles,
