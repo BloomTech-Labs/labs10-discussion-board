@@ -24,8 +24,8 @@ const TopDiscussionWrapper = styled.div`
 		background-color:  rgba(255, 255, 255, 0.13);
 		cursor: pointer;
 	}
-	.nameanddate {
-		font-size: 14px;
+	.content {
+		width: 85%;
 	}
 	p {
 		margin-left: 10px;
@@ -51,7 +51,7 @@ const TopDiscussion = ({ discussion }) => {
 	return (
 		<TopDiscussionWrapper>
 			<VoteCount vote_count = { vote_count } />
-			<div>
+			<div className = 'content'>
 				<div>
 					<span className = 'title'>{ title }</span>&#8201;
 					<span>/d/{ category_name }</span>
