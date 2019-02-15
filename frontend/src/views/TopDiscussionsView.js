@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Discuss from '../assets/img/Discuss.png';
 import TextLoop from "react-text-loop";
