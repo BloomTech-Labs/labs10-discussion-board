@@ -69,8 +69,7 @@ class Nav extends Component {
 
   clickSignout = ev => {
     ev.preventDefault();
-    this.setState({ isLoginClicked: false });
-    this.props.signout();
+    this.setState({ isLoginClicked: false }, () => this.props.signout());
   };
 
   render() {
@@ -94,7 +93,7 @@ class Nav extends Component {
               isLoginClicked={this.state.isLoginClicked}
             >
               Login &nbsp;
-              <img src={chevron} alt='' />
+              <img src={chevron} alt='chevron' />
             </Login>
             <LoginDropdown isLoginClicked={this.state.isLoginClicked} />
           </Auth>

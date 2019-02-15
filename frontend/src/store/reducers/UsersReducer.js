@@ -9,7 +9,7 @@ const initialState = {
   user_id: 0,
   isLoggedIn: false,
   loggingInLoadingMessage: false,
-  loggintOutLoadingMessage: false,
+  loggingOutLoadingMessage: false,
   token: '',
   error: null
 };
@@ -40,14 +40,7 @@ export const UsersReducer = (state = initialState, action) => {
       };
     // Signout
     case USER_SIGNOUT_SUCCESS:
-      return {
-        ...state,
-        user_id: 0,
-        isLoggedIn: false,
-        loggintOutLoadingMessage: false,
-        token: '',
-        error: null
-      };
+      return initialState;
     default:
       return state;
   }

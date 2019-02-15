@@ -1,5 +1,5 @@
 import axios from 'axios';
-const { jamesBackendServer } = require('../../globals/globals.js');
+const { backendUrl } = require('../../globals/globals.js');
 
 /***************************************************************************************************
  ********************************************* Actions *******************************************
@@ -18,7 +18,7 @@ export const USER_SIGNOUT_SUCCESS = 'USER_SIGNOUT_SUCCESS';
 export const login = creds => dispatch => {
   dispatch({ type: USER_LOGIN_LOADING });
   return axios
-    .post(`${jamesBackendServer}/auth/login`, creds)
+    .post(`${backendUrl}/auth/login`, creds)
     .then(response => {
       dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data[0] });
     })

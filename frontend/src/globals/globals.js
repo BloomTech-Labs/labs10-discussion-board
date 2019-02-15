@@ -1,10 +1,6 @@
 // Variables
-const herokuBackendServer = process.env.REACT_APP_BACKEND_URL;
-const jamesBackendServer = 'http://localhost:4000';
-const netlifyFrontendServer = 'https://symposium-frontend.netlify.com/';
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 module.exports = {
-  herokuBackendServer,
-  jamesBackendServer,
-  netlifyFrontendServer
+  backendUrl
 };
