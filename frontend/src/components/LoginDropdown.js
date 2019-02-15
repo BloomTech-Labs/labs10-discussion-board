@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import auth0 from 'auth0-js';
+import { login } from '../store/actions';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
-const DivWrapper = styled.div`
-  background-color: black;
-  color: white;
-`;
-
 const FormLogin = styled.form`
   display: flex;
   flex-direction: column;
+  visibility: ${props => (props.isLoginClicked ? 'show' : 'hidden')};
+  z-index: 9999;
+  position: relative;
 `;
 
 /***************************************************************************************************
@@ -46,9 +45,12 @@ class LoginDropdown extends Component {
     });
   };
 
-  submitHandler = ev => {
+  submitHandler = (ev, loginType) => {
     ev.preventDefault();
-    // login(); // uncomment after you get it working
+    switch (loginType) {
+      default:
+        this.normalLogin();
+    }
     // After Login
     this.setState({
       username: '',
@@ -56,13 +58,15 @@ class LoginDropdown extends Component {
     });
   };
 
-  login = () => {
+  normalLogin = () => {
+    const creds = { ...this.state };
     // this.auth0.authorize()
+    this.props.login(creds);
   };
 
   render() {
     return (
-      <FormLogin>
+      <FormLogin isLoginClicked={this.props.isLoginClicked}>
         <input
           onChange={this.handleInputChange}
           placeholder='Username'
@@ -77,7 +81,10 @@ class LoginDropdown extends Component {
           name='password'
           autoComplete='off'
         />
-        <button type='submit' onClick={ev => this.submitHandler(ev)}>
+        <button
+          type='submit'
+          onClick={ev => this.submitHandler(ev, 'normalLogin')}
+        >
           Login
         </button>
       </FormLogin>
@@ -91,12 +98,12 @@ class LoginDropdown extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.isLoggedIn,
-    loggingInLoadingMessage: state.loggingInLoadingMessage
+    isLoggedIn: state.users.isLoggedIn,
+    loggingInLoadingMessage: state.users.loggingInLoadingMessage
   };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  { login }
 )(LoginDropdown);
