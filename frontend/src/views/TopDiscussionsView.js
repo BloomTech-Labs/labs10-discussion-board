@@ -13,7 +13,7 @@ import { TopDiscussions } from '../components/index.js';
  **************************************************************************************************/
 const TopDiscussionsViewWrapper = styled.div`
 	border: 2px solid black;
-	padding: 10px;
+	padding: 5px;
 
 	hr {
 		border-color: black;
@@ -23,8 +23,8 @@ const TopDiscussionsViewWrapper = styled.div`
 const TopDiscussionsImage = styled.img`
 	src: url(${props => props.src});
 	display: flex;
-	height: 150px;
-	width: 150px;
+	height: 120px;
+	width: 120px;
 `;
 
 const TopDiscussionsHeader = styled.div`
