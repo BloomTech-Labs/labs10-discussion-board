@@ -19,14 +19,17 @@ const TopDiscussionWrapper = styled.div`
 	.title {
 		font-weight: bold;
 		font-size: 18px;
-	}
-	:hover {
-		background-color:  rgba(255, 255, 255, 0.13);
 		cursor: pointer;
 	}
+
+	:hover {
+		background-color:  rgba(255, 255, 255, 0.13);
+	}
+
 	.content {
 		width: 85%;
 	}
+
 	p {
 		margin-left: 10px;
 	}
