@@ -20,6 +20,10 @@ const TopDiscussionWrapper = styled.div`
 		font-weight: bold;
 		font-size: 18px;
 		cursor: pointer;
+		
+		:hover {
+			text-decoration: underline;
+		}
 	}
 
 	:hover {
