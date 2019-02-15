@@ -8,19 +8,20 @@ exports.up = function(knex, Promise) {
       .integer('user_id')
       .references('id')
       .inTable('users')
-      .notNullable();
+      .onDelete('SET NULL');
 
     //Foreign Key 'category_id'
     tbl
       .integer('category_id')
       .references('id')
       .inTable('categories')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
 
     // Other Columns
     tbl.string('title').notNullable();
 
-    tbl.text('body', 400);
+    tbl.text('body', 400).notNullable();
 
     tbl.string('created_at').defaultTo(knex.fn.now());
   });

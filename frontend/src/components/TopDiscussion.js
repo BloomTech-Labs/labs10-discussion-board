@@ -19,14 +19,21 @@ const TopDiscussionWrapper = styled.div`
 	.title {
 		font-weight: bold;
 		font-size: 18px;
+		cursor: pointer;
+		
+		:hover {
+			text-decoration: underline;
+		}
 	}
+
 	:hover {
 		background-color:  rgba(255, 255, 255, 0.13);
-		cursor: pointer;
 	}
-	.nameanddate {
-		font-size: 14px;
+
+	.content {
+		width: 85%;
 	}
+
 	p {
 		margin-left: 10px;
 	}
@@ -52,7 +59,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 	return (
 		<TopDiscussionWrapper>
 			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
-			<div>
+			<div className = 'content'>
 				<div>
 					<span className = 'title'>{ title }</span>&#8201;
 					<span>/d/{ category_name }</span>

@@ -22,9 +22,10 @@ export const ProfilesReducer = (state = initialState, action) =>{
           profiles: action.payload
         }
       };
-
     case GET_PROFILES_LOADING:
-		case GET_PROFILES_FAILURE:
+      return state;
+    case GET_PROFILES_FAILURE:
+      return state;
 		default:
 		return state;
   }
