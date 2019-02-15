@@ -17,7 +17,7 @@ export const USER_SIGNOUT_SUCCESS = 'USER_SIGNOUT_SUCCESS';
  **************************************************************************************************/
 export const login = creds => dispatch => {
   dispatch({ type: USER_LOGIN_LOADING });
-  axios
+  return axios
     .post(`${jamesBackendServer}/auth/login`, creds)
     .then(response => {
       dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data[0] });

@@ -51,17 +51,17 @@ class LoginDropdown extends Component {
       default:
         this.normalLogin();
     }
-    // After Login
-    this.setState({
-      username: '',
-      password: ''
-    });
   };
 
   normalLogin = () => {
     const creds = { ...this.state };
     // this.auth0.authorize()
-    this.props.login(creds);
+    this.props.login(creds).then(() =>
+      this.setState({
+        username: '',
+        password: ''
+      })
+    );
   };
 
   render() {
