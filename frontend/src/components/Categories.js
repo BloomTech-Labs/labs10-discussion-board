@@ -3,6 +3,12 @@ import styled from 'styled-components';
 
 const CategoryName = styled.div`
     margin: 5px 20px;
+    font-weight: bold;
+
+    :hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 `
 
 const CreatedBy = styled.div`
