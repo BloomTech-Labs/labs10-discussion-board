@@ -91,7 +91,7 @@ class App extends Component {
       return (
         <AppWrapper>
           <GlobalStyle />
-          <Header />
+          <Header history = { this.props.history } />
   
           <button onClick = { this.handleLogout }>Logout</button>
   
