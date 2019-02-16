@@ -26,10 +26,19 @@ server.get('/', (req, res) => {
 });
 
 // Routes/Endpoints
-const { authRouter, categoriesRouter, discussionsRouter, postsRouter, usersRouter } = require('./routes/index.js');
+const {
+  authRouter,
+  categoriesRouter,
+  discussionsRouter,
+  discussionVotesRouter,
+  postsRouter,
+  usersRouter
+} = require('./routes/index.js');
+
 server.use('/auth', authRouter);
 server.use('/categories', categoriesRouter)
 server.use('/discussions', discussionsRouter);
+server.use('/discussion-votes', discussionVotesRouter);
 server.use('/posts', postsRouter);
 server.use('/users', usersRouter);
 

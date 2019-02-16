@@ -2,7 +2,16 @@ const db = require('../dbConfig.js');
 
 //gets All Categories
 const getCategories = () => {
-    return db('categories')
+    return db('categories as c')
+        .select(
+            'u.username as user_username', 
+            'c.name', 
+            'c.id', 
+            'c.user_id', 
+            'u.id',
+            'c.created_at'
+            )
+        .join('users as u', 'u.id', 'c.user_id')
 };
 
 //Find By ID (categories own ID)
@@ -35,7 +44,7 @@ const remove = (id) => {
     return db('categories')
             .where('id', id)
             .del()
-}
+};
 
 module.exports = {
     getCategories,
