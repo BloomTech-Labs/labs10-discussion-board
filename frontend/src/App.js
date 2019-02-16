@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import auth0 from 'auth0-js';
 import { Auth0Lock } from 'auth0-lock';
 import { connect } from 'react-redux';
+import { LoginDropdown } from './components/index.js';
+import chevron from '../src/assets/img/chevron.png';
 import styled, { createGlobalStyle } from 'styled-components';
 
 
@@ -46,6 +48,46 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
+const Auth = styled.div`
+  margin: 25px;
+  font-size: 24px;
+`;
+const Register = styled.a`
+  margin-right: 0px;
+  user-select: none;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+  }
+`;
+
+const Login = styled.a`
+  margin-left: 5px;
+  user-select: none;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+  }
+
+  img {
+    transform: ${props => props.isLoginClicked && 'rotate(180deg)'};
+  }
+`;
+
+const NotLoggedIn = styled.div`
+  background-color: gray;
+  color: white;
+  font-size: 18px;
+`;
+
 const lock = new Auth0Lock(
   auth0ClientID,
   auth0Domain,
@@ -71,8 +113,11 @@ class App extends Component {
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });
+    this.state = {
+      isLoginClicked: false
+    };
   };
-  handleLogin = () => {
+  handleAuth0Login = () => {
     lock.show();
   };
   isAuthenticated() {
@@ -80,13 +125,21 @@ class App extends Component {
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
     return new Date().getTime() < expiresAt;
   };
+  setIsLoginClicked = async isClicked => {
+    localStorage.setItem('isLoginClicked', isClicked.toString());
+    await this.setState({ isLoginClicked: isClicked });
+  };
+  toggleLoginDropdown = ev => {
+    ev.preventDefault();
+    this.setIsLoginClicked(!this.state.isLoginClicked);
+  };
   componentDidMount() {
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     if (user_id && token) return this.props.logBackIn(user_id, token);
   };
   render() {
-    if (this.isAuthenticated()) {
+    if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <AppWrapper>
           <GlobalStyle />
@@ -99,13 +152,27 @@ class App extends Component {
       );
     } else {
       return (
-        <div>
+        <NotLoggedIn>
           <p>
             You are not authorized to view this content, please click below to
             LOGIN.
           </p>
-          <button onClick = { this.handleLogin }>Login</button>
-        </div>
+          <button onClick = { this.handleAuth0Login }>Login via Auth0</button>
+
+          <Auth>
+            <Register>Register</Register> |{' '}
+            <Login
+              onClick={ev => {
+                this.toggleLoginDropdown(ev);
+              }}
+              isLoginClicked={this.state.isLoginClicked}
+            >
+              Login &nbsp;
+              <img src={chevron} alt='chevron' />
+            </Login>
+            <LoginDropdown history = { this.props.history } isLoginClicked={this.state.isLoginClicked} />
+          </Auth>
+        </NotLoggedIn>
       );
     }
   }

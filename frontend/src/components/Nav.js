@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { LoginDropdown } from './index.js';
-import chevron from '../assets/img/chevron.png';
 import { signout } from '../store/actions';
 // import PropTypes from 'prop-types';
 
@@ -13,40 +11,6 @@ const DivWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-self: flex-end;
-`;
-
-const Auth = styled.div`
-  margin: 25px;
-  font-size: 24px;
-`;
-const Register = styled.a`
-  margin-right: 0px;
-  user-select: none;
-  cursor: pointer;
-  color: white;
-  font-size: 18px;
-  &:hover {
-    cursor: pointer;
-    color: black;
-    text-decoration: underline;
-  }
-`;
-
-const Login = styled.a`
-  margin-left: 5px;
-  user-select: none;
-  cursor: pointer;
-  color: white;
-  font-size: 18px;
-  &:hover {
-    cursor: pointer;
-    color: black;
-    text-decoration: underline;
-  }
-
-  img {
-    transform: ${props => props.isLoginClicked && 'rotate(180deg)'};
-  }
 `;
 
 const Welcome = styled.div`
@@ -69,33 +33,11 @@ const Signout = styled.a`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Nav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoginClicked: false
-    };
-  }
-
-  componentDidMount() {
-    this.setIsLoginClicked(false);
-  }
-
-  setIsLoginClicked = async isClicked => {
-    localStorage.setItem('isLoginClicked', isClicked.toString());
-    await this.setState({ isLoginClicked: isClicked });
-  };
-
-  toggleLoginDropdown = ev => {
-    ev.preventDefault();
-    this.setIsLoginClicked(!this.state.isLoginClicked);
-  };
-
   clickSignout = ev => {
     ev.preventDefault();
     this.setState({ isLoginClicked: false }, () => {
       localStorage.removeItem('symposium_auth0_access_token');
       localStorage.removeItem('symposium_auth0_expires_at');
-      this.setIsLoginClicked(false);
       return this.props.signout().then(() => this.props.history.push('/'));
     });
   };
@@ -115,19 +57,7 @@ class Nav extends Component {
             </Signout>
           </Fragment>
         ) : (
-          <Auth>
-            <Register>Register</Register> |{' '}
-            <Login
-              onClick={ev => {
-                this.toggleLoginDropdown(ev);
-              }}
-              isLoginClicked={this.state.isLoginClicked}
-            >
-              Login &nbsp;
-              <img src={chevron} alt='chevron' />
-            </Login>
-            <LoginDropdown isLoginClicked={this.state.isLoginClicked} />
-          </Auth>
+          null
         )}
       </DivWrapper>
     );
