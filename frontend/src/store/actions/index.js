@@ -8,12 +8,20 @@ import {
 } from './CategoriesActions.js';
 
 import {
-  // Actions
+	// Actions
+		//TOP DISCUSSIONS
   TOP_DISCUSSIONS_LOADING,
   TOP_DISCUSSIONS_SUCCESS,
-  TOP_DISCUSSIONS_FAILURE,
+	TOP_DISCUSSIONS_FAILURE,
+	
+		//GET DISCUSSIONS
+		GET_DISCUSSIONS_LOADING,
+		GET_DISCUSSIONS_SUCCESS,
+		GET_DISCUSSIONS_FAILURE,
+
   // Action Creators
-  getTopDiscussions
+	getTopDiscussions,
+	getDiscussionsByCat
 } from './DiscussionsActions.js';
 
 import {
@@ -91,6 +99,10 @@ export {
 	GET_CATEGORIES_FAILURE,
 
 	// Discussion Actions
+	GET_DISCUSSIONS_LOADING,
+	GET_DISCUSSIONS_SUCCESS,
+	GET_DISCUSSIONS_FAILURE,
+
 	TOP_DISCUSSIONS_LOADING,
 	TOP_DISCUSSIONS_SUCCESS,
 	TOP_DISCUSSIONS_FAILURE,
@@ -133,7 +145,8 @@ export {
 	getCategories,
 
 	// Discussion Action Creators
-  getTopDiscussions,
+	getTopDiscussions,
+	getDiscussionsByCat,
 
 	// Discussion Vote Action Creators
 	handleDiscussionVote,
