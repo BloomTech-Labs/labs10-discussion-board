@@ -13,7 +13,7 @@ import { Header, Profiles, Profile } from './components/index.js';
 import { LandingView, CategoriesView } from './views/index.js';
 
 // action creators
-import { auth0Login } from './store/actions/index.js';
+import { auth0Login, logBackIn } from './store/actions/index.js';
 
 // globals
 import {
@@ -86,7 +86,11 @@ class App extends Component {
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
     return new Date().getTime() < expiresAt;
   };
-
+  componentDidMount() {
+    const user_id = localStorage.getItem('symposium_user_id');
+    const token = localStorage.getItem('symposium_token');
+    if (user_id && token) return this.props.logBackIn(user_id, token);
+  };
   render() {
     if (this.isAuthenticated()) {
       return (
@@ -116,4 +120,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { auth0Login })(App);
+export default connect(null, { auth0Login, logBackIn })(App);
