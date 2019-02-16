@@ -9,8 +9,6 @@ import { Header, Profiles, Profile } from './components/index.js';
 // views
 import { LandingView, CategoriesView } from './views/index.js';
 
-export const backendURL = process.env.REACT_APP_BACKEND_URL;
-
 const AppWrapper = styled.div`
   display: flex;
   align-items: center;

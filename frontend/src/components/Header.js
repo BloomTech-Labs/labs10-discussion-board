@@ -48,7 +48,7 @@ const SubHeader = styled.div`
     margin-left: 187px;
 `;
 
-const Header = ({ history }) => {
+const Header = () => {
   return (
     <StyledHeader>
       <TitleAndLogo>
