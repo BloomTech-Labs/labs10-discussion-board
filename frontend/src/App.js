@@ -88,9 +88,14 @@ const NotLoggedIn = styled.div`
   font-size: 18px;
 `;
 
+const authLockOptions = {
+  rememberLastLogin: false
+};
+
 const lock = new Auth0Lock(
   auth0ClientID,
   auth0Domain,
+  authLockOptions,
 );
 
 const webAuth = new auth0.WebAuth({
@@ -98,8 +103,6 @@ const webAuth = new auth0.WebAuth({
   clientID: auth0ClientID,
   redirectUri: auth0RedirectUri,
 });
-
-
 
 class App extends Component {
   constructor(props) {
@@ -110,6 +113,7 @@ class App extends Component {
         const expiresAt = JSON.stringify(expiresIn * 1000 + new Date().getTime());
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
+        console.log("AUTHRES", authResult);
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });
