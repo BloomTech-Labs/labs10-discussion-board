@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 
+
 // components
-import { Header, Profiles } from './components/index.js';
+import { Header, Profiles, Profile } from './components/index.js';
 
 // views
 import { LandingView, CategoriesView } from './views/index.js';
+
+export const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 const AppWrapper = styled.div`
   display: flex;
@@ -28,7 +31,8 @@ const GlobalStyle = createGlobalStyle`
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
-		flex-direction: column;
+    flex-direction: column;
+    background: #EEE7C8;
 	}
 `;
 
@@ -40,6 +44,7 @@ class App extends Component {
         <Header />
         <Route exact path='/home' component={LandingView} />
         <Route exact path='/profiles' component={Profiles} />
+        <Route exact path='/profile/:id' component={Profile} />
         <Route path='/categories' component={CategoriesView} />
       </AppWrapper>
     );
