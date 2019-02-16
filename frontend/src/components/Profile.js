@@ -92,7 +92,7 @@ class Profile extends Component {
     return (
         
             <div>
-              <h1 className = 'property-titlee'> PROFILE work</h1>
+              <h1 className = 'property-titlee'> PROFILE </h1>
               {profileItems}
             </div>
         );

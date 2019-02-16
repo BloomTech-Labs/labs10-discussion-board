@@ -20,6 +20,10 @@ const ProfilesWrapper = styled.div`
 	.discussion-title {
 		font-weight: bold;
   }
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+  }
 `;
 
 const WrappedDiv = styled.div`
