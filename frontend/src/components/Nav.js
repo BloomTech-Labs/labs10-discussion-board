@@ -20,15 +20,29 @@ const Auth = styled.div`
   font-size: 24px;
 `;
 const Register = styled.a`
-  margin-right: 20px;
+  margin-right: 0px;
   user-select: none;
   cursor: pointer;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+  }
 `;
 
 const Login = styled.a`
-  margin-left: 20px;
+  margin-left: 5px;
   user-select: none;
   cursor: pointer;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+  }
 
   img {
     transform: ${props => props.isLoginClicked && 'rotate(180deg)'};
