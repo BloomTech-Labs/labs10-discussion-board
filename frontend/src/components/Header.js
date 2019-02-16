@@ -24,7 +24,6 @@ const StyledHeader = styled.div`
             color: black;
         }
     }
-  }
 `;
 
 const TitleAndLogo = styled.div`
