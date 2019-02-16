@@ -54,7 +54,6 @@ const findByCategoryId = (category_id) => {
     return db('discussions').where('category_id', category_id)
 };
 
-
 //AUTHORIZED ACCESS
 
 //Add Discussion into the Discussion table

@@ -68,6 +68,7 @@ router.get('/category/:category_id', (req, res) => {
 	const {category_id} = req.params
 	return discussionsDB.findByCategoryId(category_id)
 	.then(discussMap => {
+		console.log(discussMap)
 		res.status(200).json(discussMap)
 	})
 	.catch(err => res.status(500).json(err))
