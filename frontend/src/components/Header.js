@@ -11,41 +11,40 @@ const StyledHeader = styled.div`
   margin-bottom: 30px;
   width: 90%;
 
-    .link {
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: white;
+  .link {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
 
-        &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-            color: black;
-        }
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+      color: black;
     }
   }
 `;
 
 const TitleAndLogo = styled.div`
-display: flex;
-margin-right: 0px;
-align-self: center;
+  display: flex;
+  margin-right: 0px;
+  align-self: center;
 `;
 
 const Title = styled.div`
-align-self: flex-end;
-margin-left: 10px;
-color: white;
-font-size: 36px;
-    h1 {
-        margin-bottom: -35px;
-    }
+  align-self: flex-end;
+  margin-left: 10px;
+  color: white;
+  font-size: 36px;
+  h1 {
+    margin-bottom: -35px;
+  }
 `;
 
 const SubHeader = styled.div`
-    font-size: 14px;
-    margin-left: 187px;
+  font-size: 14px;
+  margin-left: 187px;
 `;
 
 const Header = () => {
