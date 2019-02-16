@@ -59,7 +59,7 @@ const Header = ({ history }) => {
                 </TitleAndLogo>
                     <Link className="link td-link" to="/home">Top Discussions</Link>
                     <Link className="link c-link" to="/categories">Categories</Link>
-            <Nav />
+            <Nav history = { history } />
         </StyledHeader>
     );
 };
