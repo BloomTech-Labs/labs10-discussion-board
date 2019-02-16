@@ -92,15 +92,15 @@ class Profile extends Component {
         );
     }
 }
-  
-//  Profile.propTypes = {
-//     getProfile: PropTypes.func.isRequired,
-//     profile: PropTypes.shape({
-//       status: PropTypes.string,
-//       username: PropTypes.string,
-//       email: PropTypes.string,
-//     })
-// };
+
+ Profile.propTypes = {
+    getProfile: PropTypes.func,
+    profile: PropTypes.shape({
+      status: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    })
+};
   
 const mapStateToProps = state => ({
         singleProfile: state.profileRootReducer.singleProfileData
