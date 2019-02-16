@@ -45,7 +45,6 @@ export const logBackIn = (id, token) => dispatch => {
     .then(res => {
       localStorage.setItem('symposium_token', res.data[0].token);
       localStorage.setItem('symposium_user_id', res.data[0].id);
-      localStorage.removeItem('isLoginClicked');
       dispatch({ type: USER_LOG_BACK_IN_SUCCESS, payload: res.data[0] });
     })
     .catch(err => dispatch({ type: USER_LOG_BACK_IN_FAILURE, payload: err }));
@@ -64,7 +63,6 @@ export const auth0Login = accessToken => dispatch => {
         .then(response => {
           localStorage.setItem('symposium_token', response.data[0].token);
           localStorage.setItem('symposium_user_id', response.data[0].id);
-          localStorage.removeItem('isLoginClicked');
           return dispatch({
             type: USER_AUTH0_LOGIN_SUCCESS,
             payload: response.data[0]
