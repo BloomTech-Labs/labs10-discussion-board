@@ -14,21 +14,44 @@ const TopDiscussionWrapper = styled.div`
 	justify-content: space-between;
 	margin: 5px;
 	padding: 10px;
-	border: 1px solid black;
+	border: 1px solid gray;
+	box-shadow: 2px 3px gray;
 
 	.title {
 		font-weight: bold;
 		font-size: 18px;
+		color: black;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:aqua;
+		}
 	}
-	:hover {
-		background-color:  rgba(255, 255, 255, 0.13);
-		cursor: pointer;
+	.category {
+		font-size: 18px;
+		color: black;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:aqua;
+		}
 	}
 	.nameanddate {
 		font-size: 14px;
+		color: black;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:aqua;
+		}
 	}
 	p {
 		margin-left: 10px;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:aqua;
+		}
 	}
 `;
 
@@ -54,12 +77,12 @@ const TopDiscussion = ({ discussion }) => {
 			<div>
 				<div>
 					<span className = 'title'>{ title }</span>&#8201;
-					<span>/d/{ category_name }</span>
+					<span className = 'category'>/d/{ category_name }</span>
 				</div>
 
 				<div>
-					<span>{ username }</span>&#8201;
-					<span> - { moment(created_at).fromNow() }</span>
+					<span className = 'nameanddate'>{ username }</span>&#8201;
+					<span className = 'nameanddate'> - { moment(created_at).fromNow() }</span>
 				</div>
 				<p>{ body }</p>
 			</div>

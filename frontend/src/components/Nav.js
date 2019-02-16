@@ -24,12 +24,14 @@ const Register = styled.a`
   margin-right: 20px;
   user-select: none;
   cursor: pointer;
+  color: white;
 `;
 
 const Login = styled.a`
   margin-left: 20px;
   user-select: none;
   cursor: pointer;
+  color: white;
 
   img {
     transform: ${props => props.isLoginClicked && 'rotate(180deg)'};

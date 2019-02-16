@@ -12,11 +12,11 @@ import { TopDiscussions } from '../components/index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const TopDiscussionsViewWrapper = styled.div`
-	border: 2px solid black;
+	border: 0px solid black;
 	padding: 10px;
-
+	box-shadow: gray 0px 0px;
 	hr {
-		border-color: black;
+		border-color: gray;
 	}
 `;
 
@@ -48,8 +48,17 @@ const TopDiscussionsHeader = styled.div`
 const TopDiscussionsTitle = styled.div`
 	display: flex;
 	align-self: center;
+	font-size: 18px;
+	margin-left: 25px;
+	color: white;
+`;
+
+const TextLooper = styled.div`
+	display: flex;
+	align-self: center;
 	font-size: 28px;
 	margin-left: 50px;
+	color: white;
 `;
 
 /***************************************************************************************************
@@ -65,11 +74,13 @@ const TopDiscussionsView = () => {
 							<h1>Top Discussions</h1>
 						</TopDiscussionsTitle>
 				</div>
+				<TextLooper>
                 <TextLoop>
                     <span>See what's being discussed</span>
                     <span>Find your interests</span>
                     <span>Start talking!</span>
-                </TextLoop>{" "}
+				</TextLoop>{" "}
+				</TextLooper>
 			</TopDiscussionsHeader>
 			<hr />
 			<TopDiscussions />

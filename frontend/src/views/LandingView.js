@@ -9,7 +9,7 @@ import { TopDiscussionsView } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const LandingViewWrapper = styled.div`
-  background-color: green;
+  background-color: #EEE7C8;;
   width: 90%;
 `;
 

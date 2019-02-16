@@ -15,7 +15,7 @@ const ProfilesWrapper = styled.div`
   display: flex;
   align-content: space-between;
   width: 100%;
-  background-color: pink;
+  background-color: #EEE7C8;
 
 	.discussion-title {
 		font-weight: bold;
@@ -31,6 +31,12 @@ const WrappedDiv = styled.div`
     font-weight: bold;
     display: flex;
     justify-content: space-around;
+  }
+  .property-titlee {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    color: white;
   }
 
   .property-content {
@@ -84,7 +90,7 @@ class Profiles extends Component {
   
     return (
             <div>
-              <h1 className = 'property-title'> PROFILES </h1>
+              <h1 className = 'property-titlee'> PROFILES </h1>
               {profileItems}
             </div>
         );

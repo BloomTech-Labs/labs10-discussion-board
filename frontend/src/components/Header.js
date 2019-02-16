@@ -20,6 +20,7 @@ align-self: center;
 const Title = styled.div`
 align-self: flex-end;
 margin-left: 50px;
+color: white;
 font-size: 40px;
     h1 {
         margin-bottom: -35px;
