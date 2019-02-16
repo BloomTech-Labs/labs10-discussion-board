@@ -38,9 +38,13 @@ import {
   // Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
-  GET_PROFILES_FAILURE,
+	GET_PROFILES_FAILURE,
+	GET_PROFILE_LOADING,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAILURE,
   // Action Creators
-  getProfiles
+	getProfiles,
+	getProfile,
 } from './ProfileActions.js';
 
 import {
@@ -90,6 +94,9 @@ export {
 	GET_PROFILES_LOADING,
 	GET_PROFILES_SUCCESS,
 	GET_PROFILES_FAILURE,
+	GET_PROFILE_LOADING,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAILURE,
 
 
 	// Posts Actions
@@ -113,6 +120,7 @@ export {
 
 	// Profile Action Creators
 	getProfiles,
+	getProfile,
 
 	// Posts Action Creators
 	getTopPosts,

@@ -14,8 +14,8 @@ const TopDiscussionWrapper = styled.div`
 	justify-content: space-between;
 	margin: 5px;
 	padding: 10px;
-	border: 1px solid gray;
-	box-shadow: 2px 3px gray;
+	
+	box-shadow: 2px 3px 2px 2px gray;
 
 	.title {
 		font-weight: bold;
