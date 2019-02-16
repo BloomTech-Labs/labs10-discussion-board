@@ -45,9 +45,10 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        {localStorage.getItem('isLoggedIn') === 'true' ? (
+        {localStorage.getItem('symposium_token') ||
+        localStorage.getItem('symposium_auth0_access_token') ? (
           <>
-            <Welcome>Welcome, { this.props.username }!</Welcome>
+            <Welcome>Welcome, {this.props.username}!</Welcome>
             <Signout
               onClick={ev => {
                 this.clickSignout(ev);
@@ -56,9 +57,7 @@ class Nav extends Component {
               Sign Out
             </Signout>
           </>
-        ) : (
-          null
-        )}
+        ) : null}
       </DivWrapper>
     );
   }
@@ -71,7 +70,6 @@ class Nav extends Component {
 const mapStateToProps = state => {
   return {
     username: state.users.username,
-    isLoggedIn: state.users.isLoggedIn,
     loggingInLoadingMessage: state.users.loggingInLoadingMessage
   };
 };

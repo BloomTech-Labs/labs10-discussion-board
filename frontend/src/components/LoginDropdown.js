@@ -98,7 +98,6 @@ class LoginDropdown extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.users.isLoggedIn,
     loggingInLoadingMessage: state.users.loggingInLoadingMessage
   };
 };
