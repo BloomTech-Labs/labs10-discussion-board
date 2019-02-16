@@ -53,7 +53,12 @@ class Profiles extends Component {
     componentDidMount() {
       this.props.getProfiles();
     }
-  
+    selectUsers = id => {
+      this.props.history.push(
+        `/profile/${id}`
+      )
+    }
+
     render() {
       const { profiles, loading } = this.props.profiles;
       let profileItems;
@@ -63,7 +68,7 @@ class Profiles extends Component {
     } else {
         if (profiles.length > 0) {
           profileItems = profiles.map( (profile, index) => 
-          <div key= {index}>
+          <div key= {index} onClick = { () => this.selectUsers(profile.id) } >
           <ProfilesWrapper>
             <WrappedDiv>
               <p className = 'property-title'> </p>
