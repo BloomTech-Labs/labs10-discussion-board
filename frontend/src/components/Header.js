@@ -5,28 +5,26 @@ import meeting from '../assets/img/meeting.png';
 import { Nav } from '../components/index.js';
 
 const StyledHeader = styled.div`
-display: flex;
-justify-content: space-between;
-margin-top: 20px;
-margin-bottom 30px;
-width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 90%;
 
     .link {
         font-size: 18px;
         display: flex;
         align-items: center;
         text-decoration: none;
-        color: white
+        color: white;
 
-        :hover {
+        &:hover {
             text-decoration: underline;
             cursor: pointer;
-            &:hover {
-                cursor: pointer;
-                color: black;
-            }
+            color: black;
         }
     }
+  }
 `;
 
 const TitleAndLogo = styled.div`
@@ -50,23 +48,27 @@ const SubHeader = styled.div`
     margin-left: 187px;
 `;
 
-
-
 const Header = ({ history }) => {
-    return (
-        <StyledHeader>
-            <TitleAndLogo>
-                <img src={meeting} alt='discussion' />
-                <Title>
-                    <h1>Symposium</h1>
-                    <SubHeader><h2>The discussion starts here</h2></SubHeader>
-                </Title>
-                </TitleAndLogo>
-                    <Link className="link td-link" to="/home">Top Discussions</Link>
-                    <Link className="link c-link" to="/categories">Categories</Link>
-            <Nav />
-        </StyledHeader>
-    );
+  return (
+    <StyledHeader>
+      <TitleAndLogo>
+        <img src={meeting} alt='discussion' />
+        <Title>
+          <h1>Symposium</h1>
+          <SubHeader>
+            <h2>The discussion starts here</h2>
+          </SubHeader>
+        </Title>
+      </TitleAndLogo>
+      <Link className='link td-link' to='/home'>
+        Top Discussions
+      </Link>
+      <Link className='link c-link' to='/categories'>
+        Categories
+      </Link>
+      <Nav />
+    </StyledHeader>
+  );
 };
 
 export default Header;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import { LoginDropdown } from './index.js';
 import chevron from '../assets/img/chevron.png';
 import { signout } from '../store/actions';
@@ -73,23 +72,29 @@ class Nav extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoginClicked: false });
+    this.setIsLoginClicked(false);
   }
+
+  setIsLoginClicked = async isClicked => {
+    localStorage.setItem('isLoginClicked', isClicked.toString());
+    await this.setState({ isLoginClicked: isClicked });
+  };
 
   toggleLoginDropdown = ev => {
     ev.preventDefault();
-    this.setState({ isLoginClicked: !this.state.isLoginClicked });
+    this.setIsLoginClicked(!this.state.isLoginClicked);
   };
 
   clickSignout = ev => {
     ev.preventDefault();
-    this.setState({ isLoginClicked: false }, () => this.props.signout());
+    this.setIsLoginClicked(false);
+    this.props.signout();
   };
 
   render() {
     return (
       <DivWrapper>
-        {this.props.isLoggedIn ? (
+        {localStorage.getItem('isLoggedIn') === 'true' ? (
           <Signout
             onClick={ev => {
               this.clickSignout(ev);

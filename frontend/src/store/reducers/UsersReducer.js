@@ -6,11 +6,7 @@ import {
 } from '../actions/index.js';
 
 const initialState = {
-  user_id: 0,
-  isLoggedIn: false,
   loggingInLoadingMessage: false,
-  loggingOutLoadingMessage: false,
-  token: '',
   error: null
 };
 
@@ -26,10 +22,7 @@ export const UsersReducer = (state = initialState, action) => {
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        user_id: action.payload.id,
-        isLoggedIn: true,
         loggingInLoadingMessage: false,
-        token: action.payload.token,
         error: null
       };
     case USER_LOGIN_FAILURE:

@@ -18,7 +18,6 @@ const AppWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
   width: 95vw;
-  
 `;
 
 const GlobalStyle = createGlobalStyle`
