@@ -60,7 +60,7 @@ class LoginDropdown extends Component {
         username: '',
         password: ''
       },
-      () => this.props.login(creds)
+      () => this.props.login(creds).then(() => this.props.history.push('/home'))
     );
   };
 

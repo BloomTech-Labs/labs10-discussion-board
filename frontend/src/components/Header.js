@@ -47,27 +47,29 @@ const SubHeader = styled.div`
   margin-left: 187px;
 `;
 
-const Header = () => {
-  return (
-    <StyledHeader>
-      <TitleAndLogo>
-        <img src={meeting} alt='discussion' />
-        <Title>
-          <h1>Symposium</h1>
-          <SubHeader>
-            <h2>The discussion starts here</h2>
-          </SubHeader>
-        </Title>
-      </TitleAndLogo>
-      <Link className='link td-link' to='/home'>
-        Top Discussions
-      </Link>
-      <Link className='link c-link' to='/categories'>
-        Categories
-      </Link>
-      <Nav />
-    </StyledHeader>
-  );
+
+
+const Header = ({ history }) => {
+    return (
+      <StyledHeader>
+        <TitleAndLogo>
+          <img src={meeting} alt='discussion' />
+          <Title>
+            <h1>Symposium</h1>
+            <SubHeader>
+              <h2>The discussion starts here</h2>
+            </SubHeader>
+          </Title>
+        </TitleAndLogo>
+        <Link className='link td-link' to='/home'>
+          Top Discussions
+        </Link>
+        <Link className='link c-link' to='/categories'>
+          Categories
+        </Link>
+        <Nav history = { history } />
+      </StyledHeader>
+    );
 };
 
 export default Header;

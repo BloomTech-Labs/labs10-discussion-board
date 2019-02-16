@@ -57,6 +57,9 @@ const categoryNames = [
   'Music'
 ];
 
+// environment variables
+const secureKey = process.env.SECURE_KEY;
+
 module.exports = {
   // variables
   numOfDiscussions,
@@ -75,5 +78,8 @@ module.exports = {
   getRandomUserId,
 
   // seeds
-  categoryNames
+  categoryNames,
+
+  // environment variables
+  secureKey,
 };
