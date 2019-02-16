@@ -20,7 +20,11 @@ export const login = creds => dispatch => {
   return axios
     .post(`${backendUrl}/auth/login`, creds)
     .then(response => {
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data[0] });
+      localStorage.setItem('jwt', response.data[0].token);
+      localStorage.setItem('user_id', response.data[0].id);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.removeItem('isLoginClicked');
+      dispatch({ type: USER_LOGIN_SUCCESS });
     })
     .catch(err => dispatch({ type: USER_LOGIN_FAILURE, payload: err }));
 };
@@ -30,5 +34,8 @@ export const register = () => dispatch => {
 };
 
 export const signout = () => dispatch => {
+  localStorage.removeItem('jwt');
+  localStorage.removeItem('user_id');
+  localStorage.removeItem('isLoggedIn');
   dispatch({ type: USER_SIGNOUT_SUCCESS });
 };
