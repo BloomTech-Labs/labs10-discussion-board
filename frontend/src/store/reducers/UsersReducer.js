@@ -15,8 +15,6 @@ const initialState = {
   username: '',
   isLoggedIn: false,
   loggingInLoadingMessage: false,
-  loggingOutLoadingMessage: false,
-  token: '',
   error: null
 };
 
@@ -38,7 +36,6 @@ export const UsersReducer = (state = initialState, action) => {
         username: action.payload.username,
         isLoggedIn: true,
         loggingInLoadingMessage: false,
-        token: action.payload.token,
         error: null
       };
     case USER_AUTH0_LOGIN_FAILURE:

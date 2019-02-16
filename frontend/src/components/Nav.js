@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import { LoginDropdown } from './index.js';
 import chevron from '../assets/img/chevron.png';
 import { signout } from '../store/actions';
@@ -21,15 +20,29 @@ const Auth = styled.div`
   font-size: 24px;
 `;
 const Register = styled.a`
-  margin-right: 20px;
+  margin-right: 0px;
   user-select: none;
   cursor: pointer;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+  }
 `;
 
 const Login = styled.a`
-  margin-left: 20px;
+  margin-left: 5px;
   user-select: none;
   cursor: pointer;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+  }
 
   img {
     transform: ${props => props.isLoginClicked && 'rotate(180deg)'};
@@ -64,12 +77,17 @@ class Nav extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoginClicked: false });
+    this.setIsLoginClicked(false);
   }
+
+  setIsLoginClicked = async isClicked => {
+    localStorage.setItem('isLoginClicked', isClicked.toString());
+    await this.setState({ isLoginClicked: isClicked });
+  };
 
   toggleLoginDropdown = ev => {
     ev.preventDefault();
-    this.setState({ isLoginClicked: !this.state.isLoginClicked });
+    this.setIsLoginClicked(!this.state.isLoginClicked);
   };
 
   clickSignout = ev => {
@@ -77,6 +95,7 @@ class Nav extends Component {
     this.setState({ isLoginClicked: false }, () => {
       localStorage.removeItem('symposium_auth0_access_token');
       localStorage.removeItem('symposium_auth0_expires_at');
+      this.setIsLoginClicked(false);
       return this.props.signout().then(() => this.props.history.push('/'));
     });
   };
@@ -84,7 +103,7 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        {this.props.isLoggedIn ? (
+        {localStorage.getItem('isLoggedIn') === 'true' ? (
           <Fragment>
             <Welcome>Welcome, { this.props.username }!</Welcome>
             <Signout

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
-import { getProfiles } from '../store/actions/index';
+import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 
 /***************************************************************************************************
@@ -20,10 +20,6 @@ const ProfilesWrapper = styled.div`
 	.discussion-title {
 		font-weight: bold;
   }
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-  }
 `;
 
 const WrappedDiv = styled.div`
@@ -36,13 +32,6 @@ const WrappedDiv = styled.div`
     display: flex;
     justify-content: space-around;
   }
-  .property-titlee {
-    font-weight: bold;
-    display: flex;
-    justify-content: space-around;
-    color: white;
-  }
-
   .property-content {
     padding: 0 0 0 5%;
     display: flex;
@@ -50,29 +39,26 @@ const WrappedDiv = styled.div`
   }
   `;
 
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-class Profiles extends Component {
+class Profile extends Component {
     componentDidMount() {
-      this.props.getProfiles();
+      this.props.getProfile(this.props.match.params.id);
+      console.log('profile component', this.props);
     }
-    selectUsers = id => {
-      this.props.history.push(
-        `/profile/${id}`
-      )
-    }
-
+  
     render() {
-      const { profiles, loading } = this.props.profiles;
-      let profileItems;
+        let profileItems;
+        console.log('save it', this.props.profile)
       
-    if (profiles === null || loading ) {
+    if (this.props.profile.length === 0) {
         profileItems = <Spinner />;
     } else {
-        if (profiles.length > 0) {
-          profileItems = profiles.map( (profile, index) => 
-          <div key= {index} onClick = { () => this.selectUsers(profile.id) } >
+        if (this.props.profile) {
+          profileItems = this.props.profile.map( (profile, index) => 
+          <div key= {index}>
           <ProfilesWrapper>
             <WrappedDiv>
               <p className = 'property-title'> </p>
@@ -96,28 +82,29 @@ class Profiles extends Component {
           profileItems = <h4>No profiles found...</h4>;
         }
     }
-  
+    console.log('profile props', this.props);
     return (
+        
             <div>
-              <h1 className = 'property-titlee'> PROFILES </h1>
+              <h1 className = 'ProfileTitle'> PROFILE </h1>
               {profileItems}
             </div>
         );
     }
 }
   
- Profiles.propTypes = {
-    getProfiles: PropTypes.func.isRequired,
-    profile: PropTypes.shape({
-      status: PropTypes.string,
-      username: PropTypes.string,
-      email: PropTypes.string,
-    })
-};
+//  Profile.propTypes = {
+//     getProfile: PropTypes.func.isRequired,
+//     profile: PropTypes.shape({
+//       status: PropTypes.string,
+//       username: PropTypes.string,
+//       email: PropTypes.string,
+//     })
+// };
   
 const mapStateToProps = state => ({
-        profiles: state.profiles.profiles
+        profile: state.profile.profile
 });
   
-export default connect(mapStateToProps, { getProfiles })(Profiles);
+export default connect(mapStateToProps, { getProfile })(Profile);
   

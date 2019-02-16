@@ -7,7 +7,7 @@ import {
 const initialState = {
     profiles: {
       loading: true,
-      profiles: []
+      profiles: [],
     },
 };
 
@@ -28,5 +28,5 @@ export const ProfilesReducer = (state = initialState, action) =>{
       return state;
 		default:
 		return state;
-  }
+  } 
 }

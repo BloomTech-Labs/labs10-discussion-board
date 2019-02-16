@@ -5,8 +5,9 @@ import { Auth0Lock } from 'auth0-lock';
 import { connect } from 'react-redux';
 import styled, { createGlobalStyle } from 'styled-components';
 
+
 // components
-import { Header, Profiles } from './components/index.js';
+import { Header, Profiles, Profile } from './components/index.js';
 
 // views
 import { LandingView, CategoriesView } from './views/index.js';
@@ -28,7 +29,6 @@ const AppWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
   width: 95vw;
-  background: gray;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -37,11 +37,12 @@ const GlobalStyle = createGlobalStyle`
 	#root {
     	margin: 0;
     	padding: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-		display: flex;
-		align-items: center;
-		flex-wrap: wrap;
-		flex-direction: column;
+		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+		  display: flex;
+		  align-items: center;
+		  flex-wrap: wrap;
+      flex-direction: column;
+      background: #EEE7C8;
 	}
 `;
 
@@ -97,6 +98,7 @@ class App extends Component {
   
           <Route exact path='/home' component={LandingView} />
           <Route exact path='/profiles' component={Profiles} />
+          <Route exact path='/profile/:id' component={Profile} />
           <Route path='/categories' component={CategoriesView} />
         </AppWrapper>
       );
