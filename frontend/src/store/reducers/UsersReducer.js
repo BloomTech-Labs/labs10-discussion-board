@@ -3,6 +3,10 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
 
+  USER_LOG_BACK_IN_LOADING,
+  USER_LOG_BACK_IN_SUCCESS,
+  USER_LOG_BACK_IN_FAILURE,
+
   USER_SIGNOUT_SUCCESS,
 
   USER_AUTH0_LOGIN_LOADING,
@@ -29,6 +33,7 @@ export const UsersReducer = (state = initialState, action) => {
         error: null
       };
     case USER_AUTH0_LOGIN_SUCCESS:
+    case USER_LOG_BACK_IN_SUCCESS:
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
@@ -39,6 +44,7 @@ export const UsersReducer = (state = initialState, action) => {
         error: null
       };
     case USER_AUTH0_LOGIN_FAILURE:
+    case USER_LOG_BACK_IN_FAILURE:
     case USER_LOGIN_FAILURE:
       return {
         ...state,
@@ -50,9 +56,8 @@ export const UsersReducer = (state = initialState, action) => {
     case USER_SIGNOUT_SUCCESS:
       return initialState;
 
+    case USER_LOG_BACK_IN_LOADING:
     case USER_AUTH0_LOGIN_LOADING:
-    case USER_AUTH0_LOGIN_SUCCESS:
-    case USER_AUTH0_LOGIN_FAILURE:
     default:
       return state;
   }
