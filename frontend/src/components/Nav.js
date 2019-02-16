@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import { LoginDropdown } from './index.js';
 import chevron from '../assets/img/chevron.png';
 import { signout } from '../store/actions';
