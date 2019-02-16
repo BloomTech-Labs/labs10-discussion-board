@@ -61,9 +61,9 @@ class Nav extends Component {
     this.setIsLoginClicked(false);
   }
 
-  setIsLoginClicked = isClicked => {
+  setIsLoginClicked = async isClicked => {
     localStorage.setItem('isLoginClicked', isClicked.toString());
-    this.setState({ isLoginClicked: isClicked });
+    await this.setState({ isLoginClicked: isClicked });
   };
 
   toggleLoginDropdown = ev => {
