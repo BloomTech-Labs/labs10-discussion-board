@@ -34,7 +34,7 @@ export const login = creds => dispatch => {
       localStorage.setItem('symposium_user_id', response.data[0].id);
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.removeItem('isLoginClicked');
-      dispatch({ type: USER_LOGIN_SUCCESS });
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data[0] });
     })
     .catch(err => dispatch({ type: USER_LOGIN_FAILURE, payload: err }));
 };
