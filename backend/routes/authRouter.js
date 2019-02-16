@@ -106,10 +106,15 @@ router.post('/register', async (req, res, next) => {
       status: req.body.status
     };
 
-    const userAddedResults = await db.insert(newUserCreds);
-    res
-      .status(201)
-      .json([{ message: 'success', usersAdded: userAddedResults.rowCount }]);
+    const userAddedResults = await db.insert(newUserCreds); // [ { id: 1, username: 'username' } ]
+
+    const token = await generateToken(userAddedResults[0].id, userAddedResults[0].username);
+    return res.status(201).json([{
+      id: userAddedResults[0].id,
+      token,
+      message: 'Registration successful.',
+      username: userAddedResults[0].username,
+    }]);
   } catch (err) {
     // Postgress error code
     if (err.code === '23505') {
@@ -133,10 +138,58 @@ router.post('/login', async (req, res, next) => {
     // the client password matches the db hash password
     if (user && bcrypt.compareSync(userCreds.password, user.password)) {
       const token = await generateToken(user.id, user.username);
-      res.status(201).json([{ id: user.id, token }]);
+      res.status(201).json([{
+        id: user.id,
+        token,
+        message: 'Log in successful.',
+        username: user.username
+      }]);
     } else {
       throw { code: 401 };
     }
+  } catch (err) {
+    if (err.code === 401) {
+      res.status(401).json([
+        {
+          error: 401,
+          message: 'invalid username/password'
+        }
+      ]);
+    } else {
+      next(err);
+    }
+  }
+});
+
+router.post('/auth0-login', async (req, res, next) => {
+  try {
+    const { email, name, picture } = req.body;
+    const user = await db.findByUsername(name);
+    // if the user already exists in the DB
+    if (user) {
+      const token = await generateToken(user.id, user.username);
+      return res.status(201).json([{
+        id: user.id,
+        token,
+        username: user.username,
+        email: user.email,
+        message: 'Log in using auth0 credentials successful.',
+      }]);
+    }
+    // else, if user does not exist, register them first
+    const newUserCreds = {
+      username: name,
+      email,
+      status: 'active',
+    };
+    const userAddedResults = await db.insert(newUserCreds); // [ { id: 1, username: 'username' } ]
+    const token = await generateToken(userAddedResults[0].id, userAddedResults[0].username);
+    return res.status(201).json([{
+      id: userAddedResults[0].id,
+      token,
+      message: 'Registration using auth0 credentials successful.',
+      username: userAddedResults[0].username,
+    }]);
   } catch (err) {
     if (err.code === 401) {
       res.status(401).json([
