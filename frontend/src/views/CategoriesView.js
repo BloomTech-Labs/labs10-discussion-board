@@ -15,15 +15,17 @@ const CategoriesWrapper = styled.div`
         margin-bottom: 5px;
     }
     .link{
-        font-size: 18px;
+        width: 5%;
+        font-size: 30px;
         display: flex;
-        margin-left: 48%;
+        margin-left: 0%;
         align-items: center;
         text-decoration: none;
         color: white
         &:hover {
 			cursor: pointer;
-			color: black;
+            color: black;
+            text-decoration: underline;
 		}
     }
 `

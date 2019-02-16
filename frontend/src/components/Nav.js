@@ -29,6 +29,7 @@ const Register = styled.a`
   &:hover {
     cursor: pointer;
     color: black;
+    text-decoration: underline;
   }
 `;
 
@@ -41,6 +42,7 @@ const Login = styled.a`
   &:hover {
     cursor: pointer;
     color: black;
+    text-decoration: underline;
   }
 
   img {

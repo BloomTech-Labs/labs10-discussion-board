@@ -32,19 +32,13 @@ const WrappedDiv = styled.div`
     display: flex;
     justify-content: space-around;
   }
-  .property-titlee {
-    font-weight: bold;
-    display: flex;
-    justify-content: space-around;
-    color: white;
-  }
-
   .property-content {
     padding: 0 0 0 5%;
     display: flex;
     justify-content: space-around;
   }
   `;
+
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -92,7 +86,7 @@ class Profile extends Component {
     return (
         
             <div>
-              <h1 className = 'property-titlee'> PROFILE </h1>
+              <h1 className = 'ProfileTitle'> PROFILE </h1>
               {profileItems}
             </div>
         );
