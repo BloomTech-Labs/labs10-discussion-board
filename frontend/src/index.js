@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
 	discussions: DiscussionsReducer,
 	profiles: ProfilesReducer,
 	categories: CategoriesReducer,
-	profile: ProfileReducer,
+	profileRootReducer: ProfileReducer,
 });
 
 let store;

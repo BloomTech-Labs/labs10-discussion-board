@@ -51,13 +51,13 @@ class Profile extends Component {
   
     render() {
         let profileItems;
-        console.log('save it', this.props.profile)
+        console.log('save it', this.props.singleProfile)
       
-    if (this.props.profile.length === 0) {
+    if (this.props.singleProfile.length === 0) {
         profileItems = <Spinner />;
     } else {
-        if (this.props.profile) {
-          profileItems = this.props.profile.map( (profile, index) => 
+        if (this.props.singleProfile) {
+          profileItems = this.props.singleProfile.map( (profile, index) => 
           <div key= {index}>
           <ProfilesWrapper>
             <WrappedDiv>
@@ -103,7 +103,7 @@ class Profile extends Component {
 // };
   
 const mapStateToProps = state => ({
-        profile: state.profile.profile
+        singleProfile: state.profileRootReducer.singleProfileData
 });
   
 export default connect(mapStateToProps, { getProfile })(Profile);

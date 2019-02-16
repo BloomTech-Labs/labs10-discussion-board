@@ -5,7 +5,7 @@ import {
   } from '../actions/index';
   
 const initialState = {
-    profile: []
+    singleProfileData: []
 };
 
   
@@ -14,7 +14,7 @@ export const ProfileReducer = (state = initialState, action) =>{
       case GET_PROFILE_SUCCESS:
       return {
         ...state,
-        profile: action.payload
+        singleProfileData: action.payload
       }
     case GET_PROFILE_LOADING:
       return state;
