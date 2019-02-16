@@ -75,12 +75,6 @@ class App extends Component {
   handleLogin = () => {
     lock.show();
   };
-  handleLogout() {
-    // Clear Access Token and ID Token from local storage
-    localStorage.removeItem('symposium_auth0_access_token');
-    localStorage.removeItem('symposium_auth0_expires_at');
-    window.location.reload();
-  };
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
@@ -97,9 +91,6 @@ class App extends Component {
         <AppWrapper>
           <GlobalStyle />
           <Header history = { this.props.history } />
-  
-          <button onClick = { this.handleLogout }>Logout</button>
-  
           <Route exact path='/home' component={LandingView} />
           <Route exact path='/profiles' component={Profiles} />
           <Route exact path='/profile/:id' component={Profile} />
