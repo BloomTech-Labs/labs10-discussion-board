@@ -56,7 +56,12 @@ import {
   // Actions
   USER_LOGIN_LOADING,
   USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAILURE,
+	USER_LOGIN_FAILURE,
+
+	USER_LOG_BACK_IN_LOADING,
+	USER_LOG_BACK_IN_SUCCESS,
+	USER_LOG_BACK_IN_FAILURE,
+
 	USER_SIGNOUT_SUCCESS,
 
 	USER_AUTH0_LOGIN_LOADING,
@@ -67,7 +72,7 @@ import {
   register,
   login,
 	signout,
-
+	logBackIn,
 	auth0Login,
 } from './UsersActions.js';
 
@@ -98,7 +103,11 @@ export {
 	// Users Actions
 	USER_LOGIN_LOADING,
 	USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAILURE,
+	USER_LOGIN_FAILURE,
+	
+	USER_LOG_BACK_IN_LOADING,
+	USER_LOG_BACK_IN_SUCCESS,
+	USER_LOG_BACK_IN_FAILURE,
 
 	USER_SIGNOUT_SUCCESS,
 
@@ -133,7 +142,7 @@ export {
 	register,
 	login,
 	signout,
-	
+	logBackIn,
 	auth0Login,
 
 	// Profile Action Creators
