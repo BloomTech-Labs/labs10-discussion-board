@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { signout } from '../store/actions';
@@ -46,7 +46,7 @@ class Nav extends Component {
     return (
       <DivWrapper>
         {localStorage.getItem('isLoggedIn') === 'true' ? (
-          <Fragment>
+          <>
             <Welcome>Welcome, { this.props.username }!</Welcome>
             <Signout
               onClick={ev => {
@@ -55,7 +55,7 @@ class Nav extends Component {
             >
               Sign Out
             </Signout>
-          </Fragment>
+          </>
         ) : (
           null
         )}
