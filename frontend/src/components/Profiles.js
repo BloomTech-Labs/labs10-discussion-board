@@ -48,7 +48,7 @@ const WrappedDiv = styled.div`
     display: flex;
     justify-content: space-around;
   }
-  `;
+`;
 
 const ProfilesTitle = styled.div`
   margin: 5px;
@@ -73,13 +73,20 @@ class Profiles extends Component {
       )
     }
 
+
+    // declared profiles and loading to props we receive from state
     render() {
       const { profiles, loading } = this.props.profiles;
       let profileItems;
-      
+    
+    // if profiles is null, our loading component will be returned via profileItems
     if (profiles === null || loading ) {
         profileItems = <Spinner />;
     } else {
+    
+    /* if the length of profiles received is more than 0, our profileItems variable
+    will map through an array, and return that data, then we choose what properties 
+    via the profile parameter */
         if (profiles.length > 0) {
           profileItems = profiles.map( (profile, index) => 
           <div key= {index} onClick = { () => this.selectUsers(profile.id) } >
