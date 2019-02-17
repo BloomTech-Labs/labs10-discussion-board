@@ -13,25 +13,12 @@ const getUsers = () => {
 
 //Gets a user by their id
 const findById = id => {
-  return db('users')
-    .select(
-      'id',
-      'username',
-      'email',
-      'status'
-    )
-    .where({ id: Number(id) });
+  return db('users').where({ id: Number(id) });
 };
 
 //Gets a user by their username
 const findByUsername = username => {
   return db('users')
-    .select(
-      'id',
-      'username',
-      'email',
-      'status'
-    )
     .whereRaw('LOWER(username) = ?', username.toLowerCase())
     .first();
 };
@@ -46,15 +33,19 @@ const update = (id, user) => {
   return db('users')
     .where('id', Number(id))
     .update(user);
-}
+};
+
+// update password
+const updatePassword = (id, password) => {
+  return db('users').where({ id }).update({ password });
+};
 
 // remove a user
 const remove= id => {
   return db('users')
     .where('id', Number(id))
     .del();
-}
-
+};
 
 module.exports = {
   getUsers,
@@ -62,5 +53,6 @@ module.exports = {
   findByUsername,
   insert,
   update,
-  remove
+  updatePassword,
+  remove,
 };
