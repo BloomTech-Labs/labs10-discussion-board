@@ -105,11 +105,12 @@
 - Heroku Deployment (Customer View) - https://symposium-backend.herokuapp.com/
 - Netlify Deployment (Customer VIew) - https://symposium-frontend.netlify.com/
 - Setup Gatsby - https://www.youtube.com/watch?v=5VGu6NWzLs4
-- Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
+- Labs10 Discussion Board - Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
 - Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
 - Balsamiq - https://balsamiq.cloud/snv27r3/pryeqxi/r2278
 - Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
 - Lambda Capstone Defense Rubric - https://docs.google.com/spreadsheets/d/1r3kOKVvkILBalLkNLTJFQ-gXf2FoPoaWooLcw2nifUk/edit#gid=0
+- Labs10 project Tracking Document - https://docs.google.com/spreadsheets/d/1oIw5MHPLv-zJxscj4Pks7YDlydZNqxrCAmra07q2GWk/edit#gid=1885109639
 
 # Table Schema's
 

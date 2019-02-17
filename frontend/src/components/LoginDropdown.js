@@ -11,7 +11,7 @@ import { login } from '../store/actions';
 const FormLogin = styled.form`
   display: flex;
   flex-direction: column;
-  visibility: ${props => (props.isLoginClicked ? 'show' : 'hidden')};
+  visibility: ${props => (props.isLoginDropdownClicked ? 'show' : 'hidden')};
   z-index: 9999;
   position: relative;
 `;
@@ -54,19 +54,28 @@ class LoginDropdown extends Component {
   };
 
   normalLogin = () => {
+    const pathname = this.props.history.location.pathname;
     const creds = { ...this.state };
     this.setState(
       {
         username: '',
         password: ''
       },
-      () => this.props.login(creds).then(() => this.props.history.push('/home'))
+      () =>
+        this.props
+          .login(creds)
+          .then(() => this.props.setIsLoginDropdownClicked(false))
+          .then(() =>
+            pathname === '/'
+              ? this.props.history.push('/home')
+              : this.props.history.push(pathname)
+          )
     );
   };
 
   render() {
     return (
-      <FormLogin isLoginClicked={this.props.isLoginClicked}>
+      <FormLogin isLoginDropdownClicked={this.props.isLoginDropdownClicked}>
         <input
           onChange={this.handleInputChange}
           placeholder='Username'
@@ -98,7 +107,6 @@ class LoginDropdown extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.users.isLoggedIn,
     loggingInLoadingMessage: state.users.loggingInLoadingMessage
   };
 };

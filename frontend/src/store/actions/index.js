@@ -11,9 +11,15 @@ import {
   // Actions
   TOP_DISCUSSIONS_LOADING,
   TOP_DISCUSSIONS_SUCCESS,
-  TOP_DISCUSSIONS_FAILURE,
+	TOP_DISCUSSIONS_FAILURE,
+	
+	GET_DISCUSSION_BY_ID_LOADING,
+	GET_DISCUSSION_BY_ID_SUCCESS,
+	GET_DISCUSSION_BY_ID_FAILURE,
+
   // Action Creators
-  getTopDiscussions
+	getTopDiscussions,
+	getDiscussionById,
 } from './DiscussionsActions.js';
 
 import {
@@ -27,11 +33,11 @@ import {
 
 import {
 	// Actions
-	TOP_POSTS_LOADING,
-	TOP_POSTS_SUCCESS,
-	TOP_POSTS_FAILURE,
+	ADD_POST_LOADING,
+	ADD_POST_SUCCESS,
+	ADD_POST_FAILURE,
 	// Action Creators
-	getTopPosts,
+	addPost,
 } from './PostsActions.js';
 
 import {
@@ -95,6 +101,10 @@ export {
 	TOP_DISCUSSIONS_SUCCESS,
 	TOP_DISCUSSIONS_FAILURE,
 
+	GET_DISCUSSION_BY_ID_LOADING,
+	GET_DISCUSSION_BY_ID_SUCCESS,
+	GET_DISCUSSION_BY_ID_FAILURE,
+
 	// Discussion Vote Actions
 	HANDLE_DISCUSSION_VOTE_LOADING,
 	HANDLE_DISCUSSION_VOTE_SUCCESS,
@@ -125,15 +135,16 @@ export {
 
 
 	// Posts Actions
-	TOP_POSTS_LOADING,
-	TOP_POSTS_SUCCESS,
-	TOP_POSTS_FAILURE,
+	ADD_POST_LOADING,
+	ADD_POST_SUCCESS,
+	ADD_POST_FAILURE,
 
 	// Categories Action Creators
 	getCategories,
 
 	// Discussion Action Creators
-  getTopDiscussions,
+	getTopDiscussions,
+	getDiscussionById,
 
 	// Discussion Vote Action Creators
 	handleDiscussionVote,
@@ -150,5 +161,5 @@ export {
 	getProfile,
 
 	// Posts Action Creators
-	getTopPosts,
+	addPost,
 };

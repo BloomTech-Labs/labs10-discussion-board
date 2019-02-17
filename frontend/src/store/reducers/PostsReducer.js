@@ -1,23 +1,14 @@
 import {
-	TOP_POSTS_LOADING,
-	TOP_POSTS_SUCCESS,
-	TOP_POSTS_FAILURE,
+	ADD_POST_LOADING,
+	ADD_POST_SUCCESS,
+	ADD_POST_FAILURE,
 } from '../actions/index.js';
 
-const initialState = {
-	topPosts: [],
-};
-
-export const PostsReducer = (state = initialState, action) => {
+export const PostsReducer = (state = {}, action) => {
 	switch (action.type) {
-		case TOP_POSTS_SUCCESS:
-			return {
-				...state,
-				topPosts: action.payload,
-			};
-
-		case TOP_POSTS_LOADING:
-		case TOP_POSTS_FAILURE:
+		case ADD_POST_LOADING:
+		case ADD_POST_SUCCESS:
+		case ADD_POST_FAILURE:
 		default:
 		return state;
 	}

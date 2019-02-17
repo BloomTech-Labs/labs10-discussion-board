@@ -9,16 +9,16 @@ import styled from 'styled-components';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const ProfilesWrapper = styled.div`
-	margin: 4%;
-	padding: 10px;
+  margin: 4%;
+  padding: 10px;
   border: 1px solid black;
   display: flex;
   align-content: space-between;
   width: 100%;
-  background-color: #EEE7C8;
+  background-color: #eee7c8;
 
-	.discussion-title {
-		font-weight: bold;
+  .discussion-title {
+    font-weight: bold;
   }
 `;
 
@@ -26,7 +26,7 @@ const WrappedDiv = styled.div`
   margin: 5px;
   padding: 2%;
   display: flex;
-  
+
   .property-title {
     font-weight: bold;
     display: flex;
@@ -37,60 +37,56 @@ const WrappedDiv = styled.div`
     display: flex;
     justify-content: space-around;
   }
-  `;
-
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Profile extends Component {
-    componentDidMount() {
-      this.props.getProfile(this.props.match.params.id);
-      console.log('profile component', this.props);
-    }
-  
-    render() {
-        let profileItems;
-        console.log('save it', this.props.singleProfile)
-      
-    if (this.props.singleProfile.length === 0) {
-        profileItems = <Spinner />;
+  componentDidMount() {
+    this.props.getProfile(this.props.match.params.id);
+  }
+
+  render() {
+    let profileItems;
+
+    if (this.props.profile.length === 0) {
+      profileItems = <Spinner />;
     } else {
-        if (this.props.singleProfile) {
-          profileItems = this.props.singleProfile.map( (profile, index) => 
-          <div key= {index}>
-          <ProfilesWrapper>
-            <WrappedDiv>
-              <p className = 'property-title'> </p>
-              <p className = 'property-content'> {profile.id}</p>
-            </WrappedDiv>
-            <WrappedDiv>
-              <p className = 'property-title'> Username: </p>
-              <p className = 'property-content'> {profile.username}</p>
-            </WrappedDiv>
-            <WrappedDiv>
-              <p className = 'property-title'> Email: </p>
-              <p className = 'property-content'> {profile.email}</p>
-            </WrappedDiv>
-            <WrappedDiv>
-              <p className = 'property-title'> Status: </p>
-              <p className = 'property-content'> {profile.status}</p>
-            </WrappedDiv>
-          </ProfilesWrapper>
-          </div>)
-        } else {
-          profileItems = <h4>No profiles found...</h4>;
-        }
+      if (this.props.profile) {
+        profileItems = this.props.profile.map((profile, index) => (
+          <div key={index}>
+            <ProfilesWrapper>
+              <WrappedDiv>
+                <p className='property-title'> </p>
+                <p className='property-content'> {profile.id}</p>
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Username: </p>
+                <p className='property-content'> {profile.username}</p>
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Email: </p>
+                <p className='property-content'> {profile.email}</p>
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Status: </p>
+                <p className='property-content'> {profile.status}</p>
+              </WrappedDiv>
+            </ProfilesWrapper>
+          </div>
+        ));
+      } else {
+        profileItems = <h4>No profiles found...</h4>;
+      }
     }
-    console.log('profile props', this.props);
     return (
-        
-            <div>
-              <h1 className = 'ProfileTitle'> PROFILE </h1>
-              {profileItems}
-            </div>
-        );
-    }
+      <div>
+        <h1 className='ProfileTitle'> PROFILE </h1>
+        {profileItems}
+      </div>
+    );
+  }
 }
 
  Profile.propTypes = {
@@ -105,6 +101,8 @@ class Profile extends Component {
 const mapStateToProps = state => ({
         singleProfile: state.profileRootReducer.singleProfileData
 });
-  
-export default connect(mapStateToProps, { getProfile })(Profile);
-  
+
+export default connect(
+  mapStateToProps,
+  { getProfile }
+)(Profile);
