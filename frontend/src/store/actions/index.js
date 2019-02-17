@@ -33,11 +33,11 @@ import {
 
 import {
 	// Actions
-	TOP_POSTS_LOADING,
-	TOP_POSTS_SUCCESS,
-	TOP_POSTS_FAILURE,
+	ADD_POST_LOADING,
+	ADD_POST_SUCCESS,
+	ADD_POST_FAILURE,
 	// Action Creators
-	getTopPosts,
+	addPost,
 } from './PostsActions.js';
 
 import {
@@ -135,9 +135,9 @@ export {
 
 
 	// Posts Actions
-	TOP_POSTS_LOADING,
-	TOP_POSTS_SUCCESS,
-	TOP_POSTS_FAILURE,
+	ADD_POST_LOADING,
+	ADD_POST_SUCCESS,
+	ADD_POST_FAILURE,
 
 	// Categories Action Creators
 	getCategories,
@@ -161,5 +161,5 @@ export {
 	getProfile,
 
 	// Posts Action Creators
-	getTopPosts,
+	addPost,
 };
