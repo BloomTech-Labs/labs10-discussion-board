@@ -3,7 +3,7 @@ const faker = require('faker');
 const bcrypt = require('bcryptjs');
 const { numOfFakeUsers, numOfHashes } = require('../../config/globals.js');
 
-// For loop to generate numOfFakeUsers for users
+// For loop to generate numOfFakeUsers
 const generateSeeds = () => {
   let arr = [];
   for (let i = 0; i < numOfFakeUsers; i++) {
@@ -50,7 +50,7 @@ const generateSeeds = () => {
 };
 
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
+  // Deletes ALL existing entries for users table
   return knex('users')
     .del()
     .then(function() {

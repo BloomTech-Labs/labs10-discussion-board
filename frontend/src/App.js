@@ -91,11 +91,7 @@ const authLockOptions = {
   rememberLastLogin: false
 };
 
-const lock = new Auth0Lock(
-  auth0ClientID,
-  auth0Domain,
-  authLockOptions,
-);
+const lock = new Auth0Lock(auth0ClientID, auth0Domain, authLockOptions);
 
 const webAuth = new auth0.WebAuth({
   domain: auth0Domain,
@@ -114,7 +110,7 @@ class App extends Component {
         );
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
-        console.log("AUTHRES", authResult);
+        console.log('AUTHRES', authResult);
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });

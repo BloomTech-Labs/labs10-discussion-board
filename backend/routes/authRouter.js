@@ -6,7 +6,6 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const base64Img = require('base64-img');
-const jwt = require('jsonwebtoken');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
 const {
@@ -61,17 +60,6 @@ const validateStatusSelected = status => {
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 router.post('/register', async (req, res, next) => {
-  /* use this example later to store as avatar
-
-    const url = 'https://static.techspot.com/images2/news/bigimage/2018/09/2018-09-04-image-6.png';
-		base64Img.requestBase64(url, function(err, res, body) {
-			// console.log("ERR", err);
-			// console.log("RES", res);
-			console.log("BODY", body.slice(0, 30));
-			// console.log(body);
-		});
-  */
-
   try {
     // username and password must keep rules of syntax
     if (!req.body.username || !validateNewUsername(req.body.username)) {
@@ -94,12 +82,28 @@ router.post('/register', async (req, res, next) => {
       status: req.body.status
     };
 
+    // add user
     const userAddedResults = await db.insert(newUserCreds); // [ { id: 1, username: 'username' } ]
 
+    // add user settings
+    if (req.body.avatarUrl) {
+      const url = req.body.avatarUrl;
+      base64Img.requestBase64(url, async function(err, result, body) {
+        const userSettings = { user_id: userAddedResults[0].id, avatar: body };
+        await db.addUserSettings(userSettings);
+      });
+    } else {
+      const userSettings = { user_id: userAddedResults[0].id };
+      await db.addUserSettings(userSettings);
+    }
+
+    // refresh token (if needed)
     const token = await generateToken(
       userAddedResults[0].id,
       userAddedResults[0].username
     );
+
+    // return to front end
     return res.status(201).json([
       {
         id: userAddedResults[0].id,

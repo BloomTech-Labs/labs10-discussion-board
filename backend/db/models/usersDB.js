@@ -19,7 +19,14 @@ const findByUsername = username => {
 
 //Create a new user
 const insert = user => {
-  return db('users').insert(user).returning([ 'id', 'username' ]);
+  return db('users')
+    .insert(user)
+    .returning(['id', 'username']);
+};
+
+//Insert user settings (with new created user)
+const addUserSettings = settings => {
+  return db('user_settings').insert(settings);
 };
 
 //Update a user
@@ -27,20 +34,20 @@ const update = (id, user) => {
   return db('users')
     .where('id', Number(id))
     .update(user);
-}
+};
 
-const remove= id => {
+const remove = id => {
   return db('users')
     .where('id', Number(id))
     .del();
-}
-
+};
 
 module.exports = {
   getUsers,
   findById,
   findByUsername,
   insert,
+  addUserSettings,
   update,
   remove
 };
