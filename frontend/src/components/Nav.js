@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import { LoginDropdown } from './index.js';
-import chevron from '../assets/img/chevron.png';
+import { signout } from '../store/actions';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************
@@ -15,42 +13,48 @@ const DivWrapper = styled.div`
   align-self: flex-end;
 `;
 
-const Auth = styled.div`
+const Welcome = styled.div`
   margin: 25px;
   font-size: 24px;
 `;
-const Register = styled.a`
-  margin-right: 20px;
-  cursor: pointer;
-`;
-const Login = styled.a`
-  margin-left: 20px;
-  cursor: pointer;
-`;
 
-const Signout = styled.a``;
+const Signout = styled.a`
+  font-size: 30px;
+  user-select: none;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: white;
+  }
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const Nav = props => {
-  return (
-    <DivWrapper>
-      {props.isLoggedIn ? (
-        <Signout>Signout</Signout>
-      ) : (
-        <Auth>
-          <Register>Register</Register> |{' '}
-          <Login isOpen>
-            Login &nbsp;
-            <img src={chevron} alt='' />
-          </Login>
-          <LoginDropdown />
-        </Auth>
-      )}
-    </DivWrapper>
-  );
-};
+class Nav extends Component {
+  clickSignout = ev => {
+    ev.preventDefault();
+    localStorage.removeItem('symposium_auth0_access_token');
+    localStorage.removeItem('symposium_auth0_expires_at');
+    return this.props.signout().then(() => this.props.history.push('/'));
+  };
+
+  render() {
+    return (
+      <DivWrapper>
+        <Welcome>Welcome, {this.props.username}!</Welcome>
+        <Signout
+          onClick={ev => {
+            this.clickSignout(ev);
+          }}
+        >
+          Sign Out
+        </Signout>
+      </DivWrapper>
+    );
+  }
+}
 
 // Nav.propTypes = {
 //   propertyName: PropTypes.string
@@ -58,12 +62,12 @@ const Nav = props => {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.isLoggedIn,
-    loggingInLoadingMessage: state.loggingInLoadingMessage
+    username: state.users.username,
+    loggingInLoadingMessage: state.users.loggingInLoadingMessage
   };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  { signout }
 )(Nav);

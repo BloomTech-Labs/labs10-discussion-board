@@ -14,28 +14,65 @@ const TopDiscussionWrapper = styled.div`
 	justify-content: space-between;
 	margin: 5px;
 	padding: 10px;
-	border: 1px solid black;
+	
+	box-shadow: 2px 3px 2px 2px gray;
 
 	.title {
 		font-weight: bold;
 		font-size: 18px;
+		color: black;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:white;
+		}
 	}
-	:hover {
-		background-color:  rgba(255, 255, 255, 0.13);
-		cursor: pointer;
+	.category {
+		font-size: 18px;
+		color: black;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:white;
+		}
 	}
 	.nameanddate {
 		font-size: 14px;
+		color: black;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:white;
+		}
+		cursor: pointer;
+		
+		:hover {
+			text-decoration: underline;
+		}
 	}
+
+	:hover {
+		background-color:  rgba(255, 255, 255, 0.13);
+	}
+
+	.content {
+		width: 85%;
+	}
+
 	p {
 		margin-left: 10px;
+		&:hover {
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:white;
+		}
 	}
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussion = ({ discussion }) => {
+const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 	const {
 		body,
 		category_id,
@@ -48,18 +85,19 @@ const TopDiscussion = ({ discussion }) => {
 		username,
 		vote_count,
 	} = discussion;
+	const handleVote = type => handleDiscussionVote(id, type);
 	return (
 		<TopDiscussionWrapper>
-			<VoteCount vote_count = { vote_count } />
-			<div>
+			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
+			<div className = 'content'>
 				<div>
 					<span className = 'title'>{ title }</span>&#8201;
-					<span>/d/{ category_name }</span>
+					<span className = 'category'>/d/{ category_name }</span>
 				</div>
 
 				<div>
-					<span>{ username }</span>&#8201;
-					<span> - { moment(created_at).fromNow() }</span>
+					<span className = 'nameanddate'>{ username }</span>&#8201;
+					<span className = 'nameanddate'> - { moment(created_at).fromNow() }</span>
 				</div>
 				<p>{ body }</p>
 			</div>

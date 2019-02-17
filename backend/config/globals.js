@@ -1,152 +1,30 @@
 // Variables
-const numOfFakeUsers = 500; // must be same as numOfPostVotes
+const numOfFakeUsers = 500;
 const numOfHashes = 10;
-const numOfDiscussions = 100;
-const numOfPosts = 50;
+const numOfDiscussions = 50;
+const numOfPosts = 100;
 const numOfPostVotes = 500; // must be same as numOfFakeUsers
-const numOfDiscussionVotes = 10000;
+const numOfDiscussionVotes = 5000;
+const tokenOptionExpiration = '24h';
+const tokenTimeLeftRefresh = 3; // in hrs
+
+// prettier-ignore
 const safeUsrnameSqlLetters = [
-  '-',
-  '_',
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '0'
+  '-', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 
+  'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 
+  'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+  'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+  'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
 ];
 
+// prettier-ignore
 const safePwdSqlLetters = [
-  '!',
-  '@',
-  '#',
-  '$',
-  '%',
-  '^',
-  '&',
-  '*',
-  '(',
-  ')',
-  '-',
-  '_',
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '0'
+  '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', 'a',
+  'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+  'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
+  'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+  'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1',
+  '2', '3', '4', '5', '6', '7', '8', '9', '0'
 ];
 
 const accountStatusTypes = ['inactive', 'active', 'banned'];
@@ -181,6 +59,9 @@ const categoryNames = [
   'Music'
 ];
 
+// environment variables
+const secureKey = process.env.SECURE_KEY;
+
 module.exports = {
   // variables
   numOfDiscussions,
@@ -193,11 +74,16 @@ module.exports = {
   safePwdSqlLetters,
   accountStatusTypes,
   accountRoleTypes,
+  tokenOptionExpiration,
+  tokenTimeLeftRefresh,
 
   // methods
   getRandomIntInclusive,
   getRandomUserId,
 
   // seeds
-  categoryNames
+  categoryNames,
+
+  // environment variables
+  secureKey
 };

@@ -9,16 +9,19 @@ const router = express.Router();
 /***************************************************************************************************
  ******************************************** middleware ********************************************
  **************************************************************************************************/
-// None
+const { authenticate } = require('../config/middleware/authenticate.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
-// get top (limit 10) daily posts ordered by vote_count
-router.get('/top-daily', async (req, res, next) => {
+// create a post by a given user_id to a given discussion_id
+router.post('/:user_id', authenticate, async (req, res, next) => {
 	try {
-		postsDB.getTopDailyPosts().then(topDailyPosts => res.json(topDailyPosts));
+		const { discussion_id, body } = req.body;
+		return postsDB
+			.insert(user_id, discussion_id, body)
+			.then(() => res.status(201).json({ message: 'Post creation successful.' }));
 	} catch (err) {
 		next(err);
 	}

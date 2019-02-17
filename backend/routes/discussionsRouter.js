@@ -19,7 +19,8 @@ const router = express.Router();
 // get top (limit 10) daily discussions ordered by vote_count
 router.get('/top-daily', async (req, res, next) => {
 	try {
-		discussionsDB.getTopDailyDiscussions().then(topDailyDiscussions => res.json(topDailyDiscussions));
+		const topDailyDiscussions = await discussionsDB.getTopDailyDiscussions();
+		return res.status(200).json(topDailyDiscussions);
 	} catch (err) {
 		next(err);
 	}
@@ -38,12 +39,10 @@ router.get('/', (req, res) => {
 
 //GET Discussion by Discussion ID
 router.get('/:id', (req, res) => {
-	const id = req.params.id
+	const { id } = req.params;
 	return discussionsDB.findById(id)
-	.then(discussMap => {
-		res.status(200).json(discussMap)
-	})
-	.catch(err => res.status(500).json(err))
+		.then(discussion => res.status(200).json(discussion))
+		.catch(err => res.status(500).json(err));
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)

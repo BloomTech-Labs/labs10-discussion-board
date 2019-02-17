@@ -3,11 +3,12 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const db = require('../db/models/usersDB.js');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const base64Img = require('base64-img');
 const jwt = require('jsonwebtoken');
 const { check } = require('express-validator/check');
+const db = require('../db/models/usersDB.js');
 const {
   safeUsrnameSqlLetters,
   safePwdSqlLetters,
@@ -18,22 +19,10 @@ const {
 /***************************************************************************************************
  ******************************************** middleware *******************************************
  **************************************************************************************************/
-function generateToken(id, username) {
-  const payload = {
-    id: id,
-    username: username
-  };
-
-  const secret =
-    process.env.SECURE_KEY ||
-    'Should configure local .env file for secretString'; // hard coding this in the code is bad practice
-
-  const options = {
-    expiresIn: '12h' // 60 seconds... otherValues(20, '2 days', '10h', '7d'), a number represents seconds (not milliseconds)
-  };
-
-  return jwt.sign(payload, secret, options);
-}
+const {
+  authenticate,
+  generateToken
+} = require('../config/middleware/authenticate.js');
 
 const validateNewUsername = username => {
   if (username === '') return false;
@@ -72,6 +61,17 @@ const validateStatusSelected = status => {
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 router.post('/register', async (req, res, next) => {
+  /* use this example later to store as avatar
+
+    const url = 'https://static.techspot.com/images2/news/bigimage/2018/09/2018-09-04-image-6.png';
+		base64Img.requestBase64(url, function(err, res, body) {
+			// console.log("ERR", err);
+			// console.log("RES", res);
+			console.log("BODY", body.slice(0, 30));
+			// console.log(body);
+		});
+  */
+
   try {
     // username and password must keep rules of syntax
     if (!req.body.username || !validateNewUsername(req.body.username)) {
@@ -94,10 +94,20 @@ router.post('/register', async (req, res, next) => {
       status: req.body.status
     };
 
-    const userAddedResults = await db.insert(newUserCreds);
-    res
-      .status(201)
-      .json([{ message: 'success', usersAdded: userAddedResults.rowCount }]);
+    const userAddedResults = await db.insert(newUserCreds); // [ { id: 1, username: 'username' } ]
+
+    const token = await generateToken(
+      userAddedResults[0].id,
+      userAddedResults[0].username
+    );
+    return res.status(201).json([
+      {
+        id: userAddedResults[0].id,
+        token,
+        message: 'Registration successful.',
+        username: userAddedResults[0].username
+      }
+    ]);
   } catch (err) {
     // Postgress error code
     if (err.code === '23505') {
@@ -121,10 +131,102 @@ router.post('/login', async (req, res, next) => {
     // the client password matches the db hash password
     if (user && bcrypt.compareSync(userCreds.password, user.password)) {
       const token = await generateToken(user.id, user.username);
-      res.status(201).json([{ id: user.id, token }]);
+      res.status(201).json([
+        {
+          id: user.id,
+          token,
+          message: 'Log in successful.',
+          username: user.username
+        }
+      ]);
     } else {
       throw { code: 401 };
     }
+  } catch (err) {
+    if (err.code === 401) {
+      res.status(401).json([
+        {
+          error: 401,
+          message: 'invalid username/password'
+        }
+      ]);
+    } else {
+      next(err);
+    }
+  }
+});
+
+// log a user back in if their token is authenticated
+router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const user = await db.findById(user_id);
+    // if the user already exists in the DB
+    // you will get back an array with an object with user info inside it
+    if (user.length === 1) {
+      const token = await generateToken(user[0].id, user[0].username);
+      return res.status(201).json([
+        {
+          id: user[0].id,
+          token,
+          username: user[0].username,
+          email: user[0].email,
+          message: 'Logging back in successful.'
+        }
+      ]);
+    } else {
+      throw { code: 401 };
+    }
+  } catch (err) {
+    if (err.code === 401) {
+      res.status(401).json([
+        {
+          error: 401,
+          message: 'invalid user_id or more than one user returned'
+        }
+      ]);
+    } else {
+      next(err);
+    }
+  }
+});
+
+router.post('/auth0-login', async (req, res, next) => {
+  try {
+    const { email, name, picture } = req.body;
+    const user = await db.findByUsername(name);
+    // if the user already exists in the DB
+    if (user) {
+      const token = await generateToken(user.id, user.username);
+      return res.status(201).json([
+        {
+          id: user.id,
+          token,
+          username: user.username,
+          email: user.email,
+          message: 'Log in using auth0 credentials successful.'
+        }
+      ]);
+    }
+    // else, if user does not exist, register them first
+    const newUserCreds = {
+      username: name,
+      email,
+      status: 'active'
+    };
+    const userAddedResults = await db.insert(newUserCreds); // [ { id: 1, username: 'username' } ]
+    const token = await generateToken(
+      userAddedResults[0].id,
+      userAddedResults[0].username
+    );
+    return res.status(201).json([
+      {
+        id: userAddedResults[0].id,
+        token,
+        message: 'Registration using auth0 credentials successful.',
+        username: userAddedResults[0].username
+      }
+    ]);
   } catch (err) {
     if (err.code === 401) {
       res.status(401).json([

@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import auth0 from 'auth0-js';
+import { login } from '../store/actions';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
-const DivWrapper = styled.div`
-  background-color: black;
-  color: white;
-`;
-
 const FormLogin = styled.form`
   display: flex;
   flex-direction: column;
+  visibility: ${props => (props.isLoginDropdownClicked ? 'show' : 'hidden')};
+  z-index: 9999;
+  position: relative;
 `;
 
 /***************************************************************************************************
@@ -46,23 +45,37 @@ class LoginDropdown extends Component {
     });
   };
 
-  submitHandler = ev => {
+  submitHandler = (ev, loginType) => {
     ev.preventDefault();
-    // login(); // uncomment after you get it working
-    // After Login
-    this.setState({
-      username: '',
-      password: ''
-    });
+    switch (loginType) {
+      default:
+        this.normalLogin();
+    }
   };
 
-  login = () => {
-    // this.auth0.authorize()
+  normalLogin = () => {
+    const pathname = this.props.history.location.pathname;
+    const creds = { ...this.state };
+    this.setState(
+      {
+        username: '',
+        password: ''
+      },
+      () =>
+        this.props
+          .login(creds)
+          .then(() => this.props.setIsLoginDropdownClicked(false))
+          .then(() =>
+            pathname === '/'
+              ? this.props.history.push('/home')
+              : this.props.history.push(pathname)
+          )
+    );
   };
 
   render() {
     return (
-      <FormLogin>
+      <FormLogin isLoginDropdownClicked={this.props.isLoginDropdownClicked}>
         <input
           onChange={this.handleInputChange}
           placeholder='Username'
@@ -77,7 +90,10 @@ class LoginDropdown extends Component {
           name='password'
           autoComplete='off'
         />
-        <button type='submit' onClick={ev => this.submitHandler(ev)}>
+        <button
+          type='submit'
+          onClick={ev => this.submitHandler(ev, 'normalLogin')}
+        >
           Login
         </button>
       </FormLogin>
@@ -91,12 +107,11 @@ class LoginDropdown extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.isLoggedIn,
-    loggingInLoadingMessage: state.loggingInLoadingMessage
+    loggingInLoadingMessage: state.users.loggingInLoadingMessage
   };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  { login }
 )(LoginDropdown);

@@ -105,11 +105,12 @@
 - Heroku Deployment (Customer View) - https://symposium-backend.herokuapp.com/
 - Netlify Deployment (Customer VIew) - https://symposium-frontend.netlify.com/
 - Setup Gatsby - https://www.youtube.com/watch?v=5VGu6NWzLs4
-- Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
+- Labs10 Discussion Board - Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
 - Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
 - Balsamiq - https://balsamiq.cloud/snv27r3/pryeqxi/r2278
 - Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
 - Lambda Capstone Defense Rubric - https://docs.google.com/spreadsheets/d/1r3kOKVvkILBalLkNLTJFQ-gXf2FoPoaWooLcw2nifUk/edit#gid=0
+- Labs10 project Tracking Document - https://docs.google.com/spreadsheets/d/1oIw5MHPLv-zJxscj4Pks7YDlydZNqxrCAmra07q2GWk/edit#gid=1885109639
 
 # Table Schema's
 
@@ -156,22 +157,10 @@
 | Field     | Data Type (note, mods are individual roles assigned to a specific category) |
 | --------- | --------------------------------------------------------------------------- |
 | user_id   | foreign Key (id in users table)                                             |
-| avatar    | String (optional)(base64, or http link)                                     |
+| avatar    | Text (optional)(base64, or http link)                                       |
 | user_type | String (required) (user, gold-user, admin, and owner)                       |
 
 > Relational Tables
-
-## category_votes
-
-- many user_id's can vote on many category_id's
-- many category_id's can have many user_id's vote on it
-- one vote per many relationships between user_id and category_id
-
-| Field       | Data Type                         |
-| ----------- | --------------------------------- |
-| category_id | int(foreign key)                  |
-| user_id     | int(foreign key)                  |
-| type        | bool(1 for upvote 0 for downvote) |
 
 ## discussion_votes
 

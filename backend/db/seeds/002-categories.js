@@ -1,3 +1,5 @@
+const faker = require('faker');
+
 const {
   getRandomUserId,
   categoryNames
@@ -8,11 +10,12 @@ const generateSeeds = () => {
   for (let i = 0; i < categoryNames.length; i++) {
     arr.push({
       user_id: getRandomUserId(),
-      name: categoryNames[i]
+      name: categoryNames[i],
+      created_at: faker.date.recent(3)
     });
-  }
+  };
   return arr;
-}
+};
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries

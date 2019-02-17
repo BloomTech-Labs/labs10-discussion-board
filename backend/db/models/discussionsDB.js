@@ -2,6 +2,12 @@ const db = require('../dbConfig.js');
 
 // get top (limit 10) daily discussions ordered by vote_count
 const getTopDailyDiscussions = () => {
+    const postCountQuery = db('posts as p')
+        .select('p.discussion_id')
+        .count({ post_count: 'p.id' })
+        .join('discussions as d', 'd.id', 'p.discussion_id')
+        .groupBy('p.discussion_id');
+
     return db('discussions as d')
         .select(
             'd.id',
@@ -12,18 +18,20 @@ const getTopDailyDiscussions = () => {
             'd.title',
             'd.body',
             'd.created_at',
+            'pc.post_count'
         )
         .sum('dv.type as vote_count')
-        .count('p.id as post_count')
         .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
         .join('users as u', 'u.id', 'd.user_id')
         .join('categories as c', 'c.id', 'd.category_id')
-        .join('posts as p', 'p.discussion_id', 'd.id')
+        .leftOuterJoin(postCountQuery.as('pc'), function() {
+            this.on('pc.discussion_id', '=', 'd.id');
+        })
         // this whereRaw gets the created_at dates that are 24 hours away from the current time
         .whereRaw("d.created_at >= ?", [new Date(new Date().getTime() - (24 * 60 * 60 * 1000))])
-        .limit(10)
-        .groupBy('d.id', 'u.username', 'd.title', 'c.name', 'd.category_id')
-        .orderBy('vote_count', 'desc');
+        .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count')
+        .orderBy('vote_count', 'desc')
+        .limit(10);
 };
 
 //gets All Discussions
@@ -32,8 +40,47 @@ const getDiscussions = () => {
 };
 
 //Find By ID (discussions own ID)
-const findById = (id) => {
-    return db('discussions').where('id', id)
+const findById = id => {
+    let discussionQuery = db('discussions as d')
+        .select(
+            'd.id',
+            'd.user_id',
+            'u.username',
+            'd.category_id',
+            'c.name as category_name',
+            'd.title',
+            'd.body',
+            'd.created_at'
+        )
+        .sum('dv.type as discussion_votes')
+        .join('users as u', 'u.id', 'd.user_id')
+        .join('categories as c', 'c.id', 'd.category_id')
+        .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+        .where('d.id', id)
+        .groupBy('d.id', 'u.username', 'c.name');
+    let postsQuery = db('posts as p')
+        .select(
+            'p.id',
+            'p.user_id',
+            'u.username',
+            'p.discussion_id',
+            'p.body',
+            'p.created_at'
+        )
+        .sum('pv.type as post_votes')
+        .join('discussions as d', 'd.id', 'p.discussion_id')
+        .join('users as u', 'u.id', 'p.user_id')
+        .join('post_votes as pv', 'pv.post_id', 'p.id')
+        .where('p.discussion_id', id)
+        .groupBy('p.id', 'u.username')
+        .orderBy('post_votes', 'desc');
+    const promises = [ discussionQuery, postsQuery ];
+    return Promise.all(promises)
+        .then(results => {
+            const [ discussionResults, postsResults ] = results;
+            discussionResults[0].posts = postsResults;
+            return discussionResults;
+        });
 };
 
 //Find by User ID (Original Creator)
@@ -67,7 +114,7 @@ const remove = (id) => {
     return db('discussions')
             .where('id', id)
             .del()
-}
+};
 
 module.exports = {
     getTopDailyDiscussions,

@@ -9,7 +9,7 @@ import { TopDiscussionsView } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const LandingViewWrapper = styled.div`
-  background-color: green;
+  background-color: #eee7c8;
   width: 90%;
 `;
 
@@ -34,7 +34,6 @@ const LandingView = props => {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.isLoggedIn,
     loggingInLoadingMessage: state.loggingInLoadingMessage
   };
 };

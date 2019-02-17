@@ -1,35 +1,58 @@
 import {
   USER_LOGIN_LOADING,
   USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAILURE
+  USER_LOGIN_FAILURE,
+  USER_LOG_BACK_IN_LOADING,
+  USER_LOG_BACK_IN_SUCCESS,
+  USER_LOG_BACK_IN_FAILURE,
+  USER_SIGNOUT_SUCCESS,
+  USER_AUTH0_LOGIN_LOADING,
+  USER_AUTH0_LOGIN_SUCCESS,
+  USER_AUTH0_LOGIN_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
-  isLoggedIn: false,
+  user_id: 0,
+  username: '',
   loggingInLoadingMessage: false,
-  token: ''
+  error: null
 };
 
 export const UsersReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Login
+    case USER_AUTH0_LOGIN_LOADING:
     case USER_LOGIN_LOADING:
       return {
         ...state,
-        isLoggedIn: false,
-        loggingInLoadingMessage: true
+        loggingInLoadingMessage: true,
+        error: null
       };
+    case USER_AUTH0_LOGIN_SUCCESS:
+    case USER_LOG_BACK_IN_SUCCESS:
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
-        loggingInLoadingMessage: false
+        user_id: action.payload.id,
+        username: action.payload.username,
+        loggingInLoadingMessage: false,
+        error: null
       };
+    case USER_AUTH0_LOGIN_FAILURE:
+    case USER_LOG_BACK_IN_FAILURE:
     case USER_LOGIN_FAILURE:
       return {
         ...state,
-        isLoggedIn: false,
-        loggingInLoadingMessage: false
+        loggingInLoadingMessage: false,
+        error: action.payload
       };
+
+    // Signout
+    case USER_SIGNOUT_SUCCESS:
+      return initialState;
+
+    case USER_LOG_BACK_IN_LOADING:
+    case USER_AUTH0_LOGIN_LOADING:
     default:
       return state;
   }
