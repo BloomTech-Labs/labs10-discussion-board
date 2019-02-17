@@ -2,10 +2,15 @@ import {
 	TOP_DISCUSSIONS_LOADING,
 	TOP_DISCUSSIONS_SUCCESS,
 	TOP_DISCUSSIONS_FAILURE,
+
+	GET_DISCUSSIONS_LOADING,
+	GET_DISCUSSIONS_SUCCESS,
+	GET_DISCUSSIONS_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
 	topDiscussions: [],
+	discussionsByCat: []
 };
 
 export const DiscussionsReducer = (state = initialState, action) => {
@@ -18,7 +23,16 @@ export const DiscussionsReducer = (state = initialState, action) => {
 
 		case TOP_DISCUSSIONS_LOADING:
 		case TOP_DISCUSSIONS_FAILURE:
-		default:
-		return state;
+		
+		case GET_DISCUSSIONS_SUCCESS:
+			return {
+				...state,
+				discussionsByCat: action.payload,
+			};
+
+		case GET_DISCUSSIONS_LOADING:
+		case GET_DISCUSSIONS_FAILURE:
+			default:
+			return state;
 	}
 };

@@ -23,9 +23,9 @@ export const getTopDiscussions = () => dispatch => {
 		.catch(err => console.log(err));
 };
 
-export const getDiscussionsByCat = () => dispatch => {
+export const getDiscussionsByCat = (id) => dispatch => {
 	dispatch({ type: GET_DISCUSSIONS_LOADING });
-	return axios.get(`${backendURL}/discussions/category/:category_id`)
+	return axios.get(`${backendURL}/discussions/category/${id}`)
 		.then(res => dispatch({ type: GET_DISCUSSIONS_SUCCESS, payload: res.data }))
 		.catch(err => console.log(err));
 }

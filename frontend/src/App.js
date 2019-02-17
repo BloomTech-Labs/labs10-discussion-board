@@ -12,7 +12,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { Header, Profiles, Profile } from './components/index.js';
 
 // views
-import { LandingView, CategoriesView } from './views/index.js';
+import { LandingView, CategoriesView, DiscussionsView } from './views/index.js';
 
 // action creators
 import { auth0Login, logBackIn } from './store/actions/index.js';
@@ -147,7 +147,8 @@ class App extends Component {
           <Route exact path='/home' component={LandingView} />
           <Route exact path='/profiles' component={Profiles} />
           <Route exact path='/profile/:id' component={Profile} />
-          <Route path='/categories' component={CategoriesView} />
+          <Route exact path='/categories' component={CategoriesView} />
+          <Route exact path='/categories/:id' component={DiscussionsView} />
         </AppWrapper>
       );
     } else {
