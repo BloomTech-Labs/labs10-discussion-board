@@ -17,11 +17,12 @@ const DiscussionWrapper = styled.div`
 `;
 
 class Discussion extends Component {
-	state = { showAddPostForm: false };
+	state = { showAddPostForm: false, showEditPostForm: null };
 	toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
+	updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
 	componentDidMount = () => this.props.getDiscussionById(this.props.id);
 	render() {
-		const { showAddPostForm } = this.state;
+		const { showAddPostForm, showEditPostForm } = this.state;
 		const { discussion, historyPush } = this.props;
 		const {
 			body,
@@ -54,7 +55,12 @@ class Discussion extends Component {
 					/>
 				}
 
-				<PostsView posts = { posts } />
+				<PostsView
+					posts = { posts }
+					historyPush = { historyPush }
+					showEditPostForm = { showEditPostForm }
+					updateEditPostForm = { this.updateEditPostForm }
+				/>
 			</DiscussionWrapper>
 		);
 	}
