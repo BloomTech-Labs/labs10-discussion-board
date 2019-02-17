@@ -89,7 +89,7 @@ class Profile extends Component {
   }
 }
 
- Profile.propTypes = {
+Profile.propTypes = {
     getProfile: PropTypes.func,
     profile: PropTypes.arrayOf(
       PropTypes.shape({
@@ -103,7 +103,4 @@ const mapStateToProps = state => ({
         profile: state.profileRootReducer.singleProfileData
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfile }
-)(Profile);
+export default connect(mapStateToProps,{ getProfile })(Profile);

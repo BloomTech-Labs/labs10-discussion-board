@@ -50,6 +50,16 @@ const WrappedDiv = styled.div`
   }
   `;
 
+const ProfilesTitle = styled.div`
+  margin: 5px;
+  padding: 2%;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-around;
+  color: black;
+  font-size: 36px;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -83,10 +93,6 @@ class Profiles extends Component {
               <p className = 'property-content'> {profile.username}</p>
             </WrappedDiv>
             <WrappedDiv>
-              <p className = 'property-title'> Email: </p>
-              <p className = 'property-content'> {profile.email}</p>
-            </WrappedDiv>
-            <WrappedDiv>
               <p className = 'property-title'> Status: </p>
               <p className = 'property-content'> {profile.status}</p>
             </WrappedDiv>
@@ -99,14 +105,14 @@ class Profiles extends Component {
   
     return (
             <div>
-              <h1 className = 'property-titlee'> PROFILES </h1>
+              <ProfilesTitle> PROFILES </ProfilesTitle>
               {profileItems}
             </div>
         );
     }
 }
   
- Profiles.propTypes = {
+Profiles.propTypes = {
     getProfiles: PropTypes.func.isRequired,
     profile: PropTypes.shape({
       status: PropTypes.string,
