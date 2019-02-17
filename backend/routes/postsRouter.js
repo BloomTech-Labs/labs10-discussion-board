@@ -45,4 +45,17 @@ router.put('/:user_id', authenticate, async (req, res, next) => {
 	}
 });
 
+// remove post with given post id
+router.delete('/:user_id', authenticate, async (req, res, next) => {
+	try {
+		const post_id = req.get('post_id');
+		if (!post_id) return res.status(400).json({ error: 'Post ID is required.' });
+		return postsDB
+			.remove(post_id)
+			.then(() => res.status(201).json({ message: 'Post removal successful.' }));
+	} catch (err) {
+		next(err);
+	}
+});
+
 module.exports = router;
