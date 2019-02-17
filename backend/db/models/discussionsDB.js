@@ -40,8 +40,47 @@ const getDiscussions = () => {
 };
 
 //Find By ID (discussions own ID)
-const findById = (id) => {
-    return db('discussions').where('id', id)
+const findById = id => {
+    let discussionQuery = db('discussions as d')
+        .select(
+            'd.id',
+            'd.user_id',
+            'u.username',
+            'd.category_id',
+            'c.name as category_name',
+            'd.title',
+            'd.body',
+            'd.created_at'
+        )
+        .sum('dv.type as discussion_votes')
+        .join('users as u', 'u.id', 'd.user_id')
+        .join('categories as c', 'c.id', 'd.category_id')
+        .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+        .where('d.id', id)
+        .groupBy('d.id', 'u.username', 'c.name');
+    let postsQuery = db('posts as p')
+        .select(
+            'p.id',
+            'p.user_id',
+            'u.username',
+            'p.discussion_id',
+            'p.body',
+            'p.created_at'
+        )
+        .sum('pv.type as post_votes')
+        .join('discussions as d', 'd.id', 'p.discussion_id')
+        .join('users as u', 'u.id', 'p.user_id')
+        .join('post_votes as pv', 'pv.post_id', 'p.id')
+        .where('p.discussion_id', id)
+        .groupBy('p.id', 'u.username')
+        .orderBy('post_votes', 'desc');
+    const promises = [ discussionQuery, postsQuery ];
+    return Promise.all(promises)
+        .then(results => {
+            const [ discussionResults, postsResults ] = results;
+            discussionResults[0].posts = postsResults;
+            return discussionResults;
+        });
 };
 
 //Find by User ID (Original Creator)
