@@ -41,9 +41,14 @@ import {
 	EDIT_POST_SUCCESS,
 	EDIT_POST_FAILURE,
 
+	REMOVE_POST_LOADING,
+	REMOVE_POST_SUCCESS,
+	REMOVE_POST_FAILURE,
+
 	// Action Creators
 	addPost,
 	editPost,
+	removePost,
 } from './PostsActions.js';
 
 import {
@@ -149,6 +154,10 @@ export {
 	EDIT_POST_SUCCESS,
 	EDIT_POST_FAILURE,
 
+	REMOVE_POST_LOADING,
+	REMOVE_POST_SUCCESS,
+	REMOVE_POST_FAILURE,
+
 	// Categories Action Creators
 	getCategories,
 
@@ -173,4 +182,5 @@ export {
 	// Posts Action Creators
 	addPost,
 	editPost,
+	removePost,
 };
