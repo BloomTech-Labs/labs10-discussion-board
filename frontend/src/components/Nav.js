@@ -35,30 +35,22 @@ const Signout = styled.a`
 class Nav extends Component {
   clickSignout = ev => {
     ev.preventDefault();
-    this.setState({ isLoginClicked: false }, () => {
-      localStorage.removeItem('symposium_auth0_access_token');
-      localStorage.removeItem('symposium_auth0_expires_at');
-      return this.props.signout().then(() => this.props.history.push('/'));
-    });
+    localStorage.removeItem('symposium_auth0_access_token');
+    localStorage.removeItem('symposium_auth0_expires_at');
+    return this.props.signout().then(() => this.props.history.push('/'));
   };
 
   render() {
     return (
       <DivWrapper>
-        {localStorage.getItem('isLoggedIn') === 'true' ? (
-          <>
-            <Welcome>Welcome, { this.props.username }!</Welcome>
-            <Signout
-              onClick={ev => {
-                this.clickSignout(ev);
-              }}
-            >
-              Sign Out
-            </Signout>
-          </>
-        ) : (
-          null
-        )}
+        <Welcome>Welcome, {this.props.username}!</Welcome>
+        <Signout
+          onClick={ev => {
+            this.clickSignout(ev);
+          }}
+        >
+          Sign Out
+        </Signout>
       </DivWrapper>
     );
   }
@@ -71,7 +63,6 @@ class Nav extends Component {
 const mapStateToProps = state => {
   return {
     username: state.users.username,
-    isLoggedIn: state.users.isLoggedIn,
     loggingInLoadingMessage: state.users.loggingInLoadingMessage
   };
 };
