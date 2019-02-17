@@ -9,7 +9,7 @@ import TopDiscussion from './TopDiscussion.js';
 import PostCount from './PostCount.js';
 import VoteCount from './VoteCount.js';
 import Profiles from './Profiles.js';
-import Profile from './Profile.js';
+import Profile from '../views/ProfileView.js';
 import Post from './Post.js';
 import Settings from './Settings.js';
 
