@@ -8,12 +8,7 @@ import chevron from '../src/assets/img/chevron.png';
 import styled, { createGlobalStyle } from 'styled-components';
 
 // components
-import {
-  Header,
-  Profiles,
-  Profile,
-  Settings,
-} from './components/index.js';
+import { Header, Profiles, Profile, Settings } from './components/index.js';
 
 // views
 import { LandingView, CategoriesView, DiscussionView } from './views/index.js';
@@ -96,11 +91,7 @@ const authLockOptions = {
   rememberLastLogin: false
 };
 
-const lock = new Auth0Lock(
-  auth0ClientID,
-  auth0Domain,
-  authLockOptions,
-);
+const lock = new Auth0Lock(auth0ClientID, auth0Domain, authLockOptions);
 
 const webAuth = new auth0.WebAuth({
   domain: auth0Domain,
@@ -125,7 +116,7 @@ class App extends Component {
     this.state = {
       isLoginDropdownClicked: false
     };
-  };
+  }
   handleAuth0Login = () => {
     lock.show();
   };

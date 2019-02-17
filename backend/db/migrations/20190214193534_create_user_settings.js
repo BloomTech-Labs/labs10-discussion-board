@@ -1,23 +1,19 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('create_user_settings', function(tbl) {
+  return knex.schema.createTable('user_settings', function(tbl) {
     /*  Relationship
       - One user_id to one id
     */
-
-    // Primary Key 'id'
-    tbl.increments();
 
     // users reference key
     tbl
       .integer('user_id')
       .unsigned()
       .notNullable()
-      .unique()
       .references('id')
       .inTable('users')
       .onDelete('CASCADE');
 
-    // avatar: base64 or url
+    // avatar: base64
     tbl
       .text('avatar')
       .defaultTo(
@@ -30,5 +26,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('create_user_settings');
+  return knex.schema.dropTableIfExists('user_settings');
 };
