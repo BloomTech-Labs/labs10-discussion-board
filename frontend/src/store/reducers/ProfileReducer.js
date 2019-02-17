@@ -5,7 +5,14 @@ import {
   } from '../actions/index';
   
 const initialState = {
-    profile: []
+    profile: [
+      {
+        id: 0,
+        username: '',
+        email: '',
+        status: ''
+      }
+    ]
 };
 
   
