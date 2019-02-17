@@ -50,9 +50,9 @@ const findById = id => {
             'c.name as category_name',
             'd.title',
             'd.body',
-            'd.created_at'
+            'd.created_at',
+            db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
         )
-        .sum('dv.type as discussion_votes')
         .join('users as u', 'u.id', 'd.user_id')
         .join('categories as c', 'c.id', 'd.category_id')
         .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
@@ -65,15 +65,16 @@ const findById = id => {
             'u.username',
             'p.discussion_id',
             'p.body',
-            'p.created_at'
+            'p.created_at',
+            db.raw('SUM(COALESCE(pv.type, 0)) AS post_votes'),
         )
-        .sum('pv.type as post_votes')
         .join('discussions as d', 'd.id', 'p.discussion_id')
         .join('users as u', 'u.id', 'p.user_id')
-        .join('post_votes as pv', 'pv.post_id', 'p.id')
+        .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
         .where('p.discussion_id', id)
         .groupBy('p.id', 'u.username')
-        .orderBy('post_votes', 'desc');
+        .orderBy('post_votes', 'desc')
+        .orderBy('p.created_at', 'desc');
     const promises = [ discussionQuery, postsQuery ];
     return Promise.all(promises)
         .then(results => {
