@@ -2,12 +2,14 @@ const db = require('../dbConfig.js');
 
 //Gets all of the users in the db
 const getUsers = () => {
-  return db('users');
+  return db('users').select('id', 'username', 'email', 'status');
 };
 
 //Gets a user by their id
 const findById = id => {
-  return db('users').where({ id: Number(id) });
+  return db('users')
+    .where({ id: Number(id) })
+    .select('id', 'username', 'status');
 };
 
 //Gets a user by their username
@@ -36,6 +38,14 @@ const update = (id, user) => {
     .update(user);
 };
 
+// update password
+const updatePassword = (id, password) => {
+  return db('users')
+    .where({ id })
+    .update({ password });
+};
+
+// remove a user
 const remove = id => {
   return db('users')
     .where('id', Number(id))
@@ -49,5 +59,6 @@ module.exports = {
   insert,
   addUserSettings,
   update,
+  updatePassword,
   remove
 };
