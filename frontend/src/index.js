@@ -16,7 +16,6 @@ import {
 	DiscussionsReducer,
 	ProfilesReducer,
 	CategoriesReducer,
-	ProfileReducer,
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
@@ -25,7 +24,6 @@ const rootReducer = combineReducers({
 	discussions: DiscussionsReducer,
 	profiles: ProfilesReducer,
 	categories: CategoriesReducer,
-	profileRootReducer: ProfileReducer,
 });
 
 let store;

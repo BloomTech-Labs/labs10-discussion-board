@@ -100,7 +100,7 @@ Profile.propTypes = {
 };
   
 const mapStateToProps = state => ({
-        profile: state.profileRootReducer.singleProfileData
+        profile: state.profiles.singleProfileData
 });
 
 export default connect(mapStateToProps,{ getProfile })(Profile);
