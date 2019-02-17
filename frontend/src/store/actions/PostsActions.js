@@ -13,6 +13,10 @@ export const EDIT_POST_LOADING = 'EDIT_POST_LOADING';
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
 
+export const REMOVE_POST_LOADING = 'REMOVE_POST_LOADING';
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
@@ -40,4 +44,16 @@ export const editPost = (user_id, post_id, postBody, historyPush, discussion_id)
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/discussion/${ discussion_id }`))
 		.catch(err => dispatch({ type: EDIT_POST_FAILURE, payload: err }));
+};
+
+// remove a post
+export const removePost = (user_id, post_id, historyPush, discussion_id) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token, post_id } };
+	dispatch({ type: REMOVE_POST_LOADING });
+	return axios.delete(`${ backendURL }/posts/${ user_id }`, headers)
+		.then(() => dispatch({ type: REMOVE_POST_SUCCESS }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/discussion/${ discussion_id }`))
+		.catch(err => dispatch({ type: REMOVE_POST_FAILURE, payload: err }));
 };
