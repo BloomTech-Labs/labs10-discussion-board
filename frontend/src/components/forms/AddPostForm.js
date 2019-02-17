@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+
+// action creators
+import { addPost } from '../../store/actions/index.js';
 
 const AddPostFormWrapper = styled.form`
 	border: 1px solid blue;
@@ -11,8 +15,9 @@ class AddPostForm extends Component {
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	handleSubmit = e => {
 		e.preventDefault();
-		// const 
-		// console.log()
+		const { postBody } = this.state;
+		const { user_id, discussion_id, historyPush } = this.props;
+		return this.props.addPost(user_id, discussion_id, postBody, historyPush);
 	};
 	render() {
 		const { postBody } = this.state;
@@ -31,4 +36,4 @@ class AddPostForm extends Component {
 	}
 };
 
-export default AddPostForm;
+export default connect(null, { addPost })(AddPostForm);

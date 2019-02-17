@@ -14,6 +14,7 @@ import Post from './Post.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
+import EditPostForm from './forms/EditPostForm.js';
 
 export {
 	CategoriesList,
@@ -32,4 +33,5 @@ export {
 
 	// forms
 	AddPostForm,
+	EditPostForm,
 };
