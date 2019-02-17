@@ -9,10 +9,15 @@ export const ADD_POST_LOADING = 'ADD_POST_LOADING';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
+export const EDIT_POST_LOADING = 'EDIT_POST_LOADING';
+export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
+export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
+
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
-export const addPost = (user_id, discussion_id, postBody, historyPush) => dispatch => {
+// add a post
+ export const addPost = (user_id, discussion_id, postBody, historyPush) => dispatch => {
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
 	const body = { discussion_id, postBody };
@@ -22,4 +27,17 @@ export const addPost = (user_id, discussion_id, postBody, historyPush) => dispat
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/discussion/${ discussion_id }`))
 		.catch(err => dispatch({ type: ADD_POST_FAILURE, payload: err }));
+};
+
+// edit a post
+export const editPost = (user_id, post_id, postBody, historyPush, discussion_id) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
+	const body = { post_id, postBody };
+	dispatch({ type: EDIT_POST_LOADING });
+	return axios.put(`${ backendURL }/posts/${ user_id }`, body, headers)
+		.then(() => dispatch({ type: EDIT_POST_SUCCESS }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/discussion/${ discussion_id }`))
+		.catch(err => dispatch({ type: EDIT_POST_FAILURE, payload: err }));
 };
