@@ -66,6 +66,7 @@ const findById = id => {
             'p.discussion_id',
             'p.body',
             'p.created_at',
+            'p.last_edited_at',
             db.raw('SUM(COALESCE(pv.type, 0)) AS post_votes'),
         )
         .join('discussions as d', 'd.id', 'p.discussion_id')
