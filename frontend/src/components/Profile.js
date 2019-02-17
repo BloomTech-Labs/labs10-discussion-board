@@ -49,7 +49,7 @@ class Profile extends Component {
 
   render() {
     let profileItems;
-
+    console.log('test', this.props.profile)
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
     } else {
@@ -91,15 +91,16 @@ class Profile extends Component {
 
  Profile.propTypes = {
     getProfile: PropTypes.func,
-    profile: PropTypes.shape({
-      status: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-    })
+    profile: PropTypes.arrayOf(
+      PropTypes.shape({
+        status: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        email: PropTypes.string,
+    }))
 };
   
 const mapStateToProps = state => ({
-        singleProfile: state.profileRootReducer.singleProfileData
+        profile: state.profileRootReducer.singleProfileData
 });
 
 export default connect(
