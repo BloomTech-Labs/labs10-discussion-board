@@ -8,7 +8,7 @@ import {
   } from '../actions/index';
   
 const initialState = {
-    profiles: {
+    allProfiles: {
       loading: true,
       profiles: [],
     },
@@ -21,7 +21,7 @@ export const ProfilesReducer = (state = initialState, action) =>{
     case GET_PROFILES_SUCCESS:
         return {
         ...state,
-        profiles: {
+        allProfiles: {
           loading: false,
           profiles: action.payload
         }

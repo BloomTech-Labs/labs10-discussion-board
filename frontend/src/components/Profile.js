@@ -8,8 +8,8 @@ import styled from 'styled-components';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const ProfilesWrapper = styled.div`
-  margin: 4%;
+const ProfileWrapper = styled.div`
+  margin: 10px;
   padding: 10px;
   border: 1px solid black;
   display: flex;
@@ -39,6 +39,16 @@ const WrappedDiv = styled.div`
   }
 `;
 
+const ProfileTitle = styled.div`
+  margin: 5px;
+  padding: 2%;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-around;
+  color: black;
+  font-size: 36px;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -47,16 +57,18 @@ class Profile extends Component {
     this.props.getProfile(this.props.match.params.id);
   }
 
+  /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
+  profileItems displays our spinner component, however if our props contains a profile we display that profile
+  by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
     let profileItems;
-    console.log('test', this.props.profile)
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
     } else {
       if (this.props.profile) {
         profileItems = this.props.profile.map((profile, index) => (
           <div key={index}>
-            <ProfilesWrapper>
+            <ProfileWrapper>
               <WrappedDiv>
                 <p className='property-title'> </p>
                 <p className='property-content'> {profile.id}</p>
@@ -66,14 +78,10 @@ class Profile extends Component {
                 <p className='property-content'> {profile.username}</p>
               </WrappedDiv>
               <WrappedDiv>
-                <p className='property-title'> Email: </p>
-                <p className='property-content'> {profile.email}</p>
-              </WrappedDiv>
-              <WrappedDiv>
                 <p className='property-title'> Status: </p>
                 <p className='property-content'> {profile.status}</p>
               </WrappedDiv>
-            </ProfilesWrapper>
+            </ProfileWrapper>
           </div>
         ));
       } else {
@@ -82,7 +90,7 @@ class Profile extends Component {
     }
     return (
       <div>
-        <h1 className='ProfileTitle'> PROFILE </h1>
+        <ProfileTitle> PROFILE </ProfileTitle>
         {profileItems}
       </div>
     );
@@ -100,7 +108,7 @@ Profile.propTypes = {
 };
   
 const mapStateToProps = state => ({
-        profile: state.profiles.singleProfileData
+        profile: state.profilesData.singleProfileData
 });
 
 export default connect(mapStateToProps,{ getProfile })(Profile);

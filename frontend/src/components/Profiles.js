@@ -67,12 +67,12 @@ class Profiles extends Component {
     componentDidMount() {
       this.props.getProfiles();
     }
+    //onClick method to select a single user
     selectUsers = id => {
       this.props.history.push(
         `/profile/${id}`
       )
     }
-
 
     // declared profiles and loading to props we receive from state
     render() {
@@ -85,8 +85,8 @@ class Profiles extends Component {
     } else {
     
     /* if the length of profiles received is more than 0, our profileItems variable
-    will map through an array, and return that data, then we choose what properties 
-    via the profile parameter */
+    will map through an array to access its properties, and return that array, 
+    then we choose what properties to display via the profile parameter */
         if (profiles.length > 0) {
           profileItems = profiles.map( (profile, index) => 
           <div key= {index} onClick = { () => this.selectUsers(profile.id) } >
@@ -129,7 +129,7 @@ Profiles.propTypes = {
 };
   
 const mapStateToProps = state => ({
-        profiles: state.profiles.profiles
+        profiles: state.profilesData.allProfiles
 });
   
 export default connect(mapStateToProps, { getProfiles })(Profiles);
