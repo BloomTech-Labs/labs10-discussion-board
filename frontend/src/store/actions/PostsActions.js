@@ -12,12 +12,14 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
-export const addPost = (user_id, discussion_id, postBody) => dispatch => {
+export const addPost = (user_id, discussion_id, postBody, historyPush) => dispatch => {
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
 	const body = { discussion_id, postBody };
 	dispatch({ type: ADD_POST_LOADING });
 	return axios.post(`${ backendURL }/posts/${ user_id }`, body, headers)
 		.then(() => dispatch({ type: ADD_POST_SUCCESS }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/discussion/${ discussion_id }`))
 		.catch(err => dispatch({ type: ADD_POST_FAILURE, payload: err }));
 };
