@@ -29,4 +29,20 @@ router.post('/:user_id', authenticate, async (req, res, next) => {
 	}
 });
 
+// edit post with given post id
+router.put('/:user_id', authenticate, async (req, res, next) => {
+	try {
+		const { post_id, postBody } = req.body;
+		const last_edited_at = Date.now();
+		const post = { body: postBody, last_edited_at };
+		if (!postBody) return res.status(400).json({ error: 'Post body must not be empty.' });
+		if (!post_id) return res.status(400).json({ error: 'Post ID is required.' });
+		return postsDB
+			.update(post_id, post)
+			.then(() => res.status(201).json({ message: 'Post update successful.' }));
+	} catch (err) {
+		next(err);
+	}
+});
+
 module.exports = router;
