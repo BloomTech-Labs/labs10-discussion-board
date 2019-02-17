@@ -22,7 +22,7 @@ class Discussion extends Component {
 	componentDidMount = () => this.props.getDiscussionById(this.props.id);
 	render() {
 		const { showAddPostForm } = this.state;
-		const { discussion } = this.props;
+		const { discussion, historyPush } = this.props;
 		const {
 			body,
 			category_id,
@@ -45,7 +45,14 @@ class Discussion extends Component {
 				<p>Body: { body }</p>
 
 				<button onClick = { this.toggleAddPostForm }>Add a Post</button>
-				{ showAddPostForm && <AddPostForm user_id = { this.props.user_id } /> }
+				{
+					showAddPostForm &&
+					<AddPostForm
+						user_id = { this.props.user_id }
+						discussion_id = { id }
+						historyPush = { historyPush }
+					/>
+				}
 
 				<PostsView posts = { posts } />
 			</DiscussionWrapper>
