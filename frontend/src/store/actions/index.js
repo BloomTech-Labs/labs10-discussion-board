@@ -82,12 +82,17 @@ import {
 	USER_AUTH0_LOGIN_SUCCESS,
 	USER_AUTH0_LOGIN_FAILURE,
 
+	PASSWORD_UPDATE_LOADING,
+	PASSWORD_UPDATE_SUCCESS,
+	PASSWORD_UPDATE_FAILURE,
+
   // Action Creators
   register,
   login,
 	signout,
 	logBackIn,
 	auth0Login,
+	updatePassword,
 } from './UsersActions.js';
 
 
@@ -133,6 +138,10 @@ export {
 	USER_AUTH0_LOGIN_SUCCESS,
 	USER_AUTH0_LOGIN_FAILURE,
 
+	PASSWORD_UPDATE_LOADING,
+	PASSWORD_UPDATE_SUCCESS,
+	PASSWORD_UPDATE_FAILURE,
+
 	// Profile Actions
 	GET_PROFILES_LOADING,
 	GET_PROFILES_SUCCESS,
@@ -172,6 +181,7 @@ export {
 	signout,
 	logBackIn,
 	auth0Login,
+	updatePassword,
 
 	// Profile Action Creators
 	getProfiles,

@@ -22,6 +22,11 @@ export const USER_AUTH0_LOGIN_LOADING = 'USER_AUTH0_LOGIN_LOADING';
 export const USER_AUTH0_LOGIN_SUCCESS = 'USER_AUTH0_LOGIN_SUCCESS';
 export const USER_AUTH0_LOGIN_FAILURE = 'USER_AUTH0_LOGIN_FAILURE';
 
+// Update password
+export const PASSWORD_UPDATE_LOADING = 'PASSWORD_UPDATE_LOADING';
+export const PASSWORD_UPDATE_SUCCESS = 'PASSWORD_UPDATE_SUCCESS';
+export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -68,15 +73,26 @@ export const auth0Login = accessToken => dispatch => {
             payload: response.data[0]
           });
         })
-        .catch(err =>
-          dispatch({ type: USER_AUTH0_LOGIN_FAILURE, payload: err })
-        );
+        .catch(err => dispatch({ type: USER_AUTH0_LOGIN_FAILURE, payload: err }));
     })
     .catch(err => console.log(err));
 };
 
 export const register = () => dispatch => {
   // tell me what to do auth0
+};
+
+export const updatePassword = (oldPassword, newPassword, toggleEditPasswordForm) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { oldPassword, newPassword };
+  dispatch({ type: PASSWORD_UPDATE_LOADING });
+  return axios
+    .put(`${ backendUrl }/users/password/${ user_id }`, body, headers)
+    .then(() => dispatch({ type: PASSWORD_UPDATE_SUCCESS }))
+    .then(() => toggleEditPasswordForm())
+    .catch(err => dispatch({ type: PASSWORD_UPDATE_FAILURE, payload: err }));
 };
 
 export const signout = () => dispatch => {

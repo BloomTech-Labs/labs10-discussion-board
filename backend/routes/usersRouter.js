@@ -4,14 +4,17 @@
 require('dotenv').config();
 const express = require('express');
 const usersDB = require('../db/models/usersDB.js');
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 // const jwt = require('jsonwebtoken');
+
+// globals
+const { numOfHashes } = require('../config/globals.js');
 
 /***************************************************************************************************
  ******************************************** middleware *******************************************
  **************************************************************************************************/
-// None
+const { authenticate } = require('../config/middleware/authenticate.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
@@ -37,12 +40,33 @@ router.get('/:id', (req, res, next) => {
 });
     
 // Updates a user
-router.put('/:id', (req, res, next) => {
+router.put('/user/:id', (req, res, next) => {
   try {
     const { id } = req.params;
     const { username, password, email, status } = req.body;
     const newUser = { username, password, email, status };
     usersDB.update(id, newUser).then(user => res.status(200).json(user));
+  } catch (err) {
+		next(err);
+	}
+});
+
+// Update the password of a user given their ID
+router.put('/password/:user_id', authenticate, async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || oldPassword === '') throw { code: 401 };
+    if (!newPassword || newPassword === '') throw { code: 401 };
+    const user = await usersDB.findById(user_id);
+    if (user.length > 0 && bcrypt.compareSync(oldPassword, user[0].password)) {
+      const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
+      return usersDB.updatePassword(user_id, newHashedPassword).then(() => res.status(201).json({
+        message: 'Password update succesful.'
+      }));
+    } else {
+      throw { code: 401 };
+    }
   } catch (err) {
 		next(err);
 	}
