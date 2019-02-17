@@ -13,10 +13,11 @@ const getUsers = () => {
 
 //Gets a user by their id
 const findById = id => {
-  return db('users').where({ id: Number(id) }).select(
-    'id',
-    'username',
-    'status',   
+  return db('users').where({ id: Number(id) })
+    .select(
+      'id',
+      'username',
+      'status',   
   );
 };
 

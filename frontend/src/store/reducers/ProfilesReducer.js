@@ -32,14 +32,10 @@ export const ProfilesReducer = (state = initialState, action) =>{
         ...state,
         singleProfileData: action.payload
       };
-    case GET_PROFILES_LOADING:
-      return state;
-    case GET_PROFILES_FAILURE:
-      return state;
-    case GET_PROFILE_LOADING:
-      return state;
+    case GET_PROFILES_LOADING: 
+    case GET_PROFILES_FAILURE: 
+    case GET_PROFILE_LOADING:  
     case GET_PROFILE_FAILURE:
-      return state;
 		default:
       return state;
   } 
