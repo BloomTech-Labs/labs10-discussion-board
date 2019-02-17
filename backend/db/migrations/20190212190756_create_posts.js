@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
 
     //Foreign Key 'discussion_id'
     tbl
-      .integer('discussion_id') //6
+      .integer('discussion_id')
       .references('id')
       .inTable('discussions')
       .notNullable()
@@ -22,6 +22,8 @@ exports.up = function(knex, Promise) {
     tbl.text('body').notNullable();
 
     tbl.string('created_at').defaultTo(knex.fn.now());
+
+    tbl.string('last_edited_at');
   });
 };
 
