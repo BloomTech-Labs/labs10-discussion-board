@@ -55,7 +55,6 @@ class LoginDropdown extends Component {
 
   normalLogin = () => {
     const pathname = this.props.history.location.pathname;
-    console.log('login', this.props);
     const creds = { ...this.state };
     this.setState(
       {
@@ -75,7 +74,6 @@ class LoginDropdown extends Component {
   };
 
   render() {
-    console.log('start', this.props);
     return (
       <FormLogin isLoginDropdownClicked={this.props.isLoginDropdownClicked}>
         <input

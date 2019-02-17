@@ -13,8 +13,8 @@ const generateToken = async (id, username) => {
   tomorrow.setDate(tomorrow.getDate() + 1);
   const totalHours = tomorrow.getTime() / 1000 / 3600;
   const payload = {
-    id: id,
-    username: username,
+    id,
+    username,
     total_hours: totalHours
   };
 
