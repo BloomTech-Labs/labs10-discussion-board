@@ -2,22 +2,18 @@ import {
   USER_LOGIN_LOADING,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
-
   USER_LOG_BACK_IN_LOADING,
   USER_LOG_BACK_IN_SUCCESS,
   USER_LOG_BACK_IN_FAILURE,
-
   USER_SIGNOUT_SUCCESS,
-
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
-  USER_AUTH0_LOGIN_FAILURE,
+  USER_AUTH0_LOGIN_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
   user_id: 0,
   username: '',
-  isLoggedIn: false,
   loggingInLoadingMessage: false,
   error: null
 };
@@ -39,7 +35,6 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         user_id: action.payload.id,
         username: action.payload.username,
-        isLoggedIn: true,
         loggingInLoadingMessage: false,
         error: null
       };
