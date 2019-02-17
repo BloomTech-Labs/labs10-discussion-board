@@ -11,8 +11,16 @@ const PostWrapper = styled.div`
 	border: 1px solid black;
 `;
 
-const Post = ({ post, loggedInUserId, historyPush, showEditPostForm, updateEditPostForm }) => {
-	const handleClick = () => updateEditPostForm(id);
+const Post = ({
+	post,
+	loggedInUserId,
+	historyPush,
+	showEditPostForm,
+	updateEditPostForm,
+	handleRemovePost,
+}) => {
+	const handleEdit = () => updateEditPostForm(id);
+	const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
 	const {
 		body,
 		created_at,
@@ -28,15 +36,17 @@ const Post = ({ post, loggedInUserId, historyPush, showEditPostForm, updateEditP
 		lastEditDate = new Date(parseInt(last_edited_at));
 		lastEditDate = lastEditDate.toISOString();
 	}
+	const userCreatedPost = loggedInUserId === user_id;
 	return(
 		<PostWrapper>
+			{ userCreatedPost && <button onClick = { handleRemove }>REMOVE POST</button> }
 			<h1>POST</h1>
 			<p>post votes: { post_votes }</p>
 			<p>Posted by: { username } { moment(created_at).fromNow() }</p>
 			<p>Body: { body }</p>
 
 			{
-				loggedInUserId === user_id &&
+				userCreatedPost &&
 				(
 					showEditPostForm === id ?
 					<EditPostForm
@@ -47,7 +57,7 @@ const Post = ({ post, loggedInUserId, historyPush, showEditPostForm, updateEditP
 						updateEditPostForm = { updateEditPostForm }
 					/> :
 					<>
-						<button onClick = { handleClick }>Edit Post</button>
+						<button onClick = { handleEdit }>Edit Post</button>
 						{ last_edited_at && <p>Last edited { moment(lastEditDate).fromNow() }</p> }
 					</>
 				)

@@ -9,7 +9,13 @@ const PostsViewWrapper = styled.div`
 	border: 1px solid black;
 `;
 
-const PostsView = ({ posts, historyPush, showEditPostForm, updateEditPostForm }) => {
+const PostsView = ({
+	posts,
+	historyPush,
+	showEditPostForm,
+	updateEditPostForm,
+	handleRemovePost,
+}) => {
 	return(
 		<PostsViewWrapper>
 			{ posts.map((post, index) =>
@@ -19,6 +25,7 @@ const PostsView = ({ posts, historyPush, showEditPostForm, updateEditPostForm })
 					historyPush = { historyPush }
 					showEditPostForm = { showEditPostForm }
 					updateEditPostForm = { updateEditPostForm }
+					handleRemovePost = { handleRemovePost }
 				/>)
 			}
 		</PostsViewWrapper>
