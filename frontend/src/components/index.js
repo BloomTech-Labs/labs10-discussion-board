@@ -11,5 +11,6 @@ import PostCount from './PostCount.js';
 import VoteCount from './VoteCount.js';
 import Profiles from './Profiles.js';
 import Profile from './Profile.js';
+import Post from './Post.js';
 
-export { CategoriesList, Categories, LoginDropdown, Nav, TopPost, Header, TopDiscussions, TopDiscussion, PostCount, VoteCount, Profiles, Profile };
+export { CategoriesList, Categories, LoginDropdown, Nav, TopPost, Header, TopDiscussions, TopDiscussion, PostCount, VoteCount, Profiles, Profile, Post };
