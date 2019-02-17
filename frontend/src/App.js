@@ -11,7 +11,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { Header, Profiles, Profile } from './components/index.js';
 
 // views
-import { LandingView, CategoriesView } from './views/index.js';
+import { LandingView, CategoriesView, DiscussionView } from './views/index.js';
 
 // action creators
 import { auth0Login, logBackIn } from './store/actions/index.js';
@@ -87,7 +87,15 @@ const NotLoggedIn = styled.div`
   font-size: 18px;
 `;
 
-const lock = new Auth0Lock(auth0ClientID, auth0Domain);
+const authLockOptions = {
+  rememberLastLogin: false
+};
+
+const lock = new Auth0Lock(
+  auth0ClientID,
+  auth0Domain,
+  authLockOptions,
+);
 
 const webAuth = new auth0.WebAuth({
   domain: auth0Domain,
@@ -106,6 +114,7 @@ class App extends Component {
         );
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
+        console.log("AUTHRES", authResult);
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });
@@ -143,6 +152,7 @@ class App extends Component {
           <Route exact path='/profiles' component={Profiles} />
           <Route exact path='/profile/:id' component={Profile} />
           <Route path='/categories' component={CategoriesView} />
+          <Route path='/discussion/:id' component={DiscussionView} />
         </AppWrapper>
       );
     } else {
