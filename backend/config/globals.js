@@ -5,6 +5,8 @@ const numOfDiscussions = 50;
 const numOfPosts = 100;
 const numOfPostVotes = 500; // must be same as numOfFakeUsers
 const numOfDiscussionVotes = 5000;
+const tokenOptionExpiration = '24h';
+const tokenTimeLeftRefresh = 3; // in hrs
 
 // prettier-ignore
 const safeUsrnameSqlLetters = [
@@ -72,6 +74,8 @@ module.exports = {
   safePwdSqlLetters,
   accountStatusTypes,
   accountRoleTypes,
+  tokenOptionExpiration,
+  tokenTimeLeftRefresh,
 
   // methods
   getRandomIntInclusive,
@@ -81,5 +85,5 @@ module.exports = {
   categoryNames,
 
   // environment variables
-  secureKey,
+  secureKey
 };
