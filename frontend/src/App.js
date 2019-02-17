@@ -114,14 +114,13 @@ class App extends Component {
         );
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
-        console.log("AUTHRES", authResult);
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });
     this.state = {
       isLoginDropdownClicked: false
     };
-  }
+  };
   handleAuth0Login = () => {
     lock.show();
   };

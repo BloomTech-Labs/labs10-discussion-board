@@ -10,19 +10,23 @@ import { AddPostForm } from './index.js';
 import { PostsView } from '../views/index.js';
 
 // action creators
-import { getDiscussionById } from '../store/actions/index.js';
+import { getDiscussionById, removePost } from '../store/actions/index.js';
 
 const DiscussionWrapper = styled.div`
     width: 90%;
 `;
 
 class Discussion extends Component {
-	state = { showAddPostForm: false };
+	state = { showAddPostForm: false, showEditPostForm: null };
 	toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
+	updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
+	handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
+		return this.props.removePost(user_id, post_id, historyPush, discussion_id);
+	};
 	componentDidMount = () => this.props.getDiscussionById(this.props.id);
 	render() {
-		const { showAddPostForm } = this.state;
-		const { discussion } = this.props;
+		const { showAddPostForm, showEditPostForm } = this.state;
+		const { discussion, historyPush } = this.props;
 		const {
 			body,
 			category_id,
@@ -45,9 +49,22 @@ class Discussion extends Component {
 				<p>Body: { body }</p>
 
 				<button onClick = { this.toggleAddPostForm }>Add a Post</button>
-				{ showAddPostForm && <AddPostForm user_id = { this.props.user_id } /> }
+				{
+					showAddPostForm &&
+					<AddPostForm
+						user_id = { this.props.user_id }
+						discussion_id = { id }
+						historyPush = { historyPush }
+					/>
+				}
 
-				<PostsView posts = { posts } />
+				<PostsView
+					posts = { posts }
+					historyPush = { historyPush }
+					showEditPostForm = { showEditPostForm }
+					updateEditPostForm = { this.updateEditPostForm }
+					handleRemovePost = { this.handleRemovePost }
+				/>
 			</DiscussionWrapper>
 		);
 	}
@@ -58,4 +75,4 @@ const mapStateToProps = state => ({
 	user_id: state.users.user_id,
 });
 
-export default connect(mapStateToProps, { getDiscussionById })(Discussion);
+export default connect(mapStateToProps, { getDiscussionById, removePost })(Discussion);
