@@ -29,11 +29,21 @@ router.get('/', (req, res, next) => {
   }
 });
 
+// Gets a list of discussions created by the user
+router.get('/discussions/:user_id', (req, res, next) => {
+  try{
+    const {user_id} = req.params;
+    return usersDB.getAllDiscussions(user_id).then(user_discussions => res.status(200).json(user_discussions));
+  } catch (err) {
+    next(err);
+  }
+})
+
 // Gets a user by their ID (mock data)
-router.get('/:id', (req, res, next) => {
+router.get('/user/:user_id', (req, res, next) => {
   try {
-    const { id } = req.params;
-    usersDB.findById(id).then(user => res.status(200).json(user))
+    const { user_id } = req.params;
+    return usersDB.findById(user_id).then(user => res.status(200).json(user))
   } catch (err) {
     next(err);
   }
