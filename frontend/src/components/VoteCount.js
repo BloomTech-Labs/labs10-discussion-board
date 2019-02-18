@@ -12,6 +12,12 @@ const VoteCountWrapper = styled.div`
 	margin: 5px;
 	padding: 10px;
 	border: 1px solid black;
+		i {
+			:hover {
+			cursor: pointer;
+			color: #8ab4f7;
+			}
+		}
 `;
 
 /***************************************************************************************************
