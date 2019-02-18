@@ -21,7 +21,6 @@ const DiscussionsViewWrapper = styled.div`
 
 class Discussions extends Component {
     componentDidMount = () => {
-        console.log('props', this.props)
         this.props.getDiscussionsByCat(this.props.id)
     };
 
