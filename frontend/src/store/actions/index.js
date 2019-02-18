@@ -99,6 +99,7 @@ import {
 	PASSWORD_UPDATE_FAILURE,
 
 	DISPLAY_ERROR,
+	DISPLAY_MESSAGE,
 
 	// Action Creators
 	register,
@@ -108,6 +109,7 @@ import {
 	auth0Login,
 	updatePassword,
 	displayError,
+	displayMessage,
 } from './UsersActions.js';
 
 
@@ -162,6 +164,7 @@ export {
 	PASSWORD_UPDATE_FAILURE,
 
 	DISPLAY_ERROR,
+	DISPLAY_MESSAGE,
 
 	// Profile Actions
 	GET_PROFILES_LOADING,
@@ -209,6 +212,7 @@ export {
 	auth0Login,
 	updatePassword,
 	displayError,
+	displayMessage,
 
 	// Profile Action Creators
 	getProfiles,

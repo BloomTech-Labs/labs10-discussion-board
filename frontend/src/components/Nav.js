@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { signout } from '../store/actions';
+import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+// action creators
+import { signout } from '../store/actions';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -41,9 +44,10 @@ class Nav extends Component {
   };
 
   render() {
+    const { user_id, username } = this.props;
     return (
       <DivWrapper>
-        <Welcome>Welcome, {this.props.username}!</Welcome>
+        <Welcome>Welcome, <Link to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
         <Signout
           onClick={ev => {
             this.clickSignout(ev);
@@ -54,18 +58,17 @@ class Nav extends Component {
       </DivWrapper>
     );
   }
-}
+};
 
 // Nav.propTypes = {
 //   propertyName: PropTypes.string
 // }
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
+    user_id: state.users.user_id,
     username: state.users.username,
     loggingInLoadingMessage: state.users.loggingInLoadingMessage
-  };
-};
+});
 
 export default connect(
   mapStateToProps,

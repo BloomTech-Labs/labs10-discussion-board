@@ -15,6 +15,7 @@ import Profile from '../views/ProfileView.js';
 import Post from './Post.js';
 import Settings from './Settings.js';
 import Error from './Error.js';
+import Message from './Message.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -39,6 +40,7 @@ export {
 	Post,
 	Settings,
 	Error,
+	Message,
 
 	// forms
 	AddPostForm,
