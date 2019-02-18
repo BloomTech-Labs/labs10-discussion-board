@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
 
@@ -91,7 +92,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
 			<div className = 'content'>
 				<div>
-					<span className = 'title'>{ title }</span>&#8201;
+					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
 					<span className = 'category'>/d/{ category_name }</span>
 				</div>
 
@@ -102,7 +103,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 				<p>{ body }</p>
 			</div>
 
-			<PostCount post_count = { post_count } />
+			<PostCount post_count = { post_count || 0 } />
 		</TopDiscussionWrapper>
 	);
 };
