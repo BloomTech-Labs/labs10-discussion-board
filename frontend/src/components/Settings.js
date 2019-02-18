@@ -44,7 +44,7 @@ class Settings extends Component {
 };
 
 const mapStateToProps = state => ({
-	profile: state.profile.profile,
+	profile: state.profilesData.singleProfileData,
 });
 
 export default connect(mapStateToProps, { getProfile })(Settings);
