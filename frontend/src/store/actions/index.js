@@ -10,28 +10,23 @@ import {
 import {
 	// Actions
 		//TOP DISCUSSIONS
-  TOP_DISCUSSIONS_LOADING,
-  TOP_DISCUSSIONS_SUCCESS,
-	TOP_DISCUSSIONS_FAILURE,
+ 	 	TOP_DISCUSSIONS_LOADING,
+  		TOP_DISCUSSIONS_SUCCESS,
+		TOP_DISCUSSIONS_FAILURE,
 	
-<<<<<<< HEAD
 		//GET DISCUSSIONS
 		GET_DISCUSSIONS_LOADING,
 		GET_DISCUSSIONS_SUCCESS,
 		GET_DISCUSSIONS_FAILURE,
 
-  // Action Creators
-	getTopDiscussions,
-	getDiscussionsByCat
-=======
-	GET_DISCUSSION_BY_ID_LOADING,
-	GET_DISCUSSION_BY_ID_SUCCESS,
-	GET_DISCUSSION_BY_ID_FAILURE,
+		GET_DISCUSSION_BY_ID_LOADING,
+		GET_DISCUSSION_BY_ID_SUCCESS,
+		GET_DISCUSSION_BY_ID_FAILURE,
 
   // Action Creators
-	getTopDiscussions,
-	getDiscussionById,
->>>>>>> 45ca495b0ece7c281d1ffca723795b926702e2af
+		getTopDiscussions,
+		getDiscussionsByCat,
+		getDiscussionById,
 } from './DiscussionsActions.js';
 
 import {
@@ -164,8 +159,8 @@ export {
 	GET_PROFILES_FAILURE,
 
 	GET_PROFILE_LOADING,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+ 	GET_PROFILE_SUCCESS,
+  	GET_PROFILE_FAILURE,
 
 
 	// Posts Actions
@@ -186,11 +181,8 @@ export {
 
 	// Discussion Action Creators
 	getTopDiscussions,
-<<<<<<< HEAD
 	getDiscussionsByCat,
-=======
 	getDiscussionById,
->>>>>>> 45ca495b0ece7c281d1ffca723795b926702e2af
 
 	// Discussion Vote Action Creators
 	handleDiscussionVote,
