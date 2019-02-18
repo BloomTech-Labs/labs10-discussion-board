@@ -37,8 +37,7 @@ const AppWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  min-height: 100vh;
-  width: 95vw;
+  width: 100%;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -53,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
 		  flex-wrap: wrap;
       flex-direction: column;
       background: #EEE7C8;
+      width: 100%;
 	}
 `;
 
@@ -114,6 +114,7 @@ class App extends Component {
       // prettier-ignore
       return (
         <AppWrapper>
+          <GlobalStyle />
           <Switch>
             <Route exact path='/register' component={RegisterView} />
             <Route render={props => <Auth {...props} handleAuth0Login={this.handleAuth0Login} />}/>

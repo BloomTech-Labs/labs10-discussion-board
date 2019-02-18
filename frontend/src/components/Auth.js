@@ -12,6 +12,7 @@ const NotLoggedIn = styled.div`
   background-color: gray;
   color: white;
   font-size: 18px;
+  width: 100%;
 `;
 
 const DivAuth = styled.div`

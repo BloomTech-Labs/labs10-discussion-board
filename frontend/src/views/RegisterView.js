@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const DivWrapper = styled.div`
   background-color: black;
   color: white;
+  width: 90%;
 `;
 
 /***************************************************************************************************
