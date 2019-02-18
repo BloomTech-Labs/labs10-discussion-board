@@ -62,9 +62,7 @@ const TopDiscussionWrapper = styled.div`
 	p {
 		margin-left: 10px;
 		&:hover {
-			background-color:  rgba(255, 255, 255, 0.13);
 			cursor: pointer;
-			color:white;
 		}
 	}
 `;
@@ -97,7 +95,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 
 				<div>
 					<span className = 'nameanddate'>{ username }</span>&#8201;
-					<span className = 'nameanddate'> - { moment(created_at).fromNow() }</span>
+					<span className = 'timestamp'> - { moment(created_at).fromNow() }</span>
 				</div>
 				<p>{ body }</p>
 			</div>
