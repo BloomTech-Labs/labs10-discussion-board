@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // helpers
-import { handleError } from '../../helpers/index.js';
+import { handleError, handleMessage } from '../../helpers/index.js';
 
 // globals
 const { backendUrl, auth0Domain } = require('../../globals/globals.js');
@@ -32,8 +32,9 @@ export const PASSWORD_UPDATE_LOADING = 'PASSWORD_UPDATE_LOADING';
 export const PASSWORD_UPDATE_SUCCESS = 'PASSWORD_UPDATE_SUCCESS';
 export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
 
-// display errror
+// display errors and messages
 export const DISPLAY_ERROR = 'DISPLAY_ERROR';
+export const DISPLAY_MESSAGE = 'DISPLAY_MESSAGE';
 
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
@@ -102,7 +103,7 @@ export const updatePassword = (
   dispatch({ type: PASSWORD_UPDATE_LOADING });
   return axios
     .put(`${backendUrl}/users/password/${user_id}`, body, headers)
-    .then(() => dispatch({ type: PASSWORD_UPDATE_SUCCESS }))
+    .then(() => displayMessage('Password has been updated.', PASSWORD_UPDATE_SUCCESS)(dispatch))
     .then(() => toggleEditPasswordForm())
     .catch(err => handleError(err, PASSWORD_UPDATE_FAILURE)(dispatch));
 };
@@ -112,7 +113,7 @@ export const signout = () => dispatch => {
   localStorage.removeItem('symposium_user_id');
   localStorage.removeItem('symposium_auth0_access_token');
   localStorage.removeItem('symposium_auth0_expires_at');
-  dispatch({ type: USER_SIGNOUT_SUCCESS });
+  displayMessage('You have been signed out. Thanks for coming by!', USER_SIGNOUT_SUCCESS)(dispatch);
   return Promise.resolve();
 };
 
@@ -120,6 +121,14 @@ export const displayError = errMsg => dispatch => {
 	dispatch({
 		type: DISPLAY_ERROR,
 		payload: errMsg,
+	});
+	return Promise.resolve();
+};
+
+export const displayMessage = message => dispatch => {
+	dispatch({
+		type: DISPLAY_MESSAGE,
+		payload: message,
 	});
 	return Promise.resolve();
 };
