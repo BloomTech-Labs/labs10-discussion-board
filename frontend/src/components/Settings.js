@@ -23,7 +23,7 @@ class Settings extends Component {
 			username,
 			email,
 			status,
-		} = this.props.profile[0];
+		} = this.props.profile;
 		return(
 			<SettingsWrapper>
 				<h1>{ username }'s Settings</h1>
@@ -43,7 +43,7 @@ class Settings extends Component {
 };
 
 const mapStateToProps = state => ({
-	profile: state.profile.profile,
+	profile: state.profilesData.singleProfileData,
 });
 
 export default connect(mapStateToProps, { getProfile })(Settings);
