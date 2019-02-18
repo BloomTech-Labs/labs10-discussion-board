@@ -31,7 +31,6 @@ export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
 export const login = creds => dispatch => {
-  console.log(creds);
   dispatch({ type: USER_LOGIN_LOADING });
   return axios
     .post(`${backendUrl}/auth/login`, creds)
