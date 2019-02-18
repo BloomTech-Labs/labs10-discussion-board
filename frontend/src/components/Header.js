@@ -23,6 +23,7 @@ const StyledHeader = styled.div`
       cursor: pointer;
       color: black;
     }
+  }
 `;
 
 const TitleAndLogo = styled.div`
@@ -46,29 +47,27 @@ const SubHeader = styled.div`
   margin-left: 187px;
 `;
 
-
-
 const Header = ({ history }) => {
-    return (
-      <StyledHeader>
-        <TitleAndLogo>
-          <img src={meeting} alt='discussion' />
-          <Title>
-            <h1>Symposium</h1>
-            <SubHeader>
-              <h2>The discussion starts here</h2>
-            </SubHeader>
-          </Title>
-        </TitleAndLogo>
-        <Link className='link td-link' to='/home'>
-          Top Discussions
-        </Link>
-        <Link className='link c-link' to='/categories'>
-          Categories
-        </Link>
-        <Nav history = { history } />
-      </StyledHeader>
-    );
+  return (
+    <StyledHeader>
+      <TitleAndLogo>
+        <img src={meeting} alt='discussion' />
+        <Title>
+          <h1>Symposium</h1>
+          <SubHeader>
+            <h2>The discussion starts here</h2>
+          </SubHeader>
+        </Title>
+      </TitleAndLogo>
+      <Link className='link td-link' to='/home'>
+        Top Discussions
+      </Link>
+      <Link className='link c-link' to='/categories'>
+        Categories
+      </Link>
+      <Nav history={history} />
+    </StyledHeader>
+  );
 };
 
 export default Header;

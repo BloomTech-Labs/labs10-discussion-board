@@ -1,10 +1,8 @@
+import Auth from './Auth.js';
 import CategoriesList from './CategoriesList.js';
 import Categories from './Categories.js';
 import Discussion from './Discussion.js';
-<<<<<<< HEAD
 import Discussions from './Discussions.js';
-=======
->>>>>>> 45ca495b0ece7c281d1ffca723795b926702e2af
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import Header from './Header.js';
@@ -23,9 +21,11 @@ import EditPostForm from './forms/EditPostForm.js';
 import EditPasswordForm from './forms/EditPasswordForm.js';
 
 export {
-	CategoriesList,
+  Auth,
+  CategoriesList,
 	Categories,
-	Discussion,
+  Discussion,
+  Discussions,
 	LoginDropdown,
 	Nav,
 	Header,
@@ -38,12 +38,8 @@ export {
 	Post,
 	Settings,
 
-<<<<<<< HEAD
-export { CategoriesList, Categories, Discussion, Discussions, LoginDropdown, Nav, TopPost, Header, TopDiscussions, TopDiscussion, PostCount, VoteCount, Profiles, Profile };
-=======
 	// forms
 	AddPostForm,
 	EditPostForm,
 	EditPasswordForm,
 };
->>>>>>> 45ca495b0ece7c281d1ffca723795b926702e2af
