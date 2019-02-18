@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
 
@@ -18,10 +19,12 @@ const TopDiscussionWrapper = styled.div`
 	box-shadow: 2px 3px 2px 2px gray;
 
 	.title {
+		text-decoration: none;
 		font-weight: bold;
 		font-size: 18px;
 		color: black;
 		&:hover {
+			text-decoration: underline;
 			background-color:  rgba(255, 255, 255, 0.13);
 			cursor: pointer;
 			color:white;
@@ -31,23 +34,21 @@ const TopDiscussionWrapper = styled.div`
 		font-size: 18px;
 		color: black;
 		&:hover {
+			text-decoration: underline;
 			background-color:  rgba(255, 255, 255, 0.13);
 			cursor: pointer;
 			color:white;
 		}
 	}
 	.nameanddate {
+		text-decoration: none;
 		font-size: 14px;
 		color: black;
 		&:hover {
+			text-decoration: underline;
 			background-color:  rgba(255, 255, 255, 0.13);
 			cursor: pointer;
 			color:white;
-		}
-		cursor: pointer;
-		
-		:hover {
-			text-decoration: underline;
 		}
 	}
 
@@ -62,7 +63,6 @@ const TopDiscussionWrapper = styled.div`
 	p {
 		margin-left: 10px;
 		&:hover {
-			cursor: pointer;
 		}
 	}
 `;
@@ -89,18 +89,23 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
 			<div className = 'content'>
 				<div>
-					<span className = 'title'>{ title }</span>&#8201;
+					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
 					<span className = 'category'>/d/{ category_name }</span>
 				</div>
 
 				<div>
-					<span className = 'nameanddate'>{ username }</span>&#8201;
+					<Link
+						to = { `/profile/${ user_id }` }
+						className = 'nameanddate'
+					>
+						{ username }
+					</Link>&#8201;
 					<span className = 'timestamp'> - { moment(created_at).fromNow() }</span>
 				</div>
 				<p>{ body }</p>
 			</div>
 
-			<PostCount post_count = { post_count } />
+			<PostCount post_count = { post_count || 0 } />
 		</TopDiscussionWrapper>
 	);
 };

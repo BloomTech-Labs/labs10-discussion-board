@@ -12,6 +12,7 @@ import {
   Profile,
   Settings,
   Error,
+  Message,
   Auth
 } from './components/index.js';
 
@@ -99,7 +100,7 @@ class App extends Component {
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   render() {
-    const { error, history } = this.props;
+    const { error, history, message } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <AppWrapper>
@@ -113,6 +114,7 @@ class App extends Component {
           <Route path='/settings/:id' component={Settings} />
 
           { error && <Error error = { error } /> }
+          { message && <Message message = { message } /> }
         </AppWrapper>
       );
     } else {
@@ -125,6 +127,7 @@ class App extends Component {
             <Route render={props => <Auth {...props} handleAuth0Login={this.handleAuth0Login} />}/>
           </Switch>
           { error && <Error error = { error } /> }
+          { message && <Message message = { message } /> }
         </AppWrapper>
       );
     }
@@ -133,6 +136,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   error: state.users.error,
+  message: state.users.message,
 });
 
 export default connect(
