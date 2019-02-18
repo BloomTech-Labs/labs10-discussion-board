@@ -31,6 +31,7 @@ class Settings extends Component {
 				<p>Email: { email || 'N/A' }</p>
 				<button>{ email ? 'Change' : 'Set' } email</button>
 				<button onClick = { this.toggleEditPasswordForm }>Change password</button>
+				<button>Change avatar</button>
 				{
 					showEditPasswordForm &&
 					<EditPasswordForm
@@ -43,7 +44,7 @@ class Settings extends Component {
 };
 
 const mapStateToProps = state => ({
-	profile: state.profile.profile,
+	profile: state.profilesData.singleProfileData,
 });
 
 export default connect(mapStateToProps, { getProfile })(Settings);

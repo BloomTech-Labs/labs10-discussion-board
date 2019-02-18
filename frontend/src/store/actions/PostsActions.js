@@ -1,5 +1,8 @@
 import axios	from 'axios';
 
+// helpers
+import { handleError } from '../../helpers/index.js';
+
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 /***************************************************************************************************
@@ -21,7 +24,7 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
  ********************************************** Actions ********************************************
  **************************************************************************************************/
 // add a post
- export const addPost = (user_id, discussion_id, postBody, historyPush) => dispatch => {
+export const addPost = (user_id, discussion_id, postBody, historyPush) => dispatch => {
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
 	const body = { discussion_id, postBody };
@@ -30,7 +33,7 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 		.then(() => dispatch({ type: ADD_POST_SUCCESS }))
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/discussion/${ discussion_id }`))
-		.catch(err => dispatch({ type: ADD_POST_FAILURE, payload: err }));
+		.catch(err => handleError(err, ADD_POST_FAILURE)(dispatch));
 };
 
 // edit a post
@@ -43,7 +46,7 @@ export const editPost = (user_id, post_id, postBody, historyPush, discussion_id)
 		.then(() => dispatch({ type: EDIT_POST_SUCCESS }))
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/discussion/${ discussion_id }`))
-		.catch(err => dispatch({ type: EDIT_POST_FAILURE, payload: err }));
+		.catch(err => handleError(err, EDIT_POST_FAILURE)(dispatch));
 };
 
 // remove a post
@@ -55,5 +58,5 @@ export const removePost = (user_id, post_id, historyPush, discussion_id) => disp
 		.then(() => dispatch({ type: REMOVE_POST_SUCCESS }))
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/discussion/${ discussion_id }`))
-		.catch(err => dispatch({ type: REMOVE_POST_FAILURE, payload: err }));
+		.catch(err => handleError(err, REMOVE_POST_FAILURE)(dispatch));
 };

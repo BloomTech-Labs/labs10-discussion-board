@@ -16,6 +16,8 @@ import {
   PASSWORD_UPDATE_LOADING,
   PASSWORD_UPDATE_SUCCESS,
   PASSWORD_UPDATE_FAILURE,
+
+  DISPLAY_ERROR,
 } from '../actions/index.js';
 
 const initialState = {
@@ -57,6 +59,12 @@ export const UsersReducer = (state = initialState, action) => {
     // Signout
     case USER_SIGNOUT_SUCCESS:
       return initialState;
+
+    case DISPLAY_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
 
     case USER_LOG_BACK_IN_LOADING:
     case USER_AUTH0_LOGIN_LOADING:
