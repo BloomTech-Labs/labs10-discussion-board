@@ -8,18 +8,25 @@ import {
 } from './CategoriesActions.js';
 
 import {
-  // Actions
-  TOP_DISCUSSIONS_LOADING,
-  TOP_DISCUSSIONS_SUCCESS,
-	TOP_DISCUSSIONS_FAILURE,
+	// Actions
+		//TOP DISCUSSIONS
+ 	 	TOP_DISCUSSIONS_LOADING,
+  		TOP_DISCUSSIONS_SUCCESS,
+		TOP_DISCUSSIONS_FAILURE,
 	
-	GET_DISCUSSION_BY_ID_LOADING,
-	GET_DISCUSSION_BY_ID_SUCCESS,
-	GET_DISCUSSION_BY_ID_FAILURE,
+		//GET DISCUSSIONS
+		GET_DISCUSSIONS_LOADING,
+		GET_DISCUSSIONS_SUCCESS,
+		GET_DISCUSSIONS_FAILURE,
+
+		GET_DISCUSSION_BY_ID_LOADING,
+		GET_DISCUSSION_BY_ID_SUCCESS,
+		GET_DISCUSSION_BY_ID_FAILURE,
 
   // Action Creators
-	getTopDiscussions,
-	getDiscussionById,
+		getTopDiscussions,
+		getDiscussionsByCat,
+		getDiscussionById,
 } from './DiscussionsActions.js';
 
 import {
@@ -110,6 +117,10 @@ export {
 	GET_CATEGORIES_FAILURE,
 
 	// Discussion Actions
+	GET_DISCUSSIONS_LOADING,
+	GET_DISCUSSIONS_SUCCESS,
+	GET_DISCUSSIONS_FAILURE,
+
 	TOP_DISCUSSIONS_LOADING,
 	TOP_DISCUSSIONS_SUCCESS,
 	TOP_DISCUSSIONS_FAILURE,
@@ -148,8 +159,8 @@ export {
 	GET_PROFILES_FAILURE,
 
 	GET_PROFILE_LOADING,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+ 	GET_PROFILE_SUCCESS,
+  	GET_PROFILE_FAILURE,
 
 
 	// Posts Actions
@@ -170,6 +181,7 @@ export {
 
 	// Discussion Action Creators
 	getTopDiscussions,
+	getDiscussionsByCat,
 	getDiscussionById,
 
 	// Discussion Vote Action Creators

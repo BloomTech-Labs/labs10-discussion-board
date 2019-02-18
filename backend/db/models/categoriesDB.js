@@ -8,10 +8,10 @@ const getCategories = () => {
             'c.name', 
             'c.id', 
             'c.user_id', 
-            'u.id',
-            'c.created_at'
+            'c.created_at',
             )
         .join('users as u', 'u.id', 'c.user_id')
+        .orderBy('c.name')
 };
 
 //Find By ID (categories own ID)
