@@ -12,7 +12,7 @@ const generateSeeds = () => {
   for (let i=1; i <= numOfDiscussions; i++){
     arr.push({
         user_id: getRandomUserId(),
-        category_id: getRandomIntInclusive(1, categoryNames.length - 1),
+        category_id: getRandomIntInclusive(1, categoryNames.length),
         title: faker.lorem.sentence(4),
         body: faker.lorem.sentences(3),
         created_at: faker.date.recent(3)
