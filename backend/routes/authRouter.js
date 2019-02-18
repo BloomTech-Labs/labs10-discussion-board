@@ -142,7 +142,7 @@ router.post('/login', async (req, res) => {
           username: user.username
         }]);
       }
-      return res.status(401).json({ error: `Either user object was not obtained or client password did not match the db hash password.` });
+      return res.status(401).json({ error: `Invalid username/password.` });
     })
     .catch(err => res.status(500).json({ error: `Failed to findByUsername(): ${ err }` }));
 });
