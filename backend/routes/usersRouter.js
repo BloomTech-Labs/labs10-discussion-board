@@ -58,8 +58,8 @@ router.put('/password/:user_id', authenticate, async (req, res, next) => {
     const { oldPassword, newPassword } = req.body;
     if (!oldPassword || oldPassword === '') throw { code: 401 };
     if (!newPassword || newPassword === '') throw { code: 401 };
-    const user = await usersDB.findById(user_id);
-    if (user.length > 0 && bcrypt.compareSync(oldPassword, user[0].password)) {
+    const currentPW = await usersDB.getPassword(user_id);
+    if (currentPW && bcrypt.compareSync(oldPassword, currentPW.password)) {
       const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
       return usersDB.updatePassword(user_id, newHashedPassword).then(() => res.status(201).json({
         message: 'Password update succesful.'
