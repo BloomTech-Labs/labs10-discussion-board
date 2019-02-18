@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SingleCategory = styled.div`
     width: 300px;
@@ -30,9 +31,9 @@ const Categories = ({ category }) => {
 
     return(
         <SingleCategory>
-            <CategoryName><span> { name } </span></CategoryName>
+            <CategoryName><span><Link className='category-link' to = {`/categories/${id}`} >{ name } </Link> </span></CategoryName>
             <div className = 'createdBy'><span>Created By: {user_username} </span></div>
-            <div className = 'createdAt'><span>Created At: { moment(created_at).fromNow() }</span></div>
+            <div className = 'createdAt'><span>Created: { moment(created_at).fromNow() }</span></div>
         </SingleCategory>
     );
 };

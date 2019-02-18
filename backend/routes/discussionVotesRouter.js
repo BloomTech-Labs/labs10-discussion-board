@@ -39,19 +39,19 @@ router.post('/', (req, res) => {
 				if (discussion[0].type === type) {
 					return discussionVotesDB.remove(discussion_id, user_id)
 						.then(() => res.status(201).json([{ message: 'Vote removed.' }]))
-						.catch(err => res.status(500).json(err));
+						.catch(err => res.status(500).json({ error: `Failed to remove(): ${ err }` }));
 				}
 				// else if it wasnt the same vote type, update the vote type
 				return discussionVotesDB.update(discussion_id, user_id, type)
 					.then(() => res.status(201).json([{ message: 'Vote changed.' }]))
-					.catch(err => res.status(500).json(err));
+					.catch(err => res.status(500).json({ error: `Failed to update(): ${ err }` }));
 			}
 			// if they have not voted on the discussion, add the vote to the database
 			return discussionVotesDB.add(discussion_id, user_id, type)
 				.then(() => res.status(201).json([{ message: 'Vote added!' }]))
-				.catch(err => res.status(500).json(err));
+				.catch(err => res.status(500).json({ error: `Failed to add(): ${ err }` }));
 		})
-		.catch(err => res.status(500).json(err));
+		.catch(err => res.status(500).json({ error: `Failed to get(): ${ err }` }));
 });
 
 module.exports = router;
