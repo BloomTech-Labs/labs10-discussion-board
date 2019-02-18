@@ -97,7 +97,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 				</div>
 
 				<div>
-					<span className = 'nameanddate'>{ username }</span>&#8201;
+					<Link to = { `/profile/${ user_id }` } className = 'nameanddate'>{ username }</Link>to = { `/profiles/${ user_id }` } &#8201;
 					<span className = 'nameanddate'> - { moment(created_at).fromNow() }</span>
 				</div>
 				<p>{ body }</p>
