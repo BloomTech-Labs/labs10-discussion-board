@@ -1,5 +1,8 @@
 import axios	from 'axios';
 
+// helpers
+import { handleError } from '../../helpers/index.js';
+
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 /***************************************************************************************************
@@ -17,5 +20,5 @@ export const handleDiscussionVote = (discussion_id, user_id, type) => dispatch =
 	const body = { discussion_id, user_id, type };
 	return axios.post(`${ backendURL }/discussion-votes/`, body)
 		.then(() => dispatch({ type: HANDLE_DISCUSSION_VOTE_SUCCESS }))
-		.catch(err => dispatch({ type: HANDLE_DISCUSSION_VOTE_FAILURE, payload: err }));
+		.catch(err => handleError(err, HANDLE_DISCUSSION_VOTE_FAILURE)(dispatch));
 };

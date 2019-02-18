@@ -15,7 +15,14 @@ const initialState = {
       loading: true,
       profiles: [],
     },
-    singleProfileData: [],
+    singleProfileData: [
+      {
+        id: 0,
+        username: '',
+        email: '',
+        status: '',
+      }
+    ],
     discussions: [], 
 };
 

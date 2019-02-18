@@ -33,6 +33,7 @@ class EditPasswordForm extends Component {
 			newPassword1,
 			error,
 		} = this.state;
+		const { toggleEditPasswordForm } = this.props;
 		return(
 			<EditPasswordFormWrapper onSubmit = { this.handleSubmit }>
 				<h1>Edit password</h1>
@@ -64,6 +65,7 @@ class EditPasswordForm extends Component {
 				{ error && <p>{ error }</p> }
 
 				<button type = 'submit'>Submit</button>
+				<button type = 'button' onClick = { toggleEditPasswordForm }>Cancel</button>
 			</EditPasswordFormWrapper>
 		);
 	}

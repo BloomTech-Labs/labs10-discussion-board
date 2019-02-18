@@ -10,13 +10,14 @@ const getAllDiscussions = user_id => {
 
 //Gets a user by their id
 const findById = id => {
-  return db('users').where({id})
-    .select(
-      'id',
-      'username',
-      'status', 
-      'email',  
-  );
+  return db('users')
+    .where({ id })
+    .select('id', 'email', 'username', 'status');
+};
+
+// gets password for user with given id
+const getPassword = id => {
+  return db('users').select('password').where({ id }).first();
 };
 
 //Gets a user by their username
@@ -61,6 +62,7 @@ const remove = id => {
 
 module.exports = {
   getUsers,
+  getPassword,
   findById,
   findByUsername,
   insert,

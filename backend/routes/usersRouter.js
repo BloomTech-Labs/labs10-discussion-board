@@ -21,12 +21,10 @@ const { authenticate } = require('../config/middleware/authenticate.js');
  **************************************************************************************************/
 
 // Gets a list of users with mock data (user id, username, email, status, password, id)
-router.get('/', (req, res, next) => {
-  try {
-    usersDB.getUsers().then(users => res.status(200).json(users))
-  } catch (err) {
-    next(err);
-  }
+router.get('/', (req, res) => {
+  return usersDB.getUsers()
+    .then(users => res.status(200).json(users))
+    .catch(err => res.status(500).json({ error: `Failed to getUsers(): ${ err }` }));
 });
 
 // Gets a list of discussions created by the user
@@ -40,56 +38,52 @@ router.get('/discussions/:user_id', (req, res, next) => {
 })
 
 // Gets a user by their ID (mock data)
-router.get('/user/:user_id', (req, res, next) => {
-  try {
+router.get('/user/:user_id', (req, res) => {
     const { user_id } = req.params;
-    return usersDB.findById(user_id).then(user => res.status(200).json(user))
-  } catch (err) {
-    next(err);
-  }
+    return usersDB.findById(user_id)
+      .then(user => res.status(200).json(user))
+      .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
 });
     
 // Updates a user
 router.put('/user/:id', (req, res, next) => {
-  try {
     const { id } = req.params;
     const { username, password, email, status } = req.body;
     const newUser = { username, password, email, status };
-    usersDB.update(id, newUser).then(user => res.status(200).json(user));
-  } catch (err) {
-		next(err);
-	}
+    return usersDB.update(id, newUser)
+      .then(user => res.status(200).json(user))
+      .catch(err => res.status(500).json({ error: `Failed to update(): ${ err }` }));;
 });
 
 // Update the password of a user given their ID
-router.put('/password/:user_id', authenticate, async (req, res, next) => {
-  try {
+router.put('/password/:user_id', authenticate, (req, res) => {
     const { user_id } = req.params;
     const { oldPassword, newPassword } = req.body;
-    if (!oldPassword || oldPassword === '') throw { code: 401 };
-    if (!newPassword || newPassword === '') throw { code: 401 };
-    const user = await usersDB.findById(user_id);
-    if (user.length > 0 && bcrypt.compareSync(oldPassword, user[0].password)) {
-      const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
-      return usersDB.updatePassword(user_id, newHashedPassword).then(() => res.status(201).json({
-        message: 'Password update succesful.'
-      }));
-    } else {
-      throw { code: 401 };
+    if (!oldPassword || oldPassword === '') {
+      return res.status(400).json({ error: 'Old password must not be empty.' });
     }
-  } catch (err) {
-		next(err);
-	}
+    if (!newPassword || newPassword === '') {
+      return res.status(400).json({ error: 'New password must not be empty.' });
+    }
+    return usersDB.getPassword(user_id)
+      .then(currentPW => {
+        if (currentPW && bcrypt.compareSync(oldPassword, currentPW.password)) {
+          const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
+          return usersDB.updatePassword(user_id, newHashedPassword)
+            .then(() => res.status(201).json({ message: 'Password update succesful.' }))
+            .catch(err => res.status(400).json({ error: `Failed to updatePassword(): ${ err }` }));
+        }
+        return res.status(400).json({ error: 'Old password is wrong.' });
+      })
+      .catch(err => res.status(500).json({ error: `Failed to getPassword(): ${ err }` }));;
 });
 
 // Delete a user by their ID
 router.delete('/:id', (req, res, next) => {
-  try {
     const { id } = req.params;
-    usersDB.remove(id).then(removedUser => res.status(202).json(removedUser));
-  } catch (err) {
-		next(err);
-	}
+    return usersDB.remove(id)
+      .then(removedUser => res.status(202).json(removedUser))
+      .catch(err => res.status(500).json({ error: `Failed to remove(): ${ err }` }));
 });
 
 module.exports = router;

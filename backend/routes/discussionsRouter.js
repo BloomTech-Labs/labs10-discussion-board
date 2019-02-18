@@ -15,34 +15,26 @@ const router = express.Router();
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
-
 // get top (limit 10) daily discussions ordered by vote_count
-router.get('/top-daily', async (req, res, next) => {
-	try {
-		const topDailyDiscussions = await discussionsDB.getTopDailyDiscussions();
-		return res.status(200).json(topDailyDiscussions);
-	} catch (err) {
-		next(err);
-	}
+router.get('/top-daily', (req, res) => {
+	return discussionsDB.getTopDailyDiscussions()
+		.then(topDailyDiscussions => res.status(200).json(topDailyDiscussions))
+		.catch(err => res.status(500).json({ error: `Failed to getTopDailyDiscussions(): ${ err }` }));
 });
 
 //GET All Discussions
 router.get('/', (req, res) => {
 	return discussionsDB.getDiscussions()
-	.then(discussMap => {
-		res.status(200).json(discussMap)
-	})
-	.catch(err =>{
-		res.status(500).json(err)
-	})
+		.then(discussMap => res.status(200).json(discussMap))
+		.catch(err => res.status(500).json({ error: `Failed to getDiscussions(): ${ err }` }));
 });
 
 //GET Discussion by Discussion ID
-router.get('/:id', (req, res) => {
+router.get('/discussion/:id', (req, res) => {
 	const { id } = req.params;
 	return discussionsDB.findById(id)
 		.then(discussion => res.status(200).json(discussion))
-		.catch(err => res.status(500).json(err));
+		.catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)
@@ -52,10 +44,8 @@ router.get('/:id', (req, res) => {
 router.get('/user/:user_id', (req, res) => {
 	const {user_id} = req.params
 	return discussionsDB.findByUserId(user_id)
-	.then(discussMap => {
-		res.status(200).json(discussMap)
-	})
-	.catch(err => res.status(500).json(err))
+		.then(discussMap => res.status(200).json(discussMap))
+		.catch(err => res.status(500).json({ error: `Failed to findByUserId(): ${ err }` }));
 });
 
 //GET Discussion by Category ID
@@ -65,22 +55,16 @@ router.get('/user/:user_id', (req, res) => {
 router.get('/category/:category_id', (req, res) => {
 	const {category_id} = req.params
 	return discussionsDB.findByCategoryId(category_id)
-	.then(discussMap => {
-		res.status(200).json(discussMap)
-	})
-	.catch(err => res.status(500).json(err))
+		.then(discussMap => res.status(200).json(discussMap))
+		.catch(err => res.status(500).json({ error: `Failed to findByCategoryId(): ${ err }` }));
 });
 
 //Add Discussion
 router.post('/add', (req, res) => {
 	const discussion = req.body
 	return discussionsDB.insert(discussion)
-	.then(discussMap => {
-		res.status(200).json([{
-			message: 'Discussion topic has been posted!'
-		}])
-	.catch(err => res.status(500).json(err))
-	})
+		.then(() => res.status(200).json([{ message: 'Discussion topic has been posted!' }]))
+		.catch(err => res.status(500).json({ error: `Failed to insert(): ${ err }` }));
 });
 
 //Update Discussion
@@ -89,12 +73,8 @@ router.put('/update/:id', (req, res) => {
 	const id = req.params.id
 	const discussion = req.body
 	return discussionsDB.update(discussion, id)
-	.then(discussMap => {
-		res.status(200).json([{
-			message: 'Your discussion topic has been updated!'
-		}])
-	.catch(err => res.status(500).json(err))
-	})
+		.then(() => res.status(200).json([{ message: 'Your discussion topic has been updated!' }]))
+		.catch(err => res.status(500).json({ error: `Failed to update(): ${ err }` }));
 });
 
 //Delete Discussion 
@@ -102,12 +82,8 @@ router.put('/update/:id', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
 	const id = req.params.id
 	return discussionsDB.remove(id)
-	.then(discussMap => {
-		res.status(200).json([{
-			message: 'Your discussion topic has been deleted!'
-		}])
-	.catch(err => res.status(500).json(err))
-	})
-})
+		.then(() => res.status(200).json([{ message: 'Your discussion topic has been deleted!' }]))
+		.catch(err => res.status(500).json({ error: `Failed to remove(): ${ err }` }));
+});
 
 module.exports = router;

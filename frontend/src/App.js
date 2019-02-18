@@ -11,6 +11,7 @@ import {
   Profiles,
   Profile,
   Settings,
+  Error,
   Auth
 } from './components/index.js';
 
@@ -98,17 +99,20 @@ class App extends Component {
     if (user_id && token) return this.props.logBackIn(user_id, token);
   }
   render() {
+    const { error, history } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <AppWrapper>
           <GlobalStyle />
-          <Header history={this.props.history} />
+          <Header history={history} />
           <Route exact path='/home' component={LandingView} />
           <Route exact path='/profiles' component={Profiles} />
           <Route exact path='/profile/:id' component={Profile} />
           <Route path='/categories' component={CategoriesView} />
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
+
+          { error && <Error error = { error } /> }
         </AppWrapper>
       );
     } else {
@@ -120,13 +124,18 @@ class App extends Component {
             <Route exact path='/register' component={RegisterView} />
             <Route render={props => <Auth {...props} handleAuth0Login={this.handleAuth0Login} />}/>
           </Switch>
+          { error && <Error error = { error } /> }
         </AppWrapper>
       );
     }
   }
-}
+};
+
+const mapStateToProps = state => ({
+  error: state.users.error,
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   { auth0Login, logBackIn }
 )(App);
