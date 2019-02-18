@@ -39,6 +39,9 @@ router.get('/:id', (req, res) => {
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)
+
+//NOTE: UX - /user should be the user's actual username
+
 router.get('/user/:user_id', (req, res) => {
 	const {user_id} = req.params
 	return discussionsDB.findByUserId(user_id)
@@ -47,6 +50,9 @@ router.get('/user/:user_id', (req, res) => {
 });
 
 //GET Discussion by Category ID
+
+//NOTE: UX - /category should be the category's actual name
+
 router.get('/category/:category_id', (req, res) => {
 	const {category_id} = req.params
 	return discussionsDB.findByCategoryId(category_id)

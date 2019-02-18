@@ -20,6 +20,7 @@ import {
   LandingView,
   CategoriesView,
   DiscussionView,
+  DiscussionsView,
   RegisterView
 } from './views/index.js';
 
