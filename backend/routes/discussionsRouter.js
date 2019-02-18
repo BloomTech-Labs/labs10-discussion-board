@@ -15,7 +15,6 @@ const router = express.Router();
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
-
 // get top (limit 10) daily discussions ordered by vote_count
 router.get('/top-daily', (req, res) => {
 	return discussionsDB.getTopDailyDiscussions()
@@ -31,7 +30,7 @@ router.get('/', (req, res) => {
 });
 
 //GET Discussion by Discussion ID
-router.get('/:id', (req, res) => {
+router.get('/discussion/:id', (req, res) => {
 	const { id } = req.params;
 	return discussionsDB.findById(id)
 		.then(discussion => res.status(200).json(discussion))

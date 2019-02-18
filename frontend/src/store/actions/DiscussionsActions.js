@@ -32,7 +32,7 @@ export const getTopDiscussions = () => dispatch => {
 
 export const getDiscussionById = id => dispatch => {
 	dispatch({ type: GET_DISCUSSION_BY_ID_LOADING });
-	return axios.get(`${ backendURL }/discussions/${ id }`)
+	return axios.get(`${ backendURL }/discussions/discussion/${ id }`)
 		.then(res => dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] }))
 		.catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
 };
