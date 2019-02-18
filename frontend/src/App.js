@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import auth0 from 'auth0-js';
 import { Auth0Lock } from 'auth0-lock';
 import { connect } from 'react-redux';
-import { LoginDropdown } from './components/index.js';
-import chevron from '../src/assets/img/chevron.png';
 import styled, { createGlobalStyle } from 'styled-components';
 
 // components
-import { Header, Profiles, Profile, Settings } from './components/index.js';
+import {
+  Header,
+  Profiles,
+  Profile,
+  Settings,
+  Auth
+} from './components/index.js';
 
 // views
-import { LandingView, CategoriesView, DiscussionView } from './views/index.js';
+import {
+  LandingView,
+  CategoriesView,
+  DiscussionView,
+  RegisterView
+} from './views/index.js';
 
 // action creators
 import { auth0Login, logBackIn } from './store/actions/index.js';
@@ -28,8 +37,7 @@ const AppWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  min-height: 100vh;
-  width: 95vw;
+  width: 100%;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -44,47 +52,8 @@ const GlobalStyle = createGlobalStyle`
 		  flex-wrap: wrap;
       flex-direction: column;
       background: #EEE7C8;
+      width: 100%;
 	}
-`;
-
-const Auth = styled.div`
-  margin: 25px;
-  font-size: 24px;
-`;
-const Register = styled.a`
-  margin-right: 0px;
-  user-select: none;
-  cursor: pointer;
-  color: white;
-  font-size: 18px;
-  &:hover {
-    cursor: pointer;
-    color: black;
-    text-decoration: underline;
-  }
-`;
-
-const Login = styled.a`
-  margin-left: 5px;
-  user-select: none;
-  cursor: pointer;
-  color: white;
-  font-size: 18px;
-  &:hover {
-    cursor: pointer;
-    color: black;
-    text-decoration: underline;
-  }
-
-  img {
-    transform: ${props => props.isLoginDropdownClicked && 'rotate(180deg)'};
-  }
-`;
-
-const NotLoggedIn = styled.div`
-  background-color: gray;
-  color: white;
-  font-size: 18px;
 `;
 
 const authLockOptions = {
@@ -113,9 +82,6 @@ class App extends Component {
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });
-    this.state = {
-      isLoginDropdownClicked: false
-    };
   }
   handleAuth0Login = () => {
     lock.show();
@@ -125,13 +91,6 @@ class App extends Component {
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
     return new Date().getTime() < expiresAt;
   }
-  setIsLoginDropdownClicked = async isClicked => {
-    await this.setState({ isLoginDropdownClicked: isClicked });
-  };
-  toggleLoginDropdown = ev => {
-    ev.preventDefault();
-    this.setIsLoginDropdownClicked(!this.state.isLoginDropdownClicked);
-  };
   componentDidMount() {
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
@@ -152,32 +111,15 @@ class App extends Component {
         </AppWrapper>
       );
     } else {
+      // prettier-ignore
       return (
-        <NotLoggedIn>
-          <p>
-            You are not authorized to view this content, please click below to
-            LOGIN.
-          </p>
-          <button onClick={this.handleAuth0Login}>Login via Auth0</button>
-
-          <Auth>
-            <Register>Register</Register> |{' '}
-            <Login
-              onClick={ev => {
-                this.toggleLoginDropdown(ev);
-              }}
-              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
-            >
-              Login &nbsp;
-              <img src={chevron} alt='chevron' />
-            </Login>
-            <LoginDropdown
-              history={this.props.history}
-              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
-              setIsLoginDropdownClicked={this.setIsLoginDropdownClicked}
-            />
-          </Auth>
-        </NotLoggedIn>
+        <AppWrapper>
+          <GlobalStyle />
+          <Switch>
+            <Route exact path='/register' component={RegisterView} />
+            <Route render={props => <Auth {...props} handleAuth0Login={this.handleAuth0Login} />}/>
+          </Switch>
+        </AppWrapper>
       );
     }
   }

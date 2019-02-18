@@ -73,7 +73,9 @@ export const auth0Login = accessToken => dispatch => {
             payload: response.data[0]
           });
         })
-        .catch(err => dispatch({ type: USER_AUTH0_LOGIN_FAILURE, payload: err }));
+        .catch(err =>
+          dispatch({ type: USER_AUTH0_LOGIN_FAILURE, payload: err })
+        );
     })
     .catch(err => console.log(err));
 };
@@ -82,14 +84,18 @@ export const register = () => dispatch => {
   // tell me what to do auth0
 };
 
-export const updatePassword = (oldPassword, newPassword, toggleEditPasswordForm) => dispatch => {
+export const updatePassword = (
+  oldPassword,
+  newPassword,
+  toggleEditPasswordForm
+) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   const body = { oldPassword, newPassword };
   dispatch({ type: PASSWORD_UPDATE_LOADING });
   return axios
-    .put(`${ backendUrl }/users/password/${ user_id }`, body, headers)
+    .put(`${backendUrl}/users/password/${user_id}`, body, headers)
     .then(() => dispatch({ type: PASSWORD_UPDATE_SUCCESS }))
     .then(() => toggleEditPasswordForm())
     .catch(err => dispatch({ type: PASSWORD_UPDATE_FAILURE, payload: err }));

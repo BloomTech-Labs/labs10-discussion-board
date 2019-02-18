@@ -1,3 +1,4 @@
+import Auth from './Auth.js';
 import CategoriesList from './CategoriesList.js';
 import Categories from './Categories.js';
 import Discussion from './Discussion.js';
@@ -19,23 +20,23 @@ import EditPostForm from './forms/EditPostForm.js';
 import EditPasswordForm from './forms/EditPasswordForm.js';
 
 export {
-	CategoriesList,
-	Categories,
-	Discussion,
-	LoginDropdown,
-	Nav,
-	Header,
-	TopDiscussions,
-	TopDiscussion,
-	PostCount,
-	VoteCount,
-	Profiles,
-	Profile,
-	Post,
-	Settings,
-
-	// forms
-	AddPostForm,
-	EditPostForm,
-	EditPasswordForm,
+  Auth,
+  CategoriesList,
+  Categories,
+  Discussion,
+  LoginDropdown,
+  Nav,
+  Header,
+  TopDiscussions,
+  TopDiscussion,
+  PostCount,
+  VoteCount,
+  Profiles,
+  Profile,
+  Post,
+  Settings,
+  // forms
+  AddPostForm,
+  EditPostForm,
+  EditPasswordForm
 };
