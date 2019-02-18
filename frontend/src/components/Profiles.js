@@ -13,7 +13,7 @@ const ProfilesWrapper = styled.div`
 	padding: 10px;
   border: 1px solid black;
   display: flex;
-  align-content: space-between;
+  align-content: space-between
   width: 100%;
   background-color: #EEE7C8;
 
@@ -35,12 +35,6 @@ const WrappedDiv = styled.div`
     font-weight: bold;
     display: flex;
     justify-content: space-around;
-  }
-  .property-titlee {
-    font-weight: bold;
-    display: flex;
-    justify-content: space-around;
-    color: white;
   }
 
   .property-content {
