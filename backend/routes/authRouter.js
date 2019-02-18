@@ -59,7 +59,7 @@ const validateStatusSelected = status => {
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   // username and password must keep rules of syntax
   if (!req.body.username || !validateNewUsername(req.body.username)) {
     return res.status(400).json({ error: `Username is missing.` });
@@ -84,7 +84,7 @@ router.post('/register', (req, res) => {
 
   // add user
   return db.insert(newUserCreds) // [ { id: 1, username: 'username' } ]
-    .then(userAddedResults => {
+    .then(async (userAddedResults) => {
       // add user settings
       if (req.body.avatarUrl) {
         const url = req.body.avatarUrl;
@@ -130,7 +130,7 @@ router.post('/login', async (req, res) => {
   };
 
   return db.findByUsername(userCreds.username)
-    .then(user => {
+    .then(async (user) => {
       // If user object was obtained AND...
       // the client password matches the db hash password
       if (user && bcrypt.compareSync(userCreds.password, user.password)) {
@@ -151,7 +151,7 @@ router.post('/login', async (req, res) => {
 router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
   const { user_id } = req.params;
   return db.findById(user_id)
-    .then(user => {
+    .then(async user => {
       // if the user already exists in the DB
       // you will get back an array with an object with user info inside it
       if (user.length === 1) {
@@ -172,7 +172,7 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
 router.post('/auth0-login', async (req, res) => {
   const { email, name, picture } = req.body;
   return db.findByUsername(name)
-    .then(user => {
+    .then(async user => {
       // if the user already exists in the DB
       if (user) {
         const token = await generateToken(user.id, user.username);
@@ -191,7 +191,7 @@ router.post('/auth0-login', async (req, res) => {
         status: 'active'
       };
       return db.insert(newUserCreds) // [ { id: 1, username: 'username' } ]
-        .then(userAddedResults => {
+        .then(async userAddedResults => {
           const token = await generateToken(
             userAddedResults[0].id,
             userAddedResults[0].username
