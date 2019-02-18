@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
-import { getProfile } from '../store/actions/index';
+import { getProfile, getProfileDiscussions } from '../store/actions/index';
 import styled from 'styled-components';
 
 /***************************************************************************************************
@@ -55,6 +55,8 @@ const ProfileTitle = styled.div`
 class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
+    // this.props.getProfileDiscussions(this.props.id);
+    // console.log('profdisc', this.props.getProfileDiscussions(this.props.id));
   }
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
@@ -111,4 +113,4 @@ const mapStateToProps = state => ({
         profile: state.profilesData.singleProfileData
 });
 
-export default connect(mapStateToProps,{ getProfile })(Profile);
+export default connect(mapStateToProps,{ getProfile, getProfileDiscussions })(Profile);
