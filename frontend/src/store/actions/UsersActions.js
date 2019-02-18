@@ -32,7 +32,7 @@ export const PASSWORD_UPDATE_LOADING = 'PASSWORD_UPDATE_LOADING';
 export const PASSWORD_UPDATE_SUCCESS = 'PASSWORD_UPDATE_SUCCESS';
 export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
 
-// display errrors and messages
+// display errors and messages
 export const DISPLAY_ERROR = 'DISPLAY_ERROR';
 export const DISPLAY_MESSAGE = 'DISPLAY_MESSAGE';
 
