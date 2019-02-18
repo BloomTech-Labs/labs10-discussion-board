@@ -16,6 +16,7 @@ import Post from './Post.js';
 import Settings from './Settings.js';
 import Error from './Error.js';
 import Message from './Message.js';
+import Avatar from './Avatar.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -41,6 +42,7 @@ export {
 	Settings,
 	Error,
 	Message,
+	Avatar,
 
 	// forms
 	AddPostForm,
