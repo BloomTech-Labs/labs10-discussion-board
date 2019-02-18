@@ -1,5 +1,8 @@
 import axios	from 'axios';
 
+// helpers
+import { handleError } from '../../helpers/index.js';
+
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 /***************************************************************************************************
@@ -20,12 +23,12 @@ export const getTopDiscussions = () => dispatch => {
 	dispatch({ type: TOP_DISCUSSIONS_LOADING });
 	return axios.get(`${ backendURL }/discussions/top-daily`)
 		.then(res => dispatch({ type: TOP_DISCUSSIONS_SUCCESS, payload: res.data }))
-		.catch(err => console.log(err));
+		.catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
 };
 
 export const getDiscussionById = id => dispatch => {
 	dispatch({ type: GET_DISCUSSION_BY_ID_LOADING });
 	return axios.get(`${ backendURL }/discussions/${ id }`)
 		.then(res => dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] }))
-		.catch(err => dispatch({ type: GET_DISCUSSION_BY_ID_FAILURE, payload: err }));
+		.catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
 };

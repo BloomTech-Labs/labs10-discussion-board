@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { backendUrl } from '../../globals/globals.js';
 
+// helpers
+import { handleError } from '../../helpers/index.js';
+
 /***************************************************************************************************
  ********************************************* Actions *******************************************
  **************************************************************************************************/
@@ -18,14 +21,14 @@ export const GET_PROFILE_FAILURE = 'GET_PROFILE_FAILURE';
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
 
- // Get all profiles
- export const getProfiles = () => dispatch => {
+// Get all profiles
+export const getProfiles = () => dispatch => {
     dispatch({ type: GET_PROFILES_LOADING});
     return axios.get(`${ backendUrl }/users`)
       .then(res => {
       dispatch({ type: GET_PROFILES_SUCCESS, payload: res.data }) }
       )
-      .catch(err => dispatch({ type: GET_PROFILES_FAILURE, payload: err }));
+      .catch(err => handleError(err, GET_PROFILES_FAILURE)(dispatch));
 };
 
 // Get single profile
@@ -35,5 +38,5 @@ export const getProfile = id => dispatch => {
     .then(res => {
       dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data });
     })
-    .catch(err => dispatch({ type: GET_PROFILE_FAILURE, payload: err }));
+    .catch(err => handleError(err, GET_PROFILE_FAILURE)(dispatch));
 };
