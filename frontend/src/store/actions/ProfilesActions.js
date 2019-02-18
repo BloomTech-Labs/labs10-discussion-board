@@ -51,3 +51,4 @@ export const getProfileDiscussions = user_id => dispatch => {
     })
     .catch(err => dispatch({ type: GET_PROFILE_DISCUSSIONS_FAILURE, payload: err }));
 };
+
