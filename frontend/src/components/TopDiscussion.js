@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
 
@@ -91,18 +92,18 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
 			<div className = 'content'>
 				<div>
-					<span className = 'title'>{ title }</span>&#8201;
+					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
 					<span className = 'category'>/d/{ category_name }</span>
 				</div>
 
 				<div>
-					<span className = 'nameanddate'>{ username }</span>&#8201;
+					<Link to = { `/profile/${ user_id }` } className = 'nameanddate'>{ username }</Link>to = { `/profiles/${ user_id }` } &#8201;
 					<span className = 'nameanddate'> - { moment(created_at).fromNow() }</span>
 				</div>
 				<p>{ body }</p>
 			</div>
 
-			<PostCount post_count = { post_count } />
+			<PostCount post_count = { post_count || 0 } />
 		</TopDiscussionWrapper>
 	);
 };

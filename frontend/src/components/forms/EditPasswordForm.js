@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { updatePassword } from '../../store/actions/index.js';
+import { updatePassword, displayError } from '../../store/actions/index.js';
 
 const EditPasswordFormWrapper = styled.form`
 	margin: 10px;
@@ -16,14 +16,13 @@ class EditPasswordForm extends Component {
 		oldPassword: '',
 		newPassword: '',
 		newPassword1: '',
-		error: '',
 	};
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	handleSubmit = e => {
 		e.preventDefault();
 		const { oldPassword, newPassword, newPassword1 } = this.state;
-		const { updatePassword, toggleEditPasswordForm } = this.props;
-		if (newPassword !== newPassword1) return this.setState({ error: 'New passwords must match.' });
+		const { updatePassword, toggleEditPasswordForm, displayError } = this.props;
+		if (newPassword !== newPassword1) return displayError('New passwords must match.');
 		return updatePassword(oldPassword, newPassword, toggleEditPasswordForm);
 	};
 	render() {
@@ -31,7 +30,6 @@ class EditPasswordForm extends Component {
 			oldPassword,
 			newPassword,
 			newPassword1,
-			error,
 		} = this.state;
 		const { toggleEditPasswordForm } = this.props;
 		return(
@@ -62,8 +60,6 @@ class EditPasswordForm extends Component {
 					value = { newPassword1 }
 				/>
 
-				{ error && <p>{ error }</p> }
-
 				<button type = 'submit'>Submit</button>
 				<button type = 'button' onClick = { toggleEditPasswordForm }>Cancel</button>
 			</EditPasswordFormWrapper>
@@ -71,4 +67,4 @@ class EditPasswordForm extends Component {
 	}
 };
 
-export default connect(null, { updatePassword })(EditPasswordForm);
+export default connect(null, { updatePassword, displayError })(EditPasswordForm);

@@ -18,13 +18,15 @@ import {
   PASSWORD_UPDATE_FAILURE,
 
   DISPLAY_ERROR,
+  DISPLAY_MESSAGE,
 } from '../actions/index.js';
 
 const initialState = {
   user_id: 0,
   username: '',
   loggingInLoadingMessage: false,
-  error: null
+  error: '',
+  message: '',
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -64,6 +66,12 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+
+    case DISPLAY_MESSAGE:
+      return {
+        ...state,
+        message: action.payload,
       };
 
     case USER_LOG_BACK_IN_LOADING:
