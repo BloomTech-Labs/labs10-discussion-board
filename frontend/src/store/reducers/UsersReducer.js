@@ -23,6 +23,7 @@ import {
 
 const initialState = {
   user_id: 0,
+  avatar: null,
   username: '',
   loggingInLoadingMessage: false,
   error: '',
@@ -45,6 +46,7 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         user_id: action.payload.id,
+        avatar: action.payload.avatar,
         username: action.payload.username,
         loggingInLoadingMessage: false,
         error: null
