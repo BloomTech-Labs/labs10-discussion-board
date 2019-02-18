@@ -2,31 +2,41 @@ import {
     GET_PROFILES_SUCCESS,
     GET_PROFILES_LOADING,
     GET_PROFILES_FAILURE,
+    GET_PROFILE_SUCCESS,
+    GET_PROFILE_LOADING,
+    GET_PROFILE_FAILURE,
   } from '../actions/index';
   
 const initialState = {
-    profiles: {
+    allProfiles: {
       loading: true,
       profiles: [],
     },
+    singleProfileData: [],
 };
 
-  
 export const ProfilesReducer = (state = initialState, action) =>{
   switch (action.type) {
+    // Get all profiles
     case GET_PROFILES_SUCCESS:
-      return {
+        return {
         ...state,
-        profiles: {
+        allProfiles: {
           loading: false,
           profiles: action.payload
         }
       };
-    case GET_PROFILES_LOADING:
-      return state;
-    case GET_PROFILES_FAILURE:
-      return state;
+    // Get single profile  
+    case GET_PROFILE_SUCCESS:
+        return {
+        ...state,
+        singleProfileData: action.payload
+      };
+    case GET_PROFILES_LOADING: 
+    case GET_PROFILES_FAILURE: 
+    case GET_PROFILE_LOADING:  
+    case GET_PROFILE_FAILURE:
 		default:
-		return state;
+      return state;
   } 
 }

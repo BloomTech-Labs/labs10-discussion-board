@@ -16,16 +16,14 @@ import {
 	DiscussionsReducer,
 	ProfilesReducer,
 	CategoriesReducer,
-	ProfileReducer,
 } from './store/reducers/index.js';
 
 const rootReducer = combineReducers({
 	users: UsersReducer,
 	posts: PostsReducer,
 	discussions: DiscussionsReducer,
-	profiles: ProfilesReducer,
+	profilesData: ProfilesReducer,
 	categories: CategoriesReducer,
-	profile: ProfileReducer,
 });
 
 let store;

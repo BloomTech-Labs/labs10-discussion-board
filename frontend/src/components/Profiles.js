@@ -48,7 +48,17 @@ const WrappedDiv = styled.div`
     display: flex;
     justify-content: space-around;
   }
-  `;
+`;
+
+const ProfilesTitle = styled.div`
+  margin: 5px;
+  padding: 2%;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-around;
+  color: black;
+  font-size: 36px;
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -57,19 +67,26 @@ class Profiles extends Component {
     componentDidMount() {
       this.props.getProfiles();
     }
+    //onClick method to select a single user
     selectUsers = id => {
       this.props.history.push(
         `/profile/${id}`
       )
     }
 
+    // declared profiles and loading to props we receive from state
     render() {
       const { profiles, loading } = this.props.profiles;
       let profileItems;
-      
+    
+    // if profiles is null, our loading component will be returned via profileItems
     if (profiles === null || loading ) {
         profileItems = <Spinner />;
     } else {
+    
+    /* if the length of profiles received is more than 0, our profileItems variable
+    will map through an array to access its properties, and return that array, 
+    then we choose what properties to display via the profile parameter */
         if (profiles.length > 0) {
           profileItems = profiles.map( (profile, index) => 
           <div key= {index} onClick = { () => this.selectUsers(profile.id) } >
@@ -81,10 +98,6 @@ class Profiles extends Component {
             <WrappedDiv>
               <p className = 'property-title'> Username: </p>
               <p className = 'property-content'> {profile.username}</p>
-            </WrappedDiv>
-            <WrappedDiv>
-              <p className = 'property-title'> Email: </p>
-              <p className = 'property-content'> {profile.email}</p>
             </WrappedDiv>
             <WrappedDiv>
               <p className = 'property-title'> Status: </p>
@@ -99,14 +112,14 @@ class Profiles extends Component {
   
     return (
             <div>
-              <h1 className = 'property-titlee'> PROFILES </h1>
+              <ProfilesTitle> PROFILES </ProfilesTitle>
               {profileItems}
             </div>
         );
     }
 }
   
- Profiles.propTypes = {
+Profiles.propTypes = {
     getProfiles: PropTypes.func.isRequired,
     profile: PropTypes.shape({
       status: PropTypes.string,
@@ -116,7 +129,7 @@ class Profiles extends Component {
 };
   
 const mapStateToProps = state => ({
-        profiles: state.profiles.profiles
+        profiles: state.profilesData.allProfiles
 });
   
 export default connect(mapStateToProps, { getProfiles })(Profiles);

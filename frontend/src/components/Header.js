@@ -23,7 +23,6 @@ const StyledHeader = styled.div`
       cursor: pointer;
       color: black;
     }
-  }
 `;
 
 const TitleAndLogo = styled.div`
