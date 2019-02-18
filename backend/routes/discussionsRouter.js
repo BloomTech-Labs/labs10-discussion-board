@@ -39,12 +39,10 @@ router.get('/', (req, res) => {
 
 //GET Discussion by Discussion ID
 router.get('/:id', (req, res) => {
-	const id = req.params.id
+	const { id } = req.params;
 	return discussionsDB.findById(id)
-	.then(discussMap => {
-		res.status(200).json(discussMap)
-	})
-	.catch(err => res.status(500).json(err))
+		.then(discussion => res.status(200).json(discussion))
+		.catch(err => res.status(500).json(err));
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)

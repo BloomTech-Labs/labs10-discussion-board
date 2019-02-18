@@ -7,12 +7,11 @@ import { LoginDropdown } from './components/index.js';
 import chevron from '../src/assets/img/chevron.png';
 import styled, { createGlobalStyle } from 'styled-components';
 
-
 // components
-import { Header, Profiles, Profile } from './components/index.js';
+import { Header, Profiles, Profile, Settings } from './components/index.js';
 
 // views
-import { LandingView, CategoriesView, DiscussionsView } from './views/index.js';
+import { LandingView, CategoriesView, DiscussionView, DiscussionsView } from './views/index.js';
 
 // action creators
 import { auth0Login, logBackIn } from './store/actions/index.js';
@@ -21,7 +20,7 @@ import { auth0Login, logBackIn } from './store/actions/index.js';
 import {
   auth0Domain,
   auth0ClientID,
-  auth0RedirectUri,
+  auth0RedirectUri
 } from './globals/globals.js';
 
 const AppWrapper = styled.div`
@@ -78,7 +77,7 @@ const Login = styled.a`
   }
 
   img {
-    transform: ${props => props.isLoginClicked && 'rotate(180deg)'};
+    transform: ${props => props.isLoginDropdownClicked && 'rotate(180deg)'};
   }
 `;
 
@@ -88,18 +87,17 @@ const NotLoggedIn = styled.div`
   font-size: 18px;
 `;
 
-const lock = new Auth0Lock(
-  auth0ClientID,
-  auth0Domain,
-);
+const authLockOptions = {
+  rememberLastLogin: false
+};
+
+const lock = new Auth0Lock(auth0ClientID, auth0Domain, authLockOptions);
 
 const webAuth = new auth0.WebAuth({
   domain: auth0Domain,
   clientID: auth0ClientID,
-  redirectUri: auth0RedirectUri,
+  redirectUri: auth0RedirectUri
 });
-
-
 
 class App extends Component {
   constructor(props) {
@@ -107,16 +105,18 @@ class App extends Component {
     webAuth.parseHash((err, authResult) => {
       if (authResult) {
         const { accessToken, expiresIn } = authResult;
-        const expiresAt = JSON.stringify(expiresIn * 1000 + new Date().getTime());
+        const expiresAt = JSON.stringify(
+          expiresIn * 1000 + new Date().getTime()
+        );
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });
     this.state = {
-      isLoginClicked: false
+      isLoginDropdownClicked: false
     };
-  };
+  }
   handleAuth0Login = () => {
     lock.show();
   };
@@ -124,31 +124,31 @@ class App extends Component {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
     return new Date().getTime() < expiresAt;
-  };
-  setIsLoginClicked = async isClicked => {
-    localStorage.setItem('isLoginClicked', isClicked.toString());
-    await this.setState({ isLoginClicked: isClicked });
+  }
+  setIsLoginDropdownClicked = async isClicked => {
+    await this.setState({ isLoginDropdownClicked: isClicked });
   };
   toggleLoginDropdown = ev => {
     ev.preventDefault();
-    this.setIsLoginClicked(!this.state.isLoginClicked);
+    this.setIsLoginDropdownClicked(!this.state.isLoginDropdownClicked);
   };
   componentDidMount() {
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     if (user_id && token) return this.props.logBackIn(user_id, token);
-  };
+  }
   render() {
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <AppWrapper>
           <GlobalStyle />
-          <Header history = { this.props.history } />
+          <Header history={this.props.history} />
           <Route exact path='/home' component={LandingView} />
           <Route exact path='/profiles' component={Profiles} />
           <Route exact path='/profile/:id' component={Profile} />
-          <Route exact path='/categories' component={CategoriesView} />
-          <Route exact path='/categories/:id' component={DiscussionsView} />
+          <Route path='/categories' component={CategoriesView} />
+          <Route path='/discussion/:id' component={DiscussionView} />
+          <Route path='/settings/:id' component={Settings} />
         </AppWrapper>
       );
     } else {
@@ -158,7 +158,7 @@ class App extends Component {
             You are not authorized to view this content, please click below to
             LOGIN.
           </p>
-          <button onClick = { this.handleAuth0Login }>Login via Auth0</button>
+          <button onClick={this.handleAuth0Login}>Login via Auth0</button>
 
           <Auth>
             <Register>Register</Register> |{' '}
@@ -166,12 +166,16 @@ class App extends Component {
               onClick={ev => {
                 this.toggleLoginDropdown(ev);
               }}
-              isLoginClicked={this.state.isLoginClicked}
+              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
             >
               Login &nbsp;
               <img src={chevron} alt='chevron' />
             </Login>
-            <LoginDropdown history = { this.props.history } isLoginClicked={this.state.isLoginClicked} />
+            <LoginDropdown
+              history={this.props.history}
+              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
+              setIsLoginDropdownClicked={this.setIsLoginDropdownClicked}
+            />
           </Auth>
         </NotLoggedIn>
       );
@@ -179,4 +183,7 @@ class App extends Component {
   }
 }
 
-export default connect(null, { auth0Login, logBackIn })(App);
+export default connect(
+  null,
+  { auth0Login, logBackIn }
+)(App);

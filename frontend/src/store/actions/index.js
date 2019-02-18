@@ -14,6 +14,7 @@ import {
   TOP_DISCUSSIONS_SUCCESS,
 	TOP_DISCUSSIONS_FAILURE,
 	
+<<<<<<< HEAD
 		//GET DISCUSSIONS
 		GET_DISCUSSIONS_LOADING,
 		GET_DISCUSSIONS_SUCCESS,
@@ -22,6 +23,15 @@ import {
   // Action Creators
 	getTopDiscussions,
 	getDiscussionsByCat
+=======
+	GET_DISCUSSION_BY_ID_LOADING,
+	GET_DISCUSSION_BY_ID_SUCCESS,
+	GET_DISCUSSION_BY_ID_FAILURE,
+
+  // Action Creators
+	getTopDiscussions,
+	getDiscussionById,
+>>>>>>> 45ca495b0ece7c281d1ffca723795b926702e2af
 } from './DiscussionsActions.js';
 
 import {
@@ -35,11 +45,22 @@ import {
 
 import {
 	// Actions
-	TOP_POSTS_LOADING,
-	TOP_POSTS_SUCCESS,
-	TOP_POSTS_FAILURE,
+	ADD_POST_LOADING,
+	ADD_POST_SUCCESS,
+	ADD_POST_FAILURE,
+
+	EDIT_POST_LOADING,
+	EDIT_POST_SUCCESS,
+	EDIT_POST_FAILURE,
+
+	REMOVE_POST_LOADING,
+	REMOVE_POST_SUCCESS,
+	REMOVE_POST_FAILURE,
+
 	// Action Creators
-	getTopPosts,
+	addPost,
+	editPost,
+	removePost,
 } from './PostsActions.js';
 
 import {
@@ -47,18 +68,15 @@ import {
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
 	GET_PROFILES_FAILURE,
-  // Action Creators
-	getProfiles,
-} from './ProfilesActions.js';
-
-import {
-  // Actions
+	
 	GET_PROFILE_LOADING,
   GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+	GET_PROFILE_FAILURE,
+	
   // Action Creators
+	getProfiles,
 	getProfile,
-} from './ProfileActions.js';
+} from './ProfilesActions.js';
 
 import {
   // Actions
@@ -76,12 +94,17 @@ import {
 	USER_AUTH0_LOGIN_SUCCESS,
 	USER_AUTH0_LOGIN_FAILURE,
 
+	PASSWORD_UPDATE_LOADING,
+	PASSWORD_UPDATE_SUCCESS,
+	PASSWORD_UPDATE_FAILURE,
+
   // Action Creators
   register,
   login,
 	signout,
 	logBackIn,
 	auth0Login,
+	updatePassword,
 } from './UsersActions.js';
 
 
@@ -107,6 +130,10 @@ export {
 	TOP_DISCUSSIONS_SUCCESS,
 	TOP_DISCUSSIONS_FAILURE,
 
+	GET_DISCUSSION_BY_ID_LOADING,
+	GET_DISCUSSION_BY_ID_SUCCESS,
+	GET_DISCUSSION_BY_ID_FAILURE,
+
 	// Discussion Vote Actions
 	HANDLE_DISCUSSION_VOTE_LOADING,
 	HANDLE_DISCUSSION_VOTE_SUCCESS,
@@ -127,26 +154,43 @@ export {
 	USER_AUTH0_LOGIN_SUCCESS,
 	USER_AUTH0_LOGIN_FAILURE,
 
+	PASSWORD_UPDATE_LOADING,
+	PASSWORD_UPDATE_SUCCESS,
+	PASSWORD_UPDATE_FAILURE,
+
 	// Profile Actions
 	GET_PROFILES_LOADING,
 	GET_PROFILES_SUCCESS,
 	GET_PROFILES_FAILURE,
+
 	GET_PROFILE_LOADING,
   GET_PROFILE_SUCCESS,
   GET_PROFILE_FAILURE,
 
 
 	// Posts Actions
-	TOP_POSTS_LOADING,
-	TOP_POSTS_SUCCESS,
-	TOP_POSTS_FAILURE,
+	ADD_POST_LOADING,
+	ADD_POST_SUCCESS,
+	ADD_POST_FAILURE,
+
+	EDIT_POST_LOADING,
+	EDIT_POST_SUCCESS,
+	EDIT_POST_FAILURE,
+
+	REMOVE_POST_LOADING,
+	REMOVE_POST_SUCCESS,
+	REMOVE_POST_FAILURE,
 
 	// Categories Action Creators
 	getCategories,
 
 	// Discussion Action Creators
 	getTopDiscussions,
+<<<<<<< HEAD
 	getDiscussionsByCat,
+=======
+	getDiscussionById,
+>>>>>>> 45ca495b0ece7c281d1ffca723795b926702e2af
 
 	// Discussion Vote Action Creators
 	handleDiscussionVote,
@@ -157,11 +201,14 @@ export {
 	signout,
 	logBackIn,
 	auth0Login,
+	updatePassword,
 
 	// Profile Action Creators
 	getProfiles,
 	getProfile,
 
 	// Posts Action Creators
-	getTopPosts,
+	addPost,
+	editPost,
+	removePost,
 };

@@ -12,12 +12,15 @@ import {
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
   USER_AUTH0_LOGIN_FAILURE,
+
+  PASSWORD_UPDATE_LOADING,
+  PASSWORD_UPDATE_SUCCESS,
+  PASSWORD_UPDATE_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
   user_id: 0,
   username: '',
-  isLoggedIn: false,
   loggingInLoadingMessage: false,
   error: null
 };
@@ -39,7 +42,6 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         user_id: action.payload.id,
         username: action.payload.username,
-        isLoggedIn: true,
         loggingInLoadingMessage: false,
         error: null
       };
@@ -58,6 +60,9 @@ export const UsersReducer = (state = initialState, action) => {
 
     case USER_LOG_BACK_IN_LOADING:
     case USER_AUTH0_LOGIN_LOADING:
+    case PASSWORD_UPDATE_LOADING:
+    case PASSWORD_UPDATE_SUCCESS:
+    case PASSWORD_UPDATE_FAILURE:
     default:
       return state;
   }

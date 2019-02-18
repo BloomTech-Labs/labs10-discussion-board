@@ -5,6 +5,8 @@ const numOfDiscussions = 50;
 const numOfPosts = 100;
 const numOfPostVotes = 500; // must be same as numOfFakeUsers
 const numOfDiscussionVotes = 5000;
+const tokenOptionExpiration = '24h';
+const tokenTimeLeftRefresh = 3; // in hrs
 
 // prettier-ignore
 const safeUsrnameSqlLetters = [
@@ -26,12 +28,19 @@ const safePwdSqlLetters = [
 ];
 
 const accountStatusTypes = ['inactive', 'active', 'banned'];
-const accountRoleTypes = [
-  'user',
-  'gold_member',
-  'moderator',
-  'super_moderator'
-];
+const accountRoleTypes = ['user', 'gold_member', 'admin'];
+// prettier-ignore
+const permissionTypes = ['basic', accountRoleTypes[0], accountRoleTypes[1], 'super_moderator', 'moderator', 'admin'];
+// prettier-ignore
+const categoryPermissions = permissionTypes.slice();
+// prettier-ignore
+const discussionPermissions = permissionTypes.slice();
+// prettier-ignore
+const postPermissions = permissionTypes.slice();
+// prettier-ignore
+const votePermissions = permissionTypes.slice();
+// prettier-ignore
+const followPermissions = permissionTypes.slice();
 
 // Methods
 const getRandomIntInclusive = (min, max) => {
@@ -47,15 +56,8 @@ const getRandomUserId = () => {
 };
 
 // Seeds
-const categoryNames = [
-  'Tech Talk',
-  'Sports',
-  'Cars',
-  'Anime',
-  'TV Shows',
-  'Movies',
-  'Music'
-];
+// prettier-ignore
+const categoryNames = ['Tech Talk', 'Sports', 'Cars', 'Anime', 'TV Shows', 'Movies', 'Music'];
 
 // environment variables
 const secureKey = process.env.SECURE_KEY;
@@ -72,6 +74,8 @@ module.exports = {
   safePwdSqlLetters,
   accountStatusTypes,
   accountRoleTypes,
+  tokenOptionExpiration,
+  tokenTimeLeftRefresh,
 
   // methods
   getRandomIntInclusive,
@@ -81,5 +85,5 @@ module.exports = {
   categoryNames,
 
   // environment variables
-  secureKey,
+  secureKey
 };
