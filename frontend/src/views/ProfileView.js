@@ -5,6 +5,9 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfile, getProfileDiscussions } from '../store/actions/index';
 import styled from 'styled-components';
 
+// components
+import { Avatar } from '../components/index.js';
+
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
@@ -74,6 +77,14 @@ class Profile extends Component {
               <WrappedDiv>
                 <p className='property-title'> </p>
                 <p className='property-content'> {profile.id}</p>
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'>Avatar: </p>
+                <Avatar
+                  height = '50px'
+                  width = '50px'
+                  src = { profile.avatar }
+                />
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Username: </p>

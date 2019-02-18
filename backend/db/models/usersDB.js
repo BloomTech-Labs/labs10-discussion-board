@@ -10,9 +10,10 @@ const getAllDiscussions = user_id => {
 
 //Gets a user by their id
 const findById = id => {
-  return db('users')
-    .where({ id })
-    .select('id', 'email', 'username', 'status');
+  return db('users as u')
+    .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
+    .join('user_settings as us', 'u.id', 'us.user_id')
+    .where('u.id', id)
 };
 
 // gets password for user with given id
