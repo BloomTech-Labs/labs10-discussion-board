@@ -23,7 +23,6 @@ router.get('/', (req, res, next) => {
     .json({ message: 'used for directly testing endpoint/middleware logic' });
 });
 
-// get top (limit 10) daily discussions ordered by vote_count
 /*router.get('/auth_refresh_token', async (req, res, next) => {
   try {
     const token = req.headers.authorization;
