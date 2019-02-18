@@ -36,8 +36,19 @@ import {
 	ADD_POST_LOADING,
 	ADD_POST_SUCCESS,
 	ADD_POST_FAILURE,
+
+	EDIT_POST_LOADING,
+	EDIT_POST_SUCCESS,
+	EDIT_POST_FAILURE,
+
+	REMOVE_POST_LOADING,
+	REMOVE_POST_SUCCESS,
+	REMOVE_POST_FAILURE,
+
 	// Action Creators
 	addPost,
+	editPost,
+	removePost,
 } from './PostsActions.js';
 
 import {
@@ -45,18 +56,15 @@ import {
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
 	GET_PROFILES_FAILURE,
-  // Action Creators
-	getProfiles,
-} from './ProfilesActions.js';
-
-import {
-  // Actions
+	
 	GET_PROFILE_LOADING,
   GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+	GET_PROFILE_FAILURE,
+	
   // Action Creators
+	getProfiles,
 	getProfile,
-} from './ProfileActions.js';
+} from './ProfilesActions.js';
 
 import {
   // Actions
@@ -74,12 +82,17 @@ import {
 	USER_AUTH0_LOGIN_SUCCESS,
 	USER_AUTH0_LOGIN_FAILURE,
 
+	PASSWORD_UPDATE_LOADING,
+	PASSWORD_UPDATE_SUCCESS,
+	PASSWORD_UPDATE_FAILURE,
+
   // Action Creators
   register,
   login,
 	signout,
 	logBackIn,
 	auth0Login,
+	updatePassword,
 } from './UsersActions.js';
 
 
@@ -125,10 +138,15 @@ export {
 	USER_AUTH0_LOGIN_SUCCESS,
 	USER_AUTH0_LOGIN_FAILURE,
 
+	PASSWORD_UPDATE_LOADING,
+	PASSWORD_UPDATE_SUCCESS,
+	PASSWORD_UPDATE_FAILURE,
+
 	// Profile Actions
 	GET_PROFILES_LOADING,
 	GET_PROFILES_SUCCESS,
 	GET_PROFILES_FAILURE,
+
 	GET_PROFILE_LOADING,
   GET_PROFILE_SUCCESS,
   GET_PROFILE_FAILURE,
@@ -138,6 +156,14 @@ export {
 	ADD_POST_LOADING,
 	ADD_POST_SUCCESS,
 	ADD_POST_FAILURE,
+
+	EDIT_POST_LOADING,
+	EDIT_POST_SUCCESS,
+	EDIT_POST_FAILURE,
+
+	REMOVE_POST_LOADING,
+	REMOVE_POST_SUCCESS,
+	REMOVE_POST_FAILURE,
 
 	// Categories Action Creators
 	getCategories,
@@ -155,6 +181,7 @@ export {
 	signout,
 	logBackIn,
 	auth0Login,
+	updatePassword,
 
 	// Profile Action Creators
 	getProfiles,
@@ -162,4 +189,6 @@ export {
 
 	// Posts Action Creators
 	addPost,
+	editPost,
+	removePost,
 };

@@ -9,11 +9,14 @@ import TopDiscussion from './TopDiscussion.js';
 import PostCount from './PostCount.js';
 import VoteCount from './VoteCount.js';
 import Profiles from './Profiles.js';
-import Profile from './Profile.js';
+import Profile from '../views/ProfileView.js';
 import Post from './Post.js';
+import Settings from './Settings.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
+import EditPostForm from './forms/EditPostForm.js';
+import EditPasswordForm from './forms/EditPasswordForm.js';
 
 export {
 	CategoriesList,
@@ -29,7 +32,10 @@ export {
 	Profiles,
 	Profile,
 	Post,
+	Settings,
 
 	// forms
 	AddPostForm,
+	EditPostForm,
+	EditPasswordForm,
 };

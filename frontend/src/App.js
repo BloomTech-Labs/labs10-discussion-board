@@ -8,7 +8,7 @@ import chevron from '../src/assets/img/chevron.png';
 import styled, { createGlobalStyle } from 'styled-components';
 
 // components
-import { Header, Profiles, Profile } from './components/index.js';
+import { Header, Profiles, Profile, Settings } from './components/index.js';
 
 // views
 import { LandingView, CategoriesView, DiscussionView } from './views/index.js';
@@ -91,11 +91,7 @@ const authLockOptions = {
   rememberLastLogin: false
 };
 
-const lock = new Auth0Lock(
-  auth0ClientID,
-  auth0Domain,
-  authLockOptions,
-);
+const lock = new Auth0Lock(auth0ClientID, auth0Domain, authLockOptions);
 
 const webAuth = new auth0.WebAuth({
   domain: auth0Domain,
@@ -114,7 +110,6 @@ class App extends Component {
         );
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
-        console.log("AUTHRES", authResult);
         return this.props.auth0Login(accessToken);
       } else if (err) console.log(err);
     });
@@ -153,6 +148,7 @@ class App extends Component {
           <Route exact path='/profile/:id' component={Profile} />
           <Route path='/categories' component={CategoriesView} />
           <Route path='/discussion/:id' component={DiscussionView} />
+          <Route path='/settings/:id' component={Settings} />
         </AppWrapper>
       );
     } else {

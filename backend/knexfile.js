@@ -17,7 +17,6 @@ const dbSettings = {
     min: 2,
     max: 10
   },
-  useNullAsDefault: true,
   migrations: {
     directory: './db/migrations',
     tableName: 'dbmigrations'

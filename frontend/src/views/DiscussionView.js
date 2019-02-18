@@ -8,11 +8,12 @@ const DiscussionViewWrapper = styled.div`
     width: 90%;
 `;
 
-const DiscussionView = ({ match }) => {
+const DiscussionView = ({ history, match }) => {
 	const { id } = match.params;
+	const historyPush = history.push;
 	return(
 		<DiscussionViewWrapper>
-			<Discussion id = { id } />
+			<Discussion id = { id } historyPush = { historyPush } />
 		</DiscussionViewWrapper>
 	);
 };
