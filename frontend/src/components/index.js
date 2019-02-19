@@ -17,6 +17,7 @@ import Settings from './Settings.js';
 import Error from './Error.js';
 import Message from './Message.js';
 import Avatar from './Avatar.js';
+import Follow from './Follow.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -43,6 +44,7 @@ export {
 	Error,
 	Message,
 	Avatar,
+	Follow,
 
 	// forms
 	AddPostForm,
