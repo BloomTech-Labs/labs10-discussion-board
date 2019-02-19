@@ -15,7 +15,7 @@ const ProfilesWrapper = styled.div`
   display: flex;
   align-content: space-between;
   width: 100%;
-  background-color: #EEE7C8;
+  background-color: #d3ccaf;
 
 	.discussion-title {
 		font-weight: bold;
@@ -35,12 +35,6 @@ const WrappedDiv = styled.div`
     font-weight: bold;
     display: flex;
     justify-content: space-around;
-  }
-  .property-titlee {
-    font-weight: bold;
-    display: flex;
-    justify-content: space-around;
-    color: white;
   }
 
   .property-content {
