@@ -384,9 +384,26 @@ class RegisterView extends Component {
 
   //---------------- Form Methods --------------
   handleInputChange = ev => {
-    this.setState({
-      [ev.target.name]: ev.target.value
-    });
+    const chars = ev.target.value;
+    if (ev.target.name === 'email') {
+      this.setState(
+        {
+          email: chars
+        },
+        () => this.props.isEmailTaken(this.state.email)
+      );
+    } else if (ev.target.name === 'username') {
+      this.setState(
+        {
+          username: chars
+        },
+        () => this.props.isUsernameTaken(this.state.username)
+      );
+    } else {
+      this.setState({
+        [ev.target.name]: ev.target.value
+      });
+    }
   };
 
   handleRadio = ev => {
@@ -599,9 +616,16 @@ class RegisterView extends Component {
                       name='email'
                       autoComplete='off'
                     />
-                    {this.state.email !== '' && <img src='' alt='spinner' />}
-                    {this.state.email !== '' && <img src='' alt='taken' />}
-                    {this.state.email !== '' && <img src='' alt='available' />}
+                    {this.state.email !== '' &&
+                      this.props.emailExistsLoadingMessage && (
+                        <img src='' alt='spinner' />
+                      )}
+                    {this.state.email !== '' &&
+                      !this.props.emailExistsLoadingMessage &&
+                      this.props.emailTaken && <img src='' alt='taken' />}
+                    {this.state.email !== '' &&
+                      !this.props.emailExistsLoadingMessage &&
+                      !this.props.emailTaken && <img src='' alt='available' />}
                   </DivEmail>
                   <DivSignature subPlan={this.state.subPlan}>
                     <LabelSignature>Signature</LabelSignature>
