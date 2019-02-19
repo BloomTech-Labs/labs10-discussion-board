@@ -41,6 +41,10 @@ export const UPLOAD_AVATAR_LOADING = 'UPLOAD_AVATAR_LOADING';
 export const UPLOAD_AVATAR_SUCCESS = 'UPLOAD_AVATAR_SUCCESS';
 export const UPLOAD_AVATAR_FAILURE = 'UPLOAD_AVATAR_FAILURE';
 
+export const UPLOAD_AVATAR_URL_LOADING = 'UPLOAD_AVATAR_URL_LOADING';
+export const UPLOAD_AVATAR_URL_SUCCESS = 'UPLOAD_AVATAR_URL_SUCCESS';
+export const UPLOAD_AVATAR_URL_FAILURE = 'UPLOAD_AVATAR_URL_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -147,6 +151,20 @@ export const uploadAvatar = (user_id, avatarData, onUploadAvatarSucces) => dispa
     .then(res => dispatch({ type: UPLOAD_AVATAR_SUCCESS, payload: res.data }))
     .then(() => onUploadAvatarSucces())
     .catch(err => handleError(err, UPLOAD_AVATAR_FAILURE)(dispatch));
+};
+
+export const uploadAvatarUrl = (user_id, avatarUrl, onUploadAvatarSucces) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  avatarUrl = { avatarUrl };
+
+  dispatch({ type: UPLOAD_AVATAR_URL_LOADING });
+
+  return axios
+    .put(`${ backendUrl }/users/avatar-url/${ user_id }`, avatarUrl, headers)
+    .then(res => dispatch({ type: UPLOAD_AVATAR_URL_SUCCESS, payload: res.data }))
+    .then(() => onUploadAvatarSucces())
+    .catch(err => handleError(err, UPLOAD_AVATAR_URL_FAILURE)(dispatch));
 };
 
 export const displayError = errMsg => dispatch => {
