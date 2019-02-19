@@ -49,14 +49,15 @@ export const getDiscussionsByCat = (id) => dispatch => {
 };
 
 
-export const followDiscussion = (user_id, discussion_id, title, historyPush) => dispatch => {
+export const followDiscussion = (discussion_id, user_id, followed, historyPush) => dispatch => {
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
-	const body = { discussion_id, title };
+	const body = { discussion_id, followed};
 	dispatch({ type: FOLLOW_DISCUSSION_LOADING });
-	return axios.post(`${ backendURL }/users/user/${ user_id }`, body, headers)
+	console.log('act', user_id, discussion_id)
+	return axios.post(`${ backendURL }/discussion-follows/${ user_id }/${ discussion_id }`, body, headers)
 		.then(() => dispatch({ type: FOLLOW_DISCUSSION_SUCCESS }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussion/${ discussion_id }`))
+		// .then(() => historyPush('/'))
+		// .then(() => historyPush(`/discussion-follows/${ user_id }/${ discussion_id }`))
 		.catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };

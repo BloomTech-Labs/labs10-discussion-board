@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { followDiscussion } from '../store/actions/index.js';
 
-const FollowWrapper = styled.form`
+const FollowWrapper = styled.div`
   padding: 10px;
 `;
-const Followed = styled.form`
+const Followed = styled.div`
   padding: 10px;
   width: 120px;
   .follow {
@@ -15,19 +15,22 @@ const Followed = styled.form`
 `;
 
 class Follow extends Component {
-    state = { followed: true };
+    state = { followed: this.props.follow };
 	  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	  handleFollowClick = e => {
         e.preventDefault();
 		    const { followed } = this.state;
-		    const { user_id, discussion_id, title, historyPush } = this.props;
-		    return this.props.followDiscussion(user_id, discussion_id, title, followed, historyPush);
+        const { discussion_id, user_id, historyPush } = this.props;
+        console.log('followC', discussion_id, user_id, this.props); 
+		    return this.props.followDiscussion(discussion_id, user_id, followed, historyPush);
 	  };
-  
+    testClick = () => {
+      console.log('test');
+    }
     render() {
         const { followed } = this.state;
         return (
-          <FollowWrapper onClick = { this.handleFollowClick }>
+          <FollowWrapper>
               <h2>Follow</h2> 
             <Followed>
               <input
@@ -35,14 +38,20 @@ class Follow extends Component {
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: this.state.followed ? 'green' : 'red'}}
-                  value={followed ? 'Follow' : 'Following'}
+                  value={followed ? 'Follow?' : 'Following'}
               />
+              {/* <button onClick = {this.handleFollowClick}>FOLLOW</button> */}
             </Followed>
           </FollowWrapper>
         );
     }
 }
 
+const mapStateToProps = state => ({
+  follow: state.discussions.follows,
+  user_id: state.users.user_id
 
+});
 
-export default connect(null, { followDiscussion })(Follow);
+export default connect(mapStateToProps, { followDiscussion })(Follow);
+

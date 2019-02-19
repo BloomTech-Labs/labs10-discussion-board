@@ -22,6 +22,9 @@ const initialState = {
 		posts: [],
 	},
 	discussionsByCat: [],
+	follows:{
+		discussionId:[],
+	},
 };
 
 export const DiscussionsReducer = (state = initialState, action) => {
@@ -43,7 +46,11 @@ export const DiscussionsReducer = (state = initialState, action) => {
 		case TOP_DISCUSSIONS_LOADING:
 		case TOP_DISCUSSIONS_FAILURE:	
 		case FOLLOW_DISCUSSION_LOADING:
-		case FOLLOW_DISCUSSION_SUCCESS:
+		case FOLLOW_DISCUSSION_SUCCESS: 
+			return {
+				...state,
+				follows: action.payload,
+			}
 		case FOLLOW_DISCUSSION_FAILURE:
 		case GET_DISCUSSIONS_SUCCESS:
 			return {

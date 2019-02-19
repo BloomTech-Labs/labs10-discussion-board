@@ -102,6 +102,10 @@ class Profile extends Component {
                 <p className='property-title'> Posts: </p>
                 {profile.posts.map((post, index)=> <p key= {index}>{post.body}</p>)}
               </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Followed Discussions: </p>
+                {profile.posts.map((post, index)=> <p key= {index}>{post.discussionId}</p>)}
+              </WrappedDiv>
             </ProfileWrapper>
           </div>
         ));
