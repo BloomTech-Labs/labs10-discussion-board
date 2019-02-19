@@ -94,6 +94,14 @@ import {
 	PASSWORD_UPDATE_SUCCESS,
 	PASSWORD_UPDATE_FAILURE,
 
+	UPLOAD_AVATAR_LOADING,
+	UPLOAD_AVATAR_SUCCESS,
+	UPLOAD_AVATAR_FAILURE,
+
+	UPLOAD_AVATAR_URL_LOADING,
+	UPLOAD_AVATAR_URL_SUCCESS,
+	UPLOAD_AVATAR_URL_FAILURE,
+
 	DISPLAY_ERROR,
 	DISPLAY_MESSAGE,
 
@@ -106,6 +114,8 @@ import {
 	updatePassword,
 	displayError,
 	displayMessage,
+	uploadAvatar,
+	uploadAvatarUrl,
 } from './UsersActions.js';
 
 
@@ -159,6 +169,14 @@ export {
 	PASSWORD_UPDATE_SUCCESS,
 	PASSWORD_UPDATE_FAILURE,
 
+	UPLOAD_AVATAR_LOADING,
+	UPLOAD_AVATAR_SUCCESS,
+	UPLOAD_AVATAR_FAILURE,
+
+	UPLOAD_AVATAR_URL_LOADING,
+	UPLOAD_AVATAR_URL_SUCCESS,
+	UPLOAD_AVATAR_URL_FAILURE,
+
 	DISPLAY_ERROR,
 	DISPLAY_MESSAGE,
 
@@ -168,7 +186,7 @@ export {
 	GET_PROFILES_FAILURE,
 
 	GET_PROFILE_LOADING,
-  	GET_PROFILE_SUCCESS,
+	GET_PROFILE_SUCCESS,
 	GET_PROFILE_FAILURE,
 
 	// Posts Actions
@@ -204,6 +222,8 @@ export {
 	updatePassword,
 	displayError,
 	displayMessage,
+	uploadAvatar,
+	uploadAvatarUrl,
 
 	// Profile Action Creators
 	getProfiles,

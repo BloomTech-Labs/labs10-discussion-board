@@ -24,6 +24,8 @@ import Avatar from './Avatar.js';
 import AddPostForm from './forms/AddPostForm.js';
 import EditPostForm from './forms/EditPostForm.js';
 import EditPasswordForm from './forms/EditPasswordForm.js';
+import EditAvatarForm from './forms/EditAvatarForm.js';
+import EditAvatarUrlForm from './forms/EditAvatarUrlForm.js';
 
 export {
 	Auth,
@@ -51,4 +53,6 @@ export {
 	AddPostForm,
 	EditPostForm,
 	EditPasswordForm,
+	EditAvatarForm,
+	EditAvatarUrlForm,
 };
