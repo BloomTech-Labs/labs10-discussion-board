@@ -32,12 +32,14 @@ const DiscussionInfo = styled.div`
 	align-items: center;
 `
 const CategoryName = styled.div`
-	width: 7%;
+	font-size: 18px;
+	width: 10%;
+	font-weight: bold;
 `
 
 const PostedBy = styled.div`
 	display: flex;
-	width 25%;
+	width: 25%;
 
 	.username {
 		margin-left: 5px;
@@ -54,6 +56,7 @@ const PostedBy = styled.div`
 `
 
 const DiscussionVotes = styled.div`
+	font-size: 20px;
 	width: 15%;
 	display: flex;
 	align-items: center;
