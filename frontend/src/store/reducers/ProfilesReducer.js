@@ -5,9 +5,6 @@ import {
     GET_PROFILE_SUCCESS,
     GET_PROFILE_LOADING,
     GET_PROFILE_FAILURE,
-    GET_PROFILE_DISCUSSIONS_LOADING,
-  	GET_PROFILE_DISCUSSIONS_SUCCESS,
-	GET_PROFILE_DISCUSSIONS_FAILURE,
   } from '../actions/index';
   
 const initialState = {
@@ -22,6 +19,7 @@ const initialState = {
         email: '',
         status: '',
         discussions: [],
+        posts: [],
       }
     ],
 };
@@ -43,15 +41,8 @@ export const ProfilesReducer = (state = initialState, action) =>{
         ...state,
         singleProfileData: action.payload
       };
-    case GET_PROFILE_DISCUSSIONS_SUCCESS:
-      return {
-      ...state,
-      discussions: action.payload
-    };
     case GET_PROFILES_LOADING: 
     case GET_PROFILES_FAILURE: 
-    case GET_PROFILE_DISCUSSIONS_LOADING: 
-    case GET_PROFILE_DISCUSSIONS_FAILURE: 
     case GET_PROFILE_LOADING:  
     case GET_PROFILE_FAILURE:
 		default:
