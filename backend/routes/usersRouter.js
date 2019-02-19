@@ -45,16 +45,6 @@ router.get('/user/:user_id', (req, res) => {
       .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
 });
 
-// User can follow a discussion
-router.post('/user/:user_id', (req, res, next) => {
-    const { user_id } = req.params;
-    const {discussion_id, title} = req.body;
-    return usersDB
-      .followDiscussion(user_id, discussion_id, title)
-      .then(() => res.status(201).json({message: 'Discussion successfuly followed.'}))
-      .catch(err => res.status(500).json({ error: `Failed to insert(): ${ err }` }));
-});
-
 // Updates a user
 router.put('/user/:id', (req, res, next) => {
     const { id } = req.params;
