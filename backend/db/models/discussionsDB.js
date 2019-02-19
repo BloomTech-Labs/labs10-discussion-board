@@ -102,6 +102,7 @@ const findByCategoryId = (category_id) => {
             'd.title',
             'd.body',
             'd.created_at',
+            db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
         )
         .join('users as u', 'u.id', 'd.user_id')
         .join('categories as c', 'c.id', 'd.category_id')
