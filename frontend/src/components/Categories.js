@@ -27,12 +27,11 @@ const Categories = ({ category }) => {
         user_username,
         name,
         created_at,
-        category_id,
     } = category;
 
     return(
         <SingleCategory>
-            <CategoryName><span><Link className='category-link' to = {`/categories/${id}`} >{ name } </Link> </span></CategoryName>
+            <CategoryName><span><Link className='category-link' to = {`/discussions/category/${id}`} >{ name } </Link> </span></CategoryName>
             <div className = 'createdBy'><span>Created By: {user_username} </span></div>
             <div className = 'createdAt'><span>Created: { moment(created_at).fromNow() }</span></div>
         </SingleCategory>

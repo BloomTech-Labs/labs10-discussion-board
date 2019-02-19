@@ -31,11 +31,12 @@ const DiscussionsByCat = ({ discussion }) => {
         discussion_votes,
         title,
         body,
+        category_id,
     } = discussion;
 
     return(
         <SingleCategory>
-           <h1><Link className='discussion-link' to = {`/discussion/${id}`}>DISCUSSION</Link></h1>
+           <h1><Link className='discussion-link' to = {`/discussion/${category_id}`}>DISCUSSION</Link></h1>
 				<p>/d/{ category_name }</p>
 				<p>Discussion Votes: { discussion_votes }</p>
 				<p>Posted by: { username } { moment(created_at).fromNow() }</p>

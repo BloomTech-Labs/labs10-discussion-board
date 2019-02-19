@@ -28,7 +28,6 @@ class DiscussionsByCatList extends Component {
 
             return (    
                 <DiscussionsViewWrapper>
-                    {console.log('map', this.props)}
                     {
                         discussionsByCat.map((discussion, index) => 
                             <DiscussionsByCat

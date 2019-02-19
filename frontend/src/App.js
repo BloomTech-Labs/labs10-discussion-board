@@ -113,7 +113,7 @@ class App extends Component {
           <Route exact path='/categories' component={CategoriesView} />
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
-          <Route exact path ='/categories/:id' component={DiscussionsView} />
+          <Route exact path ='/discussions/category/:category_id' component={DiscussionsView} />
 
 
           { error && <Error error = { error } /> }
