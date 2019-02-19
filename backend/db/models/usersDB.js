@@ -13,7 +13,7 @@ const findById = id => {
     .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
     .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .where('u.id', id);
-  const promises = [ getDiscussions, getUser ];
+  const promises = [ getDiscussions, getPosts, getUser ];
     return Promise.all(promises)
     .then(results => {
       let [ getDiscussionsResults, getPostsResults, getUserResults ] = results;
