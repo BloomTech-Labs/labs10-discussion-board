@@ -159,6 +159,7 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
         return res.status(201).json([{
           id: user[0].id,
           token,
+          avatar: user[0].avatar,
           username: user[0].username,
           email: user[0].email,
           message: 'Logging back in successful.'
