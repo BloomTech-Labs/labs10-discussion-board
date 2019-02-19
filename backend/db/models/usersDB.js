@@ -4,9 +4,6 @@ const db = require('../dbConfig.js');
 const getUsers = () => {
   return db('users').select('id', 'username', 'email', 'status');
 };
-//Gets all the discussions for a user by their user id
-const getAllDiscussions = user_id => {
-    return db('discussions').where({user_id})};
 
 //Gets a user by their id
 const findById = id => {
@@ -79,5 +76,4 @@ module.exports = {
   update,
   updatePassword,
   remove,
-  getAllDiscussions
 };

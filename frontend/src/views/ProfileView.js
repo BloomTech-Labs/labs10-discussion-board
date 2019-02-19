@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
-import { getProfile, getProfileDiscussions } from '../store/actions/index';
+import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 
 // components
@@ -128,4 +128,4 @@ const mapStateToProps = state => ({
         profile: state.profilesData.singleProfileData
 });
 
-export default connect(mapStateToProps,{ getProfile, getProfileDiscussions })(Profile);
+export default connect(mapStateToProps,{ getProfile })(Profile);

@@ -68,14 +68,10 @@ import {
   	GET_PROFILE_SUCCESS,
 	GET_PROFILE_FAILURE,
 
-	GET_PROFILE_DISCUSSIONS_LOADING,
-  	GET_PROFILE_DISCUSSIONS_SUCCESS,
-	GET_PROFILE_DISCUSSIONS_FAILURE,
 	
   // Action Creators
 	getProfiles,
 	getProfile,
-	getProfileDiscussions,
 } from './ProfilesActions.js';
 
 import {
@@ -174,11 +170,6 @@ export {
 	GET_PROFILE_LOADING,
   	GET_PROFILE_SUCCESS,
 	GET_PROFILE_FAILURE,
-	  
-	GET_PROFILE_DISCUSSIONS_LOADING,
-  	GET_PROFILE_DISCUSSIONS_SUCCESS,
-	GET_PROFILE_DISCUSSIONS_FAILURE,
-
 
 	// Posts Actions
 	ADD_POST_LOADING,
@@ -217,7 +208,6 @@ export {
 	// Profile Action Creators
 	getProfiles,
 	getProfile,
-	getProfileDiscussions,
 
 	// Posts Action Creators
 	addPost,
