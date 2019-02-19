@@ -13,8 +13,8 @@ const findById = id => {
   const getDiscussions = db('discussions').where('user_id', id);
   const getUser = db('users as u')
     .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
-    .join('user_settings as us', 'u.id', 'us.user_id')
-    .where('u.id', id)
+    .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
+    .where('u.id', id);
   const promises = [ getDiscussions, getUser ];
     return Promise.all(promises)
     .then(results => {
@@ -31,7 +31,16 @@ const getPassword = id => {
 
 //Gets a user by their username
 const findByUsername = username => {
-  return db('users')
+  return db('users as u')
+    .select(
+      'u.id',
+      'u.username',
+      'u.password',
+      'u.email',
+      'u.status',
+      'us.avatar',
+    )
+    .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .whereRaw('LOWER(username) = ?', username.toLowerCase())
     .first();
 };
@@ -46,6 +55,11 @@ const insert = user => {
 //Insert user settings (with new created user)
 const addUserSettings = settings => {
   return db('user_settings').insert(settings);
+};
+
+//Update user settings
+const updateUserSettings = settings => {
+  return db('user_settings').update(settings).where('user_id', settings.user_id);
 };
 
 //Update a user
@@ -76,6 +90,7 @@ module.exports = {
   findByUsername,
   insert,
   addUserSettings,
+  updateUserSettings,
   update,
   updatePassword,
   remove,
