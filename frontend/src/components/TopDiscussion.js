@@ -19,10 +19,12 @@ const TopDiscussionWrapper = styled.div`
 	box-shadow: 2px 3px 2px 2px gray;
 
 	.title {
+		text-decoration: none;
 		font-weight: bold;
 		font-size: 18px;
 		color: black;
 		&:hover {
+			text-decoration: underline;
 			background-color:  rgba(255, 255, 255, 0.13);
 			cursor: pointer;
 			color:white;
@@ -32,28 +34,26 @@ const TopDiscussionWrapper = styled.div`
 		font-size: 18px;
 		color: black;
 		&:hover {
+			text-decoration: underline;
 			background-color:  rgba(255, 255, 255, 0.13);
 			cursor: pointer;
 			color:white;
 		}
 	}
 	.nameanddate {
+		text-decoration: none;
 		font-size: 14px;
 		color: black;
 		&:hover {
+			text-decoration: underline;
 			background-color:  rgba(255, 255, 255, 0.13);
 			cursor: pointer;
 			color:white;
 		}
-		cursor: pointer;
-		
-		:hover {
-			text-decoration: underline;
-		}
 	}
 
 	:hover {
-		background-color:  rgba(255, 255, 255, 0.13);
+		background-color:  rgba(255, 255, 255, 0.195);
 	}
 
 	.content {
@@ -63,9 +63,6 @@ const TopDiscussionWrapper = styled.div`
 	p {
 		margin-left: 10px;
 		&:hover {
-			background-color:  rgba(255, 255, 255, 0.13);
-			cursor: pointer;
-			color:white;
 		}
 	}
 `;
@@ -103,7 +100,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 					>
 						{ username }
 					</Link>&#8201;
-					<span className = 'nameanddate'> - { moment(created_at).fromNow() }</span>
+					<span className = 'timestamp'> - { moment(created_at).fromNow() }</span>
 				</div>
 				<p>{ body }</p>
 			</div>

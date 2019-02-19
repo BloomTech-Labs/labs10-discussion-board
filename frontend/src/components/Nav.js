@@ -22,16 +22,24 @@ const DivWrapper = styled.div`
 const Welcome = styled.div`
   margin: 25px;
   font-size: 24px;
+    .username {
+      color: black;
+      text-decoration: none;
+      :hover {
+        color: white;
+        text-decoration: underline;
+      }
+    }
 `;
 
 const Signout = styled.a`
   font-size: 30px;
   user-select: none;
   cursor: pointer;
-  text-decoration: underline;
 
   &:hover {
     color: white;
+    text-decoration: underline;
   }
 `;
 
@@ -55,7 +63,7 @@ class Nav extends Component {
           width = '100px'
           src = { avatar }
         />
-        <Welcome>Welcome, <Link to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
+        <Welcome>Welcome, <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
         <Signout onClick = { ev => this.clickSignout(ev) }>
           Sign Out
         </Signout>

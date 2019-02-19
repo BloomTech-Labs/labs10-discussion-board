@@ -18,7 +18,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   align-content: space-between;
   width: 100%;
-  background-color: #eee7c8;
+  background-color: #d3ccaf;
 
   .discussion-title {
     font-weight: bold;
