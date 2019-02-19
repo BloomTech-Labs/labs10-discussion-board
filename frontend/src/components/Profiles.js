@@ -13,7 +13,7 @@ const ProfilesWrapper = styled.div`
 	padding: 10px;
   border: 1px solid black;
   display: flex;
-  align-content: space-between
+  align-content: space-between;
   width: 100%;
   background-color: #d3ccaf;
 
