@@ -92,7 +92,27 @@ const findByUserId = (user_id) => {
 
 //Find by Associated Category (category ID)
 const findByCategoryId = (category_id) => {
-    return db('discussions').where('category_id', category_id)
+    let discussionQuery = db('discussions as d')
+        .select(
+            'd.id',
+            'd.user_id',
+            'u.username',
+            'd.category_id',
+            'c.name as category_name',
+            'd.title',
+            'd.body',
+            'd.created_at',
+        )
+        .join('users as u', 'u.id', 'd.user_id')
+        .join('categories as c', 'c.id', 'd.category_id')
+        .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+        .where('c.id', category_id)
+        .groupBy('d.id', 'u.username', 'c.name');
+    return Promise.all([discussionQuery])
+        .then(results => {
+            const [discussionQueryResults] = results
+            return discussionQueryResults
+        });
 };
 
 //AUTHORIZED ACCESS
@@ -125,5 +145,5 @@ module.exports = {
     findByCategoryId,
     insert,
     update,
-    remove
+    remove,
 };

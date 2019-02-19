@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 
 //Components
-import { Discussion } from './index.js';
+import { DiscussionsByCat } from './index.js';
 
 //Action Creators
 import { getDiscussionsByCat } from '../store/actions/index.js'
@@ -19,19 +19,19 @@ const DiscussionsViewWrapper = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 
-class Discussions extends Component {
+class DiscussionsByCatList extends Component {
     componentDidMount = () => {
-        this.props.getDiscussionsByCat(this.props.id)
+        this.props.getDiscussionsByCat(this.props.category_id)
     };
-
         render() {
             const { discussionsByCat } = this.props;
 
-            return (
+            return (    
                 <DiscussionsViewWrapper>
+                    {console.log('map', this.props)}
                     {
                         discussionsByCat.map((discussion, index) => 
-                            <Discussion
+                            <DiscussionsByCat
                                 key = { index }
                                 discussion = {discussion}
                             />
@@ -46,4 +46,4 @@ const mapStateToProps = state => ({
     discussionsByCat: state.discussions.discussionsByCat
 });
 
-export default connect(mapStateToProps, { getDiscussionsByCat })(Discussions);
+export default connect(mapStateToProps, { getDiscussionsByCat })(DiscussionsByCatList);

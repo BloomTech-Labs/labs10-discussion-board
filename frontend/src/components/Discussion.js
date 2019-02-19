@@ -39,6 +39,7 @@ class Discussion extends Component {
 			user_id,
 			username,
 		} = discussion;
+
 		return(
 			<DiscussionWrapper>
 				<h1>DISCUSSION</h1>

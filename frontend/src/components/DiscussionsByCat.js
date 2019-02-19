@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { GET_DISCUSSIONS_LOADING } from '../store/actions';
 
 const SingleCategory = styled.div`
     width: 300px;
@@ -20,23 +21,28 @@ const CategoryName = styled.div`
 
 //import moment and add created_At in the migrations if wish to include 
 //a timestamp of creation
-const Categories = ({ category }) => {
+const DiscussionsByCat = ({ discussion }) => {
     const {
         id,
         user_id,
-        user_username,
-        name,
+        username,
         created_at,
-        category_id,
-    } = category;
+        category_name, 
+        discussion_votes,
+        title,
+        body,
+    } = discussion;
 
     return(
         <SingleCategory>
-            <CategoryName><span><Link className='category-link' to = {`/categories/${id}`} >{ name } </Link> </span></CategoryName>
-            <div className = 'createdBy'><span>Created By: {user_username} </span></div>
-            <div className = 'createdAt'><span>Created: { moment(created_at).fromNow() }</span></div>
+           <h1><Link className='discussion-link' to = {`/discussion/${id}`}>DISCUSSION</Link></h1>
+				<p>/d/{ category_name }</p>
+				<p>Discussion Votes: { discussion_votes }</p>
+				<p>Posted by: { username } { moment(created_at).fromNow() }</p>
+				<p>Title: { title }</p>
+				<p>Body: { body }</p>
         </SingleCategory>
     );
 };
 
-export default Categories;
+export default DiscussionsByCat;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Discussions } from '../components/index.js';
+import { DiscussionsByCatList } from '../components/index.js';
 
 //Category Name on top, Created By: Username
 
@@ -54,12 +54,12 @@ const DiscussionsView = (props) => {
         <DiscussionsViewWrapper>
             <DiscussionsHeader>
                 <DiscussionsTitle>
-                    <h1>Category Name Goes Here</h1>
+                    <h1>Category name here</h1>
                 </DiscussionsTitle>       
             </DiscussionsHeader>
             <hr />
-            <Discussions 
-				id = {props.match.params.id}/>
+			<DiscussionsByCatList 
+				category_id = {props.match.params.category_id}/>
         </DiscussionsViewWrapper>
     );
 }
