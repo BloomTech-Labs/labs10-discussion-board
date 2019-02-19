@@ -42,7 +42,7 @@ const PostedBy = styled.div`
 	width: 25%;
 
 	.username {
-		margin-left: 5px;
+		margin: 0px 7px;
 		font-weight: bold;
 		color: black;
 		text-decoration: none;
@@ -96,7 +96,10 @@ class Discussion extends Component {
 				<h1>DISCUSSION</h1>
 				<DiscussionInfo>
 					<CategoryName>/d/{ category_name }</CategoryName>
-					<PostedBy>Posted by: <Link className = 'username' to = { `/profile/${ user_id }` }>{ username } { moment(created_at).fromNow() }</Link></PostedBy>
+					<PostedBy>Posted by: 
+						<Link className = 'username' to = { `/profile/${ user_id }` }>{ username }</Link> 
+						{ moment(created_at).fromNow() }
+					</PostedBy>
 					<DiscussionVotes>
 						Discussion Votes: { discussion_votes }
 						<img className = 'discussionVotes' src={Votes} alt='votes' />
