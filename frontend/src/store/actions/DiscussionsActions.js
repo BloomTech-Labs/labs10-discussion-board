@@ -54,10 +54,7 @@ export const followDiscussion = (discussion_id, user_id, followed, historyPush) 
 	const headers = { headers: { Authorization: token } };
 	const body = { discussion_id, followed};
 	dispatch({ type: FOLLOW_DISCUSSION_LOADING });
-	console.log('act', user_id, discussion_id)
 	return axios.post(`${ backendURL }/discussion-follows/${ user_id }/${ discussion_id }`, body, headers)
 		.then(() => dispatch({ type: FOLLOW_DISCUSSION_SUCCESS }))
-		// .then(() => historyPush('/'))
-		// .then(() => historyPush(`/discussion-follows/${ user_id }/${ discussion_id }`))
 		.catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };

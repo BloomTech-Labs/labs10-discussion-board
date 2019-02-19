@@ -21,26 +21,23 @@ class Follow extends Component {
         e.preventDefault();
 		    const { followed } = this.state;
         const { discussion_id, user_id, historyPush } = this.props;
-        console.log('followC', discussion_id, user_id, this.props); 
 		    return this.props.followDiscussion(discussion_id, user_id, followed, historyPush);
 	  };
-    testClick = () => {
-      console.log('test');
-    }
+
     render() {
         const { followed } = this.state;
         return (
           <FollowWrapper>
-              <h2>Follow</h2> 
             <Followed>
-              <input
+              {/* <input
                   className="follow"
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: this.state.followed ? 'green' : 'red'}}
                   value={followed ? 'Follow?' : 'Following'}
-              />
-              {/* <button onClick = {this.handleFollowClick}>FOLLOW</button> */}
+              /> */}
+              <button onClick = {this.handleFollowClick}>FOLLOW/UNFOLLOW</button>
+              
             </Followed>
           </FollowWrapper>
         );
@@ -48,9 +45,8 @@ class Follow extends Component {
 }
 
 const mapStateToProps = state => ({
-  follow: state.discussions.follows,
-  user_id: state.users.user_id
-
+    follow: state.discussions.follows,
+    user_id: state.users.user_id
 });
 
 export default connect(mapStateToProps, { followDiscussion })(Follow);
