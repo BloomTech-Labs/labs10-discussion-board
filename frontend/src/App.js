@@ -123,7 +123,7 @@ class App extends Component {
         <AppWrapper>
           <GlobalStyle />
           <Switch>
-            <Route exact path='/register' render={() => <RegisterView history={this.props.history} />} />
+            <Route exact path='/register' component={RegisterView} />
             <Route render={props => <Auth {...props} handleAuth0Login={this.handleAuth0Login} />}/>
           </Switch>
           { error && <Error error = { error } /> }
