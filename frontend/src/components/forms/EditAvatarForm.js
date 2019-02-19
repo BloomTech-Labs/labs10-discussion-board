@@ -100,7 +100,7 @@ class EditAvatarForm extends Component {
 		const imageFile = e.target[0].files[0];
 		const imageData = new FormData();
 		imageData.append('imageFile', imageFile);
-		return uploadAvatar(user_id, imageData).then(() => onUploadAvatarSucces());
+		return uploadAvatar(user_id, imageData, onUploadAvatarSucces);
 	};
 	handleInputChange = e => {
 		if (e.target.files.length) {
@@ -112,7 +112,7 @@ class EditAvatarForm extends Component {
 	resetAvatar = e => {
 		e.preventDefault();
 		const { user_id, uploadAvatar, onUploadAvatarSucces } = this.props;
-		return uploadAvatar(user_id, null).then(() => onUploadAvatarSucces());
+		return uploadAvatar(user_id, null, onUploadAvatarSucces);
 	};
 	render() {
 		const { toggleForm, avatar } = this.props;
