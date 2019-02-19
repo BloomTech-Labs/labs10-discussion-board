@@ -1,49 +1,114 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { GET_DISCUSSIONS_LOADING } from '../store/actions';
 
-const SingleCategory = styled.div`
-    width: 300px;
-    margin: 5px 10px;
-`
+// components
+import { PostCount, VoteCount } from './index.js';
 
-const CategoryName = styled.div`
-    margin: 10px 0;
-    font-weight: bold;
+/***************************************************************************************************
+ ********************************************** Styles **********************************************
+ **************************************************************************************************/
+const TopDiscussionWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 5px;
+	padding: 10px;
+	
+	box-shadow: 2px 3px 2px 2px gray;
 
-    :hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
-`
+	.title {
+		text-decoration: none;
+		font-weight: bold;
+		font-size: 18px;
+		color: black;
+		&:hover {
+			text-decoration: underline;
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:white;
+		}
+	}
+	.category {
+		font-size: 18px;
+		color: black;
+		&:hover {
+			text-decoration: underline;
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:white;
+		}
+	}
+	.nameanddate {
+		text-decoration: none;
+		font-size: 14px;
+		color: black;
+		&:hover {
+			text-decoration: underline;
+			background-color:  rgba(255, 255, 255, 0.13);
+			cursor: pointer;
+			color:white;
+		}
+	}
 
-//import moment and add created_At in the migrations if wish to include 
-//a timestamp of creation
-const DiscussionsByCat = ({ discussion }) => {
-    const {
-        id,
-        user_id,
-        username,
-        created_at,
-        category_name, 
-        discussion_votes,
-        title,
-        body,
-        category_id,
+	&:hover {
+		background-color:  rgba(255, 255, 255, 0.195);
+	}
+
+	.content {
+		width: 85%;
+	}
+
+	p {
+		margin-left: 10px;
+		&:hover {
+		}
+	}
+`;
+
+/***************************************************************************************************
+ ********************************************* Component *******************************************
+ **************************************************************************************************/
+const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
+	const {
+		body,
+		category_id,
+		category_name,
+		created_at,
+		id,
+		post_count,
+		title,
+		user_id,
+		username,
+		vote_count,
     } = discussion;
+    
+	const handleVote = type => handleDiscussionVote(id, type);
+	return (
+		<TopDiscussionWrapper>
+			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
+			<div className = 'content'>
+				<div>
+					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
+					<span className = 'category'>/d/{ category_name }</span>
+				</div>
 
-    return(
-        <SingleCategory>
-           <h1><Link className='discussion-link' to = {`/discussion/${category_id}`}>DISCUSSION</Link></h1>
-				<p>/d/{ category_name }</p>
-				<p>Discussion Votes: { discussion_votes }</p>
-				<p>Posted by: { username } { moment(created_at).fromNow() }</p>
-				<p>Title: { title }</p>
-				<p>Body: { body }</p>
-        </SingleCategory>
-    );
+				<div>
+					<Link
+						to = { `/profile/${ user_id }` }
+						className = 'nameanddate'
+					>
+						{ username }
+					</Link>&#8201;
+					<span className = 'timestamp'> - { moment(created_at).fromNow() }</span>
+				</div>
+				<p>{ body }</p>
+			</div>
+
+			<PostCount post_count = { post_count || 0 } />
+		</TopDiscussionWrapper>
+	);
 };
 
 export default DiscussionsByCat;

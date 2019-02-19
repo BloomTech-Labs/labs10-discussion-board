@@ -13,8 +13,7 @@ import {
   Settings,
   Error,
   Message,
-  Auth,
-  DiscussionsByCatList
+  Auth
 } from './components/index.js';
 
 // views
@@ -111,10 +110,11 @@ class App extends Component {
           <Route exact path='/profiles' component={Profiles} />
           <Route exact path='/profile/:id' component={Profile} />
           <Route exact path='/categories' component={CategoriesView} />
-          <Route exact path='/discussion/:id' component={DiscussionView} />
+          <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
-          <Route path ='/discussions/category/:category_id' component={DiscussionsByCatView} />
-          
+          <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+
+
           { error && <Error error = { error } /> }
           { message && <Message message = { message } /> }
         </AppWrapper>

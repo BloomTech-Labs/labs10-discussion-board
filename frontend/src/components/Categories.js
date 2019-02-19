@@ -39,7 +39,7 @@ const Categories = ({ category }) => {
         <SingleCategory>
             <CategoryName className ={`${category.name}`}>
                 <CategoryLink>
-                    <Link className='category-link' to = {`/discussions/categories/${id}`} >{ name } </Link>
+                    <Link className='category-link' to = {`/discussions/category/${id}`} >{ name } </Link>
                 </CategoryLink>
             </CategoryName>
             <div className = 'createdBy'><span>Created By: {user_username}</span></div>
