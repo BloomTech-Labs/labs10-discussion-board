@@ -115,7 +115,7 @@ class EditAvatarForm extends Component {
 		return uploadAvatar(user_id, null, onUploadAvatarSucces);
 	};
 	render() {
-		const { toggleForm, avatar } = this.props;
+		const { toggleForm } = this.props;
 		const { name } = this.state;
 		return(
 			<EditAvatarFormWrapper onSubmit = { this.handleSubmit }>
@@ -144,14 +144,11 @@ class EditAvatarForm extends Component {
 					<button className = 'upload-btn' type = 'submit'>Submit</button>
 				}
 
-				{
-					avatar &&
-					<button
-						className = 'btn reset-btn'
-						type = 'button'
-						onClick = { this.resetAvatar }
-					>Reset to default</button>
-				}
+				<button
+					className = 'btn reset-btn'
+					type = 'button'
+					onClick = { this.resetAvatar }
+				>Reset to default</button>
 
 				<button
 					type = 'button'
@@ -164,7 +161,6 @@ class EditAvatarForm extends Component {
 };
 
 const mapStateToProps = state => ({
-	avatar: state.users.avatar,
 	user_id: state.users.user_id,
 });
 
