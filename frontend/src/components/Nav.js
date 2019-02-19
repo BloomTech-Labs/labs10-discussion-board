@@ -25,7 +25,7 @@ const Welcome = styled.div`
     .username {
       color: black;
       text-decoration: none;
-      :hover {
+      &:hover {
         color: white;
         text-decoration: underline;
       }
