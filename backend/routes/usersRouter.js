@@ -115,6 +115,20 @@ router.put('/avatar/:user_id', authenticate, fileUpload(), (req, res) => {
 		.catch(err => res.status(500).json({ error: `Jimp failed to read image buffer: ${ err }`}));
 });
 
+// Update the avatar (as a url) of a user given their ID
+router.put('/avatar-url/:user_id', authenticate, (req, res) => {
+  const { user_id } = req.params;
+	let { avatarUrl } = req.body;
+	if (avatarUrl === null) {
+		// reset avatar to default
+    avatarUrl = defaultAvatar;
+  }
+  return usersDB
+    .updateAvatar(user_id, avatarUrl)
+    .then(result => res.status(201).json(result[0].avatar))
+    .catch(err => res.status(500).json({ error: `Failed to updateAvatar(): ${ err }`}));
+});
+
 // Delete a user by their ID
 router.delete('/:id', (req, res, next) => {
     const { id } = req.params;
