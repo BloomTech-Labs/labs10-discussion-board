@@ -21,9 +21,9 @@ class EditPasswordForm extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { oldPassword, newPassword, newPassword1 } = this.state;
-		const { updatePassword, toggleEditPasswordForm, displayError } = this.props;
+		const { updatePassword, toggleForm, displayError } = this.props;
 		if (newPassword !== newPassword1) return displayError('New passwords must match.');
-		return updatePassword(oldPassword, newPassword, toggleEditPasswordForm);
+		return updatePassword(oldPassword, newPassword, toggleForm);
 	};
 	render() {
 		const {
@@ -31,7 +31,7 @@ class EditPasswordForm extends Component {
 			newPassword,
 			newPassword1,
 		} = this.state;
-		const { toggleEditPasswordForm } = this.props;
+		const { toggleForm } = this.props;
 		return(
 			<EditPasswordFormWrapper onSubmit = { this.handleSubmit }>
 				<h1>Edit password</h1>
@@ -61,7 +61,7 @@ class EditPasswordForm extends Component {
 				/>
 
 				<button type = 'submit'>Submit</button>
-				<button type = 'button' onClick = { toggleEditPasswordForm }>Cancel</button>
+				<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
 			</EditPasswordFormWrapper>
 		);
 	}

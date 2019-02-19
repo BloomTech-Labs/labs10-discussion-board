@@ -55,6 +55,15 @@ export const EMAIL_EXISTS_LOADING = 'EMAIL_EXISTS_LOADING';
 export const EMAIL_EXISTS_SUCCESS = 'EMAIL_EXISTS_SUCCESS';
 export const EMAIL_EXISTS_FAILURE = 'EMAIL_EXISTS_FAILURE';
 
+// upload avatar
+export const UPLOAD_AVATAR_LOADING = 'UPLOAD_AVATAR_LOADING';
+export const UPLOAD_AVATAR_SUCCESS = 'UPLOAD_AVATAR_SUCCESS';
+export const UPLOAD_AVATAR_FAILURE = 'UPLOAD_AVATAR_FAILURE';
+
+export const UPLOAD_AVATAR_URL_LOADING = 'UPLOAD_AVATAR_URL_LOADING';
+export const UPLOAD_AVATAR_URL_SUCCESS = 'UPLOAD_AVATAR_URL_SUCCESS';
+export const UPLOAD_AVATAR_URL_FAILURE = 'UPLOAD_AVATAR_URL_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -129,21 +138,18 @@ export const register = creds => dispatch => {
 export const updatePassword = (
   oldPassword,
   newPassword,
-  toggleEditPasswordForm
+  toggleForm
 ) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   const body = { oldPassword, newPassword };
   dispatch({ type: PASSWORD_UPDATE_LOADING });
+  // prettier-ignore
   return axios
     .put(`${backendUrl}/users/password/${user_id}`, body, headers)
-    .then(() =>
-      displayMessage('Password has been updated.', PASSWORD_UPDATE_SUCCESS)(
-        dispatch
-      )
-    )
-    .then(() => toggleEditPasswordForm())
+    .then(() => displayMessage('Password has been updated.', PASSWORD_UPDATE_SUCCESS)(dispatch))
+    .then(() => toggleForm(''))
     .catch(err => handleError(err, PASSWORD_UPDATE_FAILURE)(dispatch));
 };
 
@@ -157,6 +163,49 @@ export const signout = () => dispatch => {
     USER_SIGNOUT_SUCCESS
   )(dispatch);
   return Promise.resolve();
+};
+
+// prettier-ignore
+export const uploadAvatar = (user_id, avatarData, onUploadAvatarSucces) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+	let headers;
+
+	if (avatarData) {
+		// avatar will be updated with given image
+		headers = {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				Authorization: token,
+			}
+		};
+	} else {
+		// avatar will be reset to default
+		headers = { headers: { Authorization: token } };
+		avatarData = { avatarData };
+	}
+
+  dispatch({ type: UPLOAD_AVATAR_LOADING });
+
+  return axios
+    .put(`${ backendUrl }/users/avatar/${ user_id }`, avatarData, headers)
+    .then(res => dispatch({ type: UPLOAD_AVATAR_SUCCESS, payload: res.data }))
+    .then(() => onUploadAvatarSucces())
+    .catch(err => handleError(err, UPLOAD_AVATAR_FAILURE)(dispatch));
+};
+
+// prettier-ignore
+export const uploadAvatarUrl = (user_id, avatarUrl, onUploadAvatarSucces) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  avatarUrl = { avatarUrl };
+
+  dispatch({ type: UPLOAD_AVATAR_URL_LOADING });
+
+  return axios
+    .put(`${ backendUrl }/users/avatar-url/${ user_id }`, avatarUrl, headers)
+    .then(res => dispatch({ type: UPLOAD_AVATAR_URL_SUCCESS, payload: res.data }))
+    .then(() => onUploadAvatarSucces())
+    .catch(err => handleError(err, UPLOAD_AVATAR_URL_FAILURE)(dispatch));
 };
 
 export const displayError = errMsg => dispatch => {

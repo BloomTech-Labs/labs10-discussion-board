@@ -15,6 +15,12 @@ import {
   PASSWORD_UPDATE_LOADING,
   PASSWORD_UPDATE_SUCCESS,
   PASSWORD_UPDATE_FAILURE,
+  UPLOAD_AVATAR_LOADING,
+  UPLOAD_AVATAR_SUCCESS,
+  UPLOAD_AVATAR_FAILURE,
+  UPLOAD_AVATAR_URL_LOADING,
+  UPLOAD_AVATAR_URL_SUCCESS,
+  UPLOAD_AVATAR_URL_FAILURE,
   DISPLAY_ERROR,
   DISPLAY_MESSAGE,
   USER_EXISTS_LOADING,
@@ -62,13 +68,13 @@ export const UsersReducer = (state = initialState, action) => {
         loggingInLoadingMessage: false,
         error: null
       };
+
     case USER_AUTH0_LOGIN_FAILURE:
     case USER_LOG_BACK_IN_FAILURE:
     case USER_LOGIN_FAILURE:
       return {
         ...state,
-        loggingInLoadingMessage: false,
-        error: action.payload
+        loggingInLoadingMessage: false
       };
 
     // Register
@@ -111,11 +117,17 @@ export const UsersReducer = (state = initialState, action) => {
         message: action.payload
       };
 
+    case UPLOAD_AVATAR_URL_SUCCESS:
+    case UPLOAD_AVATAR_SUCCESS:
+      return { ...state, avatar: action.payload };
+
+    case UPLOAD_AVATAR_URL_LOADING:
+    case UPLOAD_AVATAR_LOADING:
     case USER_LOG_BACK_IN_LOADING:
     case PASSWORD_UPDATE_LOADING:
     case PASSWORD_UPDATE_SUCCESS:
     case PASSWORD_UPDATE_FAILURE:
-      break;
+      return state;
 
     // Is Username Taken
     case USER_EXISTS_LOADING:
@@ -160,6 +172,8 @@ export const UsersReducer = (state = initialState, action) => {
         isEmailTaken: false,
         error: action.payload
       };
+    case UPLOAD_AVATAR_URL_FAILURE:
+    case UPLOAD_AVATAR_FAILURE:
     default:
       return state;
   }
