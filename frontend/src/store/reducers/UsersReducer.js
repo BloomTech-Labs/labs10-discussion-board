@@ -112,10 +112,10 @@ export const UsersReducer = (state = initialState, action) => {
       };
 
     case USER_LOG_BACK_IN_LOADING:
-    case USER_AUTH0_LOGIN_LOADING:
     case PASSWORD_UPDATE_LOADING:
     case PASSWORD_UPDATE_SUCCESS:
     case PASSWORD_UPDATE_FAILURE:
+      break;
 
     // Is Username Taken
     case USER_EXISTS_LOADING:

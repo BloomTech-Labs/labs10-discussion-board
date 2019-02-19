@@ -469,7 +469,6 @@ class RegisterView extends Component {
                     <h4>{subscriptionPrices[0]}</h4>
                   </DivFreePlan>
                   <input
-                    id='subscription-radio-selector'
                     type='radio'
                     value='free-plan'
                     name='sub-plan'
@@ -495,7 +494,6 @@ class RegisterView extends Component {
                     <h4>{subscriptionPrices[1]}</h4>
                   </DivBronzePlan>
                   <input
-                    id='subscription-radio-selector'
                     type='radio'
                     value='bronze-plan'
                     name='sub-plan'
@@ -522,7 +520,6 @@ class RegisterView extends Component {
                     <h4>{subscriptionPrices[2]}</h4>
                   </DivSilverPlan>
                   <input
-                    id='subscription-radio-selector'
                     type='radio'
                     value='silver-plan'
                     name='sub-plan'
@@ -550,7 +547,6 @@ class RegisterView extends Component {
                     <h4>{subscriptionPrices[3]}</h4>
                   </DivGoldPlan>
                   <input
-                    id='subscription-radio-selector'
                     type='radio'
                     value='gold-plan'
                     name='sub-plan'
@@ -603,6 +599,9 @@ class RegisterView extends Component {
                       name='email'
                       autoComplete='off'
                     />
+                    {this.state.email !== '' && <img src='' alt='spinner' />}
+                    {this.state.email !== '' && <img src='' alt='taken' />}
+                    {this.state.email !== '' && <img src='' alt='available' />}
                   </DivEmail>
                   <DivSignature subPlan={this.state.subPlan}>
                     <LabelSignature>Signature</LabelSignature>
