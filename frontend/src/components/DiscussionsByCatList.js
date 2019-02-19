@@ -29,6 +29,7 @@ class DiscussionsByCatList extends Component {
 	render() {
 		const { discussionsByCat } = this.props;
 		return (
+            console.log('props in list', this.props),
 			<TopDiscussionsViewWrapper>
 				{
 					discussionsByCat.map((discussion, index) =>

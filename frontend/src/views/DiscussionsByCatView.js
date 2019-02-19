@@ -67,6 +67,7 @@ const TextLooper = styled.div`
  **************************************************************************************************/
 const DiscussionsByCatView = (props) => {
 	return (
+		console.log('props', props),
 		<TopDiscussionsViewWrapper>
 			<TopDiscussionsHeader>
 				<div className = 'logotopd'>
@@ -77,6 +78,7 @@ const DiscussionsByCatView = (props) => {
 				</div>
 				<TextLooper>
                 <TextLoop>
+					
                     <span>See what's being discussed</span>
                     <span>Find your interests</span>
                     <span>Start talking!</span>

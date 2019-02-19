@@ -83,6 +83,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 		username,
 		vote_count,
 	} = discussion;
+
 	const handleVote = type => handleDiscussionVote(id, type);
 	return (
 		<TopDiscussionWrapper>
