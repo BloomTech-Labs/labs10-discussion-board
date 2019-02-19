@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { EditPostForm } from './index.js';
 
 const PostWrapper = styled.div`
-	width: 90%;
+	width: 100%;
 	border: 1px solid black;
 `;
 

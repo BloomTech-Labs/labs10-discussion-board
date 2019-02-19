@@ -41,7 +41,7 @@ const PostedBy = styled.div`
 
 	.username {
 		margin-left: 5px;
-		font-weight:bold
+		font-weight: bold;
 		color: black;
 		text-decoration: none;
 

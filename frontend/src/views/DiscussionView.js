@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Discussion } from '../components/index.js';
 
 const DiscussionViewWrapper = styled.div`
-    width: 90%;
+	width: 90%;
 `;
 
 const DiscussionView = ({ history, match }) => {
