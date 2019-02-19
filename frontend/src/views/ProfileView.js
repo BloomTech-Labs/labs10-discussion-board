@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
-import { getProfile, getProfileDiscussions } from '../store/actions/index';
+import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 
 // components
@@ -98,6 +98,10 @@ class Profile extends Component {
                 <p className='property-title'> Discussions: </p>
                 {profile.discussions.map((discussion, index)=> <p key= {index}>{discussion.title}</p>)}
               </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Posts: </p>
+                {profile.posts.map((post, index)=> <p key= {index}>{post.body}</p>)}
+              </WrappedDiv>
             </ProfileWrapper>
           </div>
         ));
@@ -128,4 +132,4 @@ const mapStateToProps = state => ({
         profile: state.profilesData.singleProfileData
 });
 
-export default connect(mapStateToProps,{ getProfile, getProfileDiscussions })(Profile);
+export default connect(mapStateToProps,{ getProfile })(Profile);
