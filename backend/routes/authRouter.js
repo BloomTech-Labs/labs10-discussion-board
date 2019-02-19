@@ -139,7 +139,8 @@ router.post('/login', async (req, res) => {
           id: user.id,
           token,
           message: 'Log in successful.',
-          username: user.username
+          username: user.username,
+          avatar: user.avatar,
         }]);
       }
       return res.status(401).json({ error: `Invalid username/password.` });
@@ -161,6 +162,7 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
           token,
           avatar: user[0].avatar,
           username: user[0].username,
+          discussions: user[0].discussions,
           email: user[0].email,
           message: 'Logging back in successful.'
         }]);
@@ -172,17 +174,29 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
 
 router.post('/auth0-login', async (req, res) => {
   const { email, name, picture } = req.body;
+  let userSettings = {};
+  let token;
   return db.findByUsername(name)
     .then(async user => {
-      // if the user already exists in the DB
+      // if the user already exists in the DB, return the user
       if (user) {
-        const token = await generateToken(user.id, user.username);
+        // refresh token (if needed)
+        token = await generateToken(user.id, user.username);
+
+        // update user settings
+        userSettings.user_id = user.id;
+        if (picture) {
+            userSettings.avatar = picture;
+            await db.updateUserSettings(userSettings);
+        }
+
+        // return to front end
         return res.status(201).json([{
-          id: user.id,
-          token,
-          username: user.username,
-          email: user.email,
-          message: 'Log in using auth0 credentials successful.'
+            id: user.id,
+            token,
+            message: 'Log in using auth0 credentials successful.',
+            avatar: picture || user.avatar,
+            username: user.username
         }]);
       }
       // else, if user does not exist, register them first
@@ -193,16 +207,28 @@ router.post('/auth0-login', async (req, res) => {
       };
       return db.insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
-          const token = await generateToken(
-            userAddedResults[0].id,
-            userAddedResults[0].username
-          );
-          return res.status(201).json([{
-            id: userAddedResults[0].id,
-            token,
-            message: 'Registration using auth0 credentials successful.',
-            username: userAddedResults[0].username
-          }]);
+          // add user settings
+          userSettings.user_id = userAddedResults[0].id;
+          if (picture) {
+            userSettings.avatar = picture;
+            await db.addUserSettings(userSettings);
+          }
+
+          return db.findByUsername(userAddedResults[0].username)
+            .then(async foundUser => {
+              // refresh token (if needed)
+              token = await generateToken(foundUser.id, foundUser.username);
+
+              // return to front end
+              return res.status(201).json([{
+                  id: foundUser.id,
+                  token,
+                  message: 'Log in using auth0 credentials successful.',
+                  avatar: foundUser.avatar,
+                  username: foundUser.username
+              }]);
+            })
+            .catch(err => res.status(500).json({ error: `Failed to findByUsername(): ${ err }` }));
         })
         .catch(err => res.status(500).json({ error: `Failed to insert(): ${ err }` }));
     })

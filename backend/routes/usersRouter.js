@@ -27,10 +27,20 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to getUsers(): ${ err }` }));
 });
 
+// Gets a list of discussions created by the user
+router.get('/discussions/:user_id', (req, res, next) => {
+  try{
+    const {user_id} = req.params;
+    return usersDB.getAllDiscussions(user_id).then(user_discussions => res.status(200).json(user_discussions));
+  } catch (err) {
+    next(err);
+  }
+})
+
 // Gets a user by their ID (mock data)
-router.get('/:id', (req, res) => {
-    const { id } = req.params;
-    return usersDB.findById(id)
+router.get('/user/:user_id', (req, res) => {
+    const { user_id } = req.params;
+    return usersDB.findById(user_id)
       .then(user => res.status(200).json(user))
       .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
 });
