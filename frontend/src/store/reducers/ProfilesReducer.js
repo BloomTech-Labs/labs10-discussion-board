@@ -19,6 +19,7 @@ const initialState = {
         email: '',
         status: '',
         discussions: [],
+        posts: [],
       }
     ],
 };

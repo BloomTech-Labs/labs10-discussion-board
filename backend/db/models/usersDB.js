@@ -8,15 +8,17 @@ const getUsers = () => {
 //Gets a user by their id
 const findById = id => {
   const getDiscussions = db('discussions').where('user_id', id);
+  const getPosts = db('posts').where('user_id', id);
   const getUser = db('users as u')
     .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
     .join('user_settings as us', 'u.id', 'us.user_id')
     .where('u.id', id)
-  const promises = [ getDiscussions, getUser ];
+  const promises = [ getDiscussions, getPosts, getUser ];
     return Promise.all(promises)
     .then(results => {
-      const [ getDiscussionsResults, getUserResults ] = results;
+      let [ getDiscussionsResults, getPostsResults, getUserResults ] = results;
       getUserResults[0].discussions = getDiscussionsResults;
+      getUserResults[0].posts = getPostsResults;
       return getUserResults;
     });
 };
