@@ -53,11 +53,25 @@ router.get('/user/:user_id', (req, res) => {
     );
 });
 
+// Returns true if username is in the database, else false
 router.get('/username/:username', (req, res) => {
   return usersDB
     .isUsernameTaken(req.params.username)
     .then(user => {
       if (user) {
+        return res.send(true);
+      }
+      return res.send(false);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+// Returns true if email is in the database, else false
+router.get('/email/:email', (req, res) => {
+  return usersDB
+    .isEmailTaken(req.params.email)
+    .then(email => {
+      if (email) {
         return res.send(true);
       }
       return res.send(false);

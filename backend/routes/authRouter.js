@@ -83,7 +83,6 @@ router.post('/register', async (req, res) => {
   };
 
   // add user
-  console.log('newUserCreds', newUserCreds);
   return db
     .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
     .then(async userAddedResults => {

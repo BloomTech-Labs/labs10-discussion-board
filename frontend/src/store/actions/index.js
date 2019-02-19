@@ -92,6 +92,9 @@ import {
   USER_EXISTS_LOADING,
   USER_EXISTS_SUCCESS,
   USER_EXISTS_FAILURE,
+  EMAIL_EXISTS_LOADING,
+  EMAIL_EXISTS_SUCCESS,
+  EMAIL_EXISTS_FAILURE,
 
   // Action Creators
   login,
@@ -102,7 +105,8 @@ import {
   updatePassword,
   displayError,
   displayMessage,
-  isUsernameTaken
+  isUsernameTaken,
+  isEmailTaken
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -169,6 +173,9 @@ export {
   USER_EXISTS_LOADING,
   USER_EXISTS_SUCCESS,
   USER_EXISTS_FAILURE,
+  EMAIL_EXISTS_LOADING,
+  EMAIL_EXISTS_SUCCESS,
+  EMAIL_EXISTS_FAILURE,
   // Categories Action Creators
   getCategories,
   // Discussion Action Creators
@@ -187,6 +194,7 @@ export {
   displayError,
   displayMessage,
   isUsernameTaken,
+  isEmailTaken,
   // Profile Action Creators
   getProfiles,
   getProfile,

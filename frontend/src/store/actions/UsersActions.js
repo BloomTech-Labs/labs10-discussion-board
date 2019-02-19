@@ -50,6 +50,11 @@ export const USER_EXISTS_LOADING = 'USER_EXISTS_LOADING';
 export const USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
 export const USER_EXISTS_FAILURE = 'USER_EXISTS_FAILURE';
 
+// isEmailTaken
+export const EMAIL_EXISTS_LOADING = 'EMAIL_EXISTS_LOADING';
+export const EMAIL_EXISTS_SUCCESS = 'EMAIL_EXISTS_SUCCESS';
+export const EMAIL_EXISTS_FAILURE = 'EMAIL_EXISTS_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -103,7 +108,6 @@ export const auth0Login = accessToken => dispatch => {
 
 export const register = creds => dispatch => {
   dispatch({ type: USER_REGISTER_LOADING });
-  console.log('creds', creds);
   const backendCreds = {
     username: creds.username,
     password: creds.password,
@@ -112,7 +116,6 @@ export const register = creds => dispatch => {
     signature: creds.signature,
     avatarUrl: creds.avatarUrl
   };
-  console.log('backendCreds', backendCreds);
   return axios
     .post(`${backendUrl}/auth/register`, backendCreds)
     .then(response => {
@@ -179,4 +182,13 @@ export const isUsernameTaken = username => dispatch => {
     .get(`${backendUrl}/users/username/${username}`)
     .then(res => dispatch({ type: USER_EXISTS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, USER_EXISTS_FAILURE)(dispatch));
+};
+
+export const isEmailTaken = email => dispatch => {
+  dispatch({ type: EMAIL_EXISTS_LOADING });
+
+  return axios
+    .get(`${backendUrl}/users/email/${email}`)
+    .then(res => dispatch({ type: EMAIL_EXISTS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, EMAIL_EXISTS_FAILURE)(dispatch));
 };

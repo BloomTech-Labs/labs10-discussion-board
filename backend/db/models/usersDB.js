@@ -54,6 +54,14 @@ const isUsernameTaken = username => {
     .first();
 };
 
+//Checks if email exists (returns nothing if no, or the user object if yes)
+const isEmailTaken = email => {
+  return db('users')
+    .select('email')
+    .where({ email })
+    .first();
+};
+
 //Create a new user
 const insert = user => {
   return db('users')
@@ -100,6 +108,7 @@ module.exports = {
   findById,
   findByUsername,
   isUsernameTaken,
+  isEmailTaken,
   insert,
   addUserSettings,
   updateUserSettings,

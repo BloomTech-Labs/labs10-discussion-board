@@ -6,7 +6,8 @@ import { subscriptionPlans, subscriptionPrices } from '../globals/globals.js';
 import {
   register,
   displayError,
-  isUsernameTaken
+  isUsernameTaken,
+  isEmailTaken
 } from '../store/actions/index';
 // import PropTypes from 'prop-types';
 
@@ -360,17 +361,25 @@ class RegisterView extends Component {
 
   setIsReady = (ev, status) => {
     ev.preventDefault();
-    if (this.props.isUsernameTaken(this.state.username)) {
-      return this.props.displayError('username taken');
-    }
+    this.props.isUsernameTaken(this.state.username).then(() => {
+      if (this.props.usernameTaken) {
+        return this.props.displayError('username taken');
+      }
 
-    if (status && this.state.username && this.state.password) {
-      this.setState({ isReady: status });
-    } else if (!status) {
-      this.setState({ isReady: status });
-    } else {
-      this.props.displayError('missing field');
-    }
+      this.props.isEmailTaken(this.state.email).then(() => {
+        if (this.state.email && this.props.emailTaken) {
+          return this.props.displayError('email taken');
+        }
+
+        if (status && this.state.username && this.state.password) {
+          this.setState({ isReady: status });
+        } else if (!status) {
+          this.setState({ isReady: status });
+        } else {
+          this.props.displayError('missing field');
+        }
+      });
+    });
   };
 
   //---------------- Form Methods --------------
@@ -642,11 +651,14 @@ class RegisterView extends Component {
 
 const mapStateToProps = state => {
   return {
-    userExistsLoadingMessage: state.userExistsLoadingMessage
+    userExistsLoadingMessage: state.users.userExistsLoadingMessage,
+    emailExistsLoadingMessage: state.users.emailExistsLoadingMessage,
+    usernameTaken: state.users.isUsernameTaken,
+    emailTaken: state.users.isEmailTaken
   };
 };
 
 export default connect(
   mapStateToProps,
-  { register, displayError, isUsernameTaken }
+  { register, displayError, isUsernameTaken, isEmailTaken }
 )(RegisterView);

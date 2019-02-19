@@ -19,7 +19,10 @@ import {
   DISPLAY_MESSAGE,
   USER_EXISTS_LOADING,
   USER_EXISTS_SUCCESS,
-  USER_EXISTS_FAILURE
+  USER_EXISTS_FAILURE,
+  EMAIL_EXISTS_LOADING,
+  EMAIL_EXISTS_SUCCESS,
+  EMAIL_EXISTS_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
@@ -29,7 +32,9 @@ const initialState = {
   loggingInLoadingMessage: false,
   registerLoadingMessage: false,
   userExistsLoadingMessage: false,
+  emailExistsLoadingMessage: false,
   isUsernameTaken: false,
+  isEmailTaken: false,
   error: '',
   message: '',
   discussions: []
@@ -131,6 +136,28 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         userExistsLoadingMessage: false,
         isUsernameTaken: false,
+        error: action.payload
+      };
+
+    // Is Email Taken
+    case EMAIL_EXISTS_LOADING:
+      return {
+        ...state,
+        emailExistsLoadingMessage: true,
+        isEmailTaken: false,
+        error: null
+      };
+    case EMAIL_EXISTS_SUCCESS:
+      return {
+        ...state,
+        emailExistsLoadingMessage: false,
+        isEmailTaken: action.payload
+      };
+    case EMAIL_EXISTS_FAILURE:
+      return {
+        ...state,
+        emailExistsLoadingMessage: false,
+        isEmailTaken: false,
         error: action.payload
       };
     default:
