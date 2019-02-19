@@ -4,13 +4,24 @@ const db = require('../dbConfig.js');
 const getUsers = () => {
   return db('users').select('id', 'username', 'email', 'status');
 };
+//Gets all the discussions for a user by their user id
+const getAllDiscussions = user_id => {
+    return db('discussions').where({user_id})};
 
 //Gets a user by their id
 const findById = id => {
-  return db('users as u')
+  const getDiscussions = db('discussions').where('user_id', id);
+  const getUser = db('users as u')
     .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
     .join('user_settings as us', 'u.id', 'us.user_id')
     .where('u.id', id)
+  const promises = [ getDiscussions, getUser ];
+    return Promise.all(promises)
+    .then(results => {
+      const [ getDiscussionsResults, getUserResults ] = results;
+      getUserResults[0].discussions = getDiscussionsResults;
+      return getUserResults;
+    });
 };
 
 // gets password for user with given id
@@ -67,5 +78,6 @@ module.exports = {
   addUserSettings,
   update,
   updatePassword,
-  remove
+  remove,
+  getAllDiscussions
 };

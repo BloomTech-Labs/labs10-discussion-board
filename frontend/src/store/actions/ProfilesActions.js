@@ -17,6 +17,10 @@ export const GET_PROFILE_LOADING = 'GET_PROFILE_LOADING';
 export const GET_PROFILE_SUCCESS = 'GET_PROFILE_SUCCESS';
 export const GET_PROFILE_FAILURE = 'GET_PROFILE_FAILURE';
 
+export const GET_PROFILE_DISCUSSIONS_LOADING = 'GET_PROFILE_DISCUSSIONS_LOADING';
+export const GET_PROFILE_DISCUSSIONS_SUCCESS = 'GET_PROFILE_DISCUSSIONS_SUCCESS';
+export const GET_PROFILE_DISCUSSIONS_FAILURE = 'GET_PROFILE_DISCUSSIONS_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -32,11 +36,22 @@ export const getProfiles = () => dispatch => {
 };
 
 // Get single profile
-export const getProfile = id => dispatch => {
+export const getProfile = user_id => dispatch => {
   dispatch({ type: GET_PROFILE_LOADING });
-  return axios.get(`${backendUrl}/users/${id}`)
+  return axios.get(`${backendUrl}/users/user/${user_id}`)
     .then(res => {
       dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data });
     })
-    .catch(err => handleError(err, GET_PROFILE_FAILURE)(dispatch));
+    .catch(err => dispatch({ type: GET_PROFILE_FAILURE, payload: err }));
 };
+
+// Get all discussions by a user
+export const getProfileDiscussions = user_id => dispatch => {
+  dispatch({ type: GET_PROFILE_DISCUSSIONS_LOADING });
+  return axios.get(`${backendUrl}/users/discussions/${user_id}`)
+    .then(res => {
+      dispatch({ type: GET_PROFILE_DISCUSSIONS_SUCCESS, payload: res.data });
+    })
+    .catch(err => dispatch({ type: GET_PROFILE_DISCUSSIONS_FAILURE, payload: err }));
+};
+
