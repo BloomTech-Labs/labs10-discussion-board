@@ -94,6 +94,10 @@ class Profile extends Component {
                 <p className='property-title'> Status: </p>
                 <p className='property-content'> {profile.status}</p>
               </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Discussions: </p>
+                {profile.discussions.map((discussion, index)=> <p key= {index}>{discussion.title}</p>)}
+              </WrappedDiv>
             </ProfileWrapper>
           </div>
         ));

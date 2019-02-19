@@ -21,9 +21,9 @@ const initialState = {
         username: '',
         email: '',
         status: '',
+        discussions: [],
       }
     ],
-    discussions: [], 
 };
 
 export const ProfilesReducer = (state = initialState, action) =>{
