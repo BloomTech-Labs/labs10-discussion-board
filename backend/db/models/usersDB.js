@@ -22,6 +22,10 @@ const findById = id => {
       return getUserResults;
     });
 };
+// User follows a discusson
+const followDiscussion = (discussion_id, title) => {
+  return db('users').insert({discussion_id, title});
+}
 
 // gets password for user with given id
 const getPassword = id => {
@@ -93,4 +97,5 @@ module.exports = {
   update,
   updatePassword,
   remove,
+  followDiscussion,
 };
