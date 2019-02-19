@@ -114,8 +114,7 @@ class App extends Component {
           <Route exact path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
           <Route path ='/discussions/category/:category_id' component={DiscussionsByCatView} />
-
-
+          
           { error && <Error error = { error } /> }
           { message && <Message message = { message } /> }
         </AppWrapper>
