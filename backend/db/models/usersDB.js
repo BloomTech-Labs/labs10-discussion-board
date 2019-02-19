@@ -61,6 +61,13 @@ const updateUserSettings = settings => {
   return db('user_settings').update(settings).where('user_id', settings.user_id);
 };
 
+//Update avatar
+const updateAvatar = (user_id, avatar) => {
+  return db('user_settings')
+    .where({ user_id })
+    .update({ avatar }, ['avatar']); // update the avatar, returning the updated avatar
+};
+
 //Update a user
 const update = (id, user) => {
   return db('users')
@@ -91,6 +98,7 @@ module.exports = {
   addUserSettings,
   updateUserSettings,
   update,
+  updateAvatar,
   updatePassword,
   remove,
 };
