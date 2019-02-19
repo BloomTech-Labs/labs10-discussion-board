@@ -23,10 +23,16 @@ import {
 		GET_DISCUSSION_BY_ID_SUCCESS,
 		GET_DISCUSSION_BY_ID_FAILURE,
 
+		//FOLLOW DISCUSSIONS
+		FOLLOW_DISCUSSION_LOADING,
+		FOLLOW_DISCUSSION_SUCCESS,
+		FOLLOW_DISCUSSION_FAILURE,
+
   // Action Creators
 		getTopDiscussions,
 		getDiscussionsByCat,
 		getDiscussionById,
+		followDiscussion,
 } from './DiscussionsActions.js';
 
 import {
@@ -135,6 +141,10 @@ export {
 	GET_DISCUSSION_BY_ID_SUCCESS,
 	GET_DISCUSSION_BY_ID_FAILURE,
 
+	FOLLOW_DISCUSSION_LOADING,
+	FOLLOW_DISCUSSION_SUCCESS,
+	FOLLOW_DISCUSSION_FAILURE,
+
 	// Discussion Vote Actions
 	HANDLE_DISCUSSION_VOTE_LOADING,
 	HANDLE_DISCUSSION_VOTE_SUCCESS,
@@ -191,6 +201,7 @@ export {
 	getTopDiscussions,
 	getDiscussionsByCat,
 	getDiscussionById,
+	followDiscussion,
 
 	// Discussion Vote Action Creators
 	handleDiscussionVote,
