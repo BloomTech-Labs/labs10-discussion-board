@@ -2,14 +2,34 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // components
 import { EditPostForm } from './index.js';
 
 const PostWrapper = styled.div`
-	width: 90%;
+	width: 100%;
 	border: 1px solid black;
 `;
+
+const PostedBy = styled.div`
+	display: flex;
+	width: 25%;
+
+	.username {
+		margin: 0px 7px;
+		font-weight: bold;
+		color: black;
+		text-decoration: none;
+
+		&:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+
+	}
+`
+
 
 const Post = ({
 	post,
@@ -42,7 +62,10 @@ const Post = ({
 			{ userCreatedPost && <button onClick = { handleRemove }>REMOVE POST</button> }
 			<h1>POST</h1>
 			<p>post votes: { post_votes }</p>
-			<p>Posted by: { username } { moment(created_at).fromNow() }</p>
+			<PostedBy>Posted by: 
+				<Link className = 'username' to = { `/profile/${ user_id }` }>{ username }</Link> 
+				{ moment(created_at).fromNow() }
+			</PostedBy>
 			<p>Body: { body }</p>
 
 			{

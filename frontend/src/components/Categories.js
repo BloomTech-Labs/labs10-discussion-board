@@ -11,10 +11,16 @@ const SingleCategory = styled.div`
 const CategoryName = styled.div`
     margin: 10px 0;
     font-weight: bold;
+`
 
-    :hover {
-        text-decoration: underline;
-        cursor: pointer;
+const CategoryLink = styled.div`
+    .category-link {
+        color: black;
+
+        &:hover {
+            cursor: pointer;
+            color: white;
+        }
     }
 `
 
@@ -31,8 +37,12 @@ const Categories = ({ category }) => {
 
     return(
         <SingleCategory>
-            <CategoryName><span><Link className='category-link' to = {`/discussions/category/${id}`} >{ name } </Link> </span></CategoryName>
-            <div className = 'createdBy'><span>Created By: {user_username} </span></div>
+            <CategoryName className ={`${category.name}`}>
+                <CategoryLink>
+                    <Link className='category-link' to = {`/discussions/categories/${id}`} >{ name } </Link>
+                </CategoryLink>
+            </CategoryName>
+            <div className = 'createdBy'><span>Created By: {user_username}</span></div>
             <div className = 'createdAt'><span>Created: { moment(created_at).fromNow() }</span></div>
         </SingleCategory>
     );

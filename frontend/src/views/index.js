@@ -1,7 +1,7 @@
 
 import CategoriesView       from './CategoriesView.js';
 
-import DiscussionsView      from './DiscussionsView.js';
+import DiscussionsByCatView      from './DiscussionsByCatView.js';
 
 import DiscussionView		from './DiscussionView.js';
 import RegisterView from './RegisterView.js';
@@ -12,7 +12,7 @@ import PostsView			from './PostsView.js';
 export {
 	CategoriesView,
   DiscussionView,
-  DiscussionsView,
+  DiscussionsByCatView,
 	LandingView,
   TopDiscussionsView,
   RegisterView,

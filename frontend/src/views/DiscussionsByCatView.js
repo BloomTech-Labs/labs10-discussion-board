@@ -15,7 +15,7 @@ const DiscussionsViewWrapper = styled.div`
 	hr {
 		border-color: gray;
 		margin-top: -10px;
-		margin-bottom: 20px;
+		margin-bottom 20px;
 	}
 `;
 
@@ -49,7 +49,7 @@ const DiscussionsTitle = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 
-const DiscussionsView = (props) => {
+const DiscussionsByCatView = (props) => {
     return (
         <DiscussionsViewWrapper>
             <DiscussionsHeader>
@@ -64,4 +64,4 @@ const DiscussionsView = (props) => {
     );
 }
 
-export default DiscussionsView;
+export default DiscussionsByCatView;
