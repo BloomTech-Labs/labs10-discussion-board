@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
+import Votes from '../assets/img/Votes.png';
 
 // components
 import { AddPostForm } from './index.js';
@@ -12,9 +14,56 @@ import { PostsView } from '../views/index.js';
 // action creators
 import { getDiscussionById, removePost } from '../store/actions/index.js';
 
+
+/***************************************************************************************************
+ ********************************************* Styles *********************************************
+ **************************************************************************************************/
 const DiscussionWrapper = styled.div`
-    width: 90%;
+	width: 90%;
+	
+	h1 {
+		margin-top: 30px;
+		margin-bottom: 10px;
+	}
 `;
+
+const DiscussionInfo = styled.div`
+	display: flex;
+	align-items: center;
+`
+const CategoryName = styled.div`
+	width: 7%;
+`
+
+const PostedBy = styled.div`
+	display: flex;
+	width 25%;
+
+	.username {
+		margin-left: 5px;
+		font-weight:bold
+		color: black;
+		text-decoration: none;
+
+		&:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+
+	}
+`
+
+const DiscussionVotes = styled.div`
+	width: 15%;
+	display: flex;
+	align-items: center;
+
+	.discussionVotes {
+		margin-left: 5px;
+		width: 11%;
+		height: 11%;
+	}
+`
 
 class Discussion extends Component {
 	state = { showAddPostForm: false, showEditPostForm: null };
@@ -42,9 +91,14 @@ class Discussion extends Component {
 		return(
 			<DiscussionWrapper>
 				<h1>DISCUSSION</h1>
-				<p>/d/{ category_name }</p>
-				<p>Discussion Votes: { discussion_votes }</p>
-				<p>Posted by: { username } { moment(created_at).fromNow() }</p>
+				<DiscussionInfo>
+					<CategoryName>/d/{ category_name }</CategoryName>
+					<PostedBy>Posted by: <Link className = 'username' to = { `/profile/${ user_id }` }>{ username } { moment(created_at).fromNow() }</Link></PostedBy>
+					<DiscussionVotes>
+						Discussion Votes: { discussion_votes }
+						<img className = 'discussionVotes' src={Votes} alt='votes' />
+					</DiscussionVotes>
+				</DiscussionInfo>
 				<p>Title: { title }</p>
 				<p>Body: { body }</p>
 
