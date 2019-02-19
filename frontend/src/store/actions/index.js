@@ -89,6 +89,9 @@ import {
   PASSWORD_UPDATE_FAILURE,
   DISPLAY_ERROR,
   DISPLAY_MESSAGE,
+  USER_EXISTS_LOADING,
+  USER_EXISTS_SUCCESS,
+  USER_EXISTS_FAILURE,
 
   // Action Creators
   login,
@@ -98,7 +101,8 @@ import {
   register,
   updatePassword,
   displayError,
-  displayMessage
+  displayMessage,
+  isUsernameTaken
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -162,6 +166,9 @@ export {
   REMOVE_POST_LOADING,
   REMOVE_POST_SUCCESS,
   REMOVE_POST_FAILURE,
+  USER_EXISTS_LOADING,
+  USER_EXISTS_SUCCESS,
+  USER_EXISTS_FAILURE,
   // Categories Action Creators
   getCategories,
   // Discussion Action Creators
@@ -179,6 +186,7 @@ export {
   updatePassword,
   displayError,
   displayMessage,
+  isUsernameTaken,
   // Profile Action Creators
   getProfiles,
   getProfile,

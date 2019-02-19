@@ -45,6 +45,11 @@ export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
 export const DISPLAY_ERROR = 'DISPLAY_ERROR';
 export const DISPLAY_MESSAGE = 'DISPLAY_MESSAGE';
 
+// isUsernameTaken
+export const USER_EXISTS_LOADING = 'USER_EXISTS_LOADING';
+export const USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
+export const USER_EXISTS_FAILURE = 'USER_EXISTS_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -165,4 +170,13 @@ export const displayMessage = message => dispatch => {
     payload: message
   });
   return Promise.resolve();
+};
+
+export const isUsernameTaken = username => dispatch => {
+  dispatch({ type: USER_EXISTS_LOADING });
+
+  return axios
+    .get(`${backendUrl}/users/username/${username}`)
+    .then(res => dispatch({ type: USER_EXISTS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, USER_EXISTS_FAILURE)(dispatch));
 };

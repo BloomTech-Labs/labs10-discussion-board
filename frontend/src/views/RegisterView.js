@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { subscriptionPlans, subscriptionPrices } from '../globals/globals.js';
-import { register } from '../store/actions/index';
+import {
+  register,
+  displayError,
+  isUsernameTaken
+} from '../store/actions/index';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************
@@ -356,7 +360,17 @@ class RegisterView extends Component {
 
   setIsReady = (ev, status) => {
     ev.preventDefault();
-    this.setState({ isReady: status });
+    if (this.props.isUsernameTaken(this.state.username)) {
+      return this.props.displayError('username taken');
+    }
+
+    if (status && this.state.username && this.state.password) {
+      this.setState({ isReady: status });
+    } else if (!status) {
+      this.setState({ isReady: status });
+    } else {
+      this.props.displayError('missing field');
+    }
   };
 
   //---------------- Form Methods --------------
@@ -412,7 +426,7 @@ class RegisterView extends Component {
         .then(() => this.setIsReady(ev, false))
         .then(() => this.props.history.push('/home'));
     } catch (err) {
-      console.log(err);
+      this.props.displayError(err);
     }
   };
 
@@ -628,11 +642,11 @@ class RegisterView extends Component {
 
 const mapStateToProps = state => {
   return {
-    loadingMessage: state.loadingMessage
+    userExistsLoadingMessage: state.userExistsLoadingMessage
   };
 };
 
 export default connect(
   mapStateToProps,
-  { register }
+  { register, displayError, isUsernameTaken }
 )(RegisterView);

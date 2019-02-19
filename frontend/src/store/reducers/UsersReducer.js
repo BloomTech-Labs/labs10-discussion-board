@@ -16,7 +16,10 @@ import {
   PASSWORD_UPDATE_SUCCESS,
   PASSWORD_UPDATE_FAILURE,
   DISPLAY_ERROR,
-  DISPLAY_MESSAGE
+  DISPLAY_MESSAGE,
+  USER_EXISTS_LOADING,
+  USER_EXISTS_SUCCESS,
+  USER_EXISTS_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
@@ -25,6 +28,8 @@ const initialState = {
   username: '',
   loggingInLoadingMessage: false,
   registerLoadingMessage: false,
+  userExistsLoadingMessage: false,
+  isUsernameTaken: false,
   error: '',
   message: '',
   discussions: []
@@ -106,6 +111,28 @@ export const UsersReducer = (state = initialState, action) => {
     case PASSWORD_UPDATE_LOADING:
     case PASSWORD_UPDATE_SUCCESS:
     case PASSWORD_UPDATE_FAILURE:
+
+    // Is Username Taken
+    case USER_EXISTS_LOADING:
+      return {
+        ...state,
+        userExistsLoadingMessage: true,
+        isUsernameTaken: false,
+        error: null
+      };
+    case USER_EXISTS_SUCCESS:
+      return {
+        ...state,
+        userExistsLoadingMessage: false,
+        isUsernameTaken: action.payload
+      };
+    case USER_EXISTS_FAILURE:
+      return {
+        ...state,
+        userExistsLoadingMessage: false,
+        isUsernameTaken: false,
+        error: action.payload
+      };
     default:
       return state;
   }
