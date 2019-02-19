@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+// components
+import { Avatar } from './index.js';
+
 // action creators
 import { signout } from '../store/actions';
 
@@ -19,16 +22,24 @@ const DivWrapper = styled.div`
 const Welcome = styled.div`
   margin: 25px;
   font-size: 24px;
+    .username {
+      color: black;
+      text-decoration: none;
+      &:hover {
+        color: white;
+        text-decoration: underline;
+      }
+    }
 `;
 
 const Signout = styled.a`
   font-size: 30px;
   user-select: none;
   cursor: pointer;
-  text-decoration: underline;
 
   &:hover {
     color: white;
+    text-decoration: underline;
   }
 `;
 
@@ -44,15 +55,16 @@ class Nav extends Component {
   };
 
   render() {
-    const { user_id, username } = this.props;
+    const { user_id, username, avatar } = this.props;
     return (
       <DivWrapper>
-        <Welcome>Welcome, <Link to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
-        <Signout
-          onClick={ev => {
-            this.clickSignout(ev);
-          }}
-        >
+        <Avatar
+          height = '100px'
+          width = '100px'
+          src = { avatar }
+        />
+        <Welcome>Welcome, <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
+        <Signout onClick = { ev => this.clickSignout(ev) }>
           Sign Out
         </Signout>
       </DivWrapper>
@@ -65,9 +77,10 @@ class Nav extends Component {
 // }
 
 const mapStateToProps = state => ({
-    user_id: state.users.user_id,
-    username: state.users.username,
-    loggingInLoadingMessage: state.users.loggingInLoadingMessage
+  user_id: state.users.user_id,
+  avatar: state.users.avatar,
+  username: state.users.username,
+  loggingInLoadingMessage: state.users.loggingInLoadingMessage
 });
 
 export default connect(

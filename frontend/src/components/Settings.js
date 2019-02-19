@@ -23,7 +23,7 @@ class Settings extends Component {
 			username,
 			email,
 			status,
-		} = this.props.profile[0];
+		} = this.props.profile;
 		return(
 			<SettingsWrapper>
 				<h1>{ username }'s Settings</h1>

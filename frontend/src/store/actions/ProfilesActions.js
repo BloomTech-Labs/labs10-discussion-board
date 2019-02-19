@@ -17,6 +17,7 @@ export const GET_PROFILE_LOADING = 'GET_PROFILE_LOADING';
 export const GET_PROFILE_SUCCESS = 'GET_PROFILE_SUCCESS';
 export const GET_PROFILE_FAILURE = 'GET_PROFILE_FAILURE';
 
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -32,11 +33,14 @@ export const getProfiles = () => dispatch => {
 };
 
 // Get single profile
-export const getProfile = id => dispatch => {
+export const getProfile = user_id => dispatch => {
   dispatch({ type: GET_PROFILE_LOADING });
-  return axios.get(`${backendUrl}/users/${id}`)
+  return axios.get(`${backendUrl}/users/user/${user_id}`)
     .then(res => {
       dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data });
     })
-    .catch(err => handleError(err, GET_PROFILE_FAILURE)(dispatch));
+    .catch(err => dispatch({ type: GET_PROFILE_FAILURE, payload: err }));
 };
+
+
+

@@ -7,9 +7,20 @@ const getUsers = () => {
 
 //Gets a user by their id
 const findById = id => {
-  return db('users')
-    .where({ id })
-    .select('id', 'email', 'username', 'status');
+  const getDiscussions = db('discussions').where('user_id', id);
+  const getPosts = db('posts').where('user_id', id);
+  const getUser = db('users as u')
+    .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
+    .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
+    .where('u.id', id);
+  const promises = [ getDiscussions, getPosts, getUser ];
+    return Promise.all(promises)
+    .then(results => {
+      let [ getDiscussionsResults, getPostsResults, getUserResults ] = results;
+      getUserResults[0].discussions = getDiscussionsResults;
+      getUserResults[0].posts = getPostsResults;
+      return getUserResults;
+    });
 };
 
 // gets password for user with given id
@@ -19,7 +30,16 @@ const getPassword = id => {
 
 //Gets a user by their username
 const findByUsername = username => {
-  return db('users')
+  return db('users as u')
+    .select(
+      'u.id',
+      'u.username',
+      'u.password',
+      'u.email',
+      'u.status',
+      'us.avatar',
+    )
+    .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .whereRaw('LOWER(username) = ?', username.toLowerCase())
     .first();
 };
@@ -34,6 +54,11 @@ const insert = user => {
 //Insert user settings (with new created user)
 const addUserSettings = settings => {
   return db('user_settings').insert(settings);
+};
+
+//Update user settings
+const updateUserSettings = settings => {
+  return db('user_settings').update(settings).where('user_id', settings.user_id);
 };
 
 //Update a user
@@ -64,7 +89,8 @@ module.exports = {
   findByUsername,
   insert,
   addUserSettings,
+  updateUserSettings,
   update,
   updatePassword,
-  remove
+  remove,
 };

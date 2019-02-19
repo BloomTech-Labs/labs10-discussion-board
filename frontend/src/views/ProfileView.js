@@ -5,6 +5,9 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 
+// components
+import { Avatar } from '../components/index.js';
+
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
@@ -15,7 +18,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   align-content: space-between;
   width: 100%;
-  background-color: #eee7c8;
+  background-color: #d3ccaf;
 
   .discussion-title {
     font-weight: bold;
@@ -55,6 +58,8 @@ const ProfileTitle = styled.div`
 class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
+    // this.props.getProfileDiscussions(this.props.id);
+    // console.log('profdisc', this.props.getProfileDiscussions(this.props.id));
   }
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
@@ -74,12 +79,28 @@ class Profile extends Component {
                 <p className='property-content'> {profile.id}</p>
               </WrappedDiv>
               <WrappedDiv>
+                <p className='property-title'>Avatar: </p>
+                <Avatar
+                  height = '50px'
+                  width = '50px'
+                  src = { profile.avatar }
+                />
+              </WrappedDiv>
+              <WrappedDiv>
                 <p className='property-title'> Username: </p>
                 <p className='property-content'> {profile.username}</p>
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Status: </p>
                 <p className='property-content'> {profile.status}</p>
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Discussions: </p>
+                {profile.discussions.map((discussion, index)=> <p key= {index}>{discussion.title}</p>)}
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Posts: </p>
+                {profile.posts.map((post, index)=> <p key= {index}>{post.body}</p>)}
               </WrappedDiv>
             </ProfileWrapper>
           </div>

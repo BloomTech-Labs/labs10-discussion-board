@@ -18,6 +18,8 @@ const initialState = {
         username: '',
         email: '',
         status: '',
+        discussions: [],
+        posts: [],
       }
     ],
 };

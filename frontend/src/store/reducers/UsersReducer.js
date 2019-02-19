@@ -23,10 +23,12 @@ import {
 
 const initialState = {
   user_id: 0,
+  avatar: null,
   username: '',
   loggingInLoadingMessage: false,
   error: '',
   message: '',
+  discussions: [],
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -45,7 +47,9 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         user_id: action.payload.id,
+        avatar: action.payload.avatar,
         username: action.payload.username,
+        discussions: action.payload.discussions,
         loggingInLoadingMessage: false,
         error: null
       };
