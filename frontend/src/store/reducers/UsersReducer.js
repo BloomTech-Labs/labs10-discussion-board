@@ -17,6 +17,10 @@ import {
   PASSWORD_UPDATE_SUCCESS,
   PASSWORD_UPDATE_FAILURE,
 
+  UPLOAD_AVATAR_LOADING,
+  UPLOAD_AVATAR_SUCCESS,
+  UPLOAD_AVATAR_FAILURE,
+
   DISPLAY_ERROR,
   DISPLAY_MESSAGE,
 } from '../actions/index.js';
@@ -53,6 +57,8 @@ export const UsersReducer = (state = initialState, action) => {
         loggingInLoadingMessage: false,
         error: null
       };
+
+    case UPLOAD_AVATAR_FAILURE:
     case USER_AUTH0_LOGIN_FAILURE:
     case USER_LOG_BACK_IN_FAILURE:
     case USER_LOGIN_FAILURE:
@@ -78,6 +84,10 @@ export const UsersReducer = (state = initialState, action) => {
         message: action.payload,
       };
 
+    case UPLOAD_AVATAR_SUCCESS:
+      return { ...state, avatar: action.payload };
+
+    case UPLOAD_AVATAR_LOADING:
     case USER_LOG_BACK_IN_LOADING:
     case USER_AUTH0_LOGIN_LOADING:
     case PASSWORD_UPDATE_LOADING:
