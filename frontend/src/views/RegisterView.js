@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { subscriptionPlans } from '../globals/globals.js';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************
@@ -18,10 +17,9 @@ const H1Register = styled.h1`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100px;
+  height: 80px;
   margin: 0;
   background-color: lightgray;
-  font-size: 48px;
 `;
 
 const Form = styled.form`
@@ -33,163 +31,20 @@ const Form = styled.form`
 
 const DivSubscriptionPlan = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   padding: 25px 0;
   border-bottom: 2px solid black;
   width: 100%;
-
-  h1 {
-    margin: 0 0 0.67em 0;
-    text-decoration: underline;
-  }
 `;
+const DivFreePlan = styled.div``;
 
-const DivSelectBanners = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-around;
-`;
+const DivBronzePlan = styled.div``;
 
-const DivBanner = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
+const DivSilverPlan = styled.div``;
 
-  input {
-    margin-top: 20px;
-    width: 2em;
-    height: 2em;
-  }
-`;
-
-const DivFeatures = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-
-  h2 {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    text-decoration: underline;
-  }
-
-  ul {
-    padding-right: 20px;
-    user-select: none;
-  }
-`;
-
-const DivFreePlan = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: ${props =>
-    props.subPlan === subscriptionPlans[0]
-      ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
-  border-radius: 10px;
-  background-color: white;
-  cursor: pointer;
-  font-weight: bold;
-  height: 100%;
-  position: relative;
-
-  h4 {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-  }
-
-  &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[0] ? '1' : '0.6')};
-  }
-`;
-
-const DivBronzePlan = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: ${props =>
-    props.subPlan === subscriptionPlans[1]
-      ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
-  border-radius: 10px;
-  background-color: #553621;
-  cursor: pointer;
-  font-weight: bold;
-  height: 100%;
-  position: relative;
-
-  h4 {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-  }
-
-  &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.6')};
-  }
-`;
-
-const DivSilverPlan = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: ${props =>
-    props.subPlan === subscriptionPlans[2]
-      ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
-  border-radius: 10px;
-  background-color: silver;
-  cursor: pointer;
-  font-weight: bold;
-  height: 100%;
-  position: relative;
-
-  h4 {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-  }
-
-  &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.6')};
-  }
-`;
-
-const DivGoldPlan = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: ${props =>
-    props.subPlan === subscriptionPlans[3]
-      ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
-  border-radius: 10px;
-  background-color: gold;
-  cursor: pointer;
-  font-weight: bold;
-  height: 100%;
-  position: relative;
-
-  h4 {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-  }
-
-  &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.4')};
-  }
-`;
+const DivGoldPlan = styled.div``;
 
 const DivRegisterForm = styled.div`
   display: flex;
@@ -278,7 +133,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      subPlan: subscriptionPlans[0],
+      subPlan: 'Free',
       username: '',
       password: '',
       email: '',
@@ -290,7 +145,7 @@ class Register extends Component {
   //========================== Methods =========================
   componentDidMount() {
     this.setState({
-      subPlan: subscriptionPlans[0],
+      subPlan: 'Free',
       username: '',
       password: '',
       email: '',
@@ -301,17 +156,13 @@ class Register extends Component {
 
   clearRegisterState = () => {
     this.setState({
-      subPlan: subscriptionPlans[0],
+      subPlan: 'Free',
       username: '',
       password: '',
       email: '',
       signature: '',
       avatar: ''
     });
-  };
-
-  selectSubPlan = sub => {
-    this.setState({ subPlan: sub });
   };
 
   //---------------- Form Methods --------------
@@ -332,118 +183,13 @@ class Register extends Component {
   render() {
     return (
       <DivWrapper>
-        <H1Register>Register New Account</H1Register>
+        <H1Register>Register</H1Register>
         <Form>
           <DivSubscriptionPlan>
-            <h1>Select Subscription Plan</h1>
-            <DivSelectBanners>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[0])}
-              >
-                <DivFreePlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Free Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$0.00</h4>
-                </DivFreePlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='free-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[0] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[1])}
-              >
-                <DivBronzePlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Bronze Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                      <li>No Ads</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$0.99/yr</h4>
-                </DivBronzePlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='bronze-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[1] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[2])}
-              >
-                <DivSilverPlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Silver Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                      <li>No Ads</li>
-                      <li>Gets Signature</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$1.99/yr</h4>
-                </DivSilverPlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='silver-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[2] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[3])}
-              >
-                <DivGoldPlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Gold Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                      <li>No Ads</li>
-                      <li>Gets Signature</li>
-                      <li>Gets Avatar</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$2.99/yr</h4>
-                </DivGoldPlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='gold-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[3] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-            </DivSelectBanners>
+            <DivFreePlan>Free Plan</DivFreePlan>
+            <DivBronzePlan>Bronze Plan</DivBronzePlan>
+            <DivSilverPlan>Silver Plan</DivSilverPlan>
+            <DivGoldPlan>Gold Plan</DivGoldPlan>
           </DivSubscriptionPlan>
           <DivRegisterForm>
             <DivLeftSide>
