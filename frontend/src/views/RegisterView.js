@@ -590,9 +590,18 @@ class RegisterView extends Component {
                       name='username'
                       autoComplete='off'
                     />
-                    {<img src='' alt='spinner' />}
-                    {<img src='' alt='taken' />}
-                    {<img src='' alt='available' />}
+                    {this.state.username !== '' &&
+                      this.props.userExistsLoadingMessage && (
+                        <img src='' alt='spinner' />
+                      )}
+                    {(this.state.username === '' ||
+                      (!this.props.userExistsLoadingMessage &&
+                        this.props.usernameTaken)) && <img src='' alt='X' />}
+                    {this.state.username !== '' &&
+                      !this.props.userExistsLoadingMessage &&
+                      !this.props.usernameTaken && (
+                        <img src='' alt='checkMark' />
+                      )}
                   </DivUsername>
                   <DivPassword>
                     <LabelPassword>
@@ -622,10 +631,10 @@ class RegisterView extends Component {
                       )}
                     {this.state.email !== '' &&
                       !this.props.emailExistsLoadingMessage &&
-                      this.props.emailTaken && <img src='' alt='taken' />}
+                      this.props.emailTaken && <img src='' alt='X' />}
                     {this.state.email !== '' &&
                       !this.props.emailExistsLoadingMessage &&
-                      !this.props.emailTaken && <img src='' alt='available' />}
+                      !this.props.emailTaken && <img src='' alt='checkMark' />}
                   </DivEmail>
                   <DivSignature subPlan={this.state.subPlan}>
                     <LabelSignature>Signature</LabelSignature>
