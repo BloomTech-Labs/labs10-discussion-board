@@ -10,7 +10,7 @@ const router = express.Router();
 // User can follow a discussion
 router.post('/:user_id/:discussion_id', (req, res) => {
 	const { discussion_id, user_id } = req.params;
-	
+	console.log('get', discussion_id, user_id)
 	// check first to see if user_id is following discussion_id
 	return discussionFollowsDB
 		.get(discussion_id, user_id)
