@@ -94,6 +94,10 @@ import {
 	PASSWORD_UPDATE_SUCCESS,
 	PASSWORD_UPDATE_FAILURE,
 
+	UPLOAD_AVATAR_LOADING,
+	UPLOAD_AVATAR_SUCCESS,
+	UPLOAD_AVATAR_FAILURE,
+
 	DISPLAY_ERROR,
 	DISPLAY_MESSAGE,
 
@@ -106,6 +110,7 @@ import {
 	updatePassword,
 	displayError,
 	displayMessage,
+	uploadAvatar,
 } from './UsersActions.js';
 
 
@@ -159,6 +164,10 @@ export {
 	PASSWORD_UPDATE_SUCCESS,
 	PASSWORD_UPDATE_FAILURE,
 
+	UPLOAD_AVATAR_LOADING,
+	UPLOAD_AVATAR_SUCCESS,
+	UPLOAD_AVATAR_FAILURE,
+
 	DISPLAY_ERROR,
 	DISPLAY_MESSAGE,
 
@@ -204,6 +213,7 @@ export {
 	updatePassword,
 	displayError,
 	displayMessage,
+	uploadAvatar,
 
 	// Profile Action Creators
 	getProfiles,
