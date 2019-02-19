@@ -10,6 +10,7 @@ import {
 	Avatar,
 	EditPasswordForm,
 	EditAvatarForm,
+	EditAvatarUrlForm,
 } from './index.js';
 
 const SettingsWrapper = styled.div`
@@ -17,13 +18,13 @@ const SettingsWrapper = styled.div`
 `;
 
 class Settings extends Component {
-	state = { showForm: '' };
+	state = { show: '' };
 	getProfile = () => this.props.getProfile(this.props.match.params.id);
-	toggleForm = formName => this.setState({ showForm: formName });
-	onUploadAvatarSucces = () => this.setState({ showForm: '' }, () => this.getProfile());
+	toggleForm = formName => this.setState({ show: formName });
+	onUploadAvatarSucces = () => this.setState({ show: '' }, () => this.getProfile());
 	componentDidMount = () => this.getProfile();
 	render() {
-		const { showForm } = this.state;
+		const { show } = this.state;
 		const {
 			id,
 			username,
@@ -44,17 +45,32 @@ class Settings extends Component {
 				/>
 				<br />
 				<button>{ email ? 'Change' : 'Set' } email</button>
-				<button onClick = { () => this.toggleForm('password') }>Change password</button>
-				<button onClick = { () => this.toggleForm('avatar') }>Change avatar</button>
+				<button onClick = { () => this.toggleForm('password-form') }>Change password</button>
+				<button onClick = { () => this.toggleForm('avatar-btns') }>Change avatar</button>
 				{
-					showForm === 'password' &&
+					show === 'password-form' &&
 					<EditPasswordForm
 						toggleForm = { this.toggleForm }
 					/>
 				}
 				{
-					showForm === 'avatar' &&
+					show === 'avatar-btns' &&
+					<div>
+						<button onClick = { () => this.toggleForm('avatar-pc-form')}>Upload from PC</button>
+						<button onClick = { () => this.toggleForm('avatar-url-form') }>Upload from URL</button>
+						<button onClick = { () => this.toggleForm('') }>Cancel</button>
+					</div>
+				}
+				{
+					show === 'avatar-pc-form' &&
 					<EditAvatarForm
+						toggleForm = { this.toggleForm }
+						onUploadAvatarSucces = { this.onUploadAvatarSucces }
+					/>
+				}
+				{
+					show === 'avatar-url-form' &&
+					<EditAvatarUrlForm
 						toggleForm = { this.toggleForm }
 						onUploadAvatarSucces = { this.onUploadAvatarSucces }
 					/>
