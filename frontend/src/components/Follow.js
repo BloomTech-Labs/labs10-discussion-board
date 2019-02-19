@@ -16,23 +16,23 @@ class Follow extends Component {
 		    const { followed } = this.state;
 		    const { user_id, discussion_id, title, historyPush } = this.props;
 		    return this.props.followDiscussion(user_id, discussion_id, title, followed, historyPush);
-	};
+	  };
   
-  render() {
+    render() {
         const { followed } = this.state;
-    return (
-        <FollowWrapper onClick = { this.handleFollowClick }>
-            <h2>Follow</h2> 
-            <input
-                className="follow"
-                onClick={this.handleFollowClick}
-                style={{backgroundColor: this.state.followed ? 'green' : 'red'}}
-                value={followed ? 'Follow' : 'Following'}
-            />
-        </FollowWrapper>
-      );
+        return (
+          <FollowWrapper onClick = { this.handleFollowClick }>
+              <h2>Follow</h2> 
+              <input
+                  className="follow"
+                  onClick={this.handleFollowClick}
+                  style={{backgroundColor: this.state.followed ? 'green' : 'red'}}
+                  value={followed ? 'Follow' : 'Following'}
+              />
+          </FollowWrapper>
+        );
     }
-  }
+}
 
 
 
