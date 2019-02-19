@@ -10,6 +10,10 @@ import {
 	GET_DISCUSSION_BY_ID_LOADING,
 	GET_DISCUSSION_BY_ID_SUCCESS,
 	GET_DISCUSSION_BY_ID_FAILURE,
+
+	FOLLOW_DISCUSSION_LOADING,
+	FOLLOW_DISCUSSION_SUCCESS,
+	FOLLOW_DISCUSSION_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -17,7 +21,7 @@ const initialState = {
 	discussion: {
 		posts: [],
 	},
-	discussionsByCat: []
+	discussionsByCat: [],
 };
 
 export const DiscussionsReducer = (state = initialState, action) => {
@@ -37,8 +41,10 @@ export const DiscussionsReducer = (state = initialState, action) => {
 		case GET_DISCUSSION_BY_ID_LOADING:
 		case GET_DISCUSSION_BY_ID_FAILURE:
 		case TOP_DISCUSSIONS_LOADING:
-		case TOP_DISCUSSIONS_FAILURE:
-		
+		case TOP_DISCUSSIONS_FAILURE:	
+		case FOLLOW_DISCUSSION_LOADING:
+		case FOLLOW_DISCUSSION_SUCCESS:
+		case FOLLOW_DISCUSSION_FAILURE:
 		case GET_DISCUSSIONS_SUCCESS:
 			return {
 				...state,
