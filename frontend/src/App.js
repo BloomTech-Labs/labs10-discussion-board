@@ -113,8 +113,8 @@ class App extends Component {
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
 
-          { error && <Error error = { error } /> }
-          { message && <Message message = { message } /> }
+          {error && <Error error={error} />}
+          {message && <Message message={message} />}
         </AppWrapper>
       );
     } else {
@@ -123,7 +123,7 @@ class App extends Component {
         <AppWrapper>
           <GlobalStyle />
           <Switch>
-            <Route exact path='/register' component={RegisterView} />
+            <Route exact path='/register' render={() => <RegisterView history={this.props.history} />} />
             <Route render={props => <Auth {...props} handleAuth0Login={this.handleAuth0Login} />}/>
           </Switch>
           { error && <Error error = { error } /> }
@@ -132,11 +132,11 @@ class App extends Component {
       );
     }
   }
-};
+}
 
 const mapStateToProps = state => ({
   error: state.users.error,
-  message: state.users.message,
+  message: state.users.message
 });
 
 export default connect(

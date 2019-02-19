@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { subscriptionPlans } from '../globals/globals.js';
+import { subscriptionPlans, subscriptionPrices } from '../globals/globals.js';
+import { register } from '../store/actions/index';
 // import PropTypes from 'prop-types';
 
 /***************************************************************************************************
@@ -22,6 +24,7 @@ const H1Register = styled.h1`
   margin: 0;
   background-color: lightgray;
   font-size: 48px;
+  user-select: none;
 `;
 
 const Form = styled.form`
@@ -43,6 +46,7 @@ const DivSubscriptionPlan = styled.div`
   h1 {
     margin: 0 0 0.67em 0;
     text-decoration: underline;
+    user-select: none;
   }
 `;
 
@@ -58,12 +62,14 @@ const DivBanner = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 350px;
+  cursor: pointer;
 
   input {
     margin-top: 20px;
     width: 2em;
     height: 2em;
+    cursor: pointer;
   }
 `;
 
@@ -96,7 +102,6 @@ const DivFreePlan = styled.div`
       : '5px solid rgba(0, 0, 0, 0)'};
   border-radius: 10px;
   background-color: white;
-  cursor: pointer;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -106,6 +111,7 @@ const DivFreePlan = styled.div`
     bottom: 0;
     text-align: center;
     width: 100%;
+    user-select: none;
   }
 
   &:hover {
@@ -122,7 +128,6 @@ const DivBronzePlan = styled.div`
       : '5px solid rgba(0, 0, 0, 0)'};
   border-radius: 10px;
   background-color: #553621;
-  cursor: pointer;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -132,6 +137,7 @@ const DivBronzePlan = styled.div`
     bottom: 0;
     text-align: center;
     width: 100%;
+    user-select: none;
   }
 
   &:hover {
@@ -148,7 +154,6 @@ const DivSilverPlan = styled.div`
       : '5px solid rgba(0, 0, 0, 0)'};
   border-radius: 10px;
   background-color: silver;
-  cursor: pointer;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -158,6 +163,7 @@ const DivSilverPlan = styled.div`
     bottom: 0;
     text-align: center;
     width: 100%;
+    user-select: none;
   }
 
   &:hover {
@@ -174,7 +180,6 @@ const DivGoldPlan = styled.div`
       : '5px solid rgba(0, 0, 0, 0)'};
   border-radius: 10px;
   background-color: gold;
-  cursor: pointer;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -184,6 +189,7 @@ const DivGoldPlan = styled.div`
     bottom: 0;
     text-align: center;
     width: 100%;
+    user-select: none;
   }
 
   &:hover {
@@ -193,12 +199,21 @@ const DivGoldPlan = styled.div`
 
 const DivRegisterForm = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border-bottom: 2px solid black;
   width: 100%;
   padding: 25px 0;
+
+  h1 {
+    text-decoration: underline;
+  }
+`;
+
+const DivAccountDetails = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const DivLeftSide = styled.div`
@@ -244,6 +259,11 @@ const InputEmail = styled.input``;
 const DivSignature = styled.div`
   display: flex;
   flex-direction: column;
+  visibility: ${props =>
+    props.subPlan === subscriptionPlans[2] ||
+    props.subPlan === subscriptionPlans[3]
+      ? 'show'
+      : 'hidden'};
 `;
 
 const LabelSignature = styled.label``;
@@ -257,7 +277,12 @@ const DivRightSide = styled.div`
   flex-direction: column;
 `;
 
-const DivAvatar = styled.div``;
+const DivAvatar = styled.div`
+  display: flex;
+  flex-direction: column;
+  visibility: ${props =>
+    props.subPlan === subscriptionPlans[3] ? 'show' : 'hidden'};
+`;
 
 const DivButtons = styled.div`
   display: flex;
@@ -271,10 +296,21 @@ const ButtonCancel = styled(Link)``;
 
 const ButtonContinue = styled(Link)``;
 
+const DivConfirm = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    text-decoration: underline;
+  }
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-class Register extends Component {
+class RegisterView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -283,7 +319,8 @@ class Register extends Component {
       password: '',
       email: '',
       signature: '',
-      avatar: ''
+      avatar: '',
+      isReady: false
     };
   }
 
@@ -295,23 +332,31 @@ class Register extends Component {
       password: '',
       email: '',
       signature: '',
-      avatar: ''
+      avatar: '',
+      isReady: false
     });
   }
 
-  clearRegisterState = () => {
+  clearRegisterState = ev => {
+    ev.preventDefault();
     this.setState({
       subPlan: subscriptionPlans[0],
       username: '',
       password: '',
       email: '',
       signature: '',
-      avatar: ''
+      avatar: '',
+      isReady: false
     });
   };
 
   selectSubPlan = sub => {
     this.setState({ subPlan: sub });
+  };
+
+  setIsReady = (ev, status) => {
+    ev.preventDefault();
+    this.setState({ isReady: status });
   };
 
   //---------------- Form Methods --------------
@@ -321,11 +366,53 @@ class Register extends Component {
     });
   };
 
+  handleRadio = ev => {
+    ev.preventDefault();
+    const radioSelected = ev.currentTarget.value === 'true' ? true : false;
+    this.setState({ radioSelected });
+  };
+
   submitHandler = ev => {
     ev.preventDefault();
-    if (this.state.newNote.title && this.state.newNote.textBody) {
-      this.props.addNote(this.state.newNote);
-      this.clearNewNoteState();
+    try {
+      let newAccount;
+      // prettier-ignore
+      if (this.state.subPlan === subscriptionPlans[2]) { // silver
+        newAccount = {
+          subPlan: this.state.subPlan,
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email,
+          signature: this.state.signature
+        };
+      } else if (this.state.subPlan === subscriptionPlans[3]) { // gold
+        newAccount = {
+          subPlan: this.state.subPlan,
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email,
+          signature: this.state.signature,
+          avatarUrl: this.state.avatar
+        };
+      } else if ( // free or bronze
+        this.state.subPlan === subscriptionPlans[0] ||
+        this.state.subPlan === subscriptionPlans[1]
+      ) {
+        newAccount = {
+          subPlan: this.state.subPlan,
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email
+        };
+      } else { // incorrect subscription plan
+        throw { error: 'invalid data' };
+      }
+      this.props
+        .register(newAccount)
+        .then(() => this.setIsReady(ev, false))
+        .then(() => this.props.history.push('/home'));
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -333,185 +420,219 @@ class Register extends Component {
     return (
       <DivWrapper>
         <H1Register>Register New Account</H1Register>
-        <Form>
-          <DivSubscriptionPlan>
-            <h1>Select Subscription Plan</h1>
-            <DivSelectBanners>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[0])}
+        {this.state.isReady ? (
+          <DivConfirm>
+            <h1>Confirm New Account Information</h1>
+            <button onClick={ev => this.setIsReady(ev, false)}>Back</button>
+            <button onClick={ev => this.submitHandler(ev)}>Confirm</button>
+          </DivConfirm>
+        ) : (
+          <Form>
+            <DivSubscriptionPlan>
+              <h1>Select Subscription Plan</h1>
+              <DivSelectBanners>
+                <DivBanner
+                  onClick={() => this.selectSubPlan(subscriptionPlans[0])}
+                >
+                  <DivFreePlan subPlan={this.state.subPlan}>
+                    <DivFeatures>
+                      <h2>Free Plan</h2>
+                      <ul>
+                        <li>Create Categories</li>
+                        <li>Create Discussions</li>
+                        <li>Create Posts(replies)</li>
+                      </ul>
+                    </DivFeatures>
+                    <h4>{subscriptionPrices[0]}</h4>
+                  </DivFreePlan>
+                  <input
+                    id='subscription-radio-selector'
+                    type='radio'
+                    value='free-plan'
+                    name='sub-plan'
+                    checked={
+                      this.state.subPlan === subscriptionPlans[0] && true
+                    }
+                    onChange={ev => this.handleRadio(ev)}
+                  />
+                </DivBanner>
+                <DivBanner
+                  onClick={() => this.selectSubPlan(subscriptionPlans[1])}
+                >
+                  <DivBronzePlan subPlan={this.state.subPlan}>
+                    <DivFeatures>
+                      <h2>Bronze Plan</h2>
+                      <ul>
+                        <li>Create Categories</li>
+                        <li>Create Discussions</li>
+                        <li>Create Posts(replies)</li>
+                        <li>No Ads</li>
+                      </ul>
+                    </DivFeatures>
+                    <h4>{subscriptionPrices[1]}</h4>
+                  </DivBronzePlan>
+                  <input
+                    id='subscription-radio-selector'
+                    type='radio'
+                    value='bronze-plan'
+                    name='sub-plan'
+                    checked={
+                      this.state.subPlan === subscriptionPlans[1] && true
+                    }
+                    onChange={ev => this.handleRadio(ev)}
+                  />
+                </DivBanner>
+                <DivBanner
+                  onClick={() => this.selectSubPlan(subscriptionPlans[2])}
+                >
+                  <DivSilverPlan subPlan={this.state.subPlan}>
+                    <DivFeatures>
+                      <h2>Silver Plan</h2>
+                      <ul>
+                        <li>Create Categories</li>
+                        <li>Create Discussions</li>
+                        <li>Create Posts(replies)</li>
+                        <li>No Ads</li>
+                        <li>Gets Signature</li>
+                      </ul>
+                    </DivFeatures>
+                    <h4>{subscriptionPrices[2]}</h4>
+                  </DivSilverPlan>
+                  <input
+                    id='subscription-radio-selector'
+                    type='radio'
+                    value='silver-plan'
+                    name='sub-plan'
+                    checked={
+                      this.state.subPlan === subscriptionPlans[2] && true
+                    }
+                    onChange={ev => this.handleRadio(ev)}
+                  />
+                </DivBanner>
+                <DivBanner
+                  onClick={() => this.selectSubPlan(subscriptionPlans[3])}
+                >
+                  <DivGoldPlan subPlan={this.state.subPlan}>
+                    <DivFeatures>
+                      <h2>Gold Plan</h2>
+                      <ul>
+                        <li>Create Categories</li>
+                        <li>Create Discussions</li>
+                        <li>Create Posts(replies)</li>
+                        <li>No Ads</li>
+                        <li>Gets Signature</li>
+                        <li>Gets Avatar</li>
+                      </ul>
+                    </DivFeatures>
+                    <h4>{subscriptionPrices[3]}</h4>
+                  </DivGoldPlan>
+                  <input
+                    id='subscription-radio-selector'
+                    type='radio'
+                    value='gold-plan'
+                    name='sub-plan'
+                    checked={
+                      this.state.subPlan === subscriptionPlans[3] && true
+                    }
+                    onChange={ev => this.handleRadio(ev)}
+                  />
+                </DivBanner>
+              </DivSelectBanners>
+            </DivSubscriptionPlan>
+            <DivRegisterForm>
+              <h1>Enter New Account Details</h1>
+              <DivAccountDetails>
+                <DivLeftSide>
+                  <DivUsername>
+                    <LabelUsername>
+                      <span>*</span>&nbsp;Username
+                    </LabelUsername>
+                    <InputUsername
+                      onChange={this.handleInputChange}
+                      placeholder='Required...'
+                      value={this.state.username}
+                      name='username'
+                      autoComplete='off'
+                    />
+                    {<img src='' alt='spinner' />}
+                    {<img src='' alt='taken' />}
+                    {<img src='' alt='available' />}
+                  </DivUsername>
+                  <DivPassword>
+                    <LabelPassword>
+                      <span>*</span>&nbsp;Password
+                    </LabelPassword>
+                    <InputPassword
+                      type='password'
+                      onChange={this.handleInputChange}
+                      placeholder='Required...'
+                      value={this.state.password}
+                      name='password'
+                      autoComplete='off'
+                    />
+                  </DivPassword>
+                  <DivEmail>
+                    <LabelEmail>Email</LabelEmail>
+                    <InputEmail
+                      onChange={this.handleInputChange}
+                      placeholder='Optional...'
+                      value={this.state.email}
+                      name='email'
+                      autoComplete='off'
+                    />
+                  </DivEmail>
+                  <DivSignature subPlan={this.state.subPlan}>
+                    <LabelSignature>Signature</LabelSignature>
+                    <TextareaSignature
+                      onChange={this.handleInputChange}
+                      placeholder='Optional...'
+                      value={this.state.signature}
+                      name='signature'
+                      autoComplete='off'
+                    />
+                  </DivSignature>
+                </DivLeftSide>
+                <DivRightSide>
+                  <DivAvatar subPlan={this.state.subPlan}>
+                    <img src='' alt='avatar preview' />
+                    <input
+                      onChange={this.handleInputChange}
+                      placeholder='PNG URL...'
+                      value={this.state.avatar}
+                      name='avatar'
+                      autoComplete='off'
+                    />
+                  </DivAvatar>
+                </DivRightSide>
+              </DivAccountDetails>
+            </DivRegisterForm>
+            <DivButtons>
+              <ButtonCancel to='/'>Cancel</ButtonCancel>
+              <button
+                to='/register/confirm'
+                onClick={ev => this.setIsReady(ev, true)}
               >
-                <DivFreePlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Free Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$0.00</h4>
-                </DivFreePlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='free-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[0] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[1])}
-              >
-                <DivBronzePlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Bronze Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                      <li>No Ads</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$0.99/yr</h4>
-                </DivBronzePlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='bronze-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[1] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[2])}
-              >
-                <DivSilverPlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Silver Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                      <li>No Ads</li>
-                      <li>Gets Signature</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$1.99/yr</h4>
-                </DivSilverPlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='silver-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[2] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[3])}
-              >
-                <DivGoldPlan subPlan={this.state.subPlan}>
-                  <DivFeatures>
-                    <h2>Gold Plan</h2>
-                    <ul>
-                      <li>Create Categories</li>
-                      <li>Create Discussions</li>
-                      <li>Create Posts(replies)</li>
-                      <li>No Ads</li>
-                      <li>Gets Signature</li>
-                      <li>Gets Avatar</li>
-                    </ul>
-                  </DivFeatures>
-                  <h4>$2.99/yr</h4>
-                </DivGoldPlan>
-                <input
-                  id='subscription-radio-selector'
-                  type='radio'
-                  class='form-radio__selection'
-                  value='gold-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[3] ? 'checked' : ''
-                  }
-                />
-              </DivBanner>
-            </DivSelectBanners>
-          </DivSubscriptionPlan>
-          <DivRegisterForm>
-            <DivLeftSide>
-              <DivUsername>
-                <LabelUsername>
-                  <span>*</span>&nbsp;Username
-                </LabelUsername>
-                <InputUsername
-                  onChange={this.handleInputChange}
-                  placeholder='Required...'
-                  value={this.state.username}
-                  name='username'
-                  autoComplete='off'
-                />
-                {<img src='' alt='spinner' />}
-                {<img src='' alt='taken' />}
-                {<img src='' alt='available' />}
-              </DivUsername>
-              <DivPassword>
-                <LabelPassword>
-                  <span>*</span>&nbsp;Password
-                </LabelPassword>
-                <InputPassword
-                  onChange={this.handleInputChange}
-                  placeholder='Required...'
-                  value={this.state.username}
-                  name='password'
-                  autoComplete='off'
-                />
-              </DivPassword>
-              <DivEmail>
-                <LabelEmail>Email</LabelEmail>
-                <InputEmail
-                  onChange={this.handleInputChange}
-                  placeholder='Optional...'
-                  value={this.state.email}
-                  name='email'
-                  autoComplete='off'
-                />
-              </DivEmail>
-              <DivSignature>
-                <LabelSignature>Signature</LabelSignature>
-                <TextareaSignature
-                  onChange={this.handleInputChange}
-                  placeholder='Optional...'
-                  value={this.state.signature}
-                  name='signature'
-                  autoComplete='off'
-                />
-              </DivSignature>
-            </DivLeftSide>
-            <DivRightSide>
-              <img src='' alt='avatar preview' />
-              <DivAvatar>Avatar</DivAvatar>
-            </DivRightSide>
-          </DivRegisterForm>
-          <DivButtons>
-            <ButtonCancel to=''>Cancel</ButtonCancel>
-            <ButtonContinue to=''>Continue</ButtonContinue>
-          </DivButtons>
-        </Form>
+                Continue
+              </button>
+            </DivButtons>
+          </Form>
+        )}
       </DivWrapper>
     );
   }
 }
 
-// Register.propTypes = {
+// RegisterView.propTypes = {
 //   propertyName: PropTypes.string
-// }
+// }register
 
-export default Register;
+const mapStateToProps = state => {
+  return {
+    loadingMessage: state.loadingMessage
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { register }
+)(RegisterView);

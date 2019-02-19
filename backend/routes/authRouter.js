@@ -83,13 +83,18 @@ router.post('/register', async (req, res) => {
   };
 
   // add user
-  return db.insert(newUserCreds) // [ { id: 1, username: 'username' } ]
-    .then(async (userAddedResults) => {
+  console.log('newUserCreds', newUserCreds);
+  return db
+    .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
+    .then(async userAddedResults => {
       // add user settings
       if (req.body.avatarUrl) {
         const url = req.body.avatarUrl;
         base64Img.requestBase64(url, async function(err, result, body) {
-          const userSettings = { user_id: userAddedResults[0].id, avatar: body };
+          const userSettings = {
+            user_id: userAddedResults[0].id,
+            avatar: body
+          };
           await db.addUserSettings(userSettings);
         });
       } else {
@@ -113,7 +118,9 @@ router.post('/register', async (req, res) => {
         }
       ]);
     })
-    .catch(err => res.status(500).json({ error: `Failed to insert(): ${ err }` }));
+    .catch(err =>
+      res.status(500).json({ error: `Failed to insert(): ${err}` })
+    );
 });
 
 router.post('/login', async (req, res) => {
@@ -129,54 +136,67 @@ router.post('/login', async (req, res) => {
     password: req.body.password
   };
 
-  return db.findByUsername(userCreds.username)
-    .then(async (user) => {
+  return db
+    .findByUsername(userCreds.username)
+    .then(async user => {
       // If user object was obtained AND...
       // the client password matches the db hash password
       if (user && bcrypt.compareSync(userCreds.password, user.password)) {
         const token = await generateToken(user.id, user.username);
-        return res.status(201).json([{
-          id: user.id,
-          token,
-          message: 'Log in successful.',
-          username: user.username,
-          avatar: user.avatar,
-        }]);
+        return res.status(201).json([
+          {
+            id: user.id,
+            token,
+            message: 'Log in successful.',
+            username: user.username,
+            avatar: user.avatar
+          }
+        ]);
       }
       return res.status(401).json({ error: `Invalid username/password.` });
     })
-    .catch(err => res.status(500).json({ error: `Failed to findByUsername(): ${ err }` }));
+    .catch(err =>
+      res.status(500).json({ error: `Failed to findByUsername(): ${err}` })
+    );
 });
 
 // log a user back in if their token is authenticated
 router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
   const { user_id } = req.params;
-  return db.findById(user_id)
+  return db
+    .findById(user_id)
     .then(async user => {
       // if the user already exists in the DB
       // you will get back an array with an object with user info inside it
       if (user.length === 1) {
         const token = await generateToken(user[0].id, user[0].username);
-        return res.status(201).json([{
-          id: user[0].id,
-          token,
-          avatar: user[0].avatar,
-          username: user[0].username,
-          discussions: user[0].discussions,
-          email: user[0].email,
-          message: 'Logging back in successful.'
-        }]);
+        return res.status(201).json([
+          {
+            id: user[0].id,
+            token,
+            avatar: user[0].avatar,
+            username: user[0].username,
+            discussions: user[0].discussions,
+            email: user[0].email,
+            message: 'Logging back in successful.'
+          }
+        ]);
       }
-      return res.status(401).json({ error: `User does not exist in database or you got back more than one user.` });
+      return res.status(401).json({
+        error: `User does not exist in database or you got back more than one user.`
+      });
     })
-    .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
+    .catch(err =>
+      res.status(500).json({ error: `Failed to findById(): ${err}` })
+    );
 });
 
 router.post('/auth0-login', async (req, res) => {
   const { email, name, picture } = req.body;
   let userSettings = {};
   let token;
-  return db.findByUsername(name)
+  return db
+    .findByUsername(name)
     .then(async user => {
       // if the user already exists in the DB, return the user
       if (user) {
@@ -186,18 +206,20 @@ router.post('/auth0-login', async (req, res) => {
         // update user settings
         userSettings.user_id = user.id;
         if (picture) {
-            userSettings.avatar = picture;
-            await db.updateUserSettings(userSettings);
+          userSettings.avatar = picture;
+          await db.updateUserSettings(userSettings);
         }
 
         // return to front end
-        return res.status(201).json([{
+        return res.status(201).json([
+          {
             id: user.id,
             token,
             message: 'Log in using auth0 credentials successful.',
             avatar: picture || user.avatar,
             username: user.username
-        }]);
+          }
+        ]);
       }
       // else, if user does not exist, register them first
       const newUserCreds = {
@@ -205,7 +227,8 @@ router.post('/auth0-login', async (req, res) => {
         email,
         status: 'active'
       };
-      return db.insert(newUserCreds) // [ { id: 1, username: 'username' } ]
+      return db
+        .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
           // add user settings
           userSettings.user_id = userAddedResults[0].id;
@@ -214,25 +237,36 @@ router.post('/auth0-login', async (req, res) => {
             await db.addUserSettings(userSettings);
           }
 
-          return db.findByUsername(userAddedResults[0].username)
+          return db
+            .findByUsername(userAddedResults[0].username)
             .then(async foundUser => {
               // refresh token (if needed)
               token = await generateToken(foundUser.id, foundUser.username);
 
               // return to front end
-              return res.status(201).json([{
+              return res.status(201).json([
+                {
                   id: foundUser.id,
                   token,
                   message: 'Log in using auth0 credentials successful.',
                   avatar: foundUser.avatar,
                   username: foundUser.username
-              }]);
+                }
+              ]);
             })
-            .catch(err => res.status(500).json({ error: `Failed to findByUsername(): ${ err }` }));
+            .catch(err =>
+              res
+                .status(500)
+                .json({ error: `Failed to findByUsername(): ${err}` })
+            );
         })
-        .catch(err => res.status(500).json({ error: `Failed to insert(): ${ err }` }));
+        .catch(err =>
+          res.status(500).json({ error: `Failed to insert(): ${err}` })
+        );
     })
-    .catch(err => res.status(500).json({ error: `Failed to findByUsername(): ${ err }` }));
+    .catch(err =>
+      res.status(500).json({ error: `Failed to findByUsername(): ${err}` })
+    );
 });
 
 module.exports = router;
