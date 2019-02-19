@@ -13,8 +13,9 @@ const DiscussionView = ({ history, match }) => {
 	const historyPush = history.push;
 	return(
 		<DiscussionViewWrapper>
-			<Discussion id = { id } historyPush = { historyPush } />
 			<Follow />
+			<Discussion id = { id } historyPush = { historyPush } />
+			
 		</DiscussionViewWrapper>
 	);
 };

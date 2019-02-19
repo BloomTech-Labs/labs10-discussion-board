@@ -4,12 +4,18 @@ import styled from 'styled-components';
 import { followDiscussion } from '../store/actions/index.js';
 
 const FollowWrapper = styled.form`
-	border: 1px solid blue;
-	padding: 10px;
+  padding: 10px;
+`;
+const Followed = styled.form`
+  padding: 10px;
+  width: 120px;
+  .follow {
+    cursor: pointer;
+  }
 `;
 
 class Follow extends Component {
-    state = { followed: null };
+    state = { followed: true };
 	  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	  handleFollowClick = e => {
         e.preventDefault();
@@ -23,12 +29,15 @@ class Follow extends Component {
         return (
           <FollowWrapper onClick = { this.handleFollowClick }>
               <h2>Follow</h2> 
+            <Followed>
               <input
                   className="follow"
                   onClick={this.handleFollowClick}
+                  onChange = { this.handleChange }
                   style={{backgroundColor: this.state.followed ? 'green' : 'red'}}
                   value={followed ? 'Follow' : 'Following'}
               />
+            </Followed>
           </FollowWrapper>
         );
     }
