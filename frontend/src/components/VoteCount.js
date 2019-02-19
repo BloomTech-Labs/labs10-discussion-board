@@ -13,13 +13,13 @@ const VoteCountWrapper = styled.div`
 	padding: 10px;
 	border: 1px solid black;
 			.fa-arrow-alt-circle-up {
-				:hover {
+				&:hover {
 				cursor: pointer;
 				color: #3898d1;
 				}
 			}
 			.fa-arrow-alt-circle-down {
-				:hover {
+				&:hover {
 				cursor: pointer;
 				color: #e54340;
 				}

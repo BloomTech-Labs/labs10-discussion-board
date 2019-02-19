@@ -15,7 +15,7 @@ const DiscussionsViewWrapper = styled.div`
 	hr {
 		border-color: gray;
 		margin-top: -10px;
-		margin-bottom 20px;
+		margin-bottom: 20px;
 	}
 `;
 

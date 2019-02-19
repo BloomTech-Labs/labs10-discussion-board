@@ -9,6 +9,7 @@ const AvatarWrapper = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  border-radius: 50px;
 `;
 
 const Avatar = ({ height, width, src }) => {
