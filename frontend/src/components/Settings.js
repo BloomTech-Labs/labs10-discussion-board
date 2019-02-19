@@ -6,36 +6,57 @@ import styled from 'styled-components';
 import { getProfile } from '../store/actions/index.js';
 
 // components
-import { EditPasswordForm } from './index.js';
+import {
+	Avatar,
+	EditPasswordForm,
+	EditAvatarForm,
+} from './index.js';
 
 const SettingsWrapper = styled.div`
 	border: 1px solid black;
 `;
 
 class Settings extends Component {
-	state = { showEditPasswordForm: false };
-	toggleEditPasswordForm = () => this.setState({ showEditPasswordForm: !this.state.showEditPasswordForm });
-	componentDidMount = () => this.props.getProfile(this.props.match.params.id);
+	state = { showForm: '' };
+	getProfile = () => this.props.getProfile(this.props.match.params.id);
+	toggleForm = formName => this.setState({ showForm: formName });
+	onUploadAvatarSucces = () => this.setState({ showForm: '' }, () => this.getProfile());
+	componentDidMount = () => this.getProfile();
 	render() {
-		const { showEditPasswordForm } = this.state;
+		const { showForm } = this.state;
 		const {
 			id,
 			username,
 			email,
 			status,
+			avatar,
 		} = this.props.profile;
 		return(
 			<SettingsWrapper>
 				<h1>{ username }'s Settings</h1>
 
 				<p>Email: { email || 'N/A' }</p>
+				<p>Avatar:</p>
+				<Avatar
+					height = '50px'
+					width = '50px'
+					src = { avatar }
+				/>
+				<br />
 				<button>{ email ? 'Change' : 'Set' } email</button>
-				<button onClick = { this.toggleEditPasswordForm }>Change password</button>
-				<button>Change avatar</button>
+				<button onClick = { () => this.toggleForm('password') }>Change password</button>
+				<button onClick = { () => this.toggleForm('avatar') }>Change avatar</button>
 				{
-					showEditPasswordForm &&
+					showForm === 'password' &&
 					<EditPasswordForm
-						toggleEditPasswordForm = { this.toggleEditPasswordForm }
+						toggleForm = { this.toggleForm }
+					/>
+				}
+				{
+					showForm === 'avatar' &&
+					<EditAvatarForm
+						toggleForm = { this.toggleForm }
+						onUploadAvatarSucces = { this.onUploadAvatarSucces }
 					/>
 				}
 			</SettingsWrapper>
@@ -44,7 +65,7 @@ class Settings extends Component {
 };
 
 const mapStateToProps = state => ({
-	profile: state.profilesData.singleProfileData,
+	profile: state.profilesData.singleProfileData[0],
 });
 
 export default connect(mapStateToProps, { getProfile })(Settings);
