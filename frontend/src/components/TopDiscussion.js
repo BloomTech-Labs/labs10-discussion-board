@@ -91,7 +91,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 			<div className = 'content'>
 				<div>
 					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
-					<span className = 'category'>/d/{ category_name }</span>
+					<span className = 'category'><Link to={`/discussions/category/${category_id}`}>/d/{ category_name }</Link></span>
 				</div>
 
         <div>
