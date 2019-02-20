@@ -28,7 +28,7 @@ const getTopDailyDiscussions = () => {
             this.on('pc.discussion_id', '=', 'd.id');
         })
         // this whereRaw gets the created_at dates that are 24 hours away from the current time
-        .whereRaw("d.created_at >= ?", [new Date(new Date().getTime() - (24 * 60 * 60 * 1000))])
+        .whereRaw("d.created_at >= ?", [new Date().getTime() - (24 * 60 * 60 * 1000)])
         .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count')
         .orderBy('vote_count', 'desc')
         .limit(10);

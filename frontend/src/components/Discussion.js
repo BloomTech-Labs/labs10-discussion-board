@@ -92,7 +92,7 @@ class Discussion extends Component {
     } = discussion;
     return (
       <DiscussionWrapper>
-        <h1>DISCUSSION</h1>
+        <h1> { title } </h1>
         <DiscussionInfo>
           <CategoryName>/d/{category_name}</CategoryName>
           <PostedBy>

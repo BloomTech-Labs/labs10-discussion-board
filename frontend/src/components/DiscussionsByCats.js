@@ -11,7 +11,7 @@ import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/inde
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionsViewWrapper = styled.div`
+const DiscussionsByCatViewWrapper = styled.div`
 
 `;
 
@@ -20,16 +20,16 @@ const TopDiscussionsViewWrapper = styled.div`
  **************************************************************************************************/
 class DiscussionsByCats extends Component {
 	componentDidMount = () =>{
-        this.props.getDiscussionsByCat(this.props.category_id)};
+        this.props.getDiscussionsByCat(this.props.category_id, this.props.category_name)};
 	handleDiscussionVote = (discussion_id, type) => {
 		const { getDiscussionsByCat, handleDiscussionVote } = this.props;
 		return handleDiscussionVote(discussion_id, this.props.user_id, type)
-			.then(() => getDiscussionsByCat(this.props.category_id));
+			.then(() => getDiscussionsByCat(this.props.category_id, this.props.category_name));
 	};
 	render() {
 		const { discussionsByCat } = this.props;
 		return (
-			<TopDiscussionsViewWrapper>
+			<DiscussionsByCatViewWrapper>
 				{
 					discussionsByCat.map((discussion, index) =>
 						<DiscussionsByCat
@@ -39,7 +39,7 @@ class DiscussionsByCats extends Component {
 						/>
 					)
 				}
-			</TopDiscussionsViewWrapper>
+			</DiscussionsByCatViewWrapper>
 		);
 	}
 };

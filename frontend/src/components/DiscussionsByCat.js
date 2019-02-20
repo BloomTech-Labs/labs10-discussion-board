@@ -9,7 +9,7 @@ import { PostCount, VoteCount } from './index.js';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionWrapper = styled.div`
+const DiscussionByCatWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -87,7 +87,7 @@ const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
 	const handleVote = type => handleDiscussionVote(id, type);
 	return (
 
-		<TopDiscussionWrapper>
+		<DiscussionByCatWrapper>
 			<VoteCount handleVote = { handleVote } vote_count = { discussion_votes } />
 			<div className = 'content'>
 				<div>
@@ -108,7 +108,7 @@ const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
 			</div>
 
 			<PostCount post_count = { post_count || 0 } />
-		</TopDiscussionWrapper>
+		</DiscussionByCatWrapper>
 	);
 };
 

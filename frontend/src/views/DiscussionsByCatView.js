@@ -10,7 +10,7 @@ import { DiscussionsByCats } from '../components/index.js';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionsViewWrapper = styled.div`
+const DiscussionsByCatViewWrapper = styled.div`
 	border: 0px solid black;
 	padding: 5px;
 	box-shadow: gray 0px 0px;
@@ -21,14 +21,14 @@ const TopDiscussionsViewWrapper = styled.div`
 	}
 `;
 
-const TopDiscussionsImage = styled.img`
+const DiscussionsByCatImage = styled.img`
 	src: url(${props => props.src});
 	display: flex;
 	height: 120px;
 	width: 120px;
 `;
 
-const TopDiscussionsHeader = styled.div`
+const DiscussionsByCatHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin: 5px;
@@ -46,7 +46,7 @@ const TopDiscussionsHeader = styled.div`
 	}
 `;
 
-const TopDiscussionsTitle = styled.div`
+const DiscussionsByCatTitle = styled.div`
 	display: flex;
 	align-self: center;
 	font-size: 18px;
@@ -66,28 +66,28 @@ const TextLooper = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 const DiscussionsByCatView = (props) => {
+	console.log('props', props)
 	return (
-		<TopDiscussionsViewWrapper>
-			<TopDiscussionsHeader>
+		<DiscussionsByCatViewWrapper>
+			<DiscussionsByCatHeader>
 				<div className = 'logotopd'>
-					<TopDiscussionsImage src={Discuss} alt='Top discussions' />
-						<TopDiscussionsTitle>
+					<DiscussionsByCatImage src={Discuss} alt='Top discussions' />
+						<DiscussionsByCatTitle>
 							<h1>Discussions</h1>
-						</TopDiscussionsTitle>
+						</DiscussionsByCatTitle>
 				</div>
 				<TextLooper>
-                <TextLoop>
-					
+                <TextLoop>					
                     <span>See what's being discussed</span>
                     <span>Find your interests</span>
                     <span>Start talking!</span>
 				</TextLoop>{" "}
 				</TextLooper>
-			</TopDiscussionsHeader>
+			</DiscussionsByCatHeader>
 			<hr />
 			<DiscussionsByCats 
 				category_id = {props.match.params.category_id}/>
-		</TopDiscussionsViewWrapper>
+		</DiscussionsByCatViewWrapper>
 	);
 };
 
