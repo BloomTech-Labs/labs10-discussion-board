@@ -11,7 +11,7 @@ const findById = id => {
   const getPosts = db('posts').where('user_id', id);
   const getDiscussionFollows = db('discussion_follows as df').select('discussion_id').where('user_id', id);
   const getUser = db('users as u')
-    .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
+    .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar', 'u.password')
     .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .where('u.id', id);
   const promises = [ getDiscussions, getPosts, getUser, getDiscussionFollows ];
