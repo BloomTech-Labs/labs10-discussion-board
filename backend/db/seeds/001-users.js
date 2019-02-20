@@ -11,7 +11,8 @@ const generateSeeds = () => {
       username: faker.internet.userName(),
       password: 'pass',
       email: faker.internet.email(),
-      status: 'active'
+      status: 'active',
+      created_at: faker.date.recent(60)
     });
   }
 
