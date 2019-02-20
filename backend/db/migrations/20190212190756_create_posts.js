@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
     // Other Columns
     tbl.text('body').notNullable();
 
-    tbl.string('created_at').defaultTo(knex.fn.now());
+    tbl.string('created_at').notNullable();
 
     tbl.string('last_edited_at');
   });

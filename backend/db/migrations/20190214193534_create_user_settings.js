@@ -16,12 +16,13 @@ exports.up = function(knex, Promise) {
       .onDelete('CASCADE');
 
     // avatar: base64
-    tbl
-      .text('avatar')
-      .defaultTo(defaultAvatar);
+    tbl.text('avatar').defaultTo(defaultAvatar);
 
     // Account type: user and gold_member
     tbl.string('user_type', 32).defaultTo('user');
+
+    // Signature
+    tbl.string('signature');
   });
 };
 
