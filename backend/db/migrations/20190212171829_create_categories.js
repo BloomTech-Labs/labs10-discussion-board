@@ -10,19 +10,13 @@ exports.up = function(knex, Promise) {
       .inTable('users')
       .onDelete('SET NULL');
 
-      // Other Columns
-      tbl
-        .string('name')
-        .notNullable();
+    // Other Columns
+    tbl.string('name').notNullable();
 
-      tbl
-        .string('created_at')
-        .defaultTo(knex.fn.now());
-    });
+    tbl.string('created_at').notNullable();
+  });
+};
 
-  };
-  
-  exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists('categories');
-  };
-  
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTableIfExists('categories');
+};
