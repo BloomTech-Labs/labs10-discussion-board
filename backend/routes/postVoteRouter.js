@@ -38,7 +38,10 @@ router.post('/', (req, res) => {
                     
             }
             //Else user has not already voted
-        })
+            return postVotesDB.add( post.id, user.id, type)
+                .then(() => res.status(200).json({ message: 'Vote added!'}))
+                .catch(() => res.status(500).json({ error: `Failed to add(): ${err}` }))
+            })
 })
 
 module.exports = router;
