@@ -48,6 +48,7 @@ const initialState = {
   message: '',
   discussions: [],
   discussionFollows: [],
+  isAuth0: false,
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -71,7 +72,7 @@ export const UsersReducer = (state = initialState, action) => {
         discussions: action.payload.discussions,
         discussionFollows: action.payload.discussionFollows,
         loggingInLoadingMessage: false,
-        error: null
+        isAuth0: action.payload.isAuth0
       };
     case FOLLOW_DISCUSSION_SUCCESS:
     return {
