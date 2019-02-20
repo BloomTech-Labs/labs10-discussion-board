@@ -129,6 +129,7 @@ router.post('/register', async (req, res) => {
                 message: 'Registration successful.',
                 username: userAddedResults[0].username,
                 avatar: foundUser[0].avatar,
+                isAuth0: foundUser[0].password ? false : true,
                 discussionFollows: foundUser[0].discussionFollows
               }
             ]);
@@ -177,6 +178,7 @@ router.post('/login', async (req, res) => {
                   message: 'Log in successful.',
                   username: user.username,
                   avatar: user.avatar,
+                  isAuth0: foundUser[0].password ? false : true,
                   discussionFollows: foundUser[0].discussionFollows
                 }
               ]);
@@ -214,6 +216,7 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
             username: user[0].username,
             discussions: user[0].discussions,
             email: user[0].email,
+            isAuth0: user[0].password ? false : true,
             discussionFollows: user[0].discussionFollows,
             message: 'Logging back in successful.'
           }
@@ -258,6 +261,7 @@ router.post('/auth0-login', async (req, res) => {
                   message: 'Log in successful.',
                   username: user.username,
                   avatar: foundUser[0].avatar,
+                  isAuth0: foundUser[0].password ? false : true,
                   discussionFollows: foundUser[0].discussionFollows
                 }
               ]);
@@ -303,6 +307,7 @@ router.post('/auth0-login', async (req, res) => {
                         message: 'Log in successful.',
                         username: foundUser.username,
                         avatar: foundUserById[0].avatar,
+                        isAuth0: foundUserById[0].password ? false : true,
                         discussionFollows: foundUserById[0].discussionFollows
                       }
                     ]);
