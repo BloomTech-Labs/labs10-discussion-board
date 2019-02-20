@@ -115,6 +115,7 @@ class Discussion extends Component {
 						user_id = { this.props.user_id }
 						discussion_id = { id }
 						historyPush = { historyPush }
+						toggleAddPostForm = { this.toggleAddPostForm }
 					/>
 				}
 
