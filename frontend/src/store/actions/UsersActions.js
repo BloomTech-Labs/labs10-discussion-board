@@ -64,6 +64,15 @@ export const UPLOAD_AVATAR_URL_LOADING = 'UPLOAD_AVATAR_URL_LOADING';
 export const UPLOAD_AVATAR_URL_SUCCESS = 'UPLOAD_AVATAR_URL_SUCCESS';
 export const UPLOAD_AVATAR_URL_FAILURE = 'UPLOAD_AVATAR_URL_FAILURE';
 
+// confirm email
+export const EMAIL_CONFIRM_LOADING = 'EMAIL_CONFIRM_LOADING';
+export const EMAIL_CONFIRM_SUCCESS = 'EMAIL_CONFIRM_SUCCESS';
+export const EMAIL_CONFIRM_FAILURE = 'EMAIL_CONFIRM_FAILURE';
+
+export const UPDATE_EMAIL_LOADING = 'UPDATE_EMAIL_LOADING';
+export const UPDATE_EMAIL_SUCCESS = 'UPDATE_EMAIL_SUCCESS';
+export const UPDATE_EMAIL_FAILURE = 'UPDATE_EMAIL_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -239,4 +248,32 @@ export const isEmailTaken = email => dispatch => {
     .get(`${backendUrl}/users/email/${email}`)
     .then(res => dispatch({ type: EMAIL_EXISTS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, EMAIL_EXISTS_FAILURE)(dispatch));
+};
+
+export const confirmEmail = (email_confirm_token, historyPush) => dispatch => {
+  const body = { email_confirm_token };
+  dispatch({ type: EMAIL_CONFIRM_LOADING });
+  return axios
+    .post(`${ backendUrl }/users/confirm-email`, body)
+    .then(res => dispatch({ type: EMAIL_CONFIRM_SUCCESS, payload: res.data.message }))
+    .then(() => historyPush('/home'))
+    .catch(err => handleError(err, EMAIL_CONFIRM_FAILURE)(dispatch));
+};
+
+export const updateEmail = (email, history) => dispatch => {
+	const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
+	const body = { email };
+
+	dispatch({ type: UPDATE_EMAIL_LOADING });
+
+  return axios
+    .put(`${ backendUrl }/users/update-email/${ user_id }`, body, headers)
+    .then(res => dispatch({
+      type: UPDATE_EMAIL_SUCCESS,
+      payload: res.data,
+    }))
+    .then(() => history.push(`/settings/${ user_id }`))
+    .catch(err => handleError(err, UPDATE_EMAIL_FAILURE, history)(dispatch));
 };

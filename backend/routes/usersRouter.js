@@ -7,6 +7,7 @@ const usersDB = require('../db/models/usersDB.js');
 const bcrypt = require('bcryptjs');
 const fileUpload = require('express-fileupload');
 const Jimp = require('jimp');
+const uuidv4 = require('uuid/v4');
 const router = express.Router();
 // const jwt = require('jsonwebtoken');
 
@@ -21,6 +22,11 @@ const {
  ******************************************** middleware *******************************************
  **************************************************************************************************/
 const { authenticate } = require('../config/middleware/authenticate.js');
+const requestClientIP = require('../config/middleware/requestClientIP.js');
+const {
+	transporter,
+	getMailOptions,
+}					= require('../config/nodeMailerConfig.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
@@ -89,6 +95,20 @@ router.get('/email/:email', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+// confirm a user's email
+router.post('/confirm-email', (req, res) => {
+	const { email_confirm_token } = req.body;
+	return usersDB
+		.confirmEmail(email_confirm_token)
+		.then(result => {
+			if (result === 0) {
+				return res.status(401).json({ error: 'E-mail confirmation token is invalid.' });
+			}
+			return res.status(201).json({ message: 'Your e-mail has been confirmed. Thank you.' });
+		})
+		.catch(err => res.status(500).json({ error: `Failed to confirmEmail(): ${ err }` }));
+});
+
 // Updates a user
 router.put('/user/:id', (req, res, next) => {
   const { id } = req.params;
@@ -133,6 +153,42 @@ router.put('/password/:user_id', authenticate, (req, res) => {
     .catch(err =>
       res.status(500).json({ error: `Failed to getPassword(): ${err}` })
     );
+});
+
+// update email
+router.put('/update-email/:user_id', authenticate, requestClientIP, (req, res) => {
+	const { user_id } = req.params;
+	const { email, clientIP } = req.body;
+
+	if (!email) return res.status(401).json({ error: 'E-mail must not be empty.' });
+
+	return usersDB
+		.getUserByEmail(email)
+		.then(user => {
+			if (user.length) {
+				return res.status(401).json({ error: `E-mail "${ email }" already in use.` });
+			}
+
+			// generate a random uuid for email confirmation URL
+			const email_confirm = uuidv4();
+
+			return usersDB
+				.updateEmail(user_id, email, email_confirm)
+				.then(() => {
+					const mailOptions = getMailOptions('update-email', email, email_confirm, clientIP);
+
+					return transporter.sendMail(mailOptions, function(err, info){
+						if (err) {
+							return res.status(500).json({ error: `Server failed to send e-mail confirmation: ${ err }` });
+						} else {
+							const message = `Success! An e-mail was sent to ${ email }. Please confirm your e-mail address in order to be able to reset your password in the future.`;
+							return res.status(201).json(message);
+						}
+					});
+				})
+				.catch(err => res.status(500).json({ error: `Server failed to update email: ${ err }`}));
+		})
+		.catch(err => res.status(500).json({ error: `Server failed to get user by email: ${ err }`}));
 });
 
 // Update the avatar of a user given their ID

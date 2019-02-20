@@ -107,6 +107,12 @@ import {
   EMAIL_EXISTS_LOADING,
   EMAIL_EXISTS_SUCCESS,
   EMAIL_EXISTS_FAILURE,
+  EMAIL_CONFIRM_LOADING,
+  EMAIL_CONFIRM_SUCCESS,
+  EMAIL_CONFIRM_FAILURE,
+  UPDATE_EMAIL_LOADING,
+  UPDATE_EMAIL_SUCCESS,
+  UPDATE_EMAIL_FAILURE,
 
   // Action Creators
   login,
@@ -120,7 +126,9 @@ import {
   uploadAvatar,
   uploadAvatarUrl,
   isUsernameTaken,
-  isEmailTaken
+  isEmailTaken,
+  confirmEmail,
+  updateEmail,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -220,6 +228,14 @@ export {
   EMAIL_EXISTS_SUCCESS,
   EMAIL_EXISTS_FAILURE,
 
+  EMAIL_CONFIRM_LOADING,
+  EMAIL_CONFIRM_SUCCESS,
+  EMAIL_CONFIRM_FAILURE,
+
+  UPDATE_EMAIL_LOADING,
+  UPDATE_EMAIL_SUCCESS,
+  UPDATE_EMAIL_FAILURE,
+
 	// Categories Action Creators
 	getCategories,
 
@@ -245,6 +261,8 @@ export {
   uploadAvatarUrl,
   isUsernameTaken,
   isEmailTaken,
+  confirmEmail,
+  updateEmail,
 
 	// Profile Action Creators
 	getProfiles,
