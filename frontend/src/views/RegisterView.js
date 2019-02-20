@@ -213,12 +213,15 @@ const DivRegisterForm = styled.div`
 
   h1 {
     text-decoration: underline;
+    margin: 0 0 0.67em 0;
   }
 `;
 
 const DivAccountDetails = styled.div`
   display: flex;
   flex-direction: row;
+  width: 800px;
+  justify-content: space-between;
 `;
 
 const DivLeftSide = styled.div`
@@ -229,41 +232,93 @@ const DivLeftSide = styled.div`
 const DivUsername = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 320px;
+  margin-bottom: 10px;
 `;
 
 const LabelUsername = styled.label`
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  margin-right: 5px;
   span {
     color: red;
   }
 `;
 
-const InputUsername = styled.input``;
+const InputUsername = styled.input`
+  height: 30px;
+  border-radius: 10px;
+  margin-right: 5px;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 const DivPassword = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 320px;
+  margin-bottom: 10px;
 `;
 
 const LabelPassword = styled.label`
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  margin-right: 10px;
+
   span {
     color: red;
   }
 `;
 
-const InputPassword = styled.input``;
+const InputPassword = styled.input`
+  height: 30px;
+  border-radius: 10px;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 const DivEmail = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 320px;
+  margin-bottom: 25px;
 `;
 
-const LabelEmail = styled.label``;
+const LabelEmail = styled.label`
+  font-size: 20px;
+  padding-bottom: 5px;
+  margin-right: 53px;
+  margin-left: 14px;
+`;
 
-const InputEmail = styled.input``;
+const InputEmail = styled.input`
+  height: 30px;
+  border-radius: 10px;
+  margin-right: 5px;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 const DivSignature = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
   visibility: ${props =>
     props.subPlan === subscriptionPlans[2] ||
     props.subPlan === subscriptionPlans[3]
@@ -271,10 +326,16 @@ const DivSignature = styled.div`
       : 'hidden'};
 `;
 
-const LabelSignature = styled.label``;
+const LabelSignature = styled.label`
+  font-size: 20px;
+  text-decoration: underline;
+  margin-bottom: 5px;
+`;
 
 const TextareaSignature = styled.textarea`
-  max-width: 35%;
+  width: 100%;
+  height: 100px;
+  resize: none;
 `;
 
 const DivRightSide = styled.div`
@@ -615,15 +676,23 @@ class RegisterView extends Component {
                     />
                     {this.state.username !== '' &&
                       this.props.userExistsLoadingMessage && (
-                        <img src='' alt='spinner' />
+                        <img
+                          src={require('../assets/gif/spinner2.gif')}
+                          alt='spinner'
+                        />
                       )}
                     {(this.state.username === '' ||
                       (!this.props.userExistsLoadingMessage &&
-                        this.props.usernameTaken)) && <img src='' alt='X' />}
+                        this.props.usernameTaken)) && (
+                      <img src={require('../assets/img/redX.png')} alt='X' />
+                    )}
                     {this.state.username !== '' &&
                       !this.props.userExistsLoadingMessage &&
                       !this.props.usernameTaken && (
-                        <img src='' alt='checkMark' />
+                        <img
+                          src={require('../assets/img/greenCheckmark.png')}
+                          alt='checkMark'
+                        />
                       )}
                   </DivUsername>
                   <DivPassword>
@@ -650,14 +719,24 @@ class RegisterView extends Component {
                     />
                     {this.state.email !== '' &&
                       this.props.emailExistsLoadingMessage && (
-                        <img src='' alt='spinner' />
+                        <img
+                          src={require('../assets/gif/spinner2.gif')}
+                          alt='spinner'
+                        />
                       )}
                     {this.state.email !== '' &&
                       !this.props.emailExistsLoadingMessage &&
-                      this.props.emailTaken && <img src='' alt='X' />}
+                      this.props.emailTaken && (
+                        <img src={require('../assets/img/redX.png')} alt='X' />
+                      )}
                     {this.state.email !== '' &&
                       !this.props.emailExistsLoadingMessage &&
-                      !this.props.emailTaken && <img src='' alt='checkMark' />}
+                      !this.props.emailTaken && (
+                        <img
+                          src={require('../assets/img/greenCheckmark.png')}
+                          alt='checkMark'
+                        />
+                      )}
                   </DivEmail>
                   <DivSignature subPlan={this.state.subPlan}>
                     <LabelSignature>Signature</LabelSignature>
