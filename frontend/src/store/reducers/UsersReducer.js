@@ -23,6 +23,7 @@ import {
   UPLOAD_AVATAR_URL_FAILURE,
 
   FOLLOW_DISCUSSION_SUCCESS,
+  FOLLOW_CATEGORY_SUCCESS,
 
   DISPLAY_ERROR,
   DISPLAY_MESSAGE,
@@ -48,6 +49,7 @@ const initialState = {
   message: '',
   discussions: [],
   discussionFollows: [],
+  categoryFollows: [],
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -73,10 +75,19 @@ export const UsersReducer = (state = initialState, action) => {
         loggingInLoadingMessage: false,
         error: null
       };
+    
+    // FOLLOW DISCUSSION
     case FOLLOW_DISCUSSION_SUCCESS:
     return {
       ...state,
       discussionFollows:action.payload
+    };
+
+    // FOLLOW CATEGORY
+    case FOLLOW_CATEGORY_SUCCESS:
+    return {
+      ...state,
+      categoryFollows:action.payload
     }
     case USER_AUTH0_LOGIN_FAILURE:
     case USER_LOG_BACK_IN_FAILURE:
