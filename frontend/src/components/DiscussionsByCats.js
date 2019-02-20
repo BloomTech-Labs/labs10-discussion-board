@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // components
-import { DiscussionsByCat } from '../components/index.js';
+import { DiscussionsByCat } from './index.js';
 
 // action creators
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
@@ -18,7 +18,7 @@ const TopDiscussionsViewWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-class DiscussionsByCatList extends Component {
+class DiscussionsByCats extends Component {
 	componentDidMount = () =>{
         this.props.getDiscussionsByCat(this.props.category_id)};
 	handleDiscussionVote = (discussion_id, type) => {
@@ -49,4 +49,4 @@ const mapStateToProps = state => ({
 	user_id: state.users.user_id,
 });
 
-export default connect(mapStateToProps, { getDiscussionsByCat, handleDiscussionVote })(DiscussionsByCatList);
+export default connect(mapStateToProps, { getDiscussionsByCat, handleDiscussionVote })(DiscussionsByCats);

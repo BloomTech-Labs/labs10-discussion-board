@@ -5,7 +5,7 @@ import TextLoop from "react-text-loop";
 
 
 // components
-import { DiscussionsByCatList } from '../components/index.js';
+import { DiscussionsByCats } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -86,7 +86,7 @@ const DiscussionsByCatView = (props) => {
 				</TextLooper>
 			</TopDiscussionsHeader>
 			<hr />
-			<DiscussionsByCatList 
+			<DiscussionsByCats 
 				category_id = {props.match.params.category_id}/>
 		</TopDiscussionsViewWrapper>
 	);

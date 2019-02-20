@@ -2,8 +2,8 @@ import Auth from './Auth.js';
 import CategoriesList from './CategoriesList.js';
 import Categories from './Categories.js';
 import Discussion from './Discussion.js';
-import DiscussionsByCatList from './DiscussionsByCatList.js';
 import DiscussionsByCat from './DiscussionsByCat.js';
+import DiscussionsByCats from './DiscussionsByCats.js';
 
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
@@ -33,8 +33,8 @@ export {
 	CategoriesList,
 	Categories,
 	Discussion,
-	DiscussionsByCatList,
 	DiscussionsByCat,
+	DiscussionsByCats,
 	LoginDropdown,
 	Nav,
 	Header,
