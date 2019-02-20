@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // helpers
-import { handleError, handleMessage } from '../../helpers/index.js';
+import { handleError } from '../../helpers/index.js';
 
 // globals
 const {
@@ -123,7 +123,8 @@ export const register = creds => dispatch => {
     email: creds.email,
     status: accountStatusTypes[1],
     signature: creds.signature,
-    avatarUrl: creds.avatarUrl
+    avatarUrl: creds.avatarUrl,
+    subPlan: creds.subPlan
   };
   return axios
     .post(`${backendUrl}/auth/register`, backendCreds)
@@ -158,10 +159,8 @@ export const signout = () => dispatch => {
   localStorage.removeItem('symposium_user_id');
   localStorage.removeItem('symposium_auth0_access_token');
   localStorage.removeItem('symposium_auth0_expires_at');
-  displayMessage(
-    'You have been signed out. Thanks for coming by!',
-    USER_SIGNOUT_SUCCESS
-  )(dispatch);
+  displayMessage('You have been signed out. Thanks for coming by!')(dispatch);
+  dispatch({ type: USER_SIGNOUT_SUCCESS });
   return Promise.resolve();
 };
 

@@ -4,32 +4,31 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const SingleCategory = styled.div`
-    width: 300px;
-    margin: 5px 10px;
-`
+  width: 300px;
+  margin: 5px 10px;
+`;
 
 const CategoryName = styled.div`
-    margin: 10px 0;
-    font-weight: bold;
-`
+  margin: 10px 0;
+  font-weight: bold;
+`;
 
 const CategoryLink = styled.div`
-    .category-link {
-        color: black;
+  .category-link {
+    color: black;
 
-        &:hover {
-            cursor: pointer;
-            color: white;
-        }
+    &:hover {
+      cursor: pointer;
+      color: white;
     }
-`
+  }
+`;
 
-//import moment and add created_At in the migrations if wish to include 
+//import moment and add created_At in the migrations if wish to include
 //a timestamp of creation
 const Categories = ({ category }) => {
     const {
         id,
-        user_id,
         user_username,
         name,
         created_at,

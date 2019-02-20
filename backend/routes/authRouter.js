@@ -8,11 +8,13 @@ const router = express.Router();
 const base64Img = require('base64-img');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
+const { subscriptionPlans } = require('../../frontend/src/globals/globals.js');
 const {
   safeUsrnameSqlLetters,
   safePwdSqlLetters,
   accountStatusTypes,
-  numOfHashes
+  numOfHashes,
+  accountRoleTypes
 } = require('../config/globals.js');
 
 /***************************************************************************************************
@@ -69,39 +71,48 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ error: `Status is missing.` });
   }
 
-  let email = null;
-  // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
-  if (req.body.email && check(req.body.email).isEmail())
-    email = req.body.email.trim();
-
   // ensure new user added is only passing the props needed into the database
   const newUserCreds = {
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, numOfHashes), // bcryptjs hash stored in db (not the actual password)
-    email: email,
     status: req.body.status
   };
+
+  // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
+  if (req.body.email && check(req.body.email).isEmail()) {
+    newUserCreds.email = req.body.email.trim();
+  }
 
   // add user
   return db
     .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
     .then(async userAddedResults => {
       // add user settings
-      if (req.body.avatarUrl) {
+      let userSettings = {
+        user_id: userAddedResults[0].id
+      };
+
+      // set account type
+      if (req.body.subPlan === subscriptionPlans[1]) {
+        userSettings.user_type = accountRoleTypes[1];
+      } else if (req.body.subPlan === subscriptionPlans[2]) {
+        userSettings.user_type = accountRoleTypes[2];
+      } else if (req.body.subPlan === subscriptionPlans[3]) {
+        userSettings.user_type = accountRoleTypes[3];
+      }
+
+      // prettier-ignore
+      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) { // avatar given and is gold sub
         const url = req.body.avatarUrl;
         base64Img.requestBase64(url, async function(err, result, body) {
-          const userSettings = {
-            user_id: userAddedResults[0].id,
-            avatar: body
-          };
+          userSettings.avatar = body;
           await db.addUserSettings(userSettings);
         });
       } else {
-        const userSettings = { user_id: userAddedResults[0].id };
         await db.addUserSettings(userSettings);
       }
 
-      // refresh token (if needed)
+      // Get first token for front end (for login after register)
       const token = await generateToken(
         userAddedResults[0].id,
         userAddedResults[0].username
