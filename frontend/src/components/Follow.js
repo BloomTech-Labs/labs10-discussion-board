@@ -33,11 +33,6 @@ class Follow extends Component {
         const { discussion_id, user_id, historyPush } = this.props;
 		    return this.props.followDiscussion(discussion_id, user_id, followed, historyPush);
 	  };
-    handleClick() {
-      this.setState(function(prevState) {
-        return {isToggleOn: !prevState.isToggleOn};
-      });
-    }
 
     render() {
         const { followed } = this.state;
