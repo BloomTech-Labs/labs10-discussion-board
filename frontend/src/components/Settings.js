@@ -33,7 +33,7 @@ class Settings extends Component {
         <h1>{username}'s Settings</h1>
 
         <p>Email: {email || 'N/A'}</p>
-        { email && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+        { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
         <p>Avatar:</p>
         <Avatar height='50px' width='50px' src={avatar} />
         <br />
