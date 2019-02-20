@@ -27,7 +27,10 @@ const findById = id => {
 
 // gets password for user with given id
 const getPassword = id => {
-  return db('users').select('password').where({ id }).first();
+  return db('users')
+    .select('password')
+    .where({ id })
+    .first();
 };
 
 //Gets a user by their username
@@ -39,10 +42,26 @@ const findByUsername = username => {
       'u.password',
       'u.email',
       'u.status',
-      'us.avatar',
+      'us.avatar'
     )
     .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .whereRaw('LOWER(username) = ?', username.toLowerCase())
+    .first();
+};
+
+//Checks if username exists (returns nothing if no, or the user object if yes)
+const isUsernameTaken = username => {
+  return db('users')
+    .select('username')
+    .where({ username })
+    .first();
+};
+
+//Checks if email exists (returns nothing if no, or the user object if yes)
+const isEmailTaken = email => {
+  return db('users')
+    .select('email')
+    .where({ email })
     .first();
 };
 
@@ -60,7 +79,9 @@ const addUserSettings = settings => {
 
 //Update user settings
 const updateUserSettings = settings => {
-  return db('user_settings').update(settings).where('user_id', settings.user_id);
+  return db('user_settings')
+    .update(settings)
+    .where('user_id', settings.user_id);
 };
 
 //Update avatar
@@ -96,11 +117,13 @@ module.exports = {
   getPassword,
   findById,
   findByUsername,
+  isUsernameTaken,
+  isEmailTaken,
   insert,
   addUserSettings,
   updateUserSettings,
   update,
   updateAvatar,
   updatePassword,
-  remove,
+  remove
 };

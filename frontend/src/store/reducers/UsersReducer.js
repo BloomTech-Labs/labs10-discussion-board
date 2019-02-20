@@ -2,25 +2,22 @@ import {
   USER_LOGIN_LOADING,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
-
   USER_LOG_BACK_IN_LOADING,
   USER_LOG_BACK_IN_SUCCESS,
   USER_LOG_BACK_IN_FAILURE,
-
   USER_SIGNOUT_SUCCESS,
-
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
   USER_AUTH0_LOGIN_FAILURE,
-
+  USER_REGISTER_LOADING,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILURE,
   PASSWORD_UPDATE_LOADING,
   PASSWORD_UPDATE_SUCCESS,
   PASSWORD_UPDATE_FAILURE,
-
   UPLOAD_AVATAR_LOADING,
   UPLOAD_AVATAR_SUCCESS,
   UPLOAD_AVATAR_FAILURE,
-
   UPLOAD_AVATAR_URL_LOADING,
   UPLOAD_AVATAR_URL_SUCCESS,
   UPLOAD_AVATAR_URL_FAILURE,
@@ -29,6 +26,12 @@ import {
 
   DISPLAY_ERROR,
   DISPLAY_MESSAGE,
+  USER_EXISTS_LOADING,
+  USER_EXISTS_SUCCESS,
+  USER_EXISTS_FAILURE,
+  EMAIL_EXISTS_LOADING,
+  EMAIL_EXISTS_SUCCESS,
+  EMAIL_EXISTS_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
@@ -36,6 +39,11 @@ const initialState = {
   avatar: null,
   username: '',
   loggingInLoadingMessage: false,
+  registerLoadingMessage: false,
+  userExistsLoadingMessage: false,
+  emailExistsLoadingMessage: false,
+  isUsernameTaken: false,
+  isEmailTaken: false,
   error: '',
   message: '',
   discussions: [],
@@ -75,7 +83,31 @@ export const UsersReducer = (state = initialState, action) => {
     case USER_LOGIN_FAILURE:
       return {
         ...state,
-        loggingInLoadingMessage: false,
+        loggingInLoadingMessage: false
+      };
+
+    // Register
+    case USER_REGISTER_LOADING:
+      return {
+        ...state,
+        registerLoadingMessage: true,
+        error: null
+      };
+    case USER_REGISTER_SUCCESS:
+      return {
+        ...state,
+        registerLoadingMessage: false,
+        user_id: action.payload.id,
+        avatar: action.payload.avatar,
+        username: action.payload.username,
+        discussions: action.payload.discussions,
+        error: null
+      };
+    case USER_REGISTER_FAILURE:
+      return {
+        ...state,
+        registerLoadingMessage: false,
+        error: action.payload
       };
 
     // Signout
@@ -85,13 +117,13 @@ export const UsersReducer = (state = initialState, action) => {
     case DISPLAY_ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload
       };
 
     case DISPLAY_MESSAGE:
       return {
         ...state,
-        message: action.payload,
+        message: action.payload
       };
 
     case UPLOAD_AVATAR_URL_SUCCESS:
@@ -101,10 +133,54 @@ export const UsersReducer = (state = initialState, action) => {
     case UPLOAD_AVATAR_URL_LOADING:
     case UPLOAD_AVATAR_LOADING:
     case USER_LOG_BACK_IN_LOADING:
-    case USER_AUTH0_LOGIN_LOADING:
     case PASSWORD_UPDATE_LOADING:
     case PASSWORD_UPDATE_SUCCESS:
     case PASSWORD_UPDATE_FAILURE:
+      return state;
+
+    // Is Username Taken
+    case USER_EXISTS_LOADING:
+      return {
+        ...state,
+        userExistsLoadingMessage: true,
+        isUsernameTaken: false,
+        error: null
+      };
+    case USER_EXISTS_SUCCESS:
+      return {
+        ...state,
+        userExistsLoadingMessage: false,
+        isUsernameTaken: action.payload
+      };
+    case USER_EXISTS_FAILURE:
+      return {
+        ...state,
+        userExistsLoadingMessage: false,
+        isUsernameTaken: false,
+        error: action.payload
+      };
+
+    // Is Email Taken
+    case EMAIL_EXISTS_LOADING:
+      return {
+        ...state,
+        emailExistsLoadingMessage: true,
+        isEmailTaken: false,
+        error: null
+      };
+    case EMAIL_EXISTS_SUCCESS:
+      return {
+        ...state,
+        emailExistsLoadingMessage: false,
+        isEmailTaken: action.payload
+      };
+    case EMAIL_EXISTS_FAILURE:
+      return {
+        ...state,
+        emailExistsLoadingMessage: false,
+        isEmailTaken: false,
+        error: action.payload
+      };
     case UPLOAD_AVATAR_URL_FAILURE:
     case UPLOAD_AVATAR_FAILURE:
     default:
