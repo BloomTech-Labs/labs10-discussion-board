@@ -20,6 +20,10 @@ exports.up = function (knex, Promise) {
 
     // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();
+
+    tbl
+      .string('email_confirm', 36) // length of uuid
+      .index(); // for faster searching
   });
 };
 

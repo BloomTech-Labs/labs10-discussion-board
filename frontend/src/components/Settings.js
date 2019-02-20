@@ -10,7 +10,8 @@ import {
   Avatar,
   EditPasswordForm,
   EditAvatarForm,
-  EditAvatarUrlForm
+  EditAvatarUrlForm,
+  UpdateEmailForm,
 } from './index.js';
 
 const SettingsWrapper = styled.div`
@@ -26,16 +27,25 @@ class Settings extends Component {
   componentDidMount = () => this.getProfile();
   render() {
     const { show } = this.state;
-    const { username, email, avatar } = this.props.profile;
+    const { username, email, avatar, isAuth0, email_confirm } = this.props.profile;
     return (
       <SettingsWrapper>
         <h1>{username}'s Settings</h1>
 
         <p>Email: {email || 'N/A'}</p>
+        { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
         <p>Avatar:</p>
         <Avatar height='50px' width='50px' src={avatar} />
         <br />
-        <button>{email ? 'Change' : 'Set'} email</button>
+        {
+          isAuth0 ?
+          <p>You are Auth0. You cannot change your email.</p>
+          :
+          email ?
+          <button onClick = { () => this.toggleForm('email-form') }>Change email</button>
+          :
+          <button onClick = { () => this.toggleForm('email-form') }>Set email</button>
+        }
         <button onClick={() => this.toggleForm('password-form')}>
           Change password
         </button>
@@ -66,6 +76,12 @@ class Settings extends Component {
           <EditAvatarUrlForm
             toggleForm={this.toggleForm}
             onUploadAvatarSucces={this.onUploadAvatarSucces}
+          />
+        )}
+        {show === 'email-form' && (
+          <UpdateEmailForm
+            toggleForm={this.toggleForm}
+            history = { this.props.history }
           />
         )}
       </SettingsWrapper>
