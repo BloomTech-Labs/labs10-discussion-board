@@ -34,10 +34,9 @@ router.post('/', (req, res) => {
                     //then remove the vote
                     return postVotesDB.remove(post.id, user.id)
                         .then(() => res.status(201).json({ error: 'Vote has been removed' }))
-                        .catch(() => res.status(500).json({ error: `Failed to update(): ${ err }` }))
-                        
+                        .catch(() => res.status(500).json({ error: `Failed to update(): ${ err }` }))        
                 }
-                //Else user has not already voted
+                //Else If user has not voted, add the vote type
                 return postVotesDB.add( post.id, user.id, type)
                     .then(() => res.status(200).json({ message: 'Vote added!'}))
                     .catch(() => res.status(500).json({ error: `Failed to add(): ${ err }` }))
