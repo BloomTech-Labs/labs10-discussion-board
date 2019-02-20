@@ -354,8 +354,10 @@ router.post('/auth0-login', async (req, res) => {
         status: 'active'
       };
 
+      const accountCreatedAt = Date.now();
+
       // user account created_at
-      newUserCreds.created_at = Date.now();
+      newUserCreds.created_at = accountCreatedAt;
       return db
         .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
@@ -363,6 +365,7 @@ router.post('/auth0-login', async (req, res) => {
           userSettings.user_id = userAddedResults[0].id;
           if (picture) {
             userSettings.avatar = picture;
+            userSettings.subscribed_at = accountCreatedAt;
             await db.addUserSettings(userSettings);
           }
 
