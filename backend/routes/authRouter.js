@@ -129,7 +129,8 @@ router.post('/register', async (req, res) => {
                 message: 'Registration successful.',
                 username: userAddedResults[0].username,
                 avatar: foundUser[0].avatar,
-                discussionFollows: foundUser[0].discussionFollows
+                discussionFollows: foundUser[0].discussionFollows,
+                categoryFollows: foundUser[0].categoryFollows,
               }
             ]);
           }
@@ -177,7 +178,8 @@ router.post('/login', async (req, res) => {
                   message: 'Log in successful.',
                   username: user.username,
                   avatar: user.avatar,
-                  discussionFollows: foundUser[0].discussionFollows
+                  discussionFollows: foundUser[0].discussionFollows,
+                  categoryFollows: foundUser[0].categoryFollows,
                 }
               ]);
             }
@@ -215,6 +217,7 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
             discussions: user[0].discussions,
             email: user[0].email,
             discussionFollows: user[0].discussionFollows,
+            categoryFollows: user[0].categoryFollows,
             message: 'Logging back in successful.'
           }
         ]);
@@ -258,7 +261,8 @@ router.post('/auth0-login', async (req, res) => {
                   message: 'Log in successful.',
                   username: user.username,
                   avatar: foundUser[0].avatar,
-                  discussionFollows: foundUser[0].discussionFollows
+                  discussionFollows: foundUser[0].discussionFollows,
+                  categoryFollows: foundUser[0].discussionFollows,
                 }
               ]);
             }
@@ -303,7 +307,8 @@ router.post('/auth0-login', async (req, res) => {
                         message: 'Log in successful.',
                         username: foundUser.username,
                         avatar: foundUserById[0].avatar,
-                        discussionFollows: foundUserById[0].discussionFollows
+                        discussionFollows: foundUserById[0].discussionFollows,
+                        categoryFollows: foundUserById[0].categoryFollows,
                       }
                     ]);
                   }

@@ -6,7 +6,7 @@ const postsRouter = require('./postsRouter.js');
 const usersRouter = require('./usersRouter.js');
 const testRouter = require('./testRoutesWithMiddleware/testRouter.js');
 const discussionFollowsRouter = require('./discussionFollowsRouter.js');
-const categoryFollowsRouter = require('./discussionFollowsRouter.js');
+const categoryFollowsRouter = require('./categoryFollowsRouter.js');
 
 module.exports = {
   authRouter,
