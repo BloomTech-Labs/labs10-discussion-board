@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
     // Other Columns
     tbl.string('name').notNullable();
 
-    tbl.string('created_at').notNullable();
+    tbl.bigInteger('created_at').notNullable();
   });
 };
 
