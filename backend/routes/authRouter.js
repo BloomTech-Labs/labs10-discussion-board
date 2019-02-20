@@ -107,15 +107,21 @@ router.post('/register', async (req, res) => {
         userAddedResults[0].username
       );
 
-      // return to front end
-      return res.status(201).json([
-        {
-          id: userAddedResults[0].id,
-          token,
-          message: 'Registration successful.',
-          username: userAddedResults[0].username
-        }
-      ]);
+      return db.findById(userAddedResults[0].id)
+        .then(foundUser => {
+          if (foundUser.length) {
+            return res.status(201).json([{
+              id: userAddedResults[0].id,
+              token,
+              message: 'Registration successful.',
+              username: userAddedResults[0].username,
+              avatar: foundUser[0].avatar,
+              discussionFollows: foundUser[0].discussionFollows,
+            }]);
+          }
+          return res.status(401).json({ error: 'No users found with findById().' });
+        })
+        .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
     })
     .catch(err =>
       res.status(500).json({ error: `Failed to insert(): ${err}` })
@@ -151,7 +157,7 @@ router.post('/login', async (req, res) => {
                 message: 'Log in successful.',
                 username: user.username,
                 avatar: user.avatar,
-                discussionFollows: foundUser.discussionFollows,
+                discussionFollows: foundUser[0].discussionFollows,
               }]);
             }
             return res.status(401).json({ error: 'No users found with findById().' });
@@ -223,7 +229,7 @@ router.post('/auth0-login', async (req, res) => {
                 message: 'Log in successful.',
                 username: user.username,
                 avatar: user.avatar,
-                discussionFollows: foundUser.discussionFollows,
+                discussionFollows: foundUser[0].discussionFollows,
               }]);
             }
             return res.status(401).json({ error: 'No users found with findById().' });
@@ -256,12 +262,12 @@ router.post('/auth0-login', async (req, res) => {
                 .then(foundUserById => {
                   if (foundUserById.length) {
                     return res.status(201).json([{
-                      id: user.id,
+                      id: foundUser.id,
                       token,
                       message: 'Log in successful.',
-                      username: user.username,
-                      avatar: user.avatar,
-                      discussionFollows: foundUserById.discussionFollows,
+                      username: foundUser.username,
+                      avatar: foundUser.avatar,
+                      discussionFollows: foundUserById[0].discussionFollows,
                     }]);
                   }
                   return res.status(401).json({ error: 'No users found with findById().' });
