@@ -6,51 +6,87 @@ const { numOfFakeUsers, numOfHashes } = require('../../config/globals.js');
 // For loop to generate numOfFakeUsers
 const generateSeeds = () => {
   let arr = [];
+  // prettier-ignore
   for (let i = 0; i < numOfFakeUsers; i++) {
     arr.push({
       username: faker.internet.userName(),
       password: 'pass',
       email: faker.internet.email(),
       status: 'active',
-      created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
+      created_at: Date.parse(
+        faker.date.between(
+          new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
+          new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+        )
+      )
     });
   }
 
   // our test accounts (owners) for authentication/authorization
+  // prettier-ignore
   arr.push({
     username: 'james',
     password: bcrypt.hashSync('pass1', numOfHashes),
     email: 'james@example.com',
     status: 'active',
-    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
+    created_at: Date.parse(
+      faker.date.between(
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+      )
+    )
   });
+  // prettier-ignore
   arr.push({
     username: 'carlos',
     password: bcrypt.hashSync('carlos', numOfHashes),
     email: null,
     status: 'active',
-    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
+    created_at: Date.parse(
+      faker.date.between(
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+      )
+    )
   });
+  // prettier-ignore
   arr.push({
     username: 'david',
     password: bcrypt.hashSync('david', numOfHashes),
     email: null,
     status: 'active',
-    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
+    created_at: Date.parse(
+      faker.date.between(
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+      )
+    )
   });
+  // prettier-ignore
   arr.push({
     username: 'huth',
     password: bcrypt.hashSync('huth', numOfHashes),
     email: null,
     status: 'active',
-    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
+    created_at: Date.parse(
+      faker.date.between(
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+      )
+    )
   });
+  // prettier-ignore
   arr.push({
     username: 'lucas',
     password: bcrypt.hashSync('lucas', numOfHashes),
     email: null,
     status: 'active',
-    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
+    created_at: Date.parse(
+      faker.date.between(
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+      )
+    )
   });
   return arr;
 };

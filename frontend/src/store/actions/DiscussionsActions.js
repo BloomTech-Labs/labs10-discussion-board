@@ -1,4 +1,4 @@
-import axios	from 'axios';
+import axios from 'axios';
 
 // helpers
 import { handleError } from '../../helpers/index.js';
@@ -28,35 +28,51 @@ export const FOLLOW_DISCUSSION_FAILURE = 'FOLLOW_DISCUSSION_FAILURE';
  ********************************************** Actions ********************************************
  **************************************************************************************************/
 export const getTopDiscussions = () => dispatch => {
-	dispatch({ type: TOP_DISCUSSIONS_LOADING });
-	return axios.get(`${backendURL }/discussions/top-daily`)
-		.then(res => dispatch({ type: TOP_DISCUSSIONS_SUCCESS, payload: res.data }))
-		.catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
+  dispatch({ type: TOP_DISCUSSIONS_LOADING });
+  return axios
+    .get(`${backendURL}/discussions/top-daily`)
+    .then(res => dispatch({ type: TOP_DISCUSSIONS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
 };
 
 export const getDiscussionById = id => dispatch => {
-	dispatch({ type: GET_DISCUSSION_BY_ID_LOADING });
-	return axios.get(`${ backendURL }/discussions/discussion/${ id }`)
-		.then(res => dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] }))
-		.catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
+  dispatch({ type: GET_DISCUSSION_BY_ID_LOADING });
+  return axios
+    .get(`${backendURL}/discussions/discussion/${id}`)
+    .then(res =>
+      dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] })
+    )
+    .catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
 };
 
-export const getDiscussionsByCat = (category_id) => dispatch => {
-	dispatch({ type: GET_DISCUSSIONS_LOADING });
-	return axios.get(`${backendURL}/discussions/category/${category_id}`)
-		.then(res => dispatch({ type: GET_DISCUSSIONS_SUCCESS, payload: res.data }))
-		.catch(err => console.log(err));
+export const getDiscussionsByCat = category_id => dispatch => {
+  dispatch({ type: GET_DISCUSSIONS_LOADING });
+  return axios
+    .get(`${backendURL}/discussions/category/${category_id}`)
+    .then(res => dispatch({ type: GET_DISCUSSIONS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, GET_DISCUSSIONS_FAILURE)(dispatch));
 };
 
-
-export const followDiscussion = (discussion_id, user_id, followed, historyPush) => dispatch => {
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
-	const body = { discussion_id, followed};
-	dispatch({ type: FOLLOW_DISCUSSION_LOADING });
-	return axios.post(`${ backendURL }/discussion-follows/${ user_id }/${ discussion_id }`, body, headers)
-		.then((res) => dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussion/${ discussion_id }`))
-		.catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
+export const followDiscussion = (
+  discussion_id,
+  user_id,
+  followed,
+  historyPush
+) => dispatch => {
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { discussion_id, followed };
+  dispatch({ type: FOLLOW_DISCUSSION_LOADING });
+  return axios
+    .post(
+      `${backendURL}/discussion-follows/${user_id}/${discussion_id}`,
+      body,
+      headers
+    )
+    .then(res =>
+      dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data })
+    )
+    .then(() => historyPush('/'))
+    .then(() => historyPush(`/discussion/${discussion_id}`))
+    .catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };

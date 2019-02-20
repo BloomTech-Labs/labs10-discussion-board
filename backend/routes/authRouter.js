@@ -83,6 +83,9 @@ router.post('/register', async (req, res) => {
     newUserCreds.email = req.body.email.trim();
   }
 
+  // user account created_at
+  newUserCreds.created_at = Date.now();
+
   // add user
   return db
     .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
@@ -106,11 +109,18 @@ router.post('/register', async (req, res) => {
         const url = req.body.avatarUrl;
         base64Img.requestBase64(url, async function(err, result, body) {
           userSettings.avatar = body;
-          await db.addUserSettings(userSettings);
         });
-      } else {
-        await db.addUserSettings(userSettings);
       }
+
+      // prettier-ignore
+      if ( // signature given and is gold/silver sub
+        req.body.signature &&
+        (userSettings.user_type === accountRoleTypes[2] ||
+          userSettings.user_type === accountRoleTypes[3])
+      ) {
+        userSettings.signature = req.body.signature;
+      }
+      await db.addUserSettings(userSettings);
 
       // Get first token for front end (for login after register)
       const token = await generateToken(
@@ -276,6 +286,9 @@ router.post('/auth0-login', async (req, res) => {
         email,
         status: 'active'
       };
+
+      // user account created_at
+      newUserCreds.created_at = Date.now();
       return db
         .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
