@@ -21,6 +21,7 @@ class AddPostForm extends Component {
 	};
 	render() {
 		const { postBody } = this.state;
+		const { toggleAddPostForm } = this.props;
 		return(
 			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
 				<h1>Add post form</h1>
@@ -31,6 +32,13 @@ class AddPostForm extends Component {
 					onChange = { this.handleChange }
 					value = { postBody }
 				/>
+
+				<button type = 'submit'>Submit</button>
+
+				<button
+					onClick = { toggleAddPostForm }
+					type = 'button' // prevents form submission
+				>Cancel</button>
 			</AddPostFormWrapper>
 		);
 	}

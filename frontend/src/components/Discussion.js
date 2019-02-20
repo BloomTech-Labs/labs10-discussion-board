@@ -80,6 +80,7 @@ class Discussion extends Component {
     const { discussion, historyPush } = this.props;
     const {
       body,
+      category_id,
       category_name,
       created_at,
       discussion_votes,
@@ -115,6 +116,7 @@ class Discussion extends Component {
             user_id={this.props.user_id}
             discussion_id={id}
             historyPush={historyPush}
+            toggleAddPostForm={this.toggleAddPostForm}
           />
         )}
 

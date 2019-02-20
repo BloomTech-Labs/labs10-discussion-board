@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // components
-import { Discussion } from '../components/index.js';
+import { Discussion, Follow } from '../components/index.js';
 
 const DiscussionViewWrapper = styled.div`
 	width: 90%;
@@ -13,7 +13,9 @@ const DiscussionView = ({ history, match }) => {
 	const historyPush = history.push;
 	return(
 		<DiscussionViewWrapper>
+			<Follow discussion_id = {id} historyPush = { historyPush }/>
 			<Discussion id = { id } historyPush = { historyPush } />
+			
 		</DiscussionViewWrapper>
 	);
 };
