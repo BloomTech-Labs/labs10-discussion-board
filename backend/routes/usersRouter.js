@@ -181,7 +181,7 @@ router.put('/update-email/:user_id', authenticate, requestClientIP, (req, res) =
 						if (err) {
 							return res.status(500).json({ error: `Server failed to send e-mail confirmation: ${ err }` });
 						} else {
-							const message = `Success! An e-mail was sent to ${ email }. Please confirm your e-mail address in order to be able to reset your password in the future.`;
+							const message = `Success! An e-mail was sent to ${ email }. Please confirm your e-mail address in order to be able to reset your password in the future (You might want to check your spam folder).`;
 							return res.status(201).json(message);
 						}
 					});
