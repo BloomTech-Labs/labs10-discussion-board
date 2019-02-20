@@ -32,7 +32,15 @@ import {
   USER_EXISTS_FAILURE,
   EMAIL_EXISTS_LOADING,
   EMAIL_EXISTS_SUCCESS,
-  EMAIL_EXISTS_FAILURE
+  EMAIL_EXISTS_FAILURE,
+
+  EMAIL_CONFIRM_LOADING,
+  EMAIL_CONFIRM_SUCCESS,
+  EMAIL_CONFIRM_FAILURE,
+
+  UPDATE_EMAIL_LOADING,
+  UPDATE_EMAIL_SUCCESS,
+  UPDATE_EMAIL_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -49,6 +57,7 @@ const initialState = {
   message: '',
   discussions: [],
   discussionFollows: [],
+  isAuth0: false,
   categoryFollows: [],
 };
 
@@ -60,7 +69,6 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingInLoadingMessage: true,
-        error: null
       };
     case USER_AUTH0_LOGIN_SUCCESS:
     case USER_LOG_BACK_IN_SUCCESS:
@@ -74,7 +82,8 @@ export const UsersReducer = (state = initialState, action) => {
         discussionFollows: action.payload.discussionFollows,
         categoryFollows: action.payload.categoryFollows,
         loggingInLoadingMessage: false,
-        error: null
+        isAuth0: action.payload.isAuth0,
+        message: action.payload.message
       };
     
     // FOLLOW DISCUSSION
@@ -103,7 +112,6 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         registerLoadingMessage: true,
-        error: null
       };
     case USER_REGISTER_SUCCESS:
       return {
@@ -113,7 +121,7 @@ export const UsersReducer = (state = initialState, action) => {
         avatar: action.payload.avatar,
         username: action.payload.username,
         discussions: action.payload.discussions,
-        error: null
+        message: action.payload.message,
       };
     case USER_REGISTER_FAILURE:
       return {
@@ -156,7 +164,6 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         userExistsLoadingMessage: true,
         isUsernameTaken: false,
-        error: null
       };
     case USER_EXISTS_SUCCESS:
       return {
@@ -178,7 +185,6 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         emailExistsLoadingMessage: true,
         isEmailTaken: false,
-        error: null
       };
     case EMAIL_EXISTS_SUCCESS:
       return {
@@ -193,6 +199,18 @@ export const UsersReducer = (state = initialState, action) => {
         isEmailTaken: false,
         error: action.payload
       };
+
+    case EMAIL_CONFIRM_SUCCESS:
+    case UPDATE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        message: action.payload,
+      };
+
+    case UPDATE_EMAIL_LOADING:
+    case UPDATE_EMAIL_FAILURE:
+    case EMAIL_CONFIRM_LOADING:
+    case EMAIL_CONFIRM_FAILURE:
     case UPLOAD_AVATAR_URL_FAILURE:
     case UPLOAD_AVATAR_FAILURE:
     default:
