@@ -92,6 +92,12 @@ const findByUserId = (user_id) => {
 
 //Find by Associated Category (category ID)
 const findByCategoryId = (category_id) => {
+    let postCountQuery = db('posts as p')
+        .select('p.discussion_id')
+        .count({ post_count: 'p.id' })
+        .join('discussions as d', 'd.id', 'p.discussion_id')
+        .groupBy('p.discussion_id');
+
     let discussionQuery = db('discussions as d')
         .select(
             'd.id',
@@ -102,13 +108,19 @@ const findByCategoryId = (category_id) => {
             'd.title',
             'd.body',
             'd.created_at',
+            'pc.post_count',
             db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
         )
+        .sum('dv.type as vote_count')
         .join('users as u', 'u.id', 'd.user_id')
         .join('categories as c', 'c.id', 'd.category_id')
         .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+        .leftOuterJoin(postCountQuery.as('pc'), function() {
+            this.on('pc.discussion_id', '=', 'd.id');
+        })
         .where('c.id', category_id)
-        .groupBy('d.id', 'u.username', 'c.name');
+        .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count');
+    
     return Promise.all([discussionQuery])
         .then(results => {
             const [discussionQueryResults] = results
