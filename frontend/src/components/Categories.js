@@ -27,25 +27,24 @@ const CategoryLink = styled.div`
 //import moment and add created_At in the migrations if wish to include
 //a timestamp of creation
 const Categories = ({ category }) => {
-  const { id, user_username, name, created_at } = category;
+    const {
+        id,
+        user_username,
+        name,
+        created_at,
+    } = category;
 
-  return (
-    <SingleCategory>
-      <CategoryName className={`${category.name}`}>
-        <CategoryLink>
-          <Link className='category-link' to={`/categories/${id}`}>
-            {name}{' '}
-          </Link>
-        </CategoryLink>
-      </CategoryName>
-      <div className='createdBy'>
-        <span>Created By: {user_username}</span>
-      </div>
-      <div className='createdAt'>
-        <span>Created: {moment(created_at).fromNow()}</span>
-      </div>
-    </SingleCategory>
-  );
+    return(
+        <SingleCategory>
+            <CategoryName className ={`${category.name}`}>
+                <CategoryLink>
+                    <Link className='category-link' to = {`/discussions/category/${id}`} >{ name } </Link>
+                </CategoryLink>
+            </CategoryName>
+            <div className = 'createdBy'><span>Created By: {user_username}</span></div>
+            <div className = 'createdAt'><span>Created: { moment(created_at).fromNow() }</span></div>
+        </SingleCategory>
+    );
 };
 
 export default Categories;

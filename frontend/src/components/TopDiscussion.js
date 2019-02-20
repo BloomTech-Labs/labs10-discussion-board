@@ -71,29 +71,28 @@ const TopDiscussionWrapper = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
-  const {
-    body,
-    category_name,
-    created_at,
-    id,
-    post_count,
-    title,
-    user_id,
-    username,
-    vote_count
-  } = discussion;
-  const handleVote = type => handleDiscussionVote(id, type);
-  return (
-    <TopDiscussionWrapper>
-      <VoteCount handleVote={handleVote} vote_count={vote_count} />
-      <div className='content'>
-        <div>
-          <Link to={`/discussion/${id}`} className='title'>
-            {title}
-          </Link>
-          &#8201;
-          <span className='category'>/d/{category_name}</span>
-        </div>
+	const {
+		body,
+		category_id,
+		category_name,
+		created_at,
+		id,
+		post_count,
+		title,
+		user_id,
+		username,
+		vote_count,
+	} = discussion;
+
+	const handleVote = type => handleDiscussionVote(id, type);
+	return (
+		<TopDiscussionWrapper>
+			<VoteCount handleVote = { handleVote } vote_count = { vote_count } />
+			<div className = 'content'>
+				<div>
+					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
+					<span className = 'category'><Link to={`/discussions/category/${category_id}`}>/d/{ category_name }</Link></span>
+				</div>
 
         <div>
           <Link to={`/profile/${user_id}`} className='nameanddate'>
