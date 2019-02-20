@@ -8,11 +8,13 @@ const router = express.Router();
 const base64Img = require('base64-img');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
+const { subscriptionPlans } = require('../../frontend/src/globals/globals.js');
 const {
   safeUsrnameSqlLetters,
   safePwdSqlLetters,
   accountStatusTypes,
-  numOfHashes
+  numOfHashes,
+  accountRoleTypes
 } = require('../config/globals.js');
 
 /***************************************************************************************************
@@ -87,21 +89,30 @@ router.post('/register', async (req, res) => {
     .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
     .then(async userAddedResults => {
       // add user settings
+      let userSettings = {
+        user_id: userAddedResults[0].id
+      };
+
+      // set account type
+      if (req.body.subPlan === subscriptionPlans[1]) {
+        userSettings.user_type = accountRoleTypes[1];
+      } else if (req.body.subPlan === subscriptionPlans[2]) {
+        userSettings.user_type = accountRoleTypes[2];
+      } else if (req.body.subPlan === subscriptionPlans[3]) {
+        userSettings.user_type = accountRoleTypes[3];
+      }
+
       if (req.body.avatarUrl) {
         const url = req.body.avatarUrl;
         base64Img.requestBase64(url, async function(err, result, body) {
-          const userSettings = {
-            user_id: userAddedResults[0].id,
-            avatar: body
-          };
+          userSettings.avatar = body;
           await db.addUserSettings(userSettings);
         });
       } else {
-        const userSettings = { user_id: userAddedResults[0].id };
         await db.addUserSettings(userSettings);
       }
 
-      // refresh token (if needed)
+      // Get first token for front end (for login after register)
       const token = await generateToken(
         userAddedResults[0].id,
         userAddedResults[0].username

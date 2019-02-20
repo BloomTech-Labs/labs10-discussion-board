@@ -123,7 +123,8 @@ export const register = creds => dispatch => {
     email: creds.email,
     status: accountStatusTypes[1],
     signature: creds.signature,
-    avatarUrl: creds.avatarUrl
+    avatarUrl: creds.avatarUrl,
+    subPlan: creds.subPlan
   };
   return axios
     .post(`${backendUrl}/auth/register`, backendCreds)
