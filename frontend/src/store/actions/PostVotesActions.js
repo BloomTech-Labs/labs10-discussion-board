@@ -1,4 +1,4 @@
-import axios	from 'axios';
+import axios from 'axios';
 
 // helpers
 import { handleError } from '../../helpers/index.js';

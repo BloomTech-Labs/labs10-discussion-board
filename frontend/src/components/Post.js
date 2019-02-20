@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // components
-import { EditPostForm } from './index.js';
+import { EditPostForm, VoteCount } from './index.js';
+import { handlePostVote } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
   width: 100%;
@@ -29,17 +30,17 @@ const PostedBy = styled.div`
   }
 `;
 
+
+
 const Post = ({
   post,
   loggedInUserId,
   historyPush,
   showEditPostForm,
   updateEditPostForm,
-  handleRemovePost
+  handleRemovePost,
 }) => {
-  const handleEdit = () => updateEditPostForm(id);
-  const handleRemove = () =>
-    handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
+
   const {
     body,
     created_at,
@@ -50,6 +51,14 @@ const Post = ({
     user_id,
     username
   } = post;
+
+  const handlePostVote = (id, user_id, type) => {
+    console.log(post.id, post.user_id, post.type)
+  }
+  const handleEdit = () => updateEditPostForm(id);
+  const handleRemove = () =>
+    handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
+  
   let lastEditDate;
   if (last_edited_at) {
     lastEditDate = new Date(parseInt(last_edited_at));
@@ -61,6 +70,11 @@ const Post = ({
       {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
       <h1>POST</h1>
       <p>post votes: {post_votes}</p>
+      <div>
+       <VoteCount 
+        handleVote = { handlePostVote } 
+        vote_count = { post_votes } />
+      </div>
       <PostedBy>
         Posted by:
         <Link className='username' to={`/profile/${user_id}`}>
@@ -94,7 +108,7 @@ const Post = ({
 };
 
 const mapStateToProps = state => ({
-  loggedInUserId: state.users.user_id
+  loggedInUserId: state.users.user_id,
 });
 
 export default connect(
