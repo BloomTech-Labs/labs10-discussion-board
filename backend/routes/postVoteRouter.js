@@ -13,7 +13,7 @@ const router = express.Router();
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
-//add discussion vote 
+//add post vote 
 router.post('/', (req, res) => {
     // post_id, user_id, and type must be integers
     const { post_id, user_id, type } = req.body;
@@ -26,22 +26,25 @@ router.post('/', (req, res) => {
     }
         //Check to see if User has already voted
         return postVotesDB.get(post_id, user_id)
-        .then(post => {
-            //If user had already voted
-            if (post.length) {
-                //and it was the same vote type
-            } if(post[0].type === type) {
-                //then remove the vote
-                return postVotesDB.remove(post.id, user.id)
-                    .then(() => res.status(201).json({ error: 'Vote has been removed' }))
-                    .catch(() => res.status(500).json({ error: `Failed to update(): ${err}` }))
-                    
-            }
-            //Else user has not already voted
-            return postVotesDB.add( post.id, user.id, type)
-                .then(() => res.status(200).json({ message: 'Vote added!'}))
-                .catch(() => res.status(500).json({ error: `Failed to add(): ${err}` }))
-            })
-})
+            .then(post => {
+                //If user had already voted
+                if (post.length) {
+                    //and it was the same vote type
+                } if(post[0].type === type) {
+                    //then remove the vote
+                    return postVotesDB.remove(post.id, user.id)
+                        .then(() => res.status(201).json({ error: 'Vote has been removed' }))
+                        .catch(() => res.status(500).json({ error: `Failed to update(): ${ err }` }))
+                        
+                }
+                //Else user has not already voted
+                return postVotesDB.add( post.id, user.id, type)
+                    .then(() => res.status(200).json({ message: 'Vote added!'}))
+                    .catch(() => res.status(500).json({ error: `Failed to add(): ${ err }` }))
+                })
+            .catch(() => {
+                res.status(500).json({ error: `Failed to get(): ${ err }`});
+            });
+});
 
 module.exports = router;
