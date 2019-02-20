@@ -35,10 +35,11 @@ const safePwdSqlLetters = [
   '2', '3', '4', '5', '6', '7', '8', '9', '0'
 ];
 
-const accountStatusTypes = ['inactive', 'active', 'banned'];
-const accountRoleTypes = ['user', 'gold_member', 'admin'];
+const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
 // prettier-ignore
-const permissionTypes = ['basic', accountRoleTypes[0], accountRoleTypes[1], 'super_moderator', 'moderator', 'admin'];
+const accountRoleTypes = ['user', 'bronze_member', 'silver_member', 'gold_member', 'admin']; // be careful when adding new things or changing order
+// prettier-ignore
+const permissionTypes = ['basic', accountRoleTypes[0], accountRoleTypes[1], accountRoleTypes[2], accountRoleTypes[3], 'super_moderator', 'moderator', accountRoleTypes[accountRoleTypes.length - 1]];
 // prettier-ignore
 const categoryPermissions = permissionTypes.slice();
 // prettier-ignore

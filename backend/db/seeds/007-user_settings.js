@@ -11,7 +11,7 @@ const generateSeeds = () => {
   }
 
   // our test accounts (owners) for authentication/authorization
-  const admin = accountRoleTypes[2];
+  const admin = accountRoleTypes[accountRoleTypes.length - 1];
   arr.push({
     user_id: 501,
     avatar:
