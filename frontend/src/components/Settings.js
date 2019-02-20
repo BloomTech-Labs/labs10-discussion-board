@@ -26,7 +26,7 @@ class Settings extends Component {
   componentDidMount = () => this.getProfile();
   render() {
     const { show } = this.state;
-    const { username, email, avatar } = this.props.profile;
+    const { username, email, avatar, isAuth0 } = this.props.profile;
     return (
       <SettingsWrapper>
         <h1>{username}'s Settings</h1>
@@ -35,7 +35,15 @@ class Settings extends Component {
         <p>Avatar:</p>
         <Avatar height='50px' width='50px' src={avatar} />
         <br />
-        <button>{email ? 'Change' : 'Set'} email</button>
+        {
+          isAuth0 ?
+          <p>You are Auth0. You cannot change your email.</p>
+          :
+          email ?
+          <button>Change email</button>
+          :
+          <button>Set email</button>
+        }
         <button onClick={() => this.toggleForm('password-form')}>
           Change password
         </button>
