@@ -3,7 +3,7 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const base64Img = require('base64-img');
+// const base64Img = require('base64-img');
 
 const router = express.Router();
 
@@ -37,7 +37,7 @@ router.get('/', (req, res, next) => {
 */
 
 
-router.get('/url_to_base64', async (req, res, next) => {
+/*router.get('/url_to_base64', async (req, res, next) => {
   try {
     const url = 'https://i.imgur.com/6gMn1RD.png';
     let base64;
@@ -53,5 +53,5 @@ router.get('/url_to_base64', async (req, res, next) => {
     next(err);
   }
 });
-
+*/
 module.exports = router;
