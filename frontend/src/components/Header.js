@@ -53,7 +53,7 @@ const Header = ({ history }) => {
       <TitleAndLogo>
         <img src={meeting} alt='discussion' />
         <Title>
-          <h1>Symposium</h1>
+          <h1><Link className='header' to='/home'>Symposium</Link></h1>
           <SubHeader>
             <h2>The discussion starts here</h2>
           </SubHeader>

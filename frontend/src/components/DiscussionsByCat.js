@@ -70,7 +70,7 @@ const TopDiscussionWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
+const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
   const {
     body,
     category_id,
@@ -81,13 +81,13 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
     title,
     user_id,
     username,
-    vote_count
+    discussion_votes
   } = discussion;
 
   const handleVote = type => handleDiscussionVote(id, type);
   return (
     <TopDiscussionWrapper>
-      <VoteCount handleVote={handleVote} vote_count={vote_count} />
+      <VoteCount handleVote={handleVote} vote_count={discussion_votes} />
       <div className='content'>
         <div>
           <Link to={`/discussion/${id}`} className='title'>
@@ -119,4 +119,4 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
   );
 };
 
-export default TopDiscussion;
+export default DiscussionsByCat;

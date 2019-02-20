@@ -23,7 +23,7 @@ exports.up = function(knex, Promise) {
 
     tbl.text('body', 400).notNullable();
 
-    tbl.string('created_at').notNullable();
+    tbl.bigInteger('created_at').notNullable();
   });
 };
 
