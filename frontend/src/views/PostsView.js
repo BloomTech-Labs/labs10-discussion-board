@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { Post } from '../components/index.js';
 
 const PostsViewWrapper = styled.div`
-	width: 90%;
 	border: 1px solid black;
 `;
 

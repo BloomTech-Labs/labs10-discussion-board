@@ -17,11 +17,14 @@ import Settings from './Settings.js';
 import Error from './Error.js';
 import Message from './Message.js';
 import Avatar from './Avatar.js';
+import Follow from './Follow.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
 import EditPostForm from './forms/EditPostForm.js';
 import EditPasswordForm from './forms/EditPasswordForm.js';
+import EditAvatarForm from './forms/EditAvatarForm.js';
+import EditAvatarUrlForm from './forms/EditAvatarUrlForm.js';
 
 export {
 	Auth,
@@ -43,9 +46,12 @@ export {
 	Error,
 	Message,
 	Avatar,
+	Follow,
 
 	// forms
 	AddPostForm,
 	EditPostForm,
 	EditPasswordForm,
+	EditAvatarForm,
+	EditAvatarUrlForm,
 };

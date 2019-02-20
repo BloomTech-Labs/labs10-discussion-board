@@ -21,7 +21,6 @@ import {
   LandingView,
   CategoriesView,
   DiscussionView,
-  DiscussionsView,
   RegisterView
 } from './views/index.js';
 
@@ -113,8 +112,8 @@ class App extends Component {
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
 
-          { error && <Error error = { error } /> }
-          { message && <Message message = { message } /> }
+          {error && <Error error={error} />}
+          {message && <Message message={message} />}
         </AppWrapper>
       );
     } else {
@@ -132,11 +131,11 @@ class App extends Component {
       );
     }
   }
-};
+}
 
 const mapStateToProps = state => ({
   error: state.users.error,
-  message: state.users.message,
+  message: state.users.message
 });
 
 export default connect(
