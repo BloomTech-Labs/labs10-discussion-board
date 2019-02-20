@@ -104,19 +104,21 @@ router.post('/register', async (req, res) => {
         userSettings.user_type = accountRoleTypes[3];
       }
 
+      // avatar given and is gold sub
       // prettier-ignore
-      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) { // avatar given and is gold sub
+      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) {
         const url = req.body.avatarUrl;
-        base64Img.requestBase64(url, async function(err, result, body) {
+        base64Img.requestBase64(url, async function (err, result, body) {
           userSettings.avatar = body;
         });
       }
 
+      // signature given and is gold/silver sub
       // prettier-ignore
-      if ( // signature given and is gold/silver sub
+      if (
         req.body.signature &&
-        (userSettings.user_type === accountRoleTypes[2] ||
-          userSettings.user_type === accountRoleTypes[3])
+        (userSettings.user_type === accountRoleTypes[2] || // silver
+          userSettings.user_type === accountRoleTypes[3]) // gold
       ) {
         userSettings.signature = req.body.signature;
       }
