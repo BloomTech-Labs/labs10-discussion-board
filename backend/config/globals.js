@@ -2,6 +2,7 @@
 const numOfFakeUsers = 500;
 const numOfHashes = 10;
 const numOfDiscussions = 50;
+const numOfCategories = 7;
 const numOfPosts = 100;
 const numOfPostVotes = 500; // must be same as numOfFakeUsers
 const numOfDiscussionVotes = 5000;
@@ -77,6 +78,7 @@ const secureKey = process.env.SECURE_KEY;
 module.exports = {
   // variables
   numOfDiscussions,
+  numOfCategories,
   numOfPosts,
   numOfFakeUsers,
   numOfHashes,
