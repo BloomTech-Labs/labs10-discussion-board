@@ -11,6 +11,8 @@ const Followed = styled.div`
   width: 120px;
   .follow {
     cursor: pointer;
+    width: 120px;
+    height: 120px;
   }
 `;
 
@@ -31,15 +33,17 @@ class Follow extends Component {
 
     render() {
         const { followed } = this.state;
+        const isFollowing = this.props.discussionFollows.includes(this.props.discussion_id)
+        console.log('id', this.props.discussionFollows);
         return (
           <FollowWrapper>
             <Followed>
-              <input
+              <button
                   className="follow"
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
-                  style={{backgroundColor: this.state.followed ? 'green' : 'red'}}
-                  value={followed ? 'Follow?' : 'Following'}
+                  style={{backgroundColor: isFollowing ? 'green' : 'red'}}
+                  value={followed ? 'Followed' : 'Follow?'}
               />
               {/* <button onClick = {this.handleFollowClick}>FOLLOW</button> */}
               {/* <button onClick = {this.handleFollowClick}>UNFOLLOW</button> */}
@@ -50,7 +54,7 @@ class Follow extends Component {
 }
 
 const mapStateToProps = state => ({
-    follow: state.discussions.follows,
+    discussionFollows: state.users.discussionFollows,
     user_id: state.users.user_id
 });
 
