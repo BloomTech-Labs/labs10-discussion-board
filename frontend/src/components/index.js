@@ -2,7 +2,9 @@ import Auth from './Auth.js';
 import CategoriesList from './CategoriesList.js';
 import Categories from './Categories.js';
 import Discussion from './Discussion.js';
-import Discussions from './Discussions.js';
+import DiscussionsByCat from './DiscussionsByCat.js';
+import DiscussionsByCats from './DiscussionsByCats.js';
+
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import Header from './Header.js';
@@ -31,7 +33,8 @@ export {
 	CategoriesList,
 	Categories,
 	Discussion,
-	Discussions,
+	DiscussionsByCat,
+	DiscussionsByCats,
 	LoginDropdown,
 	Nav,
 	Header,

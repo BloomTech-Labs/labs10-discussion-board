@@ -21,6 +21,7 @@ import {
   LandingView,
   CategoriesView,
   DiscussionView,
+  DiscussionsByCatView,
   RegisterView
 } from './views/index.js';
 
@@ -108,9 +109,11 @@ class App extends Component {
           <Route exact path='/home' component={LandingView} />
           <Route exact path='/profiles' component={Profiles} />
           <Route exact path='/profile/:id' component={Profile} />
-          <Route path='/categories' component={CategoriesView} />
+          <Route exact path='/categories' component={CategoriesView} />
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
+          <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+
 
           {error && <Error error={error} />}
           {message && <Message message={message} />}
