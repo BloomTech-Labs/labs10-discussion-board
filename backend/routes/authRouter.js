@@ -102,7 +102,8 @@ router.post('/register', async (req, res) => {
         userSettings.user_type = accountRoleTypes[3];
       }
 
-      if (req.body.avatarUrl) {
+      // prettier-ignore
+      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) { // avatar given and is gold sub
         const url = req.body.avatarUrl;
         base64Img.requestBase64(url, async function(err, result, body) {
           userSettings.avatar = body;
