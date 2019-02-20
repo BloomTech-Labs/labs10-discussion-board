@@ -106,6 +106,14 @@ class Profile extends Component {
                     <p >{discussionFollowed.title}</p>
                   </div>)}
               </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Followed Categories: </p>
+                {profile.categoryFollows.map((categoryFollowed, index)=> 
+                  <div key = {index}>
+                    <p >{categoryFollowed.category_id}</p>
+                    <p >{categoryFollowed.name}</p>
+                  </div>)}
+              </WrappedDiv>
             </ProfileWrapper>
           </div>
         ));

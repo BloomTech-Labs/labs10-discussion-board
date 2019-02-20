@@ -68,7 +68,6 @@ const TextLooper = styled.div`
 const DiscussionsByCatView = ({ history, match }) => {
 	const id  = match.params.category_id;
 	const historyPush = history.push;
-	console.log('id', match);
 
 	return (
 		<TopDiscussionsViewWrapper>
@@ -82,7 +81,6 @@ const DiscussionsByCatView = ({ history, match }) => {
 				</div>
 				<TextLooper>
                 <TextLoop>
-					
                     <span>See what's being discussed</span>
                     <span>Find your interests</span>
                     <span>Start talking!</span>
