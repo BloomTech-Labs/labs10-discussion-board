@@ -15,7 +15,7 @@ const Followed = styled.div`
 `;
 
 class Follow extends Component {
-    state = { followed: this.props.follow };
+    state = { followed: this.props.follow};
 	  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	  handleFollowClick = e => {
         e.preventDefault();
@@ -23,21 +23,26 @@ class Follow extends Component {
         const { discussion_id, user_id, historyPush } = this.props;
 		    return this.props.followDiscussion(discussion_id, user_id, followed, historyPush);
 	  };
+    handleClick() {
+      this.setState(function(prevState) {
+        return {isToggleOn: !prevState.isToggleOn};
+      });
+    }
 
     render() {
         const { followed } = this.state;
         return (
           <FollowWrapper>
             <Followed>
-              {/* <input
+              <input
                   className="follow"
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: this.state.followed ? 'green' : 'red'}}
                   value={followed ? 'Follow?' : 'Following'}
-              /> */}
-              <button onClick = {this.handleFollowClick}>FOLLOW/UNFOLLOW</button>
-              
+              />
+              {/* <button onClick = {this.handleFollowClick}>FOLLOW</button> */}
+              {/* <button onClick = {this.handleFollowClick}>UNFOLLOW</button> */}
             </Followed>
           </FollowWrapper>
         );
