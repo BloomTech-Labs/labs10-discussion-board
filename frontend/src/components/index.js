@@ -20,6 +20,7 @@ import Error from './Error.js';
 import Message from './Message.js';
 import Avatar from './Avatar.js';
 import Follow from './Follow.js';
+import FollowCat from './FollowCat.js';
 import ConfirmEmail from './ConfirmEmail.js';
 
 // forms
@@ -52,6 +53,7 @@ export {
 	Message,
 	Avatar,
 	Follow,
+	FollowCat,
 	ConfirmEmail,
 
 	// forms

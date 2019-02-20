@@ -9,7 +9,14 @@ const getUsers = () => {
 const findById = id => {
   const getDiscussions = db('discussions').where('user_id', id);
   const getPosts = db('posts').where('user_id', id);
-  const getDiscussionFollows = db('discussion_follows as df').select('discussion_id').where('user_id', id);
+  const getDiscussionFollows = db('discussion_follows as df')
+    .select('df.discussion_id', 'd.title')
+    .join('discussions as d', 'd.id', 'df.discussion_id')
+    .where('df.user_id', id);
+  const getCategoryFollows = db('category_follows as cf')
+    .select('cf.category_id', 'c.name')
+    .join('categories as c', 'c.id', 'cf.category_id')
+    .where('cf.user_id', id);
   const getUser = db('users as u')
     .select(
       'u.id',
@@ -22,13 +29,14 @@ const findById = id => {
     )
     .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .where('u.id', id);
-  const promises = [ getDiscussions, getPosts, getUser, getDiscussionFollows ];
+  const promises = [ getDiscussions, getPosts, getUser, getDiscussionFollows, getCategoryFollows ];
     return Promise.all(promises)
     .then(results => {
-      let [ getDiscussionsResults, getPostsResults, getUserResults, getDiscussionFollowsResults ] = results;
+      let [ getDiscussionsResults, getPostsResults, getUserResults, getDiscussionFollowsResults, getCategoryFollowsResults ] = results;
       getUserResults[0].discussions = getDiscussionsResults;
       getUserResults[0].posts = getPostsResults;
-      getUserResults[0].discussionFollows = getDiscussionFollowsResults.map(follows => follows.discussion_id);
+      getUserResults[0].discussionFollows = getDiscussionFollowsResults;
+      getUserResults[0].categoryFollows = getCategoryFollowsResults;
       return getUserResults;
     });
 };

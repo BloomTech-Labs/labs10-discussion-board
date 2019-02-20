@@ -197,7 +197,8 @@ router.post('/register', requestClientIP, async (req, res) => {
                 avatar: foundUser[0].avatar,
                 isAuth0: foundUser[0].password ? false : true,
                 email_confirm: foundUser[0].email_confirm,
-                discussionFollows: foundUser[0].discussionFollows
+                discussionFollows: foundUser[0].discussionFollows,
+                categoryFollows: foundUser[0].categoryFollows,
               }
             ]);
           }
@@ -246,7 +247,8 @@ router.post('/login', async (req, res) => {
                   avatar: user.avatar,
                   isAuth0: foundUser[0].password ? false : true,
                   email_confirm: foundUser[0].email_confirm,
-                  discussionFollows: foundUser[0].discussionFollows
+                  discussionFollows: foundUser[0].discussionFollows,
+                  categoryFollows: foundUser[0].categoryFollows,
                 }
               ]);
             }
@@ -286,6 +288,8 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
             isAuth0: user[0].password ? false : true,
             email_confirm: user[0].email_confirm,
             discussionFollows: user[0].discussionFollows,
+            categoryFollows: user[0].categoryFollows,
+            message: 'Logging back in successful.'
           }
         ]);
       }
@@ -330,7 +334,8 @@ router.post('/auth0-login', async (req, res) => {
                   avatar: foundUser[0].avatar,
                   isAuth0: foundUser[0].password ? false : true,
                   email_confirm: foundUser[0].email_confirm,
-                  discussionFollows: foundUser[0].discussionFollows
+                  discussionFollows: foundUser[0].discussionFollows,
+                  categoryFollows: foundUser[0].discussionFollows,
                 }
               ]);
             }
@@ -349,8 +354,10 @@ router.post('/auth0-login', async (req, res) => {
         status: 'active'
       };
 
+      const accountCreatedAt = Date.now();
+
       // user account created_at
-      newUserCreds.created_at = Date.now();
+      newUserCreds.created_at = accountCreatedAt;
       return db
         .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
@@ -358,6 +365,7 @@ router.post('/auth0-login', async (req, res) => {
           userSettings.user_id = userAddedResults[0].id;
           if (picture) {
             userSettings.avatar = picture;
+            userSettings.subscribed_at = accountCreatedAt;
             await db.addUserSettings(userSettings);
           }
 
@@ -380,7 +388,8 @@ router.post('/auth0-login', async (req, res) => {
                         avatar: foundUserById[0].avatar,
                         isAuth0: foundUserById[0].password ? false : true,
                         email_confirm: foundUserById[0].email_confirm,
-                        discussionFollows: foundUserById[0].discussionFollows
+                        discussionFollows: foundUserById[0].discussionFollows,
+                        categoryFollows: foundUserById[0].categoryFollows,
                       }
                     ]);
                   }

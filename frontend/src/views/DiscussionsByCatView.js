@@ -5,7 +5,7 @@ import TextLoop from "react-text-loop";
 
 
 // components
-import { DiscussionsByCats } from '../components/index.js';
+import { DiscussionsByCats, FollowCat } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -65,19 +65,22 @@ const TextLooper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const DiscussionsByCatView = (props) => {
+const DiscussionsByCatView = ({ history, match }) => {
+	const id  = match.params.category_id;
+	const historyPush = history.push;
+
 	return (
 		<TopDiscussionsViewWrapper>
 			<TopDiscussionsHeader>
 				<div className = 'logotopd'>
 					<TopDiscussionsImage src={Discuss} alt='Top discussions' />
+					<FollowCat category_id = {id} historyPush = { historyPush }/>
 						<TopDiscussionsTitle>
 							<h1>Discussions</h1>
 						</TopDiscussionsTitle>
 				</div>
 				<TextLooper>
                 <TextLoop>
-					
                     <span>See what's being discussed</span>
                     <span>Find your interests</span>
                     <span>Start talking!</span>
@@ -86,7 +89,7 @@ const DiscussionsByCatView = (props) => {
 			</TopDiscussionsHeader>
 			<hr />
 			<DiscussionsByCats 
-				category_id = {props.match.params.category_id}/>
+				category_id = {match.params.category_id}/>
 		</TopDiscussionsViewWrapper>
 	);
 };
