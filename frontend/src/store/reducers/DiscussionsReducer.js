@@ -38,17 +38,11 @@ export const DiscussionsReducer = (state = initialState, action) => {
         ...state,
         discussion: action.payload
       };
-    
     case GET_DISCUSSIONS_SUCCESS:
       return {
         ...state,
         discussionsByCat: action.payload
       };
-    
-    case GET_DISCUSSION_BY_ID_LOADING:
-    case GET_DISCUSSION_BY_ID_FAILURE:
-    case TOP_DISCUSSIONS_LOADING:
-    case TOP_DISCUSSIONS_FAILURE:
     case GET_DISCUSSION_BY_ID_LOADING:
     case GET_DISCUSSION_BY_ID_FAILURE:
     case TOP_DISCUSSIONS_LOADING:

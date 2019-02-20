@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
     tbl.string('password', 128);
     tbl.string('email', 128).unique();
     tbl.string('status', 16).notNullable();
-    tbl.string('created_at', 16).notNullable();
+    tbl.bigInteger('created_at').notNullable();
   });
 };
 

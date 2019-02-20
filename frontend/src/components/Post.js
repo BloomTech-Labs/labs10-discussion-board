@@ -8,89 +8,96 @@ import { Link } from 'react-router-dom';
 import { EditPostForm } from './index.js';
 
 const PostWrapper = styled.div`
-	width: 100%;
-	border: 1px solid black;
+  width: 100%;
+  border: 1px solid black;
 `;
 
 const PostedBy = styled.div`
-	display: flex;
-	width: 25%;
+  display: flex;
+  width: 25%;
 
-	.username {
-		margin: 0px 7px;
-		font-weight: bold;
-		color: black;
-		text-decoration: none;
+  .username {
+    margin: 0px 7px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
 
-		&:hover {
-			cursor: pointer;
-			text-decoration: underline;
-		}
-
-	}
-`
-
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+`;
 
 const Post = ({
-	post,
-	loggedInUserId,
-	historyPush,
-	showEditPostForm,
-	updateEditPostForm,
-	handleRemovePost,
+  post,
+  loggedInUserId,
+  historyPush,
+  showEditPostForm,
+  updateEditPostForm,
+  handleRemovePost
 }) => {
-	const handleEdit = () => updateEditPostForm(id);
-	const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
-	const {
-		body,
-		created_at,
-		discussion_id,
-		id,
-		last_edited_at,
-		post_votes,
-		user_id,
-		username,
-	} = post;
-	let lastEditDate;
-	if (last_edited_at) {
-		lastEditDate = new Date(parseInt(last_edited_at));
-		lastEditDate = lastEditDate.toISOString();
-	}
-	const userCreatedPost = loggedInUserId === user_id;
-	return(
-		<PostWrapper>
-			{ userCreatedPost && <button onClick = { handleRemove }>REMOVE POST</button> }
-			<h1>POST</h1>
-			<p>post votes: { post_votes }</p>
-			<PostedBy>Posted by: 
-				<Link className = 'username' to = { `/profile/${ user_id }` }>{ username }</Link> 
-				{ moment(created_at).fromNow() }
-			</PostedBy>
-			<p>Body: { body }</p>
+  const handleEdit = () => updateEditPostForm(id);
+  const handleRemove = () =>
+    handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
+  const {
+    body,
+    created_at,
+    discussion_id,
+    id,
+    last_edited_at,
+    post_votes,
+    user_id,
+    username
+  } = post;
+  let lastEditDate;
+  if (last_edited_at) {
+    lastEditDate = new Date(parseInt(last_edited_at));
+    lastEditDate = lastEditDate.toISOString();
+  }
+  const userCreatedPost = loggedInUserId === user_id;
+  return (
+    <PostWrapper>
+      {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
+      <h1>POST</h1>
+      <p>post votes: {post_votes}</p>
+      <PostedBy>
+        Posted by:
+        <Link className='username' to={`/profile/${user_id}`}>
+          {username}
+        </Link>
+        {moment(new Date(Number(created_at))).fromNow()}
+      </PostedBy>
+      <p>Body: {body}</p>
 
-			{
-				userCreatedPost &&
-				(
-					showEditPostForm === id ?
-					<EditPostForm
-						user_id = { user_id }
-						post_id = { id }
-						discussion_id = { discussion_id }
-						historyPush = { historyPush }
-						updateEditPostForm = { updateEditPostForm }
-					/> :
-					<>
-						<button onClick = { handleEdit }>Edit Post</button>
-						{ last_edited_at && <p>Last edited { moment(lastEditDate).fromNow() }</p> }
-					</>
-				)
-			}
-		</PostWrapper>
-	)
+      {userCreatedPost &&
+        (showEditPostForm === id ? (
+          <EditPostForm
+            user_id={user_id}
+            post_id={id}
+            discussion_id={discussion_id}
+            historyPush={historyPush}
+            updateEditPostForm={updateEditPostForm}
+          />
+        ) : (
+          <>
+            <button onClick={handleEdit}>Edit Post</button>
+            {last_edited_at && (
+              <p>
+                Last edited {moment(new Date(Number(last_edited_at))).fromNow()}
+              </p>
+            )}
+          </>
+        ))}
+    </PostWrapper>
+  );
 };
 
 const mapStateToProps = state => ({
-	loggedInUserId: state.users.user_id,
+  loggedInUserId: state.users.user_id
 });
 
-export default connect(mapStateToProps, {})(Post);
+export default connect(
+  mapStateToProps,
+  {}
+)(Post);
