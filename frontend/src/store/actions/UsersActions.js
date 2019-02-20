@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // helpers
-import { handleError, handleMessage } from '../../helpers/index.js';
+import { handleError } from '../../helpers/index.js';
 
 // globals
 const {

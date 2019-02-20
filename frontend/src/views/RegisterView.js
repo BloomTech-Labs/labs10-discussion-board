@@ -299,8 +299,6 @@ const DivButtons = styled.div`
 
 const ButtonCancel = styled(Link)``;
 
-const ButtonContinue = styled(Link)``;
-
 const DivConfirm = styled.div`
   display: flex;
   flex-direction: column;
@@ -445,7 +443,7 @@ class RegisterView extends Component {
           email: this.state.email
         };
       } else { // incorrect subscription plan
-        throw { error: 'invalid data' };
+        throw new Error('invalid data');
       }
       this.props
         .register(newAccount)
