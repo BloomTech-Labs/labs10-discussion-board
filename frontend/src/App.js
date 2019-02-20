@@ -13,7 +13,8 @@ import {
   Settings,
   Error,
   Message,
-  Auth
+  Auth,
+  ConfirmEmail,
 } from './components/index.js';
 
 // views
@@ -113,7 +114,7 @@ class App extends Component {
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
           <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-
+          <Route path = '/confirm-email/:email_confirm_token' component = { ConfirmEmail } />
 
           {error && <Error error={error} />}
           {message && <Message message={message} />}
