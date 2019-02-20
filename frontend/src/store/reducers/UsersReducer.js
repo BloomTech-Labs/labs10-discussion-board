@@ -72,6 +72,7 @@ export const UsersReducer = (state = initialState, action) => {
         username: action.payload.username,
         discussions: action.payload.discussions,
         discussionFollows: action.payload.discussionFollows,
+        categoryFollows: action.payload.categoryFollows,
         loggingInLoadingMessage: false,
         error: null
       };
