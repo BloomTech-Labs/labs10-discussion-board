@@ -62,6 +62,8 @@ const validateStatusSelected = status => {
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 router.post('/register', async (req, res) => {
+  const accountCreatedAt = Date.now();
+
   // username and password must keep rules of syntax
   if (!req.body.username || !validateNewUsername(req.body.username)) {
     return res.status(400).json({ error: `Username is missing.` });
@@ -84,7 +86,7 @@ router.post('/register', async (req, res) => {
   }
 
   // user account created_at
-  newUserCreds.created_at = Date.now();
+  newUserCreds.created_at = accountCreatedAt;
 
   // add user
   return db
@@ -96,21 +98,18 @@ router.post('/register', async (req, res) => {
       };
 
       // set account type
-      if (req.body.subPlan === subscriptionPlans[1]) {
+      if (req.body.subPlan === subscriptionPlans[0]) {
+        userSettings.user_type = accountRoleTypes[0];
+        userSettings.subscribed_at = accountCreatedAt;
+      } else if (req.body.subPlan === subscriptionPlans[1]) {
         userSettings.user_type = accountRoleTypes[1];
+        userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[2]) {
         userSettings.user_type = accountRoleTypes[2];
+        userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[3]) {
         userSettings.user_type = accountRoleTypes[3];
-      }
-
-      // avatar given and is gold sub
-      // prettier-ignore
-      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) {
-        const url = req.body.avatarUrl;
-        base64Img.requestBase64(url, async function (err, result, body) {
-          userSettings.avatar = body;
-        });
+        userSettings.subscribed_at = accountCreatedAt;
       }
 
       // signature given and is gold/silver sub
@@ -122,7 +121,18 @@ router.post('/register', async (req, res) => {
       ) {
         userSettings.signature = req.body.signature;
       }
-      await db.addUserSettings(userSettings);
+
+      // avatar given and is gold sub
+      // prettier-ignore
+      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) {
+        const url = req.body.avatarUrl;
+        base64Img.requestBase64(url, async function (err, result, body) { // callback only adds variable inside callback
+          userSettings.avatar = body;
+          await db.addUserSettings(userSettings);
+        });
+      } else {
+        await db.addUserSettings(userSettings);
+      }
 
       // Get first token for front end (for login after register)
       const token = await generateToken(

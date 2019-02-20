@@ -24,6 +24,9 @@ exports.up = function (knex, Promise) {
 
     // Signature
     tbl.string('signature');
+
+    // Date in milliseconds
+    tbl.bigInteger('subscribed_at').notNullable();
   });
 };
 

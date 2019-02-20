@@ -1,5 +1,5 @@
-exports.up = function(knex, Promise) {
-  return knex.schema.createTable('discussions', function(tbl) {
+exports.up = function (knex, Promise) {
+  return knex.schema.createTable('discussions', function (tbl) {
     // Primary Key 'id'
     tbl.increments();
 
@@ -23,10 +23,11 @@ exports.up = function(knex, Promise) {
 
     tbl.text('body', 400).notNullable();
 
+    // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();
   });
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
   return knex.schema.dropTableIfExists('discussions');
 };
