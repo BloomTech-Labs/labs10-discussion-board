@@ -53,7 +53,7 @@ const Post = ({
   } = post;
 
   const handlePostVote = (id, user_id, type) => {
-    console.log(post.id, post.user_id, post.type)
+    console.log(post.id, post.user_id, type)
   }
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () =>
