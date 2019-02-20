@@ -20,6 +20,10 @@ export const GET_DISCUSSION_BY_ID_LOADING = 'GET_DISCUSSION_BY_ID_LOADING';
 export const GET_DISCUSSION_BY_ID_SUCCESS = 'GET_DISCUSSION_BY_ID_SUCCESS';
 export const GET_DISCUSSION_BY_ID_FAILURE = 'GET_DISCUSSION_BY_ID_FAILURE';
 
+export const FOLLOW_DISCUSSION_LOADING = 'FOLLOW_DISCUSSION_LOADING';
+export const FOLLOW_DISCUSSION_SUCCESS = 'FOLLOW_DISCUSSION_SUCCESS';
+export const FOLLOW_DISCUSSION_FAILURE = 'FOLLOW_DISCUSSION_FAILURE';
+
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
@@ -42,4 +46,17 @@ export const getDiscussionsByCat = (category_id) => dispatch => {
 	return axios.get(`${backendURL}/discussions/category/${category_id}`)
 		.then(res => dispatch({ type: GET_DISCUSSIONS_SUCCESS, payload: res.data }))
 		.catch(err => console.log(err));
+};
+
+
+export const followDiscussion = (discussion_id, user_id, followed, historyPush) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
+	const body = { discussion_id, followed};
+	dispatch({ type: FOLLOW_DISCUSSION_LOADING });
+	return axios.post(`${ backendURL }/discussion-follows/${ user_id }/${ discussion_id }`, body, headers)
+		.then((res) => dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/discussion/${ discussion_id }`))
+		.catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };

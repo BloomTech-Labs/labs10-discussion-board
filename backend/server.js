@@ -33,7 +33,8 @@ const {
   discussionVotesRouter,
   postsRouter,
   testRouter,
-  usersRouter
+  usersRouter,
+  discussionFollowsRouter,
 } = require('./routes/index.js');
 
 server.use('/auth', authRouter);
@@ -43,6 +44,7 @@ server.use('/discussion-votes', discussionVotesRouter);
 server.use('/posts', postsRouter);
 server.use('/tests', testRouter);
 server.use('/users', usersRouter);
+server.use('/discussion-follows', discussionFollowsRouter);
 
 server.use(errorHandler); // This line needs to be after all routes
 

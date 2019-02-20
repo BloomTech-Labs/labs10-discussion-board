@@ -1,20 +1,17 @@
-
-import CategoriesView       from './CategoriesView.js';
-
-import DiscussionsByCatView      from './DiscussionsByCatView.js';
-
-import DiscussionView		from './DiscussionView.js';
+import CategoriesView from './CategoriesView.js';
+import DiscussionView from './DiscussionView.js';
+import LandingView from './LandingView.js';
+import PostsView from './PostsView.js';
 import RegisterView from './RegisterView.js';
-import LandingView			from './LandingView.js';
-import TopDiscussionsView	from './TopDiscussionsView.js';
-import PostsView			from './PostsView.js';
+import TopDiscussionsView from './TopDiscussionsView.js';
+import DiscussionsByCatView from './DiscussionsByCatView.js';
 
 export {
-	CategoriesView,
+  CategoriesView,
   DiscussionView,
+  LandingView,
+  PostsView,
   DiscussionsByCatView,
-	LandingView,
-  TopDiscussionsView,
   RegisterView,
-	PostsView,
-}
+  TopDiscussionsView
+};

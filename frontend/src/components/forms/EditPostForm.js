@@ -33,6 +33,8 @@ class EditPostForm extends Component {
 					value = { postBody }
 				/>
 
+				<button type = 'submit'>Submit</button>
+
 				<button
 					onClick = { updateEditPostForm }
 					type = 'button' // prevents form submission

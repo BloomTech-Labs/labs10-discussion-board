@@ -115,8 +115,8 @@ class App extends Component {
           <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
 
 
-          { error && <Error error = { error } /> }
-          { message && <Message message = { message } /> }
+          {error && <Error error={error} />}
+          {message && <Message message={message} />}
         </AppWrapper>
       );
     } else {
@@ -134,11 +134,11 @@ class App extends Component {
       );
     }
   }
-};
+}
 
 const mapStateToProps = state => ({
   error: state.users.error,
-  message: state.users.message,
+  message: state.users.message
 });
 
 export default connect(

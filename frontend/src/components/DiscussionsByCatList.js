@@ -24,12 +24,11 @@ class DiscussionsByCatList extends Component {
 	handleDiscussionVote = (discussion_id, type) => {
 		const { getDiscussionsByCat, handleDiscussionVote } = this.props;
 		return handleDiscussionVote(discussion_id, this.props.user_id, type)
-			.then(() => getDiscussionsByCat());
+			.then(() => getDiscussionsByCat(this.props.category_id));
 	};
 	render() {
 		const { discussionsByCat } = this.props;
 		return (
-			console.log('in the DiscByCatList', this.props.handleDiscussionVote),
 			<TopDiscussionsViewWrapper>
 				{
 					discussionsByCat.map((discussion, index) =>
