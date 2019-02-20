@@ -39,7 +39,7 @@ export const getProfile = user_id => dispatch => {
     .then(res => {
       dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data });
     })
-    .catch(err => dispatch({ type: GET_PROFILE_FAILURE, payload: err }));
+    .catch(err => handleError(err, GET_PROFILE_FAILURE)(dispatch));
 };
 
 

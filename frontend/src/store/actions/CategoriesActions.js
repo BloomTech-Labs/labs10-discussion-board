@@ -34,10 +34,7 @@ export const followCategory = (category_id, user_id, followed, historyPush) => d
 	const body = { category_id, followed};
 	dispatch({ type: FOLLOW_CATEGORY_LOADING });
 	return axios.post(`${ backendURL }/category-follows/${ user_id }/${ category_id }`, body, headers)
-		.then((res) => { 
-			console.log('dispatch', res)
-			dispatch({ type: FOLLOW_CATEGORY_SUCCESS, payload: res.data })
-		})
+		.then((res) => dispatch({ type: FOLLOW_CATEGORY_SUCCESS, payload: res.data }))
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/discussions/category/${ category_id }`))
 		.catch(err => handleError(err, FOLLOW_CATEGORY_FAILURE)(dispatch));
