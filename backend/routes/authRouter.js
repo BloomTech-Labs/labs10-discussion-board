@@ -161,7 +161,7 @@ router.post('/register', requestClientIP, async (req, res) => {
                 if (error) {
                   message = `Server failed to send e-mail confirmation: ${ error }`;
                 } else {
-                  message = `Thanks for signing up! An e-mail was sent to ${ userAddedResults[0].email }. Please confirm your e-mail address in order to be able to reset your password in the future.`;
+                  message = `Thanks for signing up! An e-mail was sent to ${ userAddedResults[0].email }. Please confirm your e-mail address in order to be able to reset your password in the future (You might want to check your spam folder).`;
                 }
                 return res.status(201).json([
                   {
