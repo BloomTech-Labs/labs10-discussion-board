@@ -11,7 +11,8 @@ const generateSeeds = () => {
       username: faker.internet.userName(),
       password: 'pass',
       email: faker.internet.email(),
-      status: 'active'
+      status: 'active',
+      created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
     });
   }
 
@@ -20,31 +21,36 @@ const generateSeeds = () => {
     username: 'james',
     password: bcrypt.hashSync('pass1', numOfHashes),
     email: 'james@example.com',
-    status: 'active'
+    status: 'active',
+    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
   });
   arr.push({
     username: 'carlos',
     password: bcrypt.hashSync('carlos', numOfHashes),
     email: null,
-    status: 'active'
+    status: 'active',
+    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
   });
   arr.push({
     username: 'david',
     password: bcrypt.hashSync('david', numOfHashes),
     email: null,
-    status: 'active'
+    status: 'active',
+    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
   });
   arr.push({
     username: 'huth',
     password: bcrypt.hashSync('huth', numOfHashes),
     email: null,
-    status: 'active'
+    status: 'active',
+    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
   });
   arr.push({
     username: 'lucas',
     password: bcrypt.hashSync('lucas', numOfHashes),
     email: null,
-    status: 'active'
+    status: 'active',
+    created_at: Date.parse(faker.date.between('2019-01-01', '2019-01-10'))
   });
   return arr;
 };
