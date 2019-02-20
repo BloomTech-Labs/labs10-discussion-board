@@ -228,7 +228,7 @@ router.post('/auth0-login', async (req, res) => {
                 token,
                 message: 'Log in successful.',
                 username: user.username,
-                avatar: user.avatar,
+                avatar: foundUser[0].avatar,
                 discussionFollows: foundUser[0].discussionFollows,
               }]);
             }
@@ -266,7 +266,7 @@ router.post('/auth0-login', async (req, res) => {
                       token,
                       message: 'Log in successful.',
                       username: foundUser.username,
-                      avatar: foundUser.avatar,
+                      avatar: foundUserById[0].avatar,
                       discussionFollows: foundUserById[0].discussionFollows,
                     }]);
                   }
