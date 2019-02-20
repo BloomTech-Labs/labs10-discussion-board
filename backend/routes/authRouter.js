@@ -71,18 +71,17 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ error: `Status is missing.` });
   }
 
-  let email = null;
-  // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
-  if (req.body.email && check(req.body.email).isEmail())
-    email = req.body.email.trim();
-
   // ensure new user added is only passing the props needed into the database
   const newUserCreds = {
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, numOfHashes), // bcryptjs hash stored in db (not the actual password)
-    email: email,
     status: req.body.status
   };
+
+  // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
+  if (req.body.email && check(req.body.email).isEmail()) {
+    newUserCreds.email = req.body.email.trim();
+  }
 
   // add user
   return db

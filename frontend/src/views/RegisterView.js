@@ -358,26 +358,54 @@ class RegisterView extends Component {
   };
 
   setIsReady = (ev, status) => {
-    ev.preventDefault();
-    this.props.isUsernameTaken(this.state.username).then(() => {
-      if (this.props.usernameTaken) {
-        return this.props.displayError('username taken');
-      }
-
-      this.props.isEmailTaken(this.state.email).then(() => {
-        if (this.state.email && this.props.emailTaken) {
-          return this.props.displayError('email taken');
+    ev && ev.preventDefault();
+    if (status) {
+      this.props.isUsernameTaken(this.state.username).then(() => {
+        if (this.props.usernameTaken) {
+          return this.props.displayError('username taken');
         }
 
-        if (status && this.state.username && this.state.password) {
-          this.setState({ isReady: status });
-        } else if (!status) {
-          this.setState({ isReady: status });
+        if (this.state.email) {
+          this.props.isEmailTaken(this.state.email).then(() => {
+            if (this.props.emailTaken) {
+              return this.props.displayError('email taken');
+            }
+
+            if (status && this.state.username && this.state.password) {
+              this.setState(
+                { isReady: status },
+                () => !status && this.props.history.push('/home')
+              );
+            } else if (!status) {
+              this.setState(
+                { isReady: status },
+                () => !status && this.props.history.push('/home')
+              );
+            } else {
+              this.props.displayError('missing field');
+            }
+          });
         } else {
-          this.props.displayError('missing field');
+          if (status && this.state.username && this.state.password) {
+            this.setState(
+              { isReady: status },
+              () => !status && this.props.history.push('/home')
+            );
+          } else if (!status) {
+            this.setState(
+              { isReady: status },
+              () => !status && this.props.history.push('/home')
+            );
+          } else {
+            this.props.displayError('missing field');
+          }
         }
       });
-    });
+    } else {
+      this.setState({ isReady: status }, () =>
+        this.props.history.push('/home')
+      );
+    }
   };
 
   //---------------- Form Methods --------------
@@ -445,10 +473,7 @@ class RegisterView extends Component {
       } else { // incorrect subscription plan
         throw new Error('invalid data');
       }
-      this.props
-        .register(newAccount)
-        .then(() => this.setIsReady(ev, false))
-        .then(() => this.props.history.push('/home'));
+      this.props.register(newAccount).then(() => this.setIsReady(null, false));
     } catch (err) {
       this.props.displayError(err);
     }
