@@ -15,11 +15,9 @@ const ProfileWrapper = styled.div`
   margin: 10px;
   padding: 10px;
   border: 1px solid black;
-  display: flex;
-  align-content: space-between;
   width: 100%;
   background-color: #d3ccaf;
-
+  
   .discussion-title {
     font-weight: bold;
   }
@@ -102,7 +100,11 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Followed Discussions: </p>
-                {profile.posts.map((post, index)=> <p key= {index}>{post.discussionId}</p>)}
+                {profile.discussionFollows.map((discussionFollowed, index)=> 
+                  <div key = {index}>
+                    <p >{discussionFollowed.discussion_id}</p>
+                    <p >{discussionFollowed.title}</p>
+                  </div>)}
               </WrappedDiv>
             </ProfileWrapper>
           </div>
