@@ -1,4 +1,4 @@
-const faker = require('faker')
+const faker = require('faker');
 
 const {
   getRandomIntInclusive,
@@ -9,21 +9,22 @@ const {
 
 const generateSeeds = () => {
   let arr = [];
-  for (let i=1; i <= numOfPosts; i++){
+  for (let i = 1; i <= numOfPosts; i++) {
     arr.push({
-        user_id: getRandomUserId(),
-        discussion_id: getRandomIntInclusive(1, numOfDiscussions),
-        body: faker.lorem.sentence(),
-        created_at: faker.date.recent(3)
-    })
+      user_id: getRandomUserId(),
+      discussion_id: getRandomIntInclusive(1, numOfDiscussions),
+      body: faker.lorem.sentence(),
+      created_at: Date.parse(faker.date.between('2019-02-01', '2019-02-30'))
+    });
   }
-  return arr
-}
+  return arr;
+};
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('posts').del()
-    .then(function () {
+  return knex('posts')
+    .del()
+    .then(function() {
       // Inserts seed entries
       return knex('posts').insert(generateSeeds());
     });
