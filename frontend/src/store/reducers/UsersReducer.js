@@ -21,6 +21,9 @@ import {
   UPLOAD_AVATAR_URL_LOADING,
   UPLOAD_AVATAR_URL_SUCCESS,
   UPLOAD_AVATAR_URL_FAILURE,
+
+  FOLLOW_DISCUSSION_SUCCESS,
+
   DISPLAY_ERROR,
   DISPLAY_MESSAGE,
   USER_EXISTS_LOADING,
@@ -70,7 +73,11 @@ export const UsersReducer = (state = initialState, action) => {
         loggingInLoadingMessage: false,
         error: null
       };
-
+    case FOLLOW_DISCUSSION_SUCCESS:
+    return {
+      ...state,
+      discussionFollows:action.payload
+    }
     case USER_AUTH0_LOGIN_FAILURE:
     case USER_LOG_BACK_IN_FAILURE:
     case USER_LOGIN_FAILURE:
