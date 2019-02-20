@@ -107,15 +107,21 @@ router.post('/register', async (req, res) => {
         userAddedResults[0].username
       );
 
-      // return to front end
-      return res.status(201).json([
-        {
-          id: userAddedResults[0].id,
-          token,
-          message: 'Registration successful.',
-          username: userAddedResults[0].username
-        }
-      ]);
+      return db.findById(userAddedResults[0].id)
+        .then(foundUser => {
+          if (foundUser.length) {
+            return res.status(201).json([{
+              id: userAddedResults[0].id,
+              token,
+              message: 'Registration successful.',
+              username: userAddedResults[0].username,
+              avatar: foundUser[0].avatar,
+              discussionFollows: foundUser[0].discussionFollows,
+            }]);
+          }
+          return res.status(401).json({ error: 'No users found with findById().' });
+        })
+        .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
     })
     .catch(err =>
       res.status(500).json({ error: `Failed to insert(): ${err}` })
@@ -142,15 +148,21 @@ router.post('/login', async (req, res) => {
       // the client password matches the db hash password
       if (user && bcrypt.compareSync(userCreds.password, user.password)) {
         const token = await generateToken(user.id, user.username);
-        return res.status(201).json([
-          {
-            id: user.id,
-            token,
-            message: 'Log in successful.',
-            username: user.username,
-            avatar: user.avatar
-          }
-        ]);
+        return db.findById(user.id)
+          .then(foundUser => {
+            if (foundUser.length) {
+              return res.status(201).json([{
+                id: user.id,
+                token,
+                message: 'Log in successful.',
+                username: user.username,
+                avatar: user.avatar,
+                discussionFollows: foundUser[0].discussionFollows,
+              }]);
+            }
+            return res.status(401).json({ error: 'No users found with findById().' });
+          })
+          .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
       }
       return res.status(401).json({ error: `Invalid username/password.` });
     })
@@ -169,17 +181,16 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
       // you will get back an array with an object with user info inside it
       if (user.length === 1) {
         const token = await generateToken(user[0].id, user[0].username);
-        return res.status(201).json([
-          {
-            id: user[0].id,
-            token,
-            avatar: user[0].avatar,
-            username: user[0].username,
-            discussions: user[0].discussions,
-            email: user[0].email,
-            message: 'Logging back in successful.'
-          }
-        ]);
+        return res.status(201).json([{
+          id: user[0].id,
+          token,
+          avatar: user[0].avatar,
+          username: user[0].username,
+          discussions: user[0].discussions,
+          email: user[0].email,
+          discussionFollows: user[0].discussionFollows,
+          message: 'Logging back in successful.'
+        }]);
       }
       return res.status(401).json({
         error: `User does not exist in database or you got back more than one user.`
@@ -209,16 +220,21 @@ router.post('/auth0-login', async (req, res) => {
           await db.updateUserSettings(userSettings);
         }
 
-        // return to front end
-        return res.status(201).json([
-          {
-            id: user.id,
-            token,
-            message: 'Log in using auth0 credentials successful.',
-            avatar: picture || user.avatar,
-            username: user.username
-          }
-        ]);
+        return db.findById(user.id)
+          .then(foundUser => {
+            if (foundUser.length) {
+              return res.status(201).json([{
+                id: user.id,
+                token,
+                message: 'Log in successful.',
+                username: user.username,
+                avatar: user.avatar,
+                discussionFollows: foundUser[0].discussionFollows,
+              }]);
+            }
+            return res.status(401).json({ error: 'No users found with findById().' });
+          })
+          .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
       }
       // else, if user does not exist, register them first
       const newUserCreds = {
@@ -242,16 +258,21 @@ router.post('/auth0-login', async (req, res) => {
               // refresh token (if needed)
               token = await generateToken(foundUser.id, foundUser.username);
 
-              // return to front end
-              return res.status(201).json([
-                {
-                  id: foundUser.id,
-                  token,
-                  message: 'Log in using auth0 credentials successful.',
-                  avatar: foundUser.avatar,
-                  username: foundUser.username
-                }
-              ]);
+              return db.findById(foundUser.id)
+                .then(foundUserById => {
+                  if (foundUserById.length) {
+                    return res.status(201).json([{
+                      id: foundUser.id,
+                      token,
+                      message: 'Log in successful.',
+                      username: foundUser.username,
+                      avatar: foundUser.avatar,
+                      discussionFollows: foundUserById[0].discussionFollows,
+                    }]);
+                  }
+                  return res.status(401).json({ error: 'No users found with findById().' });
+                })
+                .catch(err => res.status(500).json({ error: `Failed to findById(): ${ err }` }));
             })
             .catch(err =>
               res

@@ -9,17 +9,20 @@ const getUsers = () => {
 const findById = id => {
   const getDiscussions = db('discussions').where('user_id', id);
   const getPosts = db('posts').where('user_id', id);
+  const getDiscussionFollows = db('discussion_follows as df').select('discussion_id').where('user_id', id);
   const getUser = db('users as u')
     .select('u.id', 'u.email', 'u.username', 'u.status', 'us.avatar')
     .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .where('u.id', id);
-  const promises = [getDiscussions, getPosts, getUser];
-  return Promise.all(promises).then(results => {
-    let [getDiscussionsResults, getPostsResults, getUserResults] = results;
-    getUserResults[0].discussions = getDiscussionsResults;
-    getUserResults[0].posts = getPostsResults;
-    return getUserResults;
-  });
+  const promises = [ getDiscussions, getPosts, getUser, getDiscussionFollows ];
+    return Promise.all(promises)
+    .then(results => {
+      let [ getDiscussionsResults, getPostsResults, getUserResults, getDiscussionFollowsResults ] = results;
+      getUserResults[0].discussions = getDiscussionsResults;
+      getUserResults[0].posts = getPostsResults;
+      getUserResults[0].discussionFollows = getDiscussionFollowsResults.map(follows => follows.discussion_id);
+      return getUserResults;
+    });
 };
 
 // gets password for user with given id

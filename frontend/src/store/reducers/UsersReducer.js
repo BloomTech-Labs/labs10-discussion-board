@@ -43,7 +43,8 @@ const initialState = {
   isEmailTaken: false,
   error: '',
   message: '',
-  discussions: []
+  discussions: [],
+  discussionFollows: [],
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -65,6 +66,7 @@ export const UsersReducer = (state = initialState, action) => {
         avatar: action.payload.avatar,
         username: action.payload.username,
         discussions: action.payload.discussions,
+        discussionFollows: action.payload.discussionFollows,
         loggingInLoadingMessage: false,
         error: null
       };
