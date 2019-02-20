@@ -53,7 +53,11 @@ router.get('/user/:user_id', (req, res) => {
   const { user_id } = req.params;
   return usersDB
     .findById(user_id)
-    .then(user => res.status(200).json(user))
+    .then(user => {
+      user[0].isAuth0 = user[0].password ? false : true;
+      user[0].password = null;
+      return res.status(200).json(user);
+    })
     .catch(err =>
       res.status(500).json({ error: `Failed to findById(): ${err}` })
     );
