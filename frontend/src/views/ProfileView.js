@@ -58,8 +58,6 @@ const ProfileTitle = styled.div`
 class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
-    // this.props.getProfileDiscussions(this.props.id);
-    // console.log('profdisc', this.props.getProfileDiscussions(this.props.id));
   }
 
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,

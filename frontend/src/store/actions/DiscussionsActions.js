@@ -55,8 +55,8 @@ export const followDiscussion = (discussion_id, user_id, followed, historyPush) 
 	const body = { discussion_id, followed};
 	dispatch({ type: FOLLOW_DISCUSSION_LOADING });
 	return axios.post(`${ backendURL }/discussion-follows/${ user_id }/${ discussion_id }`, body, headers)
-		.then((res) => { console.log('res', res);
-			dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data })})
-		
+		.then((res) => dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/discussion/${ discussion_id }`))
 		.catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };

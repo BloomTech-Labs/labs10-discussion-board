@@ -9,15 +9,41 @@ const get = (discussion_id, user_id) => {
 
 // adds a follow for a certain discussion by a certain user
 const add = (discussion_id, user_id) => {
-    return db('discussion_follows').insert({ discussion_id, user_id });
+	const addDiscussionFollow = db('discussion_follows')
+	  .insert({ discussion_id, user_id });
+	const getDiscussionFollows = db('discussion_follows')
+	  .select('discussion_id')
+	  .where({ user_id });
+	const promises = [ addDiscussionFollow ];
+	return Promise.all(promises)
+	  .then(() => {
+		return Promise.all([ getDiscussionFollows ])
+		  .then(results => {
+			let [ getDiscussionFollowsResults ] = results;
+			getDiscussionFollowsResults = getDiscussionFollowsResults.map(follow => follow.discussion_id);
+			return getDiscussionFollowsResults;
+		  });
+	});
 };
 
 // remove a follow from a certin discussion by a certain user
 const remove = (discussion_id, user_id) => {
-	return db('discussion_follows')
+	const removeDiscussion = db('discussion_follows')
 		.where({ user_id })
 		.andWhere({ discussion_id })
-		.del();
+    .del();
+  const getDiscussionFollows = db('discussion_follows')
+    .select('discussion_id')
+    .where({ user_id });
+  return Promise.all([ removeDiscussion ])
+    .then(() => {
+      return Promise.all([ getDiscussionFollows ])
+        .then(results => {
+          let [ getDiscussionFollowsResults ] = results;
+          getDiscussionFollowsResults = getDiscussionFollowsResults.map(follow => follow.discussion_id);
+          return getDiscussionFollowsResults;
+        });
+    });
 };
 
 module.exports = {

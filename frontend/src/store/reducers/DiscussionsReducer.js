@@ -12,7 +12,6 @@ import {
 	GET_DISCUSSION_BY_ID_FAILURE,
 
 	FOLLOW_DISCUSSION_LOADING,
-	FOLLOW_DISCUSSION_SUCCESS,
 	FOLLOW_DISCUSSION_FAILURE,
 } from '../actions/index.js';
 
@@ -46,11 +45,6 @@ export const DiscussionsReducer = (state = initialState, action) => {
 		case TOP_DISCUSSIONS_LOADING:
 		case TOP_DISCUSSIONS_FAILURE:	
 		case FOLLOW_DISCUSSION_LOADING:
-		case FOLLOW_DISCUSSION_SUCCESS: 
-			return {
-				...state,
-				follows: action.payload,
-			}
 		case FOLLOW_DISCUSSION_FAILURE:
 		case GET_DISCUSSIONS_SUCCESS:
 			return {

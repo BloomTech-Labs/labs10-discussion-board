@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { followDiscussion } from '../store/actions/index.js';
 
+
+/***************************************************************************************************
+ ********************************************** Styles **********************************************
+ **************************************************************************************************/
 const FollowWrapper = styled.div`
   padding: 10px;
 `;
@@ -11,11 +15,15 @@ const Followed = styled.div`
   width: 120px;
   .follow {
     cursor: pointer;
-    width: 120px;
-    height: 120px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
   }
 `;
 
+/***************************************************************************************************
+ ********************************************* Component *******************************************
+ **************************************************************************************************/
 class Follow extends Component {
     state = { followed: this.props.follow};
 	  handleChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -33,8 +41,8 @@ class Follow extends Component {
 
     render() {
         const { followed } = this.state;
-        const isFollowing = this.props.discussionFollows.includes(this.props.discussion_id)
-        console.log('id', this.props.discussionFollows);
+        const isFollowing = this.props.discussionFollows.includes(Number(this.props.discussion_id))
+
         return (
           <FollowWrapper>
             <Followed>
@@ -45,8 +53,6 @@ class Follow extends Component {
                   style={{backgroundColor: isFollowing ? 'green' : 'red'}}
                   value={followed ? 'Followed' : 'Follow?'}
               />
-              {/* <button onClick = {this.handleFollowClick}>FOLLOW</button> */}
-              {/* <button onClick = {this.handleFollowClick}>UNFOLLOW</button> */}
             </Followed>
           </FollowWrapper>
         );
