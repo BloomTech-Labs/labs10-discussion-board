@@ -9,12 +9,18 @@ const {
 
 const generateSeeds = () => {
   let arr = [];
+  // prettier-ignore
   for (let i = 1; i <= numOfPosts; i++) {
     arr.push({
       user_id: getRandomUserId(),
       discussion_id: getRandomIntInclusive(1, numOfDiscussions),
       body: faker.lorem.sentence(),
-      created_at: Date.parse(faker.date.between('2019-02-01', '2019-02-30'))
+      created_at: Date.parse(
+        faker.date.between(
+          new Date(Date.now() - (1000 * 60 * 60 * 13)),
+          new Date(Date.now())
+        )
+      )
     });
   }
   return arr;

@@ -80,7 +80,6 @@ class Discussion extends Component {
     const { discussion, historyPush } = this.props;
     const {
       body,
-      category_id,
       category_name,
       created_at,
       discussion_votes,
@@ -100,7 +99,7 @@ class Discussion extends Component {
             <Link className='username' to={`/profile/${user_id}`}>
               {username}
             </Link>
-            {moment(created_at).fromNow()}
+            {moment(new Date(Number(created_at))).fromNow()}
           </PostedBy>
           <DiscussionVotes>
             Discussion Votes: {discussion_votes}
