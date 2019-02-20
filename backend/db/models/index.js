@@ -4,12 +4,14 @@ const discussionVotesDB = require('./discussionVotesDB.js');
 const postsDB = require('./postsDB.js');
 const usersDB = require('./usersDB.js');
 const discussionFollowsDB = require('./discussionFollowsDB.js');
+const postVotesDB = require('./postVotesDB.js');
 
 module.exports = {
 	categoriesDB,
 	discussionsDB,
 	discussionVotesDB,
 	postsDB,
+	postVotesDB,
 	usersDB,
 	discussionFollowsDB
 };

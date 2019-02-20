@@ -17,6 +17,8 @@ const PostsView = ({
 }) => {
 	return(
 		<PostsViewWrapper>
+			<div>
+			</div>
 			{ posts.map((post, index) =>
 				<Post
 					key = { index }
