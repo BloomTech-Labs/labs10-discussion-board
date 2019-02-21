@@ -608,6 +608,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[0] && true
                       }
+                      readOnly
                     />
                   </DivBanner>
                   <DivBanner
@@ -632,6 +633,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[1] && true
                       }
+                      readOnly
                     />
                   </DivBanner>
                   <DivBanner
@@ -657,6 +659,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[2] && true
                       }
+                      readOnly
                     />
                   </DivBanner>
                   <DivBanner
@@ -683,6 +686,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[3] && true
                       }
+                      readOnly
                     />
                   </DivBanner>
                 </DivSelectBanners>
