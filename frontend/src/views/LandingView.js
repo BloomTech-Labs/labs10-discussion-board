@@ -11,7 +11,6 @@ import { TopDiscussionsView } from './index.js';
 const LandingViewWrapper = styled.div`
   background-color: #d3ccaf;
   width: 90%;
-  border: 1px solid white;
 `;
 
 /***************************************************************************************************
