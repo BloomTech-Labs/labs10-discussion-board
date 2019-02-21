@@ -70,42 +70,48 @@ const TextLooper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const DiscussionsByCatView = ({ history, match }) => {
-	const id  = match.params.category_id;
-	const historyPush = history.push;
+class DiscussionsByCatView extends Component {
+	state = { showAddForm: false };
+	toggleShowAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
+	render() {
+		const { history, match } = this.props;
+		const { showAddForm } = this.state;
+		const id  = match.params.category_id;
+		const historyPush = history.push;
 
-	return (
-		<DiscussionsByCatViewWrapper>
-			<DiscussionsByCatHeader>
-				<div className = 'logotopd'>
-					<DiscussionsByCatImage src={Discuss} alt='Top discussions' />
-					<FollowCat category_id = {id} historyPush = { historyPush }/>
-						<DiscussionsByCatTitle>
-							<h1>Discussions</h1>
-						</DiscussionsByCatTitle>
-				</div>
-				<TextLooper>
-				<TextLoop>
-					<span>See what's being discussed</span>
-					<span>Find your interests</span>
-					<span>Start talking!</span>
-				</TextLoop>{" "}
-				</TextLooper>
-			</DiscussionsByCatHeader>
-			<hr />
-			{
-				showAddForm ?
-				<AddDiscussionForm
-					toggleShowAddForm = { this.toggleShowAddForm }
-					category_id = { id }
-					historyPush = { historyPush }
-				/>
-				:
-				<button onClick = { this.toggleShowAddForm }>Add a discussion</button>
-			}
-			<DiscussionsByCats category_id = {match.params.category_id}/>
-		</DiscussionsByCatViewWrapper>
-	);
+		return (
+			<DiscussionsByCatViewWrapper>
+				<DiscussionsByCatHeader>
+					<div className = 'logotopd'>
+						<DiscussionsByCatImage src={Discuss} alt='Top discussions' />
+						<FollowCat category_id = {id} historyPush = { historyPush }/>
+							<DiscussionsByCatTitle>
+								<h1>Discussions</h1>
+							</DiscussionsByCatTitle>
+					</div>
+					<TextLooper>
+					<TextLoop>
+						<span>See what's being discussed</span>
+						<span>Find your interests</span>
+						<span>Start talking!</span>
+					</TextLoop>{" "}
+					</TextLooper>
+				</DiscussionsByCatHeader>
+				<hr />
+				{
+					showAddForm ?
+					<AddDiscussionForm
+						toggleShowAddForm = { this.toggleShowAddForm }
+						category_id = { id }
+						historyPush = { historyPush }
+					/>
+					:
+					<button onClick = { this.toggleShowAddForm }>Add a discussion</button>
+				}
+				<DiscussionsByCats 
+					category_id = {match.params.category_id}/>
+			</DiscussionsByCatViewWrapper>
+		);
+	}
 };
-
 export default DiscussionsByCatView;
