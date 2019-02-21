@@ -44,13 +44,14 @@ const DivWrapper = styled.div`
 `;
 
 const Welcome = styled.div`
-  margin: 25px;
+  margin: 20px 20px 0px 0px;
   font-size: 24px;
   @media (max-width: 450px){
     display: none;
   }
 
     .username {
+      margin-left: 5px;
       color: black;
       text-decoration: none;
       &:hover {
@@ -61,22 +62,14 @@ const Welcome = styled.div`
 `;
 
 const Signout = styled.a`
-  font-size: 30px;
+  margin-left: 25px;
+  font-size: 20px;
   user-select: none;
   cursor: pointer;
-
-
   &:hover {
-    color: white;
-    text-decoration: underline;
+    text-decoration: line-through;
   }
 `;
-
-const Profile = styled.a`
-&:hover {
-  cursor: pointer;
-}
-  `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -96,6 +89,11 @@ class Nav extends Component {
     return (
       <DivWrapper>
       <div className = 'avatarWelcome'>
+        <Welcome>Welcome, 
+          <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>
+          !</Welcome>
+          <Signout onClick = { ev => this.clickSignout(ev) }>Sign Out</Signout>
+      </div>
         <div onClick = { this.goToProfilePage }>
           <Avatar
             height = '100px'
@@ -103,11 +101,6 @@ class Nav extends Component {
             src = { avatar }
           />
         </div>
-      </div>
-        <Welcome>Welcome, <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
-        <Signout onClick = { ev => this.clickSignout(ev) }>
-          Sign Out
-        </Signout>
       </DivWrapper>
     );
   }
