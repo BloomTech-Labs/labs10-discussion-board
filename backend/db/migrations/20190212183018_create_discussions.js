@@ -25,6 +25,9 @@ exports.up = function (knex, Promise) {
 
     // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();
+
+    // Date in milliseconds
+    tbl.bigInteger('last_edited_at');
   });
 };
 

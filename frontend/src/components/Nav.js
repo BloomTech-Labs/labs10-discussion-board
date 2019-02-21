@@ -11,7 +11,7 @@ import { Avatar } from './index.js';
 import { signout } from '../store/actions';
 
 /***************************************************************************************************
- ********************************************** Styles *********************************************
+ ********************************************** Styles ********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
@@ -27,8 +27,6 @@ const DivWrapper = styled.div`
   }
   
   @media (max-width: 450px){
-    
-    
     .avatarWelcome {
       display: flex;
       flex-direction: column;
@@ -41,6 +39,7 @@ const DivWrapper = styled.div`
       justify-content: space-between;
       border: 1px solid gray;
     }
+
   }
 `;
 

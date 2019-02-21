@@ -52,6 +52,7 @@ const findById = id => {
       'd.title',
       'd.body',
       'd.created_at',
+      'd.last_edited_at',
       db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes')
     )
     .join('users as u', 'u.id', 'd.user_id')
@@ -131,17 +132,12 @@ const insert = discussion => {
 };
 
 //EDIT [ACCOUNT TYPE ACCESS: USER_ID]
-const update = (discussion, id) => {
-  return db('discussions')
-    .where('id', id)
-    .update(discussion);
+const update = (id, discussion) => {
+  return db('discussions').where({ id }).update(discussion);
 };
 
-//DELETE [ACCOUNT TYPE ACCESS: USER_ID, ADMIN]
 const remove = id => {
-  return db('discussions')
-    .where('id', id)
-    .del();
+  return db('discussions').where({ id }).del();
 };
 
 module.exports = {

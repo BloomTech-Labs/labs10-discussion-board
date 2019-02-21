@@ -179,36 +179,36 @@ export const signout = () => dispatch => {
 };
 
 // prettier-ignore
-export const uploadAvatar = (user_id, avatarData, onUploadAvatarSucces) => dispatch => {
-  const token = localStorage.getItem('symposium_token');
-  let headers;
+export const uploadAvatar = (user_id, avatarData, onUploadAvatarSuccess) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+	let headers;
 
-  if (avatarData) {
-    // avatar will be updated with given image
-    headers = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: token,
-      }
-    };
-  } else {
-    // avatar will be reset to default
-    headers = { headers: { Authorization: token } };
-    avatarData = { avatarData };
-  }
+	if (avatarData) {
+		// avatar will be updated with given image
+		headers = {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				Authorization: token,
+			}
+		};
+	} else {
+		// avatar will be reset to default
+		headers = { headers: { Authorization: token } };
+		avatarData = { avatarData };
+	}
 
   dispatch({ type: UPLOAD_AVATAR_LOADING });
 
   return axios
     .put(`${backendUrl}/users/avatar/${user_id}`, avatarData, headers)
     .then(res => dispatch({ type: UPLOAD_AVATAR_SUCCESS, payload: res.data }))
-    .then(() => onUploadAvatarSucces())
+    .then(() => onUploadAvatarSuccess())
     .catch(err => handleError(err, UPLOAD_AVATAR_FAILURE)(dispatch));
 };
 
 // prettier-ignore
-export const uploadAvatarUrl = (user_id, avatarUrl, onUploadAvatarSucces) => dispatch => {
-  const token = localStorage.getItem('symposium_token');
+export const uploadAvatarUrl = (user_id, avatarUrl, onUploadAvatarSuccess) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   avatarUrl = { avatarUrl };
 
@@ -217,7 +217,7 @@ export const uploadAvatarUrl = (user_id, avatarUrl, onUploadAvatarSucces) => dis
   return axios
     .put(`${backendUrl}/users/avatar-url/${user_id}`, avatarUrl, headers)
     .then(res => dispatch({ type: UPLOAD_AVATAR_URL_SUCCESS, payload: res.data }))
-    .then(() => onUploadAvatarSucces())
+    .then(() => onUploadAvatarSuccess())
     .catch(err => handleError(err, UPLOAD_AVATAR_URL_FAILURE)(dispatch));
 };
 

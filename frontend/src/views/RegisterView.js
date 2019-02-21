@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, backendUrl } from '../globals/globals.js';
+import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken } from '../globals/globals.js';
 import {
   register,
   displayError,
@@ -495,12 +495,6 @@ class RegisterView extends Component {
     }
   };
 
-  handleRadio = ev => {
-    ev.preventDefault();
-    const radioSelected = ev.currentTarget.value === 'true' ? true : false;
-    this.setState({ radioSelected });
-  };
-
   submitHandler = ev => {
     ev && ev.preventDefault();
     try {
@@ -614,7 +608,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[0] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
+                      readOnly
                     />
                   </DivBanner>
                   <DivBanner
@@ -639,7 +633,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[1] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
+                      readOnly
                     />
                   </DivBanner>
                   <DivBanner
@@ -665,7 +659,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[2] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
+                      readOnly
                     />
                   </DivBanner>
                   <DivBanner
@@ -692,7 +686,7 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[3] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
+                      readOnly
                     />
                   </DivBanner>
                 </DivSelectBanners>

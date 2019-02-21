@@ -58,14 +58,8 @@ const handleVote = type => {
     handlePostVote(post.id, post.user_id, type, historyPush, discussion_id)
   }
   const handleEdit = () => updateEditPostForm(id);
-  const handleRemove = () =>
-    handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
-  
-  let lastEditDate;
-  if (last_edited_at) {
-    lastEditDate = new Date(parseInt(last_edited_at));
-    lastEditDate = lastEditDate.toISOString();
-  }
+  const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
+
   const userCreatedPost = loggedInUserId === user_id;
   return (
     <PostWrapper>
@@ -73,9 +67,10 @@ const handleVote = type => {
       <h1>POST</h1>
       <p>post votes: {post_votes}</p>
       <div>
-       <VoteCount 
-        handleVote = { handleVote } 
-        vote_count = { post_votes } />
+        <VoteCount 
+          handleVote = { handleVote } 
+          vote_count = { post_votes }
+        />
       </div>
       <PostedBy>
         Posted by:
