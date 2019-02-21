@@ -7,15 +7,16 @@ import { Nav } from '../components/index.js';
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row-reverse;
   margin-top: 20px;
   margin-bottom: 30px;
   width: 90%;
-  border: 1px solid red;
+
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
     width: 90%
-    border: 1px solid yellow
+
     @media (max-width: 450px){
     }
   }
@@ -39,20 +40,20 @@ const TitleAndLogo = styled.div`
   display: flex;
   margin-right: 0px;
   align-self: center;
-  border: 1px solid black;
+
   @media (max-width: 768px){
     display: flex;
-    flex-drection: column;
-    @media (max-width: 450px){
-      width: 90%;
-      display: flex;
-      flex-directin: column;
-      align-items: center;
-      .img{
-        width: 50%;
-      }
-    }
-	}
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  @media (max-width: 450px){
+    width: 90%;
+    display: flex;
+    flex-directin: column;
+    align-items: center;
+    margin-right: auto;
+  }
   
 `;
 
@@ -61,37 +62,55 @@ const Title = styled.div`
   margin-left: 10px;
   color: white;
   font-size: 36px;
-  border: 1px solid yellow;
+
   @media (max-width: 768px){
     display: flex;
     flex-direction: column;
     width: 90%
-    border: 1px solid yellow
+
   }
   h1 {
     margin-bottom: -35px;
-    width: 90%;
-    
+    width: 90%;  
+    @media (max-width: 768px){
+      width: 90%;
+      @media (max-width: 450px){
+        margin: 0 auto;
+        font-size: 45px;
+        width: 95%;
+      }
+    }
   }
   .subheader { 
     font-size: 14px;
     margin-left: 187px;
-    border: 1px solid red;
+    @media (max-width: 768px){
+      @media (max-width: 450px){
+        display: flex;
+        text-align: center;
+        margin: 0 auto;
+
+      }
+    }
 }
 `;
 
 const Navi = styled.div`
-  border: 1px solid purple;
+
   @media (max-width: 768px){
     display: flex;
     width: 90%;
     margin: 0 auto;
+    justify-content: center;
+    margin-bottom: 1em;
+
     @media (max-width: 450px){
+      width: 100%;
     }
   }
 `
 const Links = styled.div`
-  border: 1px solid black
+
 
   .link {
     font-weight: bold;
