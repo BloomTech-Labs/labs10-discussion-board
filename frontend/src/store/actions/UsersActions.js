@@ -286,7 +286,7 @@ export const updateEmail = (email, history) => dispatch => {
 export const stripePayment = (headersObj) => dispatch => {
   dispatch({ type: STRIPE_PAYMENT_LOADING });
   return axios
-    .post(`${backendUrl}/tests/stripe`, headersObj)
+    .post(`${backendUrl}/auth/stripe`, headersObj)
     .then(res => dispatch({ type: STRIPE_PAYMENT_SUCCESS, payload: res.data[0] }))
     .catch(err => handleError(err, STRIPE_PAYMENT_FAILURE, true)(dispatch));
 }

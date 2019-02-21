@@ -79,7 +79,7 @@ const nodeMailerHost = process.env.NODEMAILER_HOST;
 const nodeMailerPort = process.env.NODEMAILER_PORT;
 const nodeMailerUser = process.env.NODEMAILER_USER;
 const nodeMailerPass = process.env.NODEMAILER_PASS;
-const backendStripePkTestToken = process.env.BACKEND_STRIPE_TEST_TOKEN
+const backendStripePkToken = process.env.BACKEND_STRIPE_TOKEN
 
 module.exports = {
   // variables
@@ -114,5 +114,5 @@ module.exports = {
   nodeMailerPort,
   nodeMailerUser,
   nodeMailerPass,
-  backendStripePkTestToken
+  backendStripePkToken
 };

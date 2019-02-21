@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeTestToken, backendUrl } from '../globals/globals.js';
+import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, backendUrl } from '../globals/globals.js';
 import {
   register,
   displayError,
@@ -583,7 +583,7 @@ class RegisterView extends Component {
                 <div>
                   <StripeCheckout
                     token={this.onToken}
-                    stripeKey={stripeTestToken}
+                    stripeKey={stripeToken}
                   />
                 </div>
               )}

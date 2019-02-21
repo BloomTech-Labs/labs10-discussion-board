@@ -218,14 +218,12 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         stripePaymentLoadingMessage: true,
-        error: null
       }
     case STRIPE_PAYMENT_SUCCESS:
       return {
         ...state,
         stripePaymentInfo: action.payload,
         stripePaymentLoadingMessage: false,
-        error: null
       }
     case STRIPE_PAYMENT_FAILURE:
       return {

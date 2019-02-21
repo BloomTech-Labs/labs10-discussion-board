@@ -2,10 +2,10 @@
  ******************************************* dependencies ******************************************
  **************************************************************************************************/
 require('dotenv').config();
-const { backendStripePkTestToken } = require('../../config/globals.js');
+// const { backendStripePkToken } = require('../../config/globals.js');
 const express = require('express');
 // const base64Img = require('base64-img');
-const stripe = require('stripe')(backendStripePkTestToken);
+// const stripe = require('stripe')(backendStripePkToken);
 
 const router = express.Router();
 
@@ -57,7 +57,7 @@ router.get('/', (req, res, next) => {
 });
 */
 
-router.post('/stripe', (req, res, next) => {
+/*router.post('/stripe', (req, res, next) => {
   const stripeToken = req.body.data.stripeToken;
   const payment = Number(req.body.data.payment);
 
@@ -76,5 +76,5 @@ router.post('/stripe', (req, res, next) => {
     }
   })();
 })
-
+*/
 module.exports = router;
