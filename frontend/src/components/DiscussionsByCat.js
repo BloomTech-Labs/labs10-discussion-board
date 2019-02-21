@@ -32,9 +32,8 @@ const DiscussionByCatWrapper = styled.div`
       color: white;
     }
   }
-  .category {
-    font-size: 18px;
-    color: black;
+    a {
+      color: black;
     &:hover {
       text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);

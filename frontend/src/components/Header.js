@@ -39,6 +39,10 @@ const Title = styled.div`
   font-size: 36px;
   h1 {
     margin-bottom: -35px;
+    a {
+      color: black;
+      text-decoration: none;
+    }
   }
 `;
 

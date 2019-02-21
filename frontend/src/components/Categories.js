@@ -14,7 +14,7 @@ const CategoryName = styled.div`
 `;
 
 const CategoryLink = styled.div`
-  .category-link {
+  a {
     color: black;
 
     &:hover {

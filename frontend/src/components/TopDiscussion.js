@@ -30,7 +30,7 @@ const TopDiscussionWrapper = styled.div`
       color: white;
     }
   }
-  .category {
+  a {
     font-size: 18px;
     color: black;
     &:hover {
