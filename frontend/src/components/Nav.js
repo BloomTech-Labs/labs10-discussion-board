@@ -22,10 +22,7 @@ const DivWrapper = styled.div`
     flex-direction: column;
     align-items: center;
   }
-  
-  @media (max-width: 450px){
-    
-    
+ 
     .avatarWelcome {
       display: flex
       flex-direction: column;
@@ -38,9 +35,6 @@ const DivWrapper = styled.div`
       justify-content: space-between;
       border: 1px solid gray;
     }
-  }
-  
-
 `;
 
 const Welcome = styled.div`
