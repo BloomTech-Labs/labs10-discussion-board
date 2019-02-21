@@ -112,7 +112,6 @@ class Profile extends Component {
                 {profile.categoryFollows.map((categoryFollowed, index)=> 
                   <div key = {index}>
                     <p > ID: {categoryFollowed.category_id}</p>
-                    
                     <Link to = {`/discussions/category/${categoryFollowed.category_id}`}><p > Title: {categoryFollowed.name}</p></Link>
                   </div>)}
               </WrappedDiv>
