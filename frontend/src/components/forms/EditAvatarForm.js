@@ -45,7 +45,7 @@ const EditAvatarFormWrapper = styled.form`
 		}
 
 		#image-file + label:hover {
-			background-color: #534C2F;
+			background-color: #b7e1f0;
 		}
 
 		#image-file + label {
@@ -68,21 +68,19 @@ const EditAvatarFormWrapper = styled.form`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #534C2F;
+			background-color: #b7e1f0;
 		}
 	}
 
 	.btn {
 		margin: 10px;
-		background-color: #C9C19F;
-		border: 1px solid #5B5B5B;
+		background-color: white;
 		border-radius: 5px;
 		padding: 5px 10px;
-		color: #5B5B5B;
+		color: black;
 
 		&:hover {
-			background-color: #84794B;
-			color: #b7e1f0;
+			background-color: #b7e1f0;
 			cursor: pointer;
 		}
 	}
