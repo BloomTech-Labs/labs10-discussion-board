@@ -41,9 +41,6 @@ const DivWrapper = styled.div`
       justify-content: space-between;
       border: 1px solid gray;
     }
-  }
-  
-
 `;
 
 const Welcome = styled.div`
