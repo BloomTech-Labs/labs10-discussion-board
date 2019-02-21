@@ -289,7 +289,6 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
             email_confirm: user[0].email_confirm,
             discussionFollows: user[0].discussionFollows,
             categoryFollows: user[0].categoryFollows,
-            message: 'Logging back in successful.'
           }
         ]);
       }

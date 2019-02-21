@@ -82,14 +82,15 @@ export const followDiscussion = (
 };
 
 // add a discussion
-export const addDiscussion = (user_id, category_id, title, body, historyPush) => dispatch => {
+export const addDiscussion = (category_id, title, dBody, historyPush) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
-	const dBody = { category_id, title, body };
+	const body = { category_id, title, dBody };
 	dispatch({ type: ADD_DISCUSSION_LOADING });
-	return axios.post(`${ backendURL }/discussions/${user_id}`, dBody, headers)
+	return axios.post(`${ backendURL }/discussions/${user_id}`, body, headers)
 		.then(() => dispatch({ type: ADD_DISCUSSION_SUCCESS }))
 		.then(() => historyPush('/'))
-		.then(() => historyPush(`/category/${ category_id }`))
+		.then(() => historyPush(`/discussions/category/${ category_id }`))
 		.catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
