@@ -103,8 +103,7 @@ class DiscussionsByCatView extends Component {
 					:
 					<button onClick = { this.toggleShowAddForm }>Add a discussion</button>
 				}
-				<DiscussionsByCats 
-					category_id = {match.params.category_id}/>
+				<DiscussionsByCats category_id = {match.params.category_id}/>
 			</DiscussionsByCatViewWrapper>
 		);
 	}
