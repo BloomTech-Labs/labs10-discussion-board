@@ -9,12 +9,14 @@ import { PostCount, VoteCount } from './index.js';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 5px;
-  padding: 10px;
+const DiscussionByCatWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 5px;
+	padding: 10px;
+	
+	box-shadow: 2px 3px 2px 2px gray;
 
   box-shadow: 2px 3px 2px 2px gray;
 
@@ -84,22 +86,19 @@ const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
     discussion_votes
   } = discussion;
 
-  const handleVote = type => handleDiscussionVote(id, type);
-  return (
-    <TopDiscussionWrapper>
-      <VoteCount handleVote={handleVote} vote_count={discussion_votes} />
-      <div className='content'>
-        <div>
-          <Link to={`/discussion/${id}`} className='title'>
-            {title}
-          </Link>
-          &#8201;
-          <span className='category'>
+const handleVote = type => handleDiscussionVote(id, type);
+return (
+    <DiscussionByCatWrapper>
+			<VoteCount handleVote = { handleVote } vote_count = { discussion_votes } />
+			<div className = 'content'>
+				<div>
+					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
+					<span className = 'category'>
             <Link to={`/discussions/category/${category_id}`}>
-              /d/{category_name}
+            /d/{ category_name }
             </Link>
           </span>
-        </div>
+				</div>
 
         <div>
           <Link to={`/profile/${user_id}`} className='nameanddate'>
@@ -114,9 +113,9 @@ const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
         <p>{body}</p>
       </div>
 
-      <PostCount post_count={post_count || 0} />
-    </TopDiscussionWrapper>
-  );
+			<PostCount post_count = { post_count || 0 } />
+		</DiscussionByCatWrapper>
+	);
 };
 
 export default DiscussionsByCat;
