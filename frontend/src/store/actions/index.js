@@ -34,13 +34,19 @@ import {
 		//FOLLOW DISCUSSIONS
 		FOLLOW_DISCUSSION_LOADING,
 		FOLLOW_DISCUSSION_SUCCESS,
-		FOLLOW_DISCUSSION_FAILURE,
+    FOLLOW_DISCUSSION_FAILURE,
+    
+    //ADD DICUSSION
+    ADD_DISCUSSION_LOADING, 
+    ADD_DISCUSSION_SUCCESS, 
+    ADD_DISCUSSION_FAILURE, 
 
   // Action Creators
 		getTopDiscussions,
 		getDiscussionsByCat,
 		getDiscussionById,
-		followDiscussion,
+    followDiscussion,
+    addDiscussion,
 } from './DiscussionsActions.js';
 
 import {
@@ -195,7 +201,11 @@ export {
 
 	FOLLOW_DISCUSSION_LOADING,
 	FOLLOW_DISCUSSION_SUCCESS,
-	FOLLOW_DISCUSSION_FAILURE,
+  FOLLOW_DISCUSSION_FAILURE,
+  
+  ADD_DISCUSSION_LOADING, 
+  ADD_DISCUSSION_SUCCESS, 
+  ADD_DISCUSSION_FAILURE, 
 
 	// Discussion Vote Actions
 	HANDLE_DISCUSSION_VOTE_LOADING,
@@ -286,7 +296,8 @@ export {
 	getTopDiscussions,
 	getDiscussionsByCat,
 	getDiscussionById,
-	followDiscussion,
+  followDiscussion,
+  addDiscussion,
 
 	// Discussion Vote Action Creators
   handleDiscussionVote,

@@ -11,19 +11,12 @@ const get = (category_id, user_id) => {
 const add = (category_id, user_id) => {
 	const addCategoryFollow = db('category_follows')
 	  .insert({ category_id, user_id });
-	const getCategoryFollows = db('category_follows')
-	  .select('category_id')
-	  .where({ user_id });
-	const promises = [ addCategoryFollow ];
-	return Promise.all(promises)
-	  .then(() => {
-		return Promise.all([ getCategoryFollows ])
-		  .then(results => {
-			let [ getCategoryFollowsResults ] = results;
-			getCategoryFollowsResults = getCategoryFollowsResults.map(follow => follow.category_id);
-			return getCategoryFollowsResults;
-		  });
-	});
+	return Promise.all([ addCategoryFollow ])
+		.then(() => {
+			return getCategoryFollows = db('category_follows')
+				.select('category_id')
+				.where({ user_id });
+		});
 };
 
 // remove a follow from a certin category by a certain user

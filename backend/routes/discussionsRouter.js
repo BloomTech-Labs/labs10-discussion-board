@@ -4,6 +4,7 @@
 require('dotenv').config();
 const express = require('express');
 const { discussionsDB } = require('../db/models/index.js');
+const { authenticate } = require('../config/middleware/authenticate.js');
 
 const router = express.Router();
 
@@ -79,20 +80,17 @@ router.get('/category/:category_id', (req, res) => {
 });
 
 //Add Discussion
-router.post('/add', (req, res) => {
-  let discussion = req.body;
-
-  // discussion created_at
-  discussion.created_at = Date.now();
-
+router.post('/:user_id', (req, res, next) => {
+  const { user_id } = req.params;
+  const { category_id, title, dBody } = req.body;
+  const created_at = Date.now();
+  if (!title) return res.status(400).json({ error: 'discussion title must not be empty.' });
+  if (!dBody) return res.status(400).json({ error: 'discussion body must not be empty.' });
+  const newDiscussion = { user_id, category_id, title, body: dBody, created_at };
   return discussionsDB
-    .insert(discussion)
-    .then(() =>
-      res.status(200).json([{ message: 'Discussion topic has been posted!' }])
-    )
-    .catch(err =>
-      res.status(500).json({ error: `Failed to insert(): ${err}` })
-    );
+    .insert(newDiscussion)
+    .then(() => res.status(201).json({ message: 'Discussion topic has been posted!' }))
+    .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
 });
 
 //Update Discussion
