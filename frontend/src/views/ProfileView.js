@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 // components
 import { Avatar } from '../components/index.js';
@@ -103,7 +104,7 @@ class Profile extends Component {
                 {profile.discussionFollows.map((discussionFollowed, index)=> 
                   <div key = {index}>
                     <p >ID: {discussionFollowed.discussion_id}</p>
-                    <p >Title: {discussionFollowed.title}</p>
+                    <Link to = {`/discussion/${discussionFollowed.discussion_id}`}><p >Title: {discussionFollowed.title}</p></Link>
                   </div>)}
               </WrappedDiv>
               <WrappedDiv>
@@ -111,7 +112,8 @@ class Profile extends Component {
                 {profile.categoryFollows.map((categoryFollowed, index)=> 
                   <div key = {index}>
                     <p > ID: {categoryFollowed.category_id}</p>
-                    <p > Title: {categoryFollowed.name}</p>
+                    
+                    <Link to = {`/discussions/category/${categoryFollowed.category_id}`}><p > Title: {categoryFollowed.name}</p></Link>
                   </div>)}
               </WrappedDiv>
             </ProfileWrapper>
