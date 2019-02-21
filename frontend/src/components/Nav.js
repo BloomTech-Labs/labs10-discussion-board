@@ -17,11 +17,39 @@ const DivWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-self: flex-end;
+  @media(max-width: 768px){
+    diplay: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  @media (max-width: 450px){
+    
+    
+    .avatarWelcome {
+      display: flex
+      flex-direction: column;
+      align-items: center;
+    }
+    @media (max-width: 450px){
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border: 1px solid gray;
+    }
+  }
+  
+
 `;
 
 const Welcome = styled.div`
   margin: 25px;
   font-size: 24px;
+  @media (max-width: 450px){
+    display: none;
+  }
+
     .username {
       color: black;
       text-decoration: none;
@@ -36,6 +64,7 @@ const Signout = styled.a`
   font-size: 30px;
   user-select: none;
   cursor: pointer;
+
 
   &:hover {
     color: white;
@@ -60,6 +89,7 @@ class Nav extends Component {
     const { user_id, username, avatar } = this.props;
     return (
       <DivWrapper>
+      <div className = 'avatarWelcome'>
         <div onClick = { this.goToProfilePage }>
           <Avatar
             height = '100px'
@@ -67,6 +97,7 @@ class Nav extends Component {
             src = { avatar }
           />
         </div>
+      </div>
         <Welcome>Welcome, <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
         <Signout onClick = { ev => this.clickSignout(ev) }>
           Sign Out
