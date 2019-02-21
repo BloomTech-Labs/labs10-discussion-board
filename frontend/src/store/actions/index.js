@@ -31,6 +31,7 @@ import {
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
 
+<<<<<<< HEAD
   //FOLLOW DISCUSSIONS
   FOLLOW_DISCUSSION_LOADING,
   FOLLOW_DISCUSSION_SUCCESS,
@@ -41,6 +42,24 @@ import {
   getDiscussionsByCat,
   getDiscussionById,
   followDiscussion,
+=======
+		//FOLLOW DISCUSSIONS
+		FOLLOW_DISCUSSION_LOADING,
+		FOLLOW_DISCUSSION_SUCCESS,
+    FOLLOW_DISCUSSION_FAILURE,
+    
+    //ADD DICUSSION
+    ADD_DISCUSSION_LOADING, 
+    ADD_DISCUSSION_SUCCESS, 
+    ADD_DISCUSSION_FAILURE, 
+
+  // Action Creators
+		getTopDiscussions,
+		getDiscussionsByCat,
+		getDiscussionById,
+    followDiscussion,
+    addDiscussion,
+>>>>>>> e22e9e90a73381abd691fa65bad578d83cf61c63
 } from './DiscussionsActions.js';
 
 import {
@@ -198,9 +217,19 @@ export {
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
 
+<<<<<<< HEAD
   FOLLOW_DISCUSSION_LOADING,
   FOLLOW_DISCUSSION_SUCCESS,
   FOLLOW_DISCUSSION_FAILURE,
+=======
+	FOLLOW_DISCUSSION_LOADING,
+	FOLLOW_DISCUSSION_SUCCESS,
+  FOLLOW_DISCUSSION_FAILURE,
+  
+  ADD_DISCUSSION_LOADING, 
+  ADD_DISCUSSION_SUCCESS, 
+  ADD_DISCUSSION_FAILURE, 
+>>>>>>> e22e9e90a73381abd691fa65bad578d83cf61c63
 
   // Discussion Vote Actions
   HANDLE_DISCUSSION_VOTE_LOADING,
@@ -291,11 +320,20 @@ export {
   getCategories,
   followCategory,
 
+<<<<<<< HEAD
   // Discussion Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
   getDiscussionById,
   followDiscussion,
+=======
+	// Discussion Action Creators
+	getTopDiscussions,
+	getDiscussionsByCat,
+	getDiscussionById,
+  followDiscussion,
+  addDiscussion,
+>>>>>>> e22e9e90a73381abd691fa65bad578d83cf61c63
 
   // Discussion Vote Action Creators
   handleDiscussionVote,

@@ -11,19 +11,12 @@ const get = (discussion_id, user_id) => {
 const add = (discussion_id, user_id) => {
 	const addDiscussionFollow = db('discussion_follows')
 	  .insert({ discussion_id, user_id });
-	const getDiscussionFollows = db('discussion_follows')
-	  .select('discussion_id')
-	  .where({ user_id });
-	const promises = [ addDiscussionFollow ];
-	return Promise.all(promises)
-	  .then(() => {
-		return Promise.all([ getDiscussionFollows ])
-		  .then(results => {
-			let [ getDiscussionFollowsResults ] = results;
-			getDiscussionFollowsResults = getDiscussionFollowsResults.map(follow => follow.discussion_id);
-			return getDiscussionFollowsResults;
-		  });
-	});
+	return Promise.all([ addDiscussionFollow ])
+		.then(() => {
+			return getDiscussionFollows = db('discussion_follows')
+				.select('discussion_id')
+				.where({ user_id });
+		});
 };
 
 // remove a follow from a certin discussion by a certain user
