@@ -87,7 +87,7 @@ export const addDiscussion = (user_id, category_id, title, body, historyPush) =>
 	const headers = { headers: { Authorization: token } };
 	const dBody = { category_id, title, body };
 	dispatch({ type: ADD_DISCUSSION_LOADING });
-	return axios.post(`${ backendURL }/discussions/add`, dBody, headers)
+	return axios.post(`${ backendURL }/discussions/${user_id}`, dBody, headers)
 		.then(() => dispatch({ type: ADD_DISCUSSION_SUCCESS }))
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/category/${ category_id }`))
