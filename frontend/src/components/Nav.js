@@ -17,24 +17,38 @@ const DivWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-self: flex-end;
-  
-  @media (max-width: 768px){
-    display: flex;
+  @media(max-width: 768px){
+    diplay: flex;
     flex-direction: column;
     align-items: center;
+  }
+  
+  @media (max-width: 450px){
+    
     
     .avatarWelcome {
       display: flex
       flex-direction: column;
       align-items: center;
     }
+    @media (max-width: 450px){
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border: 1px solid gray;
+    }
   }
+  
 
 `;
 
 const Welcome = styled.div`
   margin: 25px;
   font-size: 24px;
+  @media (max-width: 450px){
+    display: none;
+  }
 
     .username {
       color: black;

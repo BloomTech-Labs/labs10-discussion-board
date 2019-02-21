@@ -45,13 +45,15 @@ const TitleAndLogo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    @media (max-width: 450px){
-      width: 90%;
-      display: flex;
-      flex-directin: column;
-      align-items: center;
-    }
-	}
+    
+  }
+  @media (max-width: 450px){
+    width: 90%;
+    display: flex;
+    flex-directin: column;
+    align-items: center;
+    margin-right: auto;
+  }
   
 `;
 
@@ -71,14 +73,24 @@ const Title = styled.div`
     margin-bottom: -35px;
     width: 90%;  
     @media (max-width: 768px){
-      width: 90%
+      width: 90%;
+      @media (max-width: 450px){
+        margin: 0 auto;
+        font-size: 45px;
+        width: 95%;
+      }
     }
   }
   .subheader { 
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
-  
+      @media (max-width: 450px){
+        display: flex;
+        text-align: center;
+        margin: 0 auto;
+
+      }
     }
 }
 `;
@@ -93,6 +105,7 @@ const Navi = styled.div`
     margin-bottom: 1em;
 
     @media (max-width: 450px){
+      width: 100%;
     }
   }
 `
