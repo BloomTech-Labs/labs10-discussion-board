@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import auth0 from 'auth0-js';
-import { Auth0Lock } from 'auth0-lock';
 import { connect } from 'react-redux';
 import styled, { createGlobalStyle } from 'styled-components';
 
@@ -27,14 +25,7 @@ import {
 } from './views/index.js';
 
 // action creators
-import { auth0Login, logBackIn } from './store/actions/index.js';
-
-// globals
-import {
-  auth0Domain,
-  auth0ClientID,
-  auth0RedirectUri
-} from './globals/globals.js';
+import { logBackIn } from './store/actions/index.js';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -60,42 +51,17 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-const authLockOptions = {
-  rememberLastLogin: false
-};
-
-const lock = new Auth0Lock(auth0ClientID, auth0Domain, authLockOptions);
-
-const webAuth = new auth0.WebAuth({
-  domain: auth0Domain,
-  clientID: auth0ClientID,
-  redirectUri: auth0RedirectUri
-});
-
 class App extends Component {
   constructor(props) {
     super(props);
-    webAuth.parseHash((err, authResult) => {
-      if (authResult) {
-        const { accessToken, expiresIn } = authResult;
-        const expiresAt = JSON.stringify(
-          expiresIn * 1000 + new Date().getTime()
-        );
-        localStorage.setItem('symposium_auth0_access_token', accessToken);
-        localStorage.setItem('symposium_auth0_expires_at', expiresAt);
-        return this.props.auth0Login(accessToken);
-      } else if (err) console.log(err);
-    });
   }
-  handleAuth0Login = () => {
-    lock.show();
-  };
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
     return new Date().getTime() < expiresAt;
   }
   componentDidMount() {
+    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     if (user_id && token) return this.props.logBackIn(user_id, token);
@@ -127,7 +93,7 @@ class App extends Component {
           <GlobalStyle />
           <Switch>
             <Route exact path='/register' component={RegisterView} />
-            <Route render={props => <Auth {...props} handleAuth0Login={this.handleAuth0Login} />}/>
+            <Route render={props => <Auth {...props} />}/>
           </Switch>
           { error && <Error error = { error } /> }
           { message && <Message message = { message } /> }
@@ -144,5 +110,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { auth0Login, logBackIn }
+  { logBackIn }
 )(App);
