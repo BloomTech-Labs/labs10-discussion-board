@@ -50,7 +50,7 @@ export const getDiscussionsByCat = category_id => dispatch => {
   return axios
     .get(`${backendURL}/discussions/category/${category_id}`)
     .then(res => dispatch({ type: GET_DISCUSSIONS_SUCCESS, payload: res.data }))
-    .catch(err => console.log(err));
+    .catch(err => handleError(err, GET_DISCUSSIONS_FAILURE)(dispatch));
 };
 
 export const followDiscussion = (

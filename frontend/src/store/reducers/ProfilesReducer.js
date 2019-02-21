@@ -20,6 +20,8 @@ const initialState = {
         status: '',
         discussions: [],
         posts: [],
+        discussionFollows: [],
+        categoryFollows: [],
       }
     ],
 };

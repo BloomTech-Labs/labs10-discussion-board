@@ -10,7 +10,7 @@ import { DiscussionsByCats, FollowCat } from '../components/index.js';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionsViewWrapper = styled.div`
+const DiscussionsByCatViewWrapper = styled.div`
 	border: 0px solid black;
 	padding: 5px;
 	box-shadow: gray 0px 0px;
@@ -21,14 +21,14 @@ const TopDiscussionsViewWrapper = styled.div`
 	}
 `;
 
-const TopDiscussionsImage = styled.img`
+const DiscussionsByCatImage = styled.img`
 	src: url(${props => props.src});
 	display: flex;
 	height: 120px;
 	width: 120px;
 `;
 
-const TopDiscussionsHeader = styled.div`
+const DiscussionsByCatHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin: 5px;
@@ -46,7 +46,7 @@ const TopDiscussionsHeader = styled.div`
 	}
 `;
 
-const TopDiscussionsTitle = styled.div`
+const DiscussionsByCatTitle = styled.div`
 	display: flex;
 	align-self: center;
 	font-size: 18px;
@@ -70,14 +70,14 @@ const DiscussionsByCatView = ({ history, match }) => {
 	const historyPush = history.push;
 
 	return (
-		<TopDiscussionsViewWrapper>
-			<TopDiscussionsHeader>
+		<DiscussionsByCatViewWrapper>
+			<DiscussionsByCatHeader>
 				<div className = 'logotopd'>
-					<TopDiscussionsImage src={Discuss} alt='Top discussions' />
+					<DiscussionsByCatImage src={Discuss} alt='Top discussions' />
 					<FollowCat category_id = {id} historyPush = { historyPush }/>
-						<TopDiscussionsTitle>
+						<DiscussionsByCatTitle>
 							<h1>Discussions</h1>
-						</TopDiscussionsTitle>
+						</DiscussionsByCatTitle>
 				</div>
 				<TextLooper>
                 <TextLoop>
@@ -86,11 +86,11 @@ const DiscussionsByCatView = ({ history, match }) => {
                     <span>Start talking!</span>
 				</TextLoop>{" "}
 				</TextLooper>
-			</TopDiscussionsHeader>
+			</DiscussionsByCatHeader>
 			<hr />
 			<DiscussionsByCats 
 				category_id = {match.params.category_id}/>
-		</TopDiscussionsViewWrapper>
+		</DiscussionsByCatViewWrapper>
 	);
 };
 

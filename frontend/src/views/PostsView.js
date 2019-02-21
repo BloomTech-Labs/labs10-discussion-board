@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // components
 import { Post } from '../components/index.js';
 
+
 const PostsViewWrapper = styled.div`
 	border: 1px solid black;
 `;
@@ -17,6 +18,8 @@ const PostsView = ({
 }) => {
 	return(
 		<PostsViewWrapper>
+			<div>
+			</div>
 			{ posts.map((post, index) =>
 				<Post
 					key = { index }
@@ -24,7 +27,8 @@ const PostsView = ({
 					historyPush = { historyPush }
 					showEditPostForm = { showEditPostForm }
 					updateEditPostForm = { updateEditPostForm }
-					handleRemovePost = { handleRemovePost }
+					handleRemovePost = { handleRemovePost }	
+							
 				/>)
 			}
 		</PostsViewWrapper>
