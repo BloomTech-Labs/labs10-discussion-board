@@ -47,6 +47,12 @@ const Signout = styled.a`
   }
 `;
 
+const Profile = styled.a`
+&:hover {
+  cursor: pointer;
+}
+  `;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -64,13 +70,13 @@ class Nav extends Component {
     const { user_id, username, avatar } = this.props;
     return (
       <DivWrapper>
-        <div onClick = { this.goToProfilePage }>
+        <Profile onClick = { this.goToProfilePage }>
           <Avatar
             height = '100px'
             width = '100px'
             src = { avatar }
           />
-        </div>
+        </Profile>
         <Welcome>Welcome, <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
         <Signout onClick = { ev => this.clickSignout(ev) }>
           Sign Out
