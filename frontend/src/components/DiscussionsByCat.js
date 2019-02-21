@@ -22,6 +22,7 @@ const DiscussionByCatWrapper = styled.div`
 
   @media (max-width: 450px){
     width: 90%;
+    margin: 0 auto;
   }
   .title {
     text-decoration: none;
