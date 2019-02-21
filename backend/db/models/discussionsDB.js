@@ -10,29 +10,29 @@ const getTopDailyDiscussions = () => {
 
   // prettier-ignore
   return db('discussions as d')
-        .select(
-            'd.id',
-			'd.user_id',
-			'u.username',
-			'd.category_id',
-			'c.name as category_name',
-            'd.title',
-            'd.body',
-            'd.created_at',
-            'pc.post_count'
-        )
-        .sum('dv.type as vote_count')
-        .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
-        .join('users as u', 'u.id', 'd.user_id')
-        .join('categories as c', 'c.id', 'd.category_id')
-        .leftOuterJoin(postCountQuery.as('pc'), function() {
-            this.on('pc.discussion_id', '=', 'd.id');
-        })
-        // this whereRaw gets the created_at dates that are 24 hours away from the current time
-        .whereRaw("d.created_at >= ?", [Date.parse(new Date()) - (24 * 60 * 60 * 1000)])
-        .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count')
-        .orderBy('vote_count', 'desc')
-        .limit(10);
+    .select(
+      'd.id',
+      'd.user_id',
+      'u.username',
+      'd.category_id',
+      'c.name as category_name',
+      'd.title',
+      'd.body',
+      'd.created_at',
+      'pc.post_count'
+    )
+    .sum('dv.type as vote_count')
+    .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+    .join('users as u', 'u.id', 'd.user_id')
+    .join('categories as c', 'c.id', 'd.category_id')
+    .leftOuterJoin(postCountQuery.as('pc'), function() {
+        this.on('pc.discussion_id', '=', 'd.id');
+    })
+    // this whereRaw gets the created_at dates that are 24 hours away from the current time
+    .whereRaw("d.created_at >= ?", [Date.parse(new Date()) - (24 * 60 * 60 * 1000)])
+    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count')
+    .orderBy('vote_count', 'desc')
+    .limit(10);
 };
 
 //gets All Discussions
@@ -52,11 +52,12 @@ const findById = id => {
       'd.title',
       'd.body',
       'd.created_at',
+      'd.last_edited_at',
       db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes')
     )
     .join('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
-    .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+    .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .where('d.id', id)
     .groupBy('d.id', 'u.username', 'c.name');
   let postsQuery = db('posts as p')
@@ -98,7 +99,7 @@ const findByCategoryId = category_id => {
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .groupBy('p.discussion_id');
 
-  let discussionQuery = db('discussions as d')
+  return discussionQuery = db('discussions as d')
     .select(
       'd.id',
       'd.user_id',
@@ -114,17 +115,13 @@ const findByCategoryId = category_id => {
     .sum('dv.type as vote_count')
     .join('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
-    .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+    .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin(postCountQuery.as('pc'), function() {
       this.on('pc.discussion_id', '=', 'd.id');
     })
     .where('c.id', category_id)
-    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count');
-
-  return Promise.all([discussionQuery]).then(results => {
-    const [discussionQueryResults] = results;
-    return discussionQueryResults;
-  });
+    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count')
+    .orderBy('created_at', 'desc');
 };
 
 //AUTHORIZED ACCESS
@@ -135,17 +132,12 @@ const insert = discussion => {
 };
 
 //EDIT [ACCOUNT TYPE ACCESS: USER_ID]
-const update = (discussion, id) => {
-  return db('discussions')
-    .where('id', id)
-    .update(discussion);
+const update = (id, discussion) => {
+  return db('discussions').where({ id }).update(discussion);
 };
 
-//DELETE [ACCOUNT TYPE ACCESS: USER_ID, ADMIN]
 const remove = id => {
-  return db('discussions')
-    .where('id', id)
-    .del();
+  return db('discussions').where({ id }).del();
 };
 
 module.exports = {

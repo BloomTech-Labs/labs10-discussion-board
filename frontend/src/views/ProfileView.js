@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 // components
 import { Avatar } from '../components/index.js';
@@ -12,12 +13,22 @@ import { Avatar } from '../components/index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const ProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
   margin: 10px;
   padding: 10px;
-  border: 1px solid black;
-  width: 100%;
+  border: 1px solid gray;
+  width: 480px;
   background-color: #d3ccaf;
-  
+  box-shadow: gray 2px 1px 2px 2px;
+  @media(max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    width: 90%
+    @media (max-width: 450px){
+    }
+  }
   .discussion-title {
     font-weight: bold;
   }
@@ -27,18 +38,38 @@ const WrappedDiv = styled.div`
   margin: 5px;
   padding: 2%;
   display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: 3px;
+  padding: 3px;
 
   .property-title {
     font-weight: bold;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-self: center;
+    margin: 3px;
+    padding: 3px;
   }
   .property-content {
-    padding: 0 0 0 5%;
     display: flex;
+    flex-direction: column;
+    align-self: center;
     justify-content: space-around;
+    margin: 3px;
+    padding: 3px;
   }
 `;
+
+const ContentDiv = styled.div`
+margin: 5px;
+padding: 2%;
+display: flex;
+flex-direction: column;
+align-self: center;
+margin: 3px;
+padding: 3px;
+`
 
 const ProfileTitle = styled.div`
   margin: 5px;
@@ -71,11 +102,6 @@ class Profile extends Component {
           <div key={index}>
             <ProfileWrapper>
               <WrappedDiv>
-                <p className='property-title'> </p>
-                <p className='property-content'> {profile.id}</p>
-              </WrappedDiv>
-              <WrappedDiv>
-                <p className='property-title'>Avatar: </p>
                 <Avatar
                   height = '50px'
                   width = '50px'
@@ -91,28 +117,26 @@ class Profile extends Component {
                 <p className='property-content'> {profile.status}</p>
               </WrappedDiv>
               <WrappedDiv>
-                <p className='property-title'> Discussions: </p>
-                {profile.discussions.map((discussion, index)=> <p key= {index}>{discussion.title}</p>)}
-              </WrappedDiv>
-              <WrappedDiv>
-                <p className='property-title'> Posts: </p>
-                {profile.posts.map((post, index)=> <p key= {index}>{post.body}</p>)}
-              </WrappedDiv>
-              <WrappedDiv>
                 <p className='property-title'> Followed Discussions: </p>
                 {profile.discussionFollows.map((discussionFollowed, index)=> 
-                  <div key = {index}>
-                    <p >{discussionFollowed.discussion_id}</p>
-                    <p >{discussionFollowed.title}</p>
-                  </div>)}
+                  <ContentDiv key = {index}>
+                    <Link to = {`/discussion/${discussionFollowed.discussion_id}`}><p > {discussionFollowed.title}</p></Link>
+                  </ContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Followed Categories: </p>
                 {profile.categoryFollows.map((categoryFollowed, index)=> 
-                  <div key = {index}>
-                    <p >{categoryFollowed.category_id}</p>
-                    <p >{categoryFollowed.name}</p>
-                  </div>)}
+                  <ContentDiv key = {index}>
+                    <Link to = {`/discussions/category/${categoryFollowed.category_id}`}><p > {categoryFollowed.name}</p></Link>
+                  </ContentDiv>)}
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Discussions: </p>
+                {profile.discussions.map((discussion, index)=> <ContentDiv key= {index}>{discussion.title}</ContentDiv>)}
+              </WrappedDiv>
+              <WrappedDiv>
+                <p className='property-title'> Posts: </p>
+                {profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}
               </WrappedDiv>
             </ProfileWrapper>
           </div>
@@ -123,7 +147,7 @@ class Profile extends Component {
     }
     return (
       <div>
-        <ProfileTitle> PROFILE </ProfileTitle>
+        {/* <ProfileTitle> PROFILE </ProfileTitle> */}
         {profileItems}
       </div>
     );
