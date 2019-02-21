@@ -16,7 +16,8 @@ import {
 
 const SettingsWrapper = styled.div`
   border: 1px solid black;
-  width: 65%;
+  width: 45%;
+  padding: 0 20px;
 
     h1 {
       color: white;
@@ -51,12 +52,17 @@ const IsAuth = styled.div`
   align-items: center;
 `;
 
+const ColumnView = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Buttons = styled.div`
   margin-left: 30px;
     button {
       border-radius: 5px;
       font-size: 14px;
-      margin-right: 20px;
+      margin: 5px 20px 20px 0;
       &:hover {
         background-color: #b7e1f0;
         cursor: pointer;
@@ -89,14 +95,16 @@ class Settings extends Component {
         </EmailandAvatar>
         <br />
         <IsAuth>
+          <ColumnView>
         {
           isAuth0 ?
-          <p>You are using Auth0. You cannot change your email.</p>
+          <p className='usingauthO'>You are using Auth0.<br /> You cannot change your email.</p>
           :
           email ?
           <button onClick = { () => this.toggleForm('email-form') }>Change email</button>
           :
           <button onClick = { () => this.toggleForm('email-form') }>Set email</button>
+          
         }
         <Buttons>
         <button onClick={() => this.toggleForm('password-form')}>
@@ -104,7 +112,7 @@ class Settings extends Component {
         </button>
         <button onClick={() => this.toggleForm('avatar-btns')}>
           Change avatar
-        </button></Buttons>
+        </button></Buttons></ColumnView>
         {show === 'password-form' && (
           <EditPasswordForm toggleForm={this.toggleForm} />
         )}

@@ -6,9 +6,39 @@ import styled from 'styled-components';
 import { updatePassword, displayError } from '../../store/actions/index.js';
 
 const EditPasswordFormWrapper = styled.form`
+width: 300px;
 	margin: 10px;
-	padding: 10px;
-	border: 1px solid red;
+	padding: 12px;
+	border: 1px solid black;
+	border-radius: 5px;
+`;
+
+const EditPassword = styled.div`
+	margin-top: -15px;
+`;
+
+const EditForm = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	input {
+		margin: 0px 0px 15px 0px;
+		height: 20px;
+		font-size: 16px;
+	}
+
+	button {
+		width: 50%;
+      	border-radius: 5px;
+      	font-size: 14px;
+     	margin-top: 15px;
+      		&:hover {
+        		background-color: #b7e1f0;
+        		cursor: pointer;
+        		border-radius: 5px;
+      		}
+    }
 `;
 
 class EditPasswordForm extends Component {
@@ -34,8 +64,8 @@ class EditPasswordForm extends Component {
 		const { toggleForm } = this.props;
 		return(
 			<EditPasswordFormWrapper onSubmit = { this.handleSubmit }>
-				<h1>Edit password</h1>
-
+				<EditPassword><h1>Edit password</h1></EditPassword>
+				<EditForm>
 				<input
 					placeholder = 'Enter old password'
 					name = 'oldPassword'
@@ -62,6 +92,7 @@ class EditPasswordForm extends Component {
 
 				<button type = 'submit'>Submit</button>
 				<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+				</EditForm>
 			</EditPasswordFormWrapper>
 		);
 	}
