@@ -31,6 +31,7 @@ import EditPasswordForm from './forms/EditPasswordForm.js';
 import EditAvatarForm from './forms/EditAvatarForm.js';
 import EditAvatarUrlForm from './forms/EditAvatarUrlForm.js';
 import UpdateEmailForm from './forms/UpdateEmailForm.js';
+import EditDiscussionForm from './forms/EditDiscussionForm.js';
 
 export {
 	Auth,
@@ -65,4 +66,5 @@ export {
 	EditAvatarForm,
 	EditAvatarUrlForm,
 	UpdateEmailForm,
+	EditDiscussionForm,
 };

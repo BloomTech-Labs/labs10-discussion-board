@@ -39,7 +39,15 @@ import {
     //ADD DICUSSION
     ADD_DISCUSSION_LOADING, 
     ADD_DISCUSSION_SUCCESS, 
-    ADD_DISCUSSION_FAILURE, 
+    ADD_DISCUSSION_FAILURE,
+
+    EDIT_DISCUSSION_LOADING,
+    EDIT_DISCUSSION_SUCCESS,
+    EDIT_DISCUSSION_FAILURE,
+
+    REMOVE_DISCUSSION_LOADING,
+    REMOVE_DISCUSSION_SUCCESS,
+    REMOVE_DISCUSSION_FAILURE,
 
   // Action Creators
 		getTopDiscussions,
@@ -47,6 +55,8 @@ import {
 		getDiscussionById,
     followDiscussion,
     addDiscussion,
+    editDiscussion,
+    removeDiscussion,
 } from './DiscussionsActions.js';
 
 import {
@@ -205,7 +215,15 @@ export {
   
   ADD_DISCUSSION_LOADING, 
   ADD_DISCUSSION_SUCCESS, 
-  ADD_DISCUSSION_FAILURE, 
+  ADD_DISCUSSION_FAILURE,
+
+  EDIT_DISCUSSION_LOADING,
+  EDIT_DISCUSSION_SUCCESS,
+  EDIT_DISCUSSION_FAILURE,
+
+  REMOVE_DISCUSSION_LOADING,
+  REMOVE_DISCUSSION_SUCCESS,
+  REMOVE_DISCUSSION_FAILURE,
 
 	// Discussion Vote Actions
 	HANDLE_DISCUSSION_VOTE_LOADING,
@@ -298,6 +316,8 @@ export {
 	getDiscussionById,
   followDiscussion,
   addDiscussion,
+  editDiscussion,
+  removeDiscussion,
 
 	// Discussion Vote Action Creators
   handleDiscussionVote,

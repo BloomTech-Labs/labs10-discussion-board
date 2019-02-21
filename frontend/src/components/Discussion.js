@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import Votes from '../assets/img/Votes.png';
 
 // components
-import { AddPostForm } from './index.js';
+import { AddPostForm, EditDiscussionForm } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
 
 // action creators
-import { getDiscussionById, removePost } from '../store/actions/index.js';
+import { getDiscussionById, removePost, removeDiscussion } from '../store/actions/index.js';
 
 /***************************************************************************************************
  ********************************************* Styles *********************************************
@@ -67,21 +67,36 @@ const DiscussionVotes = styled.div`
 `;
 
 class Discussion extends Component {
-  state = { showAddPostForm: false, showEditPostForm: null };
-  toggleAddPostForm = () =>
-    this.setState({ showAddPostForm: !this.state.showAddPostForm });
+  state = {
+    showAddPostForm: false, // boolean
+    showEditDiscussionForm: false, // boolean
+    showEditPostForm: null // post_id
+  };
+  toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
+  toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);
   };
+  handleRemoveDiscussion = () => {
+    const {
+      removeDiscussion,
+      id,
+      historyPush,
+      discussion,
+    } = this.props;
+    const { category_id } = discussion;
+    return removeDiscussion(id, category_id, historyPush);
+  };
   componentDidMount = () => this.props.getDiscussionById(this.props.id);
   render() {
-    const { showAddPostForm, showEditPostForm } = this.state;
+    const { showAddPostForm, showEditPostForm, showEditDiscussionForm } = this.state;
     const { discussion, historyPush } = this.props;
     const {
       body,
       category_name,
       created_at,
+      last_edited_at,
       discussion_votes,
       id,
       posts,
@@ -91,6 +106,31 @@ class Discussion extends Component {
     } = discussion;
     return (
       <DiscussionWrapper>
+        {
+          this.props.user_id === user_id &&
+          (
+            showEditDiscussionForm ?
+            <EditDiscussionForm
+              toggleEditDiscussionForm = { this.toggleEditDiscussionForm }
+              title = { title }
+              body = { body }
+              discussion_id = { id }
+              historyPush = { historyPush }
+            />
+            :
+            <button onClick = { this.toggleEditDiscussionForm }
+            >Edit discussion</button>
+          )
+        }
+        {last_edited_at && (
+          <p>
+            Last edited {moment(new Date(Number(last_edited_at))).fromNow()}
+          </p>
+        )}
+        {
+          this.props.user_id === user_id &&
+          <button onClick = { this.handleRemoveDiscussion }>Remove discussion</button>
+        }
         <h1> { title } </h1>
         <DiscussionInfo>
           <CategoryName>/d/{category_name}</CategoryName>
@@ -138,5 +178,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getDiscussionById, removePost }
+  { getDiscussionById, removePost, removeDiscussion }
 )(Discussion);

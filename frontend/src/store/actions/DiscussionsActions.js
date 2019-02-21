@@ -28,6 +28,14 @@ export const ADD_DISCUSSION_LOADING = 'ADD_DISCUSSION_LOADING';
 export const ADD_DISCUSSION_SUCCESS = 'ADD_DISCUSSION_SUCCESS';
 export const ADD_DISCUSSION_FAILURE = 'ADD_DISCUSSION_FAILURE';
 
+export const EDIT_DISCUSSION_LOADING = 'EDIT_DISCUSSION_LOADING';
+export const EDIT_DISCUSSION_SUCCESS = 'EDIT_DISCUSSION_SUCCESS';
+export const EDIT_DISCUSSION_FAILURE = 'EDIT_DISCUSSION_FAILURE';
+
+export const REMOVE_DISCUSSION_LOADING = 'REMOVE_DISCUSSION_LOADING';
+export const REMOVE_DISCUSSION_SUCCESS = 'REMOVE_DISCUSSION_SUCCESS';
+export const REMOVE_DISCUSSION_FAILURE = 'REMOVE_DISCUSSION_FAILURE';
+
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
@@ -93,4 +101,29 @@ export const addDiscussion = (category_id, title, dBody, historyPush) => dispatc
 		.then(() => historyPush('/'))
 		.then(() => historyPush(`/discussions/category/${ category_id }`))
 		.catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
+};
+
+export const editDiscussion = (discussion_id, title, dBody, historyPush) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  dispatch({ type: EDIT_DISCUSSION_LOADING });
+  const headers = { headers: { Authorization: token } };
+	const body = { discussion_id, title, dBody };
+	return axios.put(`${ backendURL }/discussions/${user_id}`, body, headers)
+		.then(() => dispatch({ type: EDIT_DISCUSSION_SUCCESS }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/discussion/${ discussion_id }`))
+		.catch(err => handleError(err, EDIT_DISCUSSION_FAILURE)(dispatch));
+};
+
+export const removeDiscussion = (discussion_id, category_id, historyPush) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token, discussion_id } };
+	dispatch({ type: REMOVE_DISCUSSION_LOADING });
+	return axios.delete(`${ backendURL }/discussions/${ user_id }`, headers)
+		.then(() => dispatch({ type: REMOVE_DISCUSSION_SUCCESS }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/discussions/category/${ category_id }`))
+		.catch(err => handleError(err, REMOVE_DISCUSSION_FAILURE)(dispatch));
 };
