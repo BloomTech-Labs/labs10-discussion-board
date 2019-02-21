@@ -6,9 +6,43 @@ import styled from 'styled-components';
 import { updatePassword, displayError } from '../../store/actions/index.js';
 
 const EditPasswordFormWrapper = styled.form`
+width: 300px;
 	margin: 10px;
-	padding: 10px;
-	border: 1px solid red;
+	padding: 12px;
+	border: 1px solid black;
+	border-radius: 5px;
+`;
+
+const EditPassword = styled.div`
+	margin-top: -15px;
+`;
+
+const EditForm = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	input {
+		margin: 0px 0px 15px 0px;
+		height: 20px;
+		font-size: 16px;
+	}
+
+	button {
+		width: 30%;
+      	border-radius: 5px;
+      	font-size: 14px;
+     	margin-top: 10px;
+      		&:hover {
+        		background-color: #b7e1f0;
+        		cursor: pointer;
+        		border-radius: 5px;
+      		}
+    }
+`;
+
+const Buttons = styled.div`
+	display: flex;
+	justify-content: space-evenly;
 `;
 
 class EditPasswordForm extends Component {
@@ -34,8 +68,8 @@ class EditPasswordForm extends Component {
 		const { toggleForm } = this.props;
 		return(
 			<EditPasswordFormWrapper onSubmit = { this.handleSubmit }>
-				<h1>Edit password</h1>
-
+				<EditPassword><h1>Edit password</h1></EditPassword>
+				<EditForm>
 				<input
 					placeholder = 'Enter old password'
 					name = 'oldPassword'
@@ -59,9 +93,11 @@ class EditPasswordForm extends Component {
 					onChange = { this.handleChange }
 					value = { newPassword1 }
 				/>
-
-				<button type = 'submit'>Submit</button>
-				<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+				<Buttons>
+					<button type = 'submit'>Submit</button>
+					<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+				</Buttons>
+				</EditForm>
 			</EditPasswordFormWrapper>
 		);
 	}

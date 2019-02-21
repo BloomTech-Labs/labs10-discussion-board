@@ -16,9 +16,7 @@ const DiscussionByCatWrapper = styled.div`
 	margin: 5px;
 	padding: 10px;
 	
-	box-shadow: 2px 3px 2px 2px gray;
-
-  box-shadow: 2px 3px 2px 2px gray;
+	box-shadow: 2px 3px 2px 2px #115075;
 
   .title {
     text-decoration: none;
@@ -27,19 +25,16 @@ const DiscussionByCatWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
+      color: #b7e1f0;
     }
   }
-  .category {
-    font-size: 18px;
-    color: black;
+    a {
+      color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
+      color: #b7e1f0;
     }
   }
   .nameanddate {
@@ -48,9 +43,8 @@ const DiscussionByCatWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
+      color: #b7e1f0;
     }
   }
 

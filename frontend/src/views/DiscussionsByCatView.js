@@ -13,11 +13,12 @@ import { DiscussionsByCats, FollowCat, AddDiscussionForm } from '../components/i
 const DiscussionsByCatViewWrapper = styled.div`
 	border: 0px solid black;
 	padding: 5px;
-	box-shadow: gray 0px 0px;
+	box-shadow: #115075 0px 0px;
+	width: 90%;
 	hr {
-		border-color: gray;
+		border-color: black;
 		margin-top: -10px;
-		margin-bottom 20px;
+		margin-bottom: 20px;
 	}
 `;
 

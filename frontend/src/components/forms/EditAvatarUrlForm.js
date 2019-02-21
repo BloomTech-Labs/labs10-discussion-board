@@ -6,21 +6,29 @@ import styled from 'styled-components';
 import { uploadAvatarUrl } from '../../store/actions/index.js';
 
 const EditAvatarUrlFormWrapper = styled.form`
+	width: 300px;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border:1px solid #5B5B5B;
+	border:1px solid black;
 	border-radius: 5px;
 	padding: 5px 10px;
+	margin-bottom: 10px;
 
 	.upload-input-wrapper {
+		width: 90%;
 		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		margin-top: 10px;
+
+		input {
+			width: 100%;
+			font-size: 16px;
+		}
 	}
 
 	.upload-btn {
@@ -33,25 +41,31 @@ const EditAvatarUrlFormWrapper = styled.form`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #534C2F;
+			background-color: #b7e1f0;
 		}
 	}
 
 	.btn {
 		margin: 10px;
-		background-color: #C9C19F;
-		border: 1px solid #5B5B5B;
+		background-color: white;
 		border-radius: 5px;
 		padding: 5px 10px;
-		color: #5B5B5B;
+		color: black;
 
 		&:hover {
-			background-color: #84794B;
-			color: white;
+			background-color: #b7e1f0;
 			cursor: pointer;
 		}
 	}
 `;
+
+const Buttons = styled.div`
+	display: flex;
+
+	button {
+		font-size: 12px;
+	}
+`
 
 class EditAvatarUrlForm extends Component {
 	state = { url: '' };
@@ -74,6 +88,7 @@ class EditAvatarUrlForm extends Component {
 			<EditAvatarUrlFormWrapper onSubmit = { this.handleSubmit }>
 				<div className = 'upload-input-wrapper'>
 					<input
+						placeholder = 'Enter URL'
 						type = 'text'
 						name = 'url'
 						onChange = { this.handleInputChange }
@@ -84,7 +99,7 @@ class EditAvatarUrlForm extends Component {
 					url &&
 					<button className = 'upload-btn' type = 'submit'>Submit</button>
 				}
-
+				<Buttons>
 				<button
 					className = 'btn reset-btn'
 					type = 'button'
@@ -96,6 +111,7 @@ class EditAvatarUrlForm extends Component {
 					className = 'btn cancel-btn'
 					onClick = { toggleForm }
 				>Cancel</button>
+				</Buttons>
 			</EditAvatarUrlFormWrapper>
 		);
 	}
