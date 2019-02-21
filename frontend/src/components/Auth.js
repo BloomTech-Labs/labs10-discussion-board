@@ -67,8 +67,9 @@ class Auth extends Component {
     this.setIsLoginDropdownClicked(!this.state.isLoginDropdownClicked);
   };
 
-  setIsLoginDropdownClicked = async isClicked => {
-    await this.setState({ isLoginDropdownClicked: isClicked });
+  setIsLoginDropdownClicked = isClicked => {
+    this.setState({ isLoginDropdownClicked: isClicked });
+    return Promise.resolve()
   };
 
   render() {
