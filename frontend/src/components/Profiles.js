@@ -16,7 +16,7 @@ margin: 1px;
 padding: 1px;
 border: 1px solid gray;
 width: 90%;
-background-color: #d3ccaf;
+background-color: #f0eeec;
 box-shadow: gray 2px 1px 2px 2px;
 @media(max-width: 768px){
   display: flex;
