@@ -8,6 +8,7 @@ import { getCategories } from '../store/actions/index.js';
 
 const CategoryWrapper = styled.div`
     display: flex;
+    flex-direction: column;
 `
 
 class CategoriesList extends Component {
