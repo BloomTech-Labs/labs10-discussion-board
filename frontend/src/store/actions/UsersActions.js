@@ -73,6 +73,11 @@ export const UPDATE_EMAIL_LOADING = 'UPDATE_EMAIL_LOADING';
 export const UPDATE_EMAIL_SUCCESS = 'UPDATE_EMAIL_SUCCESS';
 export const UPDATE_EMAIL_FAILURE = 'UPDATE_EMAIL_FAILURE';
 
+// stripe pay
+export const STRIPE_PAYMENT_LOADING = 'STRIPE_PAYMENT_LOADING';
+export const STRIPE_PAYMENT_SUCCESS = 'STRIPE_PAYMENT_SUCCESS';
+export const STRIPE_PAYMENT_FAILURE = 'STRIPE_PAYMENT_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -195,7 +200,7 @@ export const uploadAvatar = (user_id, avatarData, onUploadAvatarSuccess) => disp
   dispatch({ type: UPLOAD_AVATAR_LOADING });
 
   return axios
-    .put(`${ backendUrl }/users/avatar/${ user_id }`, avatarData, headers)
+    .put(`${backendUrl}/users/avatar/${user_id}`, avatarData, headers)
     .then(res => dispatch({ type: UPLOAD_AVATAR_SUCCESS, payload: res.data }))
     .then(() => onUploadAvatarSuccess())
     .catch(err => handleError(err, UPLOAD_AVATAR_FAILURE)(dispatch));
@@ -210,7 +215,7 @@ export const uploadAvatarUrl = (user_id, avatarUrl, onUploadAvatarSuccess) => di
   dispatch({ type: UPLOAD_AVATAR_URL_LOADING });
 
   return axios
-    .put(`${ backendUrl }/users/avatar-url/${ user_id }`, avatarUrl, headers)
+    .put(`${backendUrl}/users/avatar-url/${user_id}`, avatarUrl, headers)
     .then(res => dispatch({ type: UPLOAD_AVATAR_URL_SUCCESS, payload: res.data }))
     .then(() => onUploadAvatarSuccess())
     .catch(err => handleError(err, UPLOAD_AVATAR_URL_FAILURE)(dispatch));
@@ -254,26 +259,34 @@ export const confirmEmail = (email_confirm_token, historyPush) => dispatch => {
   const body = { email_confirm_token };
   dispatch({ type: EMAIL_CONFIRM_LOADING });
   return axios
-    .post(`${ backendUrl }/users/confirm-email`, body)
+    .post(`${backendUrl}/users/confirm-email`, body)
     .then(res => dispatch({ type: EMAIL_CONFIRM_SUCCESS, payload: res.data.message }))
     .then(() => historyPush('/home'))
     .catch(err => handleError(err, EMAIL_CONFIRM_FAILURE)(dispatch));
 };
 
 export const updateEmail = (email, history) => dispatch => {
-	const user_id = localStorage.getItem('symposium_user_id');
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
-	const body = { email };
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { email };
 
-	dispatch({ type: UPDATE_EMAIL_LOADING });
+  dispatch({ type: UPDATE_EMAIL_LOADING });
 
   return axios
-    .put(`${ backendUrl }/users/update-email/${ user_id }`, body, headers)
+    .put(`${backendUrl}/users/update-email/${user_id}`, body, headers)
     .then(res => dispatch({
       type: UPDATE_EMAIL_SUCCESS,
       payload: res.data,
     }))
-    .then(() => history.push(`/settings/${ user_id }`))
+    .then(() => history.push(`/settings/${user_id}`))
     .catch(err => handleError(err, UPDATE_EMAIL_FAILURE, history)(dispatch));
 };
+
+export const stripePayment = (headersObj) => dispatch => {
+  dispatch({ type: STRIPE_PAYMENT_LOADING });
+  return axios
+    .post(`${backendUrl}/auth/stripe`, headersObj)
+    .then(res => dispatch({ type: STRIPE_PAYMENT_SUCCESS, payload: res.data[0] }))
+    .catch(err => handleError(err, STRIPE_PAYMENT_FAILURE, true)(dispatch));
+}

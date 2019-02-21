@@ -19,7 +19,16 @@ import { getDiscussionById, removePost, removeDiscussion } from '../store/action
  **************************************************************************************************/
 const DiscussionWrapper = styled.div`
   width: 90%;
+  display: flex;
+  flex-direction: column;
 
+  @media(max-width: 768px){
+    display: flex;
+    width: 90%
+
+    @media (max-width: 450px){
+      width: 90%;
+    }
   h1 {
     margin-top: 30px;
     margin-bottom: 10px;
@@ -28,7 +37,14 @@ const DiscussionWrapper = styled.div`
 
 const DiscussionInfo = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+
+  @media(max-width: 768px){
+    display: flex;
+    width: 90%
+
+    @media (max-width: 450px){
+    }
 `;
 const CategoryName = styled.div`
   font-size: 18px;
@@ -38,8 +54,13 @@ const CategoryName = styled.div`
 
 const PostedBy = styled.div`
   display: flex;
-  width: 25%;
+  flex-direction: column;
+  @media(max-width: 768px){
 
+
+    @media (max-width: 450px){
+    }
+  }
   .username {
     margin: 0px 7px;
     font-weight: bold;
@@ -139,7 +160,7 @@ class Discussion extends Component {
             <Link className='username' to={`/profile/${user_id}`}>
               {username}
             </Link>
-            {moment(new Date(Number(created_at))).fromNow()}
+            <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
           <DiscussionVotes>
             Discussion Votes: {discussion_votes}

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Discuss from '../assets/img/Discuss.png';
 import TextLoop from "react-text-loop";
 
 
 // components
-import { DiscussionsByCats, FollowCat, AddDiscussionForm } from '../components/index.js';
+import { DiscussionsByCats, FollowCat } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -18,6 +18,9 @@ const DiscussionsByCatViewWrapper = styled.div`
 		border-color: gray;
 		margin-top: -10px;
 		margin-bottom 20px;
+	}
+	@media (max-width: 450px){
+		width: 95%;
 	}
 `;
 
@@ -60,19 +63,17 @@ const TextLooper = styled.div`
 	font-size: 28px;
 	margin-left: 30px;
 	color: white;
+	@media (max-width: 768px){
+		display: none;
+	}
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-class DiscussionsByCatView extends Component {
-	state = { showAddForm: false };
-	toggleShowAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
-	render() {
-		const { history, match } = this.props;
-		const { showAddForm } = this.state;
-		const id  = match.params.category_id;
-		const historyPush = history.push;
+const DiscussionsByCatView = ({ history, match }) => {
+	const id  = match.params.category_id;
+	const historyPush = history.push;
 
 		return (
 			<DiscussionsByCatViewWrapper>

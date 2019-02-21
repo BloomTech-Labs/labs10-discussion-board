@@ -9,26 +9,36 @@ import styled from 'styled-components';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const ProfilesWrapper = styled.div`
-	margin: 4%;
-	padding: 10px;
-  border: 1px solid black;
+display: flex;
+flex-direction: column;
+align-self: center;
+margin: 1px;
+padding: 1px;
+border: 1px solid gray;
+width: 90%;
+background-color: #d3ccaf;
+box-shadow: gray 2px 1px 2px 2px;
+@media(max-width: 768px){
   display: flex;
-  align-content: space-between;
-  width: 100%;
-  background-color: #d3ccaf;
+  flex-direction: column;
+  width: 90%
+  @media (max-width: 450px){
+  }
+}
+  
 
 	.discussion-title {
 		font-weight: bold;
   }
   &:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.13);
+    background-color: rgba(255, 255, 255, 0.40);
   }
 `;
 
 const WrappedDiv = styled.div`
   margin: 5px;
-  padding: 2%;
+  padding: 5px;
   display: flex;
   
   .property-title {
@@ -45,8 +55,8 @@ const WrappedDiv = styled.div`
 `;
 
 const ProfilesTitle = styled.div`
-  margin: 5px;
-  padding: 2%;
+  margin: 2px;
+  padding: 2px;
   display: flex;
   font-weight: bold;
   justify-content: space-around;
@@ -85,10 +95,6 @@ class Profiles extends Component {
           profileItems = profiles.map( (profile, index) => 
           <div key= {index} onClick = { () => this.selectUsers(profile.id) } >
           <ProfilesWrapper>
-            <WrappedDiv>
-              <p className = 'property-title'> </p>
-              <p className = 'property-content'> {profile.id}</p>
-            </WrappedDiv>
             <WrappedDiv>
               <p className = 'property-title'> Username: </p>
               <p className = 'property-content'> {profile.username}</p>

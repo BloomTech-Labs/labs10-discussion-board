@@ -34,7 +34,7 @@ const initialState = {
   discussion: {
     posts: []
   },
-  discussionsC: [],
+  discussions: [],
   follows: {
     discussionId: []
   }
@@ -58,7 +58,7 @@ export const DiscussionsReducer = (state = initialState, action) => {
       case GET_DISCUSSIONS_SUCCESS:
       return {
         ...state,
-        discussionsC: action.payload
+        discussions: action.payload
       };
 
     case REMOVE_DISCUSSION_LOADING:

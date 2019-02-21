@@ -2,6 +2,15 @@
  ******************************************* dependencies ******************************************
  **************************************************************************************************/
 require('dotenv').config();
+const {
+  safeUsrnameSqlLetters,
+  safePwdSqlLetters,
+  accountStatusTypes,
+  numOfHashes,
+  accountRoleTypes,
+  subscriptionPlans,
+  backendStripePkToken
+} = require('../config/globals.js');
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
@@ -9,14 +18,7 @@ const base64Img = require('base64-img');
 const uuidv4 = require('uuid/v4');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
-const {
-  safeUsrnameSqlLetters,
-  safePwdSqlLetters,
-  accountStatusTypes,
-  numOfHashes,
-  accountRoleTypes,
-  subscriptionPlans
-} = require('../config/globals.js');
+const stripe = require('stripe')(backendStripePkToken);
 
 /***************************************************************************************************
  ******************************************** middleware *******************************************
@@ -416,5 +418,25 @@ router.post('/auth0-login', async (req, res) => {
       res.status(500).json({ error: `Failed to findByUsername(): ${err}` })
     );
 });
+
+router.post('/stripe', (req, res, next) => {
+  const stripeToken = req.body.data.stripeToken;
+  const payment = Number(req.body.data.payment);
+
+
+  (async () => {
+    try {
+      const charge = await stripe.charges.create({
+        amount: payment,
+        currency: 'usd',
+        description: 'bronze plan',
+        source: stripeToken
+      });
+      res.status(201).json([{ charge }]);
+    } catch (err) {
+      res.status(401).json({ err })
+    }
+  })();
+})
 
 module.exports = router;
