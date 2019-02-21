@@ -81,7 +81,7 @@ export const followDiscussion = (
     .catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };
 
-// add a post
+// add a discussion
 export const addDiscussion = (user_id, category_id, title, body, historyPush) => dispatch => {
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
