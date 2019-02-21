@@ -16,72 +16,6 @@ import {
 
 const SettingsWrapper = styled.div`
   border: 1px solid black;
-  width: 45%;
-  padding: 0 20px;
-
-    h1 {
-      color: white;
-      text-align: center;
-    }
-`;
-
-const EmailandAvatar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Email = styled.div`
-  font-size: 18px;
-  margin-right: 70px;
-`;
-
-const AvatarPic = styled.div`
-  display: flex;
-  align-items: center;
-
-    .avatartext {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-`;
-
-const IsAuth = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ColumnView = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Buttons = styled.div`
-  margin-left: 30px;
-    button {
-      border-radius: 5px;
-      font-size: 14px;
-      margin: 5px 20px 20px 0;
-      &:hover {
-        background-color: #b7e1f0;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-    }
-`;
-
-const ChangeAvatarSettings = styled.div`
-    button {
-      border-radius: 5px;
-      font-size: 14px;
-      margin: 5px 20px 20px 0;
-      &:hover {
-        background-color: #b7e1f0;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-    }
 `;
 
 class Settings extends Component {
@@ -97,39 +31,32 @@ class Settings extends Component {
     return (
       <SettingsWrapper>
         <h1>{username}'s Settings</h1>
-        <EmailandAvatar>
-          <Email>Email: {email || 'N/A'}</Email>
-          { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
-          <AvatarPic>
-            <div className = 'avatartext'>Avatar:</div>
-            <Avatar height='80px' width='80px' src={avatar} />
-          </AvatarPic>
-        </EmailandAvatar>
+
+        <p>Email: {email || 'N/A'}</p>
+        { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+        <p>Avatar:</p>
+        <Avatar height='50px' width='50px' src={avatar} />
         <br />
-        <IsAuth>
-          <ColumnView>
         {
           isAuth0 ?
-          <p className='usingauthO'>You are using Auth0.<br /> You cannot change your email.</p>
+          <p>You are Auth0. You cannot change your email.</p>
           :
           email ?
           <button onClick = { () => this.toggleForm('email-form') }>Change email</button>
           :
           <button onClick = { () => this.toggleForm('email-form') }>Set email</button>
-          
         }
-        <Buttons>
         <button onClick={() => this.toggleForm('password-form')}>
           Change password
         </button>
         <button onClick={() => this.toggleForm('avatar-btns')}>
           Change avatar
-        </button></Buttons></ColumnView>
+        </button>
         {show === 'password-form' && (
           <EditPasswordForm toggleForm={this.toggleForm} />
         )}
         {show === 'avatar-btns' && (
-          <ChangeAvatarSettings>
+          <div>
             <button onClick={() => this.toggleForm('avatar-pc-form')}>
               Upload from PC
             </button>
@@ -137,7 +64,7 @@ class Settings extends Component {
               Upload from URL
             </button>
             <button onClick={() => this.toggleForm('')}>Cancel</button>
-          </ChangeAvatarSettings>
+          </div>
         )}
         {show === 'avatar-pc-form' && (
           <EditAvatarForm
@@ -157,7 +84,6 @@ class Settings extends Component {
             history = { this.props.history }
           />
         )}
-        </IsAuth>
       </SettingsWrapper>
     );
   }
