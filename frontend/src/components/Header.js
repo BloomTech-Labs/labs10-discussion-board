@@ -86,6 +86,7 @@ const Title = styled.div`
     }
   }
   .subheader { 
+    color: #f7f5f3;
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){

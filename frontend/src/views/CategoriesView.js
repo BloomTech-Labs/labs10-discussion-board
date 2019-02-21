@@ -5,6 +5,7 @@ import { CategoriesList } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
   width: 90%;
+  background-color: #e8e3e0; 
 
   .header {
     text-align: center;
@@ -21,7 +22,7 @@ const CategoriesWrapper = styled.div`
     margin-left: 0%;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: black;
     &:hover {
       cursor: pointer;
       color: black;
