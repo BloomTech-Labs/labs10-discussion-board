@@ -14,12 +14,12 @@ const CategoryName = styled.div`
 `;
 
 const CategoryLink = styled.div`
-  a {
+  .category-link {
     color: black;
 
     &:hover {
       cursor: pointer;
-      color: #b7e1f0;
+      color: white;
     }
   }
 `;

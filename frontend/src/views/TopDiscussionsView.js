@@ -12,9 +12,9 @@ import { TopDiscussions } from '../components/index.js';
 const TopDiscussionsViewWrapper = styled.div`
   border: 0px solid black;
   padding: 5px;
-  box-shadow: #115075 0px 0px;
+  box-shadow: gray 0px 0px;
   hr {
-    border-color: black;
+    border-color: gray;
     margin-top: -10px;
     margin-bottom: 20px;
   }

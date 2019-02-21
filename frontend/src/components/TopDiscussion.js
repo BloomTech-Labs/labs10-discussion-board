@@ -15,7 +15,8 @@ const TopDiscussionWrapper = styled.div`
   justify-content: space-between;
   margin: 5px;
   padding: 10px;
-  box-shadow: 2px 3px 2px #115075;
+
+  box-shadow: 2px 3px 2px 2px gray;
 
   .title {
     text-decoration: none;
@@ -24,17 +25,19 @@ const TopDiscussionWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: #b7e1f0;
+      color: white;
     }
   }
-  a {
+  .category {
     font-size: 18px;
     color: black;
     &:hover {
       text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: #b7e1f0;
+      color: white;
     }
   }
   .nameanddate {
@@ -43,8 +46,9 @@ const TopDiscussionWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: #b7e1f0;
+      color: white;
     }
   }
 

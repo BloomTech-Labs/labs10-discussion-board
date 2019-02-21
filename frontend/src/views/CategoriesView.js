@@ -7,7 +7,6 @@ const CategoriesWrapper = styled.div`
   width: 90%;
 
   .header {
-    color: white;
     text-align: center;
     margin-bottom: 10px;
   }
