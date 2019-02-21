@@ -22,7 +22,13 @@ const DivWrapper = styled.div`
     flex-direction: column;
     align-items: center;
   }
- 
+  &:hover {
+    cursor: pointer;
+  }
+  
+  @media (max-width: 450px){
+    
+    
     .avatarWelcome {
       display: flex
       flex-direction: column;
@@ -65,6 +71,12 @@ const Signout = styled.a`
     text-decoration: underline;
   }
 `;
+
+const Profile = styled.a`
+&:hover {
+  cursor: pointer;
+}
+  `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
