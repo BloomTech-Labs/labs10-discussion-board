@@ -30,7 +30,7 @@ const DivWrapper = styled.div`
     
     
     .avatarWelcome {
-      display: flex
+      display: flex;
       flex-direction: column;
       align-items: center;
     }
