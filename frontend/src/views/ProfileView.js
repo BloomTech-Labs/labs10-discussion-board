@@ -25,7 +25,7 @@ const ProfileWrapper = styled.div`
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
-    width: 90%
+    width: 90%;
     @media (max-width: 450px){
     }
   }

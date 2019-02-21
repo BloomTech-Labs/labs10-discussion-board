@@ -15,7 +15,7 @@ const StyledHeader = styled.div`
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
-    width: 90%
+    width: 90%;
 
     @media (max-width: 450px){
     }
@@ -70,6 +70,10 @@ const Title = styled.div`
 
   }
   h1 {
+    a {
+      color: #f7f5f3;
+      text-decoration: white;
+    }
     margin-bottom: -35px;
     width: 90%;  
     @media (max-width: 768px){
