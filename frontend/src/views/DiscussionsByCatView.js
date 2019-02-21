@@ -19,6 +19,9 @@ const DiscussionsByCatViewWrapper = styled.div`
 		margin-top: -10px;
 		margin-bottom 20px;
 	}
+	@media (max-width: 450px){
+		width: 95%;
+	}
 `;
 
 const DiscussionsByCatImage = styled.img`
@@ -60,6 +63,9 @@ const TextLooper = styled.div`
 	font-size: 28px;
 	margin-left: 30px;
 	color: white;
+	@media (max-width: 768px){
+		display: none;
+	}
 `;
 
 /***************************************************************************************************
@@ -109,5 +115,4 @@ class DiscussionsByCatView extends Component {
 		);
 	}
 };
-
 export default DiscussionsByCatView;

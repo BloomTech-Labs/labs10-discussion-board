@@ -7,9 +7,19 @@ import { Nav } from '../components/index.js';
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row-reverse;
   margin-top: 20px;
   margin-bottom: 30px;
   width: 90%;
+
+  @media(max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    width: 90%
+
+    @media (max-width: 450px){
+    }
+  }
 
   .link {
     font-size: 18px;
@@ -30,6 +40,21 @@ const TitleAndLogo = styled.div`
   display: flex;
   margin-right: 0px;
   align-self: center;
+
+  @media (max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  @media (max-width: 450px){
+    width: 90%;
+    display: flex;
+    flex-directin: column;
+    align-items: center;
+    margin-right: auto;
+  }
+  
 `;
 
 const Title = styled.div`
@@ -37,35 +62,97 @@ const Title = styled.div`
   margin-left: 10px;
   color: white;
   font-size: 36px;
+
+  @media (max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    width: 90%
+
+  }
   h1 {
     margin-bottom: -35px;
+    width: 90%;  
+    @media (max-width: 768px){
+      width: 90%;
+      @media (max-width: 450px){
+        margin: 0 auto;
+        font-size: 45px;
+        width: 95%;
+      }
+    }
   }
+  .subheader { 
+    font-size: 14px;
+    margin-left: 187px;
+    @media (max-width: 768px){
+      @media (max-width: 450px){
+        display: flex;
+        text-align: center;
+        margin: 0 auto;
+
+      }
+    }
+}
 `;
 
-const SubHeader = styled.div`
-  font-size: 14px;
-  margin-left: 187px;
-`;
+const Navi = styled.div`
+
+  @media (max-width: 768px){
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: center;
+    margin-bottom: 1em;
+
+    @media (max-width: 450px){
+      width: 100%;
+    }
+  }
+`
+const Links = styled.div`
+
+
+  .link {
+    font-weight: bold;
+    font-size: 2em;
+
+  }
+  @media (max-width: 750px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    @media (max-width: 450px){
+    }
+  }
+`
 
 const Header = ({ history }) => {
   return (
     <StyledHeader>
+      <Navi>
+        <Nav history={history} />
+      </Navi>
       <TitleAndLogo>
-        <img src={meeting} alt='discussion' />
+        <div>
+          <img src={meeting} alt='discussion' />
+        </div>
         <Title>
           <h1><Link className='header' to='/home'>Symposium</Link></h1>
-          <SubHeader>
+          <div className='subheader'>
             <h2>The discussion starts here</h2>
-          </SubHeader>
+          </div>
         </Title>
       </TitleAndLogo>
-      <Link className='link td-link' to='/home'>
-        Top Discussions
-      </Link>
-      <Link className='link c-link' to='/categories'>
-        Categories
-      </Link>
-      <Nav history={history} />
+      <Links>
+        <Link className='link td-link' to='/home'>
+          Top Discussions
+        </Link>
+        <Link className='link c-link' to='/categories'>
+          Categories
+        </Link>
+      </Links>
     </StyledHeader>
   );
 };

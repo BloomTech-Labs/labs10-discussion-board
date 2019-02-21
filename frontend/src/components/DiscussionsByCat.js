@@ -20,6 +20,10 @@ const DiscussionByCatWrapper = styled.div`
 
   box-shadow: 2px 3px 2px 2px gray;
 
+  @media (max-width: 450px){
+    width: 90%;
+    margin: 0 auto;
+  }
   .title {
     text-decoration: none;
     font-weight: bold;
