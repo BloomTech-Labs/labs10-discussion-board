@@ -15,7 +15,7 @@ const router = express.Router();
 
 //add post vote 
 router.post('/', (req, res) => {
-    console.log('in the router')
+
     // post_id, user_id, and type must be integers
     const { post_id, user_id, type } = req.body;
     if(
@@ -28,21 +28,28 @@ router.post('/', (req, res) => {
         //Check to see if User has already voted
         return postVotesDB.get(post_id, user_id)
             .then(post => {
+
                 //If user had already voted
                 if (post.length) {
                     //and it was the same vote type
-                } if(post[0].type === type) {
+                 if(post[0].type === type) {
+
                     //then remove the vote
-                    return postVotesDB.remove(post.id, user.id)
+                    return postVotesDB.remove(post_id, user_id)
                         .then(() => res.status(201).json({ error: 'Vote has been removed' }))
-                        .catch(() => res.status(500).json({ error: `Failed to update(): ${ err }` }))        
+                        .catch((err) => res.status(500).json({ error: `Failed to remove(): ${ err }` }))        
                 }
+                // else if it wasnt the same vote type, update the vote type
+				return postVotesDB.update(post_id, user_id, type)
+                    .then(() => res.status(201).json([{ message: 'Vote changed.' }]))
+                    .catch(err => res.status(500).json({ error: `Failed to update(): ${ err }` }));
+        }
                 //Else If user has not voted, add the vote type
-                return postVotesDB.add( post.id, user.id, type)
+                return postVotesDB.add(post_id, user_id, type)
                     .then(() => res.status(200).json({ message: 'Vote added!'}))
-                    .catch(() => res.status(500).json({ error: `Failed to add(): ${ err }` }))
+                    .catch((err) => res.status(500).json({ error: `Failed to add(): ${ err }` }))
                 })
-            .catch(() => {
+            .catch((err) => {
                 res.status(500).json({ error: `Failed to get(): ${ err }`});
             });
 });

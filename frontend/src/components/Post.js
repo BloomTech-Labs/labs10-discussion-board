@@ -40,6 +40,7 @@ const Post = ({
   showEditPostForm,
   updateEditPostForm,
   handleRemovePost,
+  handlePostVote,
 }) => {
 
   const {
@@ -53,12 +54,8 @@ const Post = ({
     username
   } = post;
 
-const handlePostVote = type => {
-    console.log('id', post.id)
-    console.log('user id', post.user_id) 
-    console.log('type', type) 
-    console.log('votecount', post_votes)
-    handlePostVote(post.id, post.user_id, type)
+const handleVote = type => {
+    handlePostVote(post.id, post.user_id, type, historyPush, discussion_id)
   }
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () =>
@@ -77,7 +74,7 @@ const handlePostVote = type => {
       <p>post votes: {post_votes}</p>
       <div>
        <VoteCount 
-        handleVote = { handlePostVote } 
+        handleVote = { handleVote } 
         vote_count = { post_votes } />
       </div>
       <PostedBy>
@@ -118,5 +115,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  {handlePostVote}
 )(Post);

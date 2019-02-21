@@ -85,8 +85,6 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
   } = discussion;
 
   const handleVote = type => handleDiscussionVote(id, type);
-  console.log('handleDiscussionVote', id)
-  console.log('handletype')
   return (
     <TopDiscussionWrapper>
       <VoteCount handleVote={handleVote} vote_count={vote_count} />
