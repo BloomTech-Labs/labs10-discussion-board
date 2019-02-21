@@ -10,20 +10,6 @@ const StyledHeader = styled.div`
   margin-top: 20px;
   margin-bottom: 30px;
   width: 90%;
-
-  .link {
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-
-    &:hover {
-      text-decoration: underline;
-      cursor: pointer;
-      color: black;
-    }
-  }
 `;
 
 const TitleAndLogo = styled.div`
@@ -51,6 +37,24 @@ const SubHeader = styled.div`
   margin-left: 187px;
 `;
 
+const Links = styled.div`
+  display: flex;
+  .link {
+    margin-right: 40px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+      color: black;
+    }
+  }
+`;
+
 const Header = ({ history }) => {
   return (
     <StyledHeader>
@@ -63,12 +67,14 @@ const Header = ({ history }) => {
           </SubHeader>
         </Title>
       </TitleAndLogo>
-      <Link className='link td-link' to='/home'>
+      <Links>
+        <Link className='link td-link' to='/home'>
         Top Discussions
-      </Link>
-      <Link className='link c-link' to='/categories'>
+        </Link>
+        <Link className='link c-link' to='/categories'>
         Categories
-      </Link>
+        </Link>
+      </Links>
       <Nav history={history} />
     </StyledHeader>
   );
