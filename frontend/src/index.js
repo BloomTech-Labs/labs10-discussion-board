@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
 	users: UsersReducer,
 	posts: PostsReducer,
 	discussions: DiscussionsReducer,
-	discussionsByCat: DiscussionsReducer,
+	discussionsC: DiscussionsReducer,
 	profilesData: ProfilesReducer,
 	categories: CategoriesReducer,
 });

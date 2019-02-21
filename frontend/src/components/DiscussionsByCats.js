@@ -27,11 +27,11 @@ class DiscussionsByCats extends Component {
 			.then(() => getDiscussionsByCat(this.props.category_id, this.props.category_name));
 	};
 	render() {
-		const { discussionsByCat } = this.props;
+		const { discussionsC } = this.props;
 		return (
 			<DiscussionsByCatViewWrapper>
 				{
-					discussionsByCat.map((discussion, index) =>
+					discussionsC.map((discussion, index) =>
 						<DiscussionsByCat
 							key = { index }
 							discussion = { discussion }
@@ -45,7 +45,7 @@ class DiscussionsByCats extends Component {
 };
 
 const mapStateToProps = state => ({
-	discussionsByCat: state.discussions.discussionsByCat,
+	discussionsC: state.discussions.discussionsC,
 	user_id: state.users.user_id,
 });
 
