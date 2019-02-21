@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { subscriptionPlans, subscriptionPrices } from '../globals/globals.js';
+import StripeCheckout from 'react-stripe-checkout';
+import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, backendUrl } from '../globals/globals.js';
 import {
   register,
   displayError,
   isUsernameTaken,
-  isEmailTaken
+  isEmailTaken,
+  stripePayment
 } from '../store/actions/index';
 // import PropTypes from 'prop-types';
 
@@ -321,7 +323,7 @@ const DivSignature = styled.div`
   width: 320px;
   visibility: ${props =>
     props.subPlan === subscriptionPlans[2] ||
-    props.subPlan === subscriptionPlans[3]
+      props.subPlan === subscriptionPlans[3]
       ? 'show'
       : 'hidden'};
 `;
@@ -500,7 +502,7 @@ class RegisterView extends Component {
   };
 
   submitHandler = ev => {
-    ev.preventDefault();
+    ev && ev.preventDefault();
     try {
       let newAccount;
       // prettier-ignore
@@ -540,6 +542,33 @@ class RegisterView extends Component {
     }
   };
 
+  getStripePayment = () => {
+    switch (this.state.subPlan) {
+      case subscriptionPlans[1]:
+        return stripePayFormat[0];
+      case subscriptionPlans[2]:
+        return stripePayFormat[1];
+      case subscriptionPlans[3]:
+        return stripePayFormat[2];
+      default:
+        return 0;
+    }
+  }
+
+  onToken = (token) => {
+    const headersObj = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: {
+        stripeToken: token.id,
+        payment: this.getStripePayment()
+      }
+    }
+    this.props.stripePayment(headersObj).then(() => this.submitHandler());
+  }
+
   render() {
     return (
       <DivWrapper>
@@ -547,233 +576,242 @@ class RegisterView extends Component {
         {this.state.isReady ? (
           <DivConfirm>
             <h1>Confirm New Account Information</h1>
-            <button onClick={ev => this.setIsReady(ev, false)}>Back</button>
-            <button onClick={ev => this.submitHandler(ev)}>Confirm</button>
+            <button onClick={() => this.setState({ isReady: false })}>Back</button>
+            {this.state.subPlan === subscriptionPlans[0] ? (
+              <button onClick={ev => this.submitHandler(ev)}>Confirm</button>
+            ) : (
+                <div>
+                  <StripeCheckout
+                    token={this.onToken}
+                    stripeKey={stripeToken}
+                  />
+                </div>
+              )}
           </DivConfirm>
         ) : (
-          <Form>
-            <DivSubscriptionPlan>
-              <h1>Select Subscription Plan</h1>
-              <DivSelectBanners>
-                <DivBanner
-                  onClick={() => this.selectSubPlan(subscriptionPlans[0])}
-                >
-                  <DivFreePlan subPlan={this.state.subPlan}>
-                    <DivFeatures>
-                      <h2>Free Plan</h2>
-                      <ul>
-                        <li>Create Categories</li>
-                        <li>Create Discussions</li>
-                        <li>Create Posts(replies)</li>
-                      </ul>
-                    </DivFeatures>
-                    <h4>{subscriptionPrices[0]}</h4>
-                  </DivFreePlan>
-                  <input
-                    type='radio'
-                    value='free-plan'
-                    name='sub-plan'
-                    checked={
-                      this.state.subPlan === subscriptionPlans[0] && true
-                    }
-                    onChange={ev => this.handleRadio(ev)}
-                  />
-                </DivBanner>
-                <DivBanner
-                  onClick={() => this.selectSubPlan(subscriptionPlans[1])}
-                >
-                  <DivBronzePlan subPlan={this.state.subPlan}>
-                    <DivFeatures>
-                      <h2>Bronze Plan</h2>
-                      <ul>
-                        <li>Create Categories</li>
-                        <li>Create Discussions</li>
-                        <li>Create Posts(replies)</li>
-                        <li>No Ads</li>
-                      </ul>
-                    </DivFeatures>
-                    <h4>{subscriptionPrices[1]}</h4>
-                  </DivBronzePlan>
-                  <input
-                    type='radio'
-                    value='bronze-plan'
-                    name='sub-plan'
-                    checked={
-                      this.state.subPlan === subscriptionPlans[1] && true
-                    }
-                    onChange={ev => this.handleRadio(ev)}
-                  />
-                </DivBanner>
-                <DivBanner
-                  onClick={() => this.selectSubPlan(subscriptionPlans[2])}
-                >
-                  <DivSilverPlan subPlan={this.state.subPlan}>
-                    <DivFeatures>
-                      <h2>Silver Plan</h2>
-                      <ul>
-                        <li>Create Categories</li>
-                        <li>Create Discussions</li>
-                        <li>Create Posts(replies)</li>
-                        <li>No Ads</li>
-                        <li>Gets Signature</li>
-                      </ul>
-                    </DivFeatures>
-                    <h4>{subscriptionPrices[2]}</h4>
-                  </DivSilverPlan>
-                  <input
-                    type='radio'
-                    value='silver-plan'
-                    name='sub-plan'
-                    checked={
-                      this.state.subPlan === subscriptionPlans[2] && true
-                    }
-                    onChange={ev => this.handleRadio(ev)}
-                  />
-                </DivBanner>
-                <DivBanner
-                  onClick={() => this.selectSubPlan(subscriptionPlans[3])}
-                >
-                  <DivGoldPlan subPlan={this.state.subPlan}>
-                    <DivFeatures>
-                      <h2>Gold Plan</h2>
-                      <ul>
-                        <li>Create Categories</li>
-                        <li>Create Discussions</li>
-                        <li>Create Posts(replies)</li>
-                        <li>No Ads</li>
-                        <li>Gets Signature</li>
-                        <li>Gets Avatar</li>
-                      </ul>
-                    </DivFeatures>
-                    <h4>{subscriptionPrices[3]}</h4>
-                  </DivGoldPlan>
-                  <input
-                    type='radio'
-                    value='gold-plan'
-                    name='sub-plan'
-                    checked={
-                      this.state.subPlan === subscriptionPlans[3] && true
-                    }
-                    onChange={ev => this.handleRadio(ev)}
-                  />
-                </DivBanner>
-              </DivSelectBanners>
-            </DivSubscriptionPlan>
-            <DivRegisterForm>
-              <h1>Enter New Account Details</h1>
-              <DivAccountDetails>
-                <DivLeftSide>
-                  <DivUsername>
-                    <LabelUsername>
-                      <span>*</span>&nbsp;Username
-                    </LabelUsername>
-                    <InputUsername
-                      onChange={this.handleInputChange}
-                      placeholder='Required...'
-                      value={this.state.username}
-                      name='username'
-                      autoComplete='off'
-                    />
-                    {this.state.username !== '' &&
-                      this.props.userExistsLoadingMessage && (
-                        <img
-                          src={require('../assets/gif/spinner2.gif')}
-                          alt='spinner'
-                        />
-                      )}
-                    {(this.state.username === '' ||
-                      (!this.props.userExistsLoadingMessage &&
-                        this.props.usernameTaken)) && (
-                      <img src={require('../assets/img/redX.png')} alt='X' />
-                    )}
-                    {this.state.username !== '' &&
-                      !this.props.userExistsLoadingMessage &&
-                      !this.props.usernameTaken && (
-                        <img
-                          src={require('../assets/img/greenCheckmark.png')}
-                          alt='checkMark'
-                        />
-                      )}
-                  </DivUsername>
-                  <DivPassword>
-                    <LabelPassword>
-                      <span>*</span>&nbsp;Password
-                    </LabelPassword>
-                    <InputPassword
-                      type='password'
-                      onChange={this.handleInputChange}
-                      placeholder='Required...'
-                      value={this.state.password}
-                      name='password'
-                      autoComplete='off'
-                    />
-                  </DivPassword>
-                  <DivEmail>
-                    <LabelEmail>Email</LabelEmail>
-                    <InputEmail
-                      onChange={this.handleInputChange}
-                      placeholder='Optional...'
-                      value={this.state.email}
-                      name='email'
-                      autoComplete='off'
-                    />
-                    {this.state.email !== '' &&
-                      this.props.emailExistsLoadingMessage && (
-                        <img
-                          src={require('../assets/gif/spinner2.gif')}
-                          alt='spinner'
-                        />
-                      )}
-                    {this.state.email !== '' &&
-                      !this.props.emailExistsLoadingMessage &&
-                      this.props.emailTaken && (
-                        <img src={require('../assets/img/redX.png')} alt='X' />
-                      )}
-                    {this.state.email !== '' &&
-                      !this.props.emailExistsLoadingMessage &&
-                      !this.props.emailTaken && (
-                        <img
-                          src={require('../assets/img/greenCheckmark.png')}
-                          alt='checkMark'
-                        />
-                      )}
-                  </DivEmail>
-                  <DivSignature subPlan={this.state.subPlan}>
-                    <LabelSignature>Signature</LabelSignature>
-                    <TextareaSignature
-                      onChange={this.handleInputChange}
-                      placeholder='Optional...'
-                      value={this.state.signature}
-                      name='signature'
-                      autoComplete='off'
-                    />
-                  </DivSignature>
-                </DivLeftSide>
-                <DivRightSide>
-                  <DivAvatar subPlan={this.state.subPlan}>
-                    <img src='' alt='avatar preview' />
+            <Form>
+              <DivSubscriptionPlan>
+                <h1>Select Subscription Plan</h1>
+                <DivSelectBanners>
+                  <DivBanner
+                    onClick={() => this.selectSubPlan(subscriptionPlans[0])}
+                  >
+                    <DivFreePlan subPlan={this.state.subPlan}>
+                      <DivFeatures>
+                        <h2>Free Plan</h2>
+                        <ul>
+                          <li>Create Categories</li>
+                          <li>Create Discussions</li>
+                          <li>Create Posts(replies)</li>
+                        </ul>
+                      </DivFeatures>
+                      <h4>{subscriptionPrices[0]}</h4>
+                    </DivFreePlan>
                     <input
-                      onChange={this.handleInputChange}
-                      placeholder='PNG URL...'
-                      value={this.state.avatar}
-                      name='avatar'
-                      autoComplete='off'
+                      type='radio'
+                      value='free-plan'
+                      name='sub-plan'
+                      checked={
+                        this.state.subPlan === subscriptionPlans[0] && true
+                      }
+                      onChange={ev => this.handleRadio(ev)}
                     />
-                  </DivAvatar>
-                </DivRightSide>
-              </DivAccountDetails>
-            </DivRegisterForm>
-            <DivButtons>
-              <ButtonCancel to='/'>Cancel</ButtonCancel>
-              <button
-                to='/register/confirm'
-                onClick={ev => this.setIsReady(ev, true)}
-              >
-                Continue
+                  </DivBanner>
+                  <DivBanner
+                    onClick={() => this.selectSubPlan(subscriptionPlans[1])}
+                  >
+                    <DivBronzePlan subPlan={this.state.subPlan}>
+                      <DivFeatures>
+                        <h2>Bronze Plan</h2>
+                        <ul>
+                          <li>Create Categories</li>
+                          <li>Create Discussions</li>
+                          <li>Create Posts(replies)</li>
+                          <li>No Ads</li>
+                        </ul>
+                      </DivFeatures>
+                      <h4>{subscriptionPrices[1]}</h4>
+                    </DivBronzePlan>
+                    <input
+                      type='radio'
+                      value='bronze-plan'
+                      name='sub-plan'
+                      checked={
+                        this.state.subPlan === subscriptionPlans[1] && true
+                      }
+                      onChange={ev => this.handleRadio(ev)}
+                    />
+                  </DivBanner>
+                  <DivBanner
+                    onClick={() => this.selectSubPlan(subscriptionPlans[2])}
+                  >
+                    <DivSilverPlan subPlan={this.state.subPlan}>
+                      <DivFeatures>
+                        <h2>Silver Plan</h2>
+                        <ul>
+                          <li>Create Categories</li>
+                          <li>Create Discussions</li>
+                          <li>Create Posts(replies)</li>
+                          <li>No Ads</li>
+                          <li>Gets Signature</li>
+                        </ul>
+                      </DivFeatures>
+                      <h4>{subscriptionPrices[2]}</h4>
+                    </DivSilverPlan>
+                    <input
+                      type='radio'
+                      value='silver-plan'
+                      name='sub-plan'
+                      checked={
+                        this.state.subPlan === subscriptionPlans[2] && true
+                      }
+                      onChange={ev => this.handleRadio(ev)}
+                    />
+                  </DivBanner>
+                  <DivBanner
+                    onClick={() => this.selectSubPlan(subscriptionPlans[3])}
+                  >
+                    <DivGoldPlan subPlan={this.state.subPlan}>
+                      <DivFeatures>
+                        <h2>Gold Plan</h2>
+                        <ul>
+                          <li>Create Categories</li>
+                          <li>Create Discussions</li>
+                          <li>Create Posts(replies)</li>
+                          <li>No Ads</li>
+                          <li>Gets Signature</li>
+                          <li>Gets Avatar</li>
+                        </ul>
+                      </DivFeatures>
+                      <h4>{subscriptionPrices[3]}</h4>
+                    </DivGoldPlan>
+                    <input
+                      type='radio'
+                      value='gold-plan'
+                      name='sub-plan'
+                      checked={
+                        this.state.subPlan === subscriptionPlans[3] && true
+                      }
+                      onChange={ev => this.handleRadio(ev)}
+                    />
+                  </DivBanner>
+                </DivSelectBanners>
+              </DivSubscriptionPlan>
+              <DivRegisterForm>
+                <h1>Enter New Account Details</h1>
+                <DivAccountDetails>
+                  <DivLeftSide>
+                    <DivUsername>
+                      <LabelUsername>
+                        <span>*</span>&nbsp;Username
+                    </LabelUsername>
+                      <InputUsername
+                        onChange={this.handleInputChange}
+                        placeholder='Required...'
+                        value={this.state.username}
+                        name='username'
+                        autoComplete='off'
+                      />
+                      {this.state.username !== '' &&
+                        this.props.userExistsLoadingMessage && (
+                          <img
+                            src={require('../assets/gif/spinner2.gif')}
+                            alt='spinner'
+                          />
+                        )}
+                      {(this.state.username === '' ||
+                        (!this.props.userExistsLoadingMessage &&
+                          this.props.usernameTaken)) && (
+                          <img src={require('../assets/img/redX.png')} alt='X' />
+                        )}
+                      {this.state.username !== '' &&
+                        !this.props.userExistsLoadingMessage &&
+                        !this.props.usernameTaken && (
+                          <img
+                            src={require('../assets/img/greenCheckmark.png')}
+                            alt='checkMark'
+                          />
+                        )}
+                    </DivUsername>
+                    <DivPassword>
+                      <LabelPassword>
+                        <span>*</span>&nbsp;Password
+                    </LabelPassword>
+                      <InputPassword
+                        type='password'
+                        onChange={this.handleInputChange}
+                        placeholder='Required...'
+                        value={this.state.password}
+                        name='password'
+                        autoComplete='off'
+                      />
+                    </DivPassword>
+                    <DivEmail>
+                      <LabelEmail>Email</LabelEmail>
+                      <InputEmail
+                        onChange={this.handleInputChange}
+                        placeholder='Optional...'
+                        value={this.state.email}
+                        name='email'
+                        autoComplete='off'
+                      />
+                      {this.state.email !== '' &&
+                        this.props.emailExistsLoadingMessage && (
+                          <img
+                            src={require('../assets/gif/spinner2.gif')}
+                            alt='spinner'
+                          />
+                        )}
+                      {this.state.email !== '' &&
+                        !this.props.emailExistsLoadingMessage &&
+                        this.props.emailTaken && (
+                          <img src={require('../assets/img/redX.png')} alt='X' />
+                        )}
+                      {this.state.email !== '' &&
+                        !this.props.emailExistsLoadingMessage &&
+                        !this.props.emailTaken && (
+                          <img
+                            src={require('../assets/img/greenCheckmark.png')}
+                            alt='checkMark'
+                          />
+                        )}
+                    </DivEmail>
+                    <DivSignature subPlan={this.state.subPlan}>
+                      <LabelSignature>Signature</LabelSignature>
+                      <TextareaSignature
+                        onChange={this.handleInputChange}
+                        placeholder='Optional...'
+                        value={this.state.signature}
+                        name='signature'
+                        autoComplete='off'
+                      />
+                    </DivSignature>
+                  </DivLeftSide>
+                  <DivRightSide>
+                    <DivAvatar subPlan={this.state.subPlan}>
+                      <img src='' alt='avatar preview' />
+                      <input
+                        onChange={this.handleInputChange}
+                        placeholder='PNG URL...'
+                        value={this.state.avatar}
+                        name='avatar'
+                        autoComplete='off'
+                      />
+                    </DivAvatar>
+                  </DivRightSide>
+                </DivAccountDetails>
+              </DivRegisterForm>
+              <DivButtons>
+                <ButtonCancel to='/'>Cancel</ButtonCancel>
+                <button
+                  to='/register/confirm'
+                  onClick={ev => this.setIsReady(ev, true)}
+                >
+                  Continue
               </button>
-            </DivButtons>
-          </Form>
-        )}
+              </DivButtons>
+            </Form>
+          )}
       </DivWrapper>
     );
   }
@@ -794,5 +832,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { register, displayError, isUsernameTaken, isEmailTaken }
+  { register, displayError, isUsernameTaken, isEmailTaken, stripePayment }
 )(RegisterView);
