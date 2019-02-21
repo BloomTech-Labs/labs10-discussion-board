@@ -84,7 +84,7 @@ class Settings extends Component {
           { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
           <AvatarPic>
             <div className = 'avatartext'>Avatar:</div>
-            <Avatar height='100px' width='100px' src={avatar} />
+            <Avatar height='80px' width='80px' src={avatar} />
           </AvatarPic>
         </EmailandAvatar>
         <br />
