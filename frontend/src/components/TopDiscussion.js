@@ -10,13 +10,18 @@ import { PostCount, VoteCount } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const TopDiscussionWrapper = styled.div`
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 5px;
   padding: 10px;
-
   box-shadow: 2px 3px 2px 2px gray;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
 
   .title {
     text-decoration: none;
@@ -25,20 +30,22 @@ const TopDiscussionWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
   .category {
-    font-size: 18px;
-    color: black;
+    a {
+      margin-left: 5px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
     &:hover {
-      text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
+      text-decoration: underline;
+
     }
+  }
   }
   .nameanddate {
     text-decoration: none;
@@ -48,12 +55,7 @@ const TopDiscussionWrapper = styled.div`
       text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
-  }
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.195);
   }
 
   .content {

@@ -50,7 +50,7 @@ const TitleAndLogo = styled.div`
   @media (max-width: 450px){
     width: 90%;
     display: flex;
-    flex-directin: column;
+    flex-direction: column;
     align-items: center;
     margin-right: auto;
   }
@@ -72,7 +72,10 @@ const Title = styled.div`
   h1 {
     a {
       color: #f7f5f3;
-      text-decoration: white;
+      text-decoration: none;
+      &:hover {
+        color: black;
+      }
     }
     margin-bottom: -35px;
     width: 90%;  

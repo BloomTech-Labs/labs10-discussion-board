@@ -16,10 +16,11 @@ const CategoriesWrapper = styled.div`
     margin-bottom: 5px;
   }
   .link {
+    font-weight: bold;
     width: 5%;
-    font-size: 30px;
+    font-size: 40px;
     display: flex;
-    margin-left: 0%;
+    margin: 20px 0 0 20px;
     align-items: center;
     text-decoration: none;
     color: black;
