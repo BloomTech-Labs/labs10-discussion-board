@@ -104,6 +104,10 @@ class Auth extends Component {
     this.lock.show();
   };
 
+  componentDidMount() {
+    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.authLockOptions = {

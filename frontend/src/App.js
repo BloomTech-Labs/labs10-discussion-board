@@ -61,7 +61,6 @@ class App extends Component {
     return new Date().getTime() < expiresAt;
   }
   componentDidMount() {
-    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     if (user_id && token) return this.props.logBackIn(user_id, token);
