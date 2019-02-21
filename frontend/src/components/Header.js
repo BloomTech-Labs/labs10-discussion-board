@@ -16,6 +16,8 @@ const StyledHeader = styled.div`
     flex-direction: column;
     width: 90%
     border: 1px solid yellow
+    @media (max-width: 450px){
+    }
   }
 
   .link {
@@ -41,6 +43,15 @@ const TitleAndLogo = styled.div`
   @media (max-width: 768px){
     display: flex;
     flex-drection: column;
+    @media (max-width: 450px){
+      width: 90%;
+      display: flex;
+      flex-directin: column;
+      align-items: center;
+      .img{
+        width: 50%;
+      }
+    }
 	}
   
 `;
@@ -75,16 +86,26 @@ const Navi = styled.div`
     display: flex;
     width: 90%;
     margin: 0 auto;
+    @media (max-width: 450px){
+    }
   }
 `
 const Links = styled.div`
   border: 1px solid black
+
+  .link {
+    font-weight: bold;
+    font-size: 2em;
+
+  }
   @media (max-width: 750px){
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 90%;
     margin: 0 auto;
+    @media (max-width: 450px){
+    }
   }
 `
 
@@ -95,7 +116,9 @@ const Header = ({ history }) => {
         <Nav history={history} />
       </Navi>
       <TitleAndLogo>
-        <img src={meeting} alt='discussion' />
+        <div>
+          <img src={meeting} alt='discussion' />
+        </div>
         <Title>
           <h1><Link className='header' to='/home'>Symposium</Link></h1>
           <div className='subheader'>

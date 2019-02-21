@@ -17,6 +17,7 @@ const DivWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-self: flex-end;
+  
 
 `;
 
