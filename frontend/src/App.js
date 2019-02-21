@@ -52,9 +52,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
