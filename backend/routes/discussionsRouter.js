@@ -84,6 +84,7 @@ router.post('/:user_id', (req, res, next) => {
   const { user_id } = req.params;
   const { category_id, title, dBody } = req.body;
   const created_at = Date.now();
+  if (!title) return res.status(400).json({ error: 'discussion title must not be empty.' });
   if (!dBody) return res.status(400).json({ error: 'discussion body must not be empty.' });
   const newDiscussion = { user_id, category_id, title, body: dBody, created_at };
   return discussionsDB
