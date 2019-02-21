@@ -15,6 +15,7 @@ const router = express.Router();
 
 //add post vote 
 router.post('/', (req, res) => {
+    console.log('in the router')
     // post_id, user_id, and type must be integers
     const { post_id, user_id, type } = req.body;
     if(
