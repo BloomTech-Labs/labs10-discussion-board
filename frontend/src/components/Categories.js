@@ -3,23 +3,60 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const SingleCategory = styled.div`
-  width: 300px;
-  margin: 5px 10px;
-`;
+const SingleCategoryWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 10px;
 
-const CategoryName = styled.div`
-  margin: 10px 0;
-  font-weight: bold;
-`;
+  box-shadow: 2px 3px 2px 2px gray;
 
-const CategoryLink = styled.div`
-  .category-link {
+  .title {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
     color: black;
-
     &:hover {
+      text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
       color: white;
+    }
+  }
+  .category {
+    font-size: 18px;
+    color: black;
+    &:hover {
+      text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.13);
+      cursor: pointer;
+      color: white;
+    }
+  }
+  .nameanddate {
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    &:hover {
+      text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.13);
+      cursor: pointer;
+      color: white;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.195);
+  }
+
+  .content {
+    width: 85%;
+  }
+
+  p {
+    margin-left: 10px;
+    &:hover {
     }
   }
 `;
@@ -30,21 +67,21 @@ const Categories = ({ category }) => {
   const { id, user_username, name, created_at } = category;
 
   return (
-    <SingleCategory>
-      <CategoryName className={`${category.name}`}>
-        <CategoryLink>
-          <Link className='category-link' to={`/discussions/category/${id}`}>
+    <SingleCategoryWrapper>
+      <div className='title'>
+        <span>
+          <Link className='category' to={`/discussions/category/${id}`}>
             {name}{' '}
           </Link>
-        </CategoryLink>
-      </CategoryName>
-      <div className='createdBy'>
+        </span>
+      </div>
+      <div className='nameanddate'>
         <span>Created By: {user_username}</span>
       </div>
-      <div className='createdAt'>
+      <div className='timestamp'>
         <span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       </div>
-    </SingleCategory>
+    </SingleCategoryWrapper>
   );
 };
 
