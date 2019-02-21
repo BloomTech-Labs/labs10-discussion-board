@@ -69,7 +69,7 @@ class Auth extends Component {
 
   setIsLoginDropdownClicked = isClicked => {
     this.setState({ isLoginDropdownClicked: isClicked });
-    return Promise.resolve()
+    return Promise.resolve();
   };
 
   render() {
