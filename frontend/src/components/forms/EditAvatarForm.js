@@ -96,11 +96,11 @@ class EditAvatarForm extends Component {
 	state = { name: '' };
 	handleSubmit = e => {
 		e.preventDefault();
-		const { user_id, uploadAvatar, onUploadAvatarSucces } = this.props;
+		const { user_id, uploadAvatar, onUploadAvatarSuccess } = this.props;
 		const imageFile = e.target[0].files[0];
 		const imageData = new FormData();
 		imageData.append('imageFile', imageFile);
-		return uploadAvatar(user_id, imageData, onUploadAvatarSucces);
+		return uploadAvatar(user_id, imageData, onUploadAvatarSuccess);
 	};
 	handleInputChange = e => {
 		if (e.target.files.length) {
@@ -111,8 +111,8 @@ class EditAvatarForm extends Component {
 	};
 	resetAvatar = e => {
 		e.preventDefault();
-		const { user_id, uploadAvatar, onUploadAvatarSucces } = this.props;
-		return uploadAvatar(user_id, null, onUploadAvatarSucces);
+		const { user_id, uploadAvatar, onUploadAvatarSuccess } = this.props;
+		return uploadAvatar(user_id, null, onUploadAvatarSuccess);
 	};
 	render() {
 		const { toggleForm } = this.props;

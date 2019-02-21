@@ -22,7 +22,7 @@ class Settings extends Component {
   state = { show: '' };
   getProfile = () => this.props.getProfile(this.props.match.params.id);
   toggleForm = formName => this.setState({ show: formName });
-  onUploadAvatarSucces = () =>
+  onUploadAvatarSuccess = () =>
     this.setState({ show: '' }, () => this.getProfile());
   componentDidMount = () => this.getProfile();
   render() {
@@ -69,13 +69,13 @@ class Settings extends Component {
         {show === 'avatar-pc-form' && (
           <EditAvatarForm
             toggleForm={this.toggleForm}
-            onUploadAvatarSucces={this.onUploadAvatarSucces}
+            onUploadAvatarSuccess={this.onUploadAvatarSuccess}
           />
         )}
         {show === 'avatar-url-form' && (
           <EditAvatarUrlForm
             toggleForm={this.toggleForm}
-            onUploadAvatarSucces={this.onUploadAvatarSucces}
+            onUploadAvatarSuccess={this.onUploadAvatarSuccess}
           />
         )}
         {show === 'email-form' && (

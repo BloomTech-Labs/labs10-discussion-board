@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Discuss from '../assets/img/Discuss.png';
 import TextLoop from "react-text-loop";
 
-
 // components
 import { DiscussionsByCats, FollowCat, AddDiscussionForm } from '../components/index.js';
 
