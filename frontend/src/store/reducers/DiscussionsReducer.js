@@ -12,7 +12,9 @@ import {
   GET_DISCUSSION_BY_ID_FAILURE,
 
   FOLLOW_DISCUSSION_LOADING,
-  FOLLOW_DISCUSSION_FAILURE
+  FOLLOW_DISCUSSION_FAILURE,
+  FOLLOW_CATEGORY_LOADING,
+  FOLLOW_CATEGORY_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -46,7 +48,6 @@ export const DiscussionsReducer = (state = initialState, action) => {
         ...state,
         discussionsByCat: action.payload
       };
-
     case GET_DISCUSSION_BY_ID_LOADING:
     case GET_DISCUSSION_BY_ID_FAILURE:
 
@@ -54,8 +55,9 @@ export const DiscussionsReducer = (state = initialState, action) => {
     case TOP_DISCUSSIONS_FAILURE:
 
     case FOLLOW_DISCUSSION_LOADING:
-    case FOLLOW_DISCUSSION_FAILURE: 
-
+    case FOLLOW_DISCUSSION_FAILURE:
+    case FOLLOW_CATEGORY_LOADING:
+    case FOLLOW_CATEGORY_FAILURE:
     case GET_DISCUSSIONS_LOADING:
     case GET_DISCUSSIONS_FAILURE:
 

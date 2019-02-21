@@ -1,10 +1,18 @@
 import {
   // Actions
+  //GET CATEGORIES
   GET_CATEGORIES_LOADING,
   GET_CATEGORIES_SUCCESS,
   GET_CATEGORIES_FAILURE,
+
+  //FOLLOW CATEGORY
+  FOLLOW_CATEGORY_LOADING, 
+  FOLLOW_CATEGORY_SUCCESS,
+  FOLLOW_CATEGORY_FAILURE, 
+
   // Action Creators
-  getCategories
+  getCategories,
+  followCategory,
 } from './CategoriesActions.js';
 
 import {
@@ -166,7 +174,11 @@ export {
 	//Categories Actions
 	GET_CATEGORIES_LOADING,
 	GET_CATEGORIES_SUCCESS,
-	GET_CATEGORIES_FAILURE,
+  GET_CATEGORIES_FAILURE,
+  
+  FOLLOW_CATEGORY_LOADING, 
+  FOLLOW_CATEGORY_SUCCESS,
+  FOLLOW_CATEGORY_FAILURE,
 
 	// Discussion Actions
 	GET_DISCUSSIONS_LOADING,
@@ -267,7 +279,8 @@ export {
   UPDATE_EMAIL_FAILURE,
 
 	// Categories Action Creators
-	getCategories,
+  getCategories,
+  followCategory,
 
 	// Discussion Action Creators
 	getTopDiscussions,
