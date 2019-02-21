@@ -102,16 +102,16 @@ class Profile extends Component {
                 <p className='property-title'> Followed Discussions: </p>
                 {profile.discussionFollows.map((discussionFollowed, index)=> 
                   <div key = {index}>
-                    <p >{discussionFollowed.discussion_id}</p>
-                    <p >{discussionFollowed.title}</p>
+                    <p >ID: {discussionFollowed.discussion_id}</p>
+                    <p >Title: {discussionFollowed.title}</p>
                   </div>)}
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Followed Categories: </p>
                 {profile.categoryFollows.map((categoryFollowed, index)=> 
                   <div key = {index}>
-                    <p >{categoryFollowed.category_id}</p>
-                    <p >{categoryFollowed.name}</p>
+                    <p > ID: {categoryFollowed.category_id}</p>
+                    <p > Title: {categoryFollowed.name}</p>
                   </div>)}
               </WrappedDiv>
             </ProfileWrapper>

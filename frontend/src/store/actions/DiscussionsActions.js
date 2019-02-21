@@ -24,6 +24,10 @@ export const FOLLOW_DISCUSSION_LOADING = 'FOLLOW_DISCUSSION_LOADING';
 export const FOLLOW_DISCUSSION_SUCCESS = 'FOLLOW_DISCUSSION_SUCCESS';
 export const FOLLOW_DISCUSSION_FAILURE = 'FOLLOW_DISCUSSION_FAILURE';
 
+export const ADD_DISCUSSION_LOADING = 'ADD_DISCUSSION_LOADING';
+export const ADD_DISCUSSION_SUCCESS = 'ADD_DISCUSSION_SUCCESS';
+export const ADD_DISCUSSION_FAILURE = 'ADD_DISCUSSION_FAILURE';
+
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
@@ -75,4 +79,17 @@ export const followDiscussion = (
     .then(() => historyPush('/'))
     .then(() => historyPush(`/discussion/${discussion_id}`))
     .catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
+};
+
+// add a post
+export const addDiscussion = (user_id, category_id, title, body, historyPush) => dispatch => {
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
+	const dBody = { category_id, title, body };
+	dispatch({ type: ADD_DISCUSSION_LOADING });
+	return axios.post(`${ backendURL }/discussions/add`, dBody, headers)
+		.then(() => dispatch({ type: ADD_DISCUSSION_SUCCESS }))
+		.then(() => historyPush('/'))
+		.then(() => historyPush(`/category/${ category_id }`))
+		.catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
