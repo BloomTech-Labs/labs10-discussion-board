@@ -11,7 +11,7 @@ const AddDiscussionFormWrapper = styled.form`
 `;
 
 class AddDiscussionForm extends Component {
-	state = { dBody: '' };
+	state = { body: '' };
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	handleSubmit = e => {
 		e.preventDefault();
@@ -20,7 +20,7 @@ class AddDiscussionForm extends Component {
 		return this.props.addDiscussion(user_id, category_id, title, body, historyPush);
 	};
 	render() {
-		const { dBody } = this.state;
+		const { body } = this.state;
 		const { toggleAddDiscussionForm } = this.props;
 		return(
 			<AddDiscussionFormWrapper onSubmit = { this.handleSubmit }>
@@ -28,9 +28,9 @@ class AddDiscussionForm extends Component {
 
 				<input
 					placeholder = 'Add discussion...'
-					name = 'dBody'
+					name = 'body'
 					onChange = { this.handleChange }
-					value = { dBody }
+					value = { body }
 				/>
 
 				<button type = 'submit'>Submit</button>
