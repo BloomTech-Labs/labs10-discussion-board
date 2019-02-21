@@ -52,8 +52,10 @@ const Post = ({
     username
   } = post;
 
-  const handlePostVote = (id, user_id, type) => {
-    console.log(post.id, post.user_id, type)
+  const handlePostVote = (type) => {
+    console.log('id', post.id)
+    console.log('user id', post.user_id) 
+    console.log('type', type) 
   }
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () =>
