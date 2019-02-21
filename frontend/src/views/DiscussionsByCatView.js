@@ -60,6 +60,9 @@ const TextLooper = styled.div`
 	font-size: 28px;
 	margin-left: 30px;
 	color: white;
+	@media (max-width: 768px){
+		display: none;
+	}
 `;
 
 /***************************************************************************************************

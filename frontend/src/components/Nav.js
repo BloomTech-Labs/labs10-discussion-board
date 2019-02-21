@@ -17,11 +17,13 @@ const DivWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-self: flex-end;
+
 `;
 
 const Welcome = styled.div`
   margin: 25px;
   font-size: 24px;
+
     .username {
       color: black;
       text-decoration: none;
@@ -36,6 +38,7 @@ const Signout = styled.a`
   font-size: 30px;
   user-select: none;
   cursor: pointer;
+
 
   &:hover {
     color: white;

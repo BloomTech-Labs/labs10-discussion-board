@@ -3,6 +3,8 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+
+//add responsiveness to mobile size
 const SingleCategoryWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -64,7 +66,7 @@ const SingleCategoryWrapper = styled.div`
 //import moment and add created_At in the migrations if wish to include
 //a timestamp of creation
 const Categories = ({ category }) => {
-  const { id, user_username, name, created_at } = category;
+  const { id, user_username, name, created_at, user_id } = category;
 
   return (
     <SingleCategoryWrapper>
@@ -75,9 +77,9 @@ const Categories = ({ category }) => {
           </Link>
         </span>
       </div>
-      <div className='nameanddate'>
-        <span>Created By: {user_username}</span>
-      </div>
+      <Link to={`/profile/${user_id}`} className='nameanddate'>
+        Created By: {user_username}
+      </Link>
       <div className='timestamp'>
         <span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       </div>
