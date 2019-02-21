@@ -36,7 +36,8 @@ class FollowCat extends Component {
 
     render() {
         const { followed } = this.state;
-        const isFollowing = this.props.categoryFollows.includes(Number(this.props.category_id))
+        const isFollowing = this.props.categoryFollows.some(follow => follow.category_id === Number(this.props.category_id));
+
 
         return (
           <FollowWrapper>
