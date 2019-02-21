@@ -36,23 +36,19 @@ router.get('/', (req, res, next) => {
 });
 */
 
-/*
-router.get('/url_to_base64', async (req, res, next) => {
+
+/*router.get('/url_to_base64', async (req, res, next) => {
   try {
     const url = 'https://i.imgur.com/6gMn1RD.png';
-    const url2 =
-      'https://static.techspot.com/images2/news/bigimage/2018/09/2018-09-04-image-6.png';
+    let base64;
     // let base64;
-    base64Img.requestBase64(url, function(err, result, body) {
-      // console.log("ERR", err);
-      // console.log("RES", res);
+    base64Img.requestBase64(url, function (err, result, body) {
       console.log('BODY', body.slice(0, 30));
-      // console.log('base64', base64.slice(0, 30));
-      // console.log(body);
-      res.send({ message: 'success', body: body.slice(0, 30) });
+      base64 = body.slice(0, 30);
+      console.log('base64_inside_cb', body.slice(0, 30));
     });
-    // console.log('base64', base64);
-    // res.send({ message: 'success' });
+    console.log('base64_outside_cb', typeof base64);
+    res.send({ message: 'success' });
   } catch (err) {
     next(err);
   }

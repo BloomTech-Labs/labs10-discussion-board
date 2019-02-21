@@ -1,5 +1,5 @@
-exports.up = function(knex, Promise) {
-  return knex.schema.createTable('categories', function(tbl) {
+exports.up = function (knex, Promise) {
+  return knex.schema.createTable('categories', function (tbl) {
     // Primary Key 'id'
     tbl.increments();
 
@@ -13,10 +13,11 @@ exports.up = function(knex, Promise) {
     // Other Columns
     tbl.string('name').notNullable();
 
-    tbl.string('created_at').notNullable();
+    // Date in milliseconds
+    tbl.bigInteger('created_at').notNullable();
   });
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
   return knex.schema.dropTableIfExists('categories');
 };

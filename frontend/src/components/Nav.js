@@ -54,15 +54,19 @@ class Nav extends Component {
     return this.props.signout().then(() => this.props.history.push('/'));
   };
 
+  goToProfilePage = () => this.props.history.push(`/profile/${ this.props.user_id }`);
+
   render() {
     const { user_id, username, avatar } = this.props;
     return (
       <DivWrapper>
-        <Avatar
-          height = '100px'
-          width = '100px'
-          src = { avatar }
-        />
+        <div onClick = { this.goToProfilePage }>
+          <Avatar
+            height = '100px'
+            width = '100px'
+            src = { avatar }
+          />
+        </div>
         <Welcome>Welcome, <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
         <Signout onClick = { ev => this.clickSignout(ev) }>
           Sign Out

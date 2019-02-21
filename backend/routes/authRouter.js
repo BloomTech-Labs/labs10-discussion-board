@@ -6,6 +6,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const base64Img = require('base64-img');
+const uuidv4 = require('uuid/v4');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
 const {
@@ -58,10 +59,18 @@ const validateStatusSelected = status => {
   return false;
 };
 
+const requestClientIP = require('../config/middleware/requestClientIP.js');
+
+const {
+  transporter,
+  getMailOptions,
+} = require('../config/nodeMailerConfig.js');
+
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
-router.post('/register', async (req, res) => {
+router.post('/register', requestClientIP, async (req, res) => {
+  const accountCreatedAt = Date.now();
   // username and password must keep rules of syntax
   if (!req.body.username || !validateNewUsername(req.body.username)) {
     return res.status(400).json({ error: `Username is missing.` });
@@ -83,28 +92,57 @@ router.post('/register', async (req, res) => {
     newUserCreds.email = req.body.email.trim();
   }
 
+  // user account created_at
+  newUserCreds.created_at = accountCreatedAt;
+
   // add user
   return db
-    .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
+    .insert(newUserCreds) // [ { id: 1, username: 'username', email: 'email' } ]
     .then(async userAddedResults => {
+      let email_confirm = null;
+
+      // if they registered with an email, send a confirmation email
+      if (userAddedResults[0].email) {
+        // generate a random uuid for email confirmation URL
+        email_confirm = uuidv4();
+      }
+      await db.addEmailConfirm(userAddedResults[0].id, email_confirm);
+
       // add user settings
       let userSettings = {
         user_id: userAddedResults[0].id
       };
 
       // set account type
-      if (req.body.subPlan === subscriptionPlans[1]) {
+      if (req.body.subPlan === subscriptionPlans[0]) {
+        userSettings.user_type = accountRoleTypes[0];
+        userSettings.subscribed_at = accountCreatedAt;
+      } else if (req.body.subPlan === subscriptionPlans[1]) {
         userSettings.user_type = accountRoleTypes[1];
+        userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[2]) {
         userSettings.user_type = accountRoleTypes[2];
+        userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[3]) {
         userSettings.user_type = accountRoleTypes[3];
+        userSettings.subscribed_at = accountCreatedAt;
       }
 
+      // signature given and is gold/silver sub
       // prettier-ignore
-      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) { // avatar given and is gold sub
+      if (
+        req.body.signature &&
+        (userSettings.user_type === accountRoleTypes[2] || // silver
+          userSettings.user_type === accountRoleTypes[3]) // gold
+      ) {
+        userSettings.signature = req.body.signature;
+      }
+
+      // avatar given and is gold sub
+      // prettier-ignore
+      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) {
         const url = req.body.avatarUrl;
-        base64Img.requestBase64(url, async function(err, result, body) {
+        base64Img.requestBase64(url, async function (err, result, body) { // callback only adds variable inside callback
           userSettings.avatar = body;
           await db.addUserSettings(userSettings);
         });
@@ -122,14 +160,45 @@ router.post('/register', async (req, res) => {
         .findById(userAddedResults[0].id)
         .then(foundUser => {
           if (foundUser.length) {
+            let message = 'Thanks for registering! Please consider adding an e-mail address in the future so you are able to recover your account in case you forget your password.';
+            if (email_confirm) {
+              const mailOptions = getMailOptions(
+                'register',
+                userAddedResults[0].email,
+                email_confirm,
+                req.body.clientIP,
+              );
+              return transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  message = `Server failed to send e-mail confirmation: ${error}`;
+                } else {
+                  message = `Thanks for signing up! An e-mail was sent to ${userAddedResults[0].email}. Please confirm your e-mail address in order to be able to reset your password in the future (You might want to check your spam folder).`;
+                }
+                return res.status(201).json([
+                  {
+                    id: userAddedResults[0].id,
+                    token,
+                    message,
+                    username: userAddedResults[0].username,
+                    avatar: foundUser[0].avatar,
+                    isAuth0: foundUser[0].password ? false : true,
+                    email_confirm: foundUser[0].email_confirm,
+                    discussionFollows: foundUser[0].discussionFollows
+                  }
+                ]);
+              });
+            }
             return res.status(201).json([
               {
                 id: userAddedResults[0].id,
                 token,
-                message: 'Registration successful.',
+                message,
                 username: userAddedResults[0].username,
                 avatar: foundUser[0].avatar,
-                discussionFollows: foundUser[0].discussionFollows
+                isAuth0: foundUser[0].password ? false : true,
+                email_confirm: foundUser[0].email_confirm,
+                discussionFollows: foundUser[0].discussionFollows,
+                categoryFollows: foundUser[0].categoryFollows,
               }
             ]);
           }
@@ -174,10 +243,12 @@ router.post('/login', async (req, res) => {
                 {
                   id: user.id,
                   token,
-                  message: 'Log in successful.',
                   username: user.username,
                   avatar: user.avatar,
-                  discussionFollows: foundUser[0].discussionFollows
+                  isAuth0: foundUser[0].password ? false : true,
+                  email_confirm: foundUser[0].email_confirm,
+                  discussionFollows: foundUser[0].discussionFollows,
+                  categoryFollows: foundUser[0].categoryFollows,
                 }
               ]);
             }
@@ -214,7 +285,10 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
             username: user[0].username,
             discussions: user[0].discussions,
             email: user[0].email,
+            isAuth0: user[0].password ? false : true,
+            email_confirm: user[0].email_confirm,
             discussionFollows: user[0].discussionFollows,
+            categoryFollows: user[0].categoryFollows,
             message: 'Logging back in successful.'
           }
         ]);
@@ -258,7 +332,10 @@ router.post('/auth0-login', async (req, res) => {
                   message: 'Log in successful.',
                   username: user.username,
                   avatar: foundUser[0].avatar,
-                  discussionFollows: foundUser[0].discussionFollows
+                  isAuth0: foundUser[0].password ? false : true,
+                  email_confirm: foundUser[0].email_confirm,
+                  discussionFollows: foundUser[0].discussionFollows,
+                  categoryFollows: foundUser[0].discussionFollows,
                 }
               ]);
             }
@@ -276,6 +353,11 @@ router.post('/auth0-login', async (req, res) => {
         email,
         status: 'active'
       };
+
+      const accountCreatedAt = Date.now();
+
+      // user account created_at
+      newUserCreds.created_at = accountCreatedAt;
       return db
         .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
@@ -283,6 +365,7 @@ router.post('/auth0-login', async (req, res) => {
           userSettings.user_id = userAddedResults[0].id;
           if (picture) {
             userSettings.avatar = picture;
+            userSettings.subscribed_at = accountCreatedAt;
             await db.addUserSettings(userSettings);
           }
 
@@ -303,7 +386,10 @@ router.post('/auth0-login', async (req, res) => {
                         message: 'Log in successful.',
                         username: foundUser.username,
                         avatar: foundUserById[0].avatar,
-                        discussionFollows: foundUserById[0].discussionFollows
+                        isAuth0: foundUserById[0].password ? false : true,
+                        email_confirm: foundUserById[0].email_confirm,
+                        discussionFollows: foundUserById[0].discussionFollows,
+                        categoryFollows: foundUserById[0].categoryFollows,
                       }
                     ]);
                   }

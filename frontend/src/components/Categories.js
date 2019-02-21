@@ -33,7 +33,7 @@ const Categories = ({ category }) => {
     <SingleCategory>
       <CategoryName className={`${category.name}`}>
         <CategoryLink>
-          <Link className='category-link' to={`/categories/${id}`}>
+          <Link className='category-link' to={`/discussions/category/${id}`}>
             {name}{' '}
           </Link>
         </CategoryLink>
@@ -42,7 +42,7 @@ const Categories = ({ category }) => {
         <span>Created By: {user_username}</span>
       </div>
       <div className='createdAt'>
-        <span>Created: {moment(created_at).fromNow()}</span>
+        <span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       </div>
     </SingleCategory>
   );

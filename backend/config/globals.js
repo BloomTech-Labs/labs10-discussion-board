@@ -2,6 +2,7 @@
 const numOfFakeUsers = 500;
 const numOfHashes = 10;
 const numOfDiscussions = 50;
+const numOfCategories = 7;
 const numOfPosts = 100;
 const numOfPostVotes = 500; // must be same as numOfFakeUsers
 const numOfDiscussionVotes = 5000;
@@ -73,10 +74,16 @@ const defaultAvatar =
 
 // environment variables
 const secureKey = process.env.SECURE_KEY;
+const frontEndUrl = process.env.FRONTEND_URL;
+const nodeMailerHost = process.env.NODEMAILER_HOST;
+const nodeMailerPort = process.env.NODEMAILER_PORT;
+const nodeMailerUser = process.env.NODEMAILER_USER;
+const nodeMailerPass = process.env.NODEMAILER_PASS;
 
 module.exports = {
   // variables
   numOfDiscussions,
+  numOfCategories,
   numOfPosts,
   numOfFakeUsers,
   numOfHashes,
@@ -100,5 +107,10 @@ module.exports = {
   defaultAvatar,
 
   // environment variables
-  secureKey
+  secureKey,
+  frontEndUrl,
+  nodeMailerHost,
+  nodeMailerPort,
+  nodeMailerUser,
+  nodeMailerPass
 };

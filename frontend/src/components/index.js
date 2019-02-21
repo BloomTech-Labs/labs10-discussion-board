@@ -2,7 +2,9 @@ import Auth from './Auth.js';
 import CategoriesList from './CategoriesList.js';
 import Categories from './Categories.js';
 import Discussion from './Discussion.js';
-import Discussions from './Discussions.js';
+import DiscussionsByCat from './DiscussionsByCat.js';
+import DiscussionsByCats from './DiscussionsByCats.js';
+
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import Header from './Header.js';
@@ -18,6 +20,8 @@ import Error from './Error.js';
 import Message from './Message.js';
 import Avatar from './Avatar.js';
 import Follow from './Follow.js';
+import FollowCat from './FollowCat.js';
+import ConfirmEmail from './ConfirmEmail.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -25,13 +29,15 @@ import EditPostForm from './forms/EditPostForm.js';
 import EditPasswordForm from './forms/EditPasswordForm.js';
 import EditAvatarForm from './forms/EditAvatarForm.js';
 import EditAvatarUrlForm from './forms/EditAvatarUrlForm.js';
+import UpdateEmailForm from './forms/UpdateEmailForm.js';
 
 export {
 	Auth,
 	CategoriesList,
 	Categories,
 	Discussion,
-	Discussions,
+	DiscussionsByCat,
+	DiscussionsByCats,
 	LoginDropdown,
 	Nav,
 	Header,
@@ -47,6 +53,8 @@ export {
 	Message,
 	Avatar,
 	Follow,
+	FollowCat,
+	ConfirmEmail,
 
 	// forms
 	AddPostForm,
@@ -54,4 +62,5 @@ export {
 	EditPasswordForm,
 	EditAvatarForm,
 	EditAvatarUrlForm,
+	UpdateEmailForm,
 };

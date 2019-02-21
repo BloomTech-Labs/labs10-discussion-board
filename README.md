@@ -119,21 +119,23 @@
 
 ## users
 
-| Field    | Data Type                  |
-| -------- | -------------------------- |
-| id       | Int (auto increment)       |
-| username | String (unique) (required) |
-| password | String (required)          |
-| email    | String (optional) (unique) |
-| status   | String (required)          |
+| Field        | Data Type                  |
+| ------------ | -------------------------- |
+| id           | Int (auto increment)       |
+| username     | String (unique) (required) |
+| password     | String (required)          |
+| email        | String (optional) (unique) |
+| status       | String (required)          |
+| created_at   | bigInteger (required)      |
 
 ## categories
 
-| Field   | Data Type                                                  |
-| ------- | ---------------------------------------------------------- |
-| user_id | foreign Key (id in users table)(user who created category) |
-| id      | int (auto increment)                                       |
-| name    | string (required)                                          |
+| Field        | Data Type                                                  |
+| ------------ | ---------------------------------------------------------- |
+| user_id      | foreign Key (id in users table)(user who created category) |
+| id           | int (auto increment)                                       |
+| name         | string (required)                                          |
+| created_at   | bigInteger (required)                                      |
 
 ## discussions
 
@@ -143,23 +145,28 @@
 | user_id     | foreign key (id in users table)    |
 | category_id | foreign key (id in category table) |
 | title       | string(required)                   |
+| created_at   | bigInteger (required)      |
 
 ## posts
 
-| Field         | Data Type                            |
-| ------------- | ------------------------------------ |
-| id            | int (auto increment)                 |
-| user_id       | foreign key (id in users table)      |
-| discussion_id | foreign Key (id in discussion table) |
-| body          | text (required)                      |
+| Field            | Data Type                            |
+| ---------------- | ------------------------------------ |
+| id               | int (auto increment)                 |
+| user_id          | foreign key (id in users table)      |
+| discussion_id    | foreign Key (id in discussion table) |
+| body             | text (required)                      |
+| created_at       | bigInteger (required)                |
+| last_edited_at   | bigInteger (required)                |
 
 ## user_settings
 
-| Field     | Data Type (note, mods are individual roles assigned to a specific category) |
-| --------- | --------------------------------------------------------------------------- |
-| user_id   | foreign Key (id in users table)                                             |
-| avatar    | Text (optional)(base64, or http link)                                       |
-| user_type | String (required) (user, gold-user, admin, and owner)                       |
+| Field           | Data Type (note, mods are individual roles assigned to a specific category)     |
+| --------------- | ------------------------------------------------------------------------------- |
+| user_id         | foreign Key (id in users table)                                                 |
+| avatar          | Text (optional)(base64)                                                         |
+| user_type       | String (required) (user, bronze_member, silver_member, gold_member, and admin)  |
+| signature       | string (255, optional)                                                          |
+| subscribed_at   | bigInteger (required)                                                           |
 
 > Relational Tables
 

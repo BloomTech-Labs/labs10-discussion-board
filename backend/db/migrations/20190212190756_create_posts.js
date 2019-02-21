@@ -1,5 +1,5 @@
-exports.up = function(knex, Promise) {
-  return knex.schema.createTable('posts', function(tbl) {
+exports.up = function (knex, Promise) {
+  return knex.schema.createTable('posts', function (tbl) {
     // Primary Key 'id'
     tbl.increments();
 
@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       .integer('user_id')
       .references('id')
       .inTable('users')
+      .notNullable()
       .onDelete('SET NULL');
 
     //Foreign Key 'discussion_id'
@@ -21,12 +22,14 @@ exports.up = function(knex, Promise) {
     // Other Columns
     tbl.text('body').notNullable();
 
-    tbl.string('created_at').notNullable();
+    // Date in milliseconds
+    tbl.bigInteger('created_at').notNullable();
 
-    tbl.string('last_edited_at');
+    // Date in milliseconds
+    tbl.bigInteger('last_edited_at');
   });
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
   return knex.schema.dropTableIfExists('posts');
 };
