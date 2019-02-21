@@ -576,8 +576,7 @@ class RegisterView extends Component {
         {this.state.isReady ? (
           <DivConfirm>
             <h1>Confirm New Account Information</h1>
-            <button onClick={ev => this.setIsReady(ev, false)}>Back</button>
-            {/* <button onClick={ev => this.submitHandler(ev)}>Confirm</button> */}
+            <button onClick={() => this.setState({ isReady: false })}>Back</button>
             {this.state.subPlan === subscriptionPlans[0] ? (
               <button onClick={ev => this.submitHandler(ev)}>Confirm</button>
             ) : (
