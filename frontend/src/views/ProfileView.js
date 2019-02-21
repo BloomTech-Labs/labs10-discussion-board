@@ -22,6 +22,13 @@ const ProfileWrapper = styled.div`
   width: 480px;
   background-color: #d3ccaf;
   box-shadow: gray 2px 1px 2px 2px;
+  @media(max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    width: 90%
+    @media (max-width: 450px){
+    }
+  }
   .discussion-title {
     font-weight: bold;
   }
