@@ -58,14 +58,14 @@ class EditAvatarUrlForm extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { url } = this.state;
-		const { user_id, uploadAvatarUrl, onUploadAvatarSucces } = this.props;
-		return uploadAvatarUrl(user_id, url, onUploadAvatarSucces);
+		const { user_id, uploadAvatarUrl, onUploadAvatarSuccess } = this.props;
+		return uploadAvatarUrl(user_id, url, onUploadAvatarSuccess);
 	};
 	handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
 	resetAvatar = e => {
 		e.preventDefault();
-		const { user_id, uploadAvatarUrl, onUploadAvatarSucces } = this.props;
-		return uploadAvatarUrl(user_id, null, onUploadAvatarSucces);
+		const { user_id, uploadAvatarUrl, onUploadAvatarSuccess } = this.props;
+		return uploadAvatarUrl(user_id, null, onUploadAvatarSuccess);
 	};
 	render() {
 		const { toggleForm } = this.props;
