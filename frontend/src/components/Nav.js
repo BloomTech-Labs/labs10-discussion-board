@@ -18,6 +18,17 @@ const DivWrapper = styled.div`
   justify-content: flex-end;
   align-self: flex-end;
   
+  @media (max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .avatarWelcome {
+      display: flex
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 
 `;
 
@@ -64,6 +75,7 @@ class Nav extends Component {
     const { user_id, username, avatar } = this.props;
     return (
       <DivWrapper>
+      <div className = 'avatarWelcome'>
         <div onClick = { this.goToProfilePage }>
           <Avatar
             height = '100px'
@@ -71,6 +83,7 @@ class Nav extends Component {
             src = { avatar }
           />
         </div>
+      </div>
         <Welcome>Welcome, <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>!</Welcome>
         <Signout onClick = { ev => this.clickSignout(ev) }>
           Sign Out
