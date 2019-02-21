@@ -41,6 +41,10 @@ import {
   UPDATE_EMAIL_LOADING,
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
+
+  STRIPE_PAYMENT_LOADING,
+  STRIPE_PAYMENT_SUCCESS,
+  STRIPE_PAYMENT_FAILURE
 } from '../actions/index.js';
 
 const initialState = {
@@ -51,6 +55,7 @@ const initialState = {
   registerLoadingMessage: false,
   userExistsLoadingMessage: false,
   emailExistsLoadingMessage: false,
+  stripePaymentLoadingMessage: false,
   isUsernameTaken: false,
   isEmailTaken: false,
   error: '',
@@ -59,6 +64,7 @@ const initialState = {
   discussionFollows: [],
   isAuth0: false,
   categoryFollows: [],
+  stripePaymentInfo: []
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -85,20 +91,20 @@ export const UsersReducer = (state = initialState, action) => {
         isAuth0: action.payload.isAuth0,
         message: action.payload.message
       };
-    
+
     // FOLLOW DISCUSSION
     case FOLLOW_DISCUSSION_SUCCESS:
-    return {
-      ...state,
-      discussionFollows:action.payload
-    };
+      return {
+        ...state,
+        discussionFollows: action.payload
+      };
 
     // FOLLOW CATEGORY
     case FOLLOW_CATEGORY_SUCCESS:
-    return {
-      ...state,
-      categoryFollows:action.payload
-    }
+      return {
+        ...state,
+        categoryFollows: action.payload
+      }
     case USER_AUTH0_LOGIN_FAILURE:
     case USER_LOG_BACK_IN_FAILURE:
     case USER_LOGIN_FAILURE:
@@ -206,6 +212,24 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         message: action.payload,
       };
+
+
+    case STRIPE_PAYMENT_LOADING:
+      return {
+        ...state,
+        stripePaymentLoadingMessage: true,
+      }
+    case STRIPE_PAYMENT_SUCCESS:
+      return {
+        ...state,
+        stripePaymentInfo: action.payload,
+        stripePaymentLoadingMessage: false,
+      }
+    case STRIPE_PAYMENT_FAILURE:
+      return {
+        ...state,
+        stripePaymentLoadingMessage: false
+      }
 
     case UPDATE_EMAIL_LOADING:
     case UPDATE_EMAIL_FAILURE:

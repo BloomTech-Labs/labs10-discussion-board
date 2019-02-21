@@ -6,9 +6,9 @@ import {
   GET_CATEGORIES_FAILURE,
 
   //FOLLOW CATEGORY
-  FOLLOW_CATEGORY_LOADING, 
+  FOLLOW_CATEGORY_LOADING,
   FOLLOW_CATEGORY_SUCCESS,
-  FOLLOW_CATEGORY_FAILURE, 
+  FOLLOW_CATEGORY_FAILURE,
 
   // Action Creators
   getCategories,
@@ -31,22 +31,22 @@ import {
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
 
-		//FOLLOW DISCUSSIONS
-		FOLLOW_DISCUSSION_LOADING,
-		FOLLOW_DISCUSSION_SUCCESS,
-    FOLLOW_DISCUSSION_FAILURE,
-    
-    //ADD DICUSSION
-    ADD_DISCUSSION_LOADING, 
-    ADD_DISCUSSION_SUCCESS, 
-    ADD_DISCUSSION_FAILURE, 
+  //FOLLOW DISCUSSIONS
+  FOLLOW_DISCUSSION_LOADING,
+  FOLLOW_DISCUSSION_SUCCESS,
+  FOLLOW_DISCUSSION_FAILURE,
+
+  //ADD DICUSSION
+  ADD_DISCUSSION_LOADING,
+  ADD_DISCUSSION_SUCCESS,
+  ADD_DISCUSSION_FAILURE,
 
   // Action Creators
-		getTopDiscussions,
-		getDiscussionsByCat,
-		getDiscussionById,
-    followDiscussion,
-    addDiscussion,
+  getTopDiscussions,
+  getDiscussionsByCat,
+  getDiscussionById,
+  followDiscussion,
+  addDiscussion,
 } from './DiscussionsActions.js';
 
 import {
@@ -153,6 +153,10 @@ import {
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
 
+  STRIPE_PAYMENT_LOADING,
+  STRIPE_PAYMENT_SUCCESS,
+  STRIPE_PAYMENT_FAILURE,
+
   // Action Creators
   login,
   signout,
@@ -168,6 +172,7 @@ import {
   isEmailTaken,
   confirmEmail,
   updateEmail,
+  stripePayment
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -177,102 +182,106 @@ import {
 //*************************************************************************************************
 
 export {
-	//Categories Actions
-	GET_CATEGORIES_LOADING,
-	GET_CATEGORIES_SUCCESS,
+  //Categories Actions
+  GET_CATEGORIES_LOADING,
+  GET_CATEGORIES_SUCCESS,
   GET_CATEGORIES_FAILURE,
-  
-  FOLLOW_CATEGORY_LOADING, 
+
+  FOLLOW_CATEGORY_LOADING,
   FOLLOW_CATEGORY_SUCCESS,
   FOLLOW_CATEGORY_FAILURE,
 
-	// Discussion Actions
-	GET_DISCUSSIONS_LOADING,
-	GET_DISCUSSIONS_SUCCESS,
-	GET_DISCUSSIONS_FAILURE,
+  // Discussion Actions
+  GET_DISCUSSIONS_LOADING,
+  GET_DISCUSSIONS_SUCCESS,
+  GET_DISCUSSIONS_FAILURE,
 
-	TOP_DISCUSSIONS_LOADING,
-	TOP_DISCUSSIONS_SUCCESS,
-	TOP_DISCUSSIONS_FAILURE,
+  TOP_DISCUSSIONS_LOADING,
+  TOP_DISCUSSIONS_SUCCESS,
+  TOP_DISCUSSIONS_FAILURE,
 
-	GET_DISCUSSION_BY_ID_LOADING,
-	GET_DISCUSSION_BY_ID_SUCCESS,
-	GET_DISCUSSION_BY_ID_FAILURE,
+  GET_DISCUSSION_BY_ID_LOADING,
+  GET_DISCUSSION_BY_ID_SUCCESS,
+  GET_DISCUSSION_BY_ID_FAILURE,
 
-	FOLLOW_DISCUSSION_LOADING,
-	FOLLOW_DISCUSSION_SUCCESS,
+  FOLLOW_DISCUSSION_LOADING,
+  FOLLOW_DISCUSSION_SUCCESS,
   FOLLOW_DISCUSSION_FAILURE,
-  
-  ADD_DISCUSSION_LOADING, 
-  ADD_DISCUSSION_SUCCESS, 
-  ADD_DISCUSSION_FAILURE, 
 
-	// Discussion Vote Actions
-	HANDLE_DISCUSSION_VOTE_LOADING,
-	HANDLE_DISCUSSION_VOTE_SUCCESS,
+  ADD_DISCUSSION_LOADING,
+  ADD_DISCUSSION_SUCCESS,
+  ADD_DISCUSSION_FAILURE,
+
+  // Discussion Vote Actions
+  HANDLE_DISCUSSION_VOTE_LOADING,
+  HANDLE_DISCUSSION_VOTE_SUCCESS,
   HANDLE_DISCUSSION_VOTE_FAILURE,
-  
+
   //Post Vote Actions
   HANDLE_POST_VOTE_LOADING,
   HANDLE_POST_VOTE_SUCCESS,
   HANDLE_POST_VOTE_FAILURE,
 
-	// Users Actions
-	USER_LOGIN_LOADING,
-	USER_LOGIN_SUCCESS,
-	USER_LOGIN_FAILURE,
-	
-	USER_LOG_BACK_IN_LOADING,
-	USER_LOG_BACK_IN_SUCCESS,
-	USER_LOG_BACK_IN_FAILURE,
+  // Users Actions
+  USER_LOGIN_LOADING,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE,
 
-	USER_SIGNOUT_SUCCESS,
+  USER_LOG_BACK_IN_LOADING,
+  USER_LOG_BACK_IN_SUCCESS,
+  USER_LOG_BACK_IN_FAILURE,
 
-	USER_AUTH0_LOGIN_LOADING,
-	USER_AUTH0_LOGIN_SUCCESS,
+  USER_SIGNOUT_SUCCESS,
+
+  USER_AUTH0_LOGIN_LOADING,
+  USER_AUTH0_LOGIN_SUCCESS,
   USER_AUTH0_LOGIN_FAILURE,
-  
+
   USER_REGISTER_LOADING,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
 
-	PASSWORD_UPDATE_LOADING,
-	PASSWORD_UPDATE_SUCCESS,
-	PASSWORD_UPDATE_FAILURE,
+  PASSWORD_UPDATE_LOADING,
+  PASSWORD_UPDATE_SUCCESS,
+  PASSWORD_UPDATE_FAILURE,
 
-	UPLOAD_AVATAR_LOADING,
-	UPLOAD_AVATAR_SUCCESS,
-	UPLOAD_AVATAR_FAILURE,
+  UPLOAD_AVATAR_LOADING,
+  UPLOAD_AVATAR_SUCCESS,
+  UPLOAD_AVATAR_FAILURE,
 
-	UPLOAD_AVATAR_URL_LOADING,
-	UPLOAD_AVATAR_URL_SUCCESS,
-	UPLOAD_AVATAR_URL_FAILURE,
+  UPLOAD_AVATAR_URL_LOADING,
+  UPLOAD_AVATAR_URL_SUCCESS,
+  UPLOAD_AVATAR_URL_FAILURE,
 
-	DISPLAY_ERROR,
-	DISPLAY_MESSAGE,
+  DISPLAY_ERROR,
+  DISPLAY_MESSAGE,
 
-	// Profile Actions
-	GET_PROFILES_LOADING,
-	GET_PROFILES_SUCCESS,
-	GET_PROFILES_FAILURE,
+  STRIPE_PAYMENT_LOADING,
+  STRIPE_PAYMENT_SUCCESS,
+  STRIPE_PAYMENT_FAILURE,
 
-	GET_PROFILE_LOADING,
-	GET_PROFILE_SUCCESS,
-	GET_PROFILE_FAILURE,
+  // Profile Actions
+  GET_PROFILES_LOADING,
+  GET_PROFILES_SUCCESS,
+  GET_PROFILES_FAILURE,
 
-	// Posts Actions
-	ADD_POST_LOADING,
-	ADD_POST_SUCCESS,
-	ADD_POST_FAILURE,
+  GET_PROFILE_LOADING,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAILURE,
 
-	EDIT_POST_LOADING,
-	EDIT_POST_SUCCESS,
-	EDIT_POST_FAILURE,
+  // Posts Actions
+  ADD_POST_LOADING,
+  ADD_POST_SUCCESS,
+  ADD_POST_FAILURE,
 
-	REMOVE_POST_LOADING,
-	REMOVE_POST_SUCCESS,
+  EDIT_POST_LOADING,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_FAILURE,
+
+  REMOVE_POST_LOADING,
+  REMOVE_POST_SUCCESS,
   REMOVE_POST_FAILURE,
-  
+
   USER_EXISTS_LOADING,
   USER_EXISTS_SUCCESS,
   USER_EXISTS_FAILURE,
@@ -288,45 +297,46 @@ export {
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
 
-	// Categories Action Creators
+  // Categories Action Creators
   getCategories,
   followCategory,
 
-	// Discussion Action Creators
-	getTopDiscussions,
-	getDiscussionsByCat,
-	getDiscussionById,
+  // Discussion Action Creators
+  getTopDiscussions,
+  getDiscussionsByCat,
+  getDiscussionById,
   followDiscussion,
   addDiscussion,
 
-	// Discussion Vote Action Creators
+  // Discussion Vote Action Creators
   handleDiscussionVote,
-  
+
   // Post Vote Action Creators
   handlePostVote,
 
-	// Users Action Creators
-	register,
-	login,
-	signout,
-	logBackIn,
-	auth0Login,
-	updatePassword,
-	displayError,
-	displayMessage,
-	uploadAvatar,
+  // Users Action Creators
+  register,
+  login,
+  signout,
+  logBackIn,
+  auth0Login,
+  updatePassword,
+  displayError,
+  displayMessage,
+  uploadAvatar,
   uploadAvatarUrl,
   isUsernameTaken,
   isEmailTaken,
   confirmEmail,
   updateEmail,
+  stripePayment,
 
-	// Profile Action Creators
-	getProfiles,
-	getProfile,
+  // Profile Action Creators
+  getProfiles,
+  getProfile,
 
-	// Posts Action Creators
-	addPost,
-	editPost,
-	removePost,
+  // Posts Action Creators
+  addPost,
+  editPost,
+  removePost,
 };
