@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 // components
 import { EditPostForm, VoteCount } from './index.js';
+
 import { handlePostVote } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
@@ -52,10 +53,11 @@ const Post = ({
     username
   } = post;
 
-  const handlePostVote = (type) => {
+const handlePostVote = type => {
     console.log('id', post.id)
     console.log('user id', post.user_id) 
     console.log('type', type) 
+    console.log('votecount', post_votes)
   }
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () =>
