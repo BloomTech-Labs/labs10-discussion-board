@@ -495,12 +495,6 @@ class RegisterView extends Component {
     }
   };
 
-  handleRadio = ev => {
-    ev.preventDefault();
-    const radioSelected = ev.currentTarget.value === 'true' ? true : false;
-    this.setState({ radioSelected });
-  };
-
   submitHandler = ev => {
     ev && ev.preventDefault();
     try {
@@ -614,7 +608,6 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[0] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
                     />
                   </DivBanner>
                   <DivBanner
@@ -639,7 +632,6 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[1] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
                     />
                   </DivBanner>
                   <DivBanner
@@ -665,7 +657,6 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[2] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
                     />
                   </DivBanner>
                   <DivBanner
@@ -692,7 +683,6 @@ class RegisterView extends Component {
                       checked={
                         this.state.subPlan === subscriptionPlans[3] && true
                       }
-                      onChange={ev => this.handleRadio(ev)}
                     />
                   </DivBanner>
                 </DivSelectBanners>
