@@ -52,16 +52,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
     return new Date().getTime() < expiresAt;
   }
   componentDidMount() {
-    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
     const user_id = localStorage.getItem('symposium_user_id');
     const token = localStorage.getItem('symposium_token');
     if (user_id && token) return this.props.logBackIn(user_id, token);

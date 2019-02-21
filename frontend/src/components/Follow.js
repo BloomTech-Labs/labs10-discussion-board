@@ -36,8 +36,7 @@ class Follow extends Component {
 
     render() {
         const { followed } = this.state;
-        const isFollowing = this.props.discussionFollows.includes(Number(this.props.discussion_id))
-
+        const isFollowing = this.props.discussionFollows.some(follow => follow.discussion_id === Number(this.props.discussion_id));
         return (
           <FollowWrapper>
             <Followed>
