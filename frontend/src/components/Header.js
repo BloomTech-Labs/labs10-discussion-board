@@ -28,6 +28,9 @@ const Title = styled.div`
     a {
       color: black;
       text-decoration: none;
+      &:hover {
+        color: #b7e1f0;
+      }
     }
   }
 `;
@@ -45,12 +48,12 @@ const Links = styled.div`
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: black;
 
     &:hover {
       text-decoration: underline;
       cursor: pointer;
-      color: black;
+      color: #b7e1f0;
     }
   }
 `;

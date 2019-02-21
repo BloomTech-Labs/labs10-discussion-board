@@ -26,7 +26,7 @@ const Welcome = styled.div`
       color: black;
       text-decoration: none;
       &:hover {
-        color: white;
+        color: #b7e1f0;
         text-decoration: underline;
       }
     }
@@ -39,7 +39,7 @@ const Signout = styled.a`
   cursor: pointer;
 
   &:hover {
-    color: white;
+    color: #b7e1f0;
     text-decoration: underline;
   }
 `;

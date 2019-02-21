@@ -19,7 +19,7 @@ const CategoryLink = styled.div`
 
     &:hover {
       cursor: pointer;
-      color: white;
+      color: #b7e1f0;
     }
   }
 `;

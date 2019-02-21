@@ -47,7 +47,7 @@ const EditAvatarUrlFormWrapper = styled.form`
 
 		&:hover {
 			background-color: #84794B;
-			color: white;
+			color: #b7e1f0;
 			cursor: pointer;
 		}
 	}
