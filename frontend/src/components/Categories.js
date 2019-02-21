@@ -15,7 +15,9 @@ const SingleCategoryWrapper = styled.div`
   box-shadow: 2px 3px 2px 2px gray;
 
   .title {
-    text-decoration: none;
+    a {
+      text-decoration: none;
+    }
     font-weight: bold;
     font-size: 18px;
     color: black;
@@ -23,7 +25,6 @@ const SingleCategoryWrapper = styled.div`
       text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
   .category {
@@ -33,7 +34,6 @@ const SingleCategoryWrapper = styled.div`
       text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
   .nameanddate {
@@ -44,7 +44,6 @@ const SingleCategoryWrapper = styled.div`
       text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
 

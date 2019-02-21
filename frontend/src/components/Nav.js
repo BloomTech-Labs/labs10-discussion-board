@@ -42,8 +42,6 @@ const DivWrapper = styled.div`
       border: 1px solid gray;
     }
   }
-  
-
 `;
 
 const Welcome = styled.div`

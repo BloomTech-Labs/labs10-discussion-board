@@ -16,8 +16,9 @@ margin: 1px;
 padding: 1px;
 border: 1px solid gray;
 width: 90%;
+border-radius: 30px;
 background-color: #e8e3e0;
-box-shadow: gray 2px 1px 2px 2px;
+box-shadow: #610b07 2px 1px 2px 2px;
 @media(max-width: 768px){
   display: flex;
   flex-direction: column;
@@ -62,6 +63,12 @@ const ProfilesTitle = styled.div`
   justify-content: space-around;
   color: black;
   font-size: 36px;
+`;
+
+const ProfilesList = styled.div`
+    display: flex;
+    width: 200px;
+
 `;
 
 /***************************************************************************************************
@@ -111,7 +118,7 @@ class Profiles extends Component {
     }
   
     return (
-            <div>
+            <div className = 'ProfileWrapper'>
               <ProfilesTitle> PROFILES </ProfilesTitle>
               {profileItems}
             </div>
