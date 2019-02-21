@@ -61,15 +61,14 @@ class LoginDropdown extends Component {
         username: '',
         password: ''
       },
-      () =>
+      () => this.props.setIsLoginDropdownClicked(false).then(() =>
         this.props
           .login(creds)
-          .then(() => this.props.setIsLoginDropdownClicked(false))
           .then(() =>
             pathname === '/'
               ? this.props.history.push('/home')
               : this.props.history.push(pathname)
-          )
+          ))
     );
   };
 
