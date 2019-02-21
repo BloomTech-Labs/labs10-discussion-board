@@ -71,6 +71,18 @@ const Buttons = styled.div`
     }
 `;
 
+const ChangeAvatarSettings = styled.div`
+    button {
+      border-radius: 5px;
+      font-size: 14px;
+      margin: 5px 20px 20px 0;
+      &:hover {
+        background-color: #b7e1f0;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    }
+`;
 
 class Settings extends Component {
   state = { show: '' };
@@ -117,7 +129,7 @@ class Settings extends Component {
           <EditPasswordForm toggleForm={this.toggleForm} />
         )}
         {show === 'avatar-btns' && (
-          <div>
+          <ChangeAvatarSettings>
             <button onClick={() => this.toggleForm('avatar-pc-form')}>
               Upload from PC
             </button>
@@ -125,7 +137,7 @@ class Settings extends Component {
               Upload from URL
             </button>
             <button onClick={() => this.toggleForm('')}>Cancel</button>
-          </div>
+          </ChangeAvatarSettings>
         )}
         {show === 'avatar-pc-form' && (
           <EditAvatarForm

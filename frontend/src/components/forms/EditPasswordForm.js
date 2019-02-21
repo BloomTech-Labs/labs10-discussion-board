@@ -20,7 +20,6 @@ const EditPassword = styled.div`
 const EditForm = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 
 	input {
 		margin: 0px 0px 15px 0px;
@@ -29,16 +28,21 @@ const EditForm = styled.div`
 	}
 
 	button {
-		width: 50%;
+		width: 30%;
       	border-radius: 5px;
       	font-size: 14px;
-     	margin-top: 15px;
+     	margin-top: 10px;
       		&:hover {
         		background-color: #b7e1f0;
         		cursor: pointer;
         		border-radius: 5px;
       		}
     }
+`;
+
+const Buttons = styled.div`
+	display: flex;
+	justify-content: space-evenly;
 `;
 
 class EditPasswordForm extends Component {
@@ -89,9 +93,10 @@ class EditPasswordForm extends Component {
 					onChange = { this.handleChange }
 					value = { newPassword1 }
 				/>
-
-				<button type = 'submit'>Submit</button>
-				<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+				<Buttons>
+					<button type = 'submit'>Submit</button>
+					<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+				</Buttons>
 				</EditForm>
 			</EditPasswordFormWrapper>
 		);
