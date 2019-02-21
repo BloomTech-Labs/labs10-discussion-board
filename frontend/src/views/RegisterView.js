@@ -502,7 +502,7 @@ class RegisterView extends Component {
   };
 
   submitHandler = ev => {
-    ev.preventDefault();
+    ev && ev.preventDefault();
     try {
       let newAccount;
       // prettier-ignore
@@ -566,7 +566,7 @@ class RegisterView extends Component {
         payment: this.getStripePayment()
       }
     }
-    this.props.stripePayment(headersObj);
+    this.props.stripePayment(headersObj).then(() => this.submitHandler());
   }
 
   render() {
