@@ -25,6 +25,7 @@ import ConfirmEmail from './ConfirmEmail.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
+import AddDiscussionForm from './forms/AddDiscussionForm.js';
 import EditPostForm from './forms/EditPostForm.js';
 import EditPasswordForm from './forms/EditPasswordForm.js';
 import EditAvatarForm from './forms/EditAvatarForm.js';
@@ -58,6 +59,7 @@ export {
 
 	// forms
 	AddPostForm,
+	AddDiscussionForm,
 	EditPostForm,
 	EditPasswordForm,
 	EditAvatarForm,
