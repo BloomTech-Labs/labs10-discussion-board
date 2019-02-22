@@ -4,11 +4,15 @@
 require('dotenv').config();
 const express = require('express');
 const { discussionFollowsDB } = require('../db/models/index.js');
-
 const router = express.Router();
 
+/***************************************************************************************************
+ ******************************************* middleware ******************************************
+ **************************************************************************************************/
+const { authenticate } = require('../config/middleware/authenticate.js');
+
 // User can follow a discussion
-router.post('/:user_id/:discussion_id', (req, res) => {
+router.post('/:user_id/:discussion_id', authenticate, (req, res) => {
 	const { discussion_id, user_id } = req.params;
 	// check first to see if user_id is following discussion_id
 	return discussionFollowsDB
