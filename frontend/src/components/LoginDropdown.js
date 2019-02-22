@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import auth0 from 'auth0-js';
 import { login } from '../store/actions';
@@ -95,10 +96,11 @@ class LoginDropdown extends Component {
         >
           Login
         </button>
+        <Link to = '/request-reset-pw'>Forgot your username/password?</Link>
       </FormLogin>
     );
   }
-}
+};
 
 // LoginDropdown.propTypes = {
 //   propertyName: PropTypes.string
