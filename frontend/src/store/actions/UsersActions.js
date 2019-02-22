@@ -78,6 +78,14 @@ export const STRIPE_PAYMENT_LOADING = 'STRIPE_PAYMENT_LOADING';
 export const STRIPE_PAYMENT_SUCCESS = 'STRIPE_PAYMENT_SUCCESS';
 export const STRIPE_PAYMENT_FAILURE = 'STRIPE_PAYMENT_FAILURE';
 
+export const SEND_PW_RESET_EMAIL_LOADING = 'SEND_PW_RESET_EMAIL_LOADING';
+export const SEND_PW_RESET_EMAIL_SUCCESS = 'SEND_PW_RESET_EMAIL_SUCCESS';
+export const SEND_PW_RESET_EMAIL_FAILURE = 'SEND_PW_RESET_EMAIL_FAILURE';
+
+export const RESET_PASSWORD_LOADING = 'RESET_PASSWORD_LOADING';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -150,11 +158,7 @@ export const register = creds => dispatch => {
     .catch(err => handleError(err, USER_REGISTER_FAILURE)(dispatch));
 };
 
-export const updatePassword = (
-  oldPassword,
-  newPassword,
-  toggleForm
-) => dispatch => {
+export const updatePassword = (oldPassword, newPassword, toggleForm) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
@@ -289,4 +293,31 @@ export const stripePayment = (headersObj) => dispatch => {
     .post(`${backendUrl}/auth/stripe`, headersObj)
     .then(res => dispatch({ type: STRIPE_PAYMENT_SUCCESS, payload: res.data[0] }))
     .catch(err => handleError(err, STRIPE_PAYMENT_FAILURE, true)(dispatch));
-}
+};
+
+export const sendPWResetEmail = (email, historyPush) => dispatch => {
+  dispatch({ type: SEND_PW_RESET_EMAIL_LOADING });
+  const body = { email };
+  return axios
+    .post(`${ backendUrl }/users/send-reset-pw-email`, body)
+    .then(res => dispatch({ type: SEND_PW_RESET_EMAIL_SUCCESS, payload: res.data.message }))
+    .then(() => historyPush('/home'))
+    .catch(err => handleError(err, SEND_PW_RESET_EMAIL_FAILURE)(dispatch));
+};
+
+export const resetPassword = (password, token) => dispatch => {
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: RESET_PASSWORD_LOADING });
+  const body = { password };
+  return axios
+    .put(`${ backendUrl }/users/reset-password`, body, headers)
+    .then(response => {
+      localStorage.setItem('symposium_token', response.data[0].token);
+      localStorage.setItem('symposium_user_id', response.data[0].id);
+      return dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+        payload: response.data[0]
+      });
+    })
+    .catch(err => handleError(err, RESET_PASSWORD_FAILURE)(dispatch));
+};

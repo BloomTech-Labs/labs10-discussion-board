@@ -167,6 +167,14 @@ import {
   STRIPE_PAYMENT_SUCCESS,
   STRIPE_PAYMENT_FAILURE,
 
+  SEND_PW_RESET_EMAIL_LOADING,
+  SEND_PW_RESET_EMAIL_SUCCESS,
+  SEND_PW_RESET_EMAIL_FAILURE,
+
+  RESET_PASSWORD_LOADING,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+
   // Action Creators
   login,
   signout,
@@ -182,7 +190,9 @@ import {
   isEmailTaken,
   confirmEmail,
   updateEmail,
-  stripePayment
+  stripePayment,
+  sendPWResetEmail,
+  resetPassword,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -278,6 +288,14 @@ export {
   STRIPE_PAYMENT_SUCCESS,
   STRIPE_PAYMENT_FAILURE,
 
+  SEND_PW_RESET_EMAIL_LOADING,
+  SEND_PW_RESET_EMAIL_SUCCESS,
+  SEND_PW_RESET_EMAIL_FAILURE,
+
+  RESET_PASSWORD_LOADING,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -350,6 +368,8 @@ export {
   confirmEmail,
   updateEmail,
   stripePayment,
+  sendPWResetEmail,
+  resetPassword,
 
   // Profile Action Creators
   getProfiles,
