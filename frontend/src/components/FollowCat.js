@@ -3,16 +3,27 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { followCategory } from '../store/actions/index.js';
 
+// action creators
+import { displayError } from '../store/actions/index.js';
+
+// components
+import { ToolTip } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const FollowWrapper = styled.div`
-  padding: 10px;
+  position: relative;
+  height: fit-content;
+  
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
 `;
 const Followed = styled.div`
-  padding: 10px;
-  width: 120px;
   .follow {
     cursor: pointer;
     width: 20px;
@@ -30,15 +41,17 @@ class FollowCat extends Component {
 	  handleFollowClick = e => {
         e.preventDefault();
 		    const { followed } = this.state;
-        const { category_id, user_id, historyPush } = this.props;
-		    return this.props.followCategory(category_id, user_id, followed, historyPush);
+        const { followCategory, displayError, category_id, user_id, historyPush } = this.props;
+        if (!user_id) {
+          return displayError('You must be logged in to follow a category.');
+        }
+		    return followCategory(category_id, user_id, followed, historyPush);
 	  };
 
     render() {
         const { followed } = this.state;
+        const { user_id } = this.props;
         const isFollowing = this.props.categoryFollows.some(follow => follow.category_id === Number(this.props.category_id));
-
-
         return (
           <FollowWrapper>
             <Followed>
@@ -50,15 +63,23 @@ class FollowCat extends Component {
                   value={followed ? 'Followed' : 'Follow?'}
               />
             </Followed>
+            {
+                !user_id &&
+                <ToolTip
+                  text = 'You must be logged in to follow a category.' // must  be any string
+                  arrow = 'left' // must be string that says 'top', 'right', 'left', or 'bottom'
+                  width = { 200 } // must be a number
+                />
+              }
           </FollowWrapper>
         );
     }
-}
+};
 
 const mapStateToProps = state => ({
     categoryFollows: state.users.categoryFollows,
     user_id: state.users.user_id
 });
 
-export default connect(mapStateToProps, { followCategory })(FollowCat);
+export default connect(mapStateToProps, { followCategory, displayError })(FollowCat);
 
