@@ -32,6 +32,8 @@ import EditAvatarForm from './forms/EditAvatarForm.js';
 import EditAvatarUrlForm from './forms/EditAvatarUrlForm.js';
 import UpdateEmailForm from './forms/UpdateEmailForm.js';
 import EditDiscussionForm from './forms/EditDiscussionForm.js';
+import RequestResetPWForm from './forms/RequestResetPWForm';
+import ResetPWForm from './forms/ResetPWForm.js';
 
 export {
 	Auth,
@@ -67,4 +69,6 @@ export {
 	EditAvatarUrlForm,
 	UpdateEmailForm,
 	EditDiscussionForm,
+	RequestResetPWForm,
+	ResetPWForm,
 };

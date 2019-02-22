@@ -13,6 +13,8 @@ import {
   Message,
   Auth,
   ConfirmEmail,
+  RequestResetPWForm,
+  ResetPWForm,
 } from './components/index.js';
 
 // views
@@ -69,10 +71,10 @@ class App extends Component {
         <AppWrapper>
           <GlobalStyle />
           <Header history={history} />
-          <Route exact path='/home' component={LandingView} />
-          <Route exact path='/profiles' component={Profiles} />
-          <Route exact path='/profile/:id' component={Profile} />
-          <Route exact path='/categories' component={CategoriesView} />
+          <Route path='/home' component={LandingView} />
+          <Route path='/profiles' component={Profiles} />
+          <Route path='/profile/:id' component={Profile} />
+          <Route path='/categories' component={CategoriesView} />
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
           <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
@@ -88,7 +90,9 @@ class App extends Component {
         <AppWrapper>
           <GlobalStyle />
           <Switch>
-            <Route exact path='/register' component={RegisterView} />
+            <Route path='/register' component={RegisterView} />
+            <Route path='/request-reset-pw' component={RequestResetPWForm} />
+            <Route path = '/reset/:reset_pw_token' component = {ResetPWForm} />
             <Route render={props => <Auth {...props} />}/>
           </Switch>
           { error && <Error error = { error } /> }
@@ -97,7 +101,7 @@ class App extends Component {
       );
     }
   }
-}
+};
 
 const mapStateToProps = state => ({
   error: state.users.error,
