@@ -73,6 +73,28 @@ function authenticate(req, res, next) {
   });
 };
 
+// to be used in endpoints where both users and non-users have access
+// and where, if you are logged in as a user, you need to be authenticated first
+function authenticateIfTokenExists(req, res, next) {
+  const token = req.get('Authorization');
+  if (token === 'null') {
+    next();
+  } else {
+    return jwt.verify(token, secureKey, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ error: 'Your login has expired. Please sign in again.' });
+      }
+      req.decoded = decoded;
+      const requestingUserID = req.params.user_id;
+      const loggedInUserID = '' + req.decoded.id;
+      if (requestingUserID !== loggedInUserID) {
+        return res.status(401).json({ error: 'Not authorized.' });
+      }
+      next();
+    });
+  }
+};
+
 function validateToken(req, res, next) {
   const token = req.get('Authorization');
   if (!token) {
@@ -125,6 +147,7 @@ function authorize(req, res, next) {
 
 module.exports = {
   authenticate,
+  authenticateIfTokenExists,
   authorize,
   generateToken,
   refreshTokenAsNeeded,
