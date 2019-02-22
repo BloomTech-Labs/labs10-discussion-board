@@ -86,23 +86,34 @@ class Nav extends Component {
 
   render() {
     const { user_id, username, avatar } = this.props;
-    return (
-      <DivWrapper>
-      <div className = 'avatarWelcome'>
-        <Welcome>Welcome, 
-          <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>
-          !</Welcome>
-          <Signout onClick = { ev => this.clickSignout(ev) }>Sign Out</Signout>
-      </div>
-        <div onClick = { this.goToProfilePage }>
-          <Avatar
-            height = '100px'
-            width = '100px'
-            src = { avatar }
-          />
+    if (localStorage.getItem('symposium_user_id')) {
+      return (
+        <DivWrapper>
+        <div className = 'avatarWelcome'>
+          <Welcome>Welcome, 
+            <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>
+            !</Welcome>
+            <Signout onClick = { ev => this.clickSignout(ev) }>Sign Out</Signout>
         </div>
-      </DivWrapper>
-    );
+          <div onClick = { this.goToProfilePage }>
+            <Avatar
+              height = '100px'
+              width = '100px'
+              src = { avatar }
+            />
+          </div>
+        </DivWrapper>
+      );
+    } else {
+      return(
+        <DivWrapper>
+          <div>
+          Want to participate in the conversation?<br/>
+          <Link to ='/'>Sign up / Log in</Link>
+          </div>
+        </DivWrapper>
+      );
+    }
   }
 };
 
