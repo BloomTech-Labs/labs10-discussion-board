@@ -48,7 +48,7 @@ const GlobalStyle = createGlobalStyle`
 		  align-items: center;
 		  flex-wrap: wrap;
       flex-direction: column;
-      background: #8D230F;
+      background: #54BDFF;
       width: 100%;
 	}
 `;
@@ -78,7 +78,7 @@ class App extends Component {
           <Route path='/discussion/:id' component={DiscussionView} />
           <Route path='/settings/:id' component={Settings} />
           <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-          <Route path = '/confirm-email/:email_confirm_token' component = { ConfirmEmail } />
+          <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
 
           {error && <Error error={error} />}
           {message && <Message message={message} />}
@@ -95,8 +95,8 @@ class App extends Component {
             <Route path = '/reset/:reset_pw_token' component = {ResetPWForm} />
             <Route render={props => <Auth {...props} />}/>
           </Switch>
-          { error && <Error error = { error } /> }
-          { message && <Message message = { message } /> }
+          {error && <Error error={error} />}
+          {message && <Message message={message} />}
         </AppWrapper>
       );
     }

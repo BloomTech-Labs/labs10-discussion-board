@@ -29,7 +29,8 @@ const H1Register = styled.h1`
   width: 100%;
   height: 100px;
   margin: 0;
-  background-color: lightgray;
+  background-color: black;
+  color: white;
   font-size: 48px;
   user-select: none;
 `;
@@ -321,23 +322,22 @@ const DivSignature = styled.div`
   justify-content: center;
   align-items: center;
   width: 320px;
-  visibility: ${props =>
-    props.subPlan === subscriptionPlans[2] ||
-      props.subPlan === subscriptionPlans[3]
-      ? 'show'
-      : 'hidden'};
 `;
 
 const LabelSignature = styled.label`
   font-size: 20px;
   text-decoration: underline;
   margin-bottom: 5px;
+  user-select: none;
 `;
 
 const TextareaSignature = styled.textarea`
   width: 100%;
   height: 100px;
   resize: none;
+  border: 1px solid black;
+  user-select: ${props => props.disabled ? 'none' : 'auto'};
+  background: ${props => props.disabled ? '#c0c0c0' : 'white'};
 `;
 
 const DivRightSide = styled.div`
@@ -772,13 +772,24 @@ class RegisterView extends Component {
                     </DivEmail>
                     <DivSignature subPlan={this.state.subPlan}>
                       <LabelSignature>Signature</LabelSignature>
-                      <TextareaSignature
-                        onChange={this.handleInputChange}
-                        placeholder='Optional...'
-                        value={this.state.signature}
-                        name='signature'
-                        autoComplete='off'
-                      />
+                      {(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3]) ? (
+                        <TextareaSignature
+                          onChange={this.handleInputChange}
+                          placeholder='Optional...'
+                          value={this.state.signature}
+                          name='signature'
+                          autoComplete='off'
+                        />
+                      ) : (
+                          <TextareaSignature
+                            onChange={this.handleInputChange}
+                            placeholder=''
+                            value={this.state.signature}
+                            name='signature'
+                            autoComplete='off'
+                            disabled
+                          />
+                        )}
                     </DivSignature>
                   </DivLeftSide>
                   <DivRightSide>
