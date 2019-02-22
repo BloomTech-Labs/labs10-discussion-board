@@ -88,6 +88,15 @@ const getUserByEmail = email => {
     .where({ email });
 };
 
+// get user from given email if it has been confirmed
+const getUserFromConfirmedEmail = email => {
+  return db('users')
+    .select('id', 'username')
+    .where({ email })
+    .andWhere('email_confirm', 'true')
+    .first();
+};
+
 //Create a new user
 const insert = user => {
   return db('users')
@@ -162,6 +171,7 @@ module.exports = {
   isUsernameTaken,
   isEmailTaken,
   getUserByEmail,
+  getUserFromConfirmedEmail,
   insert,
   addEmailConfirm,
   confirmEmail,
