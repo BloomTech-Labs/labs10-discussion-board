@@ -15,7 +15,7 @@ const StyledHeader = styled.div`
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
-    width: 90%
+    width: 90%;
 
     @media (max-width: 450px){
     }
@@ -50,7 +50,7 @@ const TitleAndLogo = styled.div`
   @media (max-width: 450px){
     width: 90%;
     display: flex;
-    flex-directin: column;
+    flex-direction: column;
     align-items: center;
     margin-right: auto;
   }
@@ -70,6 +70,13 @@ const Title = styled.div`
 
   }
   h1 {
+    a {
+      color: #f7f5f3;
+      text-decoration: none;
+      &:hover {
+        color: black;
+      }
+    }
     margin-bottom: -35px;
     width: 90%;  
     @media (max-width: 768px){
@@ -82,6 +89,7 @@ const Title = styled.div`
     }
   }
   .subheader { 
+    color: #f7f5f3;
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){

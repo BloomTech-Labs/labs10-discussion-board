@@ -50,7 +50,7 @@ const TopDiscussionsTitle = styled.div`
   align-self: center;
   font-size: 18px;
   margin-left: 25px;
-  color: white;
+  color: black;
 `;
 
 const TextLooper = styled.div`
@@ -58,7 +58,7 @@ const TextLooper = styled.div`
   align-self: center;
   font-size: 28px;
   margin-left: 30px;
-  color: white;
+  color: black;
   @media (max-width: 768px){
     display: none;
   }

@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
 		  align-items: center;
 		  flex-wrap: wrap;
       flex-direction: column;
-      background: #d3ccaf;
+      background: #8D230F;
       width: 100%;
 	}
 `;

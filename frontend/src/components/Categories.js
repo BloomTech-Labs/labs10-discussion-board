@@ -11,19 +11,18 @@ const SingleCategoryWrapper = styled.div`
   justify-content: space-between;
   margin: 5px;
   padding: 10px;
-
   box-shadow: 2px 3px 2px 2px gray;
 
   .title {
-    text-decoration: none;
+    a {
+      text-decoration: none;
+    }
     font-weight: bold;
     font-size: 18px;
     color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
   .category {
@@ -31,9 +30,7 @@ const SingleCategoryWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
   .nameanddate {
@@ -42,14 +39,12 @@ const SingleCategoryWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.195);
+    background-color: rgba(255, 255, 255, 0.6);
   }
 
   .content {
