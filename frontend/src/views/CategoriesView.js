@@ -5,6 +5,7 @@ import { CategoriesList } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
   width: 90%;
+  background-color: #e8e3e0; 
 
   .header {
     text-align: center;
@@ -15,13 +16,14 @@ const CategoriesWrapper = styled.div`
     margin-bottom: 5px;
   }
   .link {
+    font-weight: bold;
     width: 5%;
-    font-size: 30px;
+    font-size: 40px;
     display: flex;
-    margin-left: 0%;
+    margin: 20px 0 0 20px;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: black;
     &:hover {
       cursor: pointer;
       color: black;

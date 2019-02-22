@@ -20,12 +20,12 @@ const ProfileWrapper = styled.div`
   padding: 10px;
   border: 1px solid gray;
   width: 480px;
-  background-color: #d3ccaf;
+  background-color: #e8e3e0;
   box-shadow: gray 2px 1px 2px 2px;
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
-    width: 90%
+    width: 90%;
     @media (max-width: 450px){
     }
   }

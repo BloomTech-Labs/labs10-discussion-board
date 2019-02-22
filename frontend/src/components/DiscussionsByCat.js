@@ -10,15 +10,14 @@ import { PostCount, VoteCount } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const DiscussionByCatWrapper = styled.div`
+  background-color: #e8e3e0;
+  border-radius: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin: 5px;
 	padding: 10px;
-	
-	box-shadow: 2px 3px 2px 2px gray;
-
-  box-shadow: 2px 3px 2px 2px gray;
+	box-shadow: 2px 3px 2px 2px #610b07;
 
   @media (max-width: 450px){
     width: 90%;
