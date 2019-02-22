@@ -40,17 +40,23 @@ export const REMOVE_DISCUSSION_FAILURE = 'REMOVE_DISCUSSION_FAILURE';
  ********************************************** Actions ********************************************
  **************************************************************************************************/
 export const getTopDiscussions = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
   dispatch({ type: TOP_DISCUSSIONS_LOADING });
   return axios
-    .get(`${backendURL}/discussions/top-daily`)
+    .get(`${backendURL}/discussions/top-daily/${user_id}`, headers)
     .then(res => dispatch({ type: TOP_DISCUSSIONS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
 };
 
 export const getDiscussionById = id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
   dispatch({ type: GET_DISCUSSION_BY_ID_LOADING });
   return axios
-    .get(`${backendURL}/discussions/discussion/${id}`)
+    .get(`${backendURL}/discussions/discussion/${id}/${user_id}`, headers)
     .then(res =>
       dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] })
     )
@@ -58,9 +64,12 @@ export const getDiscussionById = id => dispatch => {
 };
 
 export const getDiscussionsByCat = category_id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
   dispatch({ type: GET_DISCUSSIONS_LOADING });
   return axios
-    .get(`${backendURL}/discussions/category/${category_id}`)
+    .get(`${backendURL}/discussions/category/${category_id}/${user_id}`, headers)
     .then(res => dispatch({ type: GET_DISCUSSIONS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, GET_DISCUSSIONS_FAILURE)(dispatch));
 };
