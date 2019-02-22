@@ -89,10 +89,17 @@ class App extends Component {
       return (
         <AppWrapper>
           <GlobalStyle />
+          <Header history={history} />
           <Switch>
             <Route path='/register' component={RegisterView} />
             <Route path='/request-reset-pw' component={RequestResetPWForm} />
             <Route path = '/reset/:reset_pw_token' component = {ResetPWForm} />
+            <Route path='/home' component={LandingView} />
+            <Route path='/profile/:id' component={Profile} />
+            <Route path='/categories' component={CategoriesView} />
+            <Route path='/discussion/:id' component={DiscussionView} />
+            <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+            <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
             <Route render={props => <Auth {...props} />}/>
           </Switch>
           {error && <Error error={error} />}
