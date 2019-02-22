@@ -83,6 +83,7 @@ class LoginDropdown extends Component {
           autoComplete='off'
         />
         <input
+          type='password'
           onChange={this.handleInputChange}
           placeholder='Password'
           value={this.state.password}
