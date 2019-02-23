@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { CategoriesList } from '../components/index.js';
 
 // components
@@ -40,7 +41,7 @@ class CategoriesView extends Component {
   toggleAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
   render() {
     const { showAddForm } = this.state;
-    const { history } = this.props;
+    const { history, user_id } = this.props;
     return (
       <CategoriesWrapper>
         <div className='header'>
@@ -49,13 +50,15 @@ class CategoriesView extends Component {
           </Link>
           <h1> Categories (designs coming soon)</h1>
           {
-            showAddForm ?
-            <AddCategoryForm
-              toggleAddForm = { this.toggleAddForm }
-              historyPush = { history.push }
-            />
-            :
-            <button onClick = { this.toggleAddForm }>Add a category</button>
+            user_id !== 0 &&
+            (
+              showAddForm ?
+              <AddCategoryForm
+                toggleAddForm = { this.toggleAddForm }
+                historyPush = { history.push }
+              /> :
+              <button onClick = { this.toggleAddForm }>Add a category</button>
+            )
           }
         </div>
         <hr />
@@ -65,4 +68,8 @@ class CategoriesView extends Component {
   }
 };
 
-export default CategoriesView;
+const mapStateToProps = state => ({
+  user_id: state.users.user_id,
+});
+
+export default connect(mapStateToProps, {})(CategoriesView);
