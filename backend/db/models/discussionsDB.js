@@ -128,7 +128,7 @@ const findByCategoryId = (category_id, user_id) => {
     .select('dv.type', 'dv.discussion_id')
     .where({ user_id });
 
-  return discussionQuery = db('discussions as d')
+  const discussionQuery = db('discussions as d')
     .select(
       'd.id',
       'd.user_id',
@@ -155,6 +155,26 @@ const findByCategoryId = (category_id, user_id) => {
     .where('c.id', category_id)
     .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type')
     .orderBy('created_at', 'desc');
+  
+  const categoryQuery = db('categories as c')
+    .select(
+      'c.name',
+      'u.username',
+      'c.created_at',
+    )
+    .join('users as u', 'u.id', 'c.user_id')
+    .where('c.id', category_id)
+    .first();
+
+  const promises = [ discussionQuery, categoryQuery ];
+  return Promise.all(promises)
+    .then(results => {
+      const [ discussionResults, categoryResults ] = results;
+      return {
+        category: categoryResults,
+        discussions: discussionResults,
+      };
+    });
 };
 
 //AUTHORIZED ACCESS
