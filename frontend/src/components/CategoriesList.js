@@ -9,7 +9,7 @@ import { getCategories } from '../store/actions/index.js';
 const CategoryWrapper = styled.div`
     display: flex;
     flex-direction: column;
-`
+`;
 
 class CategoriesList extends Component {
     componentDidMount = () => this.props.getCategories();
@@ -24,7 +24,6 @@ class CategoriesList extends Component {
                         category = {category}
                     />)
                 }
-
             </CategoryWrapper>
         )
     }
