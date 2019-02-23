@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CategoriesList } from '../components/index.js';
+
+// components
+import { AddCategoryForm } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
   width: 90%;
@@ -32,19 +35,34 @@ const CategoriesWrapper = styled.div`
   }
 `;
 
-const CategoriesView = () => {
-  return (
-    <CategoriesWrapper>
-      <div className='header'>
-        <Link className='link c-link' to='/profiles'>
-          Profiles
-        </Link>
-        <h1> Categories (designs coming soon)</h1>
-      </div>
-      <hr />
-      <CategoriesList />
-    </CategoriesWrapper>
-  );
+class CategoriesView extends Component {
+  state = { showAddForm: false };
+  toggleAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
+  render() {
+    const { showAddForm } = this.state;
+    const { history } = this.props;
+    return (
+      <CategoriesWrapper>
+        <div className='header'>
+          <Link className='link c-link' to='/profiles'>
+            Profiles
+          </Link>
+          <h1> Categories (designs coming soon)</h1>
+          {
+            showAddForm ?
+            <AddCategoryForm
+              toggleAddForm = { this.toggleAddForm }
+              historyPush = { history.push }
+            />
+            :
+            <button onClick = { this.toggleAddForm }>Add a category</button>
+          }
+        </div>
+        <hr />
+        <CategoriesList />
+      </CategoriesWrapper>
+    );
+  }
 };
 
 export default CategoriesView;

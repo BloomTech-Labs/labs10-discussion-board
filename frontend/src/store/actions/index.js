@@ -10,9 +10,14 @@ import {
   FOLLOW_CATEGORY_SUCCESS,
   FOLLOW_CATEGORY_FAILURE,
 
+  ADD_CATEGORY_LOADING,
+  ADD_CATEGORY_SUCCESS,
+  ADD_CATEGORY_FAILURE,
+
   // Action Creators
   getCategories,
   followCategory,
+  addCategory,
 } from './CategoriesActions.js';
 
 import {
@@ -211,6 +216,10 @@ export {
   FOLLOW_CATEGORY_SUCCESS,
   FOLLOW_CATEGORY_FAILURE,
 
+  ADD_CATEGORY_LOADING,
+  ADD_CATEGORY_SUCCESS,
+  ADD_CATEGORY_FAILURE,
+
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
   GET_DISCUSSIONS_SUCCESS,
@@ -336,6 +345,7 @@ export {
   // Categories Action Creators
   getCategories,
   followCategory,
+  addCategory,
 
   // Discussion Action Creators
   getTopDiscussions,
