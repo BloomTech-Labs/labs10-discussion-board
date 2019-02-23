@@ -15,7 +15,7 @@ const EditPasswordFormWrapper = styled.form`
 	width: 60%;
 	display: flex;
 	flex-direction: column;
-	margin: 10px;
+	margin: 20px;
 	padding: 10px;
 	border-radius: 20px;
 	background-color: #54BDFF;
@@ -45,7 +45,7 @@ const Buttons = styled.div`
         font-size: 14px;
 
           &:hover {
-            background-color: grey;
+            background-color: #4ca0e0;
             cursor: pointer;
           }
 	}

@@ -40,11 +40,12 @@ const EditAvatarFormWrapper = styled.form`
 		}
 
 		#image-file:focus + label {
-			background-color: #736A42;
+			background-color: #4ca0e0;
 		}
 
 		#image-file + label:hover {
-			background-color: grey;
+			background-color: #4ca0e0;
+			color: black;
 		}
 
 		#image-file + label {
@@ -67,7 +68,7 @@ const EditAvatarFormWrapper = styled.form`
 
 		&:hover {
 			cursor: pointer;
-			background-color: grey;
+			background-color: #4ca0e0;
 		}
 	}
 
@@ -79,7 +80,7 @@ const EditAvatarFormWrapper = styled.form`
         font-size: 16px;
 
           &:hover {
-            background-color: grey;
+            background-color: #4ca0e0;
             cursor: pointer;
           }
         }

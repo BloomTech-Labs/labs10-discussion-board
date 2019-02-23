@@ -47,7 +47,7 @@ const AuthOEditForms = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 10px;
+    padding-bottom: 10px;
 `;
 
 const EditMenu = styled.div`
@@ -55,6 +55,10 @@ const EditMenu = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    p {
+      margin-bottom: 7px;
+    }
 `;
 
 const Buttons = styled.div`
@@ -63,12 +67,12 @@ const Buttons = styled.div`
   button {
           margin: 7px;
           border-radius: 10px;
-          width: 25%;
+          width: 20%;
           height: 30px;
-          font-size: 14px;
+          font-size: 16px;
 
           &:hover {
-            background-color: grey;
+            background-color: #4ca0e0;
             cursor: pointer;
           }
         }
@@ -92,7 +96,7 @@ const EditAvatarMenu = styled.div`
           font-size: 16px;
 
           &:hover {
-            background-color: grey;
+            background-color: #4ca0e0;
             cursor: pointer;
           }
         }

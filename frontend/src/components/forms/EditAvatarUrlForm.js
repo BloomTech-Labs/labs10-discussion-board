@@ -39,7 +39,7 @@ const EditAvatarUrlFormWrapper = styled.form`
 
 		&:hover {
 			cursor: pointer;
-			background-color: grey;
+			background-color: #4ca0e0;
 		}
 	}
 
@@ -51,7 +51,7 @@ const EditAvatarUrlFormWrapper = styled.form`
         font-size: 16px;
 
           &:hover {
-            background-color: grey;
+            background-color: #4ca0e0;
             cursor: pointer;
           }
         }
