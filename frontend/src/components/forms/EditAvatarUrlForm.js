@@ -6,13 +6,12 @@ import styled from 'styled-components';
 import { uploadAvatarUrl } from '../../store/actions/index.js';
 
 const EditAvatarUrlFormWrapper = styled.form`
+	width: 40%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border:1px solid #5B5B5B;
-	border-radius: 5px;
 	padding: 5px 10px;
 
 	.upload-input-wrapper {
@@ -21,6 +20,12 @@ const EditAvatarUrlFormWrapper = styled.form`
 		justify-content: center;
 		align-items: center;
 		margin-top: 10px;
+
+		input {
+			font-size: 16px;
+			width: 250px;
+			margin-bottom: 12px;
+		}
 	}
 
 	.upload-btn {
@@ -33,24 +38,22 @@ const EditAvatarUrlFormWrapper = styled.form`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #534C2F;
+			background-color: grey;
 		}
 	}
 
 	.btn {
-		margin: 10px;
-		background-color: #C9C19F;
-		border: 1px solid #5B5B5B;
-		border-radius: 5px;
-		padding: 5px 10px;
-		color: #5B5B5B;
+		margin: 7px;
+        border-radius: 10px;
+        width: 200px;
+        height: 30px;
+        font-size: 16px;
 
-		&:hover {
-			background-color: #84794B;
-			color: white;
-			cursor: pointer;
-		}
-	}
+          &:hover {
+            background-color: grey;
+            cursor: pointer;
+          }
+        }
 `;
 
 class EditAvatarUrlForm extends Component {
@@ -74,6 +77,7 @@ class EditAvatarUrlForm extends Component {
 			<EditAvatarUrlFormWrapper onSubmit = { this.handleSubmit }>
 				<div className = 'upload-input-wrapper'>
 					<input
+						placeholder = 'enter url'
 						type = 'text'
 						name = 'url'
 						onChange = { this.handleInputChange }

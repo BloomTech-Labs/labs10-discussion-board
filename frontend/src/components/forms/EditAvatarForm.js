@@ -12,7 +12,6 @@ const EditAvatarFormWrapper = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border-radius: 5px;
 	padding: 5px 10px;
 
 	.upload-input-wrapper {
