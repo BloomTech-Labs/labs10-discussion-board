@@ -39,10 +39,14 @@ export const REMOVE_DISCUSSION_FAILURE = 'REMOVE_DISCUSSION_FAILURE';
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
-export const getTopDiscussions = () => dispatch => {
+export const getTopDiscussions = (order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+	const headers = { headers: {
+    Authorization: token,
+    order,
+    orderType,
+  } };
   dispatch({ type: TOP_DISCUSSIONS_LOADING });
   return axios
     .get(`${backendURL}/discussions/top-daily/${user_id}`, headers)
