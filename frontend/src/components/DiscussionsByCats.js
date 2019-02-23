@@ -22,7 +22,7 @@ class DiscussionsByCats extends Component {
 	state = {
 		order: 'created_at', // possible values: 'created_at', 'post_count', 'discussion_votes'
 		orderType: '', // possible values: 'desc', 'asc'
-    };
+	};
 	handleDiscussionVote = (discussion_id, type) => {
 		const { order, orderType } = this.state;
 		const { getDiscussionsByCat, handleDiscussionVote, category_id, user_id } = this.props;
