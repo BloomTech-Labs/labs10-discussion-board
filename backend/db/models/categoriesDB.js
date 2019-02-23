@@ -9,9 +9,12 @@ const getCategories = () => {
             'c.id', 
             'c.user_id', 
             'c.created_at',
-            )
+        )
+        .count('d.id as discussion_count')
         .join('users as u', 'u.id', 'c.user_id')
-        .orderBy('c.name')
+        .leftOuterJoin('discussions as d', 'd.category_id', 'c.id')
+        .groupBy('c.name', 'c.id', 'u.username')
+        .orderBy('c.name');
 };
 
 // get category by name
