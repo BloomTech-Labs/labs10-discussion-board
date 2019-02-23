@@ -35,6 +35,34 @@ const AvatarPic = styled.div`
     }
 `;
 
+const AuthOEditForms = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    padding: 25px;
+`;
+
+const EditMenu = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  button {
+          margin: 7px;
+          border-radius: 10px;
+          width: 25%;
+          height: 30px;
+          font-size: 14px;
+
+          &:hover {
+            background-color: grey;
+            cursor: pointer;
+          }
+        }
+`;
+
 class Settings extends Component {
   state = { show: '' };
   getProfile = () => this.props.getProfile(this.props.match.params.id);
@@ -57,21 +85,26 @@ class Settings extends Component {
           </AvatarPic>
         </EmailAndAvatar>
         <br />
-        {
-          isAuth0 ?
-          <p>You are Auth0. You cannot change your email.</p>
-          :
-          email ?
-          <button onClick = { () => this.toggleForm('email-form') }>Change email</button>
-          :
-          <button onClick = { () => this.toggleForm('email-form') }>Set email</button>
-        }
-        <button onClick={() => this.toggleForm('password-form')}>
-          Change password
-        </button>
-        <button onClick={() => this.toggleForm('avatar-btns')}>
-          Change avatar
-        </button>
+        <AuthOEditForms>
+            <EditMenu>
+              {
+                isAuth0 ?
+                <p>You are Auth0. You cannot change your email.</p>
+                :
+                email ?
+                <button onClick = { () => this.toggleForm('email-form') }>Change email</button>
+                :
+                <button onClick = { () => this.toggleForm('email-form') }>Set email</button>
+              }
+              <Buttons>
+                <button onClick={() => this.toggleForm('password-form')}>
+                  Change password
+                </button>
+                <button onClick={() => this.toggleForm('avatar-btns')}>
+                  Change avatar
+                </button>
+              </Buttons>
+            </EditMenu>
         {show === 'password-form' && (
           <EditPasswordForm toggleForm={this.toggleForm} />
         )}
@@ -104,6 +137,8 @@ class Settings extends Component {
             history = { this.props.history }
           />
         )}
+
+        </AuthOEditForms>
       </SettingsWrapper>
     );
   }
