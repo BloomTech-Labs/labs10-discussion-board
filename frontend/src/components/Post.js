@@ -45,10 +45,8 @@ const Elip = styled.div `
 
 const Vote = styled.div `
 display: flex;
-margin: 10px;
-padding: 10px;
-position: absolute;
-right: 15%;
+padding: 5px;
+margin-left: 90%;
 bottom: 45px;
 `;
 
