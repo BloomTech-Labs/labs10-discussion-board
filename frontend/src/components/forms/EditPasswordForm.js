@@ -6,9 +6,43 @@ import styled from 'styled-components';
 import { updatePassword, displayError } from '../../store/actions/index.js';
 
 const EditPasswordFormWrapper = styled.form`
+	width: 50%;
+	display: flex;
+	flex-direction: column;
 	margin: 10px;
 	padding: 10px;
-	border: 1px solid red;
+	border-radius: 20px;
+	background-color: #e8e3e0;
+	
+`;
+
+const Inputs = styled.div`
+	display: flex;
+	flex-direction: column;
+	
+	input {
+		margin: 7px 0px;
+		font-size: 20px;
+	}
+`;
+
+const Buttons = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+
+	button {
+		margin: 7px;
+        border-radius: 10px;
+        width: 25%;
+        height: 30px;
+        font-size: 14px;
+
+          &:hover {
+            background-color: grey;
+            cursor: pointer;
+          }
+	}
 `;
 
 class EditPasswordForm extends Component {
@@ -35,33 +69,35 @@ class EditPasswordForm extends Component {
 		return(
 			<EditPasswordFormWrapper onSubmit = { this.handleSubmit }>
 				<h1>Edit password</h1>
+				<Inputs>
+					<input
+						placeholder = 'Enter old password'
+						name = 'oldPassword'
+						type = 'password'
+						onChange = { this.handleChange }
+						value = { oldPassword }
+					/>
 
-				<input
-					placeholder = 'Enter old password'
-					name = 'oldPassword'
-					type = 'password'
-					onChange = { this.handleChange }
-					value = { oldPassword }
-				/>
+					<input
+						placeholder = 'Enter new password'
+						name = 'newPassword'
+						type = 'password'
+						onChange = { this.handleChange }
+						value = { newPassword }
+					/>
 
-				<input
-					placeholder = 'Enter new password'
-					name = 'newPassword'
-					type = 'password'
-					onChange = { this.handleChange }
-					value = { newPassword }
-				/>
-
-				<input
-					placeholder = 'Enter new password again'
-					name = 'newPassword1'
-					type = 'password'
-					onChange = { this.handleChange }
-					value = { newPassword1 }
-				/>
-
-				<button type = 'submit'>Submit</button>
-				<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+					<input
+						placeholder = 'Enter new password again'
+						name = 'newPassword1'
+						type = 'password'
+						onChange = { this.handleChange }
+						value = { newPassword1 }
+					/>
+				</Inputs>
+				<Buttons>
+					<button type = 'submit'>Submit</button>
+					<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+				</Buttons>
 			</EditPasswordFormWrapper>
 		);
 	}

@@ -63,6 +63,9 @@ const Buttons = styled.div`
         }
 `;
 
+const EditAvatarMenu = styled.div`
+`;
+
 class Settings extends Component {
   state = { show: '' };
   getProfile = () => this.props.getProfile(this.props.match.params.id);
@@ -109,7 +112,7 @@ class Settings extends Component {
           <EditPasswordForm toggleForm={this.toggleForm} />
         )}
         {show === 'avatar-btns' && (
-          <div>
+          <EditAvatarMenu>
             <button onClick={() => this.toggleForm('avatar-pc-form')}>
               Upload from PC
             </button>
@@ -117,7 +120,7 @@ class Settings extends Component {
               Upload from URL
             </button>
             <button onClick={() => this.toggleForm('')}>Cancel</button>
-          </div>
+          </EditAvatarMenu>
         )}
         {show === 'avatar-pc-form' && (
           <EditAvatarForm
