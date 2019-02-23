@@ -5,8 +5,14 @@ import styled from 'styled-components';
 // action creators
 import { updatePassword, displayError } from '../../store/actions/index.js';
 
+const EditPasswordDiv = styled.div`
+	display: flex;
+	justify-content: center;
+`;
+
 const EditPasswordFormWrapper = styled.form`
-	width: 50%;
+	text-align: center;
+	width: 60%;
 	display: flex;
 	flex-direction: column;
 	margin: 10px;
@@ -67,38 +73,40 @@ class EditPasswordForm extends Component {
 		} = this.state;
 		const { toggleForm } = this.props;
 		return(
-			<EditPasswordFormWrapper onSubmit = { this.handleSubmit }>
-				<h1>Edit password</h1>
-				<Inputs>
-					<input
-						placeholder = 'Enter old password'
-						name = 'oldPassword'
-						type = 'password'
-						onChange = { this.handleChange }
-						value = { oldPassword }
-					/>
+			<EditPasswordDiv>
+				<EditPasswordFormWrapper onSubmit = { this.handleSubmit }>
+					<h1>Edit password</h1>
+					<Inputs>
+						<input
+							placeholder = 'Enter old password'
+							name = 'oldPassword'
+							type = 'password'
+							onChange = { this.handleChange }
+							value = { oldPassword }
+						/>
 
-					<input
-						placeholder = 'Enter new password'
-						name = 'newPassword'
-						type = 'password'
-						onChange = { this.handleChange }
-						value = { newPassword }
-					/>
+						<input
+							placeholder = 'Enter new password'
+							name = 'newPassword'
+							type = 'password'
+							onChange = { this.handleChange }
+							value = { newPassword }
+						/>
 
-					<input
-						placeholder = 'Enter new password again'
-						name = 'newPassword1'
-						type = 'password'
-						onChange = { this.handleChange }
-						value = { newPassword1 }
-					/>
-				</Inputs>
-				<Buttons>
-					<button type = 'submit'>Submit</button>
-					<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
-				</Buttons>
-			</EditPasswordFormWrapper>
+						<input
+							placeholder = 'Enter new password again'
+							name = 'newPassword1'
+							type = 'password'
+							onChange = { this.handleChange }
+							value = { newPassword1 }
+						/>
+					</Inputs>
+					<Buttons>
+						<button type = 'submit'>Submit</button>
+						<button type = 'button' onClick = { () => toggleForm('') }>Cancel</button>
+					</Buttons>
+				</EditPasswordFormWrapper>
+			</EditPasswordDiv>
 		);
 	}
 };

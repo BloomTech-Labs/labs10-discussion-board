@@ -18,7 +18,7 @@ const SettingsWrapper = styled.div`
   background-color: #e8e3e0;
   box-shadow: 4px 6px 4px 4px #4ca0e0;
   border-radius: 30px;
-  width: 75%;
+  width: 50%;
 `;
 
 const UsernameSettings = styled.div`
@@ -45,18 +45,21 @@ const AvatarPic = styled.div`
 
 const AuthOEditForms = styled.div`
     display: flex;
-    justify-content: space-evenly;
-    padding: 25px;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
 `;
 
 const EditMenu = styled.div`
+    text-align: center;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    width: 50%;
 `;
 
 const Buttons = styled.div`
   display: flex;
+  justify-content: center;
   button {
           margin: 7px;
           border-radius: 10px;
@@ -71,7 +74,13 @@ const Buttons = styled.div`
         }
 `;
 
+const AvatarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const EditAvatarMenu = styled.div`
+  margin: 20px 0px;
   display: flex;
   flex-direction: column;
 
@@ -88,6 +97,7 @@ const EditAvatarMenu = styled.div`
           }
         }
   .changeavatar {
+    text-align: center;
     font-weight: bold;
     margin-bottom: 7px;
   }
@@ -139,16 +149,18 @@ class Settings extends Component {
           <EditPasswordForm toggleForm={this.toggleForm} />
         )}
         {show === 'avatar-btns' && (
-          <EditAvatarMenu>
-            <div className = 'changeavatar'>Upload new avatar:</div>
-            <button onClick={() => this.toggleForm('avatar-pc-form')}>
-              Upload from PC
-            </button>
-            <button onClick={() => this.toggleForm('avatar-url-form')}>
-              Upload from URL
-            </button>
-            <button onClick={() => this.toggleForm('')}>Cancel</button>
-          </EditAvatarMenu>
+          <AvatarContainer>
+            <EditAvatarMenu>
+              <div className = 'changeavatar'>Upload new avatar:</div>
+              <button onClick={() => this.toggleForm('avatar-pc-form')}>
+                Upload from PC
+              </button>
+              <button onClick={() => this.toggleForm('avatar-url-form')}>
+                Upload from URL
+              </button>
+              <button onClick={() => this.toggleForm('')}>Cancel</button>
+            </EditAvatarMenu>
+          </AvatarContainer>
         )}
         {show === 'avatar-pc-form' && (
           <EditAvatarForm

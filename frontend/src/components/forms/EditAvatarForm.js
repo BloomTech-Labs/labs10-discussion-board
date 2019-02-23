@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import { uploadAvatar } from '../../store/actions/index.js';
 
 const EditAvatarFormWrapper = styled.form`
-	width: 40%;
+	margin: 16.5px 0px;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 5px 10px;
 
 	.upload-input-wrapper {
 		position: relative;
