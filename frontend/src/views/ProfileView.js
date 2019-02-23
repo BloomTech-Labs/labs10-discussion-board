@@ -81,6 +81,17 @@ const ProfileTitle = styled.div`
   font-size: 36px;
 `;
 
+const Elip = styled.div `
+  width: 240px;
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -136,7 +147,7 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Posts: </p>
-                {profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}
+                <Elip>{profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}</Elip>
               </WrappedDiv>
             </ProfileWrapper>
           </div>
