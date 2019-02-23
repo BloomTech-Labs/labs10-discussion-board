@@ -81,6 +81,7 @@ const Elip = styled.div `
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
+  padding: 10px;
 `;
 
 class Discussion extends Component {
@@ -171,8 +172,7 @@ class Discussion extends Component {
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
         </DiscussionInfo>
-        <p>Title: {title}</p>
-        <Elip>Body: {body}</Elip>
+        <Elip>{body}</Elip>
 
         <button onClick={this.toggleAddPostForm}>Add a Post</button>
         {showAddPostForm && (

@@ -16,7 +16,8 @@ const PostWrapper = styled.div`
 
 const PostedBy = styled.div`
   display: flex;
-  width: 25%;
+  width: 250px;
+  padding: 10px;
 
   .username {
     margin: 0px 7px;
@@ -39,6 +40,16 @@ const Elip = styled.div `
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
+  padding: 10px;
+`;
+
+const Vote = styled.div `
+display: flex;
+margin: 10px;
+padding: 10px;
+position: absolute;
+right: 15%;
+bottom: 45px;
 `;
 
 const Post = ({
@@ -73,15 +84,14 @@ const handleVote = type => {
   return (
     <PostWrapper>
       {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
-      <h1>POST</h1>
-      <p>post votes: {post_votes}</p>
-      <div>
+
+      <Vote>
         <VoteCount 
           handleVote = { handleVote } 
           vote_count = { post_votes }
           user_vote = { user_vote }
         />
-      </div>
+      </Vote>
       <PostedBy>
         Posted by:
         <Link className='username' to={`/profile/${user_id}`}>
@@ -89,7 +99,7 @@ const handleVote = type => {
         </Link>
         {moment(new Date(Number(created_at))).fromNow()}
       </PostedBy>
-      <Elip>Body: {body}</Elip>
+      <Elip>{body}</Elip>
 
       {userCreatedPost &&
         (showEditPostForm === id ? (
