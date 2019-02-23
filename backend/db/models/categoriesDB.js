@@ -1,7 +1,7 @@
 const db = require('../dbConfig.js');
 
 //gets All Categories
-const getCategories = () => {
+const getCategories = (order, orderType) => {
     return db('categories as c')
         .select(
             'u.username as user_username', 
@@ -14,7 +14,9 @@ const getCategories = () => {
         .join('users as u', 'u.id', 'c.user_id')
         .leftOuterJoin('discussions as d', 'd.category_id', 'c.id')
         .groupBy('c.name', 'c.id', 'u.username')
-        .orderBy('c.name');
+        // order by given order and orderType
+        // else default to ordering by name ascending
+        .orderBy(`${ order ? order : 'name' }`, `${ orderType ? orderType : 'asc' }`);
 };
 
 // get category by name
