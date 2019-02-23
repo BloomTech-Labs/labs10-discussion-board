@@ -1,7 +1,7 @@
 const db = require('../dbConfig.js');
 
-// get top (limit 10) daily discussions ordered by vote_count
-const getTopDailyDiscussions = user_id => {
+// get top (limit 10) daily discussions
+const getTopDailyDiscussions = (user_id, order, orderType) => {
   const postCountQuery = db('posts as p')
     .select('p.discussion_id')
     .count({ post_count: 'p.id' })
@@ -23,7 +23,7 @@ const getTopDailyDiscussions = user_id => {
       'd.title',
       'd.body',
       'd.created_at',
-      'pc.post_count',
+      db.raw('COALESCE(pc.post_count, 0) AS post_count'),
       'uv.type as user_vote'
     )
     .sum('dv.type as vote_count')
@@ -31,7 +31,7 @@ const getTopDailyDiscussions = user_id => {
     .join('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin(postCountQuery.as('pc'), function() {
-        this.on('pc.discussion_id', '=', 'd.id');
+      this.on('pc.discussion_id', '=', 'd.id');
     })
     .leftOuterJoin(userVoteQuery.as('uv'), function() {
       this.on('uv.discussion_id', '=', 'd.id');
@@ -39,7 +39,9 @@ const getTopDailyDiscussions = user_id => {
     // this whereRaw gets the created_at dates that are 24 hours away from the current time
     .whereRaw("d.created_at >= ?", [Date.parse(new Date()) - (24 * 60 * 60 * 1000)])
     .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type')
-    .orderBy('vote_count', 'desc')
+    // order by given order and orderType
+    // else default to ordering by vote_count descending
+    .orderBy(`${ order ? order : 'vote_count' }`, `${ orderType ? orderType : 'desc' }`)
     .limit(10);
 };
 
