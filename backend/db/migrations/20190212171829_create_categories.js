@@ -11,7 +11,9 @@ exports.up = function (knex, Promise) {
       .onDelete('SET NULL');
 
     // Other Columns
-    tbl.string('name').notNullable();
+    tbl.string('name')
+      .unique()
+      .notNullable();
 
     // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();
