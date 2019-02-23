@@ -26,9 +26,10 @@ export const ADD_CATEGORY_FAILURE = 'ADD_CATEGORY_FAILURE';
  ********************************************* Action Creators *************************************
  **************************************************************************************************/
 
-export const getCategories = () => dispatch => {
+export const getCategories = (order, orderType) => dispatch => {
+  const headers = { headers: { order, orderType } };
   dispatch({ type: GET_CATEGORIES_LOADING });
-  return axios.get(`${backendUrl}/categories`)
+  return axios.get(`${backendUrl}/categories`, headers)
     .then(res => dispatch({ type: GET_CATEGORIES_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, GET_CATEGORIES_FAILURE)(dispatch));
 };
