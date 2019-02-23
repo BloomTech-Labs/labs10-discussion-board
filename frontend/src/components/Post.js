@@ -31,7 +31,15 @@ const PostedBy = styled.div`
   }
 `;
 
-
+const Elip = styled.div `
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+`;
 
 const Post = ({
   post,
@@ -81,7 +89,7 @@ const handleVote = type => {
         </Link>
         {moment(new Date(Number(created_at))).fromNow()}
       </PostedBy>
-      <p>Body: {body}</p>
+      <Elip>Body: {body}</Elip>
 
       {userCreatedPost &&
         (showEditPostForm === id ? (

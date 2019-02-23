@@ -69,6 +69,21 @@ const TopDiscussionWrapper = styled.div`
   }
 `;
 
+const Elip = styled.div `
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+`;
+
+const Vote = styled.div `
+display: flex;
+margin-right: 10px;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -118,10 +133,9 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
             - {moment(new Date(Number(created_at))).fromNow()}
           </span>
         </div>
-        <p>{body}</p>
+        <Elip>{body}</Elip>
       </div>
-
-      <PostCount post_count={post_count || 0} />
+      <Vote><PostCount post_count={post_count || 0} /></Vote>
     </TopDiscussionWrapper>
   );
 };

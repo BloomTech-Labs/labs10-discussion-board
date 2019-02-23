@@ -73,6 +73,16 @@ const PostedBy = styled.div`
   }
 `;
 
+const Elip = styled.div `
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+`;
+
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
@@ -162,7 +172,7 @@ class Discussion extends Component {
           </PostedBy>
         </DiscussionInfo>
         <p>Title: {title}</p>
-        <p>Body: {body}</p>
+        <Elip>Body: {body}</Elip>
 
         <button onClick={this.toggleAddPostForm}>Add a Post</button>
         {showAddPostForm && (
