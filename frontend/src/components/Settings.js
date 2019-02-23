@@ -16,6 +16,23 @@ import {
 
 const SettingsWrapper = styled.div`
   border: 1px solid black;
+  width: 75%;
+`;
+
+const EmailAndAvatar = styled.div`
+    font-size: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+`;
+
+const AvatarPic = styled.div`
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-right: 20px;
+    }
 `;
 
 class Settings extends Component {
@@ -31,11 +48,14 @@ class Settings extends Component {
     return (
       <SettingsWrapper>
         <h1>{username}'s Settings</h1>
-
-        <p>Email: {email || 'N/A'}</p>
-        { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
-        <p>Avatar:</p>
-        <Avatar height='50px' width='50px' src={avatar} />
+        <EmailAndAvatar>
+          <p>Email: {email || 'N/A'}</p>
+          { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+          <AvatarPic>
+            <p>Avatar:</p>
+            <Avatar height='100px' width='100px' src={avatar} />
+          </AvatarPic>
+        </EmailAndAvatar>
         <br />
         {
           isAuth0 ?
