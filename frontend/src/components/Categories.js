@@ -61,7 +61,7 @@ const SingleCategoryWrapper = styled.div`
 //import moment and add created_At in the migrations if wish to include
 //a timestamp of creation
 const Categories = ({ category }) => {
-  const { id, user_username, name, created_at, user_id } = category;
+  const { id, user_username, name, created_at, user_id, discussion_count } = category;
 
   return (
     <SingleCategoryWrapper>
@@ -77,6 +77,9 @@ const Categories = ({ category }) => {
       </Link>
       <div className='timestamp'>
         <span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
+      </div>
+      <div>
+        { discussion_count } Discussions
       </div>
     </SingleCategoryWrapper>
   );
