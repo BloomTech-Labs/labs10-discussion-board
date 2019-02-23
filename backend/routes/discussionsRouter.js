@@ -90,7 +90,7 @@ router.post('/:user_id', authenticate, (req, res) => {
   const newDiscussion = { user_id, category_id, title, body: dBody, created_at };
   return discussionsDB
     .insert(newDiscussion)
-    .then(() => res.status(201).json({ message: 'Discussion topic has been posted!' }))
+    .then(newId => res.status(201).json(newId))
     .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
 });
 

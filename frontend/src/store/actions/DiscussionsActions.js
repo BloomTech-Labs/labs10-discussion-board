@@ -105,9 +105,10 @@ export const addDiscussion = (category_id, title, dBody, historyPush) => dispatc
 	const body = { category_id, title, dBody };
 	dispatch({ type: ADD_DISCUSSION_LOADING });
 	return axios.post(`${ backendURL }/discussions/${user_id}`, body, headers)
-		.then(() => dispatch({ type: ADD_DISCUSSION_SUCCESS }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussions/category/${ category_id }`))
+    .then(res => {
+      dispatch({ type: ADD_DISCUSSION_SUCCESS });
+      return historyPush(`/discussion/${ res.data }`);
+    })
 		.catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
 

@@ -140,7 +140,7 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
       'd.title',
       'd.body',
       'd.created_at',
-      'pc.post_count',
+      db.raw('COALESCE(pc.post_count, 0) AS post_count'),
       db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
       'uv.type as user_vote'
     )
@@ -185,7 +185,7 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
 
 //Add Discussion into the Discussion table
 const insert = discussion => {
-  return db('discussions').insert(discussion);
+  return db('discussions').insert(discussion).returning('id');
 };
 
 //EDIT [ACCOUNT TYPE ACCESS: USER_ID]
