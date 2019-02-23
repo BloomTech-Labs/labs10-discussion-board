@@ -39,10 +39,14 @@ export const REMOVE_DISCUSSION_FAILURE = 'REMOVE_DISCUSSION_FAILURE';
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
-export const getTopDiscussions = () => dispatch => {
+export const getTopDiscussions = (order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+	const headers = { headers: {
+    Authorization: token,
+    order,
+    orderType,
+  } };
   dispatch({ type: TOP_DISCUSSIONS_LOADING });
   return axios
     .get(`${backendURL}/discussions/top-daily/${user_id}`, headers)
@@ -50,23 +54,21 @@ export const getTopDiscussions = () => dispatch => {
     .catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
 };
 
-export const getDiscussionById = id => dispatch => {
+export const getDiscussionById = (id, order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+	const headers = { headers: { Authorization: token, order, orderType } };
   dispatch({ type: GET_DISCUSSION_BY_ID_LOADING });
   return axios
     .get(`${backendURL}/discussions/discussion/${id}/${user_id}`, headers)
-    .then(res =>
-      dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] })
-    )
+    .then(res => dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] }))
     .catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
 };
 
-export const getDiscussionsByCat = category_id => dispatch => {
+export const getDiscussionsByCat = (category_id, order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+	const headers = { headers: { Authorization: token, order, orderType } };
   dispatch({ type: GET_DISCUSSIONS_LOADING });
   return axios
     .get(`${backendURL}/discussions/category/${category_id}/${user_id}`, headers)
@@ -101,9 +103,10 @@ export const addDiscussion = (category_id, title, dBody, historyPush) => dispatc
 	const body = { category_id, title, dBody };
 	dispatch({ type: ADD_DISCUSSION_LOADING });
 	return axios.post(`${ backendURL }/discussions/${user_id}`, body, headers)
-		.then(() => dispatch({ type: ADD_DISCUSSION_SUCCESS }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussions/category/${ category_id }`))
+    .then(res => {
+      dispatch({ type: ADD_DISCUSSION_SUCCESS });
+      return historyPush(`/discussion/${ res.data }`);
+    })
 		.catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
 

@@ -66,7 +66,7 @@ const VoteCount = ({
 				className = 'fas fa-arrow-alt-circle-up'
 				onClick = { () => handleClick(1) }
 			/>
-			<div>{ vote_count }</div>
+			<div>{ vote_count || 0 }</div>
 			<i
 				className = 'fas fa-arrow-alt-circle-down'
 				onClick = { () => handleClick(-1) }

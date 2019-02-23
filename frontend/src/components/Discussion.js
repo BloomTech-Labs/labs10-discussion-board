@@ -88,8 +88,13 @@ class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
-    showEditPostForm: null // post_id
+    showEditPostForm: null, // post_id
+    order: 'created_at', // possible values: 'created_at', 'post_votes'
+    orderType: '', // possible values: 'desc', 'asc'
   };
+  handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
+		return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
+	});
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
@@ -107,12 +112,18 @@ class Discussion extends Component {
     return removeDiscussion(id, category_id, historyPush);
   };
   handleDiscussionVote = (discussion_id, type) => {
+    const { order, orderType } = this.state;
 		const { id, getDiscussionById, handleDiscussionVote } = this.props;
 		return handleDiscussionVote(discussion_id, this.props.user_id, type)
-			.then(() => getDiscussionById(id));
+			.then(() => getDiscussionById(id, order, orderType));
 	};
-  componentDidMount = () => this.props.getDiscussionById(this.props.id);
+  componentDidMount = () => {
+    const { getDiscussionById, id } = this.props;
+    const { order, orderType } = this.state;
+    return getDiscussionById(id, order, orderType);
+  };
   render() {
+    const { order, orderType } = this.state;
     const { showAddPostForm, showEditPostForm, showEditDiscussionForm } = this.state;
     const { discussion, historyPush } = this.props;
     const {
@@ -184,17 +195,33 @@ class Discussion extends Component {
           />
         )}
 
+        <span>Sort by: </span>
+				<select onChange = { this.handleSelectChange } name = 'order'>
+					<option value = 'created_at'>Date</option>
+					<option value = 'post_votes'>Votes</option>
+				</select>
+				<select onChange = { this.handleSelectChange } name = 'orderType'>
+					<option value = 'desc'>
+						{ order === 'created_at' ? 'Most Recent First' : 'Greatest First' }
+					</option>
+					<option value = 'asc'>
+						{ order === 'created_at' ? 'Least Recent First' : 'Least First' }
+					</option>
+				</select>
+
         <PostsView
           posts={posts}
           historyPush={historyPush}
           showEditPostForm={showEditPostForm}
           updateEditPostForm={this.updateEditPostForm}
           handleRemovePost={this.handleRemovePost}
+          order={order}
+          orderType={orderType}
         />
       </DiscussionWrapper>
     );
   }
-}
+};
 
 const mapStateToProps = state => ({
   discussion: state.discussions.discussion,

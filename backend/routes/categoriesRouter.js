@@ -18,7 +18,9 @@ const { authenticate } = require('../config/middleware/authenticate.js');
 
 //GET All Categories
 router.get('/', (req, res) => {
-  return categoriesDB.getCategories()
+  const order = req.get('order');
+  const orderType = req.get('orderType');
+  return categoriesDB.getCategories(order, orderType)
     .then(categoryMap => res.status(200).json(categoryMap))
     .catch(err => res.status(500).json({ error: `Failed to getCategories(): ${err}` }));
 });
