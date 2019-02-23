@@ -20,7 +20,7 @@ const ProfileWrapper = styled.div`
   padding: 10px;
   border: 1px solid gray;
   width: 480px;
-  background-color: #e8e3e0;
+  background-color: ${props => props.theme.symposiumBgColor};
   box-shadow: gray 2px 1px 2px 2px;
   @media(max-width: 768px){
     display: flex;

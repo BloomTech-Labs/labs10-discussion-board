@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 // components
 import {
@@ -53,7 +53,41 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
+const dayTheme = {
+  skyColor: '#37d8e6',
+  symposiumBgColor: '#ffdd00',
+  symposiumBorderColor: '#f1c40f'
+};
+
+const nightTheme = {
+  skyColor: '#2c3e50',
+  symposiumBgColor: '#bdc3c7',
+  symposiumBorderColor: '#eaeff2'
+}
+
 class App extends Component {
+  
+  constructor(props) {
+    super(props);
+
+    // Initial state: day time!
+    this.state = {
+      isDay: true,
+      theme: dayTheme,
+      title: 'Click the button to switch the theme'
+    };
+  }
+
+  handleClick() {
+    // Toggle day / night on click
+    const isDay = !this.state.isDay;
+
+    this.setState({
+      isDay: isDay,
+      theme: isDay ? dayTheme : nightTheme,
+      title: isDay ? 'Now click the Sun' : 'Now click the Moon'
+    });
+  }
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
     const expiresAt = localStorage.getItem('symposium_auth0_expires_at');
@@ -68,9 +102,12 @@ class App extends Component {
     const { error, history, message } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
+        <ThemeProvider theme={this.state.theme}>
         <AppWrapper>
           <GlobalStyle />
           <Header history={history} />
+          <button onClick={() => this.handleClick()}>
+          Switch Theme</button>
           <Route path='/home' component={LandingView} />
           <Route path='/profiles' component={Profiles} />
           <Route path='/profile/:id' component={Profile} />
@@ -83,6 +120,7 @@ class App extends Component {
           {error && <Error error={error} />}
           {message && <Message message={message} />}
         </AppWrapper>
+        </ThemeProvider>
       );
     } else {
       // prettier-ignore
@@ -90,6 +128,9 @@ class App extends Component {
         <AppWrapper>
           <GlobalStyle />
           <Header history={history} />
+          <button
+          onClick={() => this.handleClick()}>
+          Dark Theme</button>
           <Switch>
             <Route path='/register' component={RegisterView} />
             <Route path='/request-reset-pw' component={RequestResetPWForm} />
