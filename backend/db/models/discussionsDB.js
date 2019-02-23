@@ -51,7 +51,7 @@ const getDiscussions = () => {
 };
 
 //Find By ID (discussions own ID)
-const findById = (id, user_id) => {
+const findById = (id, user_id, order, orderType) => {
   const userDiscussionVoteQuery = db('discussion_votes as dv')
     .select('dv.type', 'dv.discussion_id')
     .where({ user_id });
@@ -103,8 +103,9 @@ const findById = (id, user_id) => {
     })
     .where('p.discussion_id', id)
     .groupBy('p.id', 'u.username', 'uv.type')
-    .orderBy('post_votes', 'desc')
-    .orderBy('p.created_at', 'desc');
+    // order by order and orderType variables
+    // else default to ordering by created_at descending
+    .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
   const promises = [discussionQuery, postsQuery];
   return Promise.all(promises).then(results => {
     const [discussionResults, postsResults] = results;

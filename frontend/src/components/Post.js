@@ -41,6 +41,8 @@ const Post = ({
   updateEditPostForm,
   handleRemovePost,
   handlePostVote,
+  order,
+  orderType,
 }) => {
 
   const {
@@ -55,9 +57,9 @@ const Post = ({
     user_vote,
   } = post;
 
-const handleVote = type => {
-    handlePostVote(post.id, type, historyPush, discussion_id)
-  }
+  const handleVote = type => {
+    return handlePostVote(post.id, type, discussion_id, order, orderType);
+  };
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
 

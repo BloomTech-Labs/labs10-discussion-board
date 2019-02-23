@@ -45,11 +45,13 @@ router.get('/', (req, res) => {
 
 //GET Discussion by Discussion ID
 router.get('/discussion/:id/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
   const { id } = req.params;
   let { user_id } = req.params;
   if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .findById(id, user_id)
+    .findById(id, user_id, order, orderType)
     .then(discussion => res.status(200).json(discussion))
     .catch(err =>
       res.status(500).json({ error: `Failed to findById(): ${err}` })

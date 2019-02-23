@@ -54,16 +54,14 @@ export const getTopDiscussions = (order, orderType) => dispatch => {
     .catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
 };
 
-export const getDiscussionById = id => dispatch => {
+export const getDiscussionById = (id, order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+	const headers = { headers: { Authorization: token, order, orderType } };
   dispatch({ type: GET_DISCUSSION_BY_ID_LOADING });
   return axios
     .get(`${backendURL}/discussions/discussion/${id}/${user_id}`, headers)
-    .then(res =>
-      dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] })
-    )
+    .then(res => dispatch({ type: GET_DISCUSSION_BY_ID_SUCCESS, payload: res.data[0] }))
     .catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
 };
 
