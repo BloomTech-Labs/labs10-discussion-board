@@ -14,6 +14,14 @@ const getCategories = () => {
         .orderBy('c.name')
 };
 
+// get category by name
+const getCategoryByName = name => {
+    return db('categories')
+        .select('name')
+        .whereRaw('LOWER(name) = ?', name.toLowerCase())
+        .first();
+};
+
 //Find By ID (categories own ID)
 const findById = (id) => {
     return db('categories').where('id', id)
@@ -27,10 +35,9 @@ const findByUserId = (user_id) => {
 //AUTHORIZED ACCESS
 
 //Add category into the categories table
-const insert = (category) => {
-    return db('categories').insert(category)
+const insert = category => {
+    return db('categories').insert(category).returning('id');
 };
-
 
 //EDIT [ACCOUNT TYPE ACCESS: USER_ID]
 const update = (category, id) => {
@@ -48,6 +55,7 @@ const remove = (id) => {
 
 module.exports = {
     getCategories,
+    getCategoryByName,
     findById,
     findByUserId,
     insert,
