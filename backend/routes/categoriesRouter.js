@@ -8,12 +8,19 @@ const { categoriesDB } = require('../db/models/index.js');
 const router = express.Router();
 
 /***************************************************************************************************
+ ******************************************* middleware ******************************************
+ **************************************************************************************************/
+const { authenticate } = require('../config/middleware/authenticate.js');
+
+/***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
 //GET All Categories
 router.get('/', (req, res) => {
-  return categoriesDB.getCategories()
+  const order = req.get('order');
+  const orderType = req.get('orderType');
+  return categoriesDB.getCategories(order, orderType)
     .then(categoryMap => res.status(200).json(categoryMap))
     .catch(err => res.status(500).json({ error: `Failed to getCategories(): ${err}` }));
 });
@@ -35,15 +42,20 @@ router.get('/user/:user_id', (req, res) => {
 });
 
 //Add Category
-router.post('/add', (req, res) => {
-  let category = req.body
-
-  // category created_at
-  category.created_at = Date.now();
-
-  return categoriesDB.insert(category)
-    .then(() => res.status(200).json([{ message: 'Category topic has been posted!' }]))
-    .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
+router.post('/:user_id', authenticate, (req, res) => {
+  const { user_id } = req.params;
+  let { name } = req.body;
+  name = name.trim();
+  return categoriesDB.getCategoryByName(name)
+    .then(cats => {
+      if (cats) return res.status(400).json({ error: `Category ${ cats.name } already exists.` });
+      let category = { name, user_id };
+      category.created_at = Date.now();
+      return categoriesDB.insert(category)
+        .then(newId => res.status(200).json(newId))
+        .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
+    })
+    .catch(err => res.status(500).json({ error: `Failed to getCategoryByName(): ${err}` }));
 });
 
 //Update Category

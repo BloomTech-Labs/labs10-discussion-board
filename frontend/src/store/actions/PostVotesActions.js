@@ -3,6 +3,9 @@ import axios from 'axios';
 // helpers
 import { handleError } from '../../helpers/index.js';
 
+// action creators
+import { getDiscussionById } from '../actions/index.js';
+
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 /***************************************************************************************************
@@ -15,7 +18,7 @@ export const HANDLE_POST_VOTE_FAILURE = 'HANDLE_POST_VOTE_FAILURE';
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
-export const handlePostVote = (post_id, type, historyPush, discussion_id) => dispatch => {
+export const handlePostVote = (post_id, type, discussion_id, order, orderType) => dispatch => {
 	const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
@@ -24,7 +27,6 @@ export const handlePostVote = (post_id, type, historyPush, discussion_id) => dis
     //Sends the post request back to postVotesRouter.js
 	return axios.post(`${ backendURL }/post-votes/${ user_id }`, body, headers)
 		.then(() => dispatch({ type: HANDLE_POST_VOTE_SUCCESS }))
-		.then(() => historyPush('/'))
-		.then(() => historyPush(`/discussion/${discussion_id}`))
+		.then(() => getDiscussionById(discussion_id, order, orderType)(dispatch))
 		.catch(err => handleError(err, HANDLE_POST_VOTE_FAILURE)(dispatch));
 };
