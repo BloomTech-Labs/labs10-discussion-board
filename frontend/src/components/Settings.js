@@ -64,6 +64,25 @@ const Buttons = styled.div`
 `;
 
 const EditAvatarMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  button {
+          margin: 7px;
+          border-radius: 10px;
+          width: 200px;
+          height: 30px;
+          font-size: 16px;
+
+          &:hover {
+            background-color: grey;
+            cursor: pointer;
+          }
+        }
+  .changeavatar {
+    font-weight: bold;
+    margin-bottom: 7px;
+  }
 `;
 
 class Settings extends Component {
@@ -113,6 +132,7 @@ class Settings extends Component {
         )}
         {show === 'avatar-btns' && (
           <EditAvatarMenu>
+            <div className = 'changeavatar'>Upload new avatar:</div>
             <button onClick={() => this.toggleForm('avatar-pc-form')}>
               Upload from PC
             </button>
