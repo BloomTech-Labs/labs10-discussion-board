@@ -6,12 +6,12 @@ import styled from 'styled-components';
 import { uploadAvatar } from '../../store/actions/index.js';
 
 const EditAvatarFormWrapper = styled.form`
+	width: 40%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border:1px solid #5B5B5B;
 	border-radius: 5px;
 	padding: 5px 10px;
 
@@ -45,7 +45,7 @@ const EditAvatarFormWrapper = styled.form`
 		}
 
 		#image-file + label:hover {
-			background-color: #534C2F;
+			background-color: grey;
 		}
 
 		#image-file + label {
@@ -59,7 +59,7 @@ const EditAvatarFormWrapper = styled.form`
 	}
 
 	.upload-btn {
-		margin-top: 20px;
+		margin: 20px;
 		font-weight: 700;
 		color: white;
 		background-color: black;
@@ -68,24 +68,22 @@ const EditAvatarFormWrapper = styled.form`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #534C2F;
+			background-color: grey;
 		}
 	}
 
 	.btn {
-		margin: 10px;
-		background-color: #C9C19F;
-		border: 1px solid #5B5B5B;
-		border-radius: 5px;
-		padding: 5px 10px;
-		color: #5B5B5B;
+		margin: 15px 0px;
+        border-radius: 10px;
+        width: 200px;
+        height: 30px;
+        font-size: 16px;
 
-		&:hover {
-			background-color: #84794B;
-			color: white;
-			cursor: pointer;
-		}
-	}
+          &:hover {
+            background-color: grey;
+            cursor: pointer;
+          }
+        }
 
 	.fas {
 		margin-right: 8px;
