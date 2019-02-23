@@ -74,12 +74,7 @@ export const getDiscussionsByCat = category_id => dispatch => {
     .catch(err => handleError(err, GET_DISCUSSIONS_FAILURE)(dispatch));
 };
 
-export const followDiscussion = (
-  discussion_id,
-  user_id,
-  followed,
-  historyPush
-) => dispatch => {
+export const followDiscussion = (discussion_id, user_id, followed, historyPush) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   const body = { discussion_id, followed };
