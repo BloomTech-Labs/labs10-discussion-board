@@ -67,10 +67,10 @@ export const getDiscussionById = id => dispatch => {
     .catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
 };
 
-export const getDiscussionsByCat = category_id => dispatch => {
+export const getDiscussionsByCat = (category_id, order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+	const headers = { headers: { Authorization: token, order, orderType } };
   dispatch({ type: GET_DISCUSSIONS_LOADING });
   return axios
     .get(`${backendURL}/discussions/category/${category_id}/${user_id}`, headers)

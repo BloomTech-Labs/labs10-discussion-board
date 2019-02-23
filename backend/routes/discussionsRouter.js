@@ -69,11 +69,13 @@ router.get('/user/:user_id', (req, res) => {
 
 //GET Discussion by Category ID
 router.get('/category/:category_id/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
   const { category_id } = req.params;
   let { user_id } = req.params;
   if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .findByCategoryId(category_id, user_id)
+    .findByCategoryId(category_id, user_id, order, orderType)
     .then(discussMap => res.status(200).json(discussMap))
     .catch(err => res.status(500).json({ error: `Failed to findByCategoryId(): ${err}` }));
 });

@@ -119,7 +119,7 @@ const findByUserId = user_id => {
 };
 
 //Find by Associated Category (category ID)
-const findByCategoryId = (category_id, user_id) => {
+const findByCategoryId = (category_id, user_id, order, orderType) => {
   const postCountQuery = db('posts as p')
     .select('p.discussion_id')
     .count({ post_count: 'p.id' })
@@ -156,7 +156,9 @@ const findByCategoryId = (category_id, user_id) => {
     })
     .where('c.id', category_id)
     .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type')
-    .orderBy('created_at', 'desc');
+    // order by given order and orderType variables
+    // else default to ordering by created_at descending
+    .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
   
   const categoryQuery = db('categories as c')
     .select(
