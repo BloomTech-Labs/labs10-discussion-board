@@ -15,8 +15,16 @@ import {
 } from './index.js';
 
 const SettingsWrapper = styled.div`
-  border: 1px solid black;
+  background-color: #e8e3e0;
+  box-shadow: 4px 6px 4px 4px #4ca0e0;
+  border-radius: 30px;
   width: 75%;
+`;
+
+const UsernameSettings = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
 `;
 
 const EmailAndAvatar = styled.div`
@@ -97,7 +105,7 @@ class Settings extends Component {
     const { username, email, avatar, isAuth0, email_confirm } = this.props.profile;
     return (
       <SettingsWrapper>
-        <h1>{username}'s Settings</h1>
+        <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
         <EmailAndAvatar>
           <p>Email: {email || 'N/A'}</p>
           { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }

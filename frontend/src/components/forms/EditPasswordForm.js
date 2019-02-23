@@ -12,7 +12,7 @@ const EditPasswordFormWrapper = styled.form`
 	margin: 10px;
 	padding: 10px;
 	border-radius: 20px;
-	background-color: #e8e3e0;
+	background-color: #54BDFF;
 	
 `;
 
