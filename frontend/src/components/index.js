@@ -22,6 +22,7 @@ import Avatar from './Avatar.js';
 import Follow from './Follow.js';
 import FollowCat from './FollowCat.js';
 import ConfirmEmail from './ConfirmEmail.js';
+import ToolTip from './ToolTip.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -59,6 +60,7 @@ export {
 	Follow,
 	FollowCat,
 	ConfirmEmail,
+	ToolTip,
 
 	// forms
 	AddPostForm,

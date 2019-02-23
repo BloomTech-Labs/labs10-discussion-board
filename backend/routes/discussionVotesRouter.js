@@ -10,16 +10,19 @@ const router = express.Router();
 /***************************************************************************************************
  ******************************************** middleware ********************************************
  **************************************************************************************************/
-// None
+const { authenticate } = require('../config/middleware/authenticate.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
 // add discussion vote
-router.post('/', (req, res) => {
-	// discussion_id, user_id, and type are all integers
-	const { discussion_id, user_id, type } = req.body;
+router.post('/:user_id', authenticate, (req, res) => {
+	// discussion_id and type are integers
+	const { discussion_id, type } = req.body;
+	// user_id needs to be converted from string to integer
+	let { user_id } = req.params;
+	user_id = parseInt(user_id);
 	if (
 		// if none of these variables is an integer
 		!Number.isInteger(discussion_id) ||

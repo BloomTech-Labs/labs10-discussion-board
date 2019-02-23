@@ -141,6 +141,8 @@ class Auth extends Component {
         </p>
         <button onClick={this.handleAuth0Login}>Login via Auth0</button>
 
+        <Link to = '/home'>View site without logging in</Link>
+
         <DivAuth>
           <LinkRegister to='/register'>Register</LinkRegister> |{' '}
           <Login

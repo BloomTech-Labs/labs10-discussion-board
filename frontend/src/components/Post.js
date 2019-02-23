@@ -51,11 +51,12 @@ const Post = ({
     last_edited_at,
     post_votes,
     user_id,
-    username
+    username,
+    user_vote,
   } = post;
 
 const handleVote = type => {
-    handlePostVote(post.id, post.user_id, type, historyPush, discussion_id)
+    handlePostVote(post.id, type, historyPush, discussion_id)
   }
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
@@ -70,6 +71,7 @@ const handleVote = type => {
         <VoteCount 
           handleVote = { handleVote } 
           vote_count = { post_votes }
+          user_vote = { user_vote }
         />
       </div>
       <PostedBy>

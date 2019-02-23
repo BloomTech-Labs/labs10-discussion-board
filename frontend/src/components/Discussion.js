@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
-import Votes from '../assets/img/Votes.png';
 
 // components
-import { AddPostForm, EditDiscussionForm } from './index.js';
+import { AddPostForm, EditDiscussionForm, VoteCount } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
 
 // action creators
-import { getDiscussionById, removePost, removeDiscussion } from '../store/actions/index.js';
+import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote } from '../store/actions/index.js';
 
 /***************************************************************************************************
  ********************************************* Styles *********************************************
@@ -74,19 +73,6 @@ const PostedBy = styled.div`
   }
 `;
 
-const DiscussionVotes = styled.div`
-  font-size: 20px;
-  width: 15%;
-  display: flex;
-  align-items: center;
-
-  .discussionVotes {
-    margin-left: 5px;
-    width: 11%;
-    height: 11%;
-  }
-`;
-
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
@@ -109,6 +95,11 @@ class Discussion extends Component {
     const { category_id } = discussion;
     return removeDiscussion(id, category_id, historyPush);
   };
+  handleDiscussionVote = (discussion_id, type) => {
+		const { id, getDiscussionById, handleDiscussionVote } = this.props;
+		return handleDiscussionVote(discussion_id, this.props.user_id, type)
+			.then(() => getDiscussionById(id));
+	};
   componentDidMount = () => this.props.getDiscussionById(this.props.id);
   render() {
     const { showAddPostForm, showEditPostForm, showEditDiscussionForm } = this.state;
@@ -123,8 +114,10 @@ class Discussion extends Component {
       posts,
       title,
       user_id,
-      username
+      username,
+      user_vote,
     } = discussion;
+    const handleVote = type => this.handleDiscussionVote(id, type);
     return (
       <DiscussionWrapper>
         {
@@ -154,6 +147,11 @@ class Discussion extends Component {
         }
         <h1> { title } </h1>
         <DiscussionInfo>
+          <VoteCount
+            handleVote={handleVote}
+            vote_count={discussion_votes}
+            user_vote={user_vote}
+          />
           <CategoryName>/d/{category_name}</CategoryName>
           <PostedBy>
             Posted by:
@@ -162,10 +160,6 @@ class Discussion extends Component {
             </Link>
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
-          <DiscussionVotes>
-            Discussion Votes: {discussion_votes}
-            <img className='discussionVotes' src={Votes} alt='votes' />
-          </DiscussionVotes>
         </DiscussionInfo>
         <p>Title: {title}</p>
         <p>Body: {body}</p>
@@ -199,5 +193,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getDiscussionById, removePost, removeDiscussion }
+  { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 )(Discussion);
