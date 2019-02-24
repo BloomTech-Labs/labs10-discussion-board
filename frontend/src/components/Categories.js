@@ -19,7 +19,7 @@ const SingleCategoryWrapper = styled.div`
     }
     font-weight: bold;
     font-size: 18px;
-    color: black;
+    color: ${props => props.theme.catTitleColor};
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -27,7 +27,7 @@ const SingleCategoryWrapper = styled.div`
   }
   .category {
     font-size: 18px;
-    color: black;
+    color: ${props => props.theme.catNameColor};
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -36,13 +36,22 @@ const SingleCategoryWrapper = styled.div`
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
-    color: black;
+    color: ${props => props.theme.catNameDateColor};
     &:hover {
       text-decoration: underline;
       cursor: pointer;
     }
   }
-
+  .discussion-count {
+    text-decoration: none;
+    font-size: 14px;
+    color: ${props => props.theme.catDiscussionCountColor};
+  }
+  .timestamp {
+    text-decoration: none;
+    font-size: 14px;
+    color: ${props => props.theme.catTimestampColor};
+  }
   &:hover {
     background-color: rgba(255, 255, 255, 0.6);
   }
@@ -78,7 +87,7 @@ const Categories = ({ category }) => {
       <div className='timestamp'>
         <span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       </div>
-      <div>
+      <div className = 'discussion-count'>
         { discussion_count } Discussions
       </div>
     </SingleCategoryWrapper>

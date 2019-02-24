@@ -22,8 +22,8 @@ import { auth0Login, displayError } from '../store/actions/index.js';
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const NotLoggedIn = styled.div`
-  background-color: gray;
-  color: white;
+  background-color: ${props => props.theme.authBgColor};
+  color: ${props => props.theme.authColor};
   font-size: 18px;
   width: 100%;
 `;

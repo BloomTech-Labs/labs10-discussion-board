@@ -54,14 +54,28 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const dayTheme = {
+  authBgColor: 'gray',
+  authColor: 'white',
+  catNameColor: 'black',
+  catDiscussionCountColor: 'black',
+  catTimestampColor: 'black',
+  catTitleColor:'black',
+  catNameDateColor:'black',
   skyColor: '#37d8e6',
-  symposiumBgColor: '#ffdd00',
+  symposiumProfileBgColor: '#ffdd00',
   symposiumBorderColor: '#f1c40f'
 };
 
 const nightTheme = {
+  authBgColor: 'black',
+  authColor: 'gray',
+  catNameColor: 'red',
+  catDiscussionCountColor: 'red',
+  catTimestampColor: 'red',
+  catTitleColor: 'red',
+  catNameDateColor:'red',
   skyColor: '#2c3e50',
-  symposiumBgColor: '#bdc3c7',
+  symposiumProfileBgColor: '#bdc3c7',
   symposiumBorderColor: '#eaeff2'
 }
 
@@ -74,7 +88,6 @@ class App extends Component {
     this.state = {
       isDay: true,
       theme: dayTheme,
-      title: 'Click the button to switch the theme'
     };
   }
 
@@ -85,7 +98,6 @@ class App extends Component {
     this.setState({
       isDay: isDay,
       theme: isDay ? dayTheme : nightTheme,
-      title: isDay ? 'Now click the Sun' : 'Now click the Moon'
     });
   }
   isAuthenticated() {
