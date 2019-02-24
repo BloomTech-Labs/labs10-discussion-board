@@ -15,42 +15,30 @@ import { signout } from '../store/actions';
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
   align-self: flex-end;
   @media(max-width: 768px){
-    diplay: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
   }
   &:hover {
     cursor: pointer;
   }
-  
-  @media (max-width: 450px){
-    .avatarWelcome {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    @media (max-width: 450px){
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      border: 1px solid gray;
-    }
-
-  }
 `;
 
 const Welcome = styled.div`
-  margin: 20px 20px 0px 0px;
-  font-size: 24px;
+width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+  font-size: 18px;
   @media (max-width: 450px){
     display: none;
   }
 
-    .username {
+    a {
       margin-left: 5px;
       color: black;
       text-decoration: none;
@@ -61,14 +49,33 @@ const Welcome = styled.div`
     }
 `;
 
+const Signoutwrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const Signout = styled.a`
-  margin-left: 25px;
-  font-size: 20px;
+  margin-top: 7px;
+  font-size: 16px;
   user-select: none;
   cursor: pointer;
   &:hover {
     text-decoration: line-through;
+    font-weight: bold;
   }
+  @media (max-width: 450px){
+    margin-bottom: 7px;
+  }
+`;
+
+const AvatarPic = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const UserNav = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 /***************************************************************************************************
@@ -89,19 +96,23 @@ class Nav extends Component {
     if (localStorage.getItem('symposium_user_id')) {
       return (
         <DivWrapper>
-        <div className = 'avatarWelcome'>
-          <Welcome>Welcome, 
-            <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>
-            !</Welcome>
-            <Signout onClick = { ev => this.clickSignout(ev) }>Sign Out</Signout>
-        </div>
-          <div onClick = { this.goToProfilePage }>
-            <Avatar
-              height = '100px'
-              width = '100px'
-              src = { avatar }
-            />
-          </div>
+          <AvatarPic>
+            <div onClick = { this.goToProfilePage }>
+              <Avatar
+                height = '100px'
+                width = '100px'
+                src = { avatar }
+              />
+            </div>
+          </AvatarPic>
+          <UserNav>
+            <Welcome>Welcome,
+              <Link className = 'username' to = { `/settings/${ user_id }` }>{ username }</Link>
+            </Welcome>
+              <Signoutwrapper>
+                <Signout onClick = { ev => this.clickSignout(ev) }>Sign Out</Signout>
+              </Signoutwrapper>
+          </UserNav>
         </DivWrapper>
       );
     } else {
