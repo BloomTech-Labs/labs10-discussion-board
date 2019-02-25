@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const dayTheme = {
-  appBgColor:  '#54BDFF',
+  appBgColor:  '#54bdff',
   authBgColor: 'gray',
   authColor: 'white',
   authLinkRegColor: 'white',
@@ -72,7 +72,7 @@ const dayTheme = {
   discussionUsernameColor: 'black',
   discussionByCatWrapperBgColor: '#e8e3e0',
   discussionByCatWrapperBgColorHov: 'rgba(255, 255, 255, 0.195)',
-  discussionByCatWrapperBxShdw:'2px 3px 2px 2px #610b07',
+  discussionByCatWrapperBgShdw:'2px 3px 2px 2px #610b07',
   discussionByCatTitleColor:'black',
   discussionByCatTitleBgColorHov:'rgba(255, 255, 255, 0.13)',
   discussionByCatTitleColorHov:'white',
@@ -104,7 +104,7 @@ const nightTheme = {
   discussionUsernameColor: 'white',
   discussionByCatWrapperBgColor: 'red',
   discussionByCatWrapperBgColorHov: 'rgba(100, 200, 255, 0.33)',
-  discussionByCatWrapperBxShdw:'2px 3px 2px 2px pink',
+  discussionByCatWrapperBgShdw:'2px 3px 2px 2px pink',
   discussionByCatTitleColor:'white',
   discussionByCatTitleBgColorHov:'rgba(100, 200, 255, 0.33)',
   discussionByCatTitleColorHov:'black',
@@ -112,7 +112,7 @@ const nightTheme = {
   discussionByCatCategoryBgColorHov: 'rgba(100, 200, 255, 0.33)',
   discussionByCatCategoryColorHov: 'black',
   discussionByCatNameDateColor: 'white',
-  discussionByCatNameDateBgColorHov: 'rgba(100, 200, 255, 0.33);',
+  discussionByCatNameDateBgColorHov: 'rgba(100, 200, 255, 0.33)',
   discussionByCatNameDateColorHov: 'black',
   skyColor: '#2c3e50',
   symposiumProfileBgColor: '#bdc3c7',
@@ -197,6 +197,7 @@ class App extends Component {
     } else {
       // prettier-ignore
       return (
+        <ThemeProvider theme={this.state.theme}>
         <AppWrapper>
           <GlobalStyle />
           <Header history={history} toggleSearch = { this.toggleSearch } />
@@ -220,6 +221,7 @@ class App extends Component {
           {error && <Error error={error} />}
           {message && <Message message={message} />}
         </AppWrapper>
+        </ThemeProvider>
       );
     }
   }
