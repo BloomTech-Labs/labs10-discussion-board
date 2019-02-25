@@ -50,14 +50,19 @@ const GlobalStyle = createGlobalStyle`
 		  align-items: center;
 		  flex-wrap: wrap;
       flex-direction: column;
-      background: #54BDFF;
+      background: ${props => props.theme.appBgColor};
       width: 100%;
 	}
 `;
 
 const dayTheme = {
+  appBgColor:  '#54BDFF',
   authBgColor: 'gray',
   authColor: 'white',
+  authLinkRegColor: 'white',
+  authLinkRegColorHov: 'black',
+  authLoginColor: 'white',
+  authLoginColorHov: 'black',
   catNameColor: 'black',
   catDiscussionCountColor: 'black',
   catTimestampColor: 'black',
@@ -69,8 +74,13 @@ const dayTheme = {
 };
 
 const nightTheme = {
+  appBgColor: 'pink',
   authBgColor: 'black',
   authColor: 'gray',
+  authLinkRegColor: 'black',
+  authLinkRegColorHov: 'white',
+  authLoginColor: 'black',
+  authLoginColorHov: 'white',
   catNameColor: 'red',
   catDiscussionCountColor: 'red',
   catTimestampColor: 'red',
