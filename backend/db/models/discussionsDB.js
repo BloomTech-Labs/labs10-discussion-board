@@ -125,9 +125,9 @@ const search = (searchText, order, orderType) => {
         'd.created_at',
         'd.category_id',
         'c.name as category_name',
+        db.raw('SUM(COALESCE(dv.type, 0)) AS votes'),
       )
-      .sum('dv.type as votes')
-      .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+      .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
       .join('users as u', 'u.id', 'd.user_id')
       .join('categories as c', 'c.id', 'd.category_id')
       .whereRaw('LOWER(d.title) LIKE ?', `%${ searchText.toLowerCase() }%`)
