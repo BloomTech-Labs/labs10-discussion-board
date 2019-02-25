@@ -17,10 +17,10 @@ flex-direction: column;
 align-self: center;
 margin: 1px;
 padding: 1px;
-border: 1px solid gray;
+border: ${props => props.theme.profilesWrapperBorder};
 width: 90%;
 border-radius: 30px;
-background-color: #e8e3e0;
+background-color: ${props => props.theme.profilesWrapperBgColor};
 box-shadow: #610b07 2px 1px 2px 2px;
 @media(max-width: 768px){
   display: flex;
@@ -36,7 +36,7 @@ box-shadow: #610b07 2px 1px 2px 2px;
   }
   &:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.40);
+    background-color: ${props => props.theme.profilesWrapperBgColorHov};
   }
 `;
 
@@ -64,7 +64,7 @@ const ProfilesTitle = styled.div`
   display: flex;
   font-weight: bold;
   justify-content: space-around;
-  color: black;
+  color: ${props => props.theme.profilesTitleColor};
   font-size: 36px;
 `;
 

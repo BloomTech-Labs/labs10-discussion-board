@@ -20,8 +20,8 @@ const ProfileWrapper = styled.div`
   padding: 10px;
   border: 1px solid gray;
   width: 480px;
-  background-color: ${props => props.theme.symposiumProfileBgColor};
-  box-shadow: gray 2px 1px 2px 2px;
+  background-color: ${props => props.theme.profileBgColor};
+  box-shadow: ${props => props.theme.profileBxShdw};
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;

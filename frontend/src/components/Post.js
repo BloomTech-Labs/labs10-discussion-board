@@ -11,7 +11,7 @@ import { handlePostVote } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
   width: 100%;
-  border: 1px solid black;
+  border: ${props => props.theme.postWrapperBorder};
 `;
 
 const PostedBy = styled.div`
@@ -22,7 +22,7 @@ const PostedBy = styled.div`
   .username {
     margin: 0px 7px;
     font-weight: bold;
-    color: black;
+    color: ${props => props.theme.postPostedByUsernameColor};
     text-decoration: none;
 
     &:hover {
