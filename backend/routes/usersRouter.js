@@ -176,6 +176,17 @@ router.get('/token-info', validateToken, (req, res) => {
   return res.status(200).json([{ id, username, email }]);
 });
 
+// search through categories, discussions and posts
+router.get('/search-all', (req, res) => {
+  const searchText = req.get('searchText');
+  let orderType = req.get('orderType');
+  if (orderType === 'undefined') orderType = null;
+  if (!searchText) return res.status(200).json([]);
+  return usersDB.searchAll(searchText, orderType)
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).json({ error: `Failed to searchAll(): ${err}` }));
+});
+
 // Updates a user
 router.put('/user/:id', (req, res, next) => {
   const { id } = req.params;

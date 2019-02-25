@@ -17,10 +17,12 @@ const { authenticate, authenticateIfTokenExists } = require('../config/middlewar
  **************************************************************************************************/
 // get top (limit 10) daily discussions ordered by vote_count
 router.get('/top-daily/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
   let { user_id } = req.params;
   if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .getTopDailyDiscussions(user_id)
+    .getTopDailyDiscussions(user_id, order, orderType)
     .then(topDailyDiscussions => {
       res.status(200).json(topDailyDiscussions);
     })
@@ -43,15 +45,29 @@ router.get('/', (req, res) => {
 
 //GET Discussion by Discussion ID
 router.get('/discussion/:id/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
   const { id } = req.params;
   let { user_id } = req.params;
   if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .findById(id, user_id)
+    .findById(id, user_id, order, orderType)
     .then(discussion => res.status(200).json(discussion))
     .catch(err =>
       res.status(500).json({ error: `Failed to findById(): ${err}` })
     );
+});
+
+router.get('/search', (req, res) => {
+  const searchText = req.get('searchText');
+  let order = req.get('order');
+  let orderType = req.get('orderType');
+  if (order === 'undefined') order = null;
+  if (orderType === 'undefined') orderType = null;
+  if (!searchText) return res.status(200).json([]);
+  return discussionsDB.search(searchText, order, orderType)
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).json({ error: `Failed to search(): ${err}` }));
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)
@@ -67,11 +83,13 @@ router.get('/user/:user_id', (req, res) => {
 
 //GET Discussion by Category ID
 router.get('/category/:category_id/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
   const { category_id } = req.params;
   let { user_id } = req.params;
   if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .findByCategoryId(category_id, user_id)
+    .findByCategoryId(category_id, user_id, order, orderType)
     .then(discussMap => res.status(200).json(discussMap))
     .catch(err => res.status(500).json({ error: `Failed to findByCategoryId(): ${err}` }));
 });
@@ -86,7 +104,7 @@ router.post('/:user_id', authenticate, (req, res) => {
   const newDiscussion = { user_id, category_id, title, body: dBody, created_at };
   return discussionsDB
     .insert(newDiscussion)
-    .then(() => res.status(201).json({ message: 'Discussion topic has been posted!' }))
+    .then(newId => res.status(201).json(newId))
     .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
 });
 

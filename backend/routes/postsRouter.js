@@ -15,8 +15,20 @@ const { authenticate } = require('../config/middleware/authenticate.js');
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
+router.get('/search', (req, res) => {
+  const searchText = req.get('searchText');
+  let order = req.get('order');
+  let orderType = req.get('orderType');
+  if (order === 'undefined') order = null;
+  if (orderType === 'undefined') orderType = null;
+  if (!searchText) return res.status(200).json([]);
+  return postsDB.search(searchText, order, orderType)
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).json({ error: `Failed to search(): ${err}` }));
+});
+
 // create a post by a given user_id to a given discussion_id
-router.post('/:user_id', authenticate, (req, res, next) => {
+router.post('/:user_id', authenticate, (req, res) => {
   const { user_id } = req.params;
   const { discussion_id, postBody } = req.body;
   const created_at = Date.now();

@@ -23,6 +23,11 @@ import Follow from './Follow.js';
 import FollowCat from './FollowCat.js';
 import ConfirmEmail from './ConfirmEmail.js';
 import ToolTip from './ToolTip.js';
+import Search from './Search.js';
+import Highlight from './Highlight.js';
+import SearchCatResult from './SearchCatResult.js';
+import SearchDisResult from './SearchDisResult.js';
+import SearchPostResult from './SearchPostResult.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -35,6 +40,7 @@ import UpdateEmailForm from './forms/UpdateEmailForm.js';
 import EditDiscussionForm from './forms/EditDiscussionForm.js';
 import RequestResetPWForm from './forms/RequestResetPWForm';
 import ResetPWForm from './forms/ResetPWForm.js';
+import AddCategoryForm from './forms/AddCategoryForm.js';
 
 export {
 	Auth,
@@ -61,6 +67,11 @@ export {
 	FollowCat,
 	ConfirmEmail,
 	ToolTip,
+	Search,
+	Highlight,
+	SearchCatResult,
+	SearchDisResult,
+	SearchPostResult,
 
 	// forms
 	AddPostForm,
@@ -73,4 +84,5 @@ export {
 	EditDiscussionForm,
 	RequestResetPWForm,
 	ResetPWForm,
+	AddCategoryForm,
 };

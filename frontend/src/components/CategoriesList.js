@@ -9,14 +9,42 @@ import { getCategories } from '../store/actions/index.js';
 const CategoryWrapper = styled.div`
     display: flex;
     flex-direction: column;
-`
+`;
 
 class CategoriesList extends Component {
-    componentDidMount = () => this.props.getCategories();
+	state = {
+		order: 'name', // possible values: 'name', 'discussion_count', 'created_at'
+		orderType: '', // possible values: 'asc', 'desc'
+    };
+    handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
+		return this.props.getCategories(this.state.order, this.state.orderType);
+	});
+    componentDidMount = () => this.props.getCategories(this.state.order, this.state.orderType);
     render() {
         const { categories } = this.props;
+        const { order } = this.state;
         return(
             <CategoryWrapper>
+                <span>Sort by: </span>
+				<select onChange = { this.handleSelectChange } name = 'order'>
+					<option value = 'name'>name</option>
+					<option value = 'discussion_count'>number of discussions</option>
+					<option value = 'created_at'>date created</option>
+				</select>
+				<select onChange = { this.handleSelectChange } name = 'orderType'>
+                    <option value = 'asc'>
+                        {
+                            order === 'created_at' ? 'least recent first' :
+                            order === 'name' ? 'alphabetical order' : 'least first'
+                        }
+					</option>
+                    <option value = 'desc'>
+						{
+                            order === 'created_at' ? 'most recent first' :
+                            order === 'name' ? 'reverse alphabetical order' : 'most first'
+                        }
+					</option>
+				</select>
                 {
                     categories.map((category, index) => 
                     <Categories 
@@ -24,7 +52,6 @@ class CategoriesList extends Component {
                         category = {category}
                     />)
                 }
-
             </CategoryWrapper>
         )
     }
