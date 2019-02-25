@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { searchCharLimit } from '../globals/globals.js';
 
 // components
-import { Highlight } from './index.js';
+import { Highlight, Deleted } from './index.js';
 
 const SearchPostResultWrapper = styled.div`
 	border: 1px solid green;
@@ -113,12 +113,16 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 			</p>
 			<hr />
 			<p>{ votes } vote{ votes !== '1' && 's' }</p>
-			<p>Posted by
-				<span
-					className = 'username-wrapper'
-					onClick = { handleUsernameClick }
-				> { username }</span>
-				{moment(new Date(Number(created_at))).fromNow()}
+			<p>Posted by &nbsp;
+				{
+					username ?
+					<span
+						className = 'username-wrapper'
+						onClick = { handleUsernameClick }
+					>{ username }</span> :
+					<Deleted />
+				}
+				&nbsp; {moment(new Date(Number(created_at))).fromNow()}
 			</p>
 			<p>In discussion &nbsp;
 				<span onClick = { handleDiscussionClick } className = 'discussion-wrapper'>

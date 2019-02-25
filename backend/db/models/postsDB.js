@@ -15,7 +15,7 @@ const search = (searchText, order, orderType) => {
       db.raw('SUM(COALESCE(pv.type, 0)) AS votes'),
     )
     .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
-    .join('users as u', 'u.id', 'p.user_id')
+    .leftOuterJoin('users as u', 'u.id', 'p.user_id')
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .whereRaw('LOWER(p.body) LIKE ?', `%${ searchText.toLowerCase() }%`)

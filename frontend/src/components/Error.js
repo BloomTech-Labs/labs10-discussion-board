@@ -31,12 +31,6 @@ const ErrorBox = styled.div`
 	border: 1px solid black;
 	width: 300px;
 
-	.fa-exclamation-triangle {
-		font-size: 1.2rem;
-		color: #b30000;
-		margin: 10px;
-	}
-
 	p {
 		color: #b30000;
 		font-weight: 700;

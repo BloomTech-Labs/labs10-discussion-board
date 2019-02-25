@@ -53,9 +53,7 @@ router.get('/discussion/:id/:user_id', authenticateIfTokenExists, (req, res) => 
   return discussionsDB
     .findById(id, user_id, order, orderType)
     .then(discussion => res.status(200).json(discussion))
-    .catch(err =>
-      res.status(500).json({ error: `Failed to findById(): ${err}` })
-    );
+    .catch(err => res.status(500).json({ error: `Failed to findById(): ${err}` }));
 });
 
 router.get('/search', (req, res) => {
