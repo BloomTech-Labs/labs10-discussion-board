@@ -79,13 +79,13 @@ const Post = ({
   };
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
-
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper>
+    <PostWrapper name = { id }>
       {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
 
       <Vote>
+      <p>post votes: {post_votes}</p>
         <VoteCount 
           handleVote = { handleVote } 
           vote_count = { post_votes }

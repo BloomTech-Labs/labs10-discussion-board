@@ -20,7 +20,7 @@ exports.up = function (knex, Promise) {
       .onDelete('CASCADE');
 
     // Other Columns
-    tbl.text('body').notNullable();
+    tbl.text('body', 2048).notNullable();
 
     // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();

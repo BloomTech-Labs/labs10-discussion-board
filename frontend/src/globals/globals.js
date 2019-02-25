@@ -7,6 +7,7 @@ const stripePayFormat = [99, 199, 299]; // matching subscriptionPrices
 const stripeToken = process.env.REACT_APP_STRIPE_TOKEN;
 const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
 const subscriptionPrices = ['$0.00', '$0.99/yr', '$1.99/yr', '$2.99/yr']; // same order as subscriptionPlans
+const searchCharLimit = 64; // limits the max number of characters to return in a search
 
 // Copy from backend globals (can't import from out of src folder)
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
@@ -20,5 +21,6 @@ module.exports = {
   stripePayFormat,
   stripeToken,
   subscriptionPlans,
-  subscriptionPrices
+  subscriptionPrices,
+  searchCharLimit,
 };

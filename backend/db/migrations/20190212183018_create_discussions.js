@@ -19,9 +19,9 @@ exports.up = function (knex, Promise) {
       .onDelete('CASCADE');
 
     // Other Columns
-    tbl.string('title').notNullable();
+    tbl.string('title', 128).notNullable();
 
-    tbl.text('body', 400).notNullable();
+    tbl.text('body', 512).notNullable();
 
     // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();
