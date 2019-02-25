@@ -1,7 +1,7 @@
 // Variables
 const numOfFakeUsers = 500;
 const numOfHashes = 10;
-const numOfDiscussions = 50;
+const numOfDiscussions = 29;
 const numOfCategories = 7;
 const numOfPosts = 100;
 const numOfPostVotes = 500; // must be same as numOfFakeUsers
