@@ -6,14 +6,13 @@ import styled from 'styled-components';
 import { uploadAvatar } from '../../store/actions/index.js';
 
 const EditAvatarFormWrapper = styled.form`
+	margin: 16.5px 0px;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border:1px solid #5B5B5B;
-	border-radius: 5px;
-	padding: 5px 10px;
 
 	.upload-input-wrapper {
 		position: relative;
@@ -41,11 +40,12 @@ const EditAvatarFormWrapper = styled.form`
 		}
 
 		#image-file:focus + label {
-			background-color: #736A42;
+			background-color: #4ca0e0;
 		}
 
 		#image-file + label:hover {
-			background-color: #534C2F;
+			background-color: #4ca0e0;
+			color: black;
 		}
 
 		#image-file + label {
@@ -59,7 +59,7 @@ const EditAvatarFormWrapper = styled.form`
 	}
 
 	.upload-btn {
-		margin-top: 20px;
+		margin: 20px;
 		font-weight: 700;
 		color: white;
 		background-color: black;
@@ -68,24 +68,22 @@ const EditAvatarFormWrapper = styled.form`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #534C2F;
+			background-color: #4ca0e0;
 		}
 	}
 
 	.btn {
-		margin: 10px;
-		background-color: #C9C19F;
-		border: 1px solid #5B5B5B;
-		border-radius: 5px;
-		padding: 5px 10px;
-		color: #5B5B5B;
+		margin: 15px 0px;
+        border-radius: 10px;
+        width: 200px;
+        height: 30px;
+        font-size: 16px;
 
-		&:hover {
-			background-color: #84794B;
-			color: white;
-			cursor: pointer;
-		}
-	}
+          &:hover {
+            background-color: #4ca0e0;
+            cursor: pointer;
+          }
+        }
 
 	.fas {
 		margin-right: 8px;
