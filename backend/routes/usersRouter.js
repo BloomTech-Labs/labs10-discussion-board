@@ -57,6 +57,9 @@ router.get('/discussions/:user_id', (req, res, next) => {
 // Gets a user by their ID (mock data)
 router.get('/user/:user_id', (req, res) => {
   const { user_id } = req.params;
+  if (user_id === 'null') {
+    return res.status(400).json({ error: 'User either never existed or has deleted their account.' });
+  }
   return usersDB
     .findById(user_id)
     .then(user => {
@@ -64,9 +67,7 @@ router.get('/user/:user_id', (req, res) => {
       user[0].password = null;
       return res.status(200).json(user);
     })
-    .catch(err =>
-      res.status(500).json({ error: `Failed to findById(): ${err}` })
-    );
+    .catch(err => res.status(500).json({ error: `Failed to findById(): ${err}` }));
 });
 
 // Returns true if username is in the database, else false
@@ -339,14 +340,17 @@ router.put('/avatar-url/:user_id', authenticate, (req, res) => {
 });
 
 // Delete a user by their ID
-router.delete('/:id', (req, res, next) => {
-  const { id } = req.params;
+router.delete('/:user_id', authenticate, (req, res) => {
+  const { user_id } = req.params;
   return usersDB
-    .remove(id)
-    .then(removedUser => res.status(202).json(removedUser))
-    .catch(err =>
-      res.status(500).json({ error: `Failed to remove(): ${err}` })
-    );
+    .remove(user_id)
+    .then(removed => {
+      if (removed !== 1) {
+        return res.status(400).json({ error: 'Either user_id does not exist or matched more than one user.' });
+      }
+      return res.status(200).json(removed);
+    })
+    .catch(err => res.status(500).json({ error: `Failed to remove(): ${ err }` }));
 });
 
 module.exports = router;
