@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // components
-import { EditPostForm, VoteCount } from './index.js';
+import { EditPostForm, VoteCount, Deleted } from './index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
@@ -41,6 +41,8 @@ const Post = ({
   updateEditPostForm,
   handleRemovePost,
   handlePostVote,
+  order,
+  orderType,
 }) => {
 
   const {
@@ -51,32 +53,36 @@ const Post = ({
     last_edited_at,
     post_votes,
     user_id,
-    username
+    username,
+    user_vote,
   } = post;
 
-const handleVote = type => {
-    handlePostVote(post.id, post.user_id, type, historyPush, discussion_id)
-  }
+  const handleVote = type => {
+    return handlePostVote(post.id, type, discussion_id, order, orderType);
+  };
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
-
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper>
+    <PostWrapper name = { id }>
       {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
-      <h1>POST</h1>
       <p>post votes: {post_votes}</p>
       <div>
         <VoteCount 
           handleVote = { handleVote } 
           vote_count = { post_votes }
+          user_vote = { user_vote }
         />
       </div>
       <PostedBy>
-        Posted by:
-        <Link className='username' to={`/profile/${user_id}`}>
-          {username}
-        </Link>
+        Posted by: &nbsp;
+        {
+          username ?
+          <Link className='username' to={`/profile/${user_id}`}>
+            {username}
+          </Link> :
+          <Deleted />
+        }
         {moment(new Date(Number(created_at))).fromNow()}
       </PostedBy>
       <p>Body: {body}</p>

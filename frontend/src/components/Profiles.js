@@ -5,6 +5,9 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfiles } from '../store/actions/index';
 import styled from 'styled-components';
 
+// components
+import { Deleted } from './index.js';
+
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
@@ -16,12 +19,13 @@ margin: 1px;
 padding: 1px;
 border: 1px solid gray;
 width: 90%;
-background-color: #d3ccaf;
-box-shadow: gray 2px 1px 2px 2px;
+border-radius: 30px;
+background-color: #e8e3e0;
+box-shadow: #610b07 2px 1px 2px 2px;
 @media(max-width: 768px){
   display: flex;
   flex-direction: column;
-  width: 90%
+  width: 90%;
   @media (max-width: 450px){
   }
 }
@@ -64,6 +68,12 @@ const ProfilesTitle = styled.div`
   font-size: 36px;
 `;
 
+const ProfilesList = styled.div`
+    display: flex;
+    width: 200px;
+
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -97,7 +107,7 @@ class Profiles extends Component {
           <ProfilesWrapper>
             <WrappedDiv>
               <p className = 'property-title'> Username: </p>
-              <p className = 'property-content'> {profile.username}</p>
+              <p className = 'property-content'> {profile.username ? profile.username : <Deleted />}</p>
             </WrappedDiv>
             <WrappedDiv>
               <p className = 'property-title'> Status: </p>
@@ -111,7 +121,7 @@ class Profiles extends Component {
     }
   
     return (
-            <div>
+            <div className = 'ProfileWrapper'>
               <ProfilesTitle> PROFILES </ProfilesTitle>
               {profileItems}
             </div>

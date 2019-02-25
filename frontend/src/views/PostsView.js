@@ -15,11 +15,11 @@ const PostsView = ({
 	showEditPostForm,
 	updateEditPostForm,
 	handleRemovePost,
+	order,
+	orderType,
 }) => {
 	return(
 		<PostsViewWrapper>
-			<div>
-			</div>
 			{ posts.map((post, index) =>
 				<Post
 					key = { index }
@@ -28,7 +28,8 @@ const PostsView = ({
 					showEditPostForm = { showEditPostForm }
 					updateEditPostForm = { updateEditPostForm }
 					handleRemovePost = { handleRemovePost }	
-							
+					order = { order }
+					orderType = { orderType }
 				/>)
 			}
 		</PostsViewWrapper>

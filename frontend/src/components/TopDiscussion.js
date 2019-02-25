@@ -4,19 +4,24 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { PostCount, VoteCount } from './index.js';
+import { PostCount, VoteCount, Deleted } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const TopDiscussionWrapper = styled.div`
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 5px;
   padding: 10px;
-
   box-shadow: 2px 3px 2px 2px gray;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
 
   .title {
     text-decoration: none;
@@ -25,20 +30,22 @@ const TopDiscussionWrapper = styled.div`
     color: black;
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
   }
   .category {
-    font-size: 18px;
-    color: black;
+    a {
+      margin-left: 5px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
     &:hover {
-      text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
+      text-decoration: underline;
+
     }
+  }
   }
   .nameanddate {
     text-decoration: none;
@@ -48,12 +55,7 @@ const TopDiscussionWrapper = styled.div`
       text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.13);
       cursor: pointer;
-      color: white;
     }
-  }
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.195);
   }
 
   .content {
@@ -81,13 +83,18 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
     title,
     user_id,
     username,
-    vote_count
+    vote_count,
+    user_vote,
   } = discussion;
 
   const handleVote = type => handleDiscussionVote(id, type);
   return (
     <TopDiscussionWrapper>
-      <VoteCount handleVote={handleVote} vote_count={vote_count} />
+      <VoteCount
+        handleVote={handleVote}
+        vote_count={vote_count}
+        user_vote={user_vote}
+      />
       <div className='content'>
         <div>
           <Link to={`/discussion/${id}`} className='title'>
@@ -102,9 +109,13 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
         </div>
 
         <div>
-          <Link to={`/profile/${user_id}`} className='nameanddate'>
-            {username}
-          </Link>
+          {
+            username ?
+            <Link to={`/profile/${user_id}`} className='nameanddate'>
+              {username}
+            </Link> :
+            <Deleted />
+          }
           &#8201;
           <span className='timestamp'>
             {' '}

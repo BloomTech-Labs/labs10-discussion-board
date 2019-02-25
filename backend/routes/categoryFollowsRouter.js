@@ -6,9 +6,13 @@ const express = require('express');
 const { categoryFollowsDB } = require('../db/models/index.js');
 
 const router = express.Router();
+/***************************************************************************************************
+ ******************************************* middleware ******************************************
+ **************************************************************************************************/
+const { authenticate } = require('../config/middleware/authenticate.js');
 
 // User can follow a category
-router.post('/:user_id/:category_id', (req, res) => {
+router.post('/:user_id/:category_id', authenticate, (req, res) => {
 	const { category_id, user_id } = req.params;
 	// check first to see if user_id is following category_id
 	return categoryFollowsDB

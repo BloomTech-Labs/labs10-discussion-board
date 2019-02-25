@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { CategoriesList } from '../components/index.js';
+
+// components
+import { AddCategoryForm } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
   width: 90%;
+  background-color: #e8e3e0; 
 
   .header {
     text-align: center;
@@ -15,13 +20,14 @@ const CategoriesWrapper = styled.div`
     margin-bottom: 5px;
   }
   .link {
+    font-weight: bold;
     width: 5%;
-    font-size: 30px;
+    font-size: 40px;
     display: flex;
-    margin-left: 0%;
+    margin: 20px 0 0 20px;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: black;
     &:hover {
       cursor: pointer;
       color: black;
@@ -30,19 +36,40 @@ const CategoriesWrapper = styled.div`
   }
 `;
 
-const CategoriesView = () => {
-  return (
-    <CategoriesWrapper>
-      <div className='header'>
-        <Link className='link c-link' to='/profiles'>
-          Profiles
-        </Link>
-        <h1> Categories (designs coming soon)</h1>
-      </div>
-      <hr />
-      <CategoriesList />
-    </CategoriesWrapper>
-  );
+class CategoriesView extends Component {
+  state = { showAddForm: false };
+  toggleAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
+  render() {
+    const { showAddForm } = this.state;
+    const { history, user_id } = this.props;
+    return (
+      <CategoriesWrapper>
+        <div className='header'>
+          <Link className='link c-link' to='/profiles'>
+            Profiles
+          </Link>
+          <h1> Categories (designs coming soon)</h1>
+          {
+            user_id !== 0 &&
+            (
+              showAddForm ?
+              <AddCategoryForm
+                toggleAddForm = { this.toggleAddForm }
+                historyPush = { history.push }
+              /> :
+              <button onClick = { this.toggleAddForm }>Add a category</button>
+            )
+          }
+        </div>
+        <hr />
+        <CategoriesList />
+      </CategoriesWrapper>
+    );
+  }
 };
 
-export default CategoriesView;
+const mapStateToProps = state => ({
+  user_id: state.users.user_id,
+});
+
+export default connect(mapStateToProps, {})(CategoriesView);

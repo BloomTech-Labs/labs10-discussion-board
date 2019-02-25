@@ -6,14 +6,17 @@ import styled from 'styled-components';
 import { displayError } from '../store/actions/index.js';
 
 const ErrorWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: rgba(0, 0, 0, 0.5);
-	position: absolute;
-	z-index: 2;
+	position: fixed;
+	top: 0;
+	left: 0;
 	height: 100vh;
 	width: 100vw;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	overflow: auto;
+	z-index: 2;
 `;
 
 const ErrorBox = styled.div`
@@ -27,12 +30,6 @@ const ErrorBox = styled.div`
 	border-radius: 5px;
 	border: 1px solid black;
 	width: 300px;
-
-	.fa-exclamation-triangle {
-		font-size: 1.2rem;
-		color: #b30000;
-		margin: 10px;
-	}
 
 	p {
 		color: #b30000;

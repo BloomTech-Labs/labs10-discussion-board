@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import meeting from '../assets/img/meeting.png';
+import meeting2 from '../assets/img/meeting2.png';
 import { Nav } from '../components/index.js';
 
 const StyledHeader = styled.div`
@@ -15,7 +16,7 @@ const StyledHeader = styled.div`
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
-    width: 90%
+    width: 90%;
 
     @media (max-width: 450px){
     }
@@ -37,9 +38,9 @@ const StyledHeader = styled.div`
 `;
 
 const TitleAndLogo = styled.div`
+  width: 50%;
   display: flex;
   margin-right: 0px;
-  align-self: center;
 
   @media (max-width: 768px){
     display: flex;
@@ -50,11 +51,21 @@ const TitleAndLogo = styled.div`
   @media (max-width: 450px){
     width: 90%;
     display: flex;
-    flex-directin: column;
+    flex-direction: column;
     align-items: center;
     margin-right: auto;
   }
-  
+`;
+
+const Logo = styled.div`
+  width: 185px;
+  height: 185px;
+  background-image: url(${meeting});
+  background-repeat: no-repeat;
+    &:hover {
+      background-image: url(${meeting2});
+      cursor: wait;
+    }
 `;
 
 const Title = styled.div`
@@ -70,6 +81,13 @@ const Title = styled.div`
 
   }
   h1 {
+    a {
+      color: #f7f5f3;
+      text-decoration: none;
+      &:hover {
+        color: black;
+      }
+    }
     margin-bottom: -35px;
     width: 90%;  
     @media (max-width: 768px){
@@ -82,6 +100,7 @@ const Title = styled.div`
     }
   }
   .subheader { 
+    color: #f7f5f3;
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
@@ -126,18 +145,16 @@ const Links = styled.div`
     @media (max-width: 450px){
     }
   }
-`
+`;
 
-const Header = ({ history }) => {
+const Header = ({ history, toggleSearch }) => {
   return (
     <StyledHeader>
       <Navi>
         <Nav history={history} />
       </Navi>
       <TitleAndLogo>
-        <div>
-          <img src={meeting} alt='discussion' />
-        </div>
+        <Logo />
         <Title>
           <h1><Link className='header' to='/home'>Symposium</Link></h1>
           <div className='subheader'>
@@ -152,6 +169,7 @@ const Header = ({ history }) => {
         <Link className='link c-link' to='/categories'>
           Categories
         </Link>
+        <button onClick = { toggleSearch }>Search</button>
       </Links>
     </StyledHeader>
   );

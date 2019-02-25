@@ -4,21 +4,20 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { PostCount, VoteCount } from './index.js';
+import { PostCount, VoteCount, Deleted } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const DiscussionByCatWrapper = styled.div`
+  background-color: #e8e3e0;
+  border-radius: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin: 5px;
 	padding: 10px;
-	
-	box-shadow: 2px 3px 2px 2px gray;
-
-  box-shadow: 2px 3px 2px 2px gray;
+	box-shadow: 2px 3px 2px 2px #610b07;
 
   @media (max-width: 450px){
     width: 90%;
@@ -87,13 +86,18 @@ const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
     title,
     user_id,
     username,
-    discussion_votes
+    discussion_votes,
+    user_vote,
   } = discussion;
 
 const handleVote = type => handleDiscussionVote(id, type);
 return (
     <DiscussionByCatWrapper>
-			<VoteCount handleVote = { handleVote } vote_count = { discussion_votes } />
+      <VoteCount
+        handleVote={handleVote}
+        vote_count={discussion_votes}
+        user_vote={user_vote}
+      />
 			<div className = 'content'>
 				<div>
 					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
@@ -103,11 +107,14 @@ return (
             </Link>
           </span>
 				</div>
-
         <div>
-          <Link to={`/profile/${user_id}`} className='nameanddate'>
-            {username}
-          </Link>
+          {
+            username ?
+            <Link to={`/profile/${user_id}`} className='nameanddate'>
+              {username}
+            </Link> :
+            <Deleted />
+          }
           &#8201;
           <span className='timestamp'>
             {' '}

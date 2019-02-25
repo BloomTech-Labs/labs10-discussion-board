@@ -65,6 +65,68 @@ const findByUsername = username => {
     .first();
 };
 
+// search through categories, discussions and posts
+const searchAll = (searchText, orderType) => {
+  const categoriesQuery = db('categories as c')
+    .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at')
+    .leftOuterJoin('users as u', 'u.id', 'c.user_id')
+    .whereRaw('LOWER(c.name) LIKE ?', `%${ searchText.toLowerCase() }%`);
+
+  const discussionsQuery = db('discussions as d')
+    .select(
+      'd.id',
+      'd.title',
+      'd.body',
+      'd.user_id',
+      'u.username',
+      'd.created_at',
+      'd.category_id',
+      'c.name as category_name',
+      db.raw('SUM(COALESCE(dv.type, 0)) AS votes'),
+    )
+    .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
+    .join('categories as c', 'c.id', 'd.category_id')
+    .whereRaw('LOWER(d.title) LIKE ?', `%${ searchText.toLowerCase() }%`)
+    .orWhereRaw('LOWER(d.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
+    .groupBy('d.id', 'u.username', 'c.name');
+
+  const postsQuery = db('posts as p')
+    .select(
+      'p.id',
+      'p.discussion_id',
+      'p.created_at',
+      'p.body',
+      'p.user_id',
+      'u.username',
+      'd.title as discussion_title',
+      'c.id as category_id',
+      'c.name as category_name',
+      db.raw('SUM(COALESCE(pv.type, 0)) AS votes'),
+    )
+    .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
+    .leftOuterJoin('users as u', 'u.id', 'p.user_id')
+    .join('discussions as d', 'd.id', 'p.discussion_id')
+    .join('categories as c', 'c.id', 'd.category_id')
+    .whereRaw('LOWER(p.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
+    .groupBy('p.id', 'u.username', 'd.title', 'c.name', 'c.id');
+
+  const promises = [ categoriesQuery, discussionsQuery, postsQuery ];
+  return Promise.all(promises)
+    .then(results => {
+      const [ categoriesResults, discussionsResults, postsResults ] = results;
+      const resultArr = [];
+      categoriesResults.forEach(cat => resultArr.push({ type: 'category', result: cat }));
+      discussionsResults.forEach(dis => resultArr.push({ type: 'discussion', result: dis }));
+      postsResults.forEach(post => resultArr.push({ type: 'post', result: post }));
+      resultArr.sort((a, b) => {
+        if (orderType === 'desc') return b.result.created_at - a.result.created_at;
+        return a.result.created_at - b.result.created_at;
+      });
+      return resultArr;
+    });
+};
+
 //Checks if username exists (returns nothing if no, or the user object if yes)
 const isUsernameTaken = username => {
   return db('users')
@@ -86,6 +148,15 @@ const getUserByEmail = email => {
   return db('users')
     .select('username', 'email_confirm')
     .where({ email });
+};
+
+// get user from given email if it has been confirmed
+const getUserFromConfirmedEmail = email => {
+  return db('users')
+    .select('id', 'username')
+    .where({ email })
+    .andWhere('email_confirm', 'true')
+    .first();
 };
 
 //Create a new user
@@ -150,7 +221,7 @@ const updateEmail = (id, email, email_confirm) => {
 // remove a user
 const remove = id => {
   return db('users')
-    .where('id', Number(id))
+    .where({ id })
     .del();
 };
 
@@ -159,9 +230,11 @@ module.exports = {
   getPassword,
   findById,
   findByUsername,
+  searchAll,
   isUsernameTaken,
   isEmailTaken,
   getUserByEmail,
+  getUserFromConfirmedEmail,
   insert,
   addEmailConfirm,
   confirmEmail,

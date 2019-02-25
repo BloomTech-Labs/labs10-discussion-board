@@ -78,6 +78,18 @@ export const STRIPE_PAYMENT_LOADING = 'STRIPE_PAYMENT_LOADING';
 export const STRIPE_PAYMENT_SUCCESS = 'STRIPE_PAYMENT_SUCCESS';
 export const STRIPE_PAYMENT_FAILURE = 'STRIPE_PAYMENT_FAILURE';
 
+export const SEND_PW_RESET_EMAIL_LOADING = 'SEND_PW_RESET_EMAIL_LOADING';
+export const SEND_PW_RESET_EMAIL_SUCCESS = 'SEND_PW_RESET_EMAIL_SUCCESS';
+export const SEND_PW_RESET_EMAIL_FAILURE = 'SEND_PW_RESET_EMAIL_FAILURE';
+
+export const RESET_PASSWORD_LOADING = 'RESET_PASSWORD_LOADING';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
+
+export const DELETE_ACCOUNT_LOADING = 'DELETE_ACCOUNT_LOADING';
+export const DELETE_ACCOUNT_SUCCESS = 'DELETE_ACCOUNT_SUCCESS';
+export const DELETE_ACCOUNT_FAILURE = 'DELETE_ACCOUNT_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -150,11 +162,7 @@ export const register = creds => dispatch => {
     .catch(err => handleError(err, USER_REGISTER_FAILURE)(dispatch));
 };
 
-export const updatePassword = (
-  oldPassword,
-  newPassword,
-  toggleForm
-) => dispatch => {
+export const updatePassword = (oldPassword, newPassword, toggleForm) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
@@ -280,7 +288,7 @@ export const updateEmail = (email, history) => dispatch => {
       payload: res.data,
     }))
     .then(() => history.push(`/settings/${user_id}`))
-    .catch(err => handleError(err, UPDATE_EMAIL_FAILURE, history)(dispatch));
+    .catch(err => handleError(err, UPDATE_EMAIL_FAILURE)(dispatch));
 };
 
 export const stripePayment = (headersObj) => dispatch => {
@@ -289,4 +297,48 @@ export const stripePayment = (headersObj) => dispatch => {
     .post(`${backendUrl}/auth/stripe`, headersObj)
     .then(res => dispatch({ type: STRIPE_PAYMENT_SUCCESS, payload: res.data[0] }))
     .catch(err => handleError(err, STRIPE_PAYMENT_FAILURE, true)(dispatch));
-}
+};
+
+export const sendPWResetEmail = (email, historyPush) => dispatch => {
+  dispatch({ type: SEND_PW_RESET_EMAIL_LOADING });
+  const body = { email };
+  return axios
+    .post(`${ backendUrl }/users/send-reset-pw-email`, body)
+    .then(res => dispatch({ type: SEND_PW_RESET_EMAIL_SUCCESS, payload: res.data.message }))
+    .then(() => historyPush('/home'))
+    .catch(err => handleError(err, SEND_PW_RESET_EMAIL_FAILURE)(dispatch));
+};
+
+export const resetPassword = (password, token) => dispatch => {
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: RESET_PASSWORD_LOADING });
+  const body = { password };
+  return axios
+    .put(`${ backendUrl }/users/reset-password`, body, headers)
+    .then(response => {
+      localStorage.setItem('symposium_token', response.data[0].token);
+      localStorage.setItem('symposium_user_id', response.data[0].id);
+      return dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+        payload: response.data[0]
+      });
+    })
+    .catch(err => handleError(err, RESET_PASSWORD_FAILURE)(dispatch));
+};
+
+export const deleteAccount = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: DELETE_ACCOUNT_LOADING });
+  return axios.delete(`${ backendUrl }/users/${ user_id }`, headers)
+    .then(() => {
+      localStorage.removeItem('symposium_token');
+      localStorage.removeItem('symposium_user_id');
+      localStorage.removeItem('symposium_auth0_access_token');
+      localStorage.removeItem('symposium_auth0_expires_at');
+      displayMessage('You\'ve successfully deleted your account. We are sorry to see you go!')(dispatch);
+      dispatch({ type: DELETE_ACCOUNT_SUCCESS });
+    })
+    .catch(err => handleError(err, DELETE_ACCOUNT_FAILURE)(dispatch));
+};

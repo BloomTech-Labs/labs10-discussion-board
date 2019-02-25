@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
-import Votes from '../assets/img/Votes.png';
 
 // components
-import { AddPostForm, EditDiscussionForm } from './index.js';
+import { AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
 
 // action creators
-import { getDiscussionById, removePost, removeDiscussion } from '../store/actions/index.js';
+import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote } from '../store/actions/index.js';
 
 /***************************************************************************************************
  ********************************************* Styles *********************************************
@@ -74,25 +73,17 @@ const PostedBy = styled.div`
   }
 `;
 
-const DiscussionVotes = styled.div`
-  font-size: 20px;
-  width: 15%;
-  display: flex;
-  align-items: center;
-
-  .discussionVotes {
-    margin-left: 5px;
-    width: 11%;
-    height: 11%;
-  }
-`;
-
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
-    showEditPostForm: null // post_id
+    showEditPostForm: null, // post_id
+    order: 'created_at', // possible values: 'created_at', 'post_votes'
+    orderType: '', // possible values: 'desc', 'asc'
   };
+  handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
+		return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
+	});
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
@@ -109,8 +100,24 @@ class Discussion extends Component {
     const { category_id } = discussion;
     return removeDiscussion(id, category_id, historyPush);
   };
-  componentDidMount = () => this.props.getDiscussionById(this.props.id);
+  handleDiscussionVote = (discussion_id, type) => {
+    const { order, orderType } = this.state;
+		const { id, getDiscussionById, handleDiscussionVote } = this.props;
+		return handleDiscussionVote(discussion_id, this.props.user_id, type)
+			.then(() => getDiscussionById(id, order, orderType));
+  };
+  componentDidMount = () => {
+    const { getDiscussionById, id, scrollTo } = this.props;
+    const { order, orderType } = this.state;
+    return getDiscussionById(id, order, orderType).then(() => scrollTo());
+  };
+  componentDidUpdate = prevProps => {
+    const { getDiscussionById, id, scrollTo } = this.props;
+    const { order, orderType } = this.state;
+    if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
+  };
   render() {
+    const { order, orderType } = this.state;
     const { showAddPostForm, showEditPostForm, showEditDiscussionForm } = this.state;
     const { discussion, historyPush } = this.props;
     const {
@@ -123,8 +130,10 @@ class Discussion extends Component {
       posts,
       title,
       user_id,
-      username
+      username,
+      user_vote,
     } = discussion;
+    const handleVote = type => this.handleDiscussionVote(id, type);
     return (
       <DiscussionWrapper>
         {
@@ -154,18 +163,23 @@ class Discussion extends Component {
         }
         <h1> { title } </h1>
         <DiscussionInfo>
+          <VoteCount
+            handleVote={handleVote}
+            vote_count={discussion_votes}
+            user_vote={user_vote}
+          />
           <CategoryName>/d/{category_name}</CategoryName>
           <PostedBy>
-            Posted by:
-            <Link className='username' to={`/profile/${user_id}`}>
-              {username}
-            </Link>
+            Posted by: &nbsp;
+            {
+              username ?
+              <Link className='username' to={`/profile/${user_id}`}>
+                {username}
+              </Link> :
+              <Deleted />
+            }
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
-          <DiscussionVotes>
-            Discussion Votes: {discussion_votes}
-            <img className='discussionVotes' src={Votes} alt='votes' />
-          </DiscussionVotes>
         </DiscussionInfo>
         <p>Title: {title}</p>
         <p>Body: {body}</p>
@@ -180,17 +194,33 @@ class Discussion extends Component {
           />
         )}
 
+        <span>Sort by: </span>
+				<select onChange = { this.handleSelectChange } name = 'order'>
+					<option value = 'created_at'>date created</option>
+					<option value = 'post_votes'>votes</option>
+				</select>
+				<select onChange = { this.handleSelectChange } name = 'orderType'>
+					<option value = 'desc'>
+						{ order === 'created_at' ? 'most recent first' : 'most first' }
+					</option>
+					<option value = 'asc'>
+						{ order === 'created_at' ? 'least recent first' : 'least first' }
+					</option>
+				</select>
+
         <PostsView
           posts={posts}
           historyPush={historyPush}
           showEditPostForm={showEditPostForm}
           updateEditPostForm={this.updateEditPostForm}
           handleRemovePost={this.handleRemovePost}
+          order={order}
+          orderType={orderType}
         />
       </DiscussionWrapper>
     );
   }
-}
+};
 
 const mapStateToProps = state => ({
   discussion: state.discussions.discussion,
@@ -199,5 +229,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getDiscussionById, removePost, removeDiscussion }
+  { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 )(Discussion);

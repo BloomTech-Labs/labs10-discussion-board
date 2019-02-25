@@ -10,9 +10,14 @@ import {
   FOLLOW_CATEGORY_SUCCESS,
   FOLLOW_CATEGORY_FAILURE,
 
+  ADD_CATEGORY_LOADING,
+  ADD_CATEGORY_SUCCESS,
+  ADD_CATEGORY_FAILURE,
+
   // Action Creators
   getCategories,
   followCategory,
+  addCategory,
 } from './CategoriesActions.js';
 
 import {
@@ -167,6 +172,18 @@ import {
   STRIPE_PAYMENT_SUCCESS,
   STRIPE_PAYMENT_FAILURE,
 
+  SEND_PW_RESET_EMAIL_LOADING,
+  SEND_PW_RESET_EMAIL_SUCCESS,
+  SEND_PW_RESET_EMAIL_FAILURE,
+
+  RESET_PASSWORD_LOADING,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_SUCCESS,
+  DELETE_ACCOUNT_FAILURE,
+
   // Action Creators
   login,
   signout,
@@ -182,7 +199,10 @@ import {
   isEmailTaken,
   confirmEmail,
   updateEmail,
-  stripePayment
+  stripePayment,
+  sendPWResetEmail,
+  resetPassword,
+  deleteAccount,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -200,6 +220,10 @@ export {
   FOLLOW_CATEGORY_LOADING,
   FOLLOW_CATEGORY_SUCCESS,
   FOLLOW_CATEGORY_FAILURE,
+
+  ADD_CATEGORY_LOADING,
+  ADD_CATEGORY_SUCCESS,
+  ADD_CATEGORY_FAILURE,
 
   // Discussion Actions
   GET_DISCUSSIONS_LOADING,
@@ -278,6 +302,14 @@ export {
   STRIPE_PAYMENT_SUCCESS,
   STRIPE_PAYMENT_FAILURE,
 
+  SEND_PW_RESET_EMAIL_LOADING,
+  SEND_PW_RESET_EMAIL_SUCCESS,
+  SEND_PW_RESET_EMAIL_FAILURE,
+
+  RESET_PASSWORD_LOADING,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -315,9 +347,14 @@ export {
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
 
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_SUCCESS,
+  DELETE_ACCOUNT_FAILURE,
+
   // Categories Action Creators
   getCategories,
   followCategory,
+  addCategory,
 
   // Discussion Action Creators
   getTopDiscussions,
@@ -350,6 +387,9 @@ export {
   confirmEmail,
   updateEmail,
   stripePayment,
+  sendPWResetEmail,
+  resetPassword,
+  deleteAccount,
 
   // Profile Action Creators
   getProfiles,
