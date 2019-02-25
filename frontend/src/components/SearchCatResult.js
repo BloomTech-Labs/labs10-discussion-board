@@ -3,7 +3,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { Highlight } from './index.js';
+import { Highlight, Deleted } from './index.js';
 
 const SearchCatResultWrapper = styled.div`
 	border: 1px solid blue;
@@ -79,12 +79,16 @@ const SearchCatResult = ({ category, goTo, searchText, type }) => {
 				}
 			</div>
 			<hr />
-			<p>Created by
-				<span
-					className = 'username-wrapper'
-					onClick = { handleUsernameClick }
-				> { username }</span>
-				{moment(new Date(Number(created_at))).fromNow()}
+			<p>Created by &nbsp;
+				{
+					username ?
+					<span
+						className = 'username-wrapper'
+						onClick = { handleUsernameClick }
+					>{ username }</span> :
+					<Deleted />
+				}
+				&nbsp; {moment(new Date(Number(created_at))).fromNow()}
 			</p>
 		</SearchCatResultWrapper>
 	);
