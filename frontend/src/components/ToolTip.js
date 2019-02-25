@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const ToolTipWrapper = styled.span`
 	visibility: hidden;
 	width: ${ ({ width }) => width ? `${width}px` : '300px' };
-	background-color: black;
-	color: #fff;
+	background-color: ${props => props.theme.tooltipWrapperBgColor};
+	color: ${props => props.theme.tooltipWrapperColor};
 	text-align: center;
 	border-radius: 6px;
 	padding: 5px;

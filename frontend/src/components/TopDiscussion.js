@@ -16,10 +16,10 @@ const TopDiscussionWrapper = styled.div`
   justify-content: space-between;
   margin: 5px;
   padding: 10px;
-  box-shadow: 2px 3px 2px 2px gray;
+  box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 
 
@@ -27,7 +27,7 @@ const TopDiscussionWrapper = styled.div`
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
-    color: black;
+    color: ${props => props.theme.topDiscussionTitleColor};
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -38,9 +38,9 @@ const TopDiscussionWrapper = styled.div`
       margin-left: 5px;
       text-decoration: none;
       font-size: 18px;
-      color: black;
+      color: ${props => props.theme.topDiscussionCatColorHov};;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.13);
+      background-color: ${props => props.theme.topDiscussionCatBgColorHov};
       cursor: pointer;
       text-decoration: underline;
 
@@ -50,10 +50,10 @@ const TopDiscussionWrapper = styled.div`
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
-    color: black;
+    color: ${props => props.theme.topDiscussionNameDateColor};
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
+      background-color: ${props => props.theme.topDiscussionNameDateColorHov};
       cursor: pointer;
     }
   }
