@@ -53,7 +53,7 @@ const SingleCategoryWrapper = styled.div`
     color: ${props => props.theme.catTimestampColor};
   }
   &:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: ${props => props.theme.catBgColorHov};
   }
 
   .content {

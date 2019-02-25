@@ -63,7 +63,7 @@ const PostedBy = styled.div`
   .username {
     margin: 0px 7px;
     font-weight: bold;
-    color: black;
+    color: ${props => props.theme.discussionUsernameColor};
     text-decoration: none;
 
     &:hover {

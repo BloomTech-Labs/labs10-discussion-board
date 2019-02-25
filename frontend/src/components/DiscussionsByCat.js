@@ -10,14 +10,14 @@ import { PostCount, VoteCount } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const DiscussionByCatWrapper = styled.div`
-  background-color: #e8e3e0;
+  background-color: ${props => props.theme.discussionByCatWrapperBgColor};
   border-radius: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin: 5px;
 	padding: 10px;
-	box-shadow: 2px 3px 2px 2px #610b07;
+	box-shadow: ${props => props.theme.discussionByCatWrapperBxShdw};
 
   @media (max-width: 450px){
     width: 90%;
@@ -27,38 +27,38 @@ const DiscussionByCatWrapper = styled.div`
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
-    color: black;
+    color: ${props => props.theme.discussionByCatTitleColor};
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
+      background-color: ${props => props.theme.discussionByCatTitleBgColorHov};
       cursor: pointer;
-      color: white;
+      color: ${props => props.theme.discussionByCatTitleColorHov};
     }
   }
   .category {
     font-size: 18px;
-    color: black;
+    color: ${props => props.theme.discussionByCatCategoryColor};
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
+      background-color: ${props => props.theme.discussionByCatCategoryBgColorHov};
       cursor: pointer;
-      color: white;
+      color: ${props => props.theme.discussionByCatCategoryColorHov};
     }
   }
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
-    color: black;
+    color: ${props => props.theme.discussionByCatNameDateColor};
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
+      background-color: ${props => props.theme.discussionByCatNameDateBgColorHov};
       cursor: pointer;
-      color: white;
+      color: ${props => props.theme.discussionByCatNameDateColorHov};
     }
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.195);
+    background-color: ${props => props.theme.discussionByCatWrapperBgColorHov};
   }
 
   .content {
