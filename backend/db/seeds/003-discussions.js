@@ -1,31 +1,31 @@
-// const faker = require('faker');
+const faker = require('faker');
 
-// const {
-//   numOfDiscussions,
-//   getRandomUserId,
-//   categoryNames,
-//   getRandomIntInclusive
-// } = require('../../config/globals.js');
+const {
+  numOfDiscussions,
+  getRandomUserId,
+  categoryNames,
+  getRandomIntInclusive
+} = require('../../config/globals.js');
 
-// const generateSeeds = () => {
-//   let arr = [];
-//   for (let i = 1; i <= numOfDiscussions; i++) {
-//     // prettier-ignore
-//     arr.push({
-//       user_id: getRandomUserId(),
-//       category_id: getRandomIntInclusive(1, categoryNames.length),
-//       title: faker.lorem.sentence(4),
-//       body: faker.lorem.sentences(3),
-//       created_at: Date.parse(
-//         faker.date.between(
-//           new Date(Date.now() - (1000 * 60 * 60 * 24 * 3)),
-//           new Date(Date.now() - (1000 * 60 * 60 * 12))
-//         )
-//       )
-//     });
-//   }
-//   return arr;
-// };
+const generateSeeds = () => {
+  let arr = [];
+  for (let i = 1; i <= numOfDiscussions; i++) {
+    // prettier-ignore
+    arr.push({
+      user_id: getRandomUserId(),
+      category_id: getRandomIntInclusive(1, categoryNames.length),
+      title: faker.lorem.sentence(4),
+      body: faker.lorem.sentences(3),
+      created_at: Date.parse(
+        faker.date.between(
+          new Date(Date.now() - (1000 * 60 * 60 * 24 * 3)),
+          new Date(Date.now() - (1000 * 60 * 60 * 12))
+        )
+      )
+    });
+  }
+  return arr;
+};
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
@@ -33,6 +33,7 @@ exports.seed = function(knex, Promise) {
     .del()
     .then(function() {
       // Inserts seed entries
+<<<<<<< HEAD
       return knex('discussions').insert([
         {user_id: '1', category_id: '1', title: 'Serverless Computing', 
           body: 'The basic idea is that, finally, developers can build without worrying about physical or virtual servers or even containers. Instead, devs can simply assemble services from small building blocks of code called functions, and all that messy infrastructure stuff under the hood takes care of itself.', created_at: "1551133330969"},
@@ -71,5 +72,8 @@ exports.seed = function(knex, Promise) {
         {user_id: '4', category_id: '7', title:'Adam Lambert and Queen Oscars 2019', body: 'This was wicked! The range of Adam Lambert with the showmanship of Queen. I loved every minute of it. Any critiques?',created_at: Date.parse(new Date(Date.now()))}
 
       ]);
+=======
+      return knex('discussions').insert(generateSeeds());
+>>>>>>> 50fa0d0bb3497f3da5316f133d780bed7809828c
     });
 };

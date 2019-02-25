@@ -7,7 +7,6 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 // themes
 import {dayTheme, nightTheme} from './globals/globals';
 
-
 // components
 import {
   Header,
