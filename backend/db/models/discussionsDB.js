@@ -114,6 +114,29 @@ const findById = (id, user_id, order, orderType) => {
   });
 };
 
+const search = (searchText, order, orderType) => {
+  return db('discussions as d')
+      .select(
+        'd.id',
+        'd.title',
+        'd.body',
+        'd.user_id',
+        'u.username',
+        'd.created_at',
+        'd.category_id',
+        'c.name as category_name',
+      )
+      .sum('dv.type as votes')
+      .join('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+      .join('users as u', 'u.id', 'd.user_id')
+      .join('categories as c', 'c.id', 'd.category_id')
+      .whereRaw('LOWER(d.title) LIKE ?', `%${ searchText.toLowerCase() }%`)
+      .orWhereRaw('LOWER(d.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
+      .groupBy('d.id', 'u.username', 'c.name')
+      // order by given order and orderType, else default to ordering by created_at descending
+      .orderBy(`${ order ? order : 'd.created_at' }`, `${ orderType ? orderType : 'desc' }`);
+};
+
 //Find by User ID (Original Creator)
 const findByUserId = user_id => {
   return db('discussions').where('user_id', user_id);
@@ -201,6 +224,7 @@ const remove = id => {
 module.exports = {
   getTopDailyDiscussions,
   getDiscussions,
+  search,
   findById,
   findByUserId,
   findByCategoryId,

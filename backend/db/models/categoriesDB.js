@@ -28,42 +28,52 @@ const getCategoryByName = name => {
 };
 
 //Find By ID (categories own ID)
-const findById = (id) => {
-    return db('categories').where('id', id)
+const findById = id => {
+    return db('categories').where({ id });
 };
-
-//Find by User ID (Original Creator)
-const findByUserId = (user_id) => {
-    return db('categories').where('user_id', user_id)
-};
-
-//AUTHORIZED ACCESS
 
 //Add category into the categories table
 const insert = category => {
     return db('categories').insert(category).returning('id');
 };
 
-//EDIT [ACCOUNT TYPE ACCESS: USER_ID]
-const update = (category, id) => {
-    return db('categories')
-            .where('id', id)
-            .update(category)
+const search = (searchText, order, orderType) => {
+    return db('categories as c')
+        .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at')
+        .join('users as u', 'u.id', 'c.user_id')
+        .whereRaw('LOWER(c.name) LIKE ?', `%${ searchText.toLowerCase() }%`)
+        // order by given order and orderType, else default to ordering by created_at descending
+        .orderBy(`${ order ? order : 'c.created_at' }`, `${ orderType ? orderType : 'desc' }`);
 };
 
-//DELETE [ACCOUNT TYPE ACCESS: USER_ID, ADMIN]
-const remove = (id) => {
-    return db('categories')
-            .where('id', id)
-            .del()
-};
+// //Find by User ID (Original Creator)
+// const findByUserId = (user_id) => {
+//     return db('categories').where('user_id', user_id)
+// };
+
+//AUTHORIZED ACCESS
+
+// //EDIT [ACCOUNT TYPE ACCESS: USER_ID]
+// const update = (category, id) => {
+//     return db('categories')
+//             .where('id', id)
+//             .update(category)
+// };
+
+// //DELETE [ACCOUNT TYPE ACCESS: USER_ID, ADMIN]
+// const remove = (id) => {
+//     return db('categories')
+//             .where('id', id)
+//             .del()
+// };
 
 module.exports = {
     getCategories,
     getCategoryByName,
     findById,
-    findByUserId,
+    search,
     insert,
-    update,
-    remove
+    // findByUserId,
+    // update,
+    // remove
 };
