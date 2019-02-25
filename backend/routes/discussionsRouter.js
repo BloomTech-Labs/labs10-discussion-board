@@ -4,22 +4,25 @@
 require('dotenv').config();
 const express = require('express');
 const { discussionsDB } = require('../db/models/index.js');
-const { authenticate } = require('../config/middleware/authenticate.js');
 
 const router = express.Router();
 
 /***************************************************************************************************
  ******************************************** middleware ********************************************
  **************************************************************************************************/
-// None
+const { authenticate, authenticateIfTokenExists } = require('../config/middleware/authenticate.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 // get top (limit 10) daily discussions ordered by vote_count
-router.get('/top-daily', (req, res) => {
+router.get('/top-daily/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
+  let { user_id } = req.params;
+  if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .getTopDailyDiscussions()
+    .getTopDailyDiscussions(user_id, order, orderType)
     .then(topDailyDiscussions => {
       res.status(200).json(topDailyDiscussions);
     })
@@ -41,10 +44,14 @@ router.get('/', (req, res) => {
 });
 
 //GET Discussion by Discussion ID
-router.get('/discussion/:id', (req, res) => {
+router.get('/discussion/:id/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
   const { id } = req.params;
+  let { user_id } = req.params;
+  if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .findById(id)
+    .findById(id, user_id, order, orderType)
     .then(discussion => res.status(200).json(discussion))
     .catch(err =>
       res.status(500).json({ error: `Failed to findById(): ${err}` })
@@ -52,9 +59,6 @@ router.get('/discussion/:id', (req, res) => {
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)
-
-//NOTE: UX - /user should be the user's actual username
-
 router.get('/user/:user_id', (req, res) => {
   const { user_id } = req.params;
   return discussionsDB
@@ -66,21 +70,20 @@ router.get('/user/:user_id', (req, res) => {
 });
 
 //GET Discussion by Category ID
-
-//NOTE: UX - /category should be the category's actual name
-
-router.get('/category/:category_id', (req, res) => {
+router.get('/category/:category_id/:user_id', authenticateIfTokenExists, (req, res) => {
+  const order = req.get('order');
+  const orderType = req.get('orderType');
   const { category_id } = req.params;
+  let { user_id } = req.params;
+  if (user_id === 'null') user_id = 0;
   return discussionsDB
-    .findByCategoryId(category_id)
+    .findByCategoryId(category_id, user_id, order, orderType)
     .then(discussMap => res.status(200).json(discussMap))
-    .catch(err =>
-      res.status(500).json({ error: `Failed to findByCategoryId(): ${err}` })
-    );
+    .catch(err => res.status(500).json({ error: `Failed to findByCategoryId(): ${err}` }));
 });
 
 //Add Discussion
-router.post('/:user_id', (req, res, next) => {
+router.post('/:user_id', authenticate, (req, res) => {
   const { user_id } = req.params;
   const { category_id, title, dBody } = req.body;
   const created_at = Date.now();
@@ -89,7 +92,7 @@ router.post('/:user_id', (req, res, next) => {
   const newDiscussion = { user_id, category_id, title, body: dBody, created_at };
   return discussionsDB
     .insert(newDiscussion)
-    .then(() => res.status(201).json({ message: 'Discussion topic has been posted!' }))
+    .then(newId => res.status(201).json(newId))
     .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
 });
 

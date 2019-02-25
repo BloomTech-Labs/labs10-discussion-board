@@ -330,7 +330,6 @@ router.post('/auth0-login', async (req, res) => {
                 {
                   id: user.id,
                   token,
-                  message: 'Log in successful.',
                   username: user.username,
                   avatar: foundUser[0].avatar,
                   isAuth0: foundUser[0].password ? false : true,
@@ -384,7 +383,6 @@ router.post('/auth0-login', async (req, res) => {
                       {
                         id: foundUser.id,
                         token,
-                        message: 'Log in successful.',
                         username: foundUser.username,
                         avatar: foundUserById[0].avatar,
                         isAuth0: foundUserById[0].password ? false : true,

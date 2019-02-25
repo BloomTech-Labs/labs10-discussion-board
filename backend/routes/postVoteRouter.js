@@ -7,17 +7,17 @@ const router = express.Router();
 /***************************************************************************************************
  ******************************************** middleware ********************************************
  **************************************************************************************************/
-// None
+const { authenticate } = require('../config/middleware/authenticate.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
-//add post vote 
-router.post('/', (req, res) => {
-
-    // post_id, user_id, and type must be integers
-    const { post_id, user_id, type } = req.body;
+//add post vote
+router.post('/:user_id', authenticate, (req, res) => {
+    const { post_id, type } = req.body;
+    let { user_id } = req.params;
+    user_id = parseInt(user_id);
     if(
         !Number.isInteger(post_id) ||
         !Number.isInteger(user_id) ||
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
                 //If user had already voted
                 if (post.length) {
                     //and it was the same vote type
-                 if(post[0].type === type) {
+                    if(post[0].type === type) {
 
                     //then remove the vote
                     return postVotesDB.remove(post_id, user_id)

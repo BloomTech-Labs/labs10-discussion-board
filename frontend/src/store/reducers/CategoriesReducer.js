@@ -2,6 +2,10 @@ import {
 	GET_CATEGORIES_LOADING,
 	GET_CATEGORIES_SUCCESS,
 	GET_CATEGORIES_FAILURE,
+
+	ADD_CATEGORY_LOADING,
+	ADD_CATEGORY_SUCCESS,
+	ADD_CATEGORY_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -16,6 +20,9 @@ export const CategoriesReducer = (state = initialState, action) => {
 				categories: action.payload,
 			};
 
+		case ADD_CATEGORY_LOADING:
+		case ADD_CATEGORY_SUCCESS:
+		case ADD_CATEGORY_FAILURE:
 		case GET_CATEGORIES_LOADING:
 		case GET_CATEGORIES_FAILURE:
 		default:

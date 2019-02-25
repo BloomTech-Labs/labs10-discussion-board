@@ -15,6 +15,8 @@ const PostsView = ({
 	showEditPostForm,
 	updateEditPostForm,
 	handleRemovePost,
+	order,
+	orderType,
 }) => {
 	return(
 		<PostsViewWrapper>
@@ -28,7 +30,8 @@ const PostsView = ({
 					showEditPostForm = { showEditPostForm }
 					updateEditPostForm = { updateEditPostForm }
 					handleRemovePost = { handleRemovePost }	
-							
+					order = { order }
+					orderType = { orderType }
 				/>)
 			}
 		</PostsViewWrapper>

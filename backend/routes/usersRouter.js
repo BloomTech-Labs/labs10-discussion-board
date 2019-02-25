@@ -21,7 +21,7 @@ const {
 /***************************************************************************************************
  ******************************************** middleware *******************************************
  **************************************************************************************************/
-const { authenticate } = require('../config/middleware/authenticate.js');
+const { authenticate, generateToken, validateToken } = require('../config/middleware/authenticate.js');
 const requestClientIP = require('../config/middleware/requestClientIP.js');
 const {
 	transporter,
@@ -107,6 +107,73 @@ router.post('/confirm-email', (req, res) => {
 			return res.status(201).json({ message: 'Your e-mail has been confirmed. Thank you.' });
 		})
 		.catch(err => res.status(500).json({ error: `Failed to confirmEmail(): ${ err }` }));
+});
+
+// send a reset-pw email to user
+router.post('/send-reset-pw-email', requestClientIP, (req, res) => {
+	const { email, clientIP } = req.body;
+  return usersDB
+    .getUserFromConfirmedEmail(email)
+    .then(async user => {
+      if (!user) {
+        return res.status(401).json({ error: 'Either email is not registered or it has not been confirmed.' });
+      }
+      const reset_pw_token = await generateToken(
+        user.id,
+        user.username,
+        '30m', // expiration of 30 minutes
+        email,
+      );
+      const mailOptions = getMailOptions('reset-pw', email, reset_pw_token, clientIP);
+			return transporter.sendMail(mailOptions, function(error, info){
+				if (error) {
+					return res.status(500).json({ error: `Failed to send e-mail: ${ error }` });
+				} else {
+					return res.status(201).json({ message: `Success! An e-mail was sent to ${ email } with a link to reset your password. Please check your inbox (You may also want to check your spam folder).` });
+				}
+			});
+    })
+    .catch(err => res.status(500).json({ error: `Failed to getUserFromConfirmedEmail(): ${ err }` }));
+});
+
+// reset password
+router.put('/reset-password', validateToken, (req, res) => {
+  const { id } = req.decoded;
+	let { password } = req.body;
+  if (!password) return res.status(401).json({ error: 'Password must not be empty.' });
+  password = bcrypt.hashSync(password, numOfHashes);
+  return usersDB
+    .updatePassword(id, password)
+    .then(() => {
+      return usersDB
+        .findById(id)
+        .then(async user => {
+          const token = await generateToken(user[0].id, user[0].username);
+          return res.status(201).json([
+            {
+              id: user[0].id,
+              token,
+              avatar: user[0].avatar,
+              username: user[0].username,
+              discussions: user[0].discussions,
+              email: user[0].email,
+              isAuth0: user[0].password ? false : true,
+              email_confirm: user[0].email_confirm,
+              discussionFollows: user[0].discussionFollows,
+              categoryFollows: user[0].categoryFollows,
+              message: 'Your password has been reset and you\'ve been logged in.'
+            }
+          ]);
+        })
+        .catch(err => res.status(500).json({ error: `Failed to findById(): ${err}` }));
+    })
+    .catch(err => res.status(500).json({ error: `Failed to updatePassword(): ${ err }` }));
+});
+
+// get info from reset-pw-token
+router.get('/token-info', validateToken, (req, res) => {
+  const { id, username, email } = req.decoded;
+  return res.status(200).json([{ id, username, email }]);
 });
 
 // Updates a user

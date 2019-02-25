@@ -1,12 +1,16 @@
 const db = require('../dbConfig.js');
 
-// get top (limit 10) daily discussions ordered by vote_count
-const getTopDailyDiscussions = () => {
+// get top (limit 10) daily discussions
+const getTopDailyDiscussions = (user_id, order, orderType) => {
   const postCountQuery = db('posts as p')
     .select('p.discussion_id')
     .count({ post_count: 'p.id' })
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .groupBy('p.discussion_id');
+
+  const userVoteQuery = db('discussion_votes as dv')
+    .select('dv.type', 'dv.discussion_id')
+    .where({ user_id });
 
   // prettier-ignore
   return db('discussions as d')
@@ -19,19 +23,25 @@ const getTopDailyDiscussions = () => {
       'd.title',
       'd.body',
       'd.created_at',
-      'pc.post_count'
+      db.raw('COALESCE(pc.post_count, 0) AS post_count'),
+      'uv.type as user_vote'
     )
     .sum('dv.type as vote_count')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .join('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin(postCountQuery.as('pc'), function() {
-        this.on('pc.discussion_id', '=', 'd.id');
+      this.on('pc.discussion_id', '=', 'd.id');
+    })
+    .leftOuterJoin(userVoteQuery.as('uv'), function() {
+      this.on('uv.discussion_id', '=', 'd.id');
     })
     // this whereRaw gets the created_at dates that are 24 hours away from the current time
     .whereRaw("d.created_at >= ?", [Date.parse(new Date()) - (24 * 60 * 60 * 1000)])
-    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count')
-    .orderBy('vote_count', 'desc')
+    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type')
+    // order by given order and orderType
+    // else default to ordering by vote_count descending
+    .orderBy(`${ order ? order : 'vote_count' }`, `${ orderType ? orderType : 'desc' }`)
     .limit(10);
 };
 
@@ -41,8 +51,12 @@ const getDiscussions = () => {
 };
 
 //Find By ID (discussions own ID)
-const findById = id => {
-  let discussionQuery = db('discussions as d')
+const findById = (id, user_id, order, orderType) => {
+  const userDiscussionVoteQuery = db('discussion_votes as dv')
+    .select('dv.type', 'dv.discussion_id')
+    .where({ user_id });
+
+  const discussionQuery = db('discussions as d')
     .select(
       'd.id',
       'd.user_id',
@@ -53,14 +67,23 @@ const findById = id => {
       'd.body',
       'd.created_at',
       'd.last_edited_at',
-      db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes')
+      db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
+      'uv.type as user_vote'
     )
     .join('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+    .leftOuterJoin(userDiscussionVoteQuery.as('uv'), function() {
+      this.on('uv.discussion_id', '=', 'd.id');
+    })
     .where('d.id', id)
-    .groupBy('d.id', 'u.username', 'c.name');
-  let postsQuery = db('posts as p')
+    .groupBy('d.id', 'u.username', 'c.name', 'uv.type');
+
+  const userPostVoteQuery = db('post_votes as pv')
+    .select('pv.type', 'pv.post_id')
+    .where({ user_id });
+
+  const postsQuery = db('posts as p')
     .select(
       'p.id',
       'p.user_id',
@@ -69,15 +92,20 @@ const findById = id => {
       'p.body',
       'p.created_at',
       'p.last_edited_at',
-      db.raw('SUM(COALESCE(pv.type, 0)) AS post_votes')
+      db.raw('SUM(COALESCE(pv.type, 0)) AS post_votes'),
+      'uv.type as user_vote'
     )
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .join('users as u', 'u.id', 'p.user_id')
     .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
+    .leftOuterJoin(userPostVoteQuery.as('uv'), function() {
+      this.on('uv.post_id', '=', 'p.id');
+    })
     .where('p.discussion_id', id)
-    .groupBy('p.id', 'u.username')
-    .orderBy('post_votes', 'desc')
-    .orderBy('p.created_at', 'desc');
+    .groupBy('p.id', 'u.username', 'uv.type')
+    // order by order and orderType variables
+    // else default to ordering by created_at descending
+    .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
   const promises = [discussionQuery, postsQuery];
   return Promise.all(promises).then(results => {
     const [discussionResults, postsResults] = results;
@@ -92,14 +120,18 @@ const findByUserId = user_id => {
 };
 
 //Find by Associated Category (category ID)
-const findByCategoryId = category_id => {
-  let postCountQuery = db('posts as p')
+const findByCategoryId = (category_id, user_id, order, orderType) => {
+  const postCountQuery = db('posts as p')
     .select('p.discussion_id')
     .count({ post_count: 'p.id' })
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .groupBy('p.discussion_id');
 
-  return discussionQuery = db('discussions as d')
+  const userVoteQuery = db('discussion_votes as dv')
+    .select('dv.type', 'dv.discussion_id')
+    .where({ user_id });
+
+  const discussionQuery = db('discussions as d')
     .select(
       'd.id',
       'd.user_id',
@@ -109,8 +141,9 @@ const findByCategoryId = category_id => {
       'd.title',
       'd.body',
       'd.created_at',
-      'pc.post_count',
-      db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes')
+      db.raw('COALESCE(pc.post_count, 0) AS post_count'),
+      db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
+      'uv.type as user_vote'
     )
     .sum('dv.type as vote_count')
     .join('users as u', 'u.id', 'd.user_id')
@@ -119,16 +152,41 @@ const findByCategoryId = category_id => {
     .leftOuterJoin(postCountQuery.as('pc'), function() {
       this.on('pc.discussion_id', '=', 'd.id');
     })
+    .leftOuterJoin(userVoteQuery.as('uv'), function() {
+      this.on('uv.discussion_id', '=', 'd.id');
+    })
     .where('c.id', category_id)
-    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count')
-    .orderBy('created_at', 'desc');
+    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type')
+    // order by given order and orderType variables
+    // else default to ordering by created_at descending
+    .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
+  
+  const categoryQuery = db('categories as c')
+    .select(
+      'c.name',
+      'u.username',
+      'c.created_at',
+    )
+    .join('users as u', 'u.id', 'c.user_id')
+    .where('c.id', category_id)
+    .first();
+
+  const promises = [ discussionQuery, categoryQuery ];
+  return Promise.all(promises)
+    .then(results => {
+      const [ discussionResults, categoryResults ] = results;
+      return {
+        category: categoryResults,
+        discussions: discussionResults,
+      };
+    });
 };
 
 //AUTHORIZED ACCESS
 
 //Add Discussion into the Discussion table
 const insert = discussion => {
-  return db('discussions').insert(discussion);
+  return db('discussions').insert(discussion).returning('id');
 };
 
 //EDIT [ACCOUNT TYPE ACCESS: USER_ID]

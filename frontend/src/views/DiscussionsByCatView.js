@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Discuss from '../assets/img/Discuss.png';
 import TextLoop from "react-text-loop";
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 // components
 import { DiscussionsByCats, FollowCat, AddDiscussionForm } from '../components/index.js';
@@ -54,6 +56,8 @@ const DiscussionsByCatTitle = styled.div`
 	font-size: 18px;
 	margin-left: 25px;
 	color: white;
+	flex-wrap: wrap;
+	flex-direction: column;
 `;
 
 const TextLooper = styled.div`
@@ -74,11 +78,11 @@ class DiscussionsByCatView extends Component {
 	state = { showAddForm: false };
 	toggleShowAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
 	render() {
-		const { history, match } = this.props;
 		const { showAddForm } = this.state;
+		const { history, match, category } = this.props;
+		const { created_at, name, username } = category;
 		const id  = match.params.category_id;
 		const historyPush = history.push;
-
 		return (
 			<DiscussionsByCatViewWrapper>
 				<DiscussionsByCatHeader>
@@ -86,7 +90,9 @@ class DiscussionsByCatView extends Component {
 						<DiscussionsByCatImage src={Discuss} alt='Top discussions' />
 						<FollowCat category_id = {id} historyPush = { historyPush }/>
 							<DiscussionsByCatTitle>
-								<h1>Discussions</h1>
+								<h1>/d/{ name }</h1>
+								<h2>Super-Mod: { username }</h2>
+								<h3>A community for {moment(new Date(Number(created_at))).fromNow()}</h3>
 							</DiscussionsByCatTitle>
 					</div>
 					<TextLooper>
@@ -108,10 +114,14 @@ class DiscussionsByCatView extends Component {
 					:
 					<button onClick = { this.toggleShowAddForm }>Add a discussion</button>
 				}
-				<DiscussionsByCats 
-					category_id = {match.params.category_id}/>
+				<DiscussionsByCats category_id = {match.params.category_id}/>
 			</DiscussionsByCatViewWrapper>
 		);
 	}
 };
-export default DiscussionsByCatView;
+
+const mapStateToProps = state => ({
+	category: state.discussions.category,
+});
+
+export default connect(mapStateToProps, {})(DiscussionsByCatView);

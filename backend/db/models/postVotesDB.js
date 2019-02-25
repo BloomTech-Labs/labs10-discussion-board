@@ -2,7 +2,7 @@ const db = require('../dbConfig.js')
 
 //Get/Read -/+ post votes table
 const get = ( post_id, user_id ) => {
-   return db('post_votes')
+    return db('post_votes')
         .select('type')
         .where({ post_id })
         .andWhere({ user_id });

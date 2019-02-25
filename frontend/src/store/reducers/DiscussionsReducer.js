@@ -27,6 +27,10 @@ import {
   REMOVE_DISCUSSION_LOADING,
   REMOVE_DISCUSSION_SUCCESS,
   REMOVE_DISCUSSION_FAILURE,
+
+  HANDLE_DISCUSSION_VOTE_LOADING,
+  HANDLE_DISCUSSION_VOTE_SUCCESS,
+  HANDLE_DISCUSSION_VOTE_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -34,6 +38,7 @@ const initialState = {
   discussion: {
     posts: []
   },
+  category: '',
   discussions: [],
   follows: {
     discussionId: []
@@ -58,9 +63,13 @@ export const DiscussionsReducer = (state = initialState, action) => {
       case GET_DISCUSSIONS_SUCCESS:
       return {
         ...state,
-        discussions: action.payload
+        discussions: action.payload.discussions,
+        category: action.payload.category,
       };
 
+    case HANDLE_DISCUSSION_VOTE_LOADING:
+    case HANDLE_DISCUSSION_VOTE_SUCCESS:
+    case HANDLE_DISCUSSION_VOTE_FAILURE:
     case REMOVE_DISCUSSION_LOADING:
     case REMOVE_DISCUSSION_SUCCESS:
     case REMOVE_DISCUSSION_FAILURE:

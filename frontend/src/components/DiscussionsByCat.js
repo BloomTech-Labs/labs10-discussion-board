@@ -86,13 +86,18 @@ const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
     title,
     user_id,
     username,
-    discussion_votes
+    discussion_votes,
+    user_vote,
   } = discussion;
 
 const handleVote = type => handleDiscussionVote(id, type);
 return (
     <DiscussionByCatWrapper>
-			<VoteCount handleVote = { handleVote } vote_count = { discussion_votes } />
+      <VoteCount
+        handleVote={handleVote}
+        vote_count={discussion_votes}
+        user_vote={user_vote}
+      />
 			<div className = 'content'>
 				<div>
 					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;

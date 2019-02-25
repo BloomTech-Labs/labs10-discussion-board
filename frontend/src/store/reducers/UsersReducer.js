@@ -44,7 +44,15 @@ import {
 
   STRIPE_PAYMENT_LOADING,
   STRIPE_PAYMENT_SUCCESS,
-  STRIPE_PAYMENT_FAILURE
+  STRIPE_PAYMENT_FAILURE,
+
+  SEND_PW_RESET_EMAIL_LOADING,
+  SEND_PW_RESET_EMAIL_SUCCESS,
+  SEND_PW_RESET_EMAIL_FAILURE,
+
+  RESET_PASSWORD_LOADING,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -76,6 +84,8 @@ export const UsersReducer = (state = initialState, action) => {
         ...state,
         loggingInLoadingMessage: true,
       };
+
+    case RESET_PASSWORD_SUCCESS:
     case USER_AUTH0_LOGIN_SUCCESS:
     case USER_LOG_BACK_IN_SUCCESS:
     case USER_LOGIN_SUCCESS:
@@ -206,13 +216,13 @@ export const UsersReducer = (state = initialState, action) => {
         error: action.payload
       };
 
+    case SEND_PW_RESET_EMAIL_SUCCESS:
     case EMAIL_CONFIRM_SUCCESS:
     case UPDATE_EMAIL_SUCCESS:
       return {
         ...state,
         message: action.payload,
       };
-
 
     case STRIPE_PAYMENT_LOADING:
       return {
@@ -231,6 +241,10 @@ export const UsersReducer = (state = initialState, action) => {
         stripePaymentLoadingMessage: false
       }
 
+    case RESET_PASSWORD_LOADING:
+    case RESET_PASSWORD_FAILURE:
+    case SEND_PW_RESET_EMAIL_LOADING:
+    case SEND_PW_RESET_EMAIL_FAILURE:
     case UPDATE_EMAIL_LOADING:
     case UPDATE_EMAIL_FAILURE:
     case EMAIL_CONFIRM_LOADING:
