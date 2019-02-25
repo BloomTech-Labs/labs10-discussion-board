@@ -8,38 +8,35 @@ import { Nav } from '../components/index.js';
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row-reverse;
   margin-top: 20px;
   margin-bottom: 30px;
   width: 90%;
-
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
     width: 90%;
-
     @media (max-width: 450px){
     }
   }
-
   .link {
     font-size: 18px;
     display: flex;
     align-items: center;
     text-decoration: none;
     color: white;
-
     &:hover {
+      text-decoration: underline;
       cursor: pointer;
       color: black;
     }
   }
 `;
 
-const SymNav = styled.div`
-  width: 60%;
+const TitleAndLogo = styled.div`
+  width: 50%;
   display: flex;
-  flex-direction: column;
-
+  margin-right: 0px;
   @media (max-width: 768px){
     display: flex;
     flex-direction: column;
@@ -55,21 +52,8 @@ const SymNav = styled.div`
   }
 `;
 
-const LogoContainer = styled.div`
-  width: 185px;
-  height: 185px;
-    @media (max-width: 768px){
-    display: none;
-    
-    }
-    @media (max-width: 450px){
-    display: none;
-    }
-
-`;
-
 const Logo = styled.div`
-  width: 100%;
+  width: 185px;
   height: 185px;
   background-image: url(${meeting});
   background-repeat: no-repeat;
@@ -80,23 +64,16 @@ const Logo = styled.div`
 `;
 
 const Title = styled.div`
+  align-self: flex-end;
+  margin-left: 10px;
   color: white;
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;  
-  font-size: 70px;
-
+  font-size: 36px;
   @media (max-width: 768px){
     display: flex;
     flex-direction: column;
     width: 90%
-
   }
-  @media (max-width: 450px){
-        text-align: center;
-        padding-bottom: 12px;
-      }
+  h1 {
     a {
       color: #f7f5f3;
       text-decoration: none;
@@ -114,43 +91,37 @@ const Title = styled.div`
         width: 95%;
       }
     }
+  }
   .subheader { 
     color: #f7f5f3;
-    font-size: 20px;
-    margin: 5px 0px 25px 120px;
+    font-size: 14px;
+    margin-left: 187px;
     @media (max-width: 768px){
       @media (max-width: 450px){
-        display: none;
+        display: flex;
+        text-align: center;
+        margin: 0 auto;
       }
     }
 }
 `;
 
 const Navi = styled.div`
-
   @media (max-width: 768px){
     display: flex;
     width: 90%;
     margin: 0 auto;
     justify-content: center;
     margin-bottom: 1em;
-
     @media (max-width: 450px){
       width: 100%;
     }
   }
 `
 const Links = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  font-size: 12px;
-  
-
   .link {
     font-weight: bold;
     font-size: 2em;
-
   }
   @media (max-width: 750px){
     display: flex;
@@ -159,39 +130,34 @@ const Links = styled.div`
     width: 90%;
     margin: 0 auto;
     @media (max-width: 450px){
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     }
   }
-`
+`;
 
-const Header = ({ history }) => {
+const Header = ({ history, toggleSearch }) => {
   return (
     <StyledHeader>
-      <LogoContainer>
-          <Logo />
-      </LogoContainer>
-      <SymNav>
-        <Links>
-          <Link className='link td-link' to='/home'>
-            Top Discussions
-          </Link>
-          <Link className='link c-link' to='/categories'>
-            Categories
-          </Link>
-          <Link className='link s-link' to='/settings'>
-            Settings
-          </Link>
-      </Links>
-        <Title>
-          <Link className='header' to='/home'>Symposium</Link>
-          <div className='subheader'>The discussion starts here</div>
-        </Title>
-      </SymNav>
       <Navi>
         <Nav history={history} />
       </Navi>
+      <TitleAndLogo>
+        <Logo />
+        <Title>
+          <h1><Link className='header' to='/home'>Symposium</Link></h1>
+          <div className='subheader'>
+            <h2>The discussion starts here</h2>
+          </div>
+        </Title>
+      </TitleAndLogo>
+      <Links>
+        <Link className='link td-link' to='/home'>
+          Top Discussions
+        </Link>
+        <Link className='link c-link' to='/categories'>
+          Categories
+        </Link>
+        <button onClick = { toggleSearch }>Search</button>
+      </Links>
     </StyledHeader>
   );
 };

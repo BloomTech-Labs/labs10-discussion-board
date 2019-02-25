@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
 // components
-import { Avatar } from '../components/index.js';
+import { Avatar, Deleted } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -87,8 +87,12 @@ const ProfileTitle = styled.div`
 class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
-  }
-
+  };
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      return this.props.getProfile(this.props.match.params.id);
+    }
+  };
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
   profileItems displays our spinner component, however if our props contains a profile we display that profile
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
@@ -110,7 +114,7 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Username: </p>
-                <p className='property-content'> {profile.username}</p>
+                <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Status: </p>

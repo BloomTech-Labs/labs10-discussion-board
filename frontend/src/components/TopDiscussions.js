@@ -20,7 +20,7 @@ const TopDiscussionsViewWrapper = styled.div`
  **************************************************************************************************/
 class TopDiscussions extends Component {
 	state = {
-		order: '', // possible values: 'vote_count', 'post_count', 'created_at'
+		order: 'vote_count', // possible values: 'vote_count', 'post_count', 'created_at'
 		orderType: '', // possible values: 'desc', 'asc'
 	};
 	handleDiscussionVote = (discussion_id, type) => {
@@ -40,16 +40,16 @@ class TopDiscussions extends Component {
 			<TopDiscussionsViewWrapper>
 				<span>Sort by: </span>
 				<select onChange = { this.handleSelectChange } name = 'order'>
-					<option value = 'vote_count'>Votes</option>
-					<option value = 'post_count'>Posts</option>
-					<option value = 'created_at'>Date</option>
+					<option value = 'vote_count'>votes</option>
+					<option value = 'post_count'>number of posts</option>
+					<option value = 'created_at'>date created</option>
 				</select>
 				<select onChange = { this.handleSelectChange } name = 'orderType'>
 					<option value = 'desc'>
-						{ order === 'created_at' ? 'Most Recent First' : 'Greatest First' }
+						{ order === 'created_at' ? 'most recent first' : 'most first' }
 					</option>
 					<option value = 'asc'>
-						{ order === 'created_at' ? 'Least Recent First' : 'Least First' }
+						{ order === 'created_at' ? 'least recent first' : 'least first' }
 					</option>
 				</select>
 				{

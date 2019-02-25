@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 // components
-import { DiscussionsByCats, FollowCat, AddDiscussionForm } from '../components/index.js';
+import { DiscussionsByCats, FollowCat, AddDiscussionForm, Deleted } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -91,7 +91,7 @@ class DiscussionsByCatView extends Component {
 						<FollowCat category_id = {id} historyPush = { historyPush }/>
 							<DiscussionsByCatTitle>
 								<h1>/d/{ name }</h1>
-								<h2>Super-Mod: { username }</h2>
+								<h2>Super-Mod: { username ? username : <Deleted /> }</h2>
 								<h3>A community for {moment(new Date(Number(created_at))).fromNow()}</h3>
 							</DiscussionsByCatTitle>
 					</div>

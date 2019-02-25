@@ -5,6 +5,9 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfiles } from '../store/actions/index';
 import styled from 'styled-components';
 
+// components
+import { Deleted } from './index.js';
+
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
@@ -104,7 +107,7 @@ class Profiles extends Component {
           <ProfilesWrapper>
             <WrappedDiv>
               <p className = 'property-title'> Username: </p>
-              <p className = 'property-content'> {profile.username}</p>
+              <p className = 'property-content'> {profile.username ? profile.username : <Deleted />}</p>
             </WrappedDiv>
             <WrappedDiv>
               <p className = 'property-title'> Status: </p>

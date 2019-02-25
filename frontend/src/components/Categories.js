@@ -3,6 +3,8 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// components
+import { Deleted } from './index.js';
 
 //add responsiveness to mobile size
 const SingleCategoryWrapper = styled.div`
@@ -72,9 +74,13 @@ const Categories = ({ category }) => {
           </Link>
         </span>
       </div>
-      <Link to={`/profile/${user_id}`} className='nameanddate'>
-        Created By: {user_username}
-      </Link>
+      {
+        user_username ?
+        <Link to={`/profile/${user_id}`} className='nameanddate'>
+          Created By: {user_username}
+        </Link> :
+        <span>Created By: <Deleted /></span>
+      }
       <div className='timestamp'>
         <span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       </div>

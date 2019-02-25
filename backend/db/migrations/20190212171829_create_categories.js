@@ -11,7 +11,7 @@ exports.up = function (knex, Promise) {
       .onDelete('SET NULL');
 
     // Other Columns
-    tbl.string('name')
+    tbl.string('name', 32)
       .unique()
       .notNullable();
 
