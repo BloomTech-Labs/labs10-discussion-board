@@ -35,7 +35,7 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('discussions').insert([
         {user_id: '1', category_id: '1', title: 'Serverless Computing', 
-          body: 'The basic idea is that, finally, developers can build without worrying about physical or virtual servers or even containers. Instead, devs can simply assemble services from small building blocks of code called functions, and all that messy infrastructure stuff under the hood takes care of itself.', created_at: Date.parse(new Date(Date.now()))},
+          body: 'The basic idea is that, finally, developers can build without worrying about physical or virtual servers or even containers. Instead, devs can simply assemble services from small building blocks of code called functions, and all that messy infrastructure stuff under the hood takes care of itself.', created_at: "1551133330969"},
         {user_id: '1', category_id: '1', title: 'Blockchain Technology', 
           body: 'The blockchain is an undeniably ingenious invention – the brainchild of a person or group of people known by the pseudonym, Satoshi Nakamoto. But since then, it has evolved into something greater.By allowing digital information to be distributed but not copied, blockchain technology created the backbone of a new type of internet. Originally devised for the digital currency, Bitcoin,  (Buy Bitcoin) the tech community is now finding other potential uses for the technology.', created_at: Date.parse(new Date(Date.now()))},
         {user_id: '1', category_id: '1', title: 'MicroSD Express Spec Memory Card',
