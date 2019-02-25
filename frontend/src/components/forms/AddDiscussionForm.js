@@ -24,9 +24,7 @@ class AddDiscussionForm extends Component {
 		const { toggleShowAddForm } = this.props;
 		return(
 			<AddDiscussionFormWrapper onSubmit = { this.handleSubmit }>
-				<h1>Add Discussion form</h1>
-
-				<input
+				<h1>Add Discussion form</h1>				<input
 					placeholder = 'Add discussion title...'
 					name = 'title'
 					onChange = { this.handleChange }
