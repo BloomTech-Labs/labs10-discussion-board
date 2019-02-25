@@ -1,11 +1,9 @@
-import Auth from './Auth.js';
 import CategoriesList from './CategoriesList.js';
 import Categories from './Categories.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 
-import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import Header from './Header.js';
 import TopDiscussions from './TopDiscussions.js';
@@ -38,41 +36,39 @@ import ResetPWForm from './forms/ResetPWForm.js';
 import AddCategoryForm from './forms/AddCategoryForm.js';
 
 export {
-	Auth,
-	CategoriesList,
-	Categories,
-	Discussion,
-	DiscussionsByCat,
-	DiscussionsByCats,
-	LoginDropdown,
-	Nav,
-	Header,
-	TopDiscussions,
-	TopDiscussion,
-	PostCount,
-	VoteCount,
-	Profiles,
-	Profile,
-	Post,
-	Settings,
-	Error,
-	Message,
-	Avatar,
-	Follow,
-	FollowCat,
-	ConfirmEmail,
-	ToolTip,
+  CategoriesList,
+  Categories,
+  Discussion,
+  DiscussionsByCat,
+  DiscussionsByCats,
+  Nav,
+  Header,
+  TopDiscussions,
+  TopDiscussion,
+  PostCount,
+  VoteCount,
+  Profiles,
+  Profile,
+  Post,
+  Settings,
+  Error,
+  Message,
+  Avatar,
+  Follow,
+  FollowCat,
+  ConfirmEmail,
+  ToolTip,
 
-	// forms
-	AddPostForm,
-	AddDiscussionForm,
-	EditPostForm,
-	EditPasswordForm,
-	EditAvatarForm,
-	EditAvatarUrlForm,
-	UpdateEmailForm,
-	EditDiscussionForm,
-	RequestResetPWForm,
-	ResetPWForm,
-	AddCategoryForm,
+  // forms
+  AddPostForm,
+  AddDiscussionForm,
+  EditPostForm,
+  EditPasswordForm,
+  EditAvatarForm,
+  EditAvatarUrlForm,
+  UpdateEmailForm,
+  EditDiscussionForm,
+  RequestResetPWForm,
+  ResetPWForm,
+  AddCategoryForm,
 };

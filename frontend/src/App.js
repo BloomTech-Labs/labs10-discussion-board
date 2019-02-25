@@ -11,7 +11,6 @@ import {
   Settings,
   Error,
   Message,
-  Auth,
   ConfirmEmail,
   RequestResetPWForm,
   ResetPWForm,
@@ -48,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
 		  align-items: center;
 		  flex-wrap: wrap;
       flex-direction: column;
-      background: #54BDFF;
+      background: #f3f6f8;
       width: 100%;
 	}
 `;
@@ -70,7 +69,7 @@ class App extends Component {
       return (
         <AppWrapper>
           <GlobalStyle />
-          <Header history={history} />
+          <Header history={history} isAuthenticated={this.isAuthenticated} />
           <Route path='/home' component={LandingView} />
           <Route path='/profiles' component={Profiles} />
           <Route path='/profile/:id' component={Profile} />
@@ -89,18 +88,17 @@ class App extends Component {
       return (
         <AppWrapper>
           <GlobalStyle />
-          <Header history={history} />
+          <Header history={history} isAuthenticated={this.isAuthenticated} />
           <Switch>
             <Route path='/register' component={RegisterView} />
             <Route path='/request-reset-pw' component={RequestResetPWForm} />
-            <Route path = '/reset/:reset_pw_token' component = {ResetPWForm} />
+            <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
             <Route path='/home' component={LandingView} />
             <Route path='/profile/:id' component={Profile} />
             <Route path='/categories' component={CategoriesView} />
             <Route path='/discussion/:id' component={DiscussionView} />
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-            <Route render={props => <Auth {...props} />}/>
           </Switch>
           {error && <Error error={error} />}
           {message && <Message message={message} />}

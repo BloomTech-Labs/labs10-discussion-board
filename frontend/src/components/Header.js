@@ -7,34 +7,9 @@ import { Nav } from '../components/index.js';
 
 const StyledHeader = styled.div`
   display: flex;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  width: 90%;
-
-  @media(max-width: 768px){
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-
-    @media (max-width: 450px){
-    }
-  }
-
-  .link {
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-
-    &:hover {
-      text-decoration: underline;
-      cursor: pointer;
-      color: black;
-    }
-  }
+  flex-direction: column;
+  margin: 0;
+  width: 100%;
 `;
 
 const TitleAndLogo = styled.div`
@@ -118,7 +93,7 @@ const Navi = styled.div`
 
   @media (max-width: 768px){
     display: flex;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     justify-content: center;
     margin-bottom: 1em;
@@ -128,30 +103,12 @@ const Navi = styled.div`
     }
   }
 `
-const Links = styled.div`
 
-
-  .link {
-    font-weight: bold;
-    font-size: 2em;
-
-  }
-  @media (max-width: 750px){
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
-    @media (max-width: 450px){
-    }
-  }
-`
-
-const Header = ({ history }) => {
+const Header = props => {
   return (
     <StyledHeader>
       <Navi>
-        <Nav history={history} />
+        <Nav history={props.history} isAuthenticated={props.isAuthenticated} />
       </Navi>
       <TitleAndLogo>
         <Logo />
@@ -162,14 +119,6 @@ const Header = ({ history }) => {
           </div>
         </Title>
       </TitleAndLogo>
-      <Links>
-        <Link className='link td-link' to='/home'>
-          Top Discussions
-        </Link>
-        <Link className='link c-link' to='/categories'>
-          Categories
-        </Link>
-      </Links>
     </StyledHeader>
   );
 };

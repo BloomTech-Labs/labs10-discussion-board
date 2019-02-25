@@ -3,8 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import auth0 from 'auth0-js';
-import { login } from '../store/actions';
-// import PropTypes from 'prop-types';
+import { Auth0Lock } from 'auth0-lock';
+import { login, auth0Login, displayError } from '../store/actions/index.js';
+
+// globals
+import {
+  auth0Domain,
+  auth0ClientID,
+  auth0RedirectUri
+} from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -14,47 +21,91 @@ const FormLogin = styled.form`
   flex-direction: column;
   visibility: ${props => (props.isLoginDropdownClicked ? 'show' : 'hidden')};
   z-index: 9999;
-  position: relative;
+  position: absolute;
+  width: 270px;
+  background-color: #54BDFF;
+  padding: 25px;
+  margin-top: 130px;
+`;
+
+const LinkForgotUserPass = styled(Link)`
+  font-size: 16px;
+  text-decoration: none;
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class LoginDropdown extends Component {
-  auth0 = new auth0.WebAuth({
-    // need to create auth0 account and apply settings...
-    // https://www.youtube.com/watch?v=QsMK3d3LxYQ
-    domain: 'domain.auth0.com',
-    clientID: 'random string provided by auth0 account',
-    redirectUri: 'http://localhost:3000/callback',
-    audience: 'domain.auth0.com/userinfo',
-    responseType: 'token id_token',
-    scope: 'openid'
-  });
+  // auth0 = new auth0.WebAuth({
+  //   // need to create auth0 account and apply settings...
+  //   // https://www.youtube.com/watch?v=QsMK3d3LxYQ
+  //   domain: 'domain.auth0.com',
+  //   clientID: 'random string provided by auth0 account',
+  //   redirectUri: 'http://localhost:3000/callback',
+  //   audience: 'domain.auth0.com/userinfo',
+  //   responseType: 'token id_token',
+  //   scope: 'openid'
+  // });
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: ''
     };
+    this.webAuth.parseHash((err, authResult) => {
+      if (authResult) {
+        const { accessToken, expiresIn } = authResult;
+        const expiresAt = JSON.stringify(
+          expiresIn * 1000 + new Date().getTime()
+        );
+        localStorage.setItem('symposium_auth0_access_token', accessToken);
+        localStorage.setItem('symposium_auth0_expires_at', expiresAt);
+        return this.props.auth0Login(accessToken);
+      } else if (err) this.props.displayError(err);
+    });
   }
 
+  authLockOptions = {
+    rememberLastLogin: false
+  };
+
+  lock = new Auth0Lock(auth0ClientID, auth0Domain, this.authLockOptions);
+
+  webAuth = new auth0.WebAuth({
+    domain: auth0Domain,
+    clientID: auth0ClientID,
+    redirectUri: auth0RedirectUri
+  });
+
   //---------------- Form Methods --------------
+
+  componentDidMount() {
+    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.history.location.pathname !== prevProps.history.location.pathname) {
+      this.authLockOptions = {
+        rememberLastLogin: false
+      };
+      this.lock = new Auth0Lock(auth0ClientID, auth0Domain, this.authLockOptions);
+      this.webAuth = new auth0.WebAuth({
+        domain: auth0Domain,
+        clientID: auth0ClientID,
+        redirectUri: auth0RedirectUri
+      });
+    }
+  }
+
   handleInputChange = ev => {
     this.setState({
       [ev.target.name]: ev.target.value
     });
   };
 
-  submitHandler = (ev, loginType) => {
+  normalLogin = ev => {
     ev.preventDefault();
-    switch (loginType) {
-      default:
-        this.normalLogin();
-    }
-  };
-
-  normalLogin = () => {
     const pathname = this.props.history.location.pathname;
     const creds = { ...this.state };
     this.setState(
@@ -71,6 +122,10 @@ class LoginDropdown extends Component {
               : this.props.history.push(pathname)
           ))
     );
+  };
+
+  handleAuth0Login = () => {
+    this.lock.show();
   };
 
   render() {
@@ -93,19 +148,17 @@ class LoginDropdown extends Component {
         />
         <button
           type='submit'
-          onClick={ev => this.submitHandler(ev, 'normalLogin')}
+          onClick={ev => this.normalLogin(ev)}
         >
           Login
         </button>
-        <Link to = '/request-reset-pw'>Forgot your username/password?</Link>
+        <LinkForgotUserPass to='/request-reset-pw'>Forgot your username/password?</LinkForgotUserPass>
+        <h3>----------- OR ------------</h3>
+        <button type='button' onClick={() => this.handleAuth0Login()}>Login via Auth0</button>
       </FormLogin>
     );
   }
 };
-
-// LoginDropdown.propTypes = {
-//   propertyName: PropTypes.string
-// }
 
 const mapStateToProps = state => {
   return {
@@ -115,5 +168,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { login }
+  { auth0Login, login, displayError }
 )(LoginDropdown);

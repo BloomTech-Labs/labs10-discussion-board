@@ -3,6 +3,7 @@ const auth0ClientID = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const auth0Domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const auth0RedirectUri = process.env.REACT_APP_REDIRECT_URI;
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const NavSearchOptions = ['Categories', 'Discussions', 'Posts'];
 const stripePayFormat = [99, 199, 299]; // matching subscriptionPrices
 const stripeToken = process.env.REACT_APP_STRIPE_TOKEN;
 const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
@@ -17,6 +18,7 @@ module.exports = {
   auth0Domain,
   auth0RedirectUri,
   backendUrl,
+  NavSearchOptions,
   stripePayFormat,
   stripeToken,
   subscriptionPlans,
