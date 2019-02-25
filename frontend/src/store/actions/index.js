@@ -180,6 +180,10 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
 
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_SUCCESS,
+  DELETE_ACCOUNT_FAILURE,
+
   // Action Creators
   login,
   signout,
@@ -198,6 +202,7 @@ import {
   stripePayment,
   sendPWResetEmail,
   resetPassword,
+  deleteAccount,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -342,6 +347,10 @@ export {
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
 
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_SUCCESS,
+  DELETE_ACCOUNT_FAILURE,
+
   // Categories Action Creators
   getCategories,
   followCategory,
@@ -380,6 +389,7 @@ export {
   stripePayment,
   sendPWResetEmail,
   resetPassword,
+  deleteAccount,
 
   // Profile Action Creators
   getProfiles,

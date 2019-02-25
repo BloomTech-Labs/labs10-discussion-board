@@ -86,6 +86,10 @@ export const RESET_PASSWORD_LOADING = 'RESET_PASSWORD_LOADING';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
 
+export const DELETE_ACCOUNT_LOADING = 'DELETE_ACCOUNT_LOADING';
+export const DELETE_ACCOUNT_SUCCESS = 'DELETE_ACCOUNT_SUCCESS';
+export const DELETE_ACCOUNT_FAILURE = 'DELETE_ACCOUNT_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -284,7 +288,7 @@ export const updateEmail = (email, history) => dispatch => {
       payload: res.data,
     }))
     .then(() => history.push(`/settings/${user_id}`))
-    .catch(err => handleError(err, UPDATE_EMAIL_FAILURE, history)(dispatch));
+    .catch(err => handleError(err, UPDATE_EMAIL_FAILURE)(dispatch));
 };
 
 export const stripePayment = (headersObj) => dispatch => {
@@ -320,4 +324,21 @@ export const resetPassword = (password, token) => dispatch => {
       });
     })
     .catch(err => handleError(err, RESET_PASSWORD_FAILURE)(dispatch));
+};
+
+export const deleteAccount = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: DELETE_ACCOUNT_LOADING });
+  return axios.delete(`${ backendUrl }/users/${ user_id }`, headers)
+    .then(() => {
+      localStorage.removeItem('symposium_token');
+      localStorage.removeItem('symposium_user_id');
+      localStorage.removeItem('symposium_auth0_access_token');
+      localStorage.removeItem('symposium_auth0_expires_at');
+      displayMessage('You\'ve successfully deleted your account. We are sorry to see you go!')(dispatch);
+      dispatch({ type: DELETE_ACCOUNT_SUCCESS });
+    })
+    .catch(err => handleError(err, DELETE_ACCOUNT_FAILURE)(dispatch));
 };

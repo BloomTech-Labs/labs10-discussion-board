@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
 // components
-import { Avatar } from '../components/index.js';
+import { Avatar, Deleted } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -125,7 +125,7 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Username: </p>
-                <p className='property-content'> {profile.username}</p>
+                <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Status: </p>

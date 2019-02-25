@@ -11,7 +11,7 @@ const getCategories = (order, orderType) => {
             'c.created_at',
         )
         .count('d.id as discussion_count')
-        .join('users as u', 'u.id', 'c.user_id')
+        .leftOuterJoin('users as u', 'u.id', 'c.user_id')
         .leftOuterJoin('discussions as d', 'd.category_id', 'c.id')
         .groupBy('c.name', 'c.id', 'u.username')
         // order by given order and orderType
@@ -40,7 +40,7 @@ const insert = category => {
 const search = (searchText, order, orderType) => {
     return db('categories as c')
         .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at')
-        .join('users as u', 'u.id', 'c.user_id')
+        .leftOuterJoin('users as u', 'u.id', 'c.user_id')
         .whereRaw('LOWER(c.name) LIKE ?', `%${ searchText.toLowerCase() }%`)
         // order by given order and orderType, else default to ordering by created_at descending
         .orderBy(`${ order ? order : 'c.created_at' }`, `${ orderType ? orderType : 'desc' }`);

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // components
-import { EditPostForm, VoteCount } from './index.js';
+import { EditPostForm, VoteCount, Deleted } from './index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
@@ -93,10 +93,14 @@ const Post = ({
         />
       </Vote>
       <PostedBy>
-        Posted by:
-        <Link className='username' to={`/profile/${user_id}`}>
-          {username}
-        </Link>
+        Posted by: &nbsp;
+        {
+          username ?
+          <Link className='username' to={`/profile/${user_id}`}>
+            {username}
+          </Link> :
+          <Deleted />
+        }
         {moment(new Date(Number(created_at))).fromNow()}
       </PostedBy>
       <Elip>{body}</Elip>

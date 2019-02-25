@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { AddPostForm, EditDiscussionForm, VoteCount } from './index.js';
+import { AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -181,10 +181,14 @@ class Discussion extends Component {
           />
           <CategoryName>/d/{category_name}</CategoryName>
           <PostedBy>
-            Posted by:
-            <Link className='username' to={`/profile/${user_id}`}>
-              {username}
-            </Link>
+            Posted by: &nbsp;
+            {
+              username ?
+              <Link className='username' to={`/profile/${user_id}`}>
+                {username}
+              </Link> :
+              <Deleted />
+            }
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
         </DiscussionInfo>
