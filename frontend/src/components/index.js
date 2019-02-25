@@ -28,6 +28,8 @@ import Highlight from './Highlight.js';
 import SearchCatResult from './SearchCatResult.js';
 import SearchDisResult from './SearchDisResult.js';
 import SearchPostResult from './SearchPostResult.js';
+import DeleteAccountModal from './DeleteAccountModal.js';
+import Deleted from './Deleted.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -72,6 +74,8 @@ export {
 	SearchCatResult,
 	SearchDisResult,
 	SearchPostResult,
+	DeleteAccountModal,
+	Deleted,
 
 	// forms
 	AddPostForm,

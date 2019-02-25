@@ -4,7 +4,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { PostCount, VoteCount } from './index.js';
+import { PostCount, VoteCount, Deleted } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -107,11 +107,14 @@ return (
             </Link>
           </span>
 				</div>
-
         <div>
-          <Link to={`/profile/${user_id}`} className='nameanddate'>
-            {username}
-          </Link>
+          {
+            username ?
+            <Link to={`/profile/${user_id}`} className='nameanddate'>
+              {username}
+            </Link> :
+            <Deleted />
+          }
           &#8201;
           <span className='timestamp'>
             {' '}
