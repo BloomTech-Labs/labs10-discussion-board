@@ -134,9 +134,9 @@ const Links = styled.div`
     @media (max-width: 450px){
     }
   }
-`
+`;
 
-const Header = ({ history }) => {
+const Header = ({ history, toggleSearch }) => {
   return (
     <StyledHeader>
       <Navi>
@@ -160,6 +160,7 @@ const Header = ({ history }) => {
         <Link className='link c-link' to='/categories'>
           Categories
         </Link>
+        <button onClick = { toggleSearch }>Search</button>
       </Links>
     </StyledHeader>
   );
