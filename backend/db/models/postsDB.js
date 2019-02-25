@@ -12,9 +12,9 @@ const search = (searchText, order, orderType) => {
       'd.title as discussion_title',
       'c.id as category_id',
       'c.name as category_name',
+      db.raw('SUM(COALESCE(pv.type, 0)) AS votes'),
     )
-    .sum('pv.type as votes')
-    .join('post_votes as pv', 'pv.post_id', 'p.id')
+    .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
     .join('users as u', 'u.id', 'p.user_id')
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .join('categories as c', 'c.id', 'd.category_id')
