@@ -52,10 +52,10 @@ const Welcome = styled.div`
 
     .username {
       margin-left: 5px;
-      color: black;
+      color: ${props => props.theme.navWelcomeUsername};
       text-decoration: none;
       &:hover {
-        color: white;
+        color: ${props => props.theme.navWelcomeUsernameHov};
         text-decoration: underline;
       }
     }
