@@ -23,7 +23,8 @@ const DiscussionWrapper = styled.div`
 
   @media(max-width: 768px){
     display: flex;
-    width: 90%
+    width: 90%;
+  }
 
     @media (max-width: 450px){
       width: 90%;
@@ -40,11 +41,14 @@ const DiscussionInfo = styled.div`
 
   @media(max-width: 768px){
     display: flex;
-    width: 90%
+    width: 90%;
 
+  }
     @media (max-width: 450px){
+      display: flex;
     }
 `;
+
 const CategoryName = styled.div`
   font-size: 18px;
   width: 10%;

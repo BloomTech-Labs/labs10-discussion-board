@@ -8,6 +8,7 @@ import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import Header from './Header.js';
+import Logo from './Logo.js';
 import TopDiscussions from './TopDiscussions.js';
 import TopDiscussion from './TopDiscussion.js';
 import PostCount from './PostCount.js';
@@ -57,6 +58,7 @@ export {
   LoginDropdown,
   Nav,
   Header,
+  Logo,
   TopDiscussions,
   TopDiscussion,
   PostCount,
