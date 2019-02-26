@@ -17,22 +17,38 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
  ********************************************* Styles *********************************************
  **************************************************************************************************/
 const DiscussionWrapper = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: row;
+border-radius: 15px;
+border-bottom: 16px;
+margin: 5px;
+padding: 10px;
+box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 
-  @media(max-width: 768px){
-    display: flex;
+  &:hover {
+    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+  }
+`
+
+const SubWrapper = styled.div`
+width: 98%;
+display: flex;
+flex-direction: column;
+
+margin: 0 auto;
+
+@media(max-width: 768px){
+  display: flex;
+  width: 90%;
+}
+
+  @media (max-width: 450px){
     width: 90%;
   }
-
-    @media (max-width: 450px){
-      width: 90%;
-    }
-  h1 {
-    margin-top: 30px;
-    margin-bottom: 10px;
-  }
+h1 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
 `;
 
 const DiscussionInfo = styled.div`
@@ -49,15 +65,11 @@ const DiscussionInfo = styled.div`
     }
 `;
 
-const CategoryName = styled.div`
-  font-size: 18px;
-  width: 10%;
-  font-weight: bold;
-`;
+const Title = styled.div``
 
 const PostedBy = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   @media(max-width: 768px){
 
 
@@ -86,6 +98,17 @@ const Elip = styled.div `
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   padding: 10px;
+`;
+
+const Sort = styled.div`
+width: 20%;
+display: flex;
+flex-direction: column;
+margin-top: 10px;
+`;
+
+const AddPostBtn = styled.div`
+margin-top: 10px;
 `;
 
 class Discussion extends Component {
@@ -151,6 +174,12 @@ class Discussion extends Component {
     const handleVote = type => this.handleDiscussionVote(id, type);
     return (
       <DiscussionWrapper>
+                  <VoteCount
+            handleVote={handleVote}
+            vote_count={discussion_votes}
+            user_vote={user_vote}
+          />
+        <SubWrapper>
         {
           this.props.user_id === user_id &&
           (
@@ -176,61 +205,70 @@ class Discussion extends Component {
           this.props.user_id === user_id &&
           <button onClick = { this.handleRemoveDiscussion }>Remove discussion</button>
         }
-        <h1> { title } </h1>
-        <DiscussionInfo>
-          <VoteCount
-            handleVote={handleVote}
-            vote_count={discussion_votes}
-            user_vote={user_vote}
-          />
-          <CategoryName>/d/{category_name}</CategoryName>
+        <Title>
+          <h1> { title } </h1> 
           <PostedBy>
             Posted by: &nbsp;
             {
               username ?
               <Link className='username' to={`/profile/${user_id}`}>
-                {username}
+                {username}, 
               </Link> :
               <Deleted />
             }
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
+        </Title>
+        <DiscussionInfo>
+          <Elip>{body}</Elip>
         </DiscussionInfo>
-        <Elip>{body}</Elip>
-
-        <button onClick={this.toggleAddPostForm}>Add a Post</button>
-        {showAddPostForm && (
-          <AddPostForm
-            user_id={this.props.user_id}
-            discussion_id={id}
+        <Sort>
+          <span>Sort by: </span>
+          <select onChange = { this.handleSelectChange } name = 'order'>
+            <option value = 'created_at'>date created</option>
+            <option value = 'post_votes'>votes</option>
+          </select>
+          <select onChange = { this.handleSelectChange } name = 'orderType'>
+            <option value = 'desc'>
+              { order === 'created_at' ? 'most recent first' : 'most first' }
+            </option>
+            <option value = 'asc'>
+              { order === 'created_at' ? 'least recent first' : 'least first' }
+            </option>
+          </select>
+        </Sort>
+        <AddPostBtn>
+          <button onClick={this.toggleAddPostForm}>Add a Post</button>
+          {showAddPostForm && (
+            <AddPostForm
+              user_id={this.props.user_id}
+              discussion_id={id}
+              historyPush={historyPush}
+              toggleAddPostForm={this.toggleAddPostForm}
+            />
+          )}
+        </AddPostBtn>
+          <PostsView
+            posts={posts}
             historyPush={historyPush}
-            toggleAddPostForm={this.toggleAddPostForm}
+            showEditPostForm={showEditPostForm}
+            updateEditPostForm={this.updateEditPostForm}
+            handleRemovePost={this.handleRemovePost}
+            order={order}
+            orderType={orderType}
           />
-        )}
-
-        <span>Sort by: </span>
-				<select onChange = { this.handleSelectChange } name = 'order'>
-					<option value = 'created_at'>date created</option>
-					<option value = 'post_votes'>votes</option>
-				</select>
-				<select onChange = { this.handleSelectChange } name = 'orderType'>
-					<option value = 'desc'>
-						{ order === 'created_at' ? 'most recent first' : 'most first' }
-					</option>
-					<option value = 'asc'>
-						{ order === 'created_at' ? 'least recent first' : 'least first' }
-					</option>
-				</select>
-
-        <PostsView
-          posts={posts}
-          historyPush={historyPush}
-          showEditPostForm={showEditPostForm}
-          updateEditPostForm={this.updateEditPostForm}
-          handleRemovePost={this.handleRemovePost}
-          order={order}
-          orderType={orderType}
-        />
+          <AddPostBtn>
+          <button onClick={this.toggleAddPostForm}>Add a Post</button>
+          {showAddPostForm && (
+            <AddPostForm
+              user_id={this.props.user_id}
+              discussion_id={id}
+              historyPush={historyPush}
+              toggleAddPostForm={this.toggleAddPostForm}
+            />
+          )}
+        </AddPostBtn>
+        </SubWrapper>
       </DiscussionWrapper>
     );
   }

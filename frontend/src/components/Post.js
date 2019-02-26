@@ -5,19 +5,34 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // components
-import { EditPostForm, VoteCount, Deleted } from './index.js';
+import { EditPostForm, VoteCount, Deleted, Avatar } from './index.js';
+
 
 import { handlePostVote } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
-  width: 100%;
-  border: ${props => props.theme.postWrapperBorder};
+ display: flex;
+ flex-direction: row;
+ justify-content: space-evenly;
+ border: 1px solid black;
+ border: ${props => props.theme.postWrapperBorder};
+ padding-top: 16px;
+ padding-bottom: 16px;
+ margin: 0 auto;
+`;
+
+const PostSubWrapper = styled.div`
+border: 1px solid purple;
+width: 80%
 `;
 
 const PostedBy = styled.div`
   display: flex;
-  width: 250px;
+  flex-direction: column;
   padding: 10px;
+  border: 1px solid red;
+  width: 15%;
+  align-items: center;
 
   .username {
     margin: 0px 7px;
@@ -45,9 +60,7 @@ const Elip = styled.div `
 
 const Vote = styled.div `
 display: flex;
-padding: 5px;
-margin-left: 90%;
-bottom: 45px;
+flex-direction: row;
 `;
 
 const Post = ({
@@ -72,6 +85,7 @@ const Post = ({
     user_id,
     username,
     user_vote,
+    avatar
   } = post;
 
   const handleVote = type => {
@@ -82,29 +96,17 @@ const Post = ({
   const userCreatedPost = loggedInUserId === user_id;
   return (
     <PostWrapper name = { id }>
-      {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
-
-      <Vote>
-      <p>post votes: {post_votes}</p>
-        <VoteCount 
-          handleVote = { handleVote } 
-          vote_count = { post_votes }
-          user_vote = { user_vote }
-        />
-      </Vote>
-      <PostedBy>
-        Posted by: &nbsp;
-        {
-          username ?
-          <Link className='username' to={`/profile/${user_id}`}>
-            {username}
-          </Link> :
-          <Deleted />
-        }
-        {moment(new Date(Number(created_at))).fromNow()}
-      </PostedBy>
-      <Elip>{body}</Elip>
-
+      <PostSubWrapper>
+        <Vote>
+          {/* <p>post votes: {post_votes}</p> */}
+            <VoteCount 
+              handleVote = { handleVote } 
+              vote_count = { post_votes }
+              user_vote = { user_vote }
+            />
+          
+          <Elip>{body}</Elip>
+        </Vote>
       {userCreatedPost &&
         (showEditPostForm === id ? (
           <EditPostForm
@@ -117,19 +119,34 @@ const Post = ({
         ) : (
           <>
             <button onClick={handleEdit}>Edit Post</button>
-            {last_edited_at && (
-              <p>
-                Last edited {moment(new Date(Number(last_edited_at))).fromNow()}
-              </p>
-            )}
+            
           </>
         ))}
+        {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
+        {last_edited_at && (
+              <p>
+                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+              </p>
+            )}
+        </PostSubWrapper>
+        <PostedBy>
+          <Avatar height={'72px'} width={'72px'} src={avatar} />
+          {
+            username ?
+            <Link className='username' to={`/profile/${user_id}`}>
+              {username}, 
+            </Link> :
+            <Deleted />
+          }
+          {moment(new Date(Number(created_at))).fromNow()}
+        </PostedBy>
     </PostWrapper>
   );
 };
 
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
+  avatar: state.users.avatar,
 });
 
 export default connect(
