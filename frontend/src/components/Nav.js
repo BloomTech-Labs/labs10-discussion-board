@@ -15,14 +15,24 @@ const DivWrapper = styled.div`
   display: flex;
   background-color: gray;
   color: white;
+  height: 50px;
   margin: 0;
-  padding: 25px;
+  padding: 10px;
   border: 1px solid red;
-  justify-content: space-around;
+  justify-content: space-evenly;
+
+  @media (max-width: 750px){
+    width: 100%;
+    @media (max-width: 450px){
+      width: 100%;
+    }
+  }
 `;
 
 const Links = styled.div`
   display: flex;
+  justify-content: space-around;
+  width: 55%;
   margin: 0;
   align-items: center;
   border: 1px solid purple;
@@ -33,18 +43,17 @@ const Links = styled.div`
     color: white;
     :hover {
       color: black;
-      text-decoration: underline;
-    }
-    &:not(:last-child) {
-    margin-right: 25px;
     }
   }
-  @media (max-width: 750px){
+  @media (max-width: 960px){
+    font-size: 10px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     margin: 0 auto;
     @media (max-width: 450px){
+      width: 35%;
+      font-size: 8px;
+      display: flex;
+      flex-direction: column;
     }
   }
 `
@@ -52,32 +61,29 @@ const Links = styled.div`
 const DivSearch = styled.div`
   display: flex;
   border: 1px solid red;
-  width: 700px;
+  width: 6%;
   align-items: center;
-`;
-
-const Welcome = styled.div`
-  margin: 20px 20px 0px 0px;
-  font-size: 24px;
-  @media(max-width: 450px) {
-    display: none;
-  }
-  .username {
-    margin-left: 5px;
-    color: ${ props => props.theme.navWelcomeUsername};
-    text-decoration: none;
-    &:hover {
-      color: ${ props => props.theme.navWelcomeUsernameHov};
-      text-decoration: underline;
+  @media (max-width: 750px){
+      width: 15%;
+    @media (max-width: 450px){
+      width: 20%;
     }
   }
+
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  width: 320px;
+  width: 33%;
   border: 1px solid lime;
-  height: 130px;
+  height: 100%;
+
+  @media (max-width: 750px){
+      width: 25%;
+    @media (max-width: 450px){
+      width: 40%;
+    }
+  }
 `;
 
 /***************************************************************************************************
@@ -91,6 +97,9 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
+        <DivSearch>
+          <button onClick={this.props.toggleSearch}>search</button>
+        </DivSearch>
         <Links>
           <Link className='link' to='/home'>
             Home
@@ -102,9 +111,6 @@ class Nav extends Component {
             Categories
           </Link>
         </Links>
-        <DivSearch>
-          <button onClick={this.props.toggleSearch}>search</button>
-        </DivSearch>
         <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
