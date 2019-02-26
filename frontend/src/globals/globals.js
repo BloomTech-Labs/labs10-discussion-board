@@ -9,6 +9,12 @@ const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as
 const subscriptionPrices = ['$0.00', '$0.99/yr', '$1.99/yr', '$2.99/yr']; // same order as subscriptionPlans
 const searchCharLimit = 64; // limits the max number of characters to return in a search
 
+// mixins (Max Size)
+const phoneP = '480px'; // portrait
+const phoneL = '599px'; // landscape
+const tabletP = '768px'; // portrait
+const tabletL = '1024px'; // landscape
+
 // Copy from backend globals (can't import from out of src folder)
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
 
@@ -195,11 +201,15 @@ module.exports = {
   auth0Domain,
   auth0RedirectUri,
   backendUrl,
+  phoneP,
+  phoneL,
   stripePayFormat,
   stripeToken,
   subscriptionPlans,
   subscriptionPrices,
   searchCharLimit,
+  tabletP,
+  tabletL,
   dayTheme,
   nightTheme,
 };
