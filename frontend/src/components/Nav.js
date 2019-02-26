@@ -34,7 +34,6 @@ const Links = styled.div`
   display: flex;
   justify-content: space-around;
   width: 50%;
-  border: 1px solid red;
   margin: 0;
   align-items: center;
   .link {
@@ -63,7 +62,6 @@ const DivSearch = styled.div`
   display: flex;
   justify-content: center;
   width: 7%;
-  border: 1px solid limegreen;
   align-items: center;
   @media (max-width: 750px){
       width: 15%;
@@ -94,7 +92,6 @@ const DivAuth = styled.div`
   display: flex;
   width: 38%;
   height: 100%;
-  border: 1px solid yellow;
 
   @media (max-width: 750px){
       width: 25%;
