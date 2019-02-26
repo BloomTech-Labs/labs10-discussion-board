@@ -40,7 +40,7 @@ const TopDiscussionsHeader = styled.div`
     width: 400px;
     display: flex;
     justify-content: flex-end;
-    font-size: 40px;
+    font-size: 30px;
     padding-right: 10px;
   }
 `;

@@ -23,9 +23,10 @@ const FormLogin = styled.form`
   z-index: 9999;
   position: absolute;
   width: 270px;
-  background-color: #54BDFF;
+  background-color: #3a77bd;
+  border-radius: 10px;
   padding: 25px;
-  margin-top: 130px;
+  margin-top: 120px;
 `;
 
 const LinkForgotUserPass = styled(Link)`
