@@ -32,6 +32,7 @@ const DivAvatar = styled.div`
   flex-direction: column;
   align-items: center;
   border: 1px solid purple;
+  cursor: pointer;
 
   img {
     transform: ${props => props.isAvatarClicked && 'rotate(180deg)'};

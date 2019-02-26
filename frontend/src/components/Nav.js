@@ -78,9 +78,10 @@ const Welcome = styled.div`
 `;
 
 const DivAuth = styled.div`
-display: flex;
-width: 320px;
-border: 1px solid lime;
+  display: flex;
+  width: 320px;
+  border: 1px solid lime;
+  height: 130px;
 `;
 
 /***************************************************************************************************
