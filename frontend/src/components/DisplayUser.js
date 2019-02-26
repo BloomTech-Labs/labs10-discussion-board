@@ -20,11 +20,22 @@ const DivWrapper = styled.div`
   width: 100%;
 `;
 
-const DivAvatar = styled.div`
+const DivUser = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid red;
   align-items: center;
+`;
+
+const DivAvatar = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid purple;
+
+  img {
+    transform: ${props => props.isAvatarClicked && 'rotate(180deg)'};
+  }
 `;
 
 const PWelcomeMessage = styled.p``;
@@ -33,6 +44,25 @@ const PWelcomeMessage = styled.p``;
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class DisplayUser extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isAvatarClicked: false
+    }
+  }
+
+  componentDidMount() {
+    this.setState({ isAvatarClicked: false });
+  }
+
+  hideAvatarDropdown = () => {
+    this.setState({ isAvatarClicked: false });
+  }
+
+  toggleAvatarClicked = () => {
+    this.setState({ isAvatarClicked: !this.state.isAvatarClicked });
+  }
+
   clickSignout = ev => {
     ev.preventDefault();
     localStorage.removeItem('symposium_auth0_access_token');
@@ -46,11 +76,16 @@ class DisplayUser extends Component {
     return (
       <DivWrapper>
         <PWelcomeMessage>Welcome, {this.props.username}</PWelcomeMessage>
-        <DivAvatar>
-          <Avatar height={'100px'} width={'100px'} src={this.props.avatar} />
-          <img src={chevron} alt='chevron' />
-          <AvatarDropdown clickSignout={this.clickSignout} user_id={this.props.user_id} />
-        </DivAvatar>
+        <DivUser>
+          <DivAvatar
+            onClick={() => this.toggleAvatarClicked()}
+            isAvatarClicked={this.state.isAvatarClicked}
+          >
+            <Avatar height={'100px'} width={'100px'} src={this.props.avatar} />
+            <img src={chevron} alt='chevron' />
+          </DivAvatar>
+          {(this.state.isAvatarClicked) && <AvatarDropdown clickSignout={this.clickSignout} user_id={this.props.user_id} />}
+        </DivUser>
       </DivWrapper>
     );
   }
