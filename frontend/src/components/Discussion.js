@@ -63,7 +63,7 @@ const PostedBy = styled.div`
   .username {
     margin: 0px 7px;
     font-weight: bold;
-    color: black;
+    color: ${props => props.theme.discussionUsernameColor};
     text-decoration: none;
 
     &:hover {
@@ -71,6 +71,17 @@ const PostedBy = styled.div`
       text-decoration: underline;
     }
   }
+`;
+
+const Elip = styled.div `
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  padding: 10px;
 `;
 
 class Discussion extends Component {
@@ -181,8 +192,7 @@ class Discussion extends Component {
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
         </DiscussionInfo>
-        <p>Title: {title}</p>
-        <p>Body: {body}</p>
+        <Elip>{body}</Elip>
 
         <button onClick={this.toggleAddPostForm}>Add a Post</button>
         {showAddPostForm && (

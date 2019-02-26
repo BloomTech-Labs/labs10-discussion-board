@@ -17,9 +17,9 @@ const SearchPostResultWrapper = styled.div`
 	.type {
 		border-radius: 5px;
 		margin: 0;
-		background-color: green;
+		background-color: ${props => props.theme.searchPostResultWrapperTypeBgColor};
 		text-align: center;
-		color: white;
+		color: ${props => props.theme.searchPostResultWrapperTypeColor};
 	}
 
 	.post-body-wrapper, .username-wrapper, .category-wrapper, .discussion-wrapper {
@@ -30,8 +30,8 @@ const SearchPostResultWrapper = styled.div`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #444;
-			color: white;
+			background-color: ${props => props.theme.searchPostResultWrapperUsernameBgColorHov};
+			color: ${props => props.theme.searchPostResultWrapperUsernameColorHov};
 		}
 	}
 

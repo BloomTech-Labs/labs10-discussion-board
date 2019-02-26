@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+
+// themes
+import { dayTheme, nightTheme } from './globals/globals';
 
 // components
 import {
@@ -12,7 +15,6 @@ import {
   Settings,
   Error,
   Message,
-  Auth,
   ConfirmEmail,
   RequestResetPWForm,
   ResetPWForm,
@@ -50,13 +52,34 @@ const GlobalStyle = createGlobalStyle`
 		  align-items: center;
 		  flex-wrap: wrap;
       flex-direction: column;
-      background: #54BDFF;
+      background: ${props => props.theme.appBgColor};
       width: 100%;
 	}
 `;
 
+
 class App extends Component {
-  state = { showSearch: false };
+  constructor(props) {
+    super(props);
+
+    // Initial state: day time!
+    this.state = {
+      isDay: true,
+      theme: dayTheme,
+      showSearch: false,
+    };
+  }
+
+  handleClick() {
+    // Toggle day / night on click
+    const isDay = !this.state.isDay;
+
+    this.setState({
+      isDay: isDay,
+      theme: isDay ? dayTheme : nightTheme,
+    });
+  }
+
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
@@ -65,7 +88,7 @@ class App extends Component {
   };
   goTo = async url => await this.setState({ showSearch: false }, () => this.props.history.push(url));
   scrollTo = id => {
-		if (id || this.props.location.hash.substring(1)) {
+    if (id || this.props.location.hash.substring(1)) {
       return scroller.scrollTo(id || this.props.location.hash.substring(1), {
         duration: 800,
         delay: 0,
@@ -88,46 +111,54 @@ class App extends Component {
     const { error, history, message, location } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
-        <AppWrapper>
-          <GlobalStyle />
-          <Header history={history} toggleSearch = { this.toggleSearch } />
-          <Route path='/home' component={LandingView} />
-          <Route path='/profiles' component={Profiles} />
-          <Route path='/profile/:id' component={Profile} />
-          <Route path='/categories' component={CategoriesView} />
-          <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo = {this.scrollTo} />} />
-          <Route path='/settings/:id' component={Settings} />
-          <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-          <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+        <ThemeProvider theme={this.state.theme}>
+          <AppWrapper>
+            <GlobalStyle />
+            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
+            <button onClick={() => this.handleClick()}>
+              Switch Theme</button>
+            <Route path='/home' component={LandingView} />
+            <Route path='/profiles' component={Profiles} />
+            <Route path='/profile/:id' component={Profile} />
+            <Route path='/categories' component={CategoriesView} />
+            <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+            <Route path='/settings/:id' component={Settings} />
+            <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+            <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
 
-          {showSearch && <Search scrollTo = { this.scrollTo } pathname = { location.pathname } goTo = { this.goTo } toggleSearch = { this.toggleSearch } />}
-          {error && <Error error={error} />}
-          {message && <Message message={message} />}
-        </AppWrapper>
+            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
+            {error && <Error error={error} />}
+            {message && <Message message={message} />}
+          </AppWrapper>
+        </ThemeProvider>
       );
     } else {
       // prettier-ignore
       return (
-        <AppWrapper>
-          <GlobalStyle />
-          <Header history={history} toggleSearch = { this.toggleSearch } />
-          <Switch>
-            <Route path='/register' component={RegisterView} />
-            <Route path='/request-reset-pw' component={RequestResetPWForm} />
-            <Route path = '/reset/:reset_pw_token' component = {ResetPWForm} />
-            <Route path='/home' component={LandingView} />
-            <Route path='/profile/:id' component={Profile} />
-            <Route path='/categories' component={CategoriesView} />
-            <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo = {this.scrollTo} />} />
-            <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-            <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-            <Route render={props => <Auth {...props} />}/>
-          </Switch>
+        <ThemeProvider theme={this.state.theme}>
+          <AppWrapper>
+            <GlobalStyle />
+            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
+            <button
+              onClick={() => this.handleClick()}>
+              Switch Themes</button>
+            <Switch>
+              <Route path='/register' component={RegisterView} />
+              <Route path='/request-reset-pw' component={RequestResetPWForm} />
+              <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
+              <Route path='/home' component={LandingView} />
+              <Route path='/profile/:id' component={Profile} />
+              <Route path='/categories' component={CategoriesView} />
+              <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+              <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+              <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+            </Switch>
 
-          {showSearch && <Search scrollTo = { this.scrollTo } pathname = { location.pathname } goTo = { this.goTo } toggleSearch = { this.toggleSearch } />}
-          {error && <Error error={error} />}
-          {message && <Message message={message} />}
-        </AppWrapper>
+            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
+            {error && <Error error={error} />}
+            {message && <Message message={message} />}
+          </AppWrapper>
+        </ThemeProvider>
       );
     }
   }

@@ -16,8 +16,8 @@ import {
 } from './index.js';
 
 const SettingsWrapper = styled.div`
-  background-color: #e8e3e0;
-  box-shadow: 4px 6px 4px 4px #4ca0e0;
+  background-color: ${props => props.theme.settingsBgColor};
+  box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
   width: 50%;
 `;
@@ -73,14 +73,14 @@ const Buttons = styled.div`
     font-size: 16px;
 
     &:hover {
-      background-color: #4ca0e0;
+      background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
     }
   }
 
   .delete-btn {
-    background-color: red;
-    color: white;
+    background-color: ${props => props.theme.settingsDeleteButtonBg};
+    color: ${props => props.theme.settingsDeleteButtonColor};
   }
 `;
 
@@ -102,7 +102,7 @@ const EditAvatarMenu = styled.div`
           font-size: 16px;
 
           &:hover {
-            background-color: #4ca0e0;
+            background-color: ${props => props.theme.settingsEditAvatarButtonBgHov};
             cursor: pointer;
           }
         }
