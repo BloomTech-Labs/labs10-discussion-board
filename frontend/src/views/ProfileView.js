@@ -20,8 +20,8 @@ const ProfileWrapper = styled.div`
   padding: 10px;
   border: 1px solid gray;
   width: 480px;
-  background-color: #e8e3e0;
-  box-shadow: gray 2px 1px 2px 2px;
+  background-color: ${props => props.theme.profileBgColor};
+  box-shadow: ${props => props.theme.profileBxShdw};
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
@@ -79,6 +79,17 @@ const ProfileTitle = styled.div`
   justify-content: space-around;
   color: black;
   font-size: 36px;
+`;
+
+const Elip = styled.div `
+  width: 240px;
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
 `;
 
 /***************************************************************************************************
@@ -140,7 +151,7 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Posts: </p>
-                {profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}
+                <Elip>{profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}</Elip>
               </WrappedDiv>
             </ProfileWrapper>
           </div>

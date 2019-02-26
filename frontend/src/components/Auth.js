@@ -22,8 +22,8 @@ import { auth0Login, displayError } from '../store/actions/index.js';
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const NotLoggedIn = styled.div`
-  background-color: gray;
-  color: white;
+  background-color: ${props => props.theme.authBgColor};
+  color: ${props => props.theme.authColor};
   font-size: 18px;
   width: 100%;
 `;
@@ -37,11 +37,11 @@ const LinkRegister = styled(Link)`
   margin-right: 0px;
   user-select: none;
   cursor: pointer;
-  color: white;
+  color: ${props => props.theme.authLinkRegColor};
   font-size: 18px;
   &:hover {
     cursor: pointer;
-    color: black;
+    color: ${props => props.theme.authLinkRegColorHov};
     text-decoration: underline;
   }
 `;
@@ -50,11 +50,11 @@ const Login = styled.a`
   margin-left: 5px;
   user-select: none;
   cursor: pointer;
-  color: white;
+  color: ${props => props.theme.authLoginColor};
   font-size: 18px;
   &:hover {
     cursor: pointer;
-    color: black;
+    color: ${props => props.theme.authLoginColorHov};
     text-decoration: underline;
   }
 

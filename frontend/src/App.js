@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+
+// themes
+import {dayTheme, nightTheme} from './globals/globals';
 
 // components
 import {
@@ -50,13 +53,34 @@ const GlobalStyle = createGlobalStyle`
 		  align-items: center;
 		  flex-wrap: wrap;
       flex-direction: column;
-      background: #54BDFF;
+      background: ${props => props.theme.appBgColor};
       width: 100%;
 	}
 `;
 
-class App extends Component {
-  state = { showSearch: false };
+
+class App extends Component {  
+  constructor(props) {
+    super(props);
+
+    // Initial state: day time!
+    this.state = {
+      isDay: true,
+      theme: dayTheme,
+      showSearch: false,
+    };
+  }
+
+  handleClick() {
+    // Toggle day / night on click
+    const isDay = !this.state.isDay;
+
+    this.setState({
+      isDay: isDay,
+      theme: isDay ? dayTheme : nightTheme,
+    });
+  }
+
   toggleSearch = () => this.setState({ showSearch: !this.state.showSearch });
   isAuthenticated() {
     // check whether the current time is past the access token's expiry time
@@ -88,9 +112,12 @@ class App extends Component {
     const { error, history, message, location } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
+        <ThemeProvider theme={this.state.theme}>
         <AppWrapper>
           <GlobalStyle />
           <Header history={history} toggleSearch = { this.toggleSearch } />
+          <button onClick={() => this.handleClick()}>
+          Switch Theme</button>
           <Route path='/home' component={LandingView} />
           <Route path='/profiles' component={Profiles} />
           <Route path='/profile/:id' component={Profile} />
@@ -104,13 +131,18 @@ class App extends Component {
           {error && <Error error={error} />}
           {message && <Message message={message} />}
         </AppWrapper>
+        </ThemeProvider>
       );
     } else {
       // prettier-ignore
       return (
+        <ThemeProvider theme={this.state.theme}>
         <AppWrapper>
           <GlobalStyle />
           <Header history={history} toggleSearch = { this.toggleSearch } />
+          <button
+          onClick={() => this.handleClick()}>
+          Switch Themes</button>
           <Switch>
             <Route path='/register' component={RegisterView} />
             <Route path='/request-reset-pw' component={RequestResetPWForm} />
@@ -128,6 +160,7 @@ class App extends Component {
           {error && <Error error={error} />}
           {message && <Message message={message} />}
         </AppWrapper>
+        </ThemeProvider>
       );
     }
   }

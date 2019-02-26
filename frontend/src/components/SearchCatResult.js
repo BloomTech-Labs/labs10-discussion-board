@@ -14,9 +14,9 @@ const SearchCatResultWrapper = styled.div`
 	.type {
 		border-radius: 5px;
 		margin: 0;
-		background-color: blue;
+		background-color: ${props => props.theme.searchCatResultWrapperTypeBgColor};
 		text-align: center;
-		color: white;
+		color: ${props => props.theme.searchCatResultWrapperTypeColor};
 	}
 
 	.category-wrapper, .username-wrapper {
@@ -26,8 +26,8 @@ const SearchCatResultWrapper = styled.div`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #444;
-			color: white;
+			background-color: ${props => props.theme.searchCatResultWrapperUsernameBgColorHov};
+			color: ${props => props.theme.searchCatResultWrapperUsernameColorHov};
 		}
 	}
 

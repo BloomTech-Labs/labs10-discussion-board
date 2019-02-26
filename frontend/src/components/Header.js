@@ -27,12 +27,12 @@ const StyledHeader = styled.div`
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: ${props => props.theme.headerLinkColor};
 
     &:hover {
       text-decoration: underline;
       cursor: pointer;
-      color: black;
+      color: ${props => props.theme.headerLinkColorHov};
     }
   }
 `;
@@ -71,7 +71,7 @@ const Logo = styled.div`
 const Title = styled.div`
   align-self: flex-end;
   margin-left: 10px;
-  color: white;
+  color: ${props => props.theme.headerTitleColor};
   font-size: 36px;
 
   @media (max-width: 768px){
@@ -82,10 +82,10 @@ const Title = styled.div`
   }
   h1 {
     a {
-      color: #f7f5f3;
+      color: ${props => props.theme.headerTitleAColor};
       text-decoration: none;
       &:hover {
-        color: black;
+        color: ${props => props.theme.headerTitleAColorHov};
       }
     }
     margin-bottom: -35px;
@@ -100,7 +100,7 @@ const Title = styled.div`
     }
   }
   .subheader { 
-    color: #f7f5f3;
+    color: ${props => props.theme.headerTitleSubheaderColor};
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
