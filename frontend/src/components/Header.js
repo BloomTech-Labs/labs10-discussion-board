@@ -8,31 +8,16 @@ import { Nav } from '../components/index.js';
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-direction: row-reverse;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  width: 90%;
+  flex-direction: column;
+  margin: 0;
+  width: 100%;
 
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
 
     @media (max-width: 450px){
-    }
-  }
-
-  .link {
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: ${props => props.theme.headerLinkColor};
-
-    &:hover {
-      text-decoration: underline;
-      cursor: pointer;
-      color: ${props => props.theme.headerLinkColorHov};
     }
   }
 `;
@@ -118,7 +103,7 @@ const Navi = styled.div`
 
   @media (max-width: 768px){
     display: flex;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     justify-content: center;
     margin-bottom: 1em;
@@ -129,8 +114,6 @@ const Navi = styled.div`
   }
 `
 const Links = styled.div`
-
-
   .link {
     font-weight: bold;
     font-size: 2em;
@@ -147,11 +130,11 @@ const Links = styled.div`
   }
 `;
 
-const Header = ({ history, toggleSearch }) => {
+const Header = ({ history, isAuthenticated, toggleSearch }) => {
   return (
     <StyledHeader>
       <Navi>
-        <Nav history={history} />
+        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} />
       </Navi>
       <TitleAndLogo>
         <Logo />
@@ -162,16 +145,7 @@ const Header = ({ history, toggleSearch }) => {
           </div>
         </Title>
       </TitleAndLogo>
-      <Links>
-        <Link className='link td-link' to='/home'>
-          Top Discussions
-        </Link>
-        <Link className='link c-link' to='/categories'>
-          Categories
-        </Link>
-        <button onClick = { toggleSearch }>Search</button>
-      </Links>
-    </StyledHeader>
+    </StyledHeader >
   );
 };
 

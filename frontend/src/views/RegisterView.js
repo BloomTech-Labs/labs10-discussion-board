@@ -336,8 +336,13 @@ const TextareaSignature = styled.textarea`
   height: 100px;
   resize: none;
   border: 1px solid black;
+  padding: 10px;
   user-select: ${props => props.disabled ? 'none' : 'auto'};
   background: ${props => props.disabled ? '#c0c0c0' : 'white'};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const DivRightSide = styled.div`
