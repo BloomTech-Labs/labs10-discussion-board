@@ -31,6 +31,7 @@ import SearchDisResult from './SearchDisResult.js';
 import SearchPostResult from './SearchPostResult.js';
 import DeleteAccountModal from './DeleteAccountModal.js';
 import Deleted from './Deleted.js';
+import Quote from './Quote.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -44,6 +45,7 @@ import EditDiscussionForm from './forms/EditDiscussionForm.js';
 import RequestResetPWForm from './forms/RequestResetPWForm';
 import ResetPWForm from './forms/ResetPWForm.js';
 import AddCategoryForm from './forms/AddCategoryForm.js';
+import AddReplyForm from './forms/AddReplyForm.js';
 
 export {
   Auth,
@@ -78,6 +80,7 @@ export {
   SearchPostResult,
   DeleteAccountModal,
   Deleted,
+  Quote,
 
   // forms
   AddPostForm,
@@ -91,4 +94,5 @@ export {
   RequestResetPWForm,
   ResetPWForm,
   AddCategoryForm,
+  AddReplyForm,
 };

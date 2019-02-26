@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
+import { AddPostForm, EditDiscussionForm, VoteCount, Deleted, AddReplyForm } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -89,6 +89,7 @@ class Discussion extends Component {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
+    showAddReplyForm: null, // post_id
     order: 'created_at', // possible values: 'created_at', 'post_votes'
     orderType: '', // possible values: 'desc', 'asc'
   };
@@ -98,6 +99,7 @@ class Discussion extends Component {
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
+  toggleAddReplyForm = id => this.setState({ showAddReplyForm: id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);
   };
@@ -114,7 +116,7 @@ class Discussion extends Component {
   handleDiscussionVote = (discussion_id, type) => {
     const { order, orderType } = this.state;
 		const { id, getDiscussionById, handleDiscussionVote } = this.props;
-		return handleDiscussionVote(discussion_id, this.props.user_id, type)
+		return handleDiscussionVote(discussion_id, this.props.loggedInUserId, type)
 			.then(() => getDiscussionById(id, order, orderType));
   };
   componentDidMount = () => {
@@ -128,9 +130,15 @@ class Discussion extends Component {
     if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
   render() {
-    const { order, orderType } = this.state;
-    const { showAddPostForm, showEditPostForm, showEditDiscussionForm } = this.state;
-    const { discussion, historyPush } = this.props;
+    const {
+      order,
+      orderType,
+      showAddPostForm,
+      showEditPostForm,
+      showEditDiscussionForm,
+      showAddReplyForm,
+    } = this.state;
+    const { discussion, historyPush, loggedInUserId } = this.props;
     const {
       body,
       category_name,
@@ -148,7 +156,7 @@ class Discussion extends Component {
     return (
       <DiscussionWrapper>
         {
-          this.props.user_id === user_id &&
+          loggedInUserId === user_id &&
           (
             showEditDiscussionForm ?
             <EditDiscussionForm
@@ -169,7 +177,7 @@ class Discussion extends Component {
           </p>
         )}
         {
-          this.props.user_id === user_id &&
+          loggedInUserId === user_id &&
           <button onClick = { this.handleRemoveDiscussion }>Remove discussion</button>
         }
         <h1> { title } </h1>
@@ -194,10 +202,9 @@ class Discussion extends Component {
         </DiscussionInfo>
         <Elip>{body}</Elip>
 
-        <button onClick={this.toggleAddPostForm}>Add a Post</button>
+        { loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add a Post</button> }
         {showAddPostForm && (
           <AddPostForm
-            user_id={this.props.user_id}
             discussion_id={id}
             historyPush={historyPush}
             toggleAddPostForm={this.toggleAddPostForm}
@@ -224,9 +231,20 @@ class Discussion extends Component {
           showEditPostForm={showEditPostForm}
           updateEditPostForm={this.updateEditPostForm}
           handleRemovePost={this.handleRemovePost}
+          toggleAddReplyForm={this.toggleAddReplyForm}
           order={order}
           orderType={orderType}
         />
+
+        {
+          showAddReplyForm &&
+          <AddReplyForm
+            toggleAddReplyForm = { this.toggleAddReplyForm }
+            discussion_id = { id }
+            historyPush = { historyPush }
+            repliedPost = { posts.find(post => post.id === showAddReplyForm) }
+          />
+        }
       </DiscussionWrapper>
     );
   }
@@ -234,7 +252,7 @@ class Discussion extends Component {
 
 const mapStateToProps = state => ({
   discussion: state.discussions.discussion,
-  user_id: state.users.user_id
+  loggedInUserId: state.users.user_id
 });
 
 export default connect(
