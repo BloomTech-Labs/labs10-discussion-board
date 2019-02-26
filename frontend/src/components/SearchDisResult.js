@@ -17,9 +17,9 @@ const SearchDisResultWrapper = styled.div`
 	.type {
 		border-radius: 5px;
 		margin: 0;
-		background-color: red;
+		background-color: ${props => props.theme.searchDisResultWrapperTypeBgColor};
 		text-align: center;
-		color: white;
+		color: ${props => props.theme.searchDisResultWrapperTypeColor};
 	}
 
 	.discussion-wrapper, .username-wrapper, .category-wrapper {
@@ -29,8 +29,8 @@ const SearchDisResultWrapper = styled.div`
 
 		&:hover {
 			cursor: pointer;
-			background-color: #444;
-			color: white;
+			background-color: ${props => props.theme.searchDisResultWrapperUsernameBgColorHov};
+			color: ${props => props.theme.searchDisResultWrapperUsernameColorHov};
 		}
 	}
 

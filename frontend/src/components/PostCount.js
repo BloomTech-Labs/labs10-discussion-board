@@ -11,7 +11,7 @@ const PostCountWrapper = styled.div`
 	flex-direction: column;
 	margin: 5px;
 	padding: 10px;
-	border: 1px solid black;
+	border: ${props => props.theme.postCountWrapperBorder};
 `;
 
 /***************************************************************************************************

@@ -9,7 +9,7 @@ const ErrorWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: ${props => props.theme.errorWrapperBgColor};
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -25,14 +25,14 @@ const ErrorBox = styled.div`
 	justify-content: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	background-color: #C9C19F;
+	background-color: ${props => props.theme.errorBoxBgColor};
 	padding: 10px;
 	border-radius: 5px;
 	border: 1px solid black;
 	width: 300px;
 
 	p {
-		color: #b30000;
+		color: ${props => props.theme.errorBoxPColor};
 		font-weight: 700;
 		text-align: center;
 		margin: 10px;

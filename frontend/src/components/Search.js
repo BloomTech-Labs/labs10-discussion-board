@@ -19,7 +19,7 @@ const SearchWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: ${props => props.theme.searchWrapperBgColor};
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -35,10 +35,10 @@ const SearchBox = styled.div`
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	background-color: #C9C19F;
+	background-color: ${props => props.theme.searchBoxBgColor};
 	padding: 30px 10px 0 10px;
 	border-radius: 5px;
-	border: 1px solid black;
+	border: ${props => props.theme.searchBoxBorder};
 	position: relative;
 	height: 85%;
 	width: 65%;
@@ -46,7 +46,7 @@ const SearchBox = styled.div`
 	.close-btn {
 		border:1px solid white;
 		border-radius: 10px;
-		background-color: red;
+		background-color: ${props => props.theme.searchBoxCloseBtnBgColor};
 		padding: 5px 10px;
 		position: absolute;
 		top: 0;
