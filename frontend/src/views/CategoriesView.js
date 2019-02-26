@@ -3,14 +3,28 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CategoriesList } from '../components/index.js';
+import {phoneP, PhoneL, tabletP, tabletL } from '../globals/globals';
 
 // components
 import { AddCategoryForm } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
-  width: 90%;
-  background-color: #e8e3e0; 
-
+  width: 700px;
+  background-color: ${props => props.theme.catViewWrapperBgColor};
+  @media (max-width: ${tabletP}){
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    @media(max-width: ${phoneP}){
+      display: flex;
+      flex-direction: column;
+      width: 240px;
+      
+    }
+  }
+  .cat-header{
+    color: ${props => props.theme.catViewWrapperHeaderColor};
+  }
   .header {
     text-align: center;
     margin-bottom: 10px;
@@ -45,10 +59,10 @@ class CategoriesView extends Component {
     return (
       <CategoriesWrapper>
         <div className='header'>
-          <Link className='link c-link' to='/profiles'>
+          {/* <Link className='link c-link' to='/profiles'>
             Profiles
-          </Link>
-          <h1> Categories (designs coming soon)</h1>
+          </Link> */}
+          <h1 className = 'cat-header'> Categories </h1>
           {
             user_id !== 0 &&
             (

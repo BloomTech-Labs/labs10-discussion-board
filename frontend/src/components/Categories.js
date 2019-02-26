@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import {phoneP, PhoneL, tabletP, tabletL } from '../globals/globals';
 
 // components
 import { Deleted } from './index.js';
@@ -39,6 +40,12 @@ const SingleCategoryWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.catNameDateColor};
+    @media (max-width: ${tabletP}){
+      display: none;
+      @media(max-width: ${phoneP}){
+        display: none;
+      }
+    }
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -53,6 +60,10 @@ const SingleCategoryWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.catTimestampColor};
+      @media(max-width: ${phoneP}){
+        display: none;
+      }
+    }
   }
   &:hover {
     background-color: ${props => props.theme.catBgColorHov};

@@ -9,6 +9,17 @@ import { getCategories } from '../store/actions/index.js';
 const CategoryWrapper = styled.div`
     display: flex;
     flex-direction: column;
+
+    .sortName {
+        width: 160px;
+        padding: 10px;
+        margin: 5px;
+    }
+    .sorted {
+        display:flex;
+        align-content: center;
+        margin-left: 50px;
+    }
 `;
 
 class CategoriesList extends Component {
@@ -25,13 +36,13 @@ class CategoriesList extends Component {
         const { order } = this.state;
         return(
             <CategoryWrapper>
-                <span>Sort by: </span>
-				<select onChange = { this.handleSelectChange } name = 'order'>
+                <span className = 'sorted'>Sort by: </span>
+				<select className = 'sortName' onChange = { this.handleSelectChange } name = 'order'>
 					<option value = 'name'>name</option>
 					<option value = 'discussion_count'>number of discussions</option>
 					<option value = 'created_at'>date created</option>
 				</select>
-				<select onChange = { this.handleSelectChange } name = 'orderType'>
+				<select className = 'sortName' onChange = { this.handleSelectChange } name = 'orderType'>
                     <option value = 'asc'>
                         {
                             order === 'created_at' ? 'least recent first' :
