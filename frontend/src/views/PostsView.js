@@ -15,6 +15,7 @@ const PostsView = ({
 	showEditPostForm,
 	updateEditPostForm,
 	handleRemovePost,
+	toggleAddReplyForm,
 	order,
 	orderType,
 }) => {
@@ -27,7 +28,8 @@ const PostsView = ({
 					historyPush = { historyPush }
 					showEditPostForm = { showEditPostForm }
 					updateEditPostForm = { updateEditPostForm }
-					handleRemovePost = { handleRemovePost }	
+					handleRemovePost = { handleRemovePost }
+					toggleAddReplyForm = { toggleAddReplyForm }
 					order = { order }
 					orderType = { orderType }
 				/>)
