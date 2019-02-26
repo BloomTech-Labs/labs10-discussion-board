@@ -7,7 +7,7 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  height: 72px;
+  height: 90px;
   width: 100%;
   @media(max-width: 750px){
     width: 100%;

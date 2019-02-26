@@ -15,10 +15,11 @@ const DivWrapper = styled.div`
   display: flex;
   background-color: gray;
   color: white;
-  height: 50px;
+  height: 80px;
   margin: 0;
-  padding: 10px;
-  border: 1px solid red;
+  padding: 7px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
   justify-content: space-evenly;
 
   @media (max-width: 750px){
@@ -32,21 +33,21 @@ const DivWrapper = styled.div`
 const Links = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 52%;
+  width: 50%;
+  border: 1px solid red;
   margin: 0;
   align-items: center;
-  border: 1px solid purple;
   .link {
     font-weight: bold;
     text-decoration: none;
-    font-size: 1.8em;
+    font-size: 1.7em;
     color: white;
     :hover {
       color: black;
     }
   }
   @media (max-width: 960px){
-    font-size: 10px;
+    font-size: 12px;
     display: flex;
     margin: 0 auto;
     @media (max-width: 450px){
@@ -61,8 +62,8 @@ const Links = styled.div`
 const DivSearch = styled.div`
   display: flex;
   justify-content: center;
-  border: 1px solid red;
-  width: 6%;
+  width: 7%;
+  border: 1px solid limegreen;
   align-items: center;
   @media (max-width: 750px){
       width: 15%;
@@ -71,13 +72,29 @@ const DivSearch = styled.div`
     }
   }
 
+  button {
+    width: 100%;
+    font-size: 14px;
+    border-radius: 7px;
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
+    @media (max-width: 750px){
+      width: 80%;
+    }
+    @media (max-width: 450px){
+      width: 80%;
+    }
+  }
+
 `;
 
 const DivAuth = styled.div`
   display: flex;
   width: 38%;
-  border: 1px solid lime;
   height: 100%;
+  border: 1px solid yellow;
 
   @media (max-width: 750px){
       width: 25%;
