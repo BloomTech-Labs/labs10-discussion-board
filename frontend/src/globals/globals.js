@@ -13,7 +13,7 @@ const searchCharLimit = 64; // limits the max number of characters to return in 
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
 
 const dayTheme = {
-  appBgColor:  '#54bdff',
+  appBgColor: '#54bdff',
   authBgColor: 'gray',
   authColor: 'white',
   authLinkRegColor: 'white',
@@ -24,15 +24,15 @@ const dayTheme = {
   catDiscussionCountColor: 'black',
   catBgColorHov: 'rgba(255, 255, 255, 0.6)',
   catTimestampColor: 'black',
-  catTitleColor:'black',
-  catNameDateColor:'black',
+  catTitleColor: 'black',
+  catNameDateColor: 'black',
   discussionUsernameColor: 'black',
   discussionByCatWrapperBgColor: '#e8e3e0',
   discussionByCatWrapperBgColorHov: 'rgba(255, 255, 255, 0.195)',
-  discussionByCatWrapperBxShdw:'2px 3px 2px 2px #610b07',
-  discussionByCatTitleColor:'black',
-  discussionByCatTitleBgColorHov:'rgba(255, 255, 255, 0.13)',
-  discussionByCatTitleColorHov:'white',
+  discussionByCatWrapperBxShdw: '2px 3px 2px 2px #610b07',
+  discussionByCatTitleColor: 'black',
+  discussionByCatTitleBgColorHov: 'rgba(255, 255, 255, 0.13)',
+  discussionByCatTitleColorHov: 'white',
   discussionByCatCategoryColor: 'black',
   discussionByCatCategoryBgColorHov: 'rgba(255, 255, 255, 0.13)',
   discussionByCatCategoryColorHov: 'white',
@@ -98,7 +98,7 @@ const dayTheme = {
   topDiscussionNameDateBgColor: 'rgba(255, 255, 255, 0.13)',
   skyColor: '#37d8e6',
   symposiumBorderColor: '#f1c40f',
-  
+
 };
 
 const nightTheme = {
@@ -114,14 +114,14 @@ const nightTheme = {
   catBgColorHov: 'rgba(100, 200, 200, 0.9)',
   catTimestampColor: 'red',
   catTitleColor: 'red',
-  catNameDateColor:'red',
+  catNameDateColor: 'red',
   discussionUsernameColor: 'white',
   discussionByCatWrapperBgColor: 'red',
   discussionByCatWrapperBgColorHov: 'rgba(100, 200, 255, 0.33)',
-  discussionByCatWrapperBxShdw:'2px 3px 2px 2px pink',
-  discussionByCatTitleColor:'white',
-  discussionByCatTitleBgColorHov:'rgba(100, 200, 255, 0.33)',
-  discussionByCatTitleColorHov:'black',
+  discussionByCatWrapperBxShdw: '2px 3px 2px 2px pink',
+  discussionByCatTitleColor: 'white',
+  discussionByCatTitleBgColorHov: 'rgba(100, 200, 255, 0.33)',
+  discussionByCatTitleColorHov: 'black',
   discussionByCatCategoryColor: 'white',
   discussionByCatCategoryBgColorHov: 'rgba(100, 200, 255, 0.33)',
   discussionByCatCategoryColorHov: 'black',
@@ -181,7 +181,7 @@ const nightTheme = {
   topDiscussionWrapperBxShdw: '2px 3px 2px 2px pink',
   topDiscussionWrapperBgHov: 'rgba(100, 2500, 255, 0.8)',
   topDiscussionTitleColor: 'white',
-  topDiscussionCatColor:'white',
+  topDiscussionCatColor: 'white',
   topDiscussionCatBgColorHov: 'green',
   topDiscussionNameDateColor: 'white',
   topDiscussionNameDateBgColorHov: 'rgba(100, 220055, 255, 0.33)',

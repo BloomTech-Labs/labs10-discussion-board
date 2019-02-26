@@ -70,6 +70,7 @@ const initialState = {
   stripePaymentLoadingMessage: false,
   isUsernameTaken: false,
   isEmailTaken: false,
+  isLoggedIn: false,
   error: '',
   message: '',
   discussions: [],
@@ -103,7 +104,8 @@ export const UsersReducer = (state = initialState, action) => {
         categoryFollows: action.payload.categoryFollows,
         loggingInLoadingMessage: false,
         isAuth0: action.payload.isAuth0,
-        message: action.payload.message
+        message: action.payload.message,
+        isLoggedIn: true
       };
 
     // FOLLOW DISCUSSION
@@ -124,7 +126,8 @@ export const UsersReducer = (state = initialState, action) => {
     case USER_LOGIN_FAILURE:
       return {
         ...state,
-        loggingInLoadingMessage: false
+        loggingInLoadingMessage: false,
+        isLoggedIn: false
       };
 
     // Register
@@ -132,6 +135,7 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         registerLoadingMessage: true,
+        isLoggedIn: false
       };
     case USER_REGISTER_SUCCESS:
       return {
@@ -142,12 +146,14 @@ export const UsersReducer = (state = initialState, action) => {
         username: action.payload.username,
         discussions: action.payload.discussions,
         message: action.payload.message,
+        isLoggedIn: true
       };
     case USER_REGISTER_FAILURE:
       return {
         ...state,
         registerLoadingMessage: false,
-        error: action.payload
+        error: action.payload,
+        isLoggedIn: false
       };
 
     case USER_SIGNOUT_SUCCESS:
