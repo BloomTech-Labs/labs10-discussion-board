@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CategoriesList } from '../components/index.js';
-import {phoneP, PhoneL, tabletP, tabletL } from '../globals/globals';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { AddCategoryForm } from '../components/index.js';
@@ -19,7 +19,6 @@ const CategoriesWrapper = styled.div`
       display: flex;
       flex-direction: column;
       width: 240px;
-      
     }
   }
   .cat-header{

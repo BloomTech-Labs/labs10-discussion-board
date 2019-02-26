@@ -5,7 +5,7 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import {phoneP, PhoneL, tabletP, tabletL } from '../globals/globals';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { Avatar, Deleted } from '../components/index.js';
@@ -31,11 +31,8 @@ const ProfileWrapper = styled.div`
       display: flex;
       flex-direction: column;
       width: 240px;
-      
     }
   }
-  
-  
   .discussion-title {
     font-weight: bold;
   }
@@ -114,15 +111,15 @@ color: ${props => props.theme.profileTitleSubContentDColor};
 }
 `
 
-const ProfileTitle = styled.div`
-  margin: 5px;
-  padding: 2%;
-  display: flex;
-  font-weight: bold;
-  justify-content: space-around;
-  color: black;
-  font-size: 36px;
-`;
+// const ProfileTitle = styled.div`
+//   margin: 5px;
+//   padding: 2%;
+//   display: flex;
+//   font-weight: bold;
+//   justify-content: space-around;
+//   color: black;
+//   font-size: 36px;
+// `;
 
 const Elip = styled.div`
   display: inline;

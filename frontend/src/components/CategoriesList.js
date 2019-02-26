@@ -9,7 +9,6 @@ import { getCategories } from '../store/actions/index.js';
 const CategoryWrapper = styled.div`
     display: flex;
     flex-direction: column;
-
     .sortName {
         width: 160px;
         padding: 10px;
