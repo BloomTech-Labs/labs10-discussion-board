@@ -9,6 +9,7 @@ const StyledHeader = styled.div`
   flex-direction: column;
   height: 90px;
   width: 100%;
+  z-index: 9000;
   @media(max-width: 750px){
     width: 100%;
     @media (max-width: 450px){
