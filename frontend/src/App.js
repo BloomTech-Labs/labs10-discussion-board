@@ -10,6 +10,7 @@ import { dayTheme, nightTheme } from './globals/globals';
 // components
 import {
   Header,
+  Logo,
   Profiles,
   Profile,
   Settings,
@@ -31,7 +32,7 @@ import {
 } from './views/index.js';
 
 // action creators
-import { logBackIn } from './store/actions/index.js';
+import { logBackIn, editDiscussion } from './store/actions/index.js';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -55,6 +56,13 @@ const GlobalStyle = createGlobalStyle`
       background: ${props => props.theme.appBgColor};
       width: 100%;
 	}
+`;
+
+const ButtonContainer = styled.div`
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 110px;
 `;
 
 
@@ -115,8 +123,10 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
-            <button onClick={() => this.handleClick()}>
-              Switch Theme</button>
+            <ButtonContainer>
+              <button onClick={() => this.handleClick()}>Switch Themes</button>
+            </ButtonContainer>
+            <Logo />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />
             <Route path='/profile/:id' component={Profile} />
@@ -139,9 +149,10 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
-            <button
-              onClick={() => this.handleClick()}>
-              Switch Themes</button>
+            <ButtonContainer>
+              <button onClick={() => this.handleClick()}>Switch Themes</button>
+            </ButtonContainer>
+            <Logo />
             <Switch>
               <Route path='/register' component={RegisterView} />
               <Route path='/request-reset-pw' component={RequestResetPWForm} />
