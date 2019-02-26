@@ -81,8 +81,7 @@ const ProfileTitle = styled.div`
   font-size: 36px;
 `;
 
-const Elip = styled.div `
-  width: 240px;
+const Elip = styled.div`
   display: inline;
   -webkit-line-clamp: 3;
   text-overflow: ellipsis;
