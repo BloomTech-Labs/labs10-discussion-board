@@ -100,10 +100,10 @@ const DivAuth = styled.div`
 
 
 const ButtonContainer = styled.div`
-    width: 90%;
+    width: 60%;
     display: flex;
     justify-content: flex-start;
-    height: 60px;
+    height: 40px;
 `;
 
 /***************************************************************************************************

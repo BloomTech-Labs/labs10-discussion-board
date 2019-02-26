@@ -69,7 +69,7 @@ const dayTheme = {
   profilesWrapperBxShdw: '#610b07 2px 1px 2px 2px;',
   profilesWrapperBgColorHov: 'rgba(255, 255, 255, 0.40)',
   profilesTitleColor: 'black',
-  profileBgColor: '#ffdd00',
+  profileBgColor: '#10355C',
   profileBxShdw: 'gray 2px 1px 2px 2px',
   searchWrapperBgColor: 'rgba(0, 0, 0, 0.5)',
   searchBoxBgColor: '#C9C19F',

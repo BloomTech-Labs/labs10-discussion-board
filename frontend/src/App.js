@@ -123,9 +123,9 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
-            {/* <ButtonContainer>
-              <button onClick={() => this.handleClick()}>Switch Themes</button>
-            </ButtonContainer> */}
+            <ButtonContainer>
+              {/* currently left the buttonContainer to have the logo not appear under the navbar*/}
+            </ButtonContainer>
             <Logo />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />

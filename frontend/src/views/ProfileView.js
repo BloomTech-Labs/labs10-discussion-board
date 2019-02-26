@@ -5,6 +5,7 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import {phoneP, PhoneL, tabletP, tabletL } from '../globals/globals';
 
 // components
 import { Avatar, Deleted } from '../components/index.js';
@@ -22,8 +23,8 @@ const ProfileWrapper = styled.div`
   width: 480px;
   background-color: ${props => props.theme.profileBgColor};
   box-shadow: ${props => props.theme.profileBxShdw};
-  @media(max-width: 768px){
-    display: flex;
+  @media(max-width: ${phoneP}){
+    display: none;
     flex-direction: column;
     width: 90%;
     @media (max-width: 450px){

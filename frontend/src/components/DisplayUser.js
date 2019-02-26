@@ -112,7 +112,6 @@ class DisplayUser extends Component {
             <img src={chevron} alt='chevron' />
           </DivAvatar>
           {(this.state.isAvatarClicked) && <AvatarDropdown clickSignout={this.clickSignout} user_id={this.props.user_id} />}
-          <button>Switch Theme</button>
         </DivUser>
       </DivWrapper>
     );
