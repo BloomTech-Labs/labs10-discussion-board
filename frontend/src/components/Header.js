@@ -31,14 +31,15 @@ const Navi = styled.div`
   }
 `
 
-const Header = ({ history, isAuthenticated, toggleSearch }) => {
+const Header = ({ history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
       <Navi>
-        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} />
+        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched}/>
       </Navi>
     </StyledHeader >
   );
+
 };
 
 export default Header;

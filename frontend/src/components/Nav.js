@@ -101,6 +101,14 @@ const DivAuth = styled.div`
   }
 `;
 
+
+const ButtonContainer = styled.div`
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    height: 60px;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -127,8 +135,11 @@ class Nav extends Component {
           </Link>
         </Links>
         <DivAuth>
+          <ButtonContainer><button onClick={this.props.switchTheme}>switch themes</button></ButtonContainer>
+        
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
+            
           ) : (
               <Auth history={this.props.history} />
             )}
