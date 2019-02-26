@@ -17,6 +17,7 @@ import Settings from './Settings.js';
 import Error from './Error.js';
 import Message from './Message.js';
 import Avatar from './Avatar.js';
+import AvatarDropdown from './AvatarDropdown.js';
 import Follow from './Follow.js';
 import FollowCat from './FollowCat.js';
 import ConfirmEmail from './ConfirmEmail.js';
@@ -54,6 +55,7 @@ export {
   Error,
   Message,
   Avatar,
+  AvatarDropdown,
   Follow,
   FollowCat,
   ConfirmEmail,

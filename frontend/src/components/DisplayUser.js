@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import chevron from '../assets/img/chevron.png';
 
 // components
-import { Avatar } from './index.js';
+import { Avatar, AvatarDropdown } from './index.js';
 
 // action creators
 import { signout } from '../store/actions';
@@ -12,17 +13,21 @@ import { signout } from '../store/actions';
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
 `;
 
-const Signout = styled.a`
-  margin-left: 25px;
-  font-size: 20px;
-  user-select: none;
-  cursor: pointer;
-  &:hover {
-    text-decoration: line-through;
-  }
+const DivAvatar = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  align-items: center;
 `;
+
+const PWelcomeMessage = styled.p``;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -40,7 +45,12 @@ class DisplayUser extends Component {
   render() {
     return (
       <DivWrapper>
-        <Signout onClick={ev => this.clickSignout(ev)}>Sign Out</Signout>
+        <PWelcomeMessage>Welcome, {this.props.username}</PWelcomeMessage>
+        <DivAvatar>
+          <Avatar height={'100px'} width={'100px'} src={this.props.avatar} />
+          <img src={chevron} alt='chevron' />
+          <AvatarDropdown clickSignout={this.clickSignout} user_id={this.props.user_id} />
+        </DivAvatar>
       </DivWrapper>
     );
   }
