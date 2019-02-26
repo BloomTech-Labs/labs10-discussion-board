@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // components
-import { EditPostForm, VoteCount, Deleted } from './index.js';
+import { EditPostForm, VoteCount, Deleted, Quote } from './index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
@@ -60,6 +60,7 @@ const Post = ({
   handlePostVote,
   order,
   orderType,
+  toggleAddReplyForm,
 }) => {
 
   const {
@@ -69,19 +70,19 @@ const Post = ({
     id,
     last_edited_at,
     post_votes,
+    reply_to,
     user_id,
     username,
     user_vote,
   } = post;
 
-  const handleVote = type => {
-    return handlePostVote(post.id, type, discussion_id, order, orderType);
-  };
+  const handleVote = type => handlePostVote(post.id, type, discussion_id, order, orderType);
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper name = { id }>
+    <PostWrapper>
+      { reply_to && <Quote reply_to = { reply_to } /> }
       {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
 
       <Vote>
@@ -124,6 +125,10 @@ const Post = ({
             )}
           </>
         ))}
+        {
+          loggedInUserId !== 0 &&
+          <button onClick = { () => toggleAddReplyForm(id) }>Reply</button>
+        }
     </PostWrapper>
   );
 };
