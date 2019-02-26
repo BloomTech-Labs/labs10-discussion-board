@@ -19,7 +19,7 @@ const ProfileWrapper = styled.div`
   align-self: center;
   margin: 10px;
   padding: 10px;
-  border: 1px solid gray;
+  border: ${props => props.theme.profileBorder};
   width: 480px;
   background-color: ${props => props.theme.profileBgColor};
   box-shadow: ${props => props.theme.profileBxShdw};
