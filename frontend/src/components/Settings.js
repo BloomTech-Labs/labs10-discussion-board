@@ -19,7 +19,13 @@ const SettingsWrapper = styled.div`
   background-color: ${props => props.theme.settingsBgColor};
   box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
-  width: 50%;
+  width: 70%;
+  @media (max-width: 960px){
+      width: 85%;
+  }
+  @media (max-width: 520px){
+      width: 85%;
+  }
 `;
 
 const UsernameSettings = styled.div`
@@ -33,6 +39,11 @@ const EmailAndAvatar = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    @media (max-width: 680px){
+      display: flex;
+      flex-direction: column;
+    }
 `;
 
 const AvatarPic = styled.div`
@@ -46,6 +57,7 @@ const AvatarPic = styled.div`
 
 const AuthOEditForms = styled.div`
     display: flex;
+    width: 100%;
     justify-content: center;
     flex-direction: column;
     padding-bottom: 10px;
@@ -63,19 +75,28 @@ const EditMenu = styled.div`
 `;
 
 const Buttons = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   button {
     margin: 7px;
     border-radius: 10px;
     width: 20%;
-    height: 30px;
+    height: 50px;
     font-size: 16px;
+    font-weight: bold;
 
     &:hover {
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
     }
+    @media (max-width: 960px){
+      font-size: 14px;
+    }
+    @media (max-width: 520px){
+      font-size: 12px;;
+    }
+
   }
 
   .delete-btn {
@@ -149,10 +170,10 @@ class Settings extends Component {
               }
               <Buttons>
                 <button onClick={() => this.toggleForm('password-form')}>
-                  Change password
+                  Edit password
                 </button>
                 <button onClick={() => this.toggleForm('avatar-btns')}>
-                  Change avatar
+                  Edit avatar
                 </button>
                 <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
                   Delete account

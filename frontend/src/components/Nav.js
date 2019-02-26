@@ -30,7 +30,7 @@ const DivWrapper = styled.div`
 const Links = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 50%;
+  width: 60%;
   margin: 0;
   align-items: center;
   .link {
@@ -46,13 +46,20 @@ const Links = styled.div`
     font-size: 12px;
     display: flex;
     margin: 0 auto;
-    @media (max-width: 450px){
+  }
+  @media (max-width: 700px){
+    font-size: 10px;
+    }
+    @media (max-width: 570px){
+      width: 75%;
+    }
+    @media (max-width: 470px){
       width: 35%;
-      font-size: 8px;
+      font-size: 10px;
       display: flex;
       flex-direction: column;
     }
-  }
+
 `
 
 const DivSearch = styled.div`
@@ -87,9 +94,14 @@ const DivSearch = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  width: 38%;
+  width: 35%;
   height: 100%;
-
+  @media (max-width: 800px){
+      width: 38%;
+      display: flex;
+      justify-content: flex-end;
+      
+    }
   @media (max-width: 750px){
       width: 25%;
     @media (max-width: 450px){

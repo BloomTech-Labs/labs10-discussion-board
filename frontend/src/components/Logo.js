@@ -9,8 +9,8 @@ const TitleAndLogoContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  @media (max-width: 768px){
-    
+  @media (max-width: 570px){
+    width: 100%;
   }
   @media (max-width: 450px){
     width: 100%;
@@ -24,6 +24,11 @@ const TitleAndLogoContainer = styled.div`
 const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
+    @media (max-width: 570px){
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
     @media (max-width: 450px){
     width: 90%;
     display: flex;
@@ -42,11 +47,12 @@ const SympLogo = styled.div`
       background-image: url(${meeting2});
       cursor: wait;
     }
+    @media (max-width: 570px){
+    }
 
-    @media (max-width: 450px){
+    @media (max-width: 475px){
     background-size: stretch;
-    width: 97px;
-    height: 135px;
+    width: 35%;
     background-size: stretch;
     display: flex;
     align-items: center;
@@ -59,10 +65,12 @@ const Title = styled.div`
   margin-left: 10px;
   color: ${props => props.theme.headerTitleColor};
   font-size: 36px;
-  @media (max-width: 768px){
+  @media (max-width: 570px){
+    width: 60%;
     display: flex;
+    font-size: 26px;
     flex-direction: column;
-    width: 70%
+    margin-left: 0px;
   }
   h1 {
     a {
@@ -74,12 +82,12 @@ const Title = styled.div`
     }
     margin-bottom: -35px;
     width: 90%;  
-    @media (max-width: 768px){
-      width: 90%;
-      @media (max-width: 450px){
+    @media (max-width: 570px){
+      width: 75%;
+      @media (max-width: 470px){
         margin-left: 0px;
         margin: 0 auto;
-        font-size: 45px;
+        font-size: 44px;
         width: 95%;
       }
     }
@@ -88,14 +96,20 @@ const Title = styled.div`
     color: ${props => props.theme.headerTitleSubheaderColor};
     font-size: 14px;
     margin-left: 187px;
-    @media (max-width: 768px){
-      @media (max-width: 450px){
+    @media (max-width: 700px){
+      margin-top: 22px;
+    }
+    @media (max-width: 620px){
+      margin-left: 20px;
+      margin-top: 35px;
+    }
+      @media (max-width: 470px){
         display: flex;
         text-align: center;
-        margin: 0 auto;
+        margin: 0px;
+        font-size: 12px;
       }
     }
-}
 `;
 
 const Logo = () => {
