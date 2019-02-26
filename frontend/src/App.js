@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle } from 'styled-components';
 
-
 // components
 import {
   Header,
