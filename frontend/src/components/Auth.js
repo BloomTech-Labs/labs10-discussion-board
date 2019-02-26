@@ -109,7 +109,6 @@ class Auth extends Component {
           </Login>
           <LoginDropdown
             {...this.props}
-            history={this.props.history}
             isLoginDropdownClicked={this.state.isLoginDropdownClicked}
             setIsLoginDropdownClicked={this.setIsLoginDropdownClicked}
           />

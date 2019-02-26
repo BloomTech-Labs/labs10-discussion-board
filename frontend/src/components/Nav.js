@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import SearchBar from './SearchBar.js';
-import SearchOptionDropdown from './SearchOptionDrowpdown.js';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
@@ -90,22 +88,7 @@ const DivAuth = styled.div`
 class Nav extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      selectedSearchOption: NavSearchOptions[0]
-    }
   }
-
-  setSelectedSearchOption = (option) => {
-    this.setState({ selectedSearchOption: option });
-  }
-
-  renderSearchOptions = () => {
-    return NavSearchOptions.map((item, i) => (
-      <option value={i} key={i}>
-        {item}
-      </option>
-    ));
-  };
 
   render() {
     return (

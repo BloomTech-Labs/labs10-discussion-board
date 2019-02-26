@@ -37,16 +37,6 @@ const LinkForgotUserPass = styled(Link)`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class LoginDropdown extends Component {
-  // auth0 = new auth0.WebAuth({
-  //   // need to create auth0 account and apply settings...
-  //   // https://www.youtube.com/watch?v=QsMK3d3LxYQ
-  //   domain: 'domain.auth0.com',
-  //   clientID: 'random string provided by auth0 account',
-  //   redirectUri: 'http://localhost:3000/callback',
-  //   audience: 'domain.auth0.com/userinfo',
-  //   responseType: 'token id_token',
-  //   scope: 'openid'
-  // });
   constructor(props) {
     super(props);
     this.state = {
