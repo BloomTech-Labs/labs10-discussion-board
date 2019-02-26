@@ -13,11 +13,11 @@ const TitleAndLogoContainer = styled.div`
     
   }
   @media (max-width: 450px){
-    width: 90%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-right: auto;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 
@@ -25,11 +25,10 @@ const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
     @media (max-width: 450px){
-    width: 100%;
+    width: 90%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-right: auto;
+    justify-content: center;
   }
 
 `;
@@ -43,6 +42,16 @@ const SympLogo = styled.div`
       background-image: url(${meeting2});
       cursor: wait;
     }
+
+    @media (max-width: 450px){
+    background-size: stretch;
+    width: 97px;
+    height: 135px;
+    background-size: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Title = styled.div`
@@ -68,6 +77,7 @@ const Title = styled.div`
     @media (max-width: 768px){
       width: 90%;
       @media (max-width: 450px){
+        margin-left: 0px;
         margin: 0 auto;
         font-size: 45px;
         width: 95%;

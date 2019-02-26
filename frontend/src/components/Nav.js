@@ -32,14 +32,14 @@ const DivWrapper = styled.div`
 const Links = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 55%;
+  width: 52%;
   margin: 0;
   align-items: center;
   border: 1px solid purple;
   .link {
     font-weight: bold;
     text-decoration: none;
-    font-size: 2em;
+    font-size: 1.8em;
     color: white;
     :hover {
       color: black;
@@ -60,6 +60,7 @@ const Links = styled.div`
 
 const DivSearch = styled.div`
   display: flex;
+  justify-content: center;
   border: 1px solid red;
   width: 6%;
   align-items: center;
@@ -74,7 +75,7 @@ const DivSearch = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  width: 33%;
+  width: 38%;
   border: 1px solid lime;
   height: 100%;
 

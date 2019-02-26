@@ -20,7 +20,7 @@ const NotLoggedIn = styled.div`
 
 const DivAuthTitle = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
   p {
     margin: 0 0 0.67em 0;
   }

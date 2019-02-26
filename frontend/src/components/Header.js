@@ -9,11 +9,11 @@ const StyledHeader = styled.div`
   flex-direction: column;
   height: 72px;
   width: 100%;
-  @media(max-width: 768px){
-    display: flex;
-    flex-direction: column;
+  @media(max-width: 750px){
     width: 100%;
     @media (max-width: 450px){
+      width: 100%;
+
     }
   }
 `;
