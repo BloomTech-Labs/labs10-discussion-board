@@ -4,6 +4,8 @@ import Discussion from './Discussion.js';
 import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 
+import Auth from './Auth.js';
+import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import Header from './Header.js';
 import TopDiscussions from './TopDiscussions.js';
@@ -22,6 +24,13 @@ import Follow from './Follow.js';
 import FollowCat from './FollowCat.js';
 import ConfirmEmail from './ConfirmEmail.js';
 import ToolTip from './ToolTip.js';
+import Search from './Search.js';
+import Highlight from './Highlight.js';
+import SearchCatResult from './SearchCatResult.js';
+import SearchDisResult from './SearchDisResult.js';
+import SearchPostResult from './SearchPostResult.js';
+import DeleteAccountModal from './DeleteAccountModal.js';
+import Deleted from './Deleted.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -37,11 +46,13 @@ import ResetPWForm from './forms/ResetPWForm.js';
 import AddCategoryForm from './forms/AddCategoryForm.js';
 
 export {
+  Auth,
   CategoriesList,
   Categories,
   Discussion,
   DiscussionsByCat,
   DiscussionsByCats,
+  LoginDropdown,
   Nav,
   Header,
   TopDiscussions,
@@ -60,6 +71,13 @@ export {
   FollowCat,
   ConfirmEmail,
   ToolTip,
+  Search,
+  Highlight,
+  SearchCatResult,
+  SearchDisResult,
+  SearchPostResult,
+  DeleteAccountModal,
+  Deleted,
 
   // forms
   AddPostForm,

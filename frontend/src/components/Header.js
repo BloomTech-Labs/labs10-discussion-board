@@ -7,9 +7,19 @@ import { Nav } from '../components/index.js';
 
 const StyledHeader = styled.div`
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   margin: 0;
   width: 100%;
+
+  @media(max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (max-width: 450px){
+    }
+  }
 `;
 
 const TitleAndLogo = styled.div`
@@ -46,7 +56,7 @@ const Logo = styled.div`
 const Title = styled.div`
   align-self: flex-end;
   margin-left: 10px;
-  color: white;
+  color: ${props => props.theme.headerTitleColor};
   font-size: 36px;
 
   @media (max-width: 768px){
@@ -57,10 +67,10 @@ const Title = styled.div`
   }
   h1 {
     a {
-      color: #f7f5f3;
+      color: ${props => props.theme.headerTitleAColor};
       text-decoration: none;
       &:hover {
-        color: black;
+        color: ${props => props.theme.headerTitleAColorHov};
       }
     }
     margin-bottom: -35px;
@@ -75,7 +85,7 @@ const Title = styled.div`
     }
   }
   .subheader { 
-    color: #f7f5f3;
+    color: ${props => props.theme.headerTitleSubheaderColor};
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
@@ -103,12 +113,28 @@ const Navi = styled.div`
     }
   }
 `
+const Links = styled.div`
+  .link {
+    font-weight: bold;
+    font-size: 2em;
 
-const Header = props => {
+  }
+  @media (max-width: 750px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    @media (max-width: 450px){
+    }
+  }
+`;
+
+const Header = ({ history, isAuthenticated, toggleSearch }) => {
   return (
     <StyledHeader>
       <Navi>
-        <Nav history={props.history} isAuthenticated={props.isAuthenticated} />
+        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} />
       </Navi>
       <TitleAndLogo>
         <Logo />
@@ -119,7 +145,7 @@ const Header = props => {
           </div>
         </Title>
       </TitleAndLogo>
-    </StyledHeader>
+    </StyledHeader >
   );
 };
 

@@ -5,23 +5,24 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // components
-import { EditPostForm, VoteCount } from './index.js';
+import { EditPostForm, VoteCount, Deleted } from './index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
   width: 100%;
-  border: 1px solid black;
+  border: ${props => props.theme.postWrapperBorder};
 `;
 
 const PostedBy = styled.div`
   display: flex;
-  width: 25%;
+  width: 250px;
+  padding: 10px;
 
   .username {
     margin: 0px 7px;
     font-weight: bold;
-    color: black;
+    color: ${props => props.theme.postPostedByUsernameColor};
     text-decoration: none;
 
     &:hover {
@@ -31,7 +32,23 @@ const PostedBy = styled.div`
   }
 `;
 
+const Elip = styled.div `
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  padding: 10px;
+`;
 
+const Vote = styled.div `
+display: flex;
+padding: 5px;
+margin-left: 90%;
+bottom: 45px;
+`;
 
 const Post = ({
   post,
@@ -62,28 +79,31 @@ const Post = ({
   };
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
-
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper>
+    <PostWrapper name = { id }>
       {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
-      <h1>POST</h1>
+
+      <Vote>
       <p>post votes: {post_votes}</p>
-      <div>
         <VoteCount 
           handleVote = { handleVote } 
           vote_count = { post_votes }
           user_vote = { user_vote }
         />
-      </div>
+      </Vote>
       <PostedBy>
-        Posted by:
-        <Link className='username' to={`/profile/${user_id}`}>
-          {username}
-        </Link>
+        Posted by: &nbsp;
+        {
+          username ?
+          <Link className='username' to={`/profile/${user_id}`}>
+            {username}
+          </Link> :
+          <Deleted />
+        }
         {moment(new Date(Number(created_at))).fromNow()}
       </PostedBy>
-      <p>Body: {body}</p>
+      <Elip>{body}</Elip>
 
       {userCreatedPost &&
         (showEditPostForm === id ? (

@@ -59,10 +59,28 @@ const DivSearch = styled.div`
   align-items: center;
 `;
 
+const Welcome = styled.div`
+  margin: 20px 20px 0px 0px;
+  font-size: 24px;
+  @media(max-width: 450px) {
+    display: none;
+  }
+
+  .username {
+    margin-left: 5px;
+    color: ${ props => props.theme.navWelcomeUsername};
+    text-decoration: none;
+    &:hover {
+      color: ${ props => props.theme.navWelcomeUsernameHov};
+      text-decoration: underline;
+    }
+  }
+`;
+
 const DivAuth = styled.div`
-  display: flex;
-  width: 320px;
-  border: 1px solid lime;
+display: flex;
+width: 320px;
+border: 1px solid lime;
 `;
 
 /***************************************************************************************************
@@ -103,10 +121,9 @@ class Nav extends Component {
           </Link>
         </Links>
         <DivSearch>
-          <SearchBar />
-          <SearchOptionDropdown renderSearchOptions={this.renderSearchOptions} />
+          <button onClick={this.props.toggleSearch}>search</button>
         </DivSearch>
-        <DivAuth>{console.log(localStorage.getItem('symposium_user_id'))}
+        <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
           ) : (

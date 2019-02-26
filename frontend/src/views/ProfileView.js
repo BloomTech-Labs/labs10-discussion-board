@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
 // components
-import { Avatar } from '../components/index.js';
+import { Avatar, Deleted } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -20,8 +20,8 @@ const ProfileWrapper = styled.div`
   padding: 10px;
   border: 1px solid gray;
   width: 480px;
-  background-color: #e8e3e0;
-  box-shadow: gray 2px 1px 2px 2px;
+  background-color: ${props => props.theme.profileBgColor};
+  box-shadow: ${props => props.theme.profileBxShdw};
   @media(max-width: 768px){
     display: flex;
     flex-direction: column;
@@ -81,14 +81,29 @@ const ProfileTitle = styled.div`
   font-size: 36px;
 `;
 
+const Elip = styled.div `
+  width: 240px;
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(this.props.match.params.id);
-  }
-
+  };
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      return this.props.getProfile(this.props.match.params.id);
+    }
+  };
   /* we use profileItems to manipulate what data is displayed. if the data received from our props is 0,
   profileItems displays our spinner component, however if our props contains a profile we display that profile
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
@@ -110,7 +125,7 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Username: </p>
-                <p className='property-content'> {profile.username}</p>
+                <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Status: </p>
@@ -136,7 +151,7 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Posts: </p>
-                {profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}
+                <Elip>{profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}</Elip>
               </WrappedDiv>
             </ProfileWrapper>
           </div>

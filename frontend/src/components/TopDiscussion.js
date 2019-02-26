@@ -4,7 +4,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { PostCount, VoteCount } from './index.js';
+import { PostCount, VoteCount, Deleted } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -16,10 +16,10 @@ const TopDiscussionWrapper = styled.div`
   justify-content: space-between;
   margin: 5px;
   padding: 10px;
-  box-shadow: 2px 3px 2px 2px gray;
+  box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 
 
@@ -27,7 +27,7 @@ const TopDiscussionWrapper = styled.div`
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
-    color: black;
+    color: ${props => props.theme.topDiscussionTitleColor};
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -38,9 +38,9 @@ const TopDiscussionWrapper = styled.div`
       margin-left: 5px;
       text-decoration: none;
       font-size: 18px;
-      color: black;
+      color: ${props => props.theme.topDiscussionCatColorHov};;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.13);
+      background-color: ${props => props.theme.topDiscussionCatBgColorHov};
       cursor: pointer;
       text-decoration: underline;
 
@@ -50,10 +50,10 @@ const TopDiscussionWrapper = styled.div`
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
-    color: black;
+    color: ${props => props.theme.topDiscussionNameDateColor};
     &:hover {
       text-decoration: underline;
-      background-color: rgba(255, 255, 255, 0.13);
+      background-color: ${props => props.theme.topDiscussionNameDateColorHov};
       cursor: pointer;
     }
   }
@@ -67,6 +67,21 @@ const TopDiscussionWrapper = styled.div`
     &:hover {
     }
   }
+`;
+
+const Elip = styled.div `
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+`;
+
+const Vote = styled.div `
+display: flex;
+margin-right: 10px;
 `;
 
 /***************************************************************************************************
@@ -109,19 +124,22 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
         </div>
 
         <div>
-          <Link to={`/profile/${user_id}`} className='nameanddate'>
-            {username}
-          </Link>
+          {
+            username ?
+            <Link to={`/profile/${user_id}`} className='nameanddate'>
+              {username}
+            </Link> :
+            <Deleted />
+          }
           &#8201;
           <span className='timestamp'>
             {' '}
             - {moment(new Date(Number(created_at))).fromNow()}
           </span>
         </div>
-        <p>{body}</p>
+        <Elip>{body}</Elip>
       </div>
-
-      <PostCount post_count={post_count || 0} />
+      <Vote><PostCount post_count={post_count || 0} /></Vote>
     </TopDiscussionWrapper>
   );
 };

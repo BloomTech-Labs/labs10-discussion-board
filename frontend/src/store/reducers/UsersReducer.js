@@ -53,6 +53,10 @@ import {
   RESET_PASSWORD_LOADING,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
+
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_SUCCESS,
+  DELETE_ACCOUNT_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -152,9 +156,14 @@ export const UsersReducer = (state = initialState, action) => {
         isLoggedIn: false
       };
 
-    // Signout
     case USER_SIGNOUT_SUCCESS:
       return initialState;
+
+    case DELETE_ACCOUNT_SUCCESS:
+      return {
+        ...initialState,
+        message: state.message,
+      }
 
     case DISPLAY_ERROR:
       return {
@@ -171,14 +180,6 @@ export const UsersReducer = (state = initialState, action) => {
     case UPLOAD_AVATAR_URL_SUCCESS:
     case UPLOAD_AVATAR_SUCCESS:
       return { ...state, avatar: action.payload };
-
-    case UPLOAD_AVATAR_URL_LOADING:
-    case UPLOAD_AVATAR_LOADING:
-    case USER_LOG_BACK_IN_LOADING:
-    case PASSWORD_UPDATE_LOADING:
-    case PASSWORD_UPDATE_SUCCESS:
-    case PASSWORD_UPDATE_FAILURE:
-      return state;
 
     // Is Username Taken
     case USER_EXISTS_LOADING:
@@ -247,6 +248,14 @@ export const UsersReducer = (state = initialState, action) => {
         stripePaymentLoadingMessage: false
       }
 
+    case DELETE_ACCOUNT_LOADING:
+    case DELETE_ACCOUNT_FAILURE:
+    case UPLOAD_AVATAR_URL_LOADING:
+    case UPLOAD_AVATAR_LOADING:
+    case USER_LOG_BACK_IN_LOADING:
+    case PASSWORD_UPDATE_LOADING:
+    case PASSWORD_UPDATE_SUCCESS:
+    case PASSWORD_UPDATE_FAILURE:
     case RESET_PASSWORD_LOADING:
     case RESET_PASSWORD_FAILURE:
     case SEND_PW_RESET_EMAIL_LOADING:

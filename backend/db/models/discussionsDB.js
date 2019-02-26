@@ -28,7 +28,7 @@ const getTopDailyDiscussions = (user_id, order, orderType) => {
     )
     .sum('dv.type as vote_count')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
-    .join('users as u', 'u.id', 'd.user_id')
+    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin(postCountQuery.as('pc'), function() {
       this.on('pc.discussion_id', '=', 'd.id');
@@ -70,7 +70,7 @@ const findById = (id, user_id, order, orderType) => {
       db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
       'uv.type as user_vote'
     )
-    .join('users as u', 'u.id', 'd.user_id')
+    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin(userDiscussionVoteQuery.as('uv'), function() {
@@ -96,7 +96,7 @@ const findById = (id, user_id, order, orderType) => {
       'uv.type as user_vote'
     )
     .join('discussions as d', 'd.id', 'p.discussion_id')
-    .join('users as u', 'u.id', 'p.user_id')
+    .leftOuterJoin('users as u', 'u.id', 'p.user_id')
     .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
     .leftOuterJoin(userPostVoteQuery.as('uv'), function() {
       this.on('uv.post_id', '=', 'p.id');
@@ -106,7 +106,9 @@ const findById = (id, user_id, order, orderType) => {
     // order by order and orderType variables
     // else default to ordering by created_at descending
     .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
+
   const promises = [discussionQuery, postsQuery];
+
   return Promise.all(promises).then(results => {
     const [discussionResults, postsResults] = results;
     discussionResults[0].posts = postsResults;
@@ -114,9 +116,32 @@ const findById = (id, user_id, order, orderType) => {
   });
 };
 
+const search = (searchText, order, orderType) => {
+  return db('discussions as d')
+      .select(
+        'd.id',
+        'd.title',
+        'd.body',
+        'd.user_id',
+        'u.username',
+        'd.created_at',
+        'd.category_id',
+        'c.name as category_name',
+        db.raw('SUM(COALESCE(dv.type, 0)) AS votes'),
+      )
+      .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+      .leftOuterJoin('users as u', 'u.id', 'd.user_id')
+      .join('categories as c', 'c.id', 'd.category_id')
+      .whereRaw('LOWER(d.title) LIKE ?', `%${ searchText.toLowerCase() }%`)
+      .orWhereRaw('LOWER(d.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
+      .groupBy('d.id', 'u.username', 'c.name')
+      // order by given order and orderType, else default to ordering by created_at descending
+      .orderBy(`${ order ? order : 'd.created_at' }`, `${ orderType ? orderType : 'desc' }`);
+};
+
 //Find by User ID (Original Creator)
 const findByUserId = user_id => {
-  return db('discussions').where('user_id', user_id);
+  return db('discussions').where({ user_id });
 };
 
 //Find by Associated Category (category ID)
@@ -145,8 +170,8 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
       db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
       'uv.type as user_vote'
     )
-    .sum('dv.type as vote_count')
-    .join('users as u', 'u.id', 'd.user_id')
+    // .sum('dv.type as vote_count')
+    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin(postCountQuery.as('pc'), function() {
@@ -167,7 +192,7 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
       'u.username',
       'c.created_at',
     )
-    .join('users as u', 'u.id', 'c.user_id')
+    .leftOuterJoin('users as u', 'u.id', 'c.user_id')
     .where('c.id', category_id)
     .first();
 
@@ -201,6 +226,7 @@ const remove = id => {
 module.exports = {
   getTopDailyDiscussions,
   getDiscussions,
+  search,
   findById,
   findByUserId,
   findByCategoryId,

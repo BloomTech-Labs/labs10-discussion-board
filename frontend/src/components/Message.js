@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { displayMessage } from '../store/actions/index.js';
 
 const MessageWrapper = styled.div`
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: ${props => props.theme.messageWrapperBgColor};
 	position: absolute;
 	z-index: 2;
 	height: 100vh;
@@ -22,14 +22,14 @@ const MessageBox = styled.div`
 	justify-content: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	background-color: #657ED4;
+	background-color: ${props => props.theme.messageBoxBgColor};
 	padding: 10px;
 	border-radius: 5px;
-	border: 1px solid black;
+	border: ${props => props.theme.messageBoxBorder};
 	width: 300px;
 
 	p {
-		color: black;
+		color: ${props => props.theme.messageBoxPColor};
 		font-weight: 700;
 		text-align: center;
 		margin: 10px;

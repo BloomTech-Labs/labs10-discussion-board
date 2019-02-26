@@ -8,7 +8,6 @@ exports.up = function (knex, Promise) {
       .integer('user_id')
       .references('id')
       .inTable('users')
-      .notNullable()
       .onDelete('SET NULL');
 
     //Foreign Key 'discussion_id'
@@ -20,7 +19,7 @@ exports.up = function (knex, Promise) {
       .onDelete('CASCADE');
 
     // Other Columns
-    tbl.text('body').notNullable();
+    tbl.text('body', 2048).notNullable();
 
     // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();

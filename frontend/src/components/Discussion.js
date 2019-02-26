@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { AddPostForm, EditDiscussionForm, VoteCount } from './index.js';
+import { AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -63,7 +63,7 @@ const PostedBy = styled.div`
   .username {
     margin: 0px 7px;
     font-weight: bold;
-    color: black;
+    color: ${props => props.theme.discussionUsernameColor};
     text-decoration: none;
 
     &:hover {
@@ -71,6 +71,17 @@ const PostedBy = styled.div`
       text-decoration: underline;
     }
   }
+`;
+
+const Elip = styled.div `
+  display: inline;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  padding: 10px;
 `;
 
 class Discussion extends Component {
@@ -105,11 +116,16 @@ class Discussion extends Component {
 		const { id, getDiscussionById, handleDiscussionVote } = this.props;
 		return handleDiscussionVote(discussion_id, this.props.user_id, type)
 			.then(() => getDiscussionById(id, order, orderType));
-	};
+  };
   componentDidMount = () => {
-    const { getDiscussionById, id } = this.props;
+    const { getDiscussionById, id, scrollTo } = this.props;
     const { order, orderType } = this.state;
-    return getDiscussionById(id, order, orderType);
+    return getDiscussionById(id, order, orderType).then(() => scrollTo());
+  };
+  componentDidUpdate = prevProps => {
+    const { getDiscussionById, id, scrollTo } = this.props;
+    const { order, orderType } = this.state;
+    if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
   render() {
     const { order, orderType } = this.state;
@@ -165,15 +181,18 @@ class Discussion extends Component {
           />
           <CategoryName>/d/{category_name}</CategoryName>
           <PostedBy>
-            Posted by:
-            <Link className='username' to={`/profile/${user_id}`}>
-              {username}
-            </Link>
+            Posted by: &nbsp;
+            {
+              username ?
+              <Link className='username' to={`/profile/${user_id}`}>
+                {username}
+              </Link> :
+              <Deleted />
+            }
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
         </DiscussionInfo>
-        <p>Title: {title}</p>
-        <p>Body: {body}</p>
+        <Elip>{body}</Elip>
 
         <button onClick={this.toggleAddPostForm}>Add a Post</button>
         {showAddPostForm && (
@@ -187,15 +206,15 @@ class Discussion extends Component {
 
         <span>Sort by: </span>
 				<select onChange = { this.handleSelectChange } name = 'order'>
-					<option value = 'created_at'>Date</option>
-					<option value = 'post_votes'>Votes</option>
+					<option value = 'created_at'>date created</option>
+					<option value = 'post_votes'>votes</option>
 				</select>
 				<select onChange = { this.handleSelectChange } name = 'orderType'>
 					<option value = 'desc'>
-						{ order === 'created_at' ? 'Most Recent First' : 'Greatest First' }
+						{ order === 'created_at' ? 'most recent first' : 'most first' }
 					</option>
 					<option value = 'asc'>
-						{ order === 'created_at' ? 'Least Recent First' : 'Least First' }
+						{ order === 'created_at' ? 'least recent first' : 'least first' }
 					</option>
 				</select>
 

@@ -12,11 +12,12 @@ import {
   EditAvatarForm,
   EditAvatarUrlForm,
   UpdateEmailForm,
+  DeleteAccountModal,
 } from './index.js';
 
 const SettingsWrapper = styled.div`
-  background-color: #e8e3e0;
-  box-shadow: 4px 6px 4px 4px #4ca0e0;
+  background-color: ${props => props.theme.settingsBgColor};
+  box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
   width: 50%;
 `;
@@ -65,17 +66,22 @@ const Buttons = styled.div`
   display: flex;
   justify-content: center;
   button {
-          margin: 7px;
-          border-radius: 10px;
-          width: 20%;
-          height: 30px;
-          font-size: 16px;
+    margin: 7px;
+    border-radius: 10px;
+    width: 20%;
+    height: 30px;
+    font-size: 16px;
 
-          &:hover {
-            background-color: #4ca0e0;
-            cursor: pointer;
-          }
-        }
+    &:hover {
+      background-color: ${props => props.theme.settingsButtonHov};
+      cursor: pointer;
+    }
+  }
+
+  .delete-btn {
+    background-color: ${props => props.theme.settingsDeleteButtonBg};
+    color: ${props => props.theme.settingsDeleteButtonColor};
+  }
 `;
 
 const AvatarContainer = styled.div`
@@ -96,7 +102,7 @@ const EditAvatarMenu = styled.div`
           font-size: 16px;
 
           &:hover {
-            background-color: #4ca0e0;
+            background-color: ${props => props.theme.settingsEditAvatarButtonBgHov};
             cursor: pointer;
           }
         }
@@ -108,14 +114,15 @@ const EditAvatarMenu = styled.div`
 `;
 
 class Settings extends Component {
-  state = { show: '' };
+  state = { showForm: '', showDeleteModal: '' };
   getProfile = () => this.props.getProfile(this.props.match.params.id);
-  toggleForm = formName => this.setState({ show: formName });
+  toggleForm = formName => this.setState({ showForm: formName });
+  toggleDeleteModal = () => this.setState({ showDeleteModal: !this.state.showDeleteModal });
   onUploadAvatarSuccess = () =>
-    this.setState({ show: '' }, () => this.getProfile());
+    this.setState({ showForm: '' }, () => this.getProfile());
   componentDidMount = () => this.getProfile();
   render() {
-    const { show } = this.state;
+    const { showForm, showDeleteModal } = this.state;
     const { username, email, avatar, isAuth0, email_confirm } = this.props.profile;
     return (
       <SettingsWrapper>
@@ -147,12 +154,15 @@ class Settings extends Component {
                 <button onClick={() => this.toggleForm('avatar-btns')}>
                   Change avatar
                 </button>
+                <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
+                  Delete account
+                </button>
               </Buttons>
             </EditMenu>
-        {show === 'password-form' && (
+        {showForm === 'password-form' && (
           <EditPasswordForm toggleForm={this.toggleForm} />
         )}
-        {show === 'avatar-btns' && (
+        {showForm === 'avatar-btns' && (
           <AvatarContainer>
             <EditAvatarMenu>
               <div className = 'changeavatar'>Upload new avatar:</div>
@@ -166,23 +176,26 @@ class Settings extends Component {
             </EditAvatarMenu>
           </AvatarContainer>
         )}
-        {show === 'avatar-pc-form' && (
+        {showForm === 'avatar-pc-form' && (
           <EditAvatarForm
             toggleForm={this.toggleForm}
             onUploadAvatarSuccess={this.onUploadAvatarSuccess}
           />
         )}
-        {show === 'avatar-url-form' && (
+        {showForm === 'avatar-url-form' && (
           <EditAvatarUrlForm
             toggleForm={this.toggleForm}
             onUploadAvatarSuccess={this.onUploadAvatarSuccess}
           />
         )}
-        {show === 'email-form' && (
+        {showForm === 'email-form' && (
           <UpdateEmailForm
             toggleForm={this.toggleForm}
             history = { this.props.history }
           />
+        )}
+        {showDeleteModal && (
+          <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
         )}
 
         </AuthOEditForms>

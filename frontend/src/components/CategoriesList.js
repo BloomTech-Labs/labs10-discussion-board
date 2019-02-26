@@ -13,7 +13,7 @@ const CategoryWrapper = styled.div`
 
 class CategoriesList extends Component {
 	state = {
-		order: '', // possible values: 'name', 'discussion_count', 'created_at'
+		order: 'name', // possible values: 'name', 'discussion_count', 'created_at'
 		orderType: '', // possible values: 'asc', 'desc'
     };
     handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
@@ -27,16 +27,22 @@ class CategoriesList extends Component {
             <CategoryWrapper>
                 <span>Sort by: </span>
 				<select onChange = { this.handleSelectChange } name = 'order'>
-					<option value = 'name'>Name</option>
-					<option value = 'discussion_count'>Discussions</option>
-					<option value = 'created_at'>Date</option>
+					<option value = 'name'>name</option>
+					<option value = 'discussion_count'>number of discussions</option>
+					<option value = 'created_at'>date created</option>
 				</select>
 				<select onChange = { this.handleSelectChange } name = 'orderType'>
                     <option value = 'asc'>
-						{ order === 'created_at' ? 'Least Recent First' : 'Least First' }
+                        {
+                            order === 'created_at' ? 'least recent first' :
+                            order === 'name' ? 'alphabetical order' : 'least first'
+                        }
 					</option>
                     <option value = 'desc'>
-						{ order === 'created_at' ? 'Most Recent First' : 'Greatest First' }
+						{
+                            order === 'created_at' ? 'most recent first' :
+                            order === 'name' ? 'reverse alphabetical order' : 'most first'
+                        }
 					</option>
 				</select>
                 {

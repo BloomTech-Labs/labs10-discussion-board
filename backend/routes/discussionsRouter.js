@@ -53,9 +53,19 @@ router.get('/discussion/:id/:user_id', authenticateIfTokenExists, (req, res) => 
   return discussionsDB
     .findById(id, user_id, order, orderType)
     .then(discussion => res.status(200).json(discussion))
-    .catch(err =>
-      res.status(500).json({ error: `Failed to findById(): ${err}` })
-    );
+    .catch(err => res.status(500).json({ error: `Failed to findById(): ${err}` }));
+});
+
+router.get('/search', (req, res) => {
+  const searchText = req.get('searchText');
+  let order = req.get('order');
+  let orderType = req.get('orderType');
+  if (order === 'undefined') order = null;
+  if (orderType === 'undefined') orderType = null;
+  if (!searchText) return res.status(200).json([]);
+  return discussionsDB.search(searchText, order, orderType)
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).json({ error: `Failed to search(): ${err}` }));
 });
 
 //GET Discussion by User ID (Super-Mod/Creator)
