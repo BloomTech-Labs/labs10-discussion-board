@@ -92,6 +92,7 @@ const findById = (id, user_id, order, orderType) => {
       'p.body',
       'p.created_at',
       'p.last_edited_at',
+      'p.reply_to',
       db.raw('SUM(COALESCE(pv.type, 0)) AS post_votes'),
       'uv.type as user_vote'
     )
@@ -103,16 +104,44 @@ const findById = (id, user_id, order, orderType) => {
     })
     .where('p.discussion_id', id)
     .groupBy('p.id', 'u.username', 'uv.type')
-    // order by order and orderType variables
-    // else default to ordering by created_at descending
+    // order by order and orderType variables, else default to ordering by created_at descending
     .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
 
-  const promises = [discussionQuery, postsQuery];
+  const repliesQuery = db('posts')
+    .select('reply_to')
+    .where('discussion_id', id);
+
+  const promises = [discussionQuery, postsQuery, repliesQuery];
 
   return Promise.all(promises).then(results => {
-    const [discussionResults, postsResults] = results;
-    discussionResults[0].posts = postsResults;
-    return discussionResults;
+    const [discussionResults, postsResults, repliesResults] = results;
+    const replyIds = [];
+    for (let i = 0; i < repliesResults.length; i++) {
+      let replyId = repliesResults[i].reply_to;
+      if (replyId && !replyIds.includes(replyId)) replyIds.push(replyId);
+    }
+    const replyIdsQuery = db('posts as p')
+      .select(
+        'p.id',
+        'p.user_id',
+        'u.username',
+        'p.body',
+        'p.created_at',
+        'p.last_edited_at',
+      )
+      .leftOuterJoin('users as u', 'u.id', 'p.user_id')
+      .whereIn('p.id', replyIds);
+
+    return Promise.all([replyIdsQuery])
+      .then(result => {
+        const [replyIdsResults] = result;
+        for (let j = 0; j < postsResults.length; j++) {
+          let replyID = postsResults[j].reply_to;
+          if (replyID) postsResults[j].reply_to = replyIdsResults.find(reply => reply.id === replyID);
+        }
+        discussionResults[0].posts = postsResults;
+        return discussionResults;
+      });
   });
 };
 
