@@ -80,12 +80,17 @@ const Title = styled.div`
     width: 90%;  
     @media (max-width: 768px){
       width: 90%;
+    }
       @media (max-width: ${phoneL}){
         margin: 0px 0px;
         font-size: 45px;
         width: 95%;
+        margin: 0 auto;
       }
-    }
+      @media (max-width: 420px){
+        font-size: 35px;
+        margin: 0 auto;
+      }
   }
   .subheader { 
     color: ${props => props.theme.headerTitleSubheaderColor};
@@ -96,6 +101,10 @@ const Title = styled.div`
         display: flex;
         text-align: center;
         margin: 0 auto;
+
+        @media (max-width: 420px){
+        font-size: 10px;
+      }
       }
     }
 }
