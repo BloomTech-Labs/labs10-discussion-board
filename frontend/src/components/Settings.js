@@ -32,6 +32,10 @@ const UsernameSettings = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+
+    @media (max-width: 500px){
+      font-size: 12px;;
+    }
 `;
 
 const EmailAndAvatar = styled.div`

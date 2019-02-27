@@ -10,6 +10,7 @@ const TitleAndLogoContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 10px;
   @media (max-width: 768px){
     
   }
@@ -26,7 +27,7 @@ const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
     @media (max-width: ${phoneL}){
-    width: 90%;
+    width: 92%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,7 +45,7 @@ const SympLogo = styled.div`
     }
     @media (max-width: ${phoneL}){
     background-size: stretch;
-    width: 97px;
+    width: 40%;
     height: 135px;
     background-size: stretch;
     display: flex;
@@ -63,6 +64,9 @@ const Title = styled.div`
     flex-direction: column;
     width: 70%
   }
+  @media (max-width: ${phoneL}){
+        margin: 0px 0px;
+      }
   h1 {
     a {
       color: ${props => props.theme.headerTitleAColor};
@@ -76,8 +80,7 @@ const Title = styled.div`
     @media (max-width: 768px){
       width: 90%;
       @media (max-width: ${phoneL}){
-        margin-left: 0px;
-        margin: 0 auto;
+        margin: 0px 0px;
         font-size: 45px;
         width: 95%;
       }
