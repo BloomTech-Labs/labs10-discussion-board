@@ -19,7 +19,6 @@ const DivWrapper = styled.div`
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   justify-content: space-evenly;
-
   @media (max-width: 750px){
     width: 100%;
     @media (max-width: ${phoneL}){
@@ -67,7 +66,6 @@ const DivSearch = styled.div`
       width: 20%;
     }
   }
-
   button {
     width: 100%;
     font-size: 14px;
@@ -83,14 +81,12 @@ const DivSearch = styled.div`
       width: 80%;
     }
   }
-
 `;
 
 const DivAuth = styled.div`
   display: flex;
   width: 38%;
   height: 100%;
-
   @media (max-width: 750px){
       width: 25%;
     @media (max-width: ${phoneL}){
@@ -111,7 +107,6 @@ align-items: center;
     width: 100%;
   }
 }
-
 button {
   width: 100%;
   font-size: 14px;
