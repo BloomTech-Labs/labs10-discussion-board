@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // helpers
-import { handleError } from '../../helpers/index.js';
+import { handleError, handlePusher } from '../../helpers/index.js';
 
 // globals
 const {
@@ -90,6 +90,20 @@ export const DELETE_ACCOUNT_LOADING = 'DELETE_ACCOUNT_LOADING';
 export const DELETE_ACCOUNT_SUCCESS = 'DELETE_ACCOUNT_SUCCESS';
 export const DELETE_ACCOUNT_FAILURE = 'DELETE_ACCOUNT_FAILURE';
 
+export const REMOVE_NOTIFICATION_LOADING = 'REMOVE_NOTIFICATION_LOADING';
+export const REMOVE_NOTIFICATION_SUCCESS = 'REMOVE_NOTIFICATION_SUCCESS';
+export const REMOVE_NOTIFICATION_FAILURE = 'REMOVE_NOTIFICATION_FAILURE';
+
+export const GET_NOTIFICATIONS_LOADING = 'GET_NOTIFICATIONS_LOADING';
+export const GET_NOTIFICATIONS_SUCCESS = 'GET_NOTIFICATIONS_SUCCESS';
+export const GET_NOTIFICATIONS_FAILURE = 'GET_NOTIFICATIONS_FAILURE';
+
+export const UPDATE_LAST_LOGIN_LOADING = 'UPDATE_LAST_LOGIN_LOADING';
+export const UPDATE_LAST_LOGIN_SUCCESS = 'UPDATE_LAST_LOGIN_SUCCESS';
+export const UPDATE_LAST_LOGIN_FAILURE = 'UPDATE_LAST_LOGIN_FAILURE';
+
+export const MARK_NOTIFICATIONS_AS_READ = 'MARK_NOTIFICATIONS_AS_READ';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -101,6 +115,7 @@ export const login = creds => dispatch => {
       localStorage.setItem('symposium_token', response.data[0].token);
       localStorage.setItem('symposium_user_id', response.data[0].id);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data[0] });
+      handlePusher.subscribeToPusher(response.data[0].uuid)(dispatch);
     })
     .catch(err => handleError(err, USER_LOGIN_FAILURE)(dispatch));
 };
@@ -114,6 +129,7 @@ export const logBackIn = (id, token) => dispatch => {
       localStorage.setItem('symposium_token', res.data[0].token);
       localStorage.setItem('symposium_user_id', res.data[0].id);
       dispatch({ type: USER_LOG_BACK_IN_SUCCESS, payload: res.data[0] });
+      handlePusher.subscribeToPusher(res.data[0].uuid)(dispatch);
     })
     .catch(err => handleError(err, USER_LOG_BACK_IN_FAILURE)(dispatch));
 };
@@ -131,10 +147,8 @@ export const auth0Login = accessToken => dispatch => {
         .then(response => {
           localStorage.setItem('symposium_token', response.data[0].token);
           localStorage.setItem('symposium_user_id', response.data[0].id);
-          return dispatch({
-            type: USER_AUTH0_LOGIN_SUCCESS,
-            payload: response.data[0]
-          });
+          dispatch({ type: USER_AUTH0_LOGIN_SUCCESS, payload: response.data[0] });
+          handlePusher.subscribeToPusher(response.data[0].uuid)(dispatch);
         })
         .catch(err => handleError(err, USER_AUTH0_LOGIN_FAILURE)(dispatch));
     })
@@ -158,6 +172,7 @@ export const register = creds => dispatch => {
       localStorage.setItem('symposium_token', response.data[0].token);
       localStorage.setItem('symposium_user_id', response.data[0].id);
       dispatch({ type: USER_REGISTER_SUCCESS, payload: response.data[0] });
+      handlePusher.subscribeToPusher(response.data[0].uuid)(dispatch);
     })
     .catch(err => handleError(err, USER_REGISTER_FAILURE)(dispatch));
 };
@@ -176,13 +191,14 @@ export const updatePassword = (oldPassword, newPassword, toggleForm) => dispatch
     .catch(err => handleError(err, PASSWORD_UPDATE_FAILURE)(dispatch));
 };
 
-export const signout = () => dispatch => {
+export const signout = uuid => dispatch => {
   localStorage.removeItem('symposium_token');
   localStorage.removeItem('symposium_user_id');
   localStorage.removeItem('symposium_auth0_access_token');
   localStorage.removeItem('symposium_auth0_expires_at');
+  handlePusher.unsubscribeToPusher(uuid);
   displayMessage('You have been signed out. Thanks for coming by!')(dispatch);
-  dispatch({ type: USER_SIGNOUT_SUCCESS });
+  dispatch({ type: USER_SIGNOUT_SUCCESS });  
   return Promise.resolve();
 };
 
@@ -341,4 +357,38 @@ export const deleteAccount = () => dispatch => {
       dispatch({ type: DELETE_ACCOUNT_SUCCESS });
     })
     .catch(err => handleError(err, DELETE_ACCOUNT_FAILURE)(dispatch));
+};
+
+export const removeNotification = id => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: REMOVE_NOTIFICATION_LOADING });
+  return axios
+    .delete(`${ backendUrl }/user-notifications/${ id }/${ user_id }`, headers)
+    .then(res => dispatch({ type: REMOVE_NOTIFICATION_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, REMOVE_NOTIFICATION_FAILURE)(dispatch));
+};
+
+export const getNotifications = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
+  dispatch({ type: GET_NOTIFICATIONS_LOADING });
+  return axios.get(`${ backendUrl }/user-notifications/user/${ user_id }`, headers)
+    .then(res => dispatch({ type: GET_NOTIFICATIONS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, GET_NOTIFICATIONS_FAILURE)(dispatch));
+};
+
+export const markNotificationsAsRead = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+	const headers = { headers: { Authorization: token } };
+  dispatch({ type: UPDATE_LAST_LOGIN_LOADING });
+  return axios.put(`${ backendUrl }/users/last-login/${ user_id }`, {}, headers)
+    .then(res => {
+      dispatch({ type: MARK_NOTIFICATIONS_AS_READ });
+      dispatch({ type: UPDATE_LAST_LOGIN_SUCCESS, payload: res.data[0] });
+    })
+    .catch(err => handleError(err, UPDATE_LAST_LOGIN_FAILURE)(dispatch));
 };
