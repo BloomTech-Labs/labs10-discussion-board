@@ -105,7 +105,7 @@ const dayTheme = {
   settingsEditAvatarButtonBgHov: '#4ca0e0',
   tooltipWrapperBgColor: 'black',
   tooltipWrapperColor: 'fff',
-  topDiscussionWrapperBxShdw: '2px 3px 2px 2px gray',
+  topDiscussionWrapperBxShdw: '2px 3px 2px 2px #10355C',
   topDiscussionWrapperBgHov: 'rgba(255, 255, 255, 0.6)',
   topDiscussionTitleColor: 'black',
   topDiscussionCatColor: 'black',

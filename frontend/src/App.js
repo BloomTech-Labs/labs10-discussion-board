@@ -123,9 +123,6 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
-            <ButtonContainer>
-              {/* currently left the buttonContainer to have the logo not appear under the navbar*/}
-            </ButtonContainer>
             <Logo />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />
@@ -148,10 +145,7 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
-            <ButtonContainer>
-              {/* currently left the buttonContainer to have the logo not appear under the navbar*/}
-            </ButtonContainer>
+            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
             <Switch>
               <Route path='/register' component={RegisterView} />

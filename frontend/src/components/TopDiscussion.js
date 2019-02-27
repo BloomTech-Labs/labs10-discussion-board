@@ -25,8 +25,13 @@ const TopDiscussionWrapper = styled.div`
   .title {
     text-decoration: none;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     color: ${props => props.theme.topDiscussionTitleColor};
+    margin-bottom: 15px;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -50,6 +55,7 @@ const TopDiscussionWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.topDiscussionNameDateColor};
+    margin-bottom: 25px;
     &:hover {
       text-decoration: underline;
       background-color: ${props => props.theme.topDiscussionNameDateColorHov};
@@ -59,10 +65,13 @@ const TopDiscussionWrapper = styled.div`
 
   .content {
     width: 85%;
+    margin: 5px;
+    padding: 5px;
   }
 
   p {
     margin-left: 10px;
+    padding: 5px;
     &:hover {
     }
   }
@@ -76,6 +85,11 @@ const Elip = styled.div `
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
+  padding: 5px;
+  border: 0px solid #10355C;
+  border-radius: 5px;
+  box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+  background-color: #54BDFF;
 `;
 
 const Vote = styled.div `
@@ -136,7 +150,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
             - {moment(new Date(Number(created_at))).fromNow()}
           </span>
         </div>
-        <Elip>{body}</Elip>
+        <p className = 'body-content'><Elip>{body}</Elip></p>
       </div>
       <Vote><PostCount post_count={post_count || 0} /></Vote>
     </TopDiscussionWrapper>

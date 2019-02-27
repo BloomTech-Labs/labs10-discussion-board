@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // views
 import { TopDiscussionsView } from './index.js';
@@ -9,9 +10,18 @@ import { TopDiscussionsView } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const LandingViewWrapper = styled.div`
-  background-color: #e8e3e0;
-  width: 90%;
+  background-color: #976DFF;
+  width: 840px;
   border-radius: 30px;
+  @media (max-width: ${tabletP}){
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    @media(max-width: ${phoneP}){
+      display: flex;
+      flex-direction: column;
+      width: 240px;
+    }
 `;
 
 /***************************************************************************************************
