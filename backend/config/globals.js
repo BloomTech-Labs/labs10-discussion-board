@@ -8,6 +8,7 @@ const numOfPostVotes = 500; // must be same as numOfFakeUsers
 const numOfDiscussionVotes = 5000;
 const tokenOptionExpiration = '24h';
 const tokenTimeLeftRefresh = 3; // in hrs
+const maxNumOfNotifications = 5;
 
 const allowedAvatarTypes = [
   'image/jpeg',
@@ -81,7 +82,11 @@ const nodeMailerHost = process.env.NODEMAILER_HOST;
 const nodeMailerPort = process.env.NODEMAILER_PORT;
 const nodeMailerUser = process.env.NODEMAILER_USER;
 const nodeMailerPass = process.env.NODEMAILER_PASS;
-const backendStripePkToken = process.env.BACKEND_STRIPE_TOKEN
+const backendStripePkToken = process.env.BACKEND_STRIPE_TOKEN;
+const pusherAppId = process.env.PUSHER_APP_ID;
+const pusherKey = process.env.PUSHER_KEY;
+const pusherSecret = process.env.PUSHER_SECRET;
+const pusherCluster = process.env.PUSHER_CLUSTER;
 
 module.exports = {
   // variables
@@ -92,6 +97,7 @@ module.exports = {
   numOfHashes,
   numOfPostVotes,
   numOfDiscussionVotes,
+  maxNumOfNotifications,
   safeUsrnameSqlLetters,
   safePwdSqlLetters,
   accountStatusTypes,
@@ -116,5 +122,9 @@ module.exports = {
   nodeMailerPort,
   nodeMailerUser,
   nodeMailerPass,
-  backendStripePkToken
+  backendStripePkToken,
+  pusherAppId,
+  pusherKey,
+  pusherSecret,
+  pusherCluster,
 };

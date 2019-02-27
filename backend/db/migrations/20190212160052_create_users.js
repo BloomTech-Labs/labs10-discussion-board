@@ -21,6 +21,12 @@ exports.up = function (knex, Promise) {
     // Date in milliseconds
     tbl.bigInteger('created_at').notNullable();
 
+    tbl.bigInteger('last_login').notNullable();
+
+    tbl
+      .string('uuid', 36) // for use with pusher
+      .notNullable();
+
     tbl
       .string('email_confirm', 36) // length of uuid
       .index(); // for faster searching

@@ -119,11 +119,11 @@ const Post = ({
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper>
+    // name attribute for use with react-scroll
+    <PostWrapper name = { id }>
       <PostSubWrapper>
         { reply_to && <Quote reply_to = { reply_to } /> }
         <VoteAndBody>
-          {/* <p>post votes: {post_votes}</p> */}
           <VoteCount 
           handleVote = { handleVote } 
           vote_count = { post_votes }
@@ -141,7 +141,7 @@ const Post = ({
         <UserActions>
           {
             loggedInUserId !== 0 &&
-            <h4 onClick = { () => toggleAddReplyForm(id) }><i class="fas fa-reply"></i>{' '} Reply {' '}</h4>
+            <h4 onClick = { () => toggleAddReplyForm(id) }><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
           }
           {userCreatedPost &&
           (showEditPostForm === id ? (
@@ -157,7 +157,7 @@ const Post = ({
               <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>            
             </>
           ))}
-          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i class="fas fa-trash-alt"></i>{' '} Remove</h4>}
+          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
         </UserActions>
       </PostSubWrapper>
         <PostedBy>

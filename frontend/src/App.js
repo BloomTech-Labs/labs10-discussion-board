@@ -111,6 +111,11 @@ class App extends Component {
     window.addEventListener('hashchange', this.handleHashChange, false);
     if (user_id && token) return this.props.logBackIn(user_id, token);
   };
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.hash.substring(1) !== this.props.location.hash.substring(1)) {
+      return this.scrollTo();
+    }
+  };
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
@@ -123,9 +128,6 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
-            <ButtonContainer>
-              {/* currently left the buttonContainer to have the logo not appear under the navbar*/}
-            </ButtonContainer>
             <Logo />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />
@@ -148,10 +150,7 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
-            <ButtonContainer>
-              <button onClick={() => this.handleClick()}>Switch Themes</button>
-            </ButtonContainer>
+            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
             <Switch>
               <Route path='/register' component={RegisterView} />

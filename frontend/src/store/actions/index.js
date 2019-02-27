@@ -184,6 +184,20 @@ import {
   DELETE_ACCOUNT_SUCCESS,
   DELETE_ACCOUNT_FAILURE,
 
+  REMOVE_NOTIFICATION_LOADING,
+  REMOVE_NOTIFICATION_SUCCESS,
+  REMOVE_NOTIFICATION_FAILURE,
+
+  GET_NOTIFICATIONS_LOADING,
+  GET_NOTIFICATIONS_SUCCESS,
+  GET_NOTIFICATIONS_FAILURE,
+
+  MARK_NOTIFICATIONS_AS_READ,
+
+  UPDATE_LAST_LOGIN_LOADING,
+  UPDATE_LAST_LOGIN_SUCCESS,
+  UPDATE_LAST_LOGIN_FAILURE,
+
   // Action Creators
   login,
   signout,
@@ -203,6 +217,9 @@ import {
   sendPWResetEmail,
   resetPassword,
   deleteAccount,
+  removeNotification,
+  getNotifications,
+  markNotificationsAsRead,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -310,6 +327,24 @@ export {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
 
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_SUCCESS,
+  DELETE_ACCOUNT_FAILURE,
+
+  REMOVE_NOTIFICATION_LOADING,
+  REMOVE_NOTIFICATION_SUCCESS,
+  REMOVE_NOTIFICATION_FAILURE,
+
+  GET_NOTIFICATIONS_LOADING,
+  GET_NOTIFICATIONS_SUCCESS,
+  GET_NOTIFICATIONS_FAILURE,
+
+  MARK_NOTIFICATIONS_AS_READ,
+
+  UPDATE_LAST_LOGIN_LOADING,
+  UPDATE_LAST_LOGIN_SUCCESS,
+  UPDATE_LAST_LOGIN_FAILURE,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -346,10 +381,6 @@ export {
   UPDATE_EMAIL_LOADING,
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
-
-  DELETE_ACCOUNT_LOADING,
-  DELETE_ACCOUNT_SUCCESS,
-  DELETE_ACCOUNT_FAILURE,
 
   // Categories Action Creators
   getCategories,
@@ -390,6 +421,9 @@ export {
   sendPWResetEmail,
   resetPassword,
   deleteAccount,
+  removeNotification,
+  getNotifications,
+  markNotificationsAsRead,
 
   // Profile Action Creators
   getProfiles,

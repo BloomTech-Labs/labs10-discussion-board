@@ -3,8 +3,11 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const { postsDB } = require('../db/models/index.js');
+const { postsDB, discussionFollowsDB, userNotificationsDB } = require('../db/models/index.js');
 const router = express.Router();
+
+const { maxNumOfNotifications } = require('../config/globals.js');
+const pusher = require('../config/pusherConfig.js');
 
 /***************************************************************************************************
  ******************************************** middleware ********************************************
@@ -37,7 +40,23 @@ router.post('/:user_id', authenticate, (req, res) => {
   if (repliedPostID) newPost.reply_to = repliedPostID;
   return postsDB
     .insert(newPost)
-    .then(() => res.status(201).json({ message: 'Post creation successful.' }))
+    .then(async newId => {
+      const discFollowers = await discussionFollowsDB.getFollowers(discussion_id);
+      discFollowers.forEach(async user => {
+        const newNotification = { user_id: user.user_id, discussion_id, post_id: newId[0], created_at };
+        const notifications = await userNotificationsDB.getCount(user.user_id);
+        if (parseInt(notifications.count) >= maxNumOfNotifications) {
+          await userNotificationsDB.removeOldest(user.user_id);
+        }
+        await userNotificationsDB.add(newNotification);
+        pusher.trigger(
+          `user-${ user.uuid }`,
+          'notification',
+          null,
+        );
+      });
+      return res.status(201).json({ message: 'Post creation successful.' })
+    })
     .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
 });
 

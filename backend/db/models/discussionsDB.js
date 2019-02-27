@@ -118,6 +118,7 @@ const findById = (id, user_id, order, orderType) => {
 
   return Promise.all(promises).then(results => {
     const [discussionResults, postsResults, repliesResults] = results;
+    if (!discussionResults.length) throw `No discussion found with ID ${ id }`;
     const replyIds = [];
     for (let i = 0; i < repliesResults.length; i++) {
       let replyId = repliesResults[i].reply_to;

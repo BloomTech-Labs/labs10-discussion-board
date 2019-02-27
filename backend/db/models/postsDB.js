@@ -26,7 +26,7 @@ const search = (searchText, order, orderType) => {
 
 // create a post by a given user_id to a given discussion_id
 const insert = newPost => {
-  return db('posts').insert(newPost);
+  return db('posts').insert(newPost).returning('id');
 };
 
 // edit post with given post id

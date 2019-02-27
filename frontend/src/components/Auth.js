@@ -42,10 +42,12 @@ const DivAuthRegLog = styled.div`
 
   @media (max-width: 750px){
     margin-top: 5px;
-    @media (max-width: 450px){
-      margin-top: 5px;
-    }
   }
+    @media (max-width: 458px){
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+    }
 `;
 
 const LinkRegister = styled(Link)`
