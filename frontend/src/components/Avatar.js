@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 const AvatarWrapper = styled.div`
   display: inline-block;
-  min-height: ${({ height }) => height};
-  min-width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  width: ${({ width }) => width};
+  margin: 0 auto;
   background-image: ${({ src }) => `url('${src}')`};
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 50%;
