@@ -27,7 +27,6 @@ const PostWrapper = styled.div`
     flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
-    height: 400px
   }
 `;
 
@@ -68,16 +67,6 @@ const PostedBy = styled.div`
 `;
 
 const Elip = styled.div `
-  display: inline;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  padding: 10px;
-  padding-top: 0;
-
   p{
     margin: 0;
     margin-bottom: 10px;
@@ -87,7 +76,7 @@ const Elip = styled.div `
 const VoteAndBody = styled.div `
 display: flex;
 flex-direction: row;
-height: 80%;
+
 `;
 
 const UserActions = styled.div`
@@ -96,13 +85,14 @@ flex-direction: row;
 left: 0;
 
   @media ${phoneL}{
-    bottom: 0
+    
   }
 
  h4{
    cursor: pointer;
  }
-`
+ `;
+
 
 const Post = ({
   post,

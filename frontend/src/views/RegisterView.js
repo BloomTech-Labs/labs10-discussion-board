@@ -35,7 +35,7 @@ const H1Register = styled.h1`
   font-size: 48px;
   user-select: none;
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}
     font-size: 35px;
   }
 `;
@@ -61,7 +61,7 @@ const DivSubscriptionPlan = styled.div`
     text-decoration: underline;
     user-select: none;
 
-    @media(max-width: ${phoneL}){
+    @media${phoneL}}
       font-size: 24px;
     }
   }
@@ -74,7 +74,7 @@ const DivSelectBanners = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     flex-direction: column;
   }
 `;
@@ -94,11 +94,11 @@ const DivBanner = styled.div`
     cursor: pointer;
   }
 
-  @media(max-width: ${tabletL}) {
+  @media${tabletL} {
     width: 49.9%;
   }
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     height: ${props =>
     props.subPlan
       ? 'auto'
@@ -137,7 +137,7 @@ const DivFeatures = styled.div`
     user-select: none;
   }
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     overflow: ${props =>
     props.subPlan
       ? 'visible'
@@ -172,7 +172,7 @@ const DivFreePlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: ${phoneL}) {
+    @media${phoneL}}{
       display: ${props =>
     props.subPlan === subscriptionPlans[0]
       ? 'visible'
@@ -193,7 +193,7 @@ const DivFreePlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[0] ? '1' : '0.6')};
   }
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -221,7 +221,7 @@ const DivBronzePlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: ${phoneL}) {
+    @media${phoneL}}{
       display: ${props =>
     props.subPlan === subscriptionPlans[1]
       ? 'visible'
@@ -242,7 +242,7 @@ const DivBronzePlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.6')};
   }
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -270,7 +270,7 @@ const DivSilverPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: ${phoneL}) {
+    @media${phoneL}}{
       display: ${props =>
     props.subPlan === subscriptionPlans[2]
       ? 'visible'
@@ -291,7 +291,7 @@ const DivSilverPlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.6')};
   }
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -319,7 +319,7 @@ const DivGoldPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: ${phoneL}) {
+    @media${phoneL}}{
       display: ${props =>
     props.subPlan === subscriptionPlans[3]
       ? 'visible'
@@ -340,7 +340,7 @@ const DivGoldPlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.4')};
   }
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -362,7 +362,7 @@ const DivRegisterForm = styled.div`
     text-decoration: underline;
     margin: 0 0 0.67em 0;
 
-    @media(max-width: ${phoneL}){
+    @media${phoneL}}
       font-size: 24px;
     }
   }
@@ -375,7 +375,7 @@ const DivAccountDetails = styled.div`
   width: 100%;
   justify-content: space-between;
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     flex-direction: column-reverse;
     max-width: 800px;
     width: 100%;
@@ -386,7 +386,7 @@ const DivLeftSide = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     align-items: center;
   }
 `;
@@ -511,7 +511,7 @@ const DivRightSide = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media(max-width: ${phoneL}) {
+  @media${phoneL}}{
     width: 80%;
     margin: 0 auto 25px;
     display: ${props => props.subPlan ? 'flex' : 'none'};
