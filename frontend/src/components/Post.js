@@ -141,7 +141,7 @@ const Post = ({
         <UserActions>
           {
             loggedInUserId !== 0 &&
-            <h4 onClick = { () => toggleAddReplyForm(id) }><i class="fas fa-reply"></i>{' '} Reply {' '}</h4>
+            <h4 onClick = { () => toggleAddReplyForm(id) }><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
           }
           {userCreatedPost &&
           (showEditPostForm === id ? (
@@ -157,7 +157,7 @@ const Post = ({
               <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>            
             </>
           ))}
-          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i class="fas fa-trash-alt"></i>{' '} Remove</h4>}
+          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
         </UserActions>
       </PostSubWrapper>
         <PostedBy>
