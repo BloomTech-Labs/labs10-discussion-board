@@ -4,6 +4,9 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+//globals
+import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+
 // components
 import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
 
@@ -19,11 +22,17 @@ const PostWrapper = styled.div`
  padding-bottom: 16px;
  margin: 0 auto;
 
+  @media ${phoneL} {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    height: 400px
+  }
 `;
 
 const PostSubWrapper = styled.div`
 width: 80%
-
 display: flex;
 flex-direction: column;
 `;
@@ -33,7 +42,7 @@ const PostedBy = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  width: 15%;
+  width: 180px;
   height: 230px;
   align-items: center;
   justify-content: space-evenly;
@@ -41,8 +50,12 @@ const PostedBy = styled.div`
   box-shadow: 2px 3px 2px 2px grey;
   background-color: lavender;
 
+  @media ${phoneL} {
+    height: 170px;
+    width: 294px;
+  }
+
   .username {
-    margin: 0px 7px;
     font-weight: bold;
     color: ${props => props.theme.postPostedByUsernameColor};
     text-decoration: none;
@@ -81,6 +94,10 @@ const UserActions = styled.div`
 display: flex;
 flex-direction: row;
 left: 0;
+
+  @media ${phoneL}{
+    bottom: 0
+  }
 
  h4{
    cursor: pointer;

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
-import { phoneL } from '../globals/globals.js';
+
+//globals
+import {phoneP, phoneL, tabletP} from '../globals/globals.js'
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
@@ -19,9 +21,10 @@ const DivWrapper = styled.div`
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   justify-content: space-evenly;
-  @media (max-width: 750px){
+
+  @media ${tabletP}{
     width: 100%;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 100%;
     }
   }
@@ -41,7 +44,7 @@ const Links = styled.div`
     :hover {
       color: black;
     }
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 100%;
       display: flex;
       justify-content: flex-start;
@@ -50,9 +53,8 @@ const Links = styled.div`
   @media (max-width: 960px){
     font-size: 12px;
     display: flex;
-    margin: 0px;
-  }
-  @media (max-width: ${phoneL}){
+    margin: 0 px;
+    @media ${phoneL}{
       width: 25%;
       font-size: 8px;
       display: flex;
@@ -64,10 +66,10 @@ const DivAuth = styled.div`
   display: flex;
   width: 28%;
   height: 100%;
-  @media (max-width: 750px){
+  @media ${tabletP}{
       width: 25%;
   }
-  @media (max-width: ${phoneL}){
+  @media ${phoneL}{
       width: 35%;
       display: flex;
       justify-content: flex-end;
@@ -81,10 +83,9 @@ display: flex;
 flex-direction: column;
 align-content: center;
 align-items: center;
-@media (max-width: 750px){
-    width: 18%;
-  }
-  @media (max-width: ${phoneL}){
+@media ${tabletP}{
+    width: 18%
+  @media ${phoneL}{
     width: 25%;
   }
 
@@ -97,7 +98,7 @@ button {
     cursor: pointer;
     background-color: #54bdff;
   }
-  @media (max-width: 750px){
+  @media ${tabletP}{
     width: 80%;
   }
 }

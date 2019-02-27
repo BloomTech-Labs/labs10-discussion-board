@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import meeting from '../assets/img/meeting.png';
 import meeting2 from '../assets/img/meeting2.png';
-import { phoneL } from '../globals/globals.js';
+import { phoneL, tabletP } from '../globals/globals.js';
 
 
 const TitleAndLogoContainer = styled.div`
@@ -12,10 +12,10 @@ const TitleAndLogoContainer = styled.div`
   justify-content: center;
   margin-top: 110px;
   margin-bottom: 10px;
-  @media (max-width: 768px){
+  @media ${tabletP}{
     
   }
-  @media (max-width: ${phoneL}){
+  @media ${phoneL}{
     width: 100%;
     display: flex;
     align-items: center;
@@ -27,7 +27,7 @@ const TitleAndLogoContainer = styled.div`
 const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
     width: 92%;
     display: flex;
     align-items: center;
@@ -44,7 +44,8 @@ const SympLogo = styled.div`
       background-image: url(${meeting2});
       cursor: wait;
     }
-    @media (max-width: ${phoneL}){
+
+    @media ${phoneL}{
     background-size: stretch;
     width: 40%;
     height: 135px;
@@ -80,8 +81,12 @@ const Title = styled.div`
     width: 90%;  
     @media (max-width: 768px){
       width: 90%;
+<<<<<<< HEAD
     }
       @media (max-width: ${phoneL}){
+=======
+      @media ${phoneL}{
+>>>>>>> b2206c052217ea7ac51ac8f7a0660cf18ff811f5
         margin: 0px 0px;
         font-size: 45px;
         width: 95%;
@@ -97,7 +102,7 @@ const Title = styled.div`
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
-      @media (max-width: ${phoneL}){
+      @media ${phoneL}{
         display: flex;
         text-align: center;
         margin: 0 auto;
