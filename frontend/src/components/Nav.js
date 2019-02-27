@@ -6,7 +6,7 @@ import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+import { phoneP, phoneL, tabletP } from '../globals/globals.js'
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
@@ -60,6 +60,7 @@ const Links = styled.div`
       display: flex;
       flex-direction: column;
     }
+  }
 `;
 
 const DivAuth = styled.div`
@@ -67,41 +68,41 @@ const DivAuth = styled.div`
   width: 28%;
   height: 100%;
   @media ${tabletP}{
-      width: 25%;
+    width: 25%;
   }
   @media ${phoneL}{
-      width: 35%;
-      display: flex;
-      justify-content: flex-end;
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
   }
 `;
 
 
 const ButtonContainer = styled.div`
-width: 10%;
-display: flex;
-flex-direction: column;
-align-content: center;
-align-items: center;
-@media ${tabletP}{
-    width: 18%
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  @media ${tabletP}{
+    width: 18%;
+  }
   @media ${phoneL}{
     width: 25%;
   }
-
-button {
-  width: 100%;
-  font-size: 14px;
-  border-radius: 7px;
-  margin-top: 12px;
-  &:hover {
-    cursor: pointer;
-    background-color: #54bdff;
+  button {
+    width: 100%;
+    font-size: 14px;
+    border-radius: 7px;
+    margin-top: 12px;
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
+    @media ${tabletP}{
+      width: 80%;
+    }
   }
-  @media ${tabletP}{
-    width: 80%;
-  }
-}
 `;
 
 /***************************************************************************************************
@@ -133,7 +134,7 @@ class Nav extends Component {
         <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
-            
+
           ) : (
               <Auth history={this.props.history} />
             )}
