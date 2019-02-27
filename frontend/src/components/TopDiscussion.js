@@ -39,7 +39,7 @@ const TopDiscussionWrapper = styled.div`
       font-size: 18px;
       @media(max-width: ${phoneP}){
         display: flex;
-        font-size: 14px;
+        font-size: 18px;
       }
     }
     &:hover {
@@ -61,14 +61,18 @@ const TopDiscussionWrapper = styled.div`
       margin-left: 5px;
       margin-top: 5px;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
+      font-style: oblique;
+      font-weight: bold;
       color: ${props => props.theme.topDiscussionCatColor};
       @media (max-width: ${tabletP}){
         margin: 10px;
-        padding: 10px;
+        padding: 14px;
+        font-size: 14px;
         @media(max-width: ${phoneP}){
-          font-size: 22px;
+          font-size: 14px;
           align-items: center;
+          padding: 20px;
         }
       }
     &:hover {
@@ -81,13 +85,17 @@ const TopDiscussionWrapper = styled.div`
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
+    font-style: italic;
     color: ${props => props.theme.topDiscussionNameDateColor};
     @media (max-width: ${tabletP}){
-      margin: 10px;
+      margin: 2px;
       display: flex;
       align-items: center;
+      width: 20px;
+      padding: 10px;
+      font-size: 12px;
       @media(max-width: ${phoneP}){
-      
+    
       }
     }
     &:hover {
@@ -127,9 +135,14 @@ const Elip = styled.div `
   color: ${props => props.theme.topDiscussionElipColor};
   width: 540px;
   @media (max-width: ${tabletP}){
-    display: none;
+    display: flex;
     flex-direction: column;
-    width: 380px;
+    width: 80%;
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
     @media(max-width: ${phoneP}){
       display: none;
       flex-direction: column;
@@ -145,9 +158,7 @@ box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
   @media(max-width: ${phoneP}){
     display: flex;
     flex-direction: column;
-    position: absolute;
-    right: 180px;
-    bottom: 10px;
+    flex-wrap: wrap;
   }
 }
 `;

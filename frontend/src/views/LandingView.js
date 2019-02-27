@@ -16,11 +16,11 @@ const LandingViewWrapper = styled.div`
   @media (max-width: ${tabletP}){
     display: flex;
     flex-direction: column;
-    width: 380px;
+    width: 90%;
     @media(max-width: ${phoneP}){
       display: flex;
       flex-direction: column;
-      width: 240px;
+      width: 90%;
     }
   }
 `;

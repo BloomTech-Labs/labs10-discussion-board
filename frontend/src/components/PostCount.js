@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {phoneP, tabletP, } from '../globals/globals';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -14,6 +15,15 @@ const PostCountWrapper = styled.div`
 	border: ${props => props.theme.postCountWrapperBorder};
 	width: 60px;
 	color: ${props => props.theme.postCountWrapperColor};
+	@media (max-width: ${tabletP}){
+		display: flex;
+		flex-direction: column;
+		
+		@media(max-width: ${phoneP}){
+		  display: flex;
+		  flex-direction: column;
+		}
+	  }
 `;
 
 /***************************************************************************************************
