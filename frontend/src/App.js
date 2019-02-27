@@ -136,7 +136,7 @@ class App extends Component {
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
 
-            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
+            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch}  />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
@@ -148,9 +148,9 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
+            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             <ButtonContainer>
-              <button onClick={() => this.handleClick()}>Switch Themes</button>
+              {/* currently left the buttonContainer to have the logo not appear under the navbar*/}
             </ButtonContainer>
             <Logo />
             <Switch>
