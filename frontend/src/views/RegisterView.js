@@ -622,6 +622,70 @@ const DivConfirm = styled.div`
   }
 `;
 
+const DivInvoice = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+`;
+
+const DivPaymentPlan = styled.div`
+  width: 100%;
+  border-bottom: 2px solid black;
+  padding-bottom: 15px;
+  margin-top: 0;
+`;
+
+const H3PaymentPlan = styled.h3`
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  margin: 0;
+
+  span {
+    color: ${({ subPlan }) =>
+    subPlan === subscriptionPlans[1] && '#553621' ||
+    subPlan === subscriptionPlans[2] && '#c0c0c0' ||
+    subPlan === subscriptionPlans[3] && '#ffd700' ||
+    'black'
+  };
+    margin-left: 15px;
+  }
+`;
+
+const DivAccoutProperties = styled.div`
+  width: 100%;
+  border-bottom: 2px solid black;
+  padding-bottom: 15px;
+`;
+
+const DivFees = styled.div`
+  border: 2px solid black;
+  padding: 0 15px;
+`;
+
+const DivTotalFee = styled.div`
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 0 15px;
+`;
+
+const H3InvoiceEntry = styled.h3`
+  &:not(:first-child) {
+      margin-top: 0;
+    }
+`;
+
+const H3PaymentEntry = styled.h3`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SpanBoolColor = styled.span`
+  color: ${props => props.subPlan ? 'green' : 'red'};
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -798,6 +862,19 @@ class RegisterView extends Component {
     }
   };
 
+  getPaymentAmount = () => {
+    switch (this.state.subPlan) {
+      case subscriptionPlans[1]:
+        return subscriptionPrices[1];
+      case subscriptionPlans[2]:
+        return subscriptionPrices[2];
+      case subscriptionPlans[3]:
+        return subscriptionPrices[3];
+      default:
+        return subscriptionPrices[0];
+    }
+  }
+
   getStripePayment = () => {
     switch (this.state.subPlan) {
       case subscriptionPlans[1]:
@@ -826,12 +903,33 @@ class RegisterView extends Component {
   }
 
   render() {
+    const paymentPlanCost = this.getPaymentAmount();
+    const total = this.getPaymentAmount();
     return (
       <DivWrapper>
         <H1Register>Register New Account</H1Register>
         {this.state.isReady ? (
           <DivConfirm>
             <h1>Confirm New Account Information</h1>
+            <DivInvoice>
+              <DivPaymentPlan>
+                <H3PaymentPlan subPlan={this.state.subPlan}>Payment Plan:<span>{(this.state.subPlan).toUpperCase()}</span></H3PaymentPlan>
+              </DivPaymentPlan>
+              <DivAccoutProperties>
+                <H3InvoiceEntry>Username:<span>{this.state.username}</span></H3InvoiceEntry>
+                <H3InvoiceEntry>Email:<span>{(this.state.email) ? this.state.email : 'NONE'}</span></H3InvoiceEntry>
+                <H3InvoiceEntry>Ads:<SpanBoolColor subPlan={this.state.subPlan !== subscriptionPlans[0]}>{this.state.subPlan === subscriptionPlans[0] ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Signature:<SpanBoolColor subPlan={(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3])}>{(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3]) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Avatar:<SpanBoolColor subPlan={this.state.subPlan === subscriptionPlans[3]}>{this.state.subPlan === subscriptionPlans[3] ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+              </DivAccoutProperties>
+              <DivFees>
+                <H3PaymentEntry>Payment Plan Cost:<span>{paymentPlanCost}</span></H3PaymentEntry>
+                <H3PaymentEntry>Taxes:<span>$0.00</span></H3PaymentEntry>
+              </DivFees>
+              <DivTotalFee>
+                <H3PaymentEntry>Total:<span>{total}</span></H3PaymentEntry>
+              </DivTotalFee>
+            </DivInvoice>
             <button onClick={() => this.setState({ isReady: false })}>Back</button>
             {this.state.subPlan === subscriptionPlans[0] ? (
               <button onClick={ev => this.submitHandler(ev)}>Confirm</button>
@@ -1083,7 +1181,8 @@ class RegisterView extends Component {
               </button>
               </DivButtons>
             </Form>
-          )}
+          )
+        }
       </DivWrapper>
     );
   }
