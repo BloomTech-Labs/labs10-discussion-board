@@ -107,6 +107,7 @@ class DisplayUser extends Component {
             onClick={() => this.toggleAvatarClicked()}
             isAvatarClicked={this.state.isAvatarClicked}
           >
+          
             <Avatar height={'72px'} width={'72px'} src={this.props.avatar} />
             <img src={chevron} alt='chevron' />
           </DivAvatar>

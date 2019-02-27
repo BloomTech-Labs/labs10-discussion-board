@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { Deleted } from './index.js';
@@ -14,7 +15,6 @@ const SingleCategoryWrapper = styled.div`
   margin: 5px;
   padding: 10px;
   box-shadow: 2px 3px 2px 2px gray;
-
   .title {
     a {
       text-decoration: none;
@@ -39,6 +39,12 @@ const SingleCategoryWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.catNameDateColor};
+    @media (max-width: ${tabletP}){
+      display: none;
+      @media(max-width: ${phoneP}){
+        display: none;
+      }
+    }
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -53,15 +59,17 @@ const SingleCategoryWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.catTimestampColor};
+      @media(max-width: ${phoneP}){
+        display: none;
+      }
+    }
   }
   &:hover {
     background-color: ${props => props.theme.catBgColorHov};
   }
-
   .content {
     width: 85%;
   }
-
   p {
     margin-left: 10px;
     &:hover {
