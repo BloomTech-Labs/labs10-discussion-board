@@ -48,11 +48,25 @@ const PWelcomeMessage = styled.p`
     font-size: 20px;
     margin-right: 10px;
 
-    .notifications-icon {
-      ${ ({ newNotifications }) => newNotifications && 'color: red;' }
-      &:hover {
-        color: #ddd;
-        cursor: pointer;
+    .notifications-icon-wrapper {
+      position: relative;
+
+      .notifications-count {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        font-size: 0.7rem;
+        background-color: black;
+        border-radius: 50%;
+        padding: 0 5px;
+      }
+
+      .notifications-icon {
+        ${ ({ newNotifications }) => newNotifications && 'color: red;' }
+        &:hover {
+          color: #ddd;
+          cursor: pointer;
+        }
       }
     }
 
@@ -116,7 +130,7 @@ class DisplayUser extends Component {
         <PWelcomeMessage newNotifications = { this.props.newNotifications }>
           Welcome, {this.props.username}&nbsp;
           <span className = 'notifications-icon-wrapper'>
-            { this.props.newNotifications ? this.props.newNotificationCount : null }
+            <span className = 'notifications-count'>{ this.props.newNotifications ? this.props.newNotificationCount : null }</span>
             <i
               onClick = { this.toggleShowNotifications }
               className = 'far fa-envelope notifications-icon'
