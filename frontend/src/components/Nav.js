@@ -6,7 +6,7 @@ import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+import { phoneP, phoneL, tabletP } from '../globals/globals.js'
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
@@ -65,6 +65,7 @@ const Links = styled.div`
       display: flex;
       flex-direction: column;
     }
+  }
 `;
 
 const DivAuth = styled.div`
@@ -73,13 +74,13 @@ const DivAuth = styled.div`
   height: 100%;
 
   @media ${tabletP}{
-      width: 25%;
+    width: 25%;
   }
 
   @media ${phoneL}{
-      width: 35%;
-      display: flex;
-      justify-content: flex-end;
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
   }
 `;
 
@@ -144,7 +145,7 @@ class Nav extends Component {
         <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
-            
+
           ) : (
               <Auth history={this.props.history} />
             )}
