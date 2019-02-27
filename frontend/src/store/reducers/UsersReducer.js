@@ -294,9 +294,16 @@ export const UsersReducer = (state = initialState, action) => {
       }
 
     case REMOVE_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        notifications: action.payload,
+        newNotificationCount: state.newNotificationCount - 1,
+      };
+
     case GET_NOTIFICATIONS_SUCCESS:
       {
-        let updatedNotifications = [ ...state.notifications ];
+        let updatedNotifications = [];
+        updatedNotifications = [ ...state.notifications ];
         let newAddition = { ...action.payload[0] };
         newAddition.isNew = true;
         if (updatedNotifications.length >= maxNumOfNotifications) updatedNotifications.pop();
