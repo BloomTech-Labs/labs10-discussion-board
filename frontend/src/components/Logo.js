@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import meeting from '../assets/img/meeting.png';
 import meeting2 from '../assets/img/meeting2.png';
+import { phoneL } from '../globals/globals.js';
 
 
 const TitleAndLogoContainer = styled.div`
@@ -12,7 +13,7 @@ const TitleAndLogoContainer = styled.div`
   @media (max-width: 768px){
     
   }
-  @media (max-width: 450px){
+  @media (max-width: ${phoneL}){
     width: 100%;
     display: flex;
     align-items: center;
@@ -24,7 +25,7 @@ const TitleAndLogoContainer = styled.div`
 const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
     width: 90%;
     display: flex;
     align-items: center;
@@ -43,7 +44,7 @@ const SympLogo = styled.div`
       cursor: wait;
     }
 
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
     background-size: stretch;
     width: 97px;
     height: 135px;
@@ -76,7 +77,7 @@ const Title = styled.div`
     width: 90%;  
     @media (max-width: 768px){
       width: 90%;
-      @media (max-width: 450px){
+      @media (max-width: ${phoneL}){
         margin-left: 0px;
         margin: 0 auto;
         font-size: 45px;
@@ -89,7 +90,7 @@ const Title = styled.div`
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
-      @media (max-width: 450px){
+      @media (max-width: ${phoneL}){
         display: flex;
         text-align: center;
         margin: 0 auto;
@@ -99,19 +100,19 @@ const Title = styled.div`
 `;
 
 const Logo = () => {
-    return (
-        <TitleAndLogoContainer>
-            <TitleAndLogo>
-                <SympLogo />
-                <Title>
-                    <h1><Link className='header' to='/home'>Symposium</Link></h1>
-                    <div className='subheader'>
-                    <h2>The discussion starts here</h2>
-                    </div>
-                </Title>
-            </TitleAndLogo>
-        </TitleAndLogoContainer>
-    );
-  };
+  return (
+    <TitleAndLogoContainer>
+      <TitleAndLogo>
+        <SympLogo />
+        <Title>
+          <h1><Link className='header' to='/home'>Symposium</Link></h1>
+          <div className='subheader'>
+            <h2>The discussion starts here</h2>
+          </div>
+        </Title>
+      </TitleAndLogo>
+    </TitleAndLogoContainer>
+  );
+};
 
-  export default Logo;
+export default Logo;
