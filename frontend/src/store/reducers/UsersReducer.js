@@ -297,7 +297,6 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         notifications: action.payload,
-        newNotificationCount: state.newNotificationCount - 1,
       };
 
     case GET_NOTIFICATIONS_SUCCESS:
