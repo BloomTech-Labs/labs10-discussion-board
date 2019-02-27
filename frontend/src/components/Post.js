@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // components
-import { EditPostForm, VoteCount, Deleted, Avatar } from './index.js';
-
+import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
@@ -19,10 +18,14 @@ const PostWrapper = styled.div`
  padding-top: 16px;
  padding-bottom: 16px;
  margin: 0 auto;
+
 `;
 
 const PostSubWrapper = styled.div`
 width: 80%
+
+display: flex;
+flex-direction: column;
 `;
 
 //make a global for the avatar box Background
@@ -71,7 +74,18 @@ const Elip = styled.div `
 const VoteAndBody = styled.div `
 display: flex;
 flex-direction: row;
+height: 80%;
 `;
+
+const UserActions = styled.div`
+display: flex;
+flex-direction: row;
+left: 0;
+
+ h4{
+   cursor: pointer;
+ }
+`
 
 const Post = ({
   post,
@@ -83,6 +97,7 @@ const Post = ({
   handlePostVote,
   order,
   orderType,
+  toggleAddReplyForm,
 }) => {
 
   const {
@@ -92,55 +107,59 @@ const Post = ({
     id,
     last_edited_at,
     post_votes,
+    reply_to,
     user_id,
     username,
     user_vote,
     avatar
   } = post;
 
-  const handleVote = type => {
-    return handlePostVote(post.id, type, discussion_id, order, orderType);
-  };
+  const handleVote = type => handlePostVote(post.id, type, discussion_id, order, orderType);
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper name = { id }>
+    <PostWrapper>
       <PostSubWrapper>
+        { reply_to && <Quote reply_to = { reply_to } /> }
         <VoteAndBody>
           {/* <p>post votes: {post_votes}</p> */}
-            <VoteCount 
-              handleVote = { handleVote } 
-              vote_count = { post_votes }
-              user_vote = { user_vote }
-            />
-            <Elip>
+          <VoteCount 
+          handleVote = { handleVote } 
+          vote_count = { post_votes }
+          user_vote = { user_vote }
+          />
+          <Elip>
               {last_edited_at && (
                 <p>
                   Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
                 </p>
               )}
               {body}
-            </Elip>
+          </Elip>
         </VoteAndBody>
-
-      {userCreatedPost &&
-        (showEditPostForm === id ? (
-          <EditPostForm
-            user_id={user_id}
-            post_id={id}
-            discussion_id={discussion_id}
-            historyPush={historyPush}
-            updateEditPostForm={updateEditPostForm}
-          />
-        ) : (
-          <>
-            <button onClick={handleEdit}>Edit Post</button>            
-          </>
-        ))}
-        {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
-
-        </PostSubWrapper>
+        <UserActions>
+          {
+            loggedInUserId !== 0 &&
+            <h4 onClick = { () => toggleAddReplyForm(id) }><i class="fas fa-reply"></i>{' '} Reply {' '}</h4>
+          }
+          {userCreatedPost &&
+          (showEditPostForm === id ? (
+            <EditPostForm
+              user_id={user_id}
+              post_id={id}
+              discussion_id={discussion_id}
+              historyPush={historyPush}
+              updateEditPostForm={updateEditPostForm}
+            />
+          ) : (
+            <>
+              <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>            
+            </>
+          ))}
+          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i class="fas fa-trash-alt"></i>{' '} Remove</h4>}
+        </UserActions>
+      </PostSubWrapper>
         <PostedBy>
           <Avatar height={'72px'} width={'72px'} src={avatar} />
           {
