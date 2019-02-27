@@ -9,9 +9,10 @@ const PostCountWrapper = styled.div`
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	margin: 5px;
-	padding: 10px;
+	margin: 0px;
+	padding: 5px;
 	border: ${props => props.theme.postCountWrapperBorder};
+	width: 60px;
 `;
 
 /***************************************************************************************************

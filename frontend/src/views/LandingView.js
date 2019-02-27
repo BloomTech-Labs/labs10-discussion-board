@@ -10,8 +10,8 @@ import { TopDiscussionsView } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const LandingViewWrapper = styled.div`
-  background-color: #976DFF;
-  width: 840px;
+  background-color: ${props => props.theme.landingViewWrapperBgColor};
+  width: 740px;
   border-radius: 30px;
   @media (max-width: ${tabletP}){
     display: flex;
@@ -22,6 +22,7 @@ const LandingViewWrapper = styled.div`
       flex-direction: column;
       width: 240px;
     }
+  }
 `;
 
 /***************************************************************************************************

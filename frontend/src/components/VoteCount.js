@@ -19,7 +19,6 @@ const VoteCountWrapper = styled.div`
 	margin: 5px;
 	padding: 10px;
 	position: relative;
-
 	&:hover {
 		.tooltiptext {
 			visibility: visible;

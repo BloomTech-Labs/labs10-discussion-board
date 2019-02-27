@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { PostCount, VoteCount, Deleted } from './index.js';
@@ -32,6 +33,14 @@ const TopDiscussionWrapper = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     word-wrap: break-word;
+    @media (max-width: ${tabletP}){
+      display: flex;
+      font-size: 18px;
+      @media(max-width: ${phoneP}){
+        display: flex;
+        font-size: 14px;
+      }
+    }
     &:hover {
       text-decoration: underline;
       cursor: pointer;
@@ -43,6 +52,13 @@ const TopDiscussionWrapper = styled.div`
       text-decoration: none;
       font-size: 18px;
       color: ${props => props.theme.topDiscussionCatColorHov};
+      @media (max-width: ${tabletP}){
+        margin: 10px;
+        padding: 10px;
+        @media(max-width: ${phoneP}){
+        
+        }
+      }
     &:hover {
       background-color: ${props => props.theme.topDiscussionCatBgColorHov};
       cursor: pointer;
@@ -55,7 +71,12 @@ const TopDiscussionWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.topDiscussionNameDateColor};
-    margin-bottom: 25px;
+    @media (max-width: ${tabletP}){
+      margin: 10px;
+      @media(max-width: ${phoneP}){
+      
+      }
+    }
     &:hover {
       text-decoration: underline;
       background-color: ${props => props.theme.topDiscussionNameDateColorHov};
@@ -89,12 +110,25 @@ const Elip = styled.div `
   border: 0px solid #10355C;
   border-radius: 5px;
   box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-  background-color: #54BDFF;
+  background-color: ${props => props.theme.topDiscussionElipBgColor};
+  color: ${props => props.theme.topDiscussionElipColor};
+  width: 540px;
+  @media (max-width: ${tabletP}){
+    display: none;
+    flex-direction: column;
+    width: 380px;
+    @media(max-width: ${phoneP}){
+      display: none;
+      flex-direction: column;
+      width: 240px;
+    }
+  }
 `;
 
 const Vote = styled.div `
 display: flex;
 margin-right: 10px;
+box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 `;
 
 /***************************************************************************************************

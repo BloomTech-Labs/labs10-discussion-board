@@ -51,19 +51,23 @@ const TopDiscussionsTitle = styled.div`
   font-size: 18px;
   margin-left: 25px;
   color: black;
+  width: 20px;
 `;
 
 const TextLooper = styled.div`
   display: flex;
   align-self: center;
-  font-size: 28px;
-  margin-right: 30px;
+  font-size: 24px;
   color: black;
-  border: 1px solid black;
   @media (max-width: 768px){
     display: none;
   }
+  .looptext {
+    font-size: 22px;
+  }
 `;
+
+
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -79,10 +83,10 @@ const TopDiscussionsView = () => {
           </TopDiscussionsTitle>
         </div>
         <TextLooper>
-          <TextLoop>
-            <span>See what's being discussed</span>
-            <span>Find your interests</span>
-            <span>Start talking!</span>
+          <TextLoop className = 'looptext'>
+            <span className = 'looptext'>See what's being discussed</span>
+            <span className = 'looptext'>Find your interests</span>
+            <span className = 'looptext'>Start talking!</span>
           </TextLoop>{' '}
         </TextLooper>
       </TopDiscussionsHeader>
