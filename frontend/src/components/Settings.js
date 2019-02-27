@@ -34,7 +34,7 @@ const UsernameSettings = styled.div`
     justify-content: center;
 
     @media (max-width: 500px){
-      font-size: 12px;;
+      font-size: 12px;
     }
 `;
 
@@ -98,7 +98,7 @@ const Buttons = styled.div`
       font-size: 14px;
     }
     @media (max-width: 520px){
-      font-size: 12px;;
+      font-size: 12px;
     }
 
   }
