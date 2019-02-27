@@ -57,8 +57,9 @@ const TextLooper = styled.div`
   display: flex;
   align-self: center;
   font-size: 28px;
-  margin-left: 30px;
+  margin-right: 30px;
   color: black;
+  border: 1px solid black;
   @media (max-width: 768px){
     display: none;
   }
