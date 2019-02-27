@@ -111,6 +111,11 @@ class App extends Component {
     window.addEventListener('hashchange', this.handleHashChange, false);
     if (user_id && token) return this.props.logBackIn(user_id, token);
   };
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.hash.substring(1) !== this.props.location.hash.substring(1)) {
+      return this.scrollTo();
+    }
+  };
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
