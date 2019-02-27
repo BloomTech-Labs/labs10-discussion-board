@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
+import { phoneL } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -18,10 +19,9 @@ const DivWrapper = styled.div`
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   justify-content: space-evenly;
-
   @media (max-width: 750px){
     width: 100%;
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
       width: 100%;
     }
   }
@@ -30,7 +30,7 @@ const DivWrapper = styled.div`
 const Links = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 60%;
+  width: 50%;
   margin: 0;
   align-items: center;
   .link {
@@ -46,20 +46,13 @@ const Links = styled.div`
     font-size: 12px;
     display: flex;
     margin: 0 auto;
-  }
-  @media (max-width: 700px){
-    font-size: 10px;
-    }
-    @media (max-width: 570px){
-      width: 75%;
-    }
-    @media (max-width: 470px){
+    @media (max-width: ${phoneL}){
       width: 35%;
-      font-size: 10px;
+      font-size: 8px;
       display: flex;
       flex-direction: column;
     }
-
+  }
 `
 
 const DivSearch = styled.div`
@@ -69,11 +62,10 @@ const DivSearch = styled.div`
   align-items: center;
   @media (max-width: 750px){
       width: 15%;
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
       width: 20%;
     }
   }
-
   button {
     width: 100%;
     font-size: 14px;
@@ -85,26 +77,19 @@ const DivSearch = styled.div`
     @media (max-width: 750px){
       width: 80%;
     }
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
       width: 80%;
     }
   }
-
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  width: 35%;
+  width: 38%;
   height: 100%;
-  @media (max-width: 800px){
-      width: 38%;
-      display: flex;
-      justify-content: flex-end;
-      
-    }
   @media (max-width: 750px){
       width: 25%;
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
       width: 40%;
     }
   }
@@ -122,7 +107,6 @@ align-items: center;
     width: 100%;
   }
 }
-
 button {
   width: 100%;
   font-size: 14px;

@@ -3,16 +3,17 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import meeting from '../assets/img/meeting.png';
 import meeting2 from '../assets/img/meeting2.png';
+import { phoneL } from '../globals/globals.js';
 
 
 const TitleAndLogoContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  @media (max-width: 570px){
-    width: 100%;
+  @media (max-width: 768px){
+    
   }
-  @media (max-width: 450px){
+  @media (max-width: ${phoneL}){
     width: 100%;
     display: flex;
     align-items: center;
@@ -24,18 +25,12 @@ const TitleAndLogoContainer = styled.div`
 const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
-    @media (max-width: 570px){
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
     width: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
 `;
 
 const SympLogo = styled.div`
@@ -47,12 +42,10 @@ const SympLogo = styled.div`
       background-image: url(${meeting2});
       cursor: wait;
     }
-    @media (max-width: 570px){
-    }
-
-    @media (max-width: 475px){
+    @media (max-width: ${phoneL}){
     background-size: stretch;
-    width: 35%;
+    width: 97px;
+    height: 135px;
     background-size: stretch;
     display: flex;
     align-items: center;
@@ -65,12 +58,10 @@ const Title = styled.div`
   margin-left: 10px;
   color: ${props => props.theme.headerTitleColor};
   font-size: 36px;
-  @media (max-width: 570px){
-    width: 60%;
+  @media (max-width: 768px){
     display: flex;
-    font-size: 26px;
     flex-direction: column;
-    margin-left: 0px;
+    width: 70%
   }
   h1 {
     a {
@@ -82,12 +73,12 @@ const Title = styled.div`
     }
     margin-bottom: -35px;
     width: 90%;  
-    @media (max-width: 570px){
-      width: 75%;
-      @media (max-width: 470px){
+    @media (max-width: 768px){
+      width: 90%;
+      @media (max-width: ${phoneL}){
         margin-left: 0px;
         margin: 0 auto;
-        font-size: 44px;
+        font-size: 45px;
         width: 95%;
       }
     }
@@ -96,36 +87,30 @@ const Title = styled.div`
     color: ${props => props.theme.headerTitleSubheaderColor};
     font-size: 14px;
     margin-left: 187px;
-    @media (max-width: 700px){
-      margin-top: 22px;
-    }
-    @media (max-width: 620px){
-      margin-left: 20px;
-      margin-top: 35px;
-    }
-      @media (max-width: 470px){
+    @media (max-width: 768px){
+      @media (max-width: ${phoneL}){
         display: flex;
         text-align: center;
-        margin: 0px;
-        font-size: 12px;
+        margin: 0 auto;
       }
     }
+}
 `;
 
 const Logo = () => {
-    return (
-        <TitleAndLogoContainer>
-            <TitleAndLogo>
-                <SympLogo />
-                <Title>
-                    <h1><Link className='header' to='/home'>Symposium</Link></h1>
-                    <div className='subheader'>
-                    <h2>The discussion starts here</h2>
-                    </div>
-                </Title>
-            </TitleAndLogo>
-        </TitleAndLogoContainer>
-    );
-  };
+  return (
+    <TitleAndLogoContainer>
+      <TitleAndLogo>
+        <SympLogo />
+        <Title>
+          <h1><Link className='header' to='/home'>Symposium</Link></h1>
+          <div className='subheader'>
+            <h2>The discussion starts here</h2>
+          </div>
+        </Title>
+      </TitleAndLogo>
+    </TitleAndLogoContainer>
+  );
+};
 
-  export default Logo;
+export default Logo;
