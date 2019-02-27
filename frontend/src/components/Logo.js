@@ -10,6 +10,7 @@ const TitleAndLogoContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 110px;
   margin-bottom: 10px;
   @media (max-width: 768px){
     
