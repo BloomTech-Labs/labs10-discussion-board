@@ -26,7 +26,7 @@ const SearchWrapper = styled.div`
 	height: 100%;
 	width: 100%;
 	overflow: auto;
-	z-index: 2;
+	z-index: 9001;
 	max-height: 100%;
 `;
 
