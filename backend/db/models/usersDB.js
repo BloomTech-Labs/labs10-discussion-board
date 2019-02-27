@@ -17,6 +17,22 @@ const findById = id => {
     .select('cf.category_id', 'c.name')
     .join('categories as c', 'c.id', 'cf.category_id')
     .where('cf.user_id', id);
+  const getNotifications = db('user_notifications as un')
+    .select(
+      'un.id',
+      'un.category_id',
+      'c.name as category_name',
+      'un.discussion_id',
+      'd.title as discussion_title',
+      'un.post_id',
+      'p.body as post_body',
+			'un.created_at',
+    )
+    .leftOuterJoin('categories as c', 'c.id', 'un.category_id')
+    .leftOuterJoin('discussions as d', 'd.id', 'un.discussion_id')
+    .leftOuterJoin('posts as p', 'p.id', 'un.post_id')
+    .where('un.user_id', id)
+    .orderBy('un.created_at', 'desc');
   const getUser = db('users as u')
     .select(
       'u.id',
@@ -25,18 +41,37 @@ const findById = id => {
       'u.status',
       'us.avatar',
       'u.password',
-      'u.email_confirm'
+      'u.email_confirm',
+      'u.uuid',
+      'u.last_login',
     )
     .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .where('u.id', id);
-  const promises = [ getDiscussions, getPosts, getUser, getDiscussionFollows, getCategoryFollows ];
+
+  const promises = [
+    getDiscussions,
+    getPosts,
+    getUser,
+    getDiscussionFollows,
+    getCategoryFollows,
+    getNotifications,
+  ];
     return Promise.all(promises)
     .then(results => {
-      let [ getDiscussionsResults, getPostsResults, getUserResults, getDiscussionFollowsResults, getCategoryFollowsResults ] = results;
+      let [
+        getDiscussionsResults,
+        getPostsResults,
+        getUserResults,
+        getDiscussionFollowsResults,
+        getCategoryFollowsResults,
+        getNotificationsResults,
+      ] = results;
+      if (!getUserResults.length) throw `User with ID ${ id } does not exist.`;
       getUserResults[0].discussions = getDiscussionsResults;
       getUserResults[0].posts = getPostsResults;
       getUserResults[0].discussionFollows = getDiscussionFollowsResults;
       getUserResults[0].categoryFollows = getCategoryFollowsResults;
+      getUserResults[0].notifications = getNotificationsResults;
       return getUserResults;
     });
 };
@@ -218,6 +253,13 @@ const updateEmail = (id, email, email_confirm) => {
     .where({ id });
 };
 
+const updateLastLogin = id => {
+  return db('users')
+    .update('last_login', Date.now())
+    .where({ id })
+    .returning('last_login');
+};
+
 // remove a user
 const remove = id => {
   return db('users')
@@ -244,5 +286,6 @@ module.exports = {
   updateAvatar,
   updatePassword,
   updateEmail,
+  updateLastLogin,
   remove
 };

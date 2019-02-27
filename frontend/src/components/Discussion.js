@@ -151,6 +151,7 @@ class Discussion extends Component {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
+    showAddReplyForm: null, // post_id
     order: 'created_at', // possible values: 'created_at', 'post_votes'
     orderType: '', // possible values: 'desc', 'asc'
   };

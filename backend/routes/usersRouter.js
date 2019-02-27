@@ -339,6 +339,15 @@ router.put('/avatar-url/:user_id', authenticate, (req, res) => {
     );
 });
 
+// Update last login
+router.put('/last-login/:user_id', authenticate, (req, res) => {
+  const { user_id } = req.params;
+  return usersDB
+    .updateLastLogin(user_id)
+    .then(last_login => res.status(201).json(last_login))
+    .catch(err => res.status(500).json({ error: `Failed to updateLastLogin(): ${ err }` }));
+});
+
 // Delete a user by their ID
 router.delete('/:user_id', authenticate, (req, res) => {
   const { user_id } = req.params;
