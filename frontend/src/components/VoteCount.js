@@ -19,6 +19,7 @@ const VoteCountWrapper = styled.div`
 	margin: 5px;
 	padding: 10px;
 	position: relative;
+	color:${props => props.theme.topDiscussionTitleColor};
 	&:hover {
 		.tooltiptext {
 			visibility: visible;

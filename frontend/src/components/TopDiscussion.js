@@ -35,6 +35,7 @@ const TopDiscussionWrapper = styled.div`
     word-wrap: break-word;
     @media (max-width: ${tabletP}){
       display: flex;
+      align-items: center;
       font-size: 18px;
       @media(max-width: ${phoneP}){
         display: flex;
@@ -46,21 +47,31 @@ const TopDiscussionWrapper = styled.div`
       cursor: pointer;
     }
   }
+  .timestamp{
+    color: ${props => props.theme.topDiscussionCatColor};
+    @media (max-width: ${tabletP}){
+      margin: 10px;
+      @media(max-width: ${phoneP}){
+      
+      }
+    }
+  }
   .category {
     a {
       margin-left: 5px;
+      margin-top: 5px;
       text-decoration: none;
       font-size: 18px;
-      color: ${props => props.theme.topDiscussionCatColorHov};
+      color: ${props => props.theme.topDiscussionCatColor};
       @media (max-width: ${tabletP}){
         margin: 10px;
         padding: 10px;
         @media(max-width: ${phoneP}){
-        
+          font-size: 22px;
+          align-items: center;
         }
       }
     &:hover {
-      background-color: ${props => props.theme.topDiscussionCatBgColorHov};
       cursor: pointer;
       text-decoration: underline;
 
@@ -73,6 +84,8 @@ const TopDiscussionWrapper = styled.div`
     color: ${props => props.theme.topDiscussionNameDateColor};
     @media (max-width: ${tabletP}){
       margin: 10px;
+      display: flex;
+      align-items: center;
       @media(max-width: ${phoneP}){
       
       }
@@ -129,6 +142,14 @@ const Vote = styled.div `
 display: flex;
 margin-right: 10px;
 box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+  @media(max-width: ${phoneP}){
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 180px;
+    bottom: 10px;
+  }
+}
 `;
 
 /***************************************************************************************************
@@ -164,7 +185,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
           </Link>
           &#8201;
           <span className='category'>
-            <Link to={`/discussions/category/${category_id}`}>
+            <Link to={`/discussions/category/${category_id}`} className='category'>
               /d/{category_name}
             </Link>
           </span>

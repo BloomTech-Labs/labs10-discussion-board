@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Discuss from '../assets/img/Discuss.png';
 import TextLoop from 'react-text-loop';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { TopDiscussions } from '../components/index.js';
@@ -50,15 +51,27 @@ const TopDiscussionsTitle = styled.div`
   align-self: center;
   font-size: 18px;
   margin-left: 25px;
-  color: black;
+  color: ${props => props.theme.topDiscussionTitleColor};
   width: 20px;
+  .toptitle{
+    @media (max-width: ${tabletP}){
+    
+      @media(max-width: ${phoneP}){
+        display: flex;
+        align-content: center;
+        font-size: 12px;
+      }
+    }
+
+  }
+  
 `;
 
 const TextLooper = styled.div`
   display: flex;
   align-self: center;
   font-size: 24px;
-  color: black;
+  color: ${props => props.theme.topDiscussionTitleColor};
   @media (max-width: 768px){
     display: none;
   }
@@ -79,7 +92,7 @@ const TopDiscussionsView = () => {
         <div className='logotopd'>
           <TopDiscussionsImage src={Discuss} alt='Top discussions' />
           <TopDiscussionsTitle>
-            <h1>Top Discussions</h1>
+            <h1 className ='toptitle'>Top Discussions</h1>
           </TopDiscussionsTitle>
         </div>
         <TextLooper>

@@ -12,7 +12,10 @@ import { getTopDiscussions, handleDiscussionVote } from '../store/actions/index.
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const TopDiscussionsViewWrapper = styled.div`
-
+.sort{
+	color: ${props => props.theme.topDiscussionTitleColor};
+	padding: 5px;
+}
 `;
 
 /***************************************************************************************************
@@ -38,7 +41,7 @@ class TopDiscussions extends Component {
 		const { order } = this.state;
 		return (
 			<TopDiscussionsViewWrapper>
-				<span>Sort by: </span>
+				<span className = 'sort'>Sort</span>
 				<select onChange = { this.handleSelectChange } name = 'order'>
 					<option value = 'vote_count'>votes</option>
 					<option value = 'post_count'>number of posts</option>

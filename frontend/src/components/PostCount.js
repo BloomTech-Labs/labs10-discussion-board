@@ -13,6 +13,7 @@ const PostCountWrapper = styled.div`
 	padding: 5px;
 	border: ${props => props.theme.postCountWrapperBorder};
 	width: 60px;
+	color: ${props => props.theme.postCountWrapperColor};
 `;
 
 /***************************************************************************************************
