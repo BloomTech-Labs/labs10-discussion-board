@@ -544,12 +544,72 @@ const DivAvatar = styled.div`
 const DivButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 25px 0;
-  width: 50%;
+  width: 100%;
+
+  button {
+    width: 200px;
+    padding: 5px;
+    background: lime;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    border-top: 2px solid rgb(0, 234, 0);
+    border-left: 2px solid rgb(0, 234, 0);
+    border-bottom: 2px solid rgb(0, 150, 0);
+    border-right: 2px solid rgb(0, 150, 0);
+    outline: none;
+
+    &:active {
+      border-bottom: 2px solid rgb(0, 234, 0);
+      border-right: 2px solid rgb(0, 234, 0);
+      border-top: 2px solid rgb(0, 150, 0);
+      border-left: 2px solid rgb(0, 150, 0);
+    }
+  }
+
+  @media(max-width: ${phoneL}) {
+    margin: 0;
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+      padding: 15px 0;
+    }
+  }
 `;
 
-const ButtonCancel = styled(Link)``;
+const ButtonCancel = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 200px;
+  padding: 5px;
+  background: rgb(242, 242, 242);
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  border-top: 2px solid rgb(221, 221, 221);
+  border-left: 2px solid rgb(221, 221, 221);
+  border-bottom: 2px solid rgb(137, 137, 137);
+  border-right: 2px solid rgb(137, 137, 137);
+  outline: none;
+
+  &:active {
+    border-bottom: 2px solid rgb(221, 221, 221);
+    border-right: 2px solid rgb(221, 221, 221);
+    border-top: 2px solid rgb(137, 137, 137);
+    border-left: 2px solid rgb(137, 137, 137);
+  }
+
+  @media(max-width: ${phoneL}) {
+    width: 100%;
+    padding: 15px 0;
+  }
+`;
 
 const DivConfirm = styled.div`
   display: flex;
