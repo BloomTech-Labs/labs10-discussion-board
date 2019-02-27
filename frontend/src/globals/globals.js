@@ -112,7 +112,7 @@ const dayTheme = {
   tooltipWrapperBgColor: 'black',
   tooltipWrapperColor: 'fff',
   topDiscussionWrapperBxShdw: '2px 3px 2px 2px #10355C',
-  topDiscussionWrapperBgHov: 'rgba(255, 255, 255, 0.6)',
+  topDiscussionWrapperBgHov: 'rgba(84, 189, 255, 0.8)',
   topDiscussionTitleColor: 'black',
   topDiscussionCatColor: 'black',
   topDiscussionCatBgColorHov: 'rgba(255, 255, 255, 0.13)',
