@@ -3,11 +3,15 @@ const auth0ClientID = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const auth0Domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const auth0RedirectUri = process.env.REACT_APP_REDIRECT_URI;
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const pusherKey = process.env.REACT_APP_PUSHER_KEY;
+const pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
 const stripePayFormat = [99, 199, 299]; // matching subscriptionPrices
 const stripeToken = process.env.REACT_APP_STRIPE_TOKEN;
 const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
 const subscriptionPrices = ['$0.00', '$0.99/yr', '$1.99/yr', '$2.99/yr']; // same order as subscriptionPlans
 const searchCharLimit = 64; // limits the max number of characters to return in a search
+const maxLengthInNotifications = 32;
+const maxNumOfNotifications = 5;
 
 // mixins (Max Size)
 const phoneP = '480px'; // portrait
@@ -208,6 +212,10 @@ module.exports = {
   subscriptionPlans,
   subscriptionPrices,
   searchCharLimit,
+  maxLengthInNotifications,
+  maxNumOfNotifications,
+  pusherKey,
+  pusherCluster,
   tabletP,
   tabletL,
   dayTheme,
