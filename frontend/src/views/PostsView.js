@@ -6,7 +6,6 @@ import { Post } from '../components/index.js';
 
 
 const PostsViewWrapper = styled.div`
-	border: 1px solid black;
 `;
 
 const PostsView = ({
@@ -15,6 +14,7 @@ const PostsView = ({
 	showEditPostForm,
 	updateEditPostForm,
 	handleRemovePost,
+	toggleAddReplyForm,
 	order,
 	orderType,
 }) => {
@@ -27,7 +27,8 @@ const PostsView = ({
 					historyPush = { historyPush }
 					showEditPostForm = { showEditPostForm }
 					updateEditPostForm = { updateEditPostForm }
-					handleRemovePost = { handleRemovePost }	
+					handleRemovePost = { handleRemovePost }
+					toggleAddReplyForm = { toggleAddReplyForm }
 					order = { order }
 					orderType = { orderType }
 				/>)

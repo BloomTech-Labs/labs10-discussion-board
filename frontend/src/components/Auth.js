@@ -88,11 +88,7 @@ class Auth extends Component {
     this.state = {
       isLoginDropdownClicked: false
     };
-  }
-
-  componentDidMount() {
-    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
-  }
+  };
 
   toggleLoginDropdown = ev => {
     ev.preventDefault();

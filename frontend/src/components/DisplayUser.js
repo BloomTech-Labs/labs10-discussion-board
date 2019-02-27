@@ -93,7 +93,7 @@ class DisplayUser extends Component {
     ev.preventDefault();
     localStorage.removeItem('symposium_auth0_access_token');
     localStorage.removeItem('symposium_auth0_expires_at');
-    return this.props.signout().then(() => this.props.history.push('/'));
+    return this.props.signout();
   };
 
   goToProfilePage = () => this.props.history.push(`/profile/${this.props.user_id}`);
@@ -107,6 +107,7 @@ class DisplayUser extends Component {
             onClick={() => this.toggleAvatarClicked()}
             isAvatarClicked={this.state.isAvatarClicked}
           >
+          
             <Avatar height={'72px'} width={'72px'} src={this.props.avatar} />
             <img src={chevron} alt='chevron' />
           </DivAvatar>
