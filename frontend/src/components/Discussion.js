@@ -24,10 +24,10 @@ border-bottom: 16px;
 margin: 5px;
 padding: 10px;
 box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-
-  &:hover {
-    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
-  }
+background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+`
+const Vote = styled.div`
+border: none;
 `
 
 const SubWrapper = styled.div`
@@ -109,6 +109,7 @@ margin-top: 10px;
 
 const AddPostBtn = styled.div`
 margin-top: 10px;
+padding-bottom: 16px;
 `;
 
 class Discussion extends Component {
@@ -174,7 +175,7 @@ class Discussion extends Component {
     const handleVote = type => this.handleDiscussionVote(id, type);
     return (
       <DiscussionWrapper>
-                  <VoteCount
+          <VoteCount
             handleVote={handleVote}
             vote_count={discussion_votes}
             user_vote={user_vote}

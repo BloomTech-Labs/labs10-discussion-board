@@ -14,25 +14,29 @@ const PostWrapper = styled.div`
  display: flex;
  flex-direction: row;
  justify-content: space-evenly;
- border: 1px solid black;
- border: ${props => props.theme.postWrapperBorder};
+ border-top: 1px solid black;
+ border-bottom: 1px solid black;
  padding-top: 16px;
  padding-bottom: 16px;
  margin: 0 auto;
 `;
 
 const PostSubWrapper = styled.div`
-border: 1px solid purple;
 width: 80%
 `;
 
+//make a global for the avatar box Background
 const PostedBy = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border: 1px solid red;
   width: 15%;
+  height: 230px;
   align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  box-shadow: 2px 3px 2px 2px grey;
+  background-color: lavender;
 
   .username {
     margin: 0px 7px;
@@ -56,9 +60,15 @@ const Elip = styled.div `
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   padding: 10px;
+  padding-top: 0;
+
+  p{
+    margin: 0;
+    margin-bottom: 10px;
+  }
 `;
 
-const Vote = styled.div `
+const VoteAndBody = styled.div `
 display: flex;
 flex-direction: row;
 `;
@@ -97,16 +107,23 @@ const Post = ({
   return (
     <PostWrapper name = { id }>
       <PostSubWrapper>
-        <Vote>
+        <VoteAndBody>
           {/* <p>post votes: {post_votes}</p> */}
             <VoteCount 
               handleVote = { handleVote } 
               vote_count = { post_votes }
               user_vote = { user_vote }
             />
-          
-          <Elip>{body}</Elip>
-        </Vote>
+            <Elip>
+              {last_edited_at && (
+                <p>
+                  Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+                </p>
+              )}
+              {body}
+            </Elip>
+        </VoteAndBody>
+
       {userCreatedPost &&
         (showEditPostForm === id ? (
           <EditPostForm
@@ -118,16 +135,11 @@ const Post = ({
           />
         ) : (
           <>
-            <button onClick={handleEdit}>Edit Post</button>
-            
+            <button onClick={handleEdit}>Edit Post</button>            
           </>
         ))}
         {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
-        {last_edited_at && (
-              <p>
-                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-              </p>
-            )}
+
         </PostSubWrapper>
         <PostedBy>
           <Avatar height={'72px'} width={'72px'} src={avatar} />
@@ -138,7 +150,7 @@ const Post = ({
             </Link> :
             <Deleted />
           }
-          {moment(new Date(Number(created_at))).fromNow()}
+          <p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
         </PostedBy>
     </PostWrapper>
   );
