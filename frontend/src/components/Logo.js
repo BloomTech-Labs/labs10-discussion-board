@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import meeting from '../assets/img/meeting.png';
 import meeting2 from '../assets/img/meeting2.png';
-import { phoneL } from '../globals/globals.js';
+import { phoneL, tabletP } from '../globals/globals.js';
 
 
 const TitleAndLogoContainer = styled.div`
@@ -12,7 +12,7 @@ const TitleAndLogoContainer = styled.div`
   justify-content: center;
   margin-top: 110px;
   margin-bottom: 10px;
-  @media (max-width: 768px){
+  @media ${tabletP}{
     
   }
   @media ${phoneL}{

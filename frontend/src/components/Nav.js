@@ -44,7 +44,7 @@ const Links = styled.div`
     :hover {
       color: black;
     }
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 100%;
       display: flex;
       justify-content: flex-start;

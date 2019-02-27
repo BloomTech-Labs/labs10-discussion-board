@@ -15,7 +15,7 @@ const CategoriesWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 380px;
-    @media(max-width: ${phoneP}){
+    @media${phoneP}{
       display: flex;
       flex-direction: column;
       width: 240px;

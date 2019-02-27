@@ -27,7 +27,7 @@ const ProfileWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 380px;
-    @media(max-width: ${phoneP}){
+    @media${phoneP}{
       display: flex;
       flex-direction: column;
       width: 240px;
@@ -64,7 +64,7 @@ const WrappedDiv = styled.div`
     margin: 3px;
     padding: 3px;
     color: ${props => props.theme.profileTitleContentColor};
-      @media(max-width: ${phoneP}){
+      @media${phoneP}{
         display: none;
       }
     }
@@ -105,7 +105,7 @@ color: ${props => props.theme.profileTitleSubContentDColor};
   align-self: center;
   margin: 3px;
   padding: 3px;
-  @media(max-width: ${phoneP}){
+  @media${phoneP}{
     display: none;
   }
 }
