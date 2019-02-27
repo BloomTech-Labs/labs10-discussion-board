@@ -33,6 +33,8 @@ import SearchPostResult from './SearchPostResult.js';
 import DeleteAccountModal from './DeleteAccountModal.js';
 import Deleted from './Deleted.js';
 import Quote from './Quote.js';
+import Notifications from './Notifications.js';
+import Notification from './Notification.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -83,6 +85,8 @@ export {
   DeleteAccountModal,
   Deleted,
   Quote,
+  Notifications,
+  Notification,
 
   // forms
   AddPostForm,
