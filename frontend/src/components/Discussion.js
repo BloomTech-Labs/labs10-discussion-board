@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { AddPostForm, EditDiscussionForm, VoteCount, Deleted, AddReplyForm } from './index.js';
+import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -17,22 +17,35 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
  ********************************************* Styles *********************************************
  **************************************************************************************************/
 const DiscussionWrapper = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: row;
+border-radius: 15px;
+border-bottom: 16px;
+margin: 5px;
+padding: 10px;
+box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+`
 
-  @media(max-width: 768px){
-    display: flex;
+const SubWrapper = styled.div`
+width: 98%;
+display: flex;
+flex-direction: column;
+
+margin: 0 auto;
+
+@media(max-width: 768px){
+  display: flex;
+  width: 90%;
+}
+
+  @media (max-width: 450px){
     width: 90%;
   }
-
-    @media (max-width: 450px){
-      width: 90%;
-    }
-  h1 {
-    margin-top: 30px;
-    margin-bottom: 10px;
-  }
+h1 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
 `;
 
 const DiscussionInfo = styled.div`
@@ -49,15 +62,11 @@ const DiscussionInfo = styled.div`
     }
 `;
 
-const CategoryName = styled.div`
-  font-size: 18px;
-  width: 10%;
-  font-weight: bold;
-`;
+const Title = styled.div``
 
 const PostedBy = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   @media(max-width: 768px){
 
 
@@ -88,12 +97,23 @@ const Elip = styled.div `
   padding: 10px;
 `;
 
+const Sort = styled.div`
+width: 20%;
+display: flex;
+flex-direction: column;
+margin-top: 10px;
+`;
+
+const AddPostBtn = styled.div`
+margin-top: 10px;
+padding-bottom: 16px;
+`;
+
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
-    showAddReplyForm: null, // post_id
     order: 'created_at', // possible values: 'created_at', 'post_votes'
     orderType: '', // possible values: 'desc', 'asc'
   };
@@ -102,8 +122,8 @@ class Discussion extends Component {
 	});
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
-  updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   toggleAddReplyForm = id => this.setState({ showAddReplyForm: id });
+  updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);
   };
@@ -134,12 +154,12 @@ class Discussion extends Component {
     if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
   render() {
-    const {
-      order,
+    const { 
+      order, 
       orderType,
-      showAddPostForm,
-      showEditPostForm,
-      showEditDiscussionForm,
+      showAddPostForm, 
+      showEditPostForm, 
+      showEditDiscussionForm, 
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
@@ -159,6 +179,12 @@ class Discussion extends Component {
     const handleVote = type => this.handleDiscussionVote(id, type);
     return (
       <DiscussionWrapper>
+        <VoteCount
+          handleVote={handleVote}
+          vote_count={discussion_votes}
+          user_vote={user_vote}
+         />
+        <SubWrapper>
         {
           loggedInUserId === user_id &&
           (
@@ -184,63 +210,60 @@ class Discussion extends Component {
           loggedInUserId === user_id &&
           <button onClick = { this.handleRemoveDiscussion }>Remove discussion</button>
         }
-        <h1> { title } </h1>
-        <DiscussionInfo>
-          <VoteCount
-            handleVote={handleVote}
-            vote_count={discussion_votes}
-            user_vote={user_vote}
-          />
-          <CategoryName>/d/{category_name}</CategoryName>
+        <Title>
+          <h1> { title } </h1> 
           <PostedBy>
             Posted by: &nbsp;
             {
               username ?
               <Link className='username' to={`/profile/${user_id}`}>
-                {username}
+                {username}, 
               </Link> :
               <Deleted />
             }
             <div>{moment(new Date(Number(created_at))).fromNow()}</div>
           </PostedBy>
-        </DiscussionInfo>
-        <Elip>{body}</Elip>
-
-        { loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add a Post</button> }
-        {showAddPostForm && (
-          <AddPostForm
-            discussion_id={id}
+        </Title>
+        <DiscussionInfo>
+          <Elip>{body}</Elip>
+        </DiscussionInfo>        
+        <Sort>
+          <span>Sort by: </span>
+          <select onChange = { this.handleSelectChange } name = 'order'>
+            <option value = 'created_at'>date created</option>
+            <option value = 'post_votes'>votes</option>
+          </select>
+          <select onChange = { this.handleSelectChange } name = 'orderType'>
+            <option value = 'desc'>
+              { order === 'created_at' ? 'most recent first' : 'most first' }
+            </option>
+            <option value = 'asc'>
+              { order === 'created_at' ? 'least recent first' : 'least first' }
+            </option>
+          </select>
+          <AddPostBtn>
+          {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add a Post</button>}
+          {showAddPostForm && (
+            <AddPostForm
+              user_id={loggedInUserId}
+              discussion_id={id}
+              historyPush={historyPush}
+              toggleAddPostForm={this.toggleAddPostForm}
+            />
+          )}
+        </AddPostBtn>
+        </Sort>
+          <PostsView
+            posts={posts}
             historyPush={historyPush}
-            toggleAddPostForm={this.toggleAddPostForm}
+            showEditPostForm={showEditPostForm}
+            updateEditPostForm={this.updateEditPostForm}
+            handleRemovePost={this.handleRemovePost}
+            toggleAddReplyForm={this.toggleAddReplyForm}
+            order={order}
+            orderType={orderType}
           />
-        )}
-
-        <span>Sort by: </span>
-				<select onChange = { this.handleSelectChange } name = 'order'>
-					<option value = 'created_at'>date created</option>
-					<option value = 'post_votes'>votes</option>
-				</select>
-				<select onChange = { this.handleSelectChange } name = 'orderType'>
-					<option value = 'desc'>
-						{ order === 'created_at' ? 'most recent first' : 'most first' }
-					</option>
-					<option value = 'asc'>
-						{ order === 'created_at' ? 'least recent first' : 'least first' }
-					</option>
-				</select>
-
-        <PostsView
-          posts={posts}
-          historyPush={historyPush}
-          showEditPostForm={showEditPostForm}
-          updateEditPostForm={this.updateEditPostForm}
-          handleRemovePost={this.handleRemovePost}
-          toggleAddReplyForm={this.toggleAddReplyForm}
-          order={order}
-          orderType={orderType}
-        />
-
-        {
+          {
           showAddReplyForm &&
           <AddReplyForm
             toggleAddReplyForm = { this.toggleAddReplyForm }
@@ -248,7 +271,19 @@ class Discussion extends Component {
             historyPush = { historyPush }
             repliedPost = { posts.find(post => post.id === showAddReplyForm) }
           />
-        }
+          }
+          <AddPostBtn>
+          {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add a Post</button>}
+          {showAddPostForm && (
+            <AddPostForm
+              user_id={loggedInUserId}
+              discussion_id={id}
+              historyPush={historyPush}
+              toggleAddPostForm={this.toggleAddPostForm}
+            />
+          )}
+        </AddPostBtn>
+        </SubWrapper>
       </DiscussionWrapper>
     );
   }

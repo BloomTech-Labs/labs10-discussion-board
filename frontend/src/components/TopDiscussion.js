@@ -22,7 +22,6 @@ const TopDiscussionWrapper = styled.div`
     background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 
-
   .title {
     text-decoration: none;
     font-weight: bold;
