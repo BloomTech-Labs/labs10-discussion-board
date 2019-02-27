@@ -81,7 +81,8 @@ const Post = ({
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper>
+    // name attribute for use with react-scroll
+    <PostWrapper name = { id }>
       { reply_to && <Quote reply_to = { reply_to } /> }
       {userCreatedPost && <button onClick={handleRemove}>REMOVE POST</button>}
 
