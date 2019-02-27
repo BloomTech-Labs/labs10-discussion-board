@@ -88,6 +88,7 @@ const findById = (id, user_id, order, orderType) => {
       'p.id',
       'p.user_id',
       'u.username',
+      'us.avatar',
       'p.discussion_id',
       'p.body',
       'p.created_at',
@@ -99,12 +100,14 @@ const findById = (id, user_id, order, orderType) => {
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .leftOuterJoin('users as u', 'u.id', 'p.user_id')
     .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
+    .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
     .leftOuterJoin(userPostVoteQuery.as('uv'), function() {
       this.on('uv.post_id', '=', 'p.id');
     })
     .where('p.discussion_id', id)
-    .groupBy('p.id', 'u.username', 'uv.type')
-    // order by order and orderType variables, else default to ordering by created_at descending
+    .groupBy('p.id', 'u.username', 'uv.type', 'us.avatar')
+    // order by order and orderType variables
+    // else default to ordering by created_at descending
     .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
 
   const repliesQuery = db('posts')

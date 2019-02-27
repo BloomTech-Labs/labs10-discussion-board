@@ -18,7 +18,6 @@ const VoteCountWrapper = styled.div`
 	flex-direction: column;
 	margin: 5px;
 	padding: 10px;
-	border: 1px solid black;
 	position: relative;
 
 	&:hover {

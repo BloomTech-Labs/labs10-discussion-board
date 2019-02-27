@@ -110,6 +110,36 @@ const DivAuth = styled.div`
   }
 `;
 
+
+const ButtonContainer = styled.div`
+display: flex;
+justify-content: center;
+width: 15%;
+align-items: center;
+@media (max-width: 750px){
+    width: 100%;
+  @media (max-width: 450px){
+    width: 100%;
+  }
+}
+
+button {
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  &:hover {
+    cursor: pointer;
+    background-color: #54bdff;
+  }
+  @media (max-width: 750px){
+    width: 80%;
+  }
+  @media (max-width: 450px){
+    width: 80%;
+  }
+}
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -136,8 +166,11 @@ class Nav extends Component {
           </Link>
         </Links>
         <DivAuth>
+          <ButtonContainer><button onClick={this.props.switchTheme}>switch theme</button></ButtonContainer>
+        
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
+            
           ) : (
               <Auth history={this.props.history} />
             )}

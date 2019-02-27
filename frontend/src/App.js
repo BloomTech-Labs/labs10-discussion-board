@@ -78,7 +78,7 @@ class App extends Component {
     };
   }
 
-  handleClick() {
+  switchTheme =() => {
     // Toggle day / night on click
     const isDay = !this.state.isDay;
 
@@ -116,15 +116,15 @@ class App extends Component {
   };
   render() {
     const { showSearch } = this.state;
-    const { error, history, message, location } = this.props;
+    const { error, history, message, location,  } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
+            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             <ButtonContainer>
-              <button onClick={() => this.handleClick()}>Switch Themes</button>
+              {/* currently left the buttonContainer to have the logo not appear under the navbar*/}
             </ButtonContainer>
             <Logo />
             <Route path='/home' component={LandingView} />
