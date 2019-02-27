@@ -304,7 +304,7 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
         const lastLogin = user[0].last_login;
         let newNotifications = false;
         if (user[0].notifications.length) {
-          const latestNotification = foundUser[0].notifications[0].created_at;
+          const latestNotification = user[0].notifications[0].created_at;
           if (lastLogin < latestNotification) {
             newNotifications = true;
           }
