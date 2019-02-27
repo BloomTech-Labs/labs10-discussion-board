@@ -14,8 +14,8 @@ const defaultAvatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAY
 
 // mixins (Max Size)
 const phoneP = '480px'; // portrait
-const phoneL = '599px'; // landscape
-const tabletP = '768px'; // portrait
+const phoneL = '(max-width: 599px)'; // landscape
+const tabletP = '(max-width: 768px)'; // portrait
 const tabletL = '1024px'; // landscape
 
 // Copy from backend globals (can't import from out of src folder)

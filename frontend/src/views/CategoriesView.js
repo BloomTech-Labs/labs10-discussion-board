@@ -11,7 +11,7 @@ import { AddCategoryForm } from '../components/index.js';
 const CategoriesWrapper = styled.div`
   width: 700px;
   background-color: ${props => props.theme.catViewWrapperBgColor};
-  @media (max-width: ${tabletP}){
+  @media ${tabletP}{
     display: flex;
     flex-direction: column;
     width: 380px;

@@ -13,7 +13,7 @@ const TitleAndLogoContainer = styled.div`
   @media (max-width: 768px){
     
   }
-  @media (max-width: ${phoneL}){
+  @media ${phoneL}{
     width: 100%;
     display: flex;
     align-items: center;
@@ -25,7 +25,7 @@ const TitleAndLogoContainer = styled.div`
 const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
     width: 90%;
     display: flex;
     align-items: center;
@@ -44,7 +44,7 @@ const SympLogo = styled.div`
       cursor: wait;
     }
 
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
     background-size: stretch;
     width: 97px;
     height: 135px;
@@ -77,7 +77,7 @@ const Title = styled.div`
     width: 90%;  
     @media (max-width: 768px){
       width: 90%;
-      @media (max-width: ${phoneL}){
+      @media ${phoneL}{
         margin-left: 0px;
         margin: 0 auto;
         font-size: 45px;
@@ -90,7 +90,7 @@ const Title = styled.div`
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
-      @media (max-width: ${phoneL}){
+      @media ${phoneL}{
         display: flex;
         text-align: center;
         margin: 0 auto;

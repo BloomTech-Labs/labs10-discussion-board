@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
-import { phoneL } from '../globals/globals.js';
+
+//globals
+import {phoneP, phoneL, tabletP} from '../globals/globals.js'
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -20,9 +22,9 @@ const DivWrapper = styled.div`
   border-bottom-right-radius: 30px;
   justify-content: space-evenly;
 
-  @media (max-width: 750px){
+  @media ${tabletP}{
     width: 100%;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 100%;
     }
   }
@@ -47,7 +49,7 @@ const Links = styled.div`
     font-size: 12px;
     display: flex;
     margin: 0 auto;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 35%;
       font-size: 8px;
       display: flex;
@@ -61,9 +63,9 @@ const DivSearch = styled.div`
   justify-content: center;
   width: 7%;
   align-items: center;
-  @media (max-width: 750px){
+  @media ${tabletP}{
       width: 15%;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 20%;
     }
   }
@@ -76,10 +78,10 @@ const DivSearch = styled.div`
       cursor: pointer;
       background-color: #54bdff;
     }
-    @media (max-width: 750px){
+    @media ${tabletP}{
       width: 80%;
     }
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 80%;
     }
   }
@@ -91,9 +93,9 @@ const DivAuth = styled.div`
   width: 38%;
   height: 100%;
 
-  @media (max-width: 750px){
+  @media ${tabletP}{
       width: 25%;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 40%;
     }
   }
@@ -105,7 +107,7 @@ display: flex;
 justify-content: center;
 width: 15%;
 align-items: center;
-@media (max-width: 750px){
+@media ${tabletP}{
     width: 100%;
   @media (max-width: 450px){
     width: 100%;
@@ -120,7 +122,7 @@ button {
     cursor: pointer;
     background-color: #54bdff;
   }
-  @media (max-width: 750px){
+  @media ${tabletP}{
     width: 80%;
   }
   @media (max-width: 450px){

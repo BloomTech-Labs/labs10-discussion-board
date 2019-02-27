@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
 
+//globals
+import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+
 // components
 import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
 
@@ -18,30 +21,33 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
  **************************************************************************************************/
 const DiscussionWrapper = styled.div`
 display: flex;
-flex-direction: row;
+flex-direction: column;
 border-radius: 15px;
 border-bottom: 16px;
-margin: 5px;
 padding: 10px;
 box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+`
+const DiscussionSubWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
 `
 
 const SubWrapper = styled.div`
 width: 98%;
 display: flex;
 flex-direction: column;
-
 margin: 0 auto;
 
-@media(max-width: 768px){
-  display: flex;
+@media${tabletP}{
   width: 90%;
 }
 
-  @media (max-width: 450px){
+  @media ${phoneL}{
     width: 90%;
+    text-align: center;
   }
+
 h1 {
   margin-top: 30px;
   margin-bottom: 10px;
@@ -52,32 +58,33 @@ const DiscussionInfo = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media(max-width: 768px){
+  @media${tabletP}{
     display: flex;
     width: 90%;
 
   }
-    @media (max-width: 450px){
-      display: flex;
+    @media ${phoneL}{
     }
 `;
+
+const Posts = styled.div`
+
+`
 
 const Title = styled.div``
 
 const PostedBy = styled.div`
   display: flex;
   flex-direction: row;
-  @media(max-width: 768px){
+  text-decoration: none;
 
-
-    @media (max-width: 450px){
-    }
+  @media ${tabletP}{
+      justify-content: space-evenly;
   }
+
   .username {
-    margin: 0px 7px;
-    font-weight: bold;
     color: ${props => props.theme.discussionUsernameColor};
-    text-decoration: none;
+    font-weight: bold;
 
     &:hover {
       cursor: pointer;
@@ -95,18 +102,48 @@ const Elip = styled.div `
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   padding: 10px;
+  
+  @media ${tabletP} {
+    text-align: center;
+  }
 `;
 
 const Sort = styled.div`
 width: 20%;
 display: flex;
 flex-direction: column;
+align-items: center
 margin-top: 10px;
+padding-bottom: 2em;
+
+@media ${tabletP} {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.sortName {
+  width: 160px;
+  padding: 10px;
+  margin: 5px;
+}
+
+.sorted {
+  font-weight: bold;
+}
 `;
 
 const AddPostBtn = styled.div`
 margin-top: 10px;
-padding-bottom: 16px;
+
+  button{
+    @media ${phoneL} {
+      font-size: 17px;
+      width: 160px;
+      padding: 11px 0px;
+    }
+  }
 `;
 
 class Discussion extends Component {
@@ -179,80 +216,84 @@ class Discussion extends Component {
     const handleVote = type => this.handleDiscussionVote(id, type);
     return (
       <DiscussionWrapper>
-        <VoteCount
-          handleVote={handleVote}
-          vote_count={discussion_votes}
-          user_vote={user_vote}
-         />
-        <SubWrapper>
-        {
-          loggedInUserId === user_id &&
-          (
-            showEditDiscussionForm ?
-            <EditDiscussionForm
-              toggleEditDiscussionForm = { this.toggleEditDiscussionForm }
-              title = { title }
-              body = { body }
-              discussion_id = { id }
-              historyPush = { historyPush }
-            />
-            :
-            <button onClick = { this.toggleEditDiscussionForm }
-            >Edit discussion</button>
-          )
-        }
-        {last_edited_at && (
-          <p>
-            Last edited {moment(new Date(Number(last_edited_at))).fromNow()}
-          </p>
-        )}
-        {
-          loggedInUserId === user_id &&
-          <button onClick = { this.handleRemoveDiscussion }>Remove discussion</button>
-        }
-        <Title>
-          <h1> { title } </h1> 
-          <PostedBy>
-            Posted by: &nbsp;
+        <DiscussionSubWrapper>
+          <VoteCount
+            handleVote={handleVote}
+            vote_count={discussion_votes}
+            user_vote={user_vote}
+          />
+          <SubWrapper>
             {
-              username ?
-              <Link className='username' to={`/profile/${user_id}`}>
-                {username}, 
-              </Link> :
-              <Deleted />
+              loggedInUserId === user_id &&
+              (
+                showEditDiscussionForm ?
+                <EditDiscussionForm
+                  toggleEditDiscussionForm = { this.toggleEditDiscussionForm }
+                  title = { title }
+                  body = { body }
+                  discussion_id = { id }
+                  historyPush = { historyPush }
+                />
+                :
+                <button onClick = { this.toggleEditDiscussionForm }
+                >Edit discussion</button>
+              )
             }
-            <div>{moment(new Date(Number(created_at))).fromNow()}</div>
-          </PostedBy>
-        </Title>
-        <DiscussionInfo>
-          <Elip>{body}</Elip>
-        </DiscussionInfo>        
-        <Sort>
-          <span>Sort by: </span>
-          <select onChange = { this.handleSelectChange } name = 'order'>
-            <option value = 'created_at'>date created</option>
-            <option value = 'post_votes'>votes</option>
-          </select>
-          <select onChange = { this.handleSelectChange } name = 'orderType'>
-            <option value = 'desc'>
-              { order === 'created_at' ? 'most recent first' : 'most first' }
-            </option>
-            <option value = 'asc'>
-              { order === 'created_at' ? 'least recent first' : 'least first' }
-            </option>
-          </select>
-          <AddPostBtn>
-          {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add a Post</button>}
-          {showAddPostForm && (
-            <AddPostForm
-              user_id={loggedInUserId}
-              discussion_id={id}
-              historyPush={historyPush}
-              toggleAddPostForm={this.toggleAddPostForm}
-            />
-          )}
-        </AddPostBtn>
-        </Sort>
+            {last_edited_at && (
+              <p>
+                Last edited {moment(new Date(Number(last_edited_at))).fromNow()}
+              </p>
+            )}
+            {
+              loggedInUserId === user_id &&
+              <button onClick = { this.handleRemoveDiscussion }>Remove discussion</button>
+            }
+            <Title>
+              <h1> { title } </h1> 
+              <PostedBy>
+                Posted by: &nbsp;
+                {
+                  username ?
+                  <Link className='username' to={`/profile/${user_id}`}>
+                    {username}, 
+                  </Link> :
+                  <Deleted />
+                }
+                <div>{moment(new Date(Number(created_at))).fromNow()}</div>
+              </PostedBy>
+            </Title>
+            <DiscussionInfo>
+              <Elip>{body}</Elip>
+            </DiscussionInfo>        
+            <Sort>
+              <span className='sorted'>Sort by: </span>
+              <select className='sortName' onChange = { this.handleSelectChange } name = 'order'>
+                <option value = 'created_at'>date created</option>
+                <option value = 'post_votes'>votes</option>
+              </select>
+              <select className='sortName' onChange = { this.handleSelectChange } name = 'orderType'>
+                <option value = 'desc'>
+                  { order === 'created_at' ? 'most recent first' : 'most first' }
+                </option>
+                <option value = 'asc'>
+                  { order === 'created_at' ? 'least recent first' : 'least first' }
+                </option>
+              </select>
+              <AddPostBtn>
+                {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add Post</button>}
+                {showAddPostForm && (
+                  <AddPostForm
+                    user_id={loggedInUserId}
+                    discussion_id={id}
+                    historyPush={historyPush}
+                    toggleAddPostForm={this.toggleAddPostForm}
+                  />
+                )}
+              </AddPostBtn>
+            </Sort>
+          </SubWrapper>
+        </DiscussionSubWrapper>
+        <Posts>
           <PostsView
             posts={posts}
             historyPush={historyPush}
@@ -273,18 +314,18 @@ class Discussion extends Component {
           />
           }
           <AddPostBtn>
-          {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add a Post</button>}
-          {showAddPostForm && (
-            <AddPostForm
-              user_id={loggedInUserId}
-              discussion_id={id}
-              historyPush={historyPush}
-              toggleAddPostForm={this.toggleAddPostForm}
-            />
-          )}
-        </AddPostBtn>
-        </SubWrapper>
-      </DiscussionWrapper>
+            {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add Post</button>}
+            {showAddPostForm && (
+              <AddPostForm
+                user_id={loggedInUserId}
+                discussion_id={id}
+                historyPush={historyPush}
+                toggleAddPostForm={this.toggleAddPostForm}
+              />
+            )}
+          </AddPostBtn>
+        </Posts>
+        </DiscussionWrapper>
     );
   }
 };

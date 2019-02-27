@@ -23,7 +23,7 @@ const ProfileWrapper = styled.div`
   width: 480px;
   background-color: ${props => props.theme.profileBgColor};
   box-shadow: ${props => props.theme.profileBxShdw};
-  @media (max-width: ${tabletP}){
+  @media ${tabletP}{
     display: flex;
     flex-direction: column;
     width: 380px;
@@ -99,7 +99,7 @@ align-self: center;
 margin: 3px;
 padding: 3px;
 color: ${props => props.theme.profileTitleSubContentDColor};
-@media (max-width: ${tabletP}){
+@media ${tabletP}{
   display: flex;
   flex-direction: column;
   align-self: center;
