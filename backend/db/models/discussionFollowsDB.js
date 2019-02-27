@@ -7,6 +7,13 @@ const get = (discussion_id, user_id) => {
 		.andWhere({ discussion_id });
 };
 
+const getFollowers = discussion_id => {
+	return db('discussion_follows as cf')
+		.select('cf.user_id', 'u.uuid')
+		.join('users as u', 'u.id', 'cf.user_id')
+		.where({ discussion_id });
+};
+
 // adds a follow for a certain discussion by a certain user
 const add = (discussion_id, user_id) => {
 	const addDiscussionFollow = db('discussion_follows')
@@ -42,5 +49,6 @@ const remove = (discussion_id, user_id) => {
 module.exports = {
 	add,
 	get,
+	getFollowers,
 	remove,
 };
