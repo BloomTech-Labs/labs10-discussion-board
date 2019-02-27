@@ -23,11 +23,11 @@ const ProfileWrapper = styled.div`
   width: 480px;
   background-color: ${props => props.theme.profileBgColor};
   box-shadow: ${props => props.theme.profileBxShdw};
-  @media (max-width: ${tabletP}){
+  @media ${tabletP}{
     display: flex;
     flex-direction: column;
     width: 380px;
-    @media(max-width: ${phoneP}){
+    @media${phoneP}{
       display: flex;
       flex-direction: column;
       width: 240px;
@@ -64,7 +64,7 @@ const WrappedDiv = styled.div`
     margin: 3px;
     padding: 3px;
     color: ${props => props.theme.profileTitleContentColor};
-      @media(max-width: ${phoneP}){
+      @media${phoneP}{
         display: none;
       }
     }
@@ -99,13 +99,13 @@ align-self: center;
 margin: 3px;
 padding: 3px;
 color: ${props => props.theme.profileTitleSubContentDColor};
-@media (max-width: ${tabletP}){
+@media ${tabletP}{
   display: flex;
   flex-direction: column;
   align-self: center;
   margin: 3px;
   padding: 3px;
-  @media(max-width: ${phoneP}){
+  @media${phoneP}{
     display: none;
   }
 }

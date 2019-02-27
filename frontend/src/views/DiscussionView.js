@@ -6,7 +6,6 @@ import { Discussion, Follow } from '../components/index.js';
 
 const DiscussionViewWrapper = styled.div`
 	width: 90%;
-
 `;
 
 const DiscussionView = ({ history, match, scrollTo }) => {
