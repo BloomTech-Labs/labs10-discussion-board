@@ -15,11 +15,11 @@ const PostCountWrapper = styled.div`
 	border: ${props => props.theme.postCountWrapperBorder};
 	width: 60px;
 	color: ${props => props.theme.postCountWrapperColor};
-	@media (max-width: ${tabletP}){
+	@media ${tabletP}{
 		display: flex;
 		flex-direction: column;
 		
-		@media(max-width: ${phoneP}){
+		@media ${phoneP}{
 		  display: flex;
 		  flex-direction: column;
 		}

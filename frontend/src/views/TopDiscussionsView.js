@@ -54,12 +54,12 @@ const TopDiscussionsTitle = styled.div`
   color: ${props => props.theme.topDiscussionTitleColor};
   width: 20px;
   .toptitle{
-    @media (max-width: ${tabletP}){
+    @media  ${tabletP}{
     
-      @media(max-width: ${phoneP}){
+      @media${phoneP}{
         display: flex;
         align-content: center;
-        font-size: 12px;
+        font-size: px;
       }
     }
 

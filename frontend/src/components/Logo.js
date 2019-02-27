@@ -81,12 +81,7 @@ const Title = styled.div`
     width: 90%;  
     @media (max-width: 768px){
       width: 90%;
-<<<<<<< HEAD
-    }
-      @media (max-width: ${phoneL}){
-=======
       @media ${phoneL}{
->>>>>>> b2206c052217ea7ac51ac8f7a0660cf18ff811f5
         margin: 0px 0px;
         font-size: 45px;
         width: 95%;

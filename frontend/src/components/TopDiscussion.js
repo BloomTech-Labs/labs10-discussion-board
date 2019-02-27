@@ -20,7 +20,7 @@ const TopDiscussionWrapper = styled.div`
   box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 
   &:hover {
-    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+    // background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 
   .title {
@@ -33,11 +33,11 @@ const TopDiscussionWrapper = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     word-wrap: break-word;
-    @media (max-width: ${tabletP}){
+    @media ${tabletP}{
       display: flex;
       align-items: center;
       font-size: 18px;
-      @media(max-width: ${phoneP}){
+      @media${phoneP}{
         display: flex;
         font-size: 18px;
       }
@@ -49,9 +49,9 @@ const TopDiscussionWrapper = styled.div`
   }
   .timestamp{
     color: ${props => props.theme.topDiscussionCatColor};
-    @media (max-width: ${tabletP}){
+    @media ${tabletP}{
       margin: 10px;
-      @media(max-width: ${phoneP}){
+      @media${phoneP}{
       
       }
     }
@@ -65,11 +65,11 @@ const TopDiscussionWrapper = styled.div`
       font-style: oblique;
       font-weight: bold;
       color: ${props => props.theme.topDiscussionCatColor};
-      @media (max-width: ${tabletP}){
+      @media ${tabletP}{
         margin: 10px;
         padding: 14px;
         font-size: 14px;
-        @media(max-width: ${phoneP}){
+        @media${phoneP}{
           font-size: 14px;
           align-items: center;
           padding: 20px;
@@ -87,14 +87,14 @@ const TopDiscussionWrapper = styled.div`
     font-size: 14px;
     font-style: italic;
     color: ${props => props.theme.topDiscussionNameDateColor};
-    @media (max-width: ${tabletP}){
+    @media ${tabletP}{
       margin: 2px;
       display: flex;
       align-items: center;
       width: 20px;
       padding: 10px;
       font-size: 12px;
-      @media(max-width: ${phoneP}){
+      @media${phoneP}{
     
       }
     }
@@ -134,7 +134,7 @@ const Elip = styled.div `
   background-color: ${props => props.theme.topDiscussionElipBgColor};
   color: ${props => props.theme.topDiscussionElipColor};
   width: 540px;
-  @media (max-width: ${tabletP}){
+  @media ${tabletP}{
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -143,11 +143,14 @@ const Elip = styled.div `
     overflow: hidden;
     display: -webkit-box;
   -webkit-box-orient: vertical;
-    @media(max-width: ${phoneP}){
+    @media${phoneP}{
       display: none;
       flex-direction: column;
       width: 240px;
     }
+  }
+  &:hover {
+    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 `;
 
@@ -155,7 +158,7 @@ const Vote = styled.div `
 display: flex;
 margin-right: 10px;
 box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-  @media(max-width: ${phoneP}){
+  @media${phoneP}{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
