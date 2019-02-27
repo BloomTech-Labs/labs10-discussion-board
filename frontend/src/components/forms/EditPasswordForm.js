@@ -20,6 +20,9 @@ const EditPasswordFormWrapper = styled.form`
 	border-radius: 20px;
 	background-color: #54BDFF;
 	
+	@media (max-width: 520px){
+      width: 80%;
+  }
 `;
 
 const Inputs = styled.div`

@@ -5,6 +5,7 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { Avatar, Deleted } from '../components/index.js';
@@ -18,15 +19,18 @@ const ProfileWrapper = styled.div`
   align-self: center;
   margin: 10px;
   padding: 10px;
-  border: 1px solid gray;
+  border: ${props => props.theme.profileBorder};
   width: 480px;
   background-color: ${props => props.theme.profileBgColor};
   box-shadow: ${props => props.theme.profileBxShdw};
-  @media(max-width: 768px){
+  @media (max-width: ${tabletP}){
     display: flex;
     flex-direction: column;
-    width: 90%;
-    @media (max-width: 450px){
+    width: 380px;
+    @media(max-width: ${phoneP}){
+      display: flex;
+      flex-direction: column;
+      width: 240px;
     }
   }
   .discussion-title {
@@ -50,6 +54,20 @@ const WrappedDiv = styled.div`
     align-self: center;
     margin: 3px;
     padding: 3px;
+    color: ${props => props.theme.profileTitleColor};
+  }
+  .property-titleC {
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 3px;
+    padding: 3px;
+    color: ${props => props.theme.profileTitleContentColor};
+      @media(max-width: ${phoneP}){
+        display: none;
+      }
+    }
   }
   .property-content {
     display: flex;
@@ -58,6 +76,7 @@ const WrappedDiv = styled.div`
     justify-content: space-around;
     margin: 3px;
     padding: 3px;
+    color: ${props => props.theme.profileTitleContentColor};
   }
 `;
 
@@ -69,17 +88,38 @@ flex-direction: column;
 align-self: center;
 margin: 3px;
 padding: 3px;
+color: ${props => props.theme.profileTitleContentDColor};
+`
+const SubContentDiv = styled.div`
+margin: 5px;
+padding: 2%;
+display: flex;
+flex-direction: column;
+align-self: center;
+margin: 3px;
+padding: 3px;
+color: ${props => props.theme.profileTitleSubContentDColor};
+@media (max-width: ${tabletP}){
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: 3px;
+  padding: 3px;
+  @media(max-width: ${phoneP}){
+    display: none;
+  }
+}
 `
 
-const ProfileTitle = styled.div`
-  margin: 5px;
-  padding: 2%;
-  display: flex;
-  font-weight: bold;
-  justify-content: space-around;
-  color: black;
-  font-size: 36px;
-`;
+// const ProfileTitle = styled.div`
+//   margin: 5px;
+//   padding: 2%;
+//   display: flex;
+//   font-weight: bold;
+//   justify-content: space-around;
+//   color: black;
+//   font-size: 36px;
+// `;
 
 const Elip = styled.div`
   display: inline;
@@ -134,23 +174,23 @@ class Profile extends Component {
                 <p className='property-title'> Followed Discussions: </p>
                 {profile.discussionFollows.map((discussionFollowed, index)=> 
                   <ContentDiv key = {index}>
-                    <Link to = {`/discussion/${discussionFollowed.discussion_id}`}><p > {discussionFollowed.title}</p></Link>
+                    <Link to = {`/discussion/${discussionFollowed.discussion_id}`}><p className='property-content'> {discussionFollowed.title}</p></Link>
                   </ContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Followed Categories: </p>
                 {profile.categoryFollows.map((categoryFollowed, index)=> 
                   <ContentDiv key = {index}>
-                    <Link to = {`/discussions/category/${categoryFollowed.category_id}`}><p > {categoryFollowed.name}</p></Link>
+                    <Link to = {`/discussions/category/${categoryFollowed.category_id}`}><p className='property-content'> {categoryFollowed.name}</p></Link>
                   </ContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
-                <p className='property-title'> Discussions: </p>
-                {profile.discussions.map((discussion, index)=> <ContentDiv key= {index}>{discussion.title}</ContentDiv>)}
+                <p className='property-titleC'> Discussions: </p>
+                {profile.discussions.map((discussion, index)=> <SubContentDiv key= {index}>{discussion.title}</SubContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
-                <p className='property-title'> Posts: </p>
-                <Elip>{profile.posts.map((post, index)=> <ContentDiv key= {index}>{post.body}</ContentDiv>)}</Elip>
+                <p className='property-titleC'> Posts: </p>
+                <Elip>{profile.posts.map((post, index)=> <SubContentDiv key= {index}>{post.body}</SubContentDiv>)}</Elip>
               </WrappedDiv>
             </ProfileWrapper>
           </div>

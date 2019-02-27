@@ -18,16 +18,6 @@ const DivWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  position: relative;
-
-  @media (max-width: 750px){
-      width: 100%;
-      display: flex;
-    }
-    @media (max-width: 450px){
-      width: 100%;
-      display: flex;
-    }
 `;
 
 const DivUser = styled.div`
@@ -71,7 +61,7 @@ const PWelcomeMessage = styled.p`
       width: 40%;
       margin-right: 0px;
     }
-    @media (max-width: 450px){
+    @media (max-width: 570px){
       display: none;
     }
 `;
@@ -146,6 +136,7 @@ class DisplayUser extends Component {
             onClick={() => this.toggleAvatarClicked()}
             isAvatarClicked={isAvatarClicked}
           >
+          
             <Avatar height={'72px'} width={'72px'} src={this.props.avatar} />
             <img src={chevron} alt='chevron' />
           </DivAvatar>

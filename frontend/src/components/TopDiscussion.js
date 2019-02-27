@@ -22,7 +22,6 @@ const TopDiscussionWrapper = styled.div`
     background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 
-
   .title {
     text-decoration: none;
     font-weight: bold;
@@ -38,7 +37,7 @@ const TopDiscussionWrapper = styled.div`
       margin-left: 5px;
       text-decoration: none;
       font-size: 18px;
-      color: ${props => props.theme.topDiscussionCatColorHov};;
+      color: ${props => props.theme.topDiscussionCatColorHov};
     &:hover {
       background-color: ${props => props.theme.topDiscussionCatBgColorHov};
       cursor: pointer;

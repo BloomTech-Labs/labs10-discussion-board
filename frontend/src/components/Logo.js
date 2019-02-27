@@ -3,16 +3,19 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import meeting from '../assets/img/meeting.png';
 import meeting2 from '../assets/img/meeting2.png';
+import { phoneL } from '../globals/globals.js';
 
 
 const TitleAndLogoContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 110px;
+  margin-bottom: 10px;
   @media (max-width: 768px){
     
   }
-  @media (max-width: 450px){
+  @media (max-width: ${phoneL}){
     width: 100%;
     display: flex;
     align-items: center;
@@ -24,13 +27,12 @@ const TitleAndLogoContainer = styled.div`
 const TitleAndLogo = styled.div`
     display: flex;
     justify-content: center;
-    @media (max-width: 450px){
-    width: 90%;
+    @media (max-width: ${phoneL}){
+    width: 92%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
 `;
 
 const SympLogo = styled.div`
@@ -42,10 +44,9 @@ const SympLogo = styled.div`
       background-image: url(${meeting2});
       cursor: wait;
     }
-
-    @media (max-width: 450px){
+    @media (max-width: ${phoneL}){
     background-size: stretch;
-    width: 97px;
+    width: 40%;
     height: 135px;
     background-size: stretch;
     display: flex;
@@ -64,6 +65,9 @@ const Title = styled.div`
     flex-direction: column;
     width: 70%
   }
+  @media (max-width: ${phoneL}){
+        margin: 0px 0px;
+      }
   h1 {
     a {
       color: ${props => props.theme.headerTitleAColor};
@@ -76,9 +80,8 @@ const Title = styled.div`
     width: 90%;  
     @media (max-width: 768px){
       width: 90%;
-      @media (max-width: 450px){
-        margin-left: 0px;
-        margin: 0 auto;
+      @media (max-width: ${phoneL}){
+        margin: 0px 0px;
         font-size: 45px;
         width: 95%;
       }
@@ -89,7 +92,7 @@ const Title = styled.div`
     font-size: 14px;
     margin-left: 187px;
     @media (max-width: 768px){
-      @media (max-width: 450px){
+      @media (max-width: ${phoneL}){
         display: flex;
         text-align: center;
         margin: 0 auto;
@@ -99,19 +102,19 @@ const Title = styled.div`
 `;
 
 const Logo = () => {
-    return (
-        <TitleAndLogoContainer>
-            <TitleAndLogo>
-                <SympLogo />
-                <Title>
-                    <h1><Link className='header' to='/home'>Symposium</Link></h1>
-                    <div className='subheader'>
-                    <h2>The discussion starts here</h2>
-                    </div>
-                </Title>
-            </TitleAndLogo>
-        </TitleAndLogoContainer>
-    );
-  };
+  return (
+    <TitleAndLogoContainer>
+      <TitleAndLogo>
+        <SympLogo />
+        <Title>
+          <h1><Link className='header' to='/home'>Symposium</Link></h1>
+          <div className='subheader'>
+            <h2>The discussion starts here</h2>
+          </div>
+        </Title>
+      </TitleAndLogo>
+    </TitleAndLogoContainer>
+  );
+};
 
-  export default Logo;
+export default Logo;

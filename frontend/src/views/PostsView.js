@@ -6,7 +6,6 @@ import { Post } from '../components/index.js';
 
 
 const PostsViewWrapper = styled.div`
-	border: 1px solid black;
 `;
 
 const PostsView = ({
