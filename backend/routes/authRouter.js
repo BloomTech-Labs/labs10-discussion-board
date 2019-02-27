@@ -74,7 +74,6 @@ const {
 
 router.post('/register', requestClientIP, async (req, res) => {
   const accountCreatedAt = Date.now();
-  const accountLastLogin = Date.now();
   // username and password must keep rules of syntax
   if (!req.body.username || !validateNewUsername(req.body.username)) {
     return res.status(400).json({ error: `Username is missing.` });
@@ -99,7 +98,7 @@ router.post('/register', requestClientIP, async (req, res) => {
 
   // user account created_at
   newUserCreds.created_at = accountCreatedAt;
-  newUserCreds.last_login = accountLastLogin;
+  newUserCreds.last_login = accountCreatedAt;
 
   // add user
   return db
@@ -252,10 +251,12 @@ router.post('/login', async (req, res) => {
           .then(async foundUser => {
             if (foundUser.length) {
               const lastLogin = foundUser[0].last_login;
-              const latestNotification = foundUser[0].notifications[0].created_at;
               let newNotifications = false;
-              if (lastLogin < latestNotification) {
-                newNotifications = true;
+              if (foundUser[0].notifications.length) {
+                const latestNotification = foundUser[0].notifications[0].created_at;
+                if (lastLogin < latestNotification) {
+                  newNotifications = true;
+                }
               }
               await db.updateLastLogin(user.id);
               return res.status(201).json([
@@ -301,10 +302,12 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
       if (user.length === 1) {
         const token = await generateToken(user[0].id, user[0].username);
         const lastLogin = user[0].last_login;
-        const latestNotification = user[0].notifications[0].created_at;
         let newNotifications = false;
-        if (lastLogin < latestNotification) {
-          newNotifications = true;
+        if (user[0].notifications.length) {
+          const latestNotification = foundUser[0].notifications[0].created_at;
+          if (lastLogin < latestNotification) {
+            newNotifications = true;
+          }
         }
         await db.updateLastLogin(user_id);
         return res.status(201).json([
@@ -359,10 +362,12 @@ router.post('/auth0-login', async (req, res) => {
           .then(async foundUser => {
             if (foundUser.length) {
               const lastLogin = foundUser[0].last_login;
-              const latestNotification = foundUser[0].notifications[0].created_at;
               let newNotifications = false;
-              if (lastLogin < latestNotification) {
-                newNotifications = true;
+              if (foundUser[0].notifications.length) {
+                const latestNotification = foundUser[0].notifications[0].created_at;
+                if (lastLogin < latestNotification) {
+                  newNotifications = true;
+                }
               }
               await db.updateLastLogin(user.id);
               return res.status(201).json([
@@ -394,13 +399,15 @@ router.post('/auth0-login', async (req, res) => {
       const newUserCreds = {
         username: name,
         email,
-        status: 'active'
+        status: 'active',
+        uuid: uuidv4(), // for use with pusher
       };
 
       const accountCreatedAt = Date.now();
 
       // user account created_at
       newUserCreds.created_at = accountCreatedAt;
+      newUserCreds.last_login = accountCreatedAt;
       return db
         .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
