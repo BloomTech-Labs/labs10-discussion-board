@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
-// Globals
-import { NavSearchOptions } from '../globals/globals.js';
-
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
@@ -15,71 +12,120 @@ const DivWrapper = styled.div`
   display: flex;
   background-color: gray;
   color: white;
+  height: 80px;
   margin: 0;
-  padding: 25px;
-  border: 1px solid red;
-  justify-content: space-around;
+  padding: 7px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  justify-content: space-evenly;
+
+  @media (max-width: 750px){
+    width: 100%;
+    @media (max-width: 450px){
+      width: 100%;
+    }
+  }
 `;
 
 const Links = styled.div`
   display: flex;
+  justify-content: space-around;
+  width: 50%;
   margin: 0;
   align-items: center;
-  border: 1px solid purple;
-
   .link {
     font-weight: bold;
     text-decoration: none;
-    font-size: 2em;
+    font-size: 1.7em;
     color: white;
     :hover {
       color: black;
-      text-decoration: underline;
-    }
-    &:not(:last-child) {
-    margin-right: 25px;
     }
   }
-  @media (max-width: 750px){
+  @media (max-width: 960px){
+    font-size: 12px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     margin: 0 auto;
     @media (max-width: 450px){
+      width: 35%;
+      font-size: 8px;
+      display: flex;
+      flex-direction: column;
     }
   }
 `
 
 const DivSearch = styled.div`
   display: flex;
-  border: 1px solid red;
-  width: 700px;
+  justify-content: center;
+  width: 7%;
   align-items: center;
-`;
-
-const Welcome = styled.div`
-  margin: 20px 20px 0px 0px;
-  font-size: 24px;
-  @media(max-width: 450px) {
-    display: none;
-  }
-
-  .username {
-    margin-left: 5px;
-    color: ${ props => props.theme.navWelcomeUsername};
-    text-decoration: none;
-    &:hover {
-      color: ${ props => props.theme.navWelcomeUsernameHov};
-      text-decoration: underline;
+  @media (max-width: 750px){
+      width: 15%;
+    @media (max-width: 450px){
+      width: 20%;
     }
   }
+
+  button {
+    width: 100%;
+    font-size: 14px;
+    border-radius: 7px;
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
+    @media (max-width: 750px){
+      width: 80%;
+    }
+    @media (max-width: 450px){
+      width: 80%;
+    }
+  }
+
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  width: 320px;
-  border: 1px solid lime;
-  height: 130px;
+  width: 38%;
+  height: 100%;
+
+  @media (max-width: 750px){
+      width: 25%;
+    @media (max-width: 450px){
+      width: 40%;
+    }
+  }
+`;
+
+
+const ButtonContainer = styled.div`
+display: flex;
+justify-content: center;
+width: 15%;
+align-items: center;
+@media (max-width: 750px){
+    width: 100%;
+  @media (max-width: 450px){
+    width: 100%;
+  }
+}
+
+button {
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  &:hover {
+    cursor: pointer;
+    background-color: #54bdff;
+  }
+  @media (max-width: 750px){
+    width: 80%;
+  }
+  @media (max-width: 450px){
+    width: 80%;
+  }
+}
 `;
 
 /***************************************************************************************************
@@ -93,6 +139,9 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
+        <DivSearch>
+          <button onClick={this.props.toggleSearch}>search</button>
+        </DivSearch>
         <Links>
           <Link className='link' to='/home'>
             Home
@@ -104,12 +153,12 @@ class Nav extends Component {
             Categories
           </Link>
         </Links>
-        <DivSearch>
-          <button onClick={this.props.toggleSearch}>search</button>
-        </DivSearch>
         <DivAuth>
+          <ButtonContainer><button onClick={this.props.switchTheme}>switch theme</button></ButtonContainer>
+        
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
+            
           ) : (
               <Auth history={this.props.history} />
             )}

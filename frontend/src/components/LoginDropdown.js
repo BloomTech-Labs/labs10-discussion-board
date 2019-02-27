@@ -23,9 +23,10 @@ const FormLogin = styled.form`
   z-index: 9999;
   position: absolute;
   width: 270px;
-  background-color: #54BDFF;
+  background-color: #3a77bd;
+  border-radius: 10px;
   padding: 25px;
-  margin-top: 130px;
+  margin-top: 120px;
 `;
 
 const LinkForgotUserPass = styled(Link)`
@@ -70,24 +71,6 @@ class LoginDropdown extends Component {
 
   //---------------- Form Methods --------------
 
-  componentDidMount() {
-    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.history.location.pathname !== prevProps.history.location.pathname) {
-      this.authLockOptions = {
-        rememberLastLogin: false
-      };
-      this.lock = new Auth0Lock(auth0ClientID, auth0Domain, this.authLockOptions);
-      this.webAuth = new auth0.WebAuth({
-        domain: auth0Domain,
-        clientID: auth0ClientID,
-        redirectUri: auth0RedirectUri
-      });
-    }
-  }
-
   handleInputChange = ev => {
     this.setState({
       [ev.target.name]: ev.target.value
@@ -115,6 +98,18 @@ class LoginDropdown extends Component {
   };
 
   handleAuth0Login = () => {
+    if (this.props.history.location.pathname !== '/') {
+      this.props.history.push('/');
+      this.authLockOptions = {
+        rememberLastLogin: false
+      };
+      this.lock = new Auth0Lock(auth0ClientID, auth0Domain, this.authLockOptions);
+      this.webAuth = new auth0.WebAuth({
+        domain: auth0Domain,
+        clientID: auth0ClientID,
+        redirectUri: auth0RedirectUri
+      });
+    };
     this.lock.show();
   };
 

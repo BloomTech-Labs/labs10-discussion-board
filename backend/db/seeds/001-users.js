@@ -15,8 +15,8 @@ const generateSeeds = () => {
       status: 'active',
       created_at: Date.parse(
         faker.date.between(
-          new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
-          new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+          new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)), // from 10 days ago
+          new Date(Date.now() - (1000 * 60 * 60 * 24 * 8)) // to 8 days ago
         )
       )
     });
@@ -31,8 +31,8 @@ const generateSeeds = () => {
     status: 'active',
     created_at: Date.parse(
       faker.date.between(
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)), // from 10 days ago
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8)) // to 8 days ago
       )
     )
   });
@@ -44,8 +44,8 @@ const generateSeeds = () => {
     status: 'active',
     created_at: Date.parse(
       faker.date.between(
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)), // from 10 days ago
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8)) // to 8 days ago
       )
     )
   });
@@ -57,8 +57,8 @@ const generateSeeds = () => {
     status: 'active',
     created_at: Date.parse(
       faker.date.between(
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)), // from 10 days ago
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8)) // to 8 days ago
       )
     )
   });
@@ -70,8 +70,8 @@ const generateSeeds = () => {
     status: 'active',
     created_at: Date.parse(
       faker.date.between(
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)), // from 10 days ago
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8)) // to 8 days ago
       )
     )
   });
@@ -83,8 +83,8 @@ const generateSeeds = () => {
     status: 'active',
     created_at: Date.parse(
       faker.date.between(
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)),
-        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8))
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 10)), // from 10 days ago
+        new Date(Date.now() - (1000 * 60 * 60 * 24 * 8)) // to 8 days ago
       )
     )
   });

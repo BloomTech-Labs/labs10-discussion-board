@@ -19,16 +19,33 @@ const NotLoggedIn = styled.div`
 `;
 
 const DivAuthTitle = styled.div`
+    display: flex;
+    justify-content: flex-end;
   p {
     margin: 0 0 0.67em 0;
+  }
+
+  @media (max-width: 750px){
+      display: none;
+    @media (max-width: 450px){
+      display: none;
+    }
   }
 `;
 
 const DivAuthRegLog = styled.div`
+  margin-top: -5px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+
+  @media (max-width: 750px){
+    margin-top: 5px;
+    @media (max-width: 450px){
+      margin-top: 5px;
+    }
+  }
 `;
 
 const LinkRegister = styled(Link)`
@@ -71,11 +88,7 @@ class Auth extends Component {
     this.state = {
       isLoginDropdownClicked: false
     };
-  }
-
-  componentDidMount() {
-    if (this.props.history.location.pathname !== '/') this.props.history.push('/');
-  }
+  };
 
   toggleLoginDropdown = ev => {
     ev.preventDefault();

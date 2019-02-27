@@ -10,6 +10,7 @@ import { dayTheme, nightTheme } from './globals/globals';
 // components
 import {
   Header,
+  Logo,
   Profiles,
   Profile,
   Settings,
@@ -31,7 +32,7 @@ import {
 } from './views/index.js';
 
 // action creators
-import { logBackIn } from './store/actions/index.js';
+import { logBackIn, editDiscussion } from './store/actions/index.js';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -57,6 +58,13 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
+const ButtonContainer = styled.div`
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 110px;
+`;
+
 
 class App extends Component {
   constructor(props) {
@@ -70,7 +78,7 @@ class App extends Component {
     };
   }
 
-  handleClick() {
+  switchTheme =() => {
     // Toggle day / night on click
     const isDay = !this.state.isDay;
 
@@ -108,15 +116,17 @@ class App extends Component {
   };
   render() {
     const { showSearch } = this.state;
-    const { error, history, message, location } = this.props;
+    const { error, history, message, location,  } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
-            <button onClick={() => this.handleClick()}>
-              Switch Theme</button>
+            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
+            <ButtonContainer>
+              {/* currently left the buttonContainer to have the logo not appear under the navbar*/}
+            </ButtonContainer>
+            <Logo />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />
             <Route path='/profile/:id' component={Profile} />
@@ -139,9 +149,10 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} />
-            <button
-              onClick={() => this.handleClick()}>
-              Switch Themes</button>
+            <ButtonContainer>
+              <button onClick={() => this.handleClick()}>Switch Themes</button>
+            </ButtonContainer>
+            <Logo />
             <Switch>
               <Route path='/register' component={RegisterView} />
               <Route path='/request-reset-pw' component={RequestResetPWForm} />

@@ -9,6 +9,12 @@ const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as
 const subscriptionPrices = ['$0.00', '$0.99/yr', '$1.99/yr', '$2.99/yr']; // same order as subscriptionPlans
 const searchCharLimit = 64; // limits the max number of characters to return in a search
 
+// mixins (Max Size)
+const phoneP = '480px'; // portrait
+const phoneL = '599px'; // landscape
+const tabletP = '768px'; // portrait
+const tabletL = '1024px'; // landscape
+
 // Copy from backend globals (can't import from out of src folder)
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
 
@@ -26,6 +32,8 @@ const dayTheme = {
   catTimestampColor: 'black',
   catTitleColor: 'black',
   catNameDateColor: 'black',
+  catViewWrapperBgColor: '#54BDFF',
+  catViewWrapperHeaderColor: 'black',
   discussionUsernameColor: 'black',
   discussionByCatWrapperBgColor: '#e8e3e0',
   discussionByCatWrapperBgColorHov: 'rgba(255, 255, 255, 0.195)',
@@ -63,8 +71,13 @@ const dayTheme = {
   profilesWrapperBxShdw: '#610b07 2px 1px 2px 2px;',
   profilesWrapperBgColorHov: 'rgba(255, 255, 255, 0.40)',
   profilesTitleColor: 'black',
-  profileBgColor: '#ffdd00',
-  profileBxShdw: 'gray 2px 1px 2px 2px',
+  profileBgColor: '#976DFF',
+  profileBorder: '1px solid gray',
+  profileBxShdw: '#10355C 2px 1px 2px 2px',
+  profileTitleColor: 'black',
+  profileTitleContentColor: 'black',
+  profileTitleContentDColor: 'black',
+  profileTitleSubContentDColor: 'black',
   searchWrapperBgColor: 'rgba(0, 0, 0, 0.5)',
   searchBoxBgColor: '#C9C19F',
   searchBoxBorder: '1px solid black',
@@ -102,19 +115,21 @@ const dayTheme = {
 };
 
 const nightTheme = {
-  appBgColor: 'pink',
+  appBgColor: '#330136',
   authBgColor: 'black',
   authColor: 'gray',
   authLinkRegColor: 'black',
   authLinkRegColorHov: 'white',
   authLoginColor: 'black',
   authLoginColorHov: 'white',
-  catNameColor: 'red',
-  catDiscussionCountColor: 'red',
-  catBgColorHov: 'rgba(100, 200, 200, 0.9)',
-  catTimestampColor: 'red',
-  catTitleColor: 'red',
-  catNameDateColor: 'red',
+  catNameColor: 'white',
+  catDiscussionCountColor: 'white',
+  catBgColorHov: 'rgba(51, 1, 54, 0.9)',
+  catViewWrapperHeaderColor: 'white',
+  catTimestampColor: 'white',
+  catTitleColor: 'white',
+  catNameDateColor: 'white',
+  catViewWrapperBgColor: '#122042',
   discussionUsernameColor: 'white',
   discussionByCatWrapperBgColor: 'red',
   discussionByCatWrapperBgColorHov: 'rgba(100, 200, 255, 0.33)',
@@ -134,9 +149,9 @@ const nightTheme = {
   headerLinkColor: 'black',
   headerLinkColorHov: 'white',
   headerTitleColor: 'black',
-  headerTitleAColor: 'green',
+  headerTitleAColor: 'white',
   headerTitleAColorHov: 'white',
-  headerTitleSubheaderColor: 'yellow',
+  headerTitleSubheaderColor: 'white',
   highlightWrapperColor: 'black',
   messageWrapperBgColor: 'rgba(0, 0, 0, 0.8)',
   messageBoxBgColor: 'pink',
@@ -147,13 +162,18 @@ const nightTheme = {
   postWrapperBorder: '1px solid white',
   postPostedByUsernameColor: 'white',
   postCountWrapperBorder: '1px solid white',
-  profilesWrapperBorder: '1px solid black',
+  profilesWrapperBorder: '1px solid #330136',
   profilesWrapperBgColor: 'green',
-  profilesWrapperBxShdw: 'yellow 2px 1px 2px 2px',
+  profilesWrapperBxShdw: '#330136 2px 1px 2px 2px',
   profilesWrapperBgColorHov: 'rgba(100, 200, 255, 0.80)',
   profilesTitleColor: 'white',
-  profileBgColor: '#bdc3c7',
-  profileBxShdw: 'pink 2px 1px 2px 2px',
+  profileBorder: '1px solid #2A3240',
+  profileBgColor: '#122042',
+  profileBxShdw: '#2A3240 2px 1px 2px 2px',
+  profileTitleColor: 'white',
+  profileTitleContentColor: 'white',
+  profileTitleContentDColor: 'white',
+  profileTitleSubContentDColor: 'white',
   searchWrapperBgColor: 'rgba(0, 0, 0, 0.8)',
   searchBoxBgColor: 'green',
   searchBoxBorder: '1px solid white',
@@ -195,11 +215,15 @@ module.exports = {
   auth0Domain,
   auth0RedirectUri,
   backendUrl,
+  phoneP,
+  phoneL,
   stripePayFormat,
   stripeToken,
   subscriptionPlans,
   subscriptionPrices,
   searchCharLimit,
+  tabletP,
+  tabletL,
   dayTheme,
   nightTheme,
 };
