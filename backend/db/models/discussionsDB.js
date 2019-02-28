@@ -30,10 +30,10 @@ const getTopDailyDiscussions = (user_id, order, orderType) => {
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
-    .leftOuterJoin(postCountQuery.as('pc'), function() {
+    .leftOuterJoin(postCountQuery.as('pc'), function () {
       this.on('pc.discussion_id', '=', 'd.id');
     })
-    .leftOuterJoin(userVoteQuery.as('uv'), function() {
+    .leftOuterJoin(userVoteQuery.as('uv'), function () {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     // this whereRaw gets the created_at dates that are 24 hours away from the current time
@@ -41,7 +41,7 @@ const getTopDailyDiscussions = (user_id, order, orderType) => {
     .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type')
     // order by given order and orderType
     // else default to ordering by vote_count descending
-    .orderBy(`${ order ? order : 'vote_count' }`, `${ orderType ? orderType : 'desc' }`)
+    .orderBy(`${order ? order : 'vote_count'}`, `${orderType ? orderType : 'desc'}`)
     .limit(10);
 };
 
@@ -52,7 +52,7 @@ const getHottestDiscussions = user_id => {
     .sum('type as vote_count')
     .groupBy('discussion_id');
 
-    const postCountQuery = db('posts as p')
+  const postCountQuery = db('posts as p')
     .select('p.discussion_id')
     .count({ post_count: 'p.id' })
     .join('discussions as d', 'd.id', 'p.discussion_id')
@@ -80,13 +80,13 @@ const getHottestDiscussions = user_id => {
     )
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
-    .leftOuterJoin(voteCountQuery.as('dv'), function() {
+    .leftOuterJoin(voteCountQuery.as('dv'), function () {
       this.on('dv.discussion_id', '=', 'd.id');
     })
-    .leftOuterJoin(postCountQuery.as('pc'), function() {
+    .leftOuterJoin(postCountQuery.as('pc'), function () {
       this.on('pc.discussion_id', '=', 'd.id');
     })
-    .leftOuterJoin(userVoteQuery.as('uv'), function() {
+    .leftOuterJoin(userVoteQuery.as('uv'), function () {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type', 'dv.vote_count')
@@ -122,7 +122,7 @@ const findById = (id, user_id, order, orderType) => {
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
-    .leftOuterJoin(userDiscussionVoteQuery.as('uv'), function() {
+    .leftOuterJoin(userDiscussionVoteQuery.as('uv'), function () {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     .where('d.id', id)
@@ -138,6 +138,7 @@ const findById = (id, user_id, order, orderType) => {
       'p.user_id',
       'u.username',
       'us.avatar',
+      'us.signature',
       'p.discussion_id',
       'p.body',
       'p.created_at',
@@ -150,14 +151,14 @@ const findById = (id, user_id, order, orderType) => {
     .leftOuterJoin('users as u', 'u.id', 'p.user_id')
     .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
     .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
-    .leftOuterJoin(userPostVoteQuery.as('uv'), function() {
+    .leftOuterJoin(userPostVoteQuery.as('uv'), function () {
       this.on('uv.post_id', '=', 'p.id');
     })
     .where('p.discussion_id', id)
-    .groupBy('p.id', 'u.username', 'uv.type', 'us.avatar')
+    .groupBy('p.id', 'u.username', 'uv.type', 'us.avatar', 'us.signature')
     // order by order and orderType variables
     // else default to ordering by created_at descending
-    .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
+    .orderBy(`${order ? order : 'created_at'}`, `${orderType ? orderType : 'desc'}`);
 
   const repliesQuery = db('posts')
     .select('reply_to')
@@ -167,7 +168,7 @@ const findById = (id, user_id, order, orderType) => {
 
   return Promise.all(promises).then(results => {
     const [discussionResults, postsResults, repliesResults] = results;
-    if (!discussionResults.length) throw `No discussion found with ID ${ id }`;
+    if (!discussionResults.length) throw `No discussion found with ID ${id}`;
     const replyIds = [];
     for (let i = 0; i < repliesResults.length; i++) {
       let replyId = repliesResults[i].reply_to;
@@ -200,25 +201,25 @@ const findById = (id, user_id, order, orderType) => {
 
 const search = (searchText, order, orderType) => {
   return db('discussions as d')
-      .select(
-        'd.id',
-        'd.title',
-        'd.body',
-        'd.user_id',
-        'u.username',
-        'd.created_at',
-        'd.category_id',
-        'c.name as category_name',
-        db.raw('SUM(COALESCE(dv.type, 0)) AS votes'),
-      )
-      .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
-      .leftOuterJoin('users as u', 'u.id', 'd.user_id')
-      .join('categories as c', 'c.id', 'd.category_id')
-      .whereRaw('LOWER(d.title) LIKE ?', `%${ searchText.toLowerCase() }%`)
-      .orWhereRaw('LOWER(d.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
-      .groupBy('d.id', 'u.username', 'c.name')
-      // order by given order and orderType, else default to ordering by created_at descending
-      .orderBy(`${ order ? order : 'd.created_at' }`, `${ orderType ? orderType : 'desc' }`);
+    .select(
+      'd.id',
+      'd.title',
+      'd.body',
+      'd.user_id',
+      'u.username',
+      'd.created_at',
+      'd.category_id',
+      'c.name as category_name',
+      db.raw('SUM(COALESCE(dv.type, 0)) AS votes'),
+    )
+    .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
+    .join('categories as c', 'c.id', 'd.category_id')
+    .whereRaw('LOWER(d.title) LIKE ?', `%${searchText.toLowerCase()}%`)
+    .orWhereRaw('LOWER(d.body) LIKE ?', `%${searchText.toLowerCase()}%`)
+    .groupBy('d.id', 'u.username', 'c.name')
+    // order by given order and orderType, else default to ordering by created_at descending
+    .orderBy(`${order ? order : 'd.created_at'}`, `${orderType ? orderType : 'desc'}`);
 };
 
 //Find by User ID (Original Creator)
@@ -256,18 +257,18 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
-    .leftOuterJoin(postCountQuery.as('pc'), function() {
+    .leftOuterJoin(postCountQuery.as('pc'), function () {
       this.on('pc.discussion_id', '=', 'd.id');
     })
-    .leftOuterJoin(userVoteQuery.as('uv'), function() {
+    .leftOuterJoin(userVoteQuery.as('uv'), function () {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     .where('c.id', category_id)
     .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type')
     // order by given order and orderType variables
     // else default to ordering by created_at descending
-    .orderBy(`${ order ? order : 'created_at' }`, `${ orderType ? orderType : 'desc' }`);
-  
+    .orderBy(`${order ? order : 'created_at'}`, `${orderType ? orderType : 'desc'}`);
+
   const categoryQuery = db('categories as c')
     .select(
       'c.name',
@@ -278,10 +279,10 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
     .where('c.id', category_id)
     .first();
 
-  const promises = [ discussionQuery, categoryQuery ];
+  const promises = [discussionQuery, categoryQuery];
   return Promise.all(promises)
     .then(results => {
-      const [ discussionResults, categoryResults ] = results;
+      const [discussionResults, categoryResults] = results;
       return {
         category: categoryResults,
         discussions: discussionResults,
