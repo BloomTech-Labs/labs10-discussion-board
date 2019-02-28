@@ -5,11 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
-<<<<<<< HEAD
 import { phoneL, phoneP, tabletP} from '../globals/globals.js'
-=======
-import { phoneL, tabletP } from '../globals/globals.js'
->>>>>>> 4966771e8e0a7ee229fecd106439a3f1c2c407f7
 
 // components
 import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
