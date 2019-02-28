@@ -827,19 +827,19 @@ class RegisterView extends Component {
     });
   }
 
-  clearRegisterState = ev => {
-    ev.preventDefault();
-    this.setState({
-      subPlan: subscriptionPlans[0],
-      username: '',
-      password: '',
-      email: '',
-      signature: '',
-      avatar: defaultAvatar,
-      avatarUrl: '',
-      isReady: false
-    });
-  };
+  // clearRegisterState = ev => {
+  //   ev.preventDefault();
+  //   this.setState({
+  //     subPlan: subscriptionPlans[0],
+  //     username: '',
+  //     password: '',
+  //     email: '',
+  //     signature: '',
+  //     avatar: defaultAvatar,
+  //     avatarUrl: '',
+  //     isReady: false
+  //   });
+  // };
 
   convertAndSetAvatarUrlToBase64 = () => {
     const url = this.state.avatarUrl;

@@ -22,11 +22,12 @@ const FormLogin = styled.form`
   visibility: ${props => (props.isLoginDropdownClicked ? 'show' : 'hidden')};
   z-index: 9999;
   position: absolute;
+  top: 30px;
+  right: 0;
   width: 270px;
   background-color: #3a77bd;
   border-radius: 10px;
   padding: 25px;
-  margin-top: 120px;
 `;
 
 const LinkForgotUserPass = styled(Link)`

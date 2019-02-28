@@ -36,7 +36,7 @@ const Header = ({ history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
       <Navi>
-        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched}/>
+        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched} />
       </Navi>
     </StyledHeader >
   );

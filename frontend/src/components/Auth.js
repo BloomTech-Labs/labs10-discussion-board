@@ -50,6 +50,12 @@ const DivAuthRegLog = styled.div`
     }
 `;
 
+const DivLogin = styled.div`
+  display: flex;
+  position: relative;
+  flex-direction: column;
+`;
+
 const LinkRegister = styled(Link)`
   margin-right: 0px;
   user-select: none;
@@ -69,7 +75,6 @@ const Login = styled.a`
   cursor: pointer;
   color: ${props => props.theme.authLoginColor};
   font-size: 18px;
-  position: relative;
   &:hover {
     cursor: pointer;
     color: ${props => props.theme.authLoginColorHov};
@@ -113,20 +118,23 @@ class Auth extends Component {
         <DivAuthRegLog>
           <LinkRegister to='/register'>Register</LinkRegister>
           &nbsp;|&nbsp;
-          <Login
-            onClick={ev => {
-              this.toggleLoginDropdown(ev);
-            }}
-            isLoginDropdownClicked={this.state.isLoginDropdownClicked}
-          >
-            Login &nbsp;
-            <img src={chevron} alt='chevron' />
-          </Login>
-          <LoginDropdown
-            {...this.props}
-            isLoginDropdownClicked={this.state.isLoginDropdownClicked}
-            setIsLoginDropdownClicked={this.setIsLoginDropdownClicked}
-          />
+          <DivLogin>
+            <Login
+              onClick={ev => {
+                this.toggleLoginDropdown(ev);
+              }}
+              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
+            >
+              Login &nbsp;
+              <img src={chevron} alt='chevron' />
+
+            </Login>
+            <LoginDropdown
+              {...this.props}
+              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
+              setIsLoginDropdownClicked={this.setIsLoginDropdownClicked}
+            />
+          </DivLogin>
         </DivAuthRegLog>
       </NotLoggedIn>
     );
