@@ -109,7 +109,7 @@ const Sort = styled.div`
 display: flex;
 flex-direction: row;
 padding-bottom: 1em;
-align-items: baseline
+align-items: baseline;
 justify-content: space-between;
 
 @media ${tabletP} {
