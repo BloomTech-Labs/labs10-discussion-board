@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // action creators
 import { getProfile } from '../store/actions/index.js';
@@ -43,8 +44,12 @@ const EmailAndAvatar = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    @media ${tabletP}{
+      font-size: 16px;
+    }
 
     @media (max-width: 680px){
+      font-size: 18px;
       display: flex;
       flex-direction: column;
     }
@@ -68,13 +73,36 @@ const AuthOEditForms = styled.div`
 `;
 
 const EditMenu = styled.div`
-    text-align: center;
-    width: 100%;
     display: flex;
     flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 
     p {
       margin-bottom: 7px;
+    }
+`;
+
+const EmailForm = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .email {
+      width: 20%;
+      margin: 7px;
+      border-radius: 10px;
+      height: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      &:hover {
+      background-color: ${props => props.theme.settingsButtonHov};
+      cursor: pointer;
+    }
+    @media (max-width: 520px){
+      font-size: 12px;
+    }
     }
 `;
 
@@ -163,15 +191,18 @@ class Settings extends Component {
         <br />
         <AuthOEditForms>
             <EditMenu>
+              <EmailForm>
               {
                 isAuth0 ?
                 <p>You are Auth0. You cannot change your email.</p>
                 :
                 email ?
-                <button onClick = { () => this.toggleForm('email-form') }>Change email</button>
+                <button className = 'change email' onClick = { () => this.toggleForm('email-form') }>Edit email</button>
                 :
-                <button onClick = { () => this.toggleForm('email-form') }>Set email</button>
+                <button className = 'set email' onClick = { () => this.toggleForm('email-form') }>Set email</button>
+                
               }
+              </EmailForm>
               <Buttons>
                 <button onClick={() => this.toggleForm('password-form')}>
                   Edit password
