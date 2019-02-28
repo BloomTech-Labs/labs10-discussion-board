@@ -12,7 +12,9 @@ import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/inde
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const DiscussionsByCatViewWrapper = styled.div`
-
+	span{
+		color: ${props => props.theme.discussionPostColor};
+	}
 `;
 
 /***************************************************************************************************
@@ -50,7 +52,7 @@ class DiscussionsByCats extends Component {
 		const { order } = this.state;
 		return (
 			<DiscussionsByCatViewWrapper>
-				<span>Sort by: </span>
+				<span>Sort </span>
 				<select onChange = { this.handleSelectChange } name = 'order'>
 					<option value = 'created_at'>date created</option>
 					<option value = 'post_count'>number of posts</option>

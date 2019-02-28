@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import { addDiscussion } from '../../store/actions/index.js';
 
 const AddDiscussionFormWrapper = styled.form`
-	border: 1px solid blue;
 	padding: 10px;
+	color: ${props => props.theme.discussionPostColor}
+
 `;
 
 class AddDiscussionForm extends Component {
