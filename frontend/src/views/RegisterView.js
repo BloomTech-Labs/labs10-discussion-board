@@ -582,6 +582,7 @@ const DivRegistryButtons = styled.div`
 `;
 
 const ButtonCancel = styled(Link)`
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -649,9 +650,9 @@ const H3PaymentPlan = styled.h3`
 
   span {
     color: ${({ subPlan }) =>
-    subPlan === subscriptionPlans[1] && '#553621' ||
-    subPlan === subscriptionPlans[2] && '#c0c0c0' ||
-    subPlan === subscriptionPlans[3] && '#ffd700' ||
+    (subPlan === subscriptionPlans[1] && '#553621') ||
+    (subPlan === subscriptionPlans[2] && '#c0c0c0') ||
+    (subPlan === subscriptionPlans[3] && '#ffd700') ||
     'black'
   };
     margin-left: 15px;
