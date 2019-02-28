@@ -36,7 +36,7 @@ const H1Register = styled.h1`
   user-select: none;
 
   @media ${phoneL} {
-    font-size: 35px;
+    font-size: 30px;
   }
 `;
 
@@ -541,12 +541,13 @@ const DivAvatar = styled.div`
   }
 `;
 
-const DivButtons = styled.div`
+const DivRegistryButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 25px 0;
   width: 100%;
+  max-width: 800px;
 
   button {
     width: 200px;
@@ -619,6 +620,10 @@ const DivConfirm = styled.div`
 
   h1 {
     text-decoration: underline;
+
+    @media ${phoneL} {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -650,6 +655,10 @@ const H3PaymentPlan = styled.h3`
     'black'
   };
     margin-left: 15px;
+  }
+
+  @media ${phoneL} {
+    font-size: 24px;
   }
 `;
 
@@ -693,9 +702,14 @@ const SpanBoolColor = styled.span`
 const DivConfirmButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
+  max-width: 800px;
   margin: 25px 0;
+
+  @media ${phoneL} {
+    flex-direction: column-reverse;
+  }
 `;
 
 const ButtonBack = styled.button`
@@ -725,7 +739,7 @@ const ButtonBack = styled.button`
 
   @media ${phoneL} {
     width: 100%;
-    padding: 15px 0;
+    padding: 18px 0;
   }
 `;
 
@@ -748,12 +762,36 @@ const ButtonConfirm = styled.button`
     border-top: 2px solid rgb(0, 150, 0);
     border-left: 2px solid rgb(0, 150, 0);
   }
+
+  @media ${phoneL} {
+    width: 100%;
+    padding: 15px 0;
+  }
 `;
 
 const DivStripeCheckout = styled.div``;
 
 const ButtonStripeCheckout = styled(StripeCheckout)`
   width: 200px;
+
+  * {
+    display: flex!important;
+    height: 40px!important;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px!important;
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    border-radius: 0!important;
+
+    * {
+      padding: 15px 0!important;
+      height: auto!important;
+      border-radius: 0!important;
+    }
+  }
 `;
 
 /***************************************************************************************************
@@ -1243,7 +1281,7 @@ class RegisterView extends Component {
                   </DivRightSide>
                 </DivAccountDetails>
               </DivRegisterForm>
-              <DivButtons>
+              <DivRegistryButtons>
                 <ButtonCancel to='/'>Cancel</ButtonCancel>
                 <button
                   to='/register/confirm'
@@ -1251,7 +1289,7 @@ class RegisterView extends Component {
                 >
                   Continue
               </button>
-              </DivButtons>
+              </DivRegistryButtons>
             </Form>
           )
         }
