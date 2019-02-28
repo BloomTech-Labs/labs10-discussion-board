@@ -198,28 +198,28 @@ export const signout = uuid => dispatch => {
   localStorage.removeItem('symposium_auth0_expires_at');
   handlePusher.unsubscribeToPusher(uuid);
   displayMessage('You have been signed out. Thanks for coming by!')(dispatch);
-  dispatch({ type: USER_SIGNOUT_SUCCESS });  
+  dispatch({ type: USER_SIGNOUT_SUCCESS });
   return Promise.resolve();
 };
 
 // prettier-ignore
 export const uploadAvatar = (user_id, avatarData, onUploadAvatarSuccess) => dispatch => {
-	const token = localStorage.getItem('symposium_token');
-	let headers;
+  const token = localStorage.getItem('symposium_token');
+  let headers;
 
-	if (avatarData) {
-		// avatar will be updated with given image
-		headers = {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-				Authorization: token,
-			}
-		};
-	} else {
-		// avatar will be reset to default
-		headers = { headers: { Authorization: token } };
-		avatarData = { avatarData };
-	}
+  if (avatarData) {
+    // avatar will be updated with given image
+    headers = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: token,
+      }
+    };
+  } else {
+    // avatar will be reset to default
+    headers = { headers: { Authorization: token } };
+    avatarData = { avatarData };
+  }
 
   dispatch({ type: UPLOAD_AVATAR_LOADING });
 
@@ -232,7 +232,7 @@ export const uploadAvatar = (user_id, avatarData, onUploadAvatarSuccess) => disp
 
 // prettier-ignore
 export const uploadAvatarUrl = (user_id, avatarUrl, onUploadAvatarSuccess) => dispatch => {
-	const token = localStorage.getItem('symposium_token');
+  const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   avatarUrl = { avatarUrl };
 
@@ -319,7 +319,7 @@ export const sendPWResetEmail = (email, historyPush) => dispatch => {
   dispatch({ type: SEND_PW_RESET_EMAIL_LOADING });
   const body = { email };
   return axios
-    .post(`${ backendUrl }/users/send-reset-pw-email`, body)
+    .post(`${backendUrl}/users/send-reset-pw-email`, body)
     .then(res => dispatch({ type: SEND_PW_RESET_EMAIL_SUCCESS, payload: res.data.message }))
     .then(() => historyPush('/home'))
     .catch(err => handleError(err, SEND_PW_RESET_EMAIL_FAILURE)(dispatch));
@@ -330,7 +330,7 @@ export const resetPassword = (password, token) => dispatch => {
   dispatch({ type: RESET_PASSWORD_LOADING });
   const body = { password };
   return axios
-    .put(`${ backendUrl }/users/reset-password`, body, headers)
+    .put(`${backendUrl}/users/reset-password`, body, headers)
     .then(response => {
       localStorage.setItem('symposium_token', response.data[0].token);
       localStorage.setItem('symposium_user_id', response.data[0].id);
@@ -347,7 +347,7 @@ export const deleteAccount = () => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   dispatch({ type: DELETE_ACCOUNT_LOADING });
-  return axios.delete(`${ backendUrl }/users/${ user_id }`, headers)
+  return axios.delete(`${backendUrl}/users/${user_id}`, headers)
     .then(() => {
       localStorage.removeItem('symposium_token');
       localStorage.removeItem('symposium_user_id');
@@ -365,27 +365,27 @@ export const removeNotification = id => dispatch => {
   const headers = { headers: { Authorization: token } };
   dispatch({ type: REMOVE_NOTIFICATION_LOADING });
   return axios
-    .delete(`${ backendUrl }/user-notifications/${ id }/${ user_id }`, headers)
+    .delete(`${backendUrl}/user-notifications/${id}/${user_id}`, headers)
     .then(res => dispatch({ type: REMOVE_NOTIFICATION_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, REMOVE_NOTIFICATION_FAILURE)(dispatch));
 };
 
 export const getNotifications = () => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
   dispatch({ type: GET_NOTIFICATIONS_LOADING });
-  return axios.get(`${ backendUrl }/user-notifications/user/${ user_id }`, headers)
+  return axios.get(`${backendUrl}/user-notifications/user/${user_id}`, headers)
     .then(res => dispatch({ type: GET_NOTIFICATIONS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, GET_NOTIFICATIONS_FAILURE)(dispatch));
 };
 
 export const markNotificationsAsRead = () => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
   dispatch({ type: UPDATE_LAST_LOGIN_LOADING });
-  return axios.put(`${ backendUrl }/users/last-login/${ user_id }`, {}, headers)
+  return axios.put(`${backendUrl}/users/last-login/${user_id}`, {}, headers)
     .then(res => {
       dispatch({ type: MARK_NOTIFICATIONS_AS_READ });
       dispatch({ type: UPDATE_LAST_LOGIN_SUCCESS, payload: res.data[0] });
