@@ -62,7 +62,7 @@ const PWelcomeMessage = styled.p`
       }
 
       .notifications-icon {
-        ${ ({ newNotifications }) => newNotifications && 'color: red;' }
+        ${ ({ newNotifications }) => newNotifications && 'color: red;'}
         &:hover {
           color: #ddd;
           cursor: pointer;
@@ -127,22 +127,22 @@ class DisplayUser extends Component {
     const { isAvatarClicked, showNotifications } = this.state;
     return (
       <DivWrapper>
-        <PWelcomeMessage newNotifications = { this.props.newNotifications }>
+        <PWelcomeMessage newNotifications={this.props.newNotifications}>
           Welcome, {this.props.username}&nbsp;
-          <span className = 'notifications-icon-wrapper'>
-            <span className = 'notifications-count'>{ this.props.newNotifications ? this.props.newNotificationCount : null }</span>
+          <span className='notifications-icon-wrapper'>
+            <span className='notifications-count'>{this.props.newNotifications ? this.props.newNotificationCount : null}</span>
             <i
-              onClick = { this.toggleShowNotifications }
-              className = 'far fa-envelope notifications-icon'
+              onClick={this.toggleShowNotifications}
+              className='far fa-envelope notifications-icon'
             />
           </span>
         </PWelcomeMessage>
         {
           showNotifications &&
           <Notifications
-            toggleShowNotifications = { this.toggleShowNotifications }
-            notifications = { this.props.notifications }
-            goTo = { this.goTo }
+            toggleShowNotifications={this.toggleShowNotifications}
+            notifications={this.props.notifications}
+            goTo={this.goTo}
           />
         }
         <DivUser>
@@ -150,7 +150,7 @@ class DisplayUser extends Component {
             onClick={() => this.toggleAvatarClicked()}
             isAvatarClicked={isAvatarClicked}
           >
-          
+
             <Avatar height={'72px'} width={'72px'} src={this.props.avatar} />
             <img src={chevron} alt='chevron' />
           </DivAvatar>
