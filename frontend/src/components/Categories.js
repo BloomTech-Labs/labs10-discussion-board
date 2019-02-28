@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import {phoneP, tabletP, } from '../globals/globals';
+import { phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { Deleted } from './index.js';
@@ -63,7 +63,6 @@ const SingleCategoryWrapper = styled.div`
         display: none;
       }
     }
-  }
   &:hover {
     background-color: ${props => props.theme.catBgColorHov};
   }
@@ -93,16 +92,16 @@ const Categories = ({ category }) => {
       </div>
       {
         user_username ?
-        <Link to={`/profile/${user_id}`} className='nameanddate'>
-          Created By: {user_username}
-        </Link> :
-        <span>Created By: <Deleted /></span>
+          <Link to={`/profile/${user_id}`} className='nameanddate'>
+            Created By: {user_username}
+          </Link> :
+          <span>Created By: <Deleted /></span>
       }
       <div className='timestamp'>
         <span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       </div>
-      <div className = 'discussion-count'>
-        { discussion_count } Discussions
+      <div className='discussion-count'>
+        {discussion_count} Discussions
       </div>
     </SingleCategoryWrapper>
   );

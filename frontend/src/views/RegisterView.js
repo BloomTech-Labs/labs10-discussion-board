@@ -74,7 +74,7 @@ const DivSelectBanners = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
 
-  @media ${phoneL} {
+  @media ${phoneL}{
     flex-direction: column;
   }
 `;
@@ -362,7 +362,7 @@ const DivRegisterForm = styled.div`
     text-decoration: underline;
     margin: 0 0 0.67em 0;
 
-    @media ${phoneL}{
+    @media ${phoneL} {
       font-size: 24px;
     }
   }
@@ -846,9 +846,25 @@ class RegisterView extends Component {
     const setAvatar = (base64) => {
       this.setState({ avatar: base64 });
     }
-    base64Img.requestBase64(url, function (err, res, body) {
-      setAvatar(body);
-    });
+
+    let getDataUri = function (url, callback) {
+      let xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        let reader = new FileReader();
+        reader.onloadend = function () {
+          callback(reader.result);
+        };
+        reader.readAsDataURL(xhr.response);
+      };
+      let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      xhr.open('GET', proxyUrl + url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    };
+
+    getDataUri(url, function (base64) {
+      setAvatar(base64);
+    })
   }
 
   selectSubPlan = sub => {
