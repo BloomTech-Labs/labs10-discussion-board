@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 //globals
-import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+import { phoneP, phoneL, tabletP } from '../globals/globals.js'
 
 // components
 import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
@@ -13,14 +13,14 @@ import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
 import { handlePostVote } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
- display: flex;
- flex-direction: row;
- justify-content: space-evenly;
- border-top: 1px solid black;
- border-bottom: 1px solid black;
- padding-top: 16px;
- padding-bottom: 16px;
- margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin: 0 auto;
 
   @media ${phoneL} {
     display: flex;
@@ -32,7 +32,7 @@ const PostWrapper = styled.div`
 `;
 
 const PostSubWrapper = styled.div`
-width: 80%
+width: 80%;
 display: flex;
 flex-direction: column;
 `;
@@ -67,24 +67,22 @@ const PostedBy = styled.div`
   }
 `;
 
-const Elip = styled.div `
-  display: inline;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  padding: 10px;
-  padding-top: 0;
+const DivBody = styled.div`
+  width: 100%;
 
-  p{
+  p {
     margin: 0;
     margin-bottom: 10px;
+    word-break: break-word;
   }
 `;
 
-const VoteAndBody = styled.div `
+const H5signature = styled.h5`
+  border-top: 1px solid black;
+  padding: 15px;
+`;
+
+const VoteAndBody = styled.div`
 display: flex;
 flex-direction: row;
 height: 80%;
@@ -99,9 +97,9 @@ left: 0;
     bottom: 0
   }
 
- h4{
-   cursor: pointer;
- }
+  h4{
+    cursor: pointer;
+  }
 `
 
 const Post = ({
@@ -137,57 +135,58 @@ const Post = ({
   const userCreatedPost = loggedInUserId === user_id;
   return (
     // name attribute for use with react-scroll
-    <PostWrapper name = { id }>
+    <PostWrapper name={id}>
       <PostSubWrapper>
-        { reply_to && <Quote reply_to = { reply_to } /> }
+        {reply_to && <Quote reply_to={reply_to} />}
         <VoteAndBody>
-          <VoteCount 
-          handleVote = { handleVote } 
-          vote_count = { post_votes }
-          user_vote = { user_vote }
+          <VoteCount
+            handleVote={handleVote}
+            vote_count={post_votes}
+            user_vote={user_vote}
           />
-          <Elip>
-              {last_edited_at && (
-                <p>
-                  Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-                </p>
-              )}
-              {body}
-          </Elip>
+          <DivBody>
+            {last_edited_at && (
+              <p>
+                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+              </p>
+            )}
+            <p>{body}</p>
+            <H5signature>{(post.signature) && post.signature}</H5signature>
+          </DivBody>
         </VoteAndBody>
         <UserActions>
           {
             loggedInUserId !== 0 &&
-            <h4 onClick = { () => toggleAddReplyForm(id) }><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
+            <h4 onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
           }
           {userCreatedPost &&
-          (showEditPostForm === id ? (
-            <EditPostForm
-              user_id={user_id}
-              post_id={id}
-              discussion_id={discussion_id}
-              historyPush={historyPush}
-              updateEditPostForm={updateEditPostForm}
-            />
-          ) : (
-            <>
-              <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>            
-            </>
-          ))}
+            (showEditPostForm === id ? (
+              <EditPostForm
+                user_id={user_id}
+                post_id={id}
+                discussion_id={discussion_id}
+                historyPush={historyPush}
+                updateEditPostForm={updateEditPostForm}
+              />
+            ) : (
+                <>
+                  <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>
+                </>
+              ))}
           {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
         </UserActions>
       </PostSubWrapper>
-        <PostedBy>
-          <Avatar height={'72px'} width={'72px'} src={avatar} />
-          {
-            username ?
+      <PostedBy>
+        <Avatar height={'72px'} width={'72px'} src={avatar} />
+        {
+          username ?
             <Link className='username' to={`/profile/${user_id}`}>
-              {username}, 
+              {username},
             </Link> :
             <Deleted />
-          }
-          <p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
-        </PostedBy>
+        }
+        <p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
+      </PostedBy>
     </PostWrapper>
   );
 };
@@ -199,5 +198,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {handlePostVote}
+  { handlePostVote }
 )(Post);
