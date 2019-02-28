@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { PostCount, VoteCount, Deleted } from './index.js';
@@ -19,27 +20,62 @@ const TopDiscussionWrapper = styled.div`
   box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 
   &:hover {
-    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+    // background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 
   .title {
     text-decoration: none;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     color: ${props => props.theme.topDiscussionTitleColor};
+    margin-bottom: 15px;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+    @media ${tabletP}{
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      @media${phoneP}{
+        display: flex;
+        font-size: 18px;
+      }
+    }
     &:hover {
       text-decoration: underline;
       cursor: pointer;
     }
   }
+  .timestamp{
+    color: ${props => props.theme.topDiscussionCatColor};
+    @media ${tabletP}{
+      margin: 10px;
+      @media${phoneP}{
+      
+      }
+    }
+  }
   .category {
     a {
       margin-left: 5px;
+      margin-top: 5px;
       text-decoration: none;
-      font-size: 18px;
-      color: ${props => props.theme.topDiscussionCatColorHov};
+      font-size: 16px;
+      font-style: oblique;
+      font-weight: bold;
+      color: ${props => props.theme.topDiscussionCatColor};
+      @media ${tabletP}{
+        margin: 10px;
+        padding: 14px;
+        font-size: 14px;
+        @media${phoneP}{
+          font-size: 14px;
+          align-items: center;
+          padding: 20px;
+        }
+      }
     &:hover {
-      background-color: ${props => props.theme.topDiscussionCatBgColorHov};
       cursor: pointer;
       text-decoration: underline;
 
@@ -49,7 +85,19 @@ const TopDiscussionWrapper = styled.div`
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
+    font-style: italic;
     color: ${props => props.theme.topDiscussionNameDateColor};
+    @media ${tabletP}{
+      margin: 2px;
+      display: flex;
+      align-items: center;
+      width: 20px;
+      padding: 10px;
+      font-size: 12px;
+      @media${phoneP}{
+    
+      }
+    }
     &:hover {
       text-decoration: underline;
       background-color: ${props => props.theme.topDiscussionNameDateColorHov};
@@ -59,10 +107,13 @@ const TopDiscussionWrapper = styled.div`
 
   .content {
     width: 85%;
+    margin: 5px;
+    padding: 5px;
   }
 
   p {
     margin-left: 10px;
+    padding: 5px;
     &:hover {
     }
   }
@@ -76,11 +127,43 @@ const Elip = styled.div `
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
+  padding: 5px;
+  border: 0px solid #10355C;
+  border-radius: 5px;
+  box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+  background-color: ${props => props.theme.topDiscussionElipBgColor};
+  color: ${props => props.theme.topDiscussionElipColor};
+  width: 540px;
+  @media ${tabletP}{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
+    @media${phoneP}{
+      display: none;
+      flex-direction: column;
+      width: 240px;
+    }
+  }
+  &:hover {
+    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+  }
 `;
 
 const Vote = styled.div `
 display: flex;
 margin-right: 10px;
+box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+  @media${phoneP}{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
 `;
 
 /***************************************************************************************************
@@ -116,7 +199,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
           </Link>
           &#8201;
           <span className='category'>
-            <Link to={`/discussions/category/${category_id}`}>
+            <Link to={`/discussions/category/${category_id}`} className='category'>
               /d/{category_name}
             </Link>
           </span>
@@ -136,7 +219,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
             - {moment(new Date(Number(created_at))).fromNow()}
           </span>
         </div>
-        <Elip>{body}</Elip>
+        <p className = 'body-content'><Elip>{body}</Elip></p>
       </div>
       <Vote><PostCount post_count={post_count || 0} /></Vote>
     </TopDiscussionWrapper>
