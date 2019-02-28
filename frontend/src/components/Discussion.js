@@ -39,7 +39,7 @@ display: flex;
 flex-direction: column;
 margin: 0 auto;
 
-@media${tabletP}{
+@media ${tabletP} {
   width: 90%;
 }
 
@@ -58,13 +58,10 @@ const DiscussionInfo = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media${tabletP}{
+  @media ${tabletP} {
     display: flex;
     width: 90%;
-
   }
-    @media ${phoneL}{
-    }
 `;
 
 const Posts = styled.div`
@@ -94,7 +91,7 @@ const PostedBy = styled.div`
   }
 `;
 
-const Elip = styled.div `
+const Elip = styled.div`
   display: inline;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -177,8 +174,8 @@ class Discussion extends Component {
     orderType: '', // possible values: 'desc', 'asc'
   };
   handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
-		return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
-	});
+    return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
+  });
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
   toggleAddReplyForm = id => this.setState({ showAddReplyForm: id });
@@ -198,9 +195,9 @@ class Discussion extends Component {
   };
   handleDiscussionVote = (discussion_id, type) => {
     const { order, orderType } = this.state;
-		const { id, getDiscussionById, handleDiscussionVote } = this.props;
-		return handleDiscussionVote(discussion_id, this.props.loggedInUserId, type)
-			.then(() => getDiscussionById(id, order, orderType));
+    const { id, getDiscussionById, handleDiscussionVote } = this.props;
+    return handleDiscussionVote(discussion_id, this.props.loggedInUserId, type)
+      .then(() => getDiscussionById(id, order, orderType));
   };
   componentDidMount = () => {
     const { getDiscussionById, id, scrollTo } = this.props;
@@ -213,12 +210,12 @@ class Discussion extends Component {
     if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
   render() {
-    const { 
-      order, 
+    const {
+      order,
       orderType,
-      showAddPostForm, 
-      showEditPostForm, 
-      showEditDiscussionForm, 
+      showAddPostForm,
+      showEditPostForm,
+      showEditDiscussionForm,
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
@@ -248,16 +245,16 @@ class Discussion extends Component {
               loggedInUserId === user_id &&
               (
                 showEditDiscussionForm ?
-                <EditDiscussionForm
-                  toggleEditDiscussionForm = { this.toggleEditDiscussionForm }
-                  title = { title }
-                  body = { body }
-                  discussion_id = { id }
-                  historyPush = { historyPush }
-                />
-                :
-                <button onClick = { this.toggleEditDiscussionForm }
-                >Edit discussion</button>
+                  <EditDiscussionForm
+                    toggleEditDiscussionForm={this.toggleEditDiscussionForm}
+                    title={title}
+                    body={body}
+                    discussion_id={id}
+                    historyPush={historyPush}
+                  />
+                  :
+                  <button onClick={this.toggleEditDiscussionForm}
+                  >Edit discussion</button>
               )
             }
             {last_edited_at && (
@@ -267,25 +264,25 @@ class Discussion extends Component {
             )}
             {
               loggedInUserId === user_id &&
-              <button onClick = { this.handleRemoveDiscussion }>Remove discussion</button>
+              <button onClick={this.handleRemoveDiscussion}>Remove discussion</button>
             }
             <Title>
-              <h1> { title } </h1> 
+              <h1> {title} </h1>
               <PostedBy>
                 Posted by: &nbsp;
                 {
                   username ?
-                  <Link className='username' to={`/profile/${user_id}`}>
-                    {username}, 
+                    <Link className='username' to={`/profile/${user_id}`}>
+                      {username},
                   </Link> :
-                  <Deleted />
+                    <Deleted />
                 }
                 <div>{moment(new Date(Number(created_at))).fromNow()}</div>
               </PostedBy>
             </Title>
             <DiscussionInfo>
               <Elip>{body}</Elip>
-            </DiscussionInfo>        
+            </DiscussionInfo>
             <Sort>
               <div className = 'dropDowns'>
                 <span className='sorted'>Sort</span>
@@ -303,7 +300,7 @@ class Discussion extends Component {
                 </select>
               </div>
               <AddPostBtn>
-                {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add Post</button>}
+                {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
                 {showAddPostForm && (
                  <AddPostForm
                     user_id={loggedInUserId}
@@ -328,16 +325,16 @@ class Discussion extends Component {
             orderType={orderType}
           />
           {
-          showAddReplyForm &&
-          <AddReplyForm
-            toggleAddReplyForm = { this.toggleAddReplyForm }
-            discussion_id = { id }
-            historyPush = { historyPush }
-            repliedPost = { posts.find(post => post.id === showAddReplyForm) }
-          />
+            showAddReplyForm &&
+            <AddReplyForm
+              toggleAddReplyForm={this.toggleAddReplyForm}
+              discussion_id={id}
+              historyPush={historyPush}
+              repliedPost={posts.find(post => post.id === showAddReplyForm)}
+            />
           }
           <AddPostBtn>
-            {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add Post</button>}
+            {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
             {showAddPostForm && (
               <AddPostForm
                 user_id={loggedInUserId}
@@ -348,7 +345,7 @@ class Discussion extends Component {
             )}
           </AddPostBtn>
         </Posts>
-        </DiscussionWrapper>
+      </DiscussionWrapper>
     );
   }
 };
