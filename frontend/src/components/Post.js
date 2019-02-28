@@ -56,7 +56,7 @@ const PostedBy = styled.div`
 
   .username {
     font-weight: bold;
-    color: ${props => props.theme.postPostedByUsernameColor};
+    color: ${props => props.theme.discussionAvatarUsernameColor};
     text-decoration: none;
 
     &:hover {
@@ -73,6 +73,7 @@ const DivBody = styled.div `
     margin: 0;
     margin-bottom: 10px;
     word-break: break-word;
+    color: ${props => props.theme.discussionPostColor};
   }
 `;
 
@@ -86,6 +87,7 @@ const UserActions = styled.div`
 display: flex;
 flex-direction: row;
 left: 0;
+color: ${props => props.theme.discussionPostColor};
 
   @media ${phoneL}{
     

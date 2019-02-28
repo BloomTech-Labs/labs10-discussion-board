@@ -11,6 +11,8 @@ import { addPost } from '../../store/actions/index.js';
 const AddPostFormWrapper = styled.form`
 	border: 1px solid blue;
 	padding: 10px;
+	color: ${props => props.theme.discussionPostColor}
+
 `;
 
 class AddPostForm extends Component {

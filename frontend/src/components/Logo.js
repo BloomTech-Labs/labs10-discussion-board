@@ -40,6 +40,8 @@ const SympLogo = styled.div`
   height: 141px;
   background-image: url(${meeting});
   background-repeat: no-repeat;
+  color: ${props => props.theme.discussionUsernameColor}; 
+
     &:hover {
       background-image: url(${meeting2});
       cursor: wait;

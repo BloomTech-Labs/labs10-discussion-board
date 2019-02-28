@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
-import { phoneL, tabletP} from '../globals/globals.js'
+import { phoneL, phoneP, tabletP} from '../globals/globals.js'
 
 // components
 import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
@@ -68,10 +68,11 @@ const DiscussionInfo = styled.div`
 `;
 
 const Posts = styled.div`
-
 `
 
-const Title = styled.div``
+const Title = styled.div`
+  color: ${props => props.theme.discussionPostColor};
+`
 
 const PostedBy = styled.div`
   display: flex;
@@ -83,7 +84,7 @@ const PostedBy = styled.div`
   }
 
   .username {
-    color: ${props => props.theme.discussionUsernameColor};
+    color: ${props => props.theme.discussionUsernameColor}; 
     font-weight: bold;
 
     &:hover {
@@ -99,7 +100,9 @@ const Elip = styled.div `
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   padding: 10px;
-  
+  color: ${props => props.theme.discussionPostColor};
+
+
   @media ${tabletP} {
     text-align: center;
   }
@@ -109,7 +112,6 @@ const Sort = styled.div`
 display: flex;
 flex-direction: row;
 padding-bottom: 1em;
-border: 1px solid black
 align-items: baseline
 justify-content: space-between;
 
@@ -133,6 +135,8 @@ justify-content: space-between;
 .sorted {
   font-weight: bold;
   padding: 5px;
+  color: ${props => props.theme.discussionPostColor};
+
 }
 
   button{
