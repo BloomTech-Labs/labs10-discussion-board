@@ -93,7 +93,7 @@ const ButtonContainer = styled.div`
   align-items: center;
 
   @media ${tabletP}{
-    width: 18%
+    width: 18%;
     
     @media ${phoneL}{
       width: 25%;

@@ -109,7 +109,7 @@ const Sort = styled.div`
 display: flex;
 flex-direction: row;
 padding-bottom: 1em;
-align-items: baseline
+align-items: baseline;
 justify-content: space-between;
 
 @media ${tabletP} {
@@ -119,7 +119,7 @@ justify-content: space-between;
   margin: 0 auto;
 
   @media ${phoneP}{
-  margin: 0 auto
+  margin: 0 auto;
   align-items: center;
   width: 70%;
   }
