@@ -66,10 +66,13 @@ const PostedBy = styled.div`
   }
 `;
 
-const Elip = styled.div `
+const DivBody = styled.div `
+  padding: 1.5em;
+
   p{
     margin: 0;
     margin-bottom: 10px;
+    word-break: break-word;
   }
 `;
 
@@ -136,14 +139,14 @@ const Post = ({
           vote_count = { post_votes }
           user_vote = { user_vote }
           />
-          <Elip>
+          <DivBody>
               {last_edited_at && (
                 <p>
                   Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
                 </p>
               )}
-              {body}
-          </Elip>
+              <p>{body}</p>
+          </DivBody>
         </VoteAndBody>
         <UserActions>
           {
