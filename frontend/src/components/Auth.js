@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LoginDropdown from './LoginDropdown.js';
 import chevron from '../assets/img/chevron.png';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -133,8 +133,8 @@ class Auth extends Component {
   }
 }
 
-// Auth.propTypes = {
-//   propertyName: PropTypes.string
-// }
+Auth.propTypes = {
+  propertyName: PropTypes.string
+}
 
 export default connect(null, {})(Auth);
