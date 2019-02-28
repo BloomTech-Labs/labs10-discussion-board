@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets folder
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import {phoneP, tabletP, } from '../globals/globals';
+import { Link } from 'react-router-dom';
+import { phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { Avatar, Deleted } from '../components/index.js';
@@ -27,7 +27,7 @@ const ProfileWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 380px;
-    @media${phoneP}{
+    @media ${phoneP} {
       display: flex;
       flex-direction: column;
       width: 240px;
@@ -64,11 +64,11 @@ const WrappedDiv = styled.div`
     margin: 3px;
     padding: 3px;
     color: ${props => props.theme.profileTitleContentColor};
-      @media${phoneP}{
+      @media ${phoneP} {
         display: none;
       }
     }
-  }
+
   .property-content {
     display: flex;
     flex-direction: column;
@@ -113,7 +113,7 @@ color: ${props => props.theme.profileTitleSubContentDColor};
   align-self: center;
   margin: 3px;
   padding: 3px;
-  @media${phoneP}{
+  @media ${phoneP} {
     display: none;
   }
 }
@@ -165,9 +165,9 @@ class Profile extends Component {
             <ProfileWrapper>
               <WrappedDiv>
                 <Avatar
-                  height = '50px'
-                  width = '50px'
-                  src = { profile.avatar }
+                  height='50px'
+                  width='50px'
+                  src={profile.avatar}
                 />
               </WrappedDiv>
               <WrappedDiv>
@@ -180,25 +180,25 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Followed Discussions: </p>
-                {profile.discussionFollows.map((discussionFollowed, index)=> 
-                  <ContentDiv key = {index}>
-                    <Link to = {`/discussion/${discussionFollowed.discussion_id}`}><p className='property-content'> {discussionFollowed.title}</p></Link>
+                {profile.discussionFollows.map((discussionFollowed, index) =>
+                  <ContentDiv key={index}>
+                    <Link to={`/discussion/${discussionFollowed.discussion_id}`}><p className='property-content'> {discussionFollowed.title}</p></Link>
                   </ContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-title'> Followed Categories: </p>
-                {profile.categoryFollows.map((categoryFollowed, index)=> 
-                  <ContentDiv key = {index}>
-                    <Link to = {`/discussions/category/${categoryFollowed.category_id}`}><p className='property-content'> {categoryFollowed.name}</p></Link>
+                {profile.categoryFollows.map((categoryFollowed, index) =>
+                  <ContentDiv key={index}>
+                    <Link to={`/discussions/category/${categoryFollowed.category_id}`}><p className='property-content'> {categoryFollowed.name}</p></Link>
                   </ContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-titleC'> Discussions: </p>
-                {profile.discussions.map((discussion, index)=> <SubContentDiv key= {index}>{discussion.title}</SubContentDiv>)}
+                {profile.discussions.map((discussion, index) => <SubContentDiv key={index}>{discussion.title}</SubContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-titleC'> Posts: </p>
-                <Elip>{profile.posts.map((post, index)=> <SubContentDiv key= {index}>{post.body}</SubContentDiv>)}</Elip>
+                <Elip>{profile.posts.map((post, index) => <SubContentDiv key={index}>{post.body}</SubContentDiv>)}</Elip>
               </WrappedDiv>
             </ProfileWrapper>
           </div>
@@ -217,17 +217,17 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-    getProfile: PropTypes.func,
-    profile: PropTypes.arrayOf(
-      PropTypes.shape({
-        status: PropTypes.string.isRequired,
-        username: PropTypes.string.isRequired,
-        email: PropTypes.string,
+  getProfile: PropTypes.func,
+  profile: PropTypes.arrayOf(
+    PropTypes.shape({
+      status: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      email: PropTypes.string,
     }))
 };
-  
+
 const mapStateToProps = state => ({
-        profile: state.profilesData.singleProfileData
+  profile: state.profilesData.singleProfileData
 });
 
-export default connect(mapStateToProps,{ getProfile })(Profile);
+export default connect(mapStateToProps, { getProfile })(Profile);
