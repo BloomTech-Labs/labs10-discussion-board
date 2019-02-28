@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken } from '../globals/globals.js';
+import base64Img from 'base64-img';
+import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, defaultAvatar, tabletL, phoneL } from '../globals/globals.js';
 import {
   register,
   displayError,
@@ -11,7 +12,7 @@ import {
   isEmailTaken,
   stripePayment
 } from '../store/actions/index';
-// import PropTypes from 'prop-types';
+import { Avatar } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -33,6 +34,10 @@ const H1Register = styled.h1`
   color: white;
   font-size: 48px;
   user-select: none;
+
+  @media ${phoneL} {
+    font-size: 35px;
+  }
 `;
 
 const Form = styled.form`
@@ -55,6 +60,10 @@ const DivSubscriptionPlan = styled.div`
     margin: 0 0 0.67em 0;
     text-decoration: underline;
     user-select: none;
+
+    @media ${phoneL} {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -63,6 +72,11 @@ const DivSelectBanners = styled.div`
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
+  flex-wrap: wrap;
+
+  @media ${phoneL} {
+    flex-direction: column;
+  }
 `;
 
 const DivBanner = styled.div`
@@ -78,6 +92,29 @@ const DivBanner = styled.div`
     width: 2em;
     height: 2em;
     cursor: pointer;
+  }
+
+  @media ${tabletL} {
+    width: 49.9%;
+  }
+
+  @media ${phoneL} {
+    height: ${props =>
+    props.subPlan
+      ? 'auto'
+      : '45px'};
+    width: 100%;
+    position: relative;
+
+    input {
+      margin-top: 0;
+      position: absolute;
+      top: ${props =>
+    props.subPlan
+      ? '25px'
+      : '10px'};
+      right: 10px;
+    }
   }
 `;
 
@@ -98,6 +135,20 @@ const DivFeatures = styled.div`
   ul {
     padding-right: 20px;
     user-select: none;
+  }
+
+  @media ${phoneL} {
+    overflow: ${props =>
+    props.subPlan
+      ? 'visible'
+      : 'hidden'};
+
+    h2 {
+      justify-content: flex-start;
+      text-decoration: none;
+      margin-left: 25px;
+      width: 150px;
+    }
   }
 `;
 
@@ -120,10 +171,33 @@ const DivFreePlan = styled.div`
     text-align: center;
     width: 100%;
     user-select: none;
+    
+    @media ${phoneL} {
+      display: ${props =>
+    props.subPlan === subscriptionPlans[0]
+      ? 'visible'
+      : 'none'};
+      top: ${props =>
+    props.subPlan === subscriptionPlans[0]
+    && '1px'};
+      text-align: ${props =>
+    props.subPlan === subscriptionPlans[0]
+    && 'right'};
+      right: ${props =>
+    props.subPlan === subscriptionPlans[0]
+    && '50px'};
+    }
   }
 
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[0] ? '1' : '0.6')};
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    border-radius: 0;
+    border: none; /* remove lime selection border first */
+    border-top: 4px solid black;
   }
 `;
 
@@ -146,10 +220,33 @@ const DivBronzePlan = styled.div`
     text-align: center;
     width: 100%;
     user-select: none;
+    
+    @media ${phoneL} {
+      display: ${props =>
+    props.subPlan === subscriptionPlans[1]
+      ? 'visible'
+      : 'none'};
+      top: ${props =>
+    props.subPlan === subscriptionPlans[1]
+    && '1px'};
+      text-align: ${props =>
+    props.subPlan === subscriptionPlans[1]
+    && 'right'};
+      right: ${props =>
+    props.subPlan === subscriptionPlans[1]
+    && '50px'};
+    }
   }
 
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.6')};
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    border-radius: 0;
+    border: none; /* remove lime selection border first */
+    border-top: 4px solid black;
   }
 `;
 
@@ -172,10 +269,33 @@ const DivSilverPlan = styled.div`
     text-align: center;
     width: 100%;
     user-select: none;
+    
+    @media ${phoneL} {
+      display: ${props =>
+    props.subPlan === subscriptionPlans[2]
+      ? 'visible'
+      : 'none'};
+      top: ${props =>
+    props.subPlan === subscriptionPlans[2]
+    && '1px'};
+      text-align: ${props =>
+    props.subPlan === subscriptionPlans[2]
+    && 'right'};
+      right: ${props =>
+    props.subPlan === subscriptionPlans[2]
+    && '50px'};
+    }
   }
 
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.6')};
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    border-radius: 0;
+    border: none; /* remove lime selection border first */
+    border-top: 4px solid black;
   }
 `;
 
@@ -198,10 +318,34 @@ const DivGoldPlan = styled.div`
     text-align: center;
     width: 100%;
     user-select: none;
+    
+    @media ${phoneL} {
+      display: ${props =>
+    props.subPlan === subscriptionPlans[3]
+      ? 'visible'
+      : 'none'};
+      top: ${props =>
+    props.subPlan === subscriptionPlans[3]
+    && '1px'};
+      text-align: ${props =>
+    props.subPlan === subscriptionPlans[3]
+    && 'right'};
+      right: ${props =>
+    props.subPlan === subscriptionPlans[3]
+    && '50px'};
+    }
   }
 
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.4')};
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    border-radius: 0;
+    border: none; /* remove lime selection border first */
+    border-top: 4px solid black;
+    border-bottom: 4px solid black;
   }
 `;
 
@@ -217,19 +361,34 @@ const DivRegisterForm = styled.div`
   h1 {
     text-decoration: underline;
     margin: 0 0 0.67em 0;
+
+    @media ${phoneL}{
+      font-size: 24px;
+    }
   }
 `;
 
 const DivAccountDetails = styled.div`
   display: flex;
   flex-direction: row;
-  width: 800px;
+  max-width: 800px;
+  width: 100%;
   justify-content: space-between;
+
+  @media ${phoneL} {
+    flex-direction: column-reverse;
+    max-width: 800px;
+    width: 100%;
+  }
 `;
 
 const DivLeftSide = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media ${phoneL} {
+    align-items: center;
+  }
 `;
 
 const DivUsername = styled.div`
@@ -255,6 +414,7 @@ const InputUsername = styled.input`
   height: 30px;
   border-radius: 10px;
   margin-right: 5px;
+  padding: 0 10px;
 
   &:focus {
     outline: none;
@@ -284,6 +444,7 @@ const LabelPassword = styled.label`
 const InputPassword = styled.input`
   height: 30px;
   border-radius: 10px;
+  padding: 0 10px;
 
   &:focus {
     outline: none;
@@ -310,6 +471,7 @@ const InputEmail = styled.input`
   height: 30px;
   border-radius: 10px;
   margin-right: 5px;
+  padding: 0 10px;
 
   &:focus {
     outline: none;
@@ -348,6 +510,12 @@ const TextareaSignature = styled.textarea`
 const DivRightSide = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media ${phoneL} {
+    width: 80%;
+    margin: 0 auto 25px;
+    display: ${props => props.subPlan ? 'flex' : 'none'};
+  }
 `;
 
 const DivAvatar = styled.div`
@@ -355,17 +523,93 @@ const DivAvatar = styled.div`
   flex-direction: column;
   visibility: ${props =>
     props.subPlan === subscriptionPlans[3] ? 'show' : 'hidden'};
+
+  input {
+    margin: 20px 0 10px;
+    padding: 5px;
+  }
+
+  button {
+    padding: 5px;
+    cursor: pointer;
+    &:hover {
+      color: #d8e2e9;
+      background: black;
+      border: 2px solid black;
+      transition: all 0.2s ease-in;
+    }
+  }
 `;
 
 const DivButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 25px 0;
-  width: 50%;
+  width: 100%;
+
+  button {
+    width: 200px;
+    padding: 5px;
+    background: lime;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    border-top: 2px solid rgb(0, 234, 0);
+    border-left: 2px solid rgb(0, 234, 0);
+    border-bottom: 2px solid rgb(0, 150, 0);
+    border-right: 2px solid rgb(0, 150, 0);
+    outline: none;
+
+    &:active {
+      border-bottom: 2px solid rgb(0, 234, 0);
+      border-right: 2px solid rgb(0, 234, 0);
+      border-top: 2px solid rgb(0, 150, 0);
+      border-left: 2px solid rgb(0, 150, 0);
+    }
+  }
+
+  @media ${phoneL} {
+    margin: 0;
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+      padding: 15px 0;
+    }
+  }
 `;
 
-const ButtonCancel = styled(Link)``;
+const ButtonCancel = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 200px;
+  padding: 5px;
+  background: rgb(242, 0, 0);
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  border-top: 3px solid rgb(221, 0, 0);
+  border-left: 3px solid rgb(221, 0, 0);
+  border-bottom: 3px solid rgb(137, 0, 0);
+  border-right: 3px solid rgb(137, 0, 0);
+  outline: none;
+
+  &:active {
+    border-bottom: 3px solid rgb(221, 0, 0);
+    border-right: 3px solid rgb(221, 0, 0);
+    border-top: 3px solid rgb(137, 0, 0);
+    border-left: 3px solid rgb(137, 0, 0);
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    padding: 15px 0;
+  }
+`;
 
 const DivConfirm = styled.div`
   display: flex;
@@ -376,6 +620,140 @@ const DivConfirm = styled.div`
   h1 {
     text-decoration: underline;
   }
+`;
+
+const DivInvoice = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+`;
+
+const DivPaymentPlan = styled.div`
+  width: 100%;
+  border-bottom: 2px solid black;
+  padding-bottom: 15px;
+  margin-top: 0;
+`;
+
+const H3PaymentPlan = styled.h3`
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  margin: 0;
+
+  span {
+    color: ${({ subPlan }) =>
+    subPlan === subscriptionPlans[1] && '#553621' ||
+    subPlan === subscriptionPlans[2] && '#c0c0c0' ||
+    subPlan === subscriptionPlans[3] && '#ffd700' ||
+    'black'
+  };
+    margin-left: 15px;
+  }
+`;
+
+const DivAccoutProperties = styled.div`
+  width: 100%;
+  border-bottom: 2px solid black;
+  padding-bottom: 15px;
+`;
+
+const DivFees = styled.div`
+  border: 2px solid black;
+  padding: 0 15px;
+`;
+
+const DivTotalFee = styled.div`
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 0 15px;
+`;
+
+const H3InvoiceEntry = styled.h3`
+  &:not(:first-child) {
+      margin-top: 0;
+    }
+
+  span {
+    margin-left: 10px;
+  }
+`;
+
+const H3PaymentEntry = styled.h3`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SpanBoolColor = styled.span`
+  color: ${props => props.subPlan ? 'green' : 'red'};
+`;
+
+const DivConfirmButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin: 25px 0;
+`;
+
+const ButtonBack = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 200px;
+  padding: 5px;
+  background: rgb(242, 242, 242);
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  border-top: 2px solid rgb(221, 221, 221);
+  border-left: 2px solid rgb(221, 221, 221);
+  border-bottom: 2px solid rgb(137, 137, 137);
+  border-right: 2px solid rgb(137, 137, 137);
+  outline: none;
+
+  &:active {
+    border-bottom: 2px solid rgb(221, 221, 221);
+    border-right: 2px solid rgb(221, 221, 221);
+    border-top: 2px solid rgb(137, 137, 137);
+    border-left: 2px solid rgb(137, 137, 137);
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    padding: 15px 0;
+  }
+`;
+
+const ButtonConfirm = styled.button`
+  width: 200px;
+  padding: 5px;
+  background: lime;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  border-top: 2px solid rgb(0, 234, 0);
+  border-left: 2px solid rgb(0, 234, 0);
+  border-bottom: 2px solid rgb(0, 150, 0);
+  border-right: 2px solid rgb(0, 150, 0);
+  outline: none;
+
+  &:active {
+    border-bottom: 2px solid rgb(0, 234, 0);
+    border-right: 2px solid rgb(0, 234, 0);
+    border-top: 2px solid rgb(0, 150, 0);
+    border-left: 2px solid rgb(0, 150, 0);
+  }
+`;
+
+const DivStripeCheckout = styled.div``;
+
+const ButtonStripeCheckout = styled(StripeCheckout)`
+  width: 200px;
 `;
 
 /***************************************************************************************************
@@ -390,7 +768,8 @@ class RegisterView extends Component {
       password: '',
       email: '',
       signature: '',
-      avatar: '',
+      avatar: defaultAvatar,
+      avatarUrl: '',
       isReady: false
     };
   }
@@ -403,7 +782,8 @@ class RegisterView extends Component {
       password: '',
       email: '',
       signature: '',
-      avatar: '',
+      avatar: defaultAvatar,
+      avatarUrl: '',
       isReady: false
     });
   }
@@ -416,10 +796,21 @@ class RegisterView extends Component {
       password: '',
       email: '',
       signature: '',
-      avatar: '',
+      avatar: defaultAvatar,
+      avatarUrl: '',
       isReady: false
     });
   };
+
+  convertAndSetAvatarUrlToBase64 = () => {
+    const url = this.state.avatarUrl;
+    const setAvatar = (base64) => {
+      this.setState({ avatar: base64 });
+    }
+    base64Img.requestBase64(url, function (err, res, body) {
+      setAvatar(body);
+    });
+  }
 
   selectSubPlan = sub => {
     this.setState({ subPlan: sub });
@@ -520,7 +911,7 @@ class RegisterView extends Component {
           password: this.state.password,
           email: this.state.email,
           signature: this.state.signature,
-          avatarUrl: this.state.avatar
+          avatarUrl: this.state.avatarUrl
         };
       } else if ( // free or bronze
         this.state.subPlan === subscriptionPlans[0] ||
@@ -540,6 +931,19 @@ class RegisterView extends Component {
       this.props.displayError(err);
     }
   };
+
+  getPaymentAmount = () => {
+    switch (this.state.subPlan) {
+      case subscriptionPlans[1]:
+        return subscriptionPrices[1];
+      case subscriptionPlans[2]:
+        return subscriptionPrices[2];
+      case subscriptionPlans[3]:
+        return subscriptionPrices[3];
+      default:
+        return subscriptionPrices[0];
+    }
+  }
 
   getStripePayment = () => {
     switch (this.state.subPlan) {
@@ -569,23 +973,46 @@ class RegisterView extends Component {
   }
 
   render() {
+    const paymentPlanCost = this.getPaymentAmount();
+    const total = this.getPaymentAmount();
     return (
       <DivWrapper>
         <H1Register>Register New Account</H1Register>
         {this.state.isReady ? (
           <DivConfirm>
             <h1>Confirm New Account Information</h1>
-            <button onClick={() => this.setState({ isReady: false })}>Back</button>
-            {this.state.subPlan === subscriptionPlans[0] ? (
-              <button onClick={ev => this.submitHandler(ev)}>Confirm</button>
-            ) : (
-                <div>
-                  <StripeCheckout
-                    token={this.onToken}
-                    stripeKey={stripeToken}
-                  />
-                </div>
-              )}
+            <DivInvoice>
+              <DivPaymentPlan>
+                <H3PaymentPlan subPlan={this.state.subPlan}>Payment Plan:<span>{(this.state.subPlan).toUpperCase()}</span></H3PaymentPlan>
+              </DivPaymentPlan>
+              <DivAccoutProperties>
+                <H3InvoiceEntry>Username:<span>{this.state.username}</span></H3InvoiceEntry>
+                <H3InvoiceEntry>Email:<span>{(this.state.email) ? this.state.email : 'NONE'}</span></H3InvoiceEntry>
+                <H3InvoiceEntry>Ads:<SpanBoolColor subPlan={this.state.subPlan !== subscriptionPlans[0]}>{this.state.subPlan === subscriptionPlans[0] ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Signature:<SpanBoolColor subPlan={(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3])}>{(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3]) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Avatar:<SpanBoolColor subPlan={this.state.subPlan === subscriptionPlans[3]}>{this.state.subPlan === subscriptionPlans[3] ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+              </DivAccoutProperties>
+              <DivFees>
+                <H3PaymentEntry>Payment Plan Cost:<span>{paymentPlanCost}</span></H3PaymentEntry>
+                <H3PaymentEntry>Taxes:<span>$0.00</span></H3PaymentEntry>
+              </DivFees>
+              <DivTotalFee>
+                <H3PaymentEntry>Total:<span>{total}</span></H3PaymentEntry>
+              </DivTotalFee>
+            </DivInvoice>
+            <DivConfirmButtons>
+              <ButtonBack onClick={() => this.setState({ isReady: false })}>Back</ButtonBack>
+              {this.state.subPlan === subscriptionPlans[0] ? (
+                <ButtonConfirm onClick={ev => this.submitHandler(ev)}>Confirm</ButtonConfirm>
+              ) : (
+                  <DivStripeCheckout>
+                    <ButtonStripeCheckout
+                      token={this.onToken}
+                      stripeKey={stripeToken}
+                    />
+                  </DivStripeCheckout>
+                )}
+            </DivConfirmButtons>
           </DivConfirm>
         ) : (
             <Form>
@@ -594,9 +1021,10 @@ class RegisterView extends Component {
                 <DivSelectBanners>
                   <DivBanner
                     onClick={() => this.selectSubPlan(subscriptionPlans[0])}
+                    subPlan={this.state.subPlan === subscriptionPlans[0]}
                   >
                     <DivFreePlan subPlan={this.state.subPlan}>
-                      <DivFeatures>
+                      <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[0]}>
                         <h2>Free Plan</h2>
                         <ul>
                           <li>Create Categories</li>
@@ -611,16 +1039,17 @@ class RegisterView extends Component {
                       value='free-plan'
                       name='sub-plan'
                       checked={
-                        this.state.subPlan === subscriptionPlans[0] && true
+                        this.state.subPlan === subscriptionPlans[0]
                       }
                       readOnly
                     />
                   </DivBanner>
                   <DivBanner
                     onClick={() => this.selectSubPlan(subscriptionPlans[1])}
+                    subPlan={this.state.subPlan === subscriptionPlans[1]}
                   >
                     <DivBronzePlan subPlan={this.state.subPlan}>
-                      <DivFeatures>
+                      <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[1]}>
                         <h2>Bronze Plan</h2>
                         <ul>
                           <li>Create Categories</li>
@@ -636,16 +1065,17 @@ class RegisterView extends Component {
                       value='bronze-plan'
                       name='sub-plan'
                       checked={
-                        this.state.subPlan === subscriptionPlans[1] && true
+                        this.state.subPlan === subscriptionPlans[1]
                       }
                       readOnly
                     />
                   </DivBanner>
                   <DivBanner
                     onClick={() => this.selectSubPlan(subscriptionPlans[2])}
+                    subPlan={this.state.subPlan === subscriptionPlans[2]}
                   >
                     <DivSilverPlan subPlan={this.state.subPlan}>
-                      <DivFeatures>
+                      <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[2]}>
                         <h2>Silver Plan</h2>
                         <ul>
                           <li>Create Categories</li>
@@ -662,16 +1092,17 @@ class RegisterView extends Component {
                       value='silver-plan'
                       name='sub-plan'
                       checked={
-                        this.state.subPlan === subscriptionPlans[2] && true
+                        this.state.subPlan === subscriptionPlans[2]
                       }
                       readOnly
                     />
                   </DivBanner>
                   <DivBanner
                     onClick={() => this.selectSubPlan(subscriptionPlans[3])}
+                    subPlan={this.state.subPlan === subscriptionPlans[3]}
                   >
                     <DivGoldPlan subPlan={this.state.subPlan}>
-                      <DivFeatures>
+                      <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[3]}>
                         <h2>Gold Plan</h2>
                         <ul>
                           <li>Create Categories</li>
@@ -689,7 +1120,7 @@ class RegisterView extends Component {
                       value='gold-plan'
                       name='sub-plan'
                       checked={
-                        this.state.subPlan === subscriptionPlans[3] && true
+                        this.state.subPlan === subscriptionPlans[3]
                       }
                       readOnly
                     />
@@ -797,16 +1228,17 @@ class RegisterView extends Component {
                         )}
                     </DivSignature>
                   </DivLeftSide>
-                  <DivRightSide>
+                  <DivRightSide subPlan={this.state.subPlan === subscriptionPlans[3]}>
                     <DivAvatar subPlan={this.state.subPlan}>
-                      <img src='' alt='avatar preview' />
+                      <Avatar height={'72px'} width={'72px'} src={this.state.avatar} />
                       <input
                         onChange={this.handleInputChange}
                         placeholder='PNG URL...'
-                        value={this.state.avatar}
-                        name='avatar'
+                        value={this.state.avatarUrl}
+                        name='avatarUrl'
                         autoComplete='off'
                       />
+                      <button type='button' onClick={() => this.convertAndSetAvatarUrlToBase64()}>Set Avatar</button>
                     </DivAvatar>
                   </DivRightSide>
                 </DivAccountDetails>
@@ -821,15 +1253,12 @@ class RegisterView extends Component {
               </button>
               </DivButtons>
             </Form>
-          )}
+          )
+        }
       </DivWrapper>
     );
   }
 }
-
-// RegisterView.propTypes = {
-//   propertyName: PropTypes.string
-// }register
 
 const mapStateToProps = state => {
   return {

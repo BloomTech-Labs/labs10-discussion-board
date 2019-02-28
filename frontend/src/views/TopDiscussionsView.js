@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Discuss from '../assets/img/Discuss.png';
 import TextLoop from 'react-text-loop';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { TopDiscussions } from '../components/index.js';
@@ -50,19 +51,36 @@ const TopDiscussionsTitle = styled.div`
   align-self: center;
   font-size: 18px;
   margin-left: 25px;
-  color: black;
+  color: ${props => props.theme.topDiscussionTitleColor};
+  width: 20px;
+  .toptitle{
+    @media  ${tabletP}{
+    
+      @media${phoneP}{
+        display: flex;
+        align-content: center;
+        font-size: px;
+      }
+    }
+
+  }
+  
 `;
 
 const TextLooper = styled.div`
   display: flex;
   align-self: center;
-  font-size: 28px;
-  margin-left: 30px;
-  color: black;
+  font-size: 24px;
+  color: ${props => props.theme.topDiscussionTitleColor};
   @media (max-width: 768px){
     display: none;
   }
+  .looptext {
+    font-size: 22px;
+  }
 `;
+
+
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -74,14 +92,14 @@ const TopDiscussionsView = () => {
         <div className='logotopd'>
           <TopDiscussionsImage src={Discuss} alt='Top discussions' />
           <TopDiscussionsTitle>
-            <h1>Top Discussions</h1>
+            <h1 className ='toptitle'>Top Discussions</h1>
           </TopDiscussionsTitle>
         </div>
         <TextLooper>
-          <TextLoop>
-            <span>See what's being discussed</span>
-            <span>Find your interests</span>
-            <span>Start talking!</span>
+          <TextLoop className = 'looptext'>
+            <span className = 'looptext'>See what's being discussed</span>
+            <span className = 'looptext'>Find your interests</span>
+            <span className = 'looptext'>Start talking!</span>
           </TextLoop>{' '}
         </TextLooper>
       </TopDiscussionsHeader>

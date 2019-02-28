@@ -71,6 +71,7 @@ const {
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
+
 router.post('/register', requestClientIP, async (req, res) => {
   const accountCreatedAt = Date.now();
   // username and password must keep rules of syntax
@@ -86,7 +87,8 @@ router.post('/register', requestClientIP, async (req, res) => {
   const newUserCreds = {
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, numOfHashes), // bcryptjs hash stored in db (not the actual password)
-    status: req.body.status
+    status: req.body.status,
+	  uuid: uuidv4(), // for use with pusher
   };
 
   // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
@@ -96,6 +98,7 @@ router.post('/register', requestClientIP, async (req, res) => {
 
   // user account created_at
   newUserCreds.created_at = accountCreatedAt;
+  newUserCreds.last_login = accountCreatedAt;
 
   // add user
   return db
@@ -185,7 +188,10 @@ router.post('/register', requestClientIP, async (req, res) => {
                     avatar: foundUser[0].avatar,
                     isAuth0: foundUser[0].password ? false : true,
                     email_confirm: foundUser[0].email_confirm,
-                    discussionFollows: foundUser[0].discussionFollows
+                    discussionFollows: foundUser[0].discussionFollows,
+                    notifications: foundUser[0].notifications,
+                    uuid: foundUser[0].uuid,
+                    last_login: foundUser[0].last_login,
                   }
                 ]);
               });
@@ -201,6 +207,9 @@ router.post('/register', requestClientIP, async (req, res) => {
                 email_confirm: foundUser[0].email_confirm,
                 discussionFollows: foundUser[0].discussionFollows,
                 categoryFollows: foundUser[0].categoryFollows,
+                notifications: foundUser[0].notifications,
+                uuid: foundUser[0].uuid,
+                last_login: foundUser[0].last_login,
               }
             ]);
           }
@@ -239,8 +248,17 @@ router.post('/login', async (req, res) => {
         const token = await generateToken(user.id, user.username);
         return db
           .findById(user.id)
-          .then(foundUser => {
+          .then(async foundUser => {
             if (foundUser.length) {
+              const lastLogin = foundUser[0].last_login;
+              let newNotifications = false;
+              if (foundUser[0].notifications.length) {
+                const latestNotification = foundUser[0].notifications[0].created_at;
+                if (lastLogin < latestNotification) {
+                  newNotifications = true;
+                }
+              }
+              await db.updateLastLogin(user.id);
               return res.status(201).json([
                 {
                   id: user.id,
@@ -251,6 +269,10 @@ router.post('/login', async (req, res) => {
                   email_confirm: foundUser[0].email_confirm,
                   discussionFollows: foundUser[0].discussionFollows,
                   categoryFollows: foundUser[0].categoryFollows,
+                  notifications: foundUser[0].notifications,
+                  newNotifications,
+                  uuid: foundUser[0].uuid,
+                  last_login: foundUser[0].last_login,
                 }
               ]);
             }
@@ -279,6 +301,15 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
       // you will get back an array with an object with user info inside it
       if (user.length === 1) {
         const token = await generateToken(user[0].id, user[0].username);
+        const lastLogin = user[0].last_login;
+        let newNotifications = false;
+        if (user[0].notifications.length) {
+          const latestNotification = user[0].notifications[0].created_at;
+          if (lastLogin < latestNotification) {
+            newNotifications = true;
+          }
+        }
+        await db.updateLastLogin(user_id);
         return res.status(201).json([
           {
             id: user[0].id,
@@ -291,6 +322,10 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
             email_confirm: user[0].email_confirm,
             discussionFollows: user[0].discussionFollows,
             categoryFollows: user[0].categoryFollows,
+            notifications: user[0].notifications,
+            newNotifications,
+            uuid: user[0].uuid,
+            last_login: user[0].last_login,
           }
         ]);
       }
@@ -324,8 +359,17 @@ router.post('/auth0-login', async (req, res) => {
 
         return db
           .findById(user.id)
-          .then(foundUser => {
+          .then(async foundUser => {
             if (foundUser.length) {
+              const lastLogin = foundUser[0].last_login;
+              let newNotifications = false;
+              if (foundUser[0].notifications.length) {
+                const latestNotification = foundUser[0].notifications[0].created_at;
+                if (lastLogin < latestNotification) {
+                  newNotifications = true;
+                }
+              }
+              await db.updateLastLogin(user.id);
               return res.status(201).json([
                 {
                   id: user.id,
@@ -336,6 +380,10 @@ router.post('/auth0-login', async (req, res) => {
                   email_confirm: foundUser[0].email_confirm,
                   discussionFollows: foundUser[0].discussionFollows,
                   categoryFollows: foundUser[0].discussionFollows,
+                  notifications: foundUser[0].notifications,
+                  newNotifications,
+                  uuid: foundUser[0].uuid,
+                  last_login: foundUser[0].last_login,
                 }
               ]);
             }
@@ -351,13 +399,15 @@ router.post('/auth0-login', async (req, res) => {
       const newUserCreds = {
         username: name,
         email,
-        status: 'active'
+        status: 'active',
+        uuid: uuidv4(), // for use with pusher
       };
 
       const accountCreatedAt = Date.now();
 
       // user account created_at
       newUserCreds.created_at = accountCreatedAt;
+      newUserCreds.last_login = accountCreatedAt;
       return db
         .insert(newUserCreds) // [ { id: 1, username: 'username' } ]
         .then(async userAddedResults => {
@@ -377,7 +427,7 @@ router.post('/auth0-login', async (req, res) => {
 
               return db
                 .findById(foundUser.id)
-                .then(foundUserById => {
+                .then(async foundUserById => {
                   if (foundUserById.length) {
                     return res.status(201).json([
                       {
@@ -389,6 +439,9 @@ router.post('/auth0-login', async (req, res) => {
                         email_confirm: foundUserById[0].email_confirm,
                         discussionFollows: foundUserById[0].discussionFollows,
                         categoryFollows: foundUserById[0].categoryFollows,
+                        notifications: foundUserById[0].notifications,
+                        uuid: foundUserById[0].uuid,
+                        last_login: foundUserById[0].last_login,
                       }
                     ]);
                   }

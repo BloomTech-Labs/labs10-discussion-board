@@ -5,8 +5,11 @@ import { connect } from 'react-redux';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
+//globals
+import { phoneP, phoneL, tabletP } from '../globals/globals.js'
+
 /***************************************************************************************************
- ********************************************** Styles *********************************************
+ *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
@@ -19,9 +22,9 @@ const DivWrapper = styled.div`
   border-bottom-right-radius: 30px;
   justify-content: space-evenly;
 
-  @media (max-width: 750px){
+  @media ${tabletP}{
     width: 100%;
-    @media (max-width: 450px){
+    @media ${phoneL}{
       width: 100%;
     }
   }
@@ -41,91 +44,65 @@ const Links = styled.div`
     :hover {
       color: black;
     }
+    @media ${phoneL}{
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
   }
   @media (max-width: 960px){
     font-size: 12px;
     display: flex;
-    margin: 0 auto;
-    @media (max-width: 450px){
-      width: 35%;
+    margin: 0 px;
+    @media ${phoneL}{
+      width: 25%;
       font-size: 8px;
       display: flex;
       flex-direction: column;
     }
   }
-`
-
-const DivSearch = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 7%;
-  align-items: center;
-  @media (max-width: 750px){
-      width: 15%;
-    @media (max-width: 450px){
-      width: 20%;
-    }
-  }
-
-  button {
-    width: 100%;
-    font-size: 14px;
-    border-radius: 7px;
-    &:hover {
-      cursor: pointer;
-      background-color: #54bdff;
-    }
-    @media (max-width: 750px){
-      width: 80%;
-    }
-    @media (max-width: 450px){
-      width: 80%;
-    }
-  }
-
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  width: 38%;
+  width: 28%;
   height: 100%;
-
-  @media (max-width: 750px){
-      width: 25%;
-    @media (max-width: 450px){
-      width: 40%;
-    }
+  @media ${tabletP}{
+    width: 25%;
+  }
+  @media ${phoneL}{
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
   }
 `;
 
 
 const ButtonContainer = styled.div`
-display: flex;
-justify-content: center;
-width: 15%;
-align-items: center;
-@media (max-width: 750px){
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  @media ${tabletP}{
+    width: 18%;
+  }
+  @media ${phoneL}{
+    width: 25%;
+  }
+  button {
     width: 100%;
-  @media (max-width: 450px){
-    width: 100%;
+    font-size: 14px;
+    border-radius: 7px;
+    margin-top: 12px;
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
+    @media ${tabletP}{
+      width: 80%;
+    }
   }
-}
-
-button {
-  width: 100%;
-  font-size: 14px;
-  border-radius: 7px;
-  &:hover {
-    cursor: pointer;
-    background-color: #54bdff;
-  }
-  @media (max-width: 750px){
-    width: 80%;
-  }
-  @media (max-width: 450px){
-    width: 80%;
-  }
-}
 `;
 
 /***************************************************************************************************
@@ -139,9 +116,6 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        <DivSearch>
-          <button onClick={this.props.toggleSearch}>search</button>
-        </DivSearch>
         <Links>
           <Link className='link' to='/home'>
             Home
@@ -153,12 +127,14 @@ class Nav extends Component {
             Categories
           </Link>
         </Links>
+        <ButtonContainer>
+          <button onClick={this.props.toggleSearch}>search</button>
+          <button onClick={this.props.switchTheme}>switch theme</button>
+        </ButtonContainer>
         <DivAuth>
-          <ButtonContainer><button onClick={this.props.switchTheme}>switch theme</button></ButtonContainer>
-        
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
-            
+
           ) : (
               <Auth history={this.props.history} />
             )}
