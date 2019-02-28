@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
-import {phoneP, } from '../globals/globals';
+import {phoneP} from '../globals/globals';
 
 // components
 import { PostCount, VoteCount, Deleted } from './index.js';
