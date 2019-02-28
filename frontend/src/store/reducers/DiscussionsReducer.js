@@ -31,10 +31,15 @@ import {
   HANDLE_DISCUSSION_VOTE_LOADING,
   HANDLE_DISCUSSION_VOTE_SUCCESS,
   HANDLE_DISCUSSION_VOTE_FAILURE,
+
+  GET_HOT_DISCUSSIONS_LOADING,
+  GET_HOT_DISCUSSIONS_SUCCESS,
+  GET_HOT_DISCUSSIONS_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
   topDiscussions: [],
+  hotDiscussions: [],
   discussion: {
     posts: []
   },
@@ -54,19 +59,27 @@ export const DiscussionsReducer = (state = initialState, action) => {
         discussion: action.payload
       };
 
-      case TOP_DISCUSSIONS_SUCCESS:
+    case TOP_DISCUSSIONS_SUCCESS:
       return {
         ...state,
         topDiscussions: action.payload
       };
 
-      case GET_DISCUSSIONS_SUCCESS:
+    case GET_DISCUSSIONS_SUCCESS:
       return {
         ...state,
         discussions: action.payload.discussions,
         category: action.payload.category,
       };
 
+    case GET_HOT_DISCUSSIONS_SUCCESS:
+      return {
+        ...state,
+        hotDiscussions: action.payload,
+      };
+
+    case GET_HOT_DISCUSSIONS_LOADING:
+    case GET_HOT_DISCUSSIONS_FAILURE:
     case HANDLE_DISCUSSION_VOTE_LOADING:
     case HANDLE_DISCUSSION_VOTE_SUCCESS:
     case HANDLE_DISCUSSION_VOTE_FAILURE:

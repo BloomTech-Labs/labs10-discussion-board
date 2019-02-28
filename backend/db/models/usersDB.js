@@ -26,7 +26,7 @@ const findById = id => {
       'd.title as discussion_title',
       'un.post_id',
       'p.body as post_body',
-			'un.created_at',
+      'un.created_at',
     )
     .leftOuterJoin('categories as c', 'c.id', 'un.category_id')
     .leftOuterJoin('discussions as d', 'd.id', 'un.discussion_id')
@@ -56,7 +56,7 @@ const findById = id => {
     getCategoryFollows,
     getNotifications,
   ];
-    return Promise.all(promises)
+  return Promise.all(promises)
     .then(results => {
       let [
         getDiscussionsResults,
@@ -66,7 +66,7 @@ const findById = id => {
         getCategoryFollowsResults,
         getNotificationsResults,
       ] = results;
-      if (!getUserResults.length) throw `User with ID ${ id } does not exist.`;
+      if (!getUserResults.length) throw `User with ID ${id} does not exist.`;
       getUserResults[0].discussions = getDiscussionsResults;
       getUserResults[0].posts = getPostsResults;
       getUserResults[0].discussionFollows = getDiscussionFollowsResults;
@@ -105,7 +105,7 @@ const searchAll = (searchText, orderType) => {
   const categoriesQuery = db('categories as c')
     .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at')
     .leftOuterJoin('users as u', 'u.id', 'c.user_id')
-    .whereRaw('LOWER(c.name) LIKE ?', `%${ searchText.toLowerCase() }%`);
+    .whereRaw('LOWER(c.name) LIKE ?', `%${searchText.toLowerCase()}%`);
 
   const discussionsQuery = db('discussions as d')
     .select(
@@ -122,8 +122,8 @@ const searchAll = (searchText, orderType) => {
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
-    .whereRaw('LOWER(d.title) LIKE ?', `%${ searchText.toLowerCase() }%`)
-    .orWhereRaw('LOWER(d.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
+    .whereRaw('LOWER(d.title) LIKE ?', `%${searchText.toLowerCase()}%`)
+    .orWhereRaw('LOWER(d.body) LIKE ?', `%${searchText.toLowerCase()}%`)
     .groupBy('d.id', 'u.username', 'c.name');
 
   const postsQuery = db('posts as p')
@@ -143,13 +143,13 @@ const searchAll = (searchText, orderType) => {
     .leftOuterJoin('users as u', 'u.id', 'p.user_id')
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .join('categories as c', 'c.id', 'd.category_id')
-    .whereRaw('LOWER(p.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
+    .whereRaw('LOWER(p.body) LIKE ?', `%${searchText.toLowerCase()}%`)
     .groupBy('p.id', 'u.username', 'd.title', 'c.name', 'c.id');
 
-  const promises = [ categoriesQuery, discussionsQuery, postsQuery ];
+  const promises = [categoriesQuery, discussionsQuery, postsQuery];
   return Promise.all(promises)
     .then(results => {
-      const [ categoriesResults, discussionsResults, postsResults ] = results;
+      const [categoriesResults, discussionsResults, postsResults] = results;
       const resultArr = [];
       categoriesResults.forEach(cat => resultArr.push({ type: 'category', result: cat }));
       discussionsResults.forEach(dis => resultArr.push({ type: 'discussion', result: dis }));
