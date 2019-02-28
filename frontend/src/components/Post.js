@@ -99,11 +99,18 @@ color: ${props => props.theme.discussionPostColor};
     
   }
 
+<<<<<<< HEAD
  h4{
    cursor: pointer;
  }
  `;
 
+=======
+  h4{
+    cursor: pointer;
+  }
+`;
+>>>>>>> 4966771e8e0a7ee229fecd106439a3f1c2c407f7
 
 const Post = ({
   post,
