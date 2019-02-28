@@ -120,13 +120,6 @@ const TopDiscussionWrapper = styled.div`
 `;
 
 const Elip = styled.div `
-  display: inline;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
   padding: 5px;
   border: 0px solid #10355C;
   border-radius: 5px;
@@ -138,14 +131,9 @@ const Elip = styled.div `
     display: flex;
     flex-direction: column;
     width: 80%;
-    -webkit-line-clamp: 3;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
   -webkit-box-orient: vertical;
     @media${phoneP}{
       display: none;
-      flex-direction: column;
       width: 240px;
     }
   }
