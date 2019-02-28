@@ -18,6 +18,7 @@ const CategoryWrapper = styled.div`
         display:flex;
         align-content: center;
         margin-left: 50px;
+        color: ${props => props.theme.discussionPostColor};
     }
 `;
 
@@ -35,7 +36,7 @@ class CategoriesList extends Component {
         const { order } = this.state;
         return(
             <CategoryWrapper>
-                <span className = 'sorted'>Sort by: </span>
+                <span className = 'sorted'>Sort</span>
 				<select className = 'sortName' onChange = { this.handleSelectChange } name = 'order'>
 					<option value = 'name'>name</option>
 					<option value = 'discussion_count'>number of discussions</option>

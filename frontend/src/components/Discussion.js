@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
-import { phoneL, tabletP } from '../globals/globals.js'
+import { phoneL, phoneP, tabletP} from '../globals/globals.js'
 
 // components
 import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
@@ -65,10 +65,11 @@ const DiscussionInfo = styled.div`
 `;
 
 const Posts = styled.div`
-
 `
 
-const Title = styled.div``
+const Title = styled.div`
+  color: ${props => props.theme.discussionPostColor};
+`
 
 const PostedBy = styled.div`
   display: flex;
@@ -80,7 +81,7 @@ const PostedBy = styled.div`
   }
 
   .username {
-    color: ${props => props.theme.discussionUsernameColor};
+    color: ${props => props.theme.discussionUsernameColor}; 
     font-weight: bold;
 
     &:hover {
@@ -92,55 +93,75 @@ const PostedBy = styled.div`
 
 const Elip = styled.div`
   display: inline;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   padding: 10px;
-  
+  color: ${props => props.theme.discussionPostColor};
+
+
   @media ${tabletP} {
     text-align: center;
   }
 `;
 
 const Sort = styled.div`
-width: 20%;
 display: flex;
-flex-direction: column;
-align-items: center;
-margin-top: 10px;
-padding-bottom: 2em;
+flex-direction: row;
+padding-bottom: 1em;
+align-items: baseline;
+justify-content: space-between;
 
 @media ${tabletP} {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
+
+  @media ${phoneP}{
+  margin: 0 auto;
+  align-items: center;
+  width: 70%;
+  }
 }
 
 .sortName {
-  width: 160px;
-  padding: 10px;
   margin: 5px;
 }
 
 .sorted {
   font-weight: bold;
+  padding: 5px;
+  color: ${props => props.theme.discussionPostColor};
+
+}
+
+  button{
+    margin-top: 10px;
+
+    @media ${phoneL} {
+      font-size: 17px;
+      padding: 11px 0px;
+      width: 110px;
+    }
+  }
+
+.dropDowns {
+  display: flex;
+  flex-direction: row;
+
+  @media ${phoneP}{
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  @media ${phoneL}{
+    flex-direction: column;
+  }
 }
 `;
 
 const AddPostBtn = styled.div`
-margin-top: 10px;
 
-  button{
-    @media ${phoneL} {
-      font-size: 17px;
-      width: 160px;
-      padding: 11px 0px;
-    }
-  }
 `;
 
 class Discussion extends Component {
@@ -263,19 +284,21 @@ class Discussion extends Component {
               <Elip>{body}</Elip>
             </DiscussionInfo>
             <Sort>
-              <span className='sorted'>Sort by: </span>
-              <select className='sortName' onChange={this.handleSelectChange} name='order'>
-                <option value='created_at'>date created</option>
-                <option value='post_votes'>votes</option>
-              </select>
-              <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
-                <option value='desc'>
-                  {order === 'created_at' ? 'most recent first' : 'most first'}
-                </option>
-                <option value='asc'>
-                  {order === 'created_at' ? 'least recent first' : 'least first'}
-                </option>
-              </select>
+              <div className = 'dropDowns'>
+                <span className='sorted'>Sort</span>
+                <select className='sortName' onChange = { this.handleSelectChange } name = 'order'>
+                  <option value = 'created_at'>date created</option>
+                  <option value = 'post_votes'>votes</option>
+                </select>
+                <select className='sortName' onChange = { this.handleSelectChange } name = 'orderType'>
+                  <option value = 'desc'>
+                    { order === 'created_at' ? 'most recent first' : 'most first' }
+                  </option>
+                  <option value = 'asc'>
+                    { order === 'created_at' ? 'least recent first' : 'least first' }
+                  </option>
+                </select>
+              </div>
               <AddPostBtn>
                 {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
                 {showAddPostForm && (

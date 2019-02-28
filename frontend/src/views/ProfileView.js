@@ -98,7 +98,15 @@ flex-direction: column;
 align-self: center;
 margin: 3px;
 padding: 3px;
+display: inline;
+-webkit-line-clamp: 3;
+text-overflow: ellipsis;
+overflow: hidden;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+word-wrap: break-word;
 color: ${props => props.theme.profileTitleSubContentDColor};
+
 @media ${tabletP}{
   display: flex;
   flex-direction: column;
