@@ -100,7 +100,7 @@ left: 0;
   h4{
     cursor: pointer;
   }
-`
+`;
 
 const Post = ({
   post,
