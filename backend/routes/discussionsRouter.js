@@ -3,9 +3,12 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const { discussionsDB } = require('../db/models/index.js');
+const { discussionsDB, userNotificationsDB, categoryFollowsDB } = require('../db/models/index.js');
 
 const router = express.Router();
+
+const { maxNumOfNotifications } = require('../config/globals.js');
+const pusher = require('../config/pusherConfig.js');
 
 /***************************************************************************************************
  ******************************************** middleware ********************************************
@@ -15,6 +18,9 @@ const { authenticate, authenticateIfTokenExists } = require('../config/middlewar
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
+
+
+
 // get top (limit 10) daily discussions ordered by vote_count
 router.get('/top-daily/:user_id', authenticateIfTokenExists, (req, res) => {
   const order = req.get('order');
@@ -23,14 +29,8 @@ router.get('/top-daily/:user_id', authenticateIfTokenExists, (req, res) => {
   if (user_id === 'null') user_id = 0;
   return discussionsDB
     .getTopDailyDiscussions(user_id, order, orderType)
-    .then(topDailyDiscussions => {
-      res.status(200).json(topDailyDiscussions);
-    })
-    .catch(err =>
-      res
-        .status(500)
-        .json({ error: `Failed to getTopDailyDiscussions(): ${err}` })
-    );
+    .then(topDailyDiscussions => res.status(200).json(topDailyDiscussions))
+    .catch(err => res.status(500).json({ error: `Failed to getTopDailyDiscussions(): ${err}` }));
 });
 
 //GET All Discussions
@@ -102,7 +102,23 @@ router.post('/:user_id', authenticate, (req, res) => {
   const newDiscussion = { user_id, category_id, title, body: dBody, created_at };
   return discussionsDB
     .insert(newDiscussion)
-    .then(newId => res.status(201).json(newId))
+    .then(async newId => {
+      const catFollowers = await categoryFollowsDB.getFollowers(category_id);
+      catFollowers.forEach(async user => {
+        const newNotification = { user_id: user.user_id, category_id, discussion_id: newId[0], created_at };
+        const notifications = await userNotificationsDB.getCount(user.user_id);
+        if (parseInt(notifications.count) >= maxNumOfNotifications) {
+          await userNotificationsDB.removeOldest(user.user_id);
+        }
+        await userNotificationsDB.add(newNotification);
+        pusher.trigger(
+          `user-${ user.uuid }`,
+          'notification',
+          null,
+        );
+      });
+      return res.status(201).json(newId);
+    })
     .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
 });
 

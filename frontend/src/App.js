@@ -111,6 +111,11 @@ class App extends Component {
     window.addEventListener('hashchange', this.handleHashChange, false);
     if (user_id && token) return this.props.logBackIn(user_id, token);
   };
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.hash.substring(1) !== this.props.location.hash.substring(1)) {
+      return this.scrollTo();
+    }
+  };
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
@@ -133,7 +138,7 @@ class App extends Component {
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
 
-            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
+            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch}  />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>

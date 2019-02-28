@@ -215,7 +215,6 @@ class Search extends Component {
 			return axios.get(`${ backendUrl }/users/search-all`, headers)
 				.then(res => this.setState({ searchResults: res.data }))
 				.then(() => this.setState({ loading: false }))
-				.then(() => console.log("SEARCH ALL STATE", this.state))
 				.catch(err => {
 					const errMsg = err.response ? err.response.data.error : err.toString();
 					return displayError(errMsg).then(() => this.setState({ loading: false }));

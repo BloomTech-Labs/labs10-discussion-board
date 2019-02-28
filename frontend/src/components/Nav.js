@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
-import { phoneL } from '../globals/globals.js';
+
+//globals
+import { phoneP, phoneL, tabletP } from '../globals/globals.js'
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
@@ -19,9 +21,10 @@ const DivWrapper = styled.div`
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   justify-content: space-evenly;
-  @media (max-width: 750px){
+
+  @media ${tabletP}{
     width: 100%;
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 100%;
     }
   }
@@ -41,7 +44,7 @@ const Links = styled.div`
     :hover {
       color: black;
     }
-    @media (max-width: ${phoneL}){
+    @media ${phoneL}{
       width: 100%;
       display: flex;
       justify-content: flex-start;
@@ -50,57 +53,56 @@ const Links = styled.div`
   @media (max-width: 960px){
     font-size: 12px;
     display: flex;
-    margin: 0px;
-  }
-  @media (max-width: ${phoneL}){
+    margin: 0 px;
+    @media ${phoneL}{
       width: 25%;
       font-size: 8px;
       display: flex;
       flex-direction: column;
     }
+  }
 `;
 
 const DivAuth = styled.div`
   display: flex;
   width: 28%;
   height: 100%;
-  @media (max-width: 750px){
-      width: 25%;
+  @media ${tabletP}{
+    width: 25%;
   }
-  @media (max-width: ${phoneL}){
-      width: 35%;
-      display: flex;
-      justify-content: flex-end;
+  @media ${phoneL}{
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
   }
 `;
 
 
 const ButtonContainer = styled.div`
-width: 10%;
-display: flex;
-flex-direction: column;
-align-content: center;
-align-items: center;
-@media (max-width: 750px){
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  @media ${tabletP}{
     width: 18%;
   }
-  @media (max-width: ${phoneL}){
+  @media ${phoneL}{
     width: 25%;
   }
-
-button {
-  width: 100%;
-  font-size: 14px;
-  border-radius: 7px;
-  margin-top: 12px;
-  &:hover {
-    cursor: pointer;
-    background-color: #54bdff;
+  button {
+    width: 100%;
+    font-size: 14px;
+    border-radius: 7px;
+    margin-top: 12px;
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
+    @media ${tabletP}{
+      width: 80%;
+    }
   }
-  @media (max-width: 750px){
-    width: 80%;
-  }
-}
 `;
 
 /***************************************************************************************************
@@ -132,7 +134,7 @@ class Nav extends Component {
         <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
-            
+
           ) : (
               <Auth history={this.props.history} />
             )}

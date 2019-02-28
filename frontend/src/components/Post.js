@@ -4,6 +4,9 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+//globals
+import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+
 // components
 import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
 
@@ -19,11 +22,17 @@ const PostWrapper = styled.div`
  padding-bottom: 16px;
  margin: 0 auto;
 
+  @media ${phoneL} {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    height: 400px
+  }
 `;
 
 const PostSubWrapper = styled.div`
 width: 80%
-
 display: flex;
 flex-direction: column;
 `;
@@ -33,7 +42,7 @@ const PostedBy = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  width: 15%;
+  width: 180px;
   height: 230px;
   align-items: center;
   justify-content: space-evenly;
@@ -41,8 +50,12 @@ const PostedBy = styled.div`
   box-shadow: 2px 3px 2px 2px grey;
   background-color: lavender;
 
+  @media ${phoneL} {
+    height: 170px;
+    width: 294px;
+  }
+
   .username {
-    margin: 0px 7px;
     font-weight: bold;
     color: ${props => props.theme.postPostedByUsernameColor};
     text-decoration: none;
@@ -82,6 +95,10 @@ display: flex;
 flex-direction: row;
 left: 0;
 
+  @media ${phoneL}{
+    bottom: 0
+  }
+
  h4{
    cursor: pointer;
  }
@@ -119,11 +136,11 @@ const Post = ({
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    <PostWrapper>
+    // name attribute for use with react-scroll
+    <PostWrapper name = { id }>
       <PostSubWrapper>
         { reply_to && <Quote reply_to = { reply_to } /> }
         <VoteAndBody>
-          {/* <p>post votes: {post_votes}</p> */}
           <VoteCount 
           handleVote = { handleVote } 
           vote_count = { post_votes }
@@ -141,7 +158,7 @@ const Post = ({
         <UserActions>
           {
             loggedInUserId !== 0 &&
-            <h4 onClick = { () => toggleAddReplyForm(id) }><i class="fas fa-reply"></i>{' '} Reply {' '}</h4>
+            <h4 onClick = { () => toggleAddReplyForm(id) }><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
           }
           {userCreatedPost &&
           (showEditPostForm === id ? (
@@ -157,7 +174,7 @@ const Post = ({
               <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>            
             </>
           ))}
-          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i class="fas fa-trash-alt"></i>{' '} Remove</h4>}
+          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
         </UserActions>
       </PostSubWrapper>
         <PostedBy>

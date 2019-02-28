@@ -1,3 +1,6 @@
+// globals
+import { maxNumOfNotifications } from '../../globals/globals.js';
+
 import {
   USER_LOGIN_LOADING,
   USER_LOGIN_SUCCESS,
@@ -57,6 +60,20 @@ import {
   DELETE_ACCOUNT_LOADING,
   DELETE_ACCOUNT_SUCCESS,
   DELETE_ACCOUNT_FAILURE,
+
+  REMOVE_NOTIFICATION_LOADING,
+  REMOVE_NOTIFICATION_SUCCESS,
+  REMOVE_NOTIFICATION_FAILURE,
+
+  GET_NOTIFICATIONS_LOADING,
+  GET_NOTIFICATIONS_SUCCESS,
+  GET_NOTIFICATIONS_FAILURE,
+
+  MARK_NOTIFICATIONS_AS_READ,
+
+  UPDATE_LAST_LOGIN_LOADING,
+  UPDATE_LAST_LOGIN_SUCCESS,
+  UPDATE_LAST_LOGIN_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -77,6 +94,11 @@ const initialState = {
   discussionFollows: [],
   isAuth0: false,
   categoryFollows: [],
+  notifications: [],
+  newNotifications: false,
+  newNotificationCount: 0,
+  last_login: '',
+  uuid: '',
   stripePaymentInfo: []
 };
 
@@ -94,19 +116,40 @@ export const UsersReducer = (state = initialState, action) => {
     case USER_AUTH0_LOGIN_SUCCESS:
     case USER_LOG_BACK_IN_SUCCESS:
     case USER_LOGIN_SUCCESS:
-      return {
-        ...state,
-        user_id: action.payload.id,
-        avatar: action.payload.avatar,
-        username: action.payload.username,
-        discussions: action.payload.discussions,
-        discussionFollows: action.payload.discussionFollows,
-        categoryFollows: action.payload.categoryFollows,
-        loggingInLoadingMessage: false,
-        isAuth0: action.payload.isAuth0,
-        message: action.payload.message,
-        isLoggedIn: true
-      };
+      {
+        let newNotificationCount = 0;
+        const updatedNotifications = [];
+        if (action.payload.newNotifications) {
+          action.payload.notifications.forEach(notification => {
+            let tempNotification = { ...notification };
+            if (action.payload.last_login < tempNotification.created_at) {
+              tempNotification.isNew = true;
+              newNotificationCount++;
+            } else {
+              tempNotification.isNew = false;
+            }
+            updatedNotifications.push(tempNotification);
+          });
+        }
+        return {
+          ...state,
+          user_id: action.payload.id,
+          avatar: action.payload.avatar,
+          username: action.payload.username,
+          discussions: action.payload.discussions,
+          discussionFollows: action.payload.discussionFollows,
+          categoryFollows: action.payload.categoryFollows,
+          notifications: updatedNotifications.length ? updatedNotifications : action.payload.notifications,
+          newNotifications: action.payload.newNotifications,
+          newNotificationCount,
+          loggingInLoadingMessage: false,
+          isAuth0: action.payload.isAuth0,
+          message: action.payload.message,
+          uuid: action.payload.uuid,
+          last_login: action.payload.last_login,
+          isLoggedIn: true
+        };
+      }
 
     // FOLLOW DISCUSSION
     case FOLLOW_DISCUSSION_SUCCESS:
@@ -146,6 +189,8 @@ export const UsersReducer = (state = initialState, action) => {
         username: action.payload.username,
         discussions: action.payload.discussions,
         message: action.payload.message,
+        uuid: action.payload.uuid,
+        last_login: action.payload.last_login,
         isLoggedIn: true
       };
     case USER_REGISTER_FAILURE:
@@ -248,6 +293,47 @@ export const UsersReducer = (state = initialState, action) => {
         stripePaymentLoadingMessage: false
       }
 
+    case REMOVE_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        notifications: action.payload,
+      };
+
+    case GET_NOTIFICATIONS_SUCCESS:
+      {
+        let updatedNotifications = [];
+        updatedNotifications = [ ...state.notifications ];
+        let newAddition = { ...action.payload[0] };
+        newAddition.isNew = true;
+        if (updatedNotifications.length >= maxNumOfNotifications) updatedNotifications.pop();
+        updatedNotifications.unshift(newAddition);
+        return {
+          ...state,
+          notifications: updatedNotifications,
+          newNotifications: true,
+          newNotificationCount: state.newNotificationCount + 1,
+        };
+      }
+
+    case MARK_NOTIFICATIONS_AS_READ:
+      return {
+        ...state,
+        newNotifications: false,
+        newNotificationCount: 0,
+      };
+
+    case UPDATE_LAST_LOGIN_SUCCESS:
+      return {
+        ...state,
+        last_login: action.payload,
+      };
+
+    case UPDATE_LAST_LOGIN_LOADING:
+    case UPDATE_LAST_LOGIN_FAILURE:
+    case GET_NOTIFICATIONS_LOADING:
+    case GET_NOTIFICATIONS_FAILURE:
+    case REMOVE_NOTIFICATION_LOADING:
+    case REMOVE_NOTIFICATION_FAILURE:
     case DELETE_ACCOUNT_LOADING:
     case DELETE_ACCOUNT_FAILURE:
     case UPLOAD_AVATAR_URL_LOADING:

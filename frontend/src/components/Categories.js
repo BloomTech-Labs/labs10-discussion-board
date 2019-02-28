@@ -39,9 +39,9 @@ const SingleCategoryWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.catNameDateColor};
-    @media (max-width: ${tabletP}){
+    @media  ${tabletP}{
       display: none;
-      @media(max-width: ${phoneP}){
+      @media ${phoneP}{
         display: none;
       }
     }
@@ -59,7 +59,7 @@ const SingleCategoryWrapper = styled.div`
     text-decoration: none;
     font-size: 14px;
     color: ${props => props.theme.catTimestampColor};
-      @media(max-width: ${phoneP}){
+      @media ${phoneP}{
         display: none;
       }
     }
