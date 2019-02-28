@@ -28,7 +28,8 @@ import {
   CategoriesView,
   DiscussionView,
   DiscussionsByCatView,
-  RegisterView
+  RegisterView,
+  HotDiscussionsView,
 } from './views/index.js';
 
 // action creators
@@ -129,6 +130,7 @@ class App extends Component {
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             <Logo />
+            <Route exact path='/' component={HotDiscussionsView} />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />
             <Route path='/profile/:id' component={Profile} />
@@ -156,6 +158,7 @@ class App extends Component {
               <Route path='/register' component={RegisterView} />
               <Route path='/request-reset-pw' component={RequestResetPWForm} />
               <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
+              <Route exact path='/' component={HotDiscussionsView} />
               <Route path='/home' component={LandingView} />
               <Route path='/profile/:id' component={Profile} />
               <Route path='/categories' component={CategoriesView} />
