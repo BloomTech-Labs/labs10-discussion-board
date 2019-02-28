@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
-import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+import { phoneL, tabletP} from '../globals/globals.js'
 
 // components
 import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
@@ -203,7 +203,6 @@ class Discussion extends Component {
     const { discussion, historyPush, loggedInUserId } = this.props;
     const {
       body,
-      category_name,
       created_at,
       last_edited_at,
       discussion_votes,
@@ -283,7 +282,7 @@ class Discussion extends Component {
               <AddPostBtn>
                 {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add Post</button>}
                 {showAddPostForm && (
-                  <AddPostForm
+                 <AddPostForm
                     user_id={loggedInUserId}
                     discussion_id={id}
                     historyPush={historyPush}
