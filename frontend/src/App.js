@@ -138,7 +138,7 @@ class App extends Component {
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
 
-            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
+            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch}  />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
