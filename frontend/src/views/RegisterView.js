@@ -36,7 +36,7 @@ const H1Register = styled.h1`
   user-select: none;
 
   @media ${phoneL} {
-    font-size: 35px;
+    font-size: 30px;
   }
 `;
 
@@ -74,7 +74,7 @@ const DivSelectBanners = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
 
-  @media ${phoneL} {
+  @media ${phoneL}{
     flex-direction: column;
   }
 `;
@@ -362,7 +362,7 @@ const DivRegisterForm = styled.div`
     text-decoration: underline;
     margin: 0 0 0.67em 0;
 
-    @media ${phoneL}{
+    @media ${phoneL} {
       font-size: 24px;
     }
   }
@@ -541,12 +541,13 @@ const DivAvatar = styled.div`
   }
 `;
 
-const DivButtons = styled.div`
+const DivRegistryButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 25px 0;
   width: 100%;
+  max-width: 800px;
 
   button {
     width: 200px;
@@ -581,6 +582,7 @@ const DivButtons = styled.div`
 `;
 
 const ButtonCancel = styled(Link)`
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -619,6 +621,10 @@ const DivConfirm = styled.div`
 
   h1 {
     text-decoration: underline;
+
+    @media ${phoneL} {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -644,12 +650,16 @@ const H3PaymentPlan = styled.h3`
 
   span {
     color: ${({ subPlan }) =>
-    subPlan === subscriptionPlans[1] && '#553621' ||
-    subPlan === subscriptionPlans[2] && '#c0c0c0' ||
-    subPlan === subscriptionPlans[3] && '#ffd700' ||
+    (subPlan === subscriptionPlans[1] && '#553621') ||
+    (subPlan === subscriptionPlans[2] && '#c0c0c0') ||
+    (subPlan === subscriptionPlans[3] && '#ffd700') ||
     'black'
   };
     margin-left: 15px;
+  }
+
+  @media ${phoneL} {
+    font-size: 24px;
   }
 `;
 
@@ -693,9 +703,14 @@ const SpanBoolColor = styled.span`
 const DivConfirmButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
+  max-width: 800px;
   margin: 25px 0;
+
+  @media ${phoneL} {
+    flex-direction: column-reverse;
+  }
 `;
 
 const ButtonBack = styled.button`
@@ -725,7 +740,7 @@ const ButtonBack = styled.button`
 
   @media ${phoneL} {
     width: 100%;
-    padding: 15px 0;
+    padding: 18px 0;
   }
 `;
 
@@ -748,12 +763,36 @@ const ButtonConfirm = styled.button`
     border-top: 2px solid rgb(0, 150, 0);
     border-left: 2px solid rgb(0, 150, 0);
   }
+
+  @media ${phoneL} {
+    width: 100%;
+    padding: 15px 0;
+  }
 `;
 
 const DivStripeCheckout = styled.div``;
 
 const ButtonStripeCheckout = styled(StripeCheckout)`
   width: 200px;
+
+  * {
+    display: flex!important;
+    height: 40px!important;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px!important;
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    border-radius: 0!important;
+
+    * {
+      padding: 15px 0!important;
+      height: auto!important;
+      border-radius: 0!important;
+    }
+  }
 `;
 
 /***************************************************************************************************
@@ -788,28 +827,44 @@ class RegisterView extends Component {
     });
   }
 
-  clearRegisterState = ev => {
-    ev.preventDefault();
-    this.setState({
-      subPlan: subscriptionPlans[0],
-      username: '',
-      password: '',
-      email: '',
-      signature: '',
-      avatar: defaultAvatar,
-      avatarUrl: '',
-      isReady: false
-    });
-  };
+  // clearRegisterState = ev => {
+  //   ev.preventDefault();
+  //   this.setState({
+  //     subPlan: subscriptionPlans[0],
+  //     username: '',
+  //     password: '',
+  //     email: '',
+  //     signature: '',
+  //     avatar: defaultAvatar,
+  //     avatarUrl: '',
+  //     isReady: false
+  //   });
+  // };
 
   convertAndSetAvatarUrlToBase64 = () => {
     const url = this.state.avatarUrl;
     const setAvatar = (base64) => {
       this.setState({ avatar: base64 });
     }
-    base64Img.requestBase64(url, function (err, res, body) {
-      setAvatar(body);
-    });
+
+    let getDataUri = function (url, callback) {
+      let xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        let reader = new FileReader();
+        reader.onloadend = function () {
+          callback(reader.result);
+        };
+        reader.readAsDataURL(xhr.response);
+      };
+      let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      xhr.open('GET', proxyUrl + url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    };
+
+    getDataUri(url, function (base64) {
+      setAvatar(base64);
+    })
   }
 
   selectSubPlan = sub => {
@@ -1243,7 +1298,7 @@ class RegisterView extends Component {
                   </DivRightSide>
                 </DivAccountDetails>
               </DivRegisterForm>
-              <DivButtons>
+              <DivRegistryButtons>
                 <ButtonCancel to='/'>Cancel</ButtonCancel>
                 <button
                   to='/register/confirm'
@@ -1251,7 +1306,7 @@ class RegisterView extends Component {
                 >
                   Continue
               </button>
-              </DivButtons>
+              </DivRegistryButtons>
             </Form>
           )
         }

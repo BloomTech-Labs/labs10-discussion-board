@@ -18,7 +18,7 @@ import { getCategories, displayError } from '../store/actions/index.js';
 const SearchWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-end;
 	background-color: ${props => props.theme.searchWrapperBgColor};
 	position: fixed;
 	top: 0;
@@ -40,7 +40,7 @@ const SearchBox = styled.div`
 	border-radius: 5px;
 	border: ${props => props.theme.searchBoxBorder};
 	position: relative;
-	height: 85%;
+	height: 80%;
 	width: 65%;
 
 	.close-btn {
@@ -136,7 +136,7 @@ const SearchBox = styled.div`
 	}
 
 	.search-results-wrapper {
-		height: 75%;
+		height: 70%;
 		overflow: auto;
 
 		.results-length {

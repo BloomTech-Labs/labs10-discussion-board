@@ -35,6 +35,8 @@ import Deleted from './Deleted.js';
 import Quote from './Quote.js';
 import Notifications from './Notifications.js';
 import Notification from './Notification.js';
+import HotDiscussions from './HotDiscussions.js';
+import HotDiscussion from './HotDiscussion.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -87,6 +89,8 @@ export {
   Quote,
   Notifications,
   Notification,
+  HotDiscussions,
+  HotDiscussion,
 
   // forms
   AddPostForm,

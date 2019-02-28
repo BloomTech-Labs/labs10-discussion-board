@@ -36,6 +36,12 @@ const Followed = styled.div`
   }
 `;
 
+const FollowDis = styled.div`
+  color: ${props => props.theme.topDiscussionTitleColor};
+  font-style: oblique;
+  font-strength: bold;
+`;
+
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
@@ -59,6 +65,7 @@ class Follow extends Component {
         return (
           <FollowWrapper>
             <Followed>
+            <FollowDis>Follow</FollowDis>
               <button
                   className="follow"
                   onClick={this.handleFollowClick}

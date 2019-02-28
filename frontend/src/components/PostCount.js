@@ -18,7 +18,6 @@ const PostCountWrapper = styled.div`
 	@media ${tabletP}{
 		display: flex;
 		flex-direction: column;
-		
 		@media ${phoneP}{
 		  display: flex;
 		  flex-direction: column;
