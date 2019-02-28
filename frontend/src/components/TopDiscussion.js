@@ -119,7 +119,7 @@ const TopDiscussionWrapper = styled.div`
   }
 `;
 
-const Elip = styled.div `
+const Elip = styled.span`
   display: inline;
   -webkit-line-clamp: 3;
   text-overflow: ellipsis;
