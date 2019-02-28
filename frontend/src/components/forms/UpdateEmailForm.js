@@ -5,18 +5,27 @@ import styled				from 'styled-components';
 // action creators
 import { updateEmail, displayError } from '../../store/actions/index.js';
 
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+`;
+
 const StyledUpdateEmailForm = styled.form`
+	width: 70%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border:1px solid #5B5B5B;
-	border-radius: 5px;
-	padding: 5px 10px;
+	margin: 20px;
+	padding: 10px;
+	border-radius: 20px;
+	background-color: #54BDFF;
 
 	input {
-		padding: 5px 10px;
+		padding: 6px 20px;
+		font-size: 16px;
 		border-radius: 5px;
 		margin: 10px;
 	}
@@ -27,6 +36,17 @@ const StyledUpdateEmailForm = styled.form`
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+
+		button {
+			font-size: 14px;
+			margin: 10px;
+			border-radius: 10px;
+			height: 30px;
+			&:hover {
+            background-color: #4ca0e0;
+            cursor: pointer;
+          }
+		}	
 	}
 `;
 
@@ -46,6 +66,7 @@ class UpdateEmailForm extends Component {
 		const { email } = this.state;
 		const { toggleForm } = this.props;
 		return(
+			<Container>
 			<StyledUpdateEmailForm onSubmit = { this.handleSubmit }>
 				<input
 					className = 'update-email-input'
@@ -62,6 +83,7 @@ class UpdateEmailForm extends Component {
 					<button className = 'cancel-btn' type = 'button' onClick = { toggleForm }>Cancel</button>
 				</div>
 			</StyledUpdateEmailForm>
+			</Container>
 		);
 	}
 };
