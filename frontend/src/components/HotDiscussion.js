@@ -36,7 +36,7 @@ const HotDiscussionWrapper = styled.div`
       display: flex;
       align-items: center;
       font-size: 18px;
-      @media${phoneP}{
+      @media ${phoneP}{
         display: flex;
         font-size: 18px;
       }
@@ -68,7 +68,7 @@ const HotDiscussionWrapper = styled.div`
         margin: 10px;
         padding: 14px;
         font-size: 14px;
-        @media${phoneP}{
+        @media ${phoneP}{
           font-size: 14px;
           align-items: center;
           padding: 20px;
@@ -104,20 +104,18 @@ const HotDiscussionWrapper = styled.div`
 const Vote = styled.div `
 display: flex;
 margin-right: 10px;
-  @media${phoneP}{
+  @media ${phoneP}{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-  }
 }
 `;
 
 const Contenter = styled.div `
 padding: 10px;
-  @media${phoneP}{
+  @media ${phoneP}{
     display: none;
     width: 240px;
-  }
 }
 `;
 
