@@ -10,7 +10,7 @@ import { PostCount, VoteCount, Deleted } from './index.js';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionWrapper = styled.div`
+const HotDiscussionWrapper = styled.div`
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -63,6 +63,7 @@ const TopDiscussionWrapper = styled.div`
       font-style: oblique;
       font-weight: bold;
       color: ${props => props.theme.topDiscussionCatColor};
+      cursor: pointer;
       @media ${tabletP}{
         margin: 10px;
         padding: 14px;
@@ -91,10 +92,6 @@ const TopDiscussionWrapper = styled.div`
       width: 20px;
       padding: 10px;
       font-size: 12px;
-      @media${phoneP}{
-        display: flex;
-        align-items: center;
-      }
     }
     &:hover {
       text-decoration: underline;
@@ -102,19 +99,11 @@ const TopDiscussionWrapper = styled.div`
       cursor: pointer;
     }
   }
-  .content {
-    width: 85%;
-    margin: 5px;
-    padding: 5px;
-    text-decoration: none;
-    color: ${props => props.theme.topDiscussionNameDateColor};
-  }
 `;
 
 const Vote = styled.div `
 display: flex;
 margin-right: 10px;
-// box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
   @media${phoneP}{
     display: flex;
     flex-direction: column;
@@ -126,8 +115,8 @@ margin-right: 10px;
 const Contenter = styled.div `
 padding: 10px;
   @media${phoneP}{
-  display: none;
-  width: 240px;
+    display: none;
+    width: 240px;
   }
 }
 `;
@@ -135,11 +124,10 @@ padding: 10px;
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
+const HotDiscussion = ({ discussion, handleDiscussionVote }) => {
   const {
     body,
     category_id,
-    discussion_id,
     category_name,
     created_at,
     id,
@@ -153,7 +141,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 
   const handleVote = type => handleDiscussionVote(id, type);
   return (
-    <TopDiscussionWrapper>
+    <HotDiscussionWrapper>
       <VoteCount
         handleVote={handleVote}
         vote_count={vote_count}
@@ -187,14 +175,13 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
           </span>
         </div>
         <Contenter>
-        <Link to={`/discussion/${id}`} className='content'>{body}</Link>
+          <Link to={`/discussion/${id}`} className='category'>{body}</Link>
         </Contenter>
-        
         
       </div>
       <Vote><PostCount post_count={post_count || 0} /></Vote>
-    </TopDiscussionWrapper>
+    </HotDiscussionWrapper>
   );
 };
 
-export default TopDiscussion;
+export default HotDiscussion;

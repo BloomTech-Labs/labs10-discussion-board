@@ -4,10 +4,11 @@ import Discuss from '../assets/img/Discuss.png';
 import TextLoop from "react-text-loop";
 import { connect } from 'react-redux';
 import moment from 'moment';
+import {phoneP, tabletP} from '../globals/globals.js'
 
 // components
 import { DiscussionsByCats, FollowCat, AddDiscussionForm, Deleted } from '../components/index.js';
-import {phoneP, phoneL, tabletP} from '../globals/globals.js'
+
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************

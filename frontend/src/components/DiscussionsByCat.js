@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
-import {phoneP, tabletP, } from '../globals/globals';
+import {phoneP, } from '../globals/globals';
 
 // components
 import { PostCount, VoteCount, Deleted } from './index.js';
@@ -40,6 +40,8 @@ const DiscussionByCatWrapper = styled.div`
   .category {
     font-size: 18px;
     color: ${props => props.theme.discussionByCatCategoryColor};
+    text-decoration: none;
+    padding: 5px;
     &:hover {
       text-decoration: underline;
       background-color: ${props => props.theme.discussionByCatCategoryBgColorHov};
@@ -50,6 +52,7 @@ const DiscussionByCatWrapper = styled.div`
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
+    font-style: italic;
     color: ${props => props.theme.discussionByCatNameDateColor};
     &:hover {
       text-decoration: underline;
@@ -104,9 +107,9 @@ return (
       />
 			<div className = 'content'>
 				<div>
-					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>&#8201;
+					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>
 					<span className = 'category'>
-            <Link to={`/discussions/category/${category_id}`}>
+            <Link to={`/discussions/category/${category_id}`} className= 'category'>
             /d/{ category_name }
             </Link>
           </span>
