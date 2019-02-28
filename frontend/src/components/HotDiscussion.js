@@ -18,7 +18,6 @@ const HotDiscussionWrapper = styled.div`
   margin: 5px;
   padding: 10px;
   box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-
   &:hover {
     // background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
@@ -51,12 +50,11 @@ const HotDiscussionWrapper = styled.div`
     color: ${props => props.theme.topDiscussionCatColor};
     @media ${tabletP}{
       margin: 10px;
-      @media${phoneP}{
-      
-      }
     }
   }
   .category {
+    text-decoration: none;
+    color: ${props => props.theme.topDiscussionCatColor};
     a {
       margin-left: 5px;
       margin-top: 5px;
@@ -65,6 +63,7 @@ const HotDiscussionWrapper = styled.div`
       font-style: oblique;
       font-weight: bold;
       color: ${props => props.theme.topDiscussionCatColor};
+      cursor: pointer;
       @media ${tabletP}{
         margin: 10px;
         padding: 14px;
@@ -78,10 +77,9 @@ const HotDiscussionWrapper = styled.div`
     &:hover {
       cursor: pointer;
       text-decoration: underline;
-
     }
   }
-  }
+}
   .nameanddate {
     text-decoration: none;
     font-size: 14px;
@@ -94,9 +92,6 @@ const HotDiscussionWrapper = styled.div`
       width: 20px;
       padding: 10px;
       font-size: 12px;
-      @media${phoneP}{
-    
-      }
     }
     &:hover {
       text-decoration: underline;
@@ -104,64 +99,24 @@ const HotDiscussionWrapper = styled.div`
       cursor: pointer;
     }
   }
-
-  .content {
-    width: 85%;
-    margin: 5px;
-    padding: 5px;
-  }
-
-  p {
-    margin-left: 10px;
-    padding: 5px;
-    &:hover {
-    }
-  }
-`;
-
-const Elip = styled.span`
-  display: inline;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  padding: 5px;
-  border: 0px solid #10355C;
-  border-radius: 5px;
-  box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-  background-color: ${props => props.theme.topDiscussionElipBgColor};
-  color: ${props => props.theme.topDiscussionElipColor};
-  width: 540px;
-  @media ${tabletP}{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    -webkit-line-clamp: 3;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-  -webkit-box-orient: vertical;
-    @media${phoneP}{
-      display: none;
-      flex-direction: column;
-      width: 240px;
-    }
-  }
-  &:hover {
-    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
-  }
 `;
 
 const Vote = styled.div `
 display: flex;
 margin-right: 10px;
-box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
   @media${phoneP}{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+  }
+}
+`;
+
+const Contenter = styled.div `
+padding: 10px;
+  @media${phoneP}{
+    display: none;
+    width: 240px;
   }
 }
 `;
@@ -219,7 +174,10 @@ const HotDiscussion = ({ discussion, handleDiscussionVote }) => {
             - {moment(new Date(Number(created_at))).fromNow()}
           </span>
         </div>
-        <p className = 'body-content'><Elip>{body}</Elip></p>
+        <Contenter>
+          <Link to={`/discussion/${id}`} className='category'>{body}</Link>
+        </Contenter>
+        
       </div>
       <Vote><PostCount post_count={post_count || 0} /></Vote>
     </HotDiscussionWrapper>
