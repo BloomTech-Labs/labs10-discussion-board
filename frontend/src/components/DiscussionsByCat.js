@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
+import {phoneP, tabletP, } from '../globals/globals';
 
 // components
 import { PostCount, VoteCount, Deleted } from './index.js';
+
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -13,13 +15,13 @@ const DiscussionByCatWrapper = styled.div`
   background-color: ${props => props.theme.discussionByCatWrapperBgColor};
   border-radius: 30px;
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
 	margin: 5px;
 	padding: 10px;
 	box-shadow: ${props => props.theme.discussionByCatWrapperBxShdw};
-
-  @media (max-width: 450px){
+  width: 80%;
+  @media ${phoneP}{
     width: 90%;
     margin: 0 auto;
   }
@@ -63,10 +65,12 @@ const DiscussionByCatWrapper = styled.div`
 
   .content {
     width: 85%;
+    color: ${props => props.theme.discussionByCatNameDateColor};
   }
 
   p {
     margin-left: 10px;
+    ${props => props.theme.discussionByCatNameDateColor};
     &:hover {
     }
   }

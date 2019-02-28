@@ -130,7 +130,7 @@ const Elip = styled.div `
   padding: 5px;
   border: 0px solid #10355C;
   border-radius: 5px;
-  box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+  box-shadow: ${props => props.theme.topDiscussionElipBxShdw};
   background-color: ${props => props.theme.topDiscussionElipBgColor};
   color: ${props => props.theme.topDiscussionElipColor};
   width: 540px;
@@ -157,7 +157,7 @@ const Elip = styled.div `
 const Vote = styled.div `
 display: flex;
 margin-right: 10px;
-box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+// box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
   @media${phoneP}{
     display: flex;
     flex-direction: column;

@@ -65,7 +65,7 @@ class AddPostForm extends Component {
 	   * See https://quilljs.com/docs/formats/
 	   */
 	handleChange(html) {
-		this.setState({ postBody: html })
+		this.setState({ postBody: (html) })
 	  }
 
 	  
@@ -89,7 +89,7 @@ class AddPostForm extends Component {
 				<h1>Add post form</h1>
 
 				
-				{/* {Parser(postBody)} */}
+				{Parser(postBody)}
 				
 				<ReactQuill
 					placeholder = 'Add post...'

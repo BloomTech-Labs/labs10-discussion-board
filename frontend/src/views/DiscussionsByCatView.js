@@ -7,6 +7,7 @@ import moment from 'moment';
 
 // components
 import { DiscussionsByCats, FollowCat, AddDiscussionForm, Deleted } from '../components/index.js';
+import {phoneP, phoneL, tabletP} from '../globals/globals.js'
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -15,6 +16,7 @@ const DiscussionsByCatViewWrapper = styled.div`
 	border: 0px solid black;
 	padding: 5px;
 	box-shadow: gray 0px 0px;
+	
 	hr {
 		border-color: gray;
 		margin-top: -10px;
@@ -61,7 +63,7 @@ const DiscussionsByCatTitle = styled.div`
 `;
 
 const TextLooper = styled.div`
-	display: flex;
+	display: none;
 	align-self: center;
 	font-size: 28px;
 	margin-left: 30px;
@@ -70,6 +72,19 @@ const TextLooper = styled.div`
 		display: none;
 	}
 `;
+
+const CatsByDis = styled.div `
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-left: 150px;
+@media ${tabletP}{
+	margin-left: 100px;
+	@media${phoneP}{
+	  margin-left: 10px;
+	}
+  }
+`
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -114,7 +129,10 @@ class DiscussionsByCatView extends Component {
 					:
 					<button onClick = { this.toggleShowAddForm }>Add a discussion</button>
 				}
-				<DiscussionsByCats category_id = {match.params.category_id}/>
+				<CatsByDis>
+					<DiscussionsByCats category_id = {match.params.category_id}/>
+				</CatsByDis>
+				
 			</DiscussionsByCatViewWrapper>
 		);
 	}
