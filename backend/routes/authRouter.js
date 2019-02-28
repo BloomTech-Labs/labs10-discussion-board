@@ -88,7 +88,7 @@ router.post('/register', requestClientIP, async (req, res) => {
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, numOfHashes), // bcryptjs hash stored in db (not the actual password)
     status: req.body.status,
-	  uuid: uuidv4(), // for use with pusher
+    uuid: uuidv4(), // for use with pusher
   };
 
   // find library later to support these rules -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address

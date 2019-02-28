@@ -5,6 +5,7 @@ import PostsView from './PostsView.js';
 import RegisterView from './RegisterView.js';
 import TopDiscussionsView from './TopDiscussionsView.js';
 import DiscussionsByCatView from './DiscussionsByCatView.js';
+import HotDiscussionsView from './HotDiscussionsView.js';
 
 export {
   CategoriesView,
@@ -13,5 +14,6 @@ export {
   PostsView,
   DiscussionsByCatView,
   RegisterView,
-  TopDiscussionsView
+  TopDiscussionsView,
+  HotDiscussionsView,
 };

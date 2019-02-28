@@ -10,7 +10,7 @@ import { PostCount, VoteCount, Deleted } from './index.js';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const TopDiscussionWrapper = styled.div`
+const HotDiscussionWrapper = styled.div`
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -169,7 +169,7 @@ box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
+const HotDiscussion = ({ discussion, handleDiscussionVote }) => {
   const {
     body,
     category_id,
@@ -186,7 +186,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
 
   const handleVote = type => handleDiscussionVote(id, type);
   return (
-    <TopDiscussionWrapper>
+    <HotDiscussionWrapper>
       <VoteCount
         handleVote={handleVote}
         vote_count={vote_count}
@@ -222,8 +222,8 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
         <p className = 'body-content'><Elip>{body}</Elip></p>
       </div>
       <Vote><PostCount post_count={post_count || 0} /></Vote>
-    </TopDiscussionWrapper>
+    </HotDiscussionWrapper>
   );
 };
 
-export default TopDiscussion;
+export default HotDiscussion;

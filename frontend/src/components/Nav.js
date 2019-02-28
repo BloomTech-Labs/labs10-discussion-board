@@ -120,16 +120,12 @@ const ButtonContainer = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Nav extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <DivWrapper>
         <Links>
-          <Link className='link' to='/home'>
-            Home
+          <Link className='link' to='/'>
+            Hot Discussions
           </Link>
           <Link className='link' to='/home'>
             Top Discussions
