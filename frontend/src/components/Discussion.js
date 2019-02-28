@@ -119,7 +119,7 @@ justify-content: space-between;
   margin: 0 auto;
 
   @media ${phoneP}{
-  margin: 0 auto
+  margin: 0 auto;
   align-items: center;
   width: 70%;
   }
