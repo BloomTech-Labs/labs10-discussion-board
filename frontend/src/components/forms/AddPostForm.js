@@ -13,12 +13,13 @@ const AddPostFormWrapper = styled.form`
 	padding: 10px;
 `;
 
+
 class AddPostForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { postBody: '' };
 		this.handleChange = this.handleChange.bind(this)
-		this.onChange = this.onChange.bind(this)
+		// this.onChange = this.onChange.bind(this)
 	}
 	modules = {
 		toolbar: [
@@ -30,22 +31,49 @@ class AddPostForm extends Component {
 		],
 	  }
 	 
-	  formats = [
-		'header',
+	 formats = [
+		'header', 'font', 'size',
 		'bold', 'italic', 'underline', 'strike', 'blockquote',
 		'list', 'bullet', 'indent',
-		'link', 'image'
+		'link', 'image', 'video'
 	  ]
-	handleChange(value) {
-		this.setState({ postBody: value })
+
+	//   AddPostForm.formats = [
+	// 	'header',
+	// 	'bold', 'italic', 'underline', 'strike', 'blockquote',
+	// 	'list', 'bullet', 'indent',
+	// 	'link', 'image'
+	//   ]
+
+	//   AddPostForm.modules = {
+	// 	toolbar: [
+	// 	  [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+	// 	  [{size: []}],
+	// 	  ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+	// 	  [{'list': 'ordered'}, {'list': 'bullet'}, 
+	// 	   {'indent': '-1'}, {'indent': '+1'}],
+	// 	  ['link', 'image', 'video'],
+	// 	  ['clean']
+	// 	],
+	// 	clipboard: {
+	// 	  // toggle to add extra line breaks when pasting HTML:
+	// 	  matchVisual: false,
+	// 	}
+	//   }
+	  /* 
+	   * Quill editor formats
+	   * See https://quilljs.com/docs/formats/
+	   */
+	handleChange(html) {
+		this.setState({ postBody: html })
 	  }
 
 	  
 
-onChange(postBody, delta, source, editor) {
-  const text = editor.getText(postBody);
-  this.setState ({ postBody: text });
-}
+// onChange(postBody, delta, source, editor) {
+//   const text = editor.getContents(postBody);
+//   this.setState ({ postBody: text });
+// }
 	handleSubmit = e => {
 		e.preventDefault();
 		const { postBody } = this.state;
@@ -55,19 +83,24 @@ onChange(postBody, delta, source, editor) {
 	render() {
 		const { postBody } = this.state;
 		const { toggleAddPostForm } = this.props;
+		
 		return(
 			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
 				<h1>Add post form</h1>
 
+				
+				{/* {Parser(postBody)} */}
+				
 				<ReactQuill
 					placeholder = 'Add post...'
 					name = 'postBody'
 					onChange = { this.handleChange }
 					value = {this.state.postBody}
-					modules={this.modules}
-                    formats={this.formats}
+					modules={AddPostForm.modules}
+					formats={AddPostForm.formats}
+					dangerouslySetInnerHTML={{__html: this.state.postBody}}
 				/>
-				{Parser(postBody)}
+			
 				<button type = 'submit'>Submit</button>
 				{/* <div dangerouslySetInnerHTML={{__html: this.state.postBody}}></div> */}
 				<button

@@ -283,7 +283,9 @@ class Discussion extends Component {
               <AddPostBtn>
                 {loggedInUserId !==0 &&<button onClick={this.toggleAddPostForm}>Add Post</button>}
                 {showAddPostForm && (
-                  <AddPostForm
+                 
+                 
+                 <AddPostForm
                     user_id={loggedInUserId}
                     discussion_id={id}
                     historyPush={historyPush}
