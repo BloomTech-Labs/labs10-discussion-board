@@ -51,6 +51,9 @@ const Buttons = styled.div`
             background-color: #4ca0e0;
             cursor: pointer;
           }
+					&:focus {
+    				outline: none;
+  				}
 	}
 `;
 

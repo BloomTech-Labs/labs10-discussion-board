@@ -100,6 +100,9 @@ const EmailForm = styled.div`
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
     }
+      &:focus {
+        outline: none;
+    }
     @media (max-width: 520px){
       font-size: 12px;
     }
@@ -121,6 +124,9 @@ const Buttons = styled.div`
     &:hover {
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
+    }
+    &:focus {
+      outline: none;
     }
     @media (max-width: 960px){
       font-size: 14px;
@@ -157,6 +163,9 @@ const EditAvatarMenu = styled.div`
           &:hover {
             background-color: ${props => props.theme.settingsEditAvatarButtonBgHov};
             cursor: pointer;
+          }
+          &:focus {
+            outline: none;
           }
         }
   .changeavatar {

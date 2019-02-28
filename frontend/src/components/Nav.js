@@ -110,6 +110,9 @@ const ButtonContainer = styled.div`
     cursor: pointer;
     background-color: #54bdff;
   }
+  &:focus {
+    outline: none;
+  }
 
   @media ${tabletP}{
     width: 80%;
