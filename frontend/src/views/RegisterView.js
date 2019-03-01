@@ -61,7 +61,7 @@ const DivSubscriptionPlan = styled.div`
     text-decoration: underline;
     user-select: none;
 
-    @media${phoneL}{
+    @media ${phoneL} {
       font-size: 24px;
     }
   }
@@ -94,11 +94,11 @@ const DivBanner = styled.div`
     cursor: pointer;
   }
 
-  @media${tabletL} {
+  @media ${tabletL} {
     width: 49.9%;
   }
 
-  @media${phoneL}{
+  @media ${phoneL} {
     height: ${props =>
     props.subPlan
       ? 'auto'
@@ -137,7 +137,7 @@ const DivFeatures = styled.div`
     user-select: none;
   }
 
-  @media${phoneL}{
+  @media ${phoneL} {
     overflow: ${props =>
     props.subPlan
       ? 'visible'
@@ -172,7 +172,7 @@ const DivFreePlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media${phoneL}{
+    @media ${phoneL} {
       display: ${props =>
     props.subPlan === subscriptionPlans[0]
       ? 'visible'
@@ -193,7 +193,7 @@ const DivFreePlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[0] ? '1' : '0.6')};
   }
 
-  @media${phoneL}{
+  @media ${phoneL} {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -221,7 +221,7 @@ const DivBronzePlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media${phoneL}{
+    @media ${phoneL} {
       display: ${props =>
     props.subPlan === subscriptionPlans[1]
       ? 'visible'
@@ -242,7 +242,7 @@ const DivBronzePlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.6')};
   }
 
-  @media${phoneL}{
+  @media ${phoneL} {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -270,7 +270,7 @@ const DivSilverPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media${phoneL}{
+    @media ${phoneL} {
       display: ${props =>
     props.subPlan === subscriptionPlans[2]
       ? 'visible'
@@ -291,7 +291,7 @@ const DivSilverPlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.6')};
   }
 
-  @media${phoneL}{
+  @media ${phoneL} {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -319,7 +319,7 @@ const DivGoldPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media${phoneL}{
+    @media ${phoneL} {
       display: ${props =>
     props.subPlan === subscriptionPlans[3]
       ? 'visible'
@@ -340,7 +340,7 @@ const DivGoldPlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.4')};
   }
 
-  @media${phoneL}{
+  @media ${phoneL} {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -362,7 +362,7 @@ const DivRegisterForm = styled.div`
     text-decoration: underline;
     margin: 0 0 0.67em 0;
 
-    @media${phoneL}{
+    @media ${phoneL} {
       font-size: 24px;
     }
   }

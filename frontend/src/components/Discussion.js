@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
-import { phoneL, phoneP, tabletP} from '../globals/globals.js'
+import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
 import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
@@ -284,18 +284,18 @@ class Discussion extends Component {
               <Elip>{body}</Elip>
             </DiscussionInfo>
             <Sort>
-              <div className = 'dropDowns'>
+              <div className='dropDowns'>
                 <span className='sorted'>Sort</span>
-                <select className='sortName' onChange = { this.handleSelectChange } name = 'order'>
-                  <option value = 'created_at'>date created</option>
-                  <option value = 'post_votes'>votes</option>
+                <select className='sortName' onChange={this.handleSelectChange} name='order'>
+                  <option value='created_at'>date created</option>
+                  <option value='post_votes'>votes</option>
                 </select>
-                <select className='sortName' onChange = { this.handleSelectChange } name = 'orderType'>
-                  <option value = 'desc'>
-                    { order === 'created_at' ? 'most recent first' : 'most first' }
+                <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
+                  <option value='desc'>
+                    {order === 'created_at' ? 'most recent first' : 'most first'}
                   </option>
-                  <option value = 'asc'>
-                    { order === 'created_at' ? 'least recent first' : 'least first' }
+                  <option value='asc'>
+                    {order === 'created_at' ? 'least recent first' : 'least first'}
                   </option>
                 </select>
               </div>

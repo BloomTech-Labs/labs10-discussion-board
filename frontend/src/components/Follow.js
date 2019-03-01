@@ -39,7 +39,7 @@ const Followed = styled.div`
 const FollowDis = styled.div`
   color: ${props => props.theme.topDiscussionTitleColor};
   font-style: oblique;
-  font-strength: bold;
+  font-weight: bold;
 `;
 
 /***************************************************************************************************
