@@ -136,11 +136,10 @@ router.post('/register', requestClientIP, async (req, res) => {
       // signature given and is gold/silver sub
       // prettier-ignore
       if (
-        req.body.signature &&
-        (userSettings.user_type === accountRoleTypes[2] || // silver
-          userSettings.user_type === accountRoleTypes[3]) // gold
+        userSettings.user_type === accountRoleTypes[2] || // silver
+          userSettings.user_type === accountRoleTypes[3] // gold
       ) {
-        userSettings.signature = req.body.signature;
+        userSettings.signature = req.body.signature || '';
       }
 
       // avatar given and is gold sub
@@ -192,6 +191,8 @@ router.post('/register', requestClientIP, async (req, res) => {
                     notifications: foundUser[0].notifications,
                     uuid: foundUser[0].uuid,
                     last_login: foundUser[0].last_login,
+                    signature: foundUser[0].signature,
+                    user_type: foundUser[0].user_type,
                   }
                 ]);
               });
@@ -210,6 +211,8 @@ router.post('/register', requestClientIP, async (req, res) => {
                 notifications: foundUser[0].notifications,
                 uuid: foundUser[0].uuid,
                 last_login: foundUser[0].last_login,
+                signature: foundUser[0].signature,
+                user_type: foundUser[0].user_type,
               }
             ]);
           }
@@ -273,6 +276,8 @@ router.post('/login', async (req, res) => {
                   newNotifications,
                   uuid: foundUser[0].uuid,
                   last_login: foundUser[0].last_login,
+                  signature: foundUser[0].signature,
+                  user_type: foundUser[0].user_type,
                 }
               ]);
             }
@@ -326,6 +331,8 @@ router.post('/log-back-in/:user_id', authenticate, async (req, res) => {
             newNotifications,
             uuid: user[0].uuid,
             last_login: user[0].last_login,
+            signature: user[0].signature,
+            user_type: user[0].user_type,
           }
         ]);
       }
@@ -384,6 +391,8 @@ router.post('/auth0-login', async (req, res) => {
                   newNotifications,
                   uuid: foundUser[0].uuid,
                   last_login: foundUser[0].last_login,
+                  signature: foundUser[0].signature,
+                  user_type: foundUser[0].user_type,
                 }
               ]);
             }
@@ -442,6 +451,8 @@ router.post('/auth0-login', async (req, res) => {
                         notifications: foundUserById[0].notifications,
                         uuid: foundUserById[0].uuid,
                         last_login: foundUserById[0].last_login,
+                        signature: foundUserById[0].signature,
+                        user_type: foundUserById[0].user_type,
                       }
                     ]);
                   }
