@@ -104,6 +104,10 @@ export const UPDATE_LAST_LOGIN_FAILURE = 'UPDATE_LAST_LOGIN_FAILURE';
 
 export const MARK_NOTIFICATIONS_AS_READ = 'MARK_NOTIFICATIONS_AS_READ';
 
+export const EDIT_SIGNATURE_LOADING = 'EDIT_SIGNATURE_LOADING';
+export const EDIT_SIGNATURE_SUCCESS = 'EDIT_SIGNATURE_SUCCESS';
+export const EDIT_SIGNATURE_FAILURE = 'EDIT_SIGNATURE_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -391,4 +395,16 @@ export const markNotificationsAsRead = () => dispatch => {
       dispatch({ type: UPDATE_LAST_LOGIN_SUCCESS, payload: res.data[0] });
     })
     .catch(err => handleError(err, UPDATE_LAST_LOGIN_FAILURE)(dispatch));
+};
+
+export const editSignature = signature => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { signature };
+  dispatch({ type: EDIT_SIGNATURE_LOADING });
+  return axios
+    .put(`${ backendUrl }/users/edit-signature/${ user_id }`, body, headers)
+    .then(res => dispatch({ type: EDIT_SIGNATURE_SUCCESS, payload: res.data[0] }))
+    .catch(err => handleError(err, EDIT_SIGNATURE_FAILURE)(dispatch));
 };

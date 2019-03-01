@@ -40,6 +40,8 @@ const findById = id => {
       'u.username',
       'u.status',
       'us.avatar',
+      'us.signature',
+      'us.user_type',
       'u.password',
       'u.email_confirm',
       'u.uuid',
@@ -81,6 +83,14 @@ const getPassword = id => {
   return db('users')
     .select('password')
     .where({ id })
+    .first();
+};
+
+// get the user type of a user
+const getUserType = user_id => {
+  return db('user_settings')
+    .select('user_type')
+    .where({ user_id })
     .first();
 };
 
@@ -232,6 +242,13 @@ const updateAvatar = (user_id, avatar) => {
     .update({ avatar }, ['avatar']); // update the avatar, returning the updated avatar
 };
 
+//Update signature
+const updateSignature = (user_id, signature) => {
+  return db('user_settings')
+    .where({ user_id })
+    .update({ signature }, ['signature']); // update the signature, returning the updated signature
+};
+
 //Update a user
 const update = (id, user) => {
   return db('users')
@@ -277,6 +294,7 @@ module.exports = {
   isEmailTaken,
   getUserByEmail,
   getUserFromConfirmedEmail,
+  getUserType,
   insert,
   addEmailConfirm,
   confirmEmail,
@@ -284,6 +302,7 @@ module.exports = {
   updateUserSettings,
   update,
   updateAvatar,
+  updateSignature,
   updatePassword,
   updateEmail,
   updateLastLogin,

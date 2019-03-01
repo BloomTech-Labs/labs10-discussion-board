@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {phoneP, tabletP, } from '../globals/globals';
 
+// helpers
+import { isUserType } from '../helpers/index.js';
+
 // action creators
 import { getProfile } from '../store/actions/index.js';
 
@@ -14,6 +17,7 @@ import {
   EditAvatarUrlForm,
   UpdateEmailForm,
   DeleteAccountModal,
+  EditSignatureForm,
 } from './index.js';
 
 const SettingsWrapper = styled.div`
@@ -166,17 +170,26 @@ const EditAvatarMenu = styled.div`
   }
 `;
 
+const Signature = styled.div`
+  display: flex;
+  justify-content: center;
+  align-center: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+`;
+
 class Settings extends Component {
   state = { showForm: '', showDeleteModal: '' };
   getProfile = () => this.props.getProfile(this.props.match.params.id);
   toggleForm = formName => this.setState({ showForm: formName });
   toggleDeleteModal = () => this.setState({ showDeleteModal: !this.state.showDeleteModal });
-  onUploadAvatarSuccess = () =>
-    this.setState({ showForm: '' }, () => this.getProfile());
+  onUploadAvatarSuccess = () => this.setState({ showForm: '' }, () => this.getProfile());
   componentDidMount = () => this.getProfile();
   render() {
     const { showForm, showDeleteModal } = this.state;
-    const { username, email, avatar, isAuth0, email_confirm } = this.props.profile;
+    const { profile, user_type, signature } = this.props;
+    const { username, email, avatar, isAuth0, email_confirm } = profile;
     return (
       <SettingsWrapper>
         <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
@@ -188,6 +201,13 @@ class Settings extends Component {
             <Avatar height='100px' width='100px' src={avatar} />
           </AvatarPic>
         </EmailAndAvatar>
+        {
+          signature !== null &&
+          <Signature>
+            <p>Signature:</p>
+            <p>{ signature || 'none' }</p>
+          </Signature>
+        }
         <br />
         <AuthOEditForms>
             <EditMenu>
@@ -207,53 +227,64 @@ class Settings extends Component {
                 <button onClick={() => this.toggleForm('password-form')}>
                   Edit password
                 </button>
+              {
+                isUserType(user_type, ['gold_member', 'admin']) &&
                 <button onClick={() => this.toggleForm('avatar-btns')}>
                   Edit avatar
                 </button>
-                <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
-                  Delete account
+              }
+              {
+                isUserType(user_type, ['silver_member', 'gold_member', 'admin']) &&
+                <button onClick={() => this.toggleForm('signature-form')}>
+                  Edit signature
                 </button>
-              </Buttons>
-            </EditMenu>
-        {showForm === 'password-form' && (
-          <EditPasswordForm toggleForm={this.toggleForm} />
-        )}
-        {showForm === 'avatar-btns' && (
-          <AvatarContainer>
-            <EditAvatarMenu>
-              <div className = 'changeavatar'>Upload new avatar:</div>
-              <button onClick={() => this.toggleForm('avatar-pc-form')}>
-                Upload from PC
+              }
+              <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
+                Delete account
               </button>
-              <button onClick={() => this.toggleForm('avatar-url-form')}>
-                Upload from URL
-              </button>
-              <button onClick={() => this.toggleForm('')}>Cancel</button>
-            </EditAvatarMenu>
-          </AvatarContainer>
-        )}
-        {showForm === 'avatar-pc-form' && (
-          <EditAvatarForm
-            toggleForm={this.toggleForm}
-            onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-          />
-        )}
-        {showForm === 'avatar-url-form' && (
-          <EditAvatarUrlForm
-            toggleForm={this.toggleForm}
-            onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-          />
-        )}
-        {showForm === 'email-form' && (
-          <UpdateEmailForm
-            toggleForm={this.toggleForm}
-            history = { this.props.history }
-          />
-        )}
-        {showDeleteModal && (
-          <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
-        )}
-
+            </Buttons>
+          </EditMenu>
+          {showForm === 'password-form' && (
+            <EditPasswordForm toggleForm={this.toggleForm} />
+          )}
+          {showForm === 'avatar-btns' && (
+            <AvatarContainer>
+              <EditAvatarMenu>
+                <div className = 'changeavatar'>Upload new avatar:</div>
+                <button onClick={() => this.toggleForm('avatar-pc-form')}>
+                  Upload from PC
+                </button>
+                <button onClick={() => this.toggleForm('avatar-url-form')}>
+                  Upload from URL
+                </button>
+                <button onClick={() => this.toggleForm('')}>Cancel</button>
+              </EditAvatarMenu>
+            </AvatarContainer>
+          )}
+          {showForm === 'signature-form' && (
+            <EditSignatureForm signature = { signature } toggleForm={this.toggleForm} />
+          )}
+          {showForm === 'avatar-pc-form' && (
+            <EditAvatarForm
+              toggleForm={this.toggleForm}
+              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+            />
+          )}
+          {showForm === 'avatar-url-form' && (
+            <EditAvatarUrlForm
+              toggleForm={this.toggleForm}
+              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+            />
+          )}
+          {showForm === 'email-form' && (
+            <UpdateEmailForm
+              toggleForm={this.toggleForm}
+              history = { this.props.history }
+            />
+          )}
+          {showDeleteModal && (
+            <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
+          )}
         </AuthOEditForms>
       </SettingsWrapper>
     );
@@ -261,7 +292,9 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.profilesData.singleProfileData[0]
+  profile: state.profilesData.singleProfileData[0],
+  user_type: state.users.user_type,
+  signature: state.users.signature,
 });
 
 export default connect(

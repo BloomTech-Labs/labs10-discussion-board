@@ -203,6 +203,10 @@ import {
   UPDATE_LAST_LOGIN_SUCCESS,
   UPDATE_LAST_LOGIN_FAILURE,
 
+  EDIT_SIGNATURE_LOADING,
+  EDIT_SIGNATURE_SUCCESS,
+  EDIT_SIGNATURE_FAILURE,
+
   // Action Creators
   login,
   signout,
@@ -225,6 +229,7 @@ import {
   removeNotification,
   getNotifications,
   markNotificationsAsRead,
+  editSignature,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -354,6 +359,10 @@ export {
   UPDATE_LAST_LOGIN_SUCCESS,
   UPDATE_LAST_LOGIN_FAILURE,
 
+  EDIT_SIGNATURE_LOADING,
+  EDIT_SIGNATURE_SUCCESS,
+  EDIT_SIGNATURE_FAILURE,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -434,6 +443,7 @@ export {
   removeNotification,
   getNotifications,
   markNotificationsAsRead,
+  editSignature,
 
   // Profile Action Creators
   getProfiles,

@@ -55,7 +55,7 @@ router.get('/discussions/:user_id', (req, res, next) => {
 });
 
 // Gets a user by their ID (mock data)
-router.get('/user/:user_id', (req, res) => {
+router.get('/user/:user_id', authenticate, (req, res) => {
   const { user_id } = req.params;
   if (user_id === 'null') {
     return res.status(400).json({ error: 'User either never existed or has deleted their account.' });
@@ -162,13 +162,33 @@ router.put('/reset-password', validateToken, (req, res) => {
               email_confirm: user[0].email_confirm,
               discussionFollows: user[0].discussionFollows,
               categoryFollows: user[0].categoryFollows,
-              message: 'Your password has been reset and you\'ve been logged in.'
+              message: 'Your password has been reset and you\'ve been logged in.',
+              notifications: user[0].notifications,
+              newNotifications,
+              uuid: user[0].uuid,
+              last_login: user[0].last_login,
+              signature: user[0].signature,
+              user_type: user[0].user_type,
             }
           ]);
         })
         .catch(err => res.status(500).json({ error: `Failed to findById(): ${err}` }));
     })
     .catch(err => res.status(500).json({ error: `Failed to updatePassword(): ${ err }` }));
+});
+
+// change signature
+router.put('/edit-signature/:user_id', authenticate, async (req, res) => {
+  const { user_id } = req.params;
+  const { signature } = req.body;
+  const { user_type } = await usersDB.getUserType(user_id);
+  if (!['silver_member', 'gold_member', 'admin'].includes(user_type)) {
+    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  }
+  return usersDB
+    .updateSignature(user_id, signature)
+    .then(signature => res.status(201).json(signature))
+    .catch(err => res.status(500).json({ error: `Failed to updateSignature(): ${ err }` }));
 });
 
 // get info from reset-pw-token
@@ -271,8 +291,12 @@ router.put('/update-email/:user_id', authenticate, requestClientIP, (req, res) =
 });
 
 // Update the avatar of a user given their ID
-router.put('/avatar/:user_id', authenticate, fileUpload(), (req, res) => {
+router.put('/avatar/:user_id', authenticate, fileUpload(), async (req, res) => {
   const { user_id } = req.params;
+  const { user_type } = await usersDB.getUserType(user_id);
+  if (!['gold_member', 'admin'].includes(user_type)) {
+    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  }
   let { avatarData } = req.body;
   if (avatarData === null) {
     avatarData = defaultAvatar;
@@ -324,8 +348,12 @@ router.put('/avatar/:user_id', authenticate, fileUpload(), (req, res) => {
 });
 
 // Update the avatar (as a url) of a user given their ID
-router.put('/avatar-url/:user_id', authenticate, (req, res) => {
+router.put('/avatar-url/:user_id', authenticate, async (req, res) => {
   const { user_id } = req.params;
+  const { user_type } = await usersDB.getUserType(user_id);
+  if (!['gold_member', 'admin'].includes(user_type)) {
+    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  }
   let { avatarUrl } = req.body;
   if (avatarUrl === null) {
     // reset avatar to default
