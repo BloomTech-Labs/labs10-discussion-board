@@ -15,6 +15,7 @@ import {
   Profile,
   Settings,
   Error,
+  Footer,
   Message,
   ConfirmEmail,
   RequestResetPWForm,
@@ -139,7 +140,7 @@ class App extends Component {
             <Route path='/settings/:id' component={Settings} />
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-
+            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch}  />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
