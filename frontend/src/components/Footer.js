@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js'
+import { phoneP, phoneL, tabletP, footerHeight, footerSpace } from '../globals/globals.js'
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
@@ -20,6 +20,8 @@ const DivWrapper = styled.div`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   justify-content: space-evenly;
+  position: absolute;
+  bottom: 0;
 
   @media ${tabletP}{
     width: 100%;
