@@ -15,11 +15,10 @@ const DivWrapper = styled.div`
   display: flex-direction;
   background-color: gray;
   color: white;
-  height: 80px;
   margin: 0;
   padding: 7px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   justify-content: space-evenly;
 
   @media ${tabletP}{
@@ -64,10 +63,9 @@ const ButtonContainer = styled.div`
   `;
 
 const FooterContents = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content
-    bottom: 5px;
+    display: inline;
+    margin: 0 auto;
+    border: 1px solid black;
 
     i {
         font-size: 11px;
