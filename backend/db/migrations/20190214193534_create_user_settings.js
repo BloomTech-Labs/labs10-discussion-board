@@ -23,7 +23,7 @@ exports.up = function (knex, Promise) {
     tbl.string('user_type', 32).defaultTo('user');
 
     // Signature
-    tbl.string('signature');
+    tbl.string('signature', 64);
 
     // Date in milliseconds
     tbl.bigInteger('subscribed_at').notNullable();
