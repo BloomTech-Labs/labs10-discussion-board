@@ -126,7 +126,8 @@ const Post = ({
     user_id,
     username,
     user_vote,
-    avatar
+    avatar,
+    signature,
   } = post;
 
   const handleVote = type => handlePostVote(post.id, type, discussion_id, order, orderType);
@@ -151,7 +152,7 @@ const Post = ({
               </p>
             )}
             <p>{body}</p>
-            <H5signature>{(post.signature) && post.signature}</H5signature>
+            { signature && <H5signature>{ signature }</H5signature> }
           </DivBody>
         </VoteAndBody>
         <UserActions>
