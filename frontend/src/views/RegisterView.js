@@ -74,7 +74,7 @@ const DivSelectBanners = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
 
-  @media ${phoneL} {
+  @media ${phoneL}{
     flex-direction: column;
   }
 `;
@@ -362,7 +362,7 @@ const DivRegisterForm = styled.div`
     text-decoration: underline;
     margin: 0 0 0.67em 0;
 
-    @media ${phoneL}{
+    @media ${phoneL} {
       font-size: 24px;
     }
   }

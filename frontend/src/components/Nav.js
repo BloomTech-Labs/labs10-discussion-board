@@ -24,6 +24,7 @@ const DivWrapper = styled.div`
 
   @media ${tabletP}{
     width: 100%;
+    
     @media ${phoneL}{
       width: 100%;
     }
@@ -36,6 +37,7 @@ const Links = styled.div`
   width: 50%;
   margin: 0;
   align-items: center;
+
   .link {
     font-weight: bold;
     text-decoration: none;
@@ -44,16 +46,19 @@ const Links = styled.div`
     :hover {
       color: black;
     }
+
     @media ${phoneL}{
       width: 100%;
       display: flex;
       justify-content: flex-start;
     }
   }
+
   @media (max-width: 960px){
     font-size: 12px;
     display: flex;
     margin: 0 px;
+
     @media ${phoneL}{
       width: 25%;
       font-size: 8px;
@@ -67,9 +72,11 @@ const DivAuth = styled.div`
   display: flex;
   width: 28%;
   height: 100%;
+
   @media ${tabletP}{
     width: 25%;
   }
+
   @media ${phoneL}{
     width: 35%;
     display: flex;
@@ -84,26 +91,31 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   align-content: center;
   align-items: center;
+
   @media ${tabletP}{
     width: 18%;
-  }
-  @media ${phoneL}{
-    width: 25%;
-  }
+    }
+    
+    @media ${phoneL}{
+      width: 25%;
+    }
+
   button {
-    width: 100%;
-    font-size: 14px;
-    border-radius: 7px;
-    margin-top: 12px;
-    &:hover {
-      cursor: pointer;
-      background-color: #54bdff;
-    }
-    @media ${tabletP}{
-      width: 80%;
-    }
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  margin-top: 12px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #54bdff;
   }
-`;
+
+  @media ${tabletP}{
+    width: 80%;
+  }
+}
+  `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************

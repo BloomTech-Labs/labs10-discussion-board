@@ -27,7 +27,6 @@ const PostWrapper = styled.div`
     flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
-    height: 400px
   }
 `;
 
@@ -57,7 +56,7 @@ const PostedBy = styled.div`
 
   .username {
     font-weight: bold;
-    color: ${props => props.theme.postPostedByUsernameColor};
+    color: ${props => props.theme.discussionAvatarUsernameColor};
     text-decoration: none;
 
     &:hover {
@@ -67,13 +66,15 @@ const PostedBy = styled.div`
   }
 `;
 
-const DivBody = styled.div`
+const DivBody = styled.div `
+  padding: 1.5em;
   width: 100%;
 
   p {
     margin: 0;
     margin-bottom: 10px;
     word-break: break-word;
+    color: ${props => props.theme.discussionPostColor};
   }
 `;
 
@@ -85,22 +86,24 @@ const H5signature = styled.h5`
 const VoteAndBody = styled.div`
 display: flex;
 flex-direction: row;
-height: 80%;
+
 `;
 
 const UserActions = styled.div`
 display: flex;
 flex-direction: row;
 left: 0;
+color: ${props => props.theme.discussionPostColor};
 
   @media ${phoneL}{
-    bottom: 0
+    
   }
 
-  h4{
-    cursor: pointer;
-  }
-`;
+ h4{
+   cursor: pointer;
+ }
+ `;
+
 
 const Post = ({
   post,

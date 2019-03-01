@@ -40,6 +40,7 @@ const SympLogo = styled.div`
   height: 141px;
   background-image: url(${meeting});
   background-repeat: no-repeat;
+  
     &:hover {
       background-image: url(${meeting2});
       cursor: wait;
@@ -92,9 +93,11 @@ const Title = styled.div`
         margin: 0 auto;
       }
   }
-  .subheader { 
+}
+
+.subheader { 
     color: ${props => props.theme.headerTitleSubheaderColor};
-    font-size: 14px;
+    font-size: 16px;
     margin-left: 187px;
     @media (max-width: 768px){
       @media ${phoneL}{
@@ -107,7 +110,7 @@ const Title = styled.div`
       }
       }
     }
-}
+  }
 `;
 
 const Logo = () => {
