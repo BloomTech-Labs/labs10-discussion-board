@@ -51,6 +51,7 @@ import RequestResetPWForm from './forms/RequestResetPWForm';
 import ResetPWForm from './forms/ResetPWForm.js';
 import AddCategoryForm from './forms/AddCategoryForm.js';
 import AddReplyForm from './forms/AddReplyForm.js';
+import EditSignatureForm from './forms/EditSignatureForm.js';
 
 export {
   Auth,
@@ -105,4 +106,5 @@ export {
   ResetPWForm,
   AddCategoryForm,
   AddReplyForm,
+  EditSignatureForm,
 };

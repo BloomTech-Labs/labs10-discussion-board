@@ -74,6 +74,10 @@ import {
   UPDATE_LAST_LOGIN_LOADING,
   UPDATE_LAST_LOGIN_SUCCESS,
   UPDATE_LAST_LOGIN_FAILURE,
+
+  EDIT_SIGNATURE_LOADING,
+  EDIT_SIGNATURE_SUCCESS,
+  EDIT_SIGNATURE_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
@@ -99,6 +103,7 @@ const initialState = {
   newNotificationCount: 0,
   last_login: '',
   uuid: '',
+  signature: null,
   stripePaymentInfo: []
 };
 
@@ -147,6 +152,8 @@ export const UsersReducer = (state = initialState, action) => {
           message: action.payload.message,
           uuid: action.payload.uuid,
           last_login: action.payload.last_login,
+          user_type: action.payload.user_type,
+          signature: action.payload.signature,
           isLoggedIn: true
         };
       }
@@ -191,6 +198,8 @@ export const UsersReducer = (state = initialState, action) => {
         message: action.payload.message,
         uuid: action.payload.uuid,
         last_login: action.payload.last_login,
+        user_type: action.payload.user_type,
+        signature: action.payload.signature,
         isLoggedIn: true
       };
     case USER_REGISTER_FAILURE:
@@ -328,6 +337,14 @@ export const UsersReducer = (state = initialState, action) => {
         last_login: action.payload,
       };
 
+    case EDIT_SIGNATURE_SUCCESS:
+      return {
+        ...state,
+        signature: action.payload.signature,
+      };
+
+    case EDIT_SIGNATURE_LOADING:
+    case EDIT_SIGNATURE_FAILURE:
     case UPDATE_LAST_LOGIN_LOADING:
     case UPDATE_LAST_LOGIN_FAILURE:
     case GET_NOTIFICATIONS_LOADING:
