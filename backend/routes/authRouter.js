@@ -137,7 +137,7 @@ router.post('/register', requestClientIP, async (req, res) => {
       // prettier-ignore
       if (
         userSettings.user_type === accountRoleTypes[2] || // silver
-          userSettings.user_type === accountRoleTypes[3] // gold
+        userSettings.user_type === accountRoleTypes[3] // gold
       ) {
         userSettings.signature = req.body.signature || '';
       }

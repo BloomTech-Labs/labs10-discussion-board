@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import base64Img from 'base64-img';
 import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, defaultAvatar, tabletL, phoneL } from '../globals/globals.js';
 import {
   register,
@@ -538,6 +537,10 @@ const DivAvatar = styled.div`
       border: 2px solid black;
       transition: all 0.2s ease-in;
     }
+
+    &:last-child {
+      margin-top: 15px;
+    }
   }
 `;
 
@@ -808,6 +811,7 @@ class RegisterView extends Component {
       email: '',
       signature: '',
       avatar: defaultAvatar,
+      fileAvatarImage: '',
       avatarUrl: '',
       isReady: false
     };
@@ -822,29 +826,16 @@ class RegisterView extends Component {
       email: '',
       signature: '',
       avatar: defaultAvatar,
+      fileAvatarImage: '',
       avatarUrl: '',
       isReady: false
     });
   }
 
-  // clearRegisterState = ev => {
-  //   ev.preventDefault();
-  //   this.setState({
-  //     subPlan: subscriptionPlans[0],
-  //     username: '',
-  //     password: '',
-  //     email: '',
-  //     signature: '',
-  //     avatar: defaultAvatar,
-  //     avatarUrl: '',
-  //     isReady: false
-  //   });
-  // };
-
   convertAndSetAvatarUrlToBase64 = () => {
     const url = this.state.avatarUrl;
     const setAvatar = (base64) => {
-      this.setState({ avatar: base64 });
+      this.setState({ avatar: base64, fileAvatarImage: '' });
     }
 
     let getDataUri = function (url, callback) {
@@ -865,6 +856,37 @@ class RegisterView extends Component {
     getDataUri(url, function (base64) {
       setAvatar(base64);
     })
+  }
+
+
+
+  fileSelectHandler = ev => {
+    ev.preventDefault();
+    console.log('found');
+    Promise.resolve(this.setState({ fileAvatarImage: ev.target.files[0] })).then(() => {
+      const setAvatar = (base64) => {
+        this.setState({ avatar: base64, avatarUrl: '' });
+      }
+      const fd = new FormData();
+      const file = this.state.fileAvatarImage;
+      const filename = this.state.fileAvatarImage.name;
+      fd.append('image', file, filename);
+
+      let getBase64FromFile = (file, cb) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          cb(reader.result)
+        };
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+      }
+
+      getBase64FromFile(file, function (base64) {
+        setAvatar(base64);
+      })
+    });
   }
 
   selectSubPlan = sub => {
@@ -916,9 +938,7 @@ class RegisterView extends Component {
         }
       });
     } else {
-      this.setState({ isReady: status }, () =>
-        this.props.history.push('/home')
-      );
+      this.props.history.push('/home');
     }
   };
 
@@ -966,7 +986,8 @@ class RegisterView extends Component {
           password: this.state.password,
           email: this.state.email,
           signature: this.state.signature,
-          avatarUrl: this.state.avatarUrl
+          avatarUrl: (this.state.avatarUrl) ? this.state.avatarUrl : '',
+          fileAvatarImage: (this.state.fileAvatarImage) ? this.state.fileAvatarImage : '',
         };
       } else if ( // free or bronze
         this.state.subPlan === subscriptionPlans[0] ||
@@ -1293,7 +1314,20 @@ class RegisterView extends Component {
                         name='avatarUrl'
                         autoComplete='off'
                       />
-                      <button type='button' onClick={() => this.convertAndSetAvatarUrlToBase64()}>Set Avatar</button>
+                      <button type='button' onClick={() => this.convertAndSetAvatarUrlToBase64()}>Avatar URL</button>
+                      <input
+                        style={{ display: 'none' }}
+                        type='file'
+                        onChange={ev => this.fileSelectHandler(ev)}
+                        value=''
+                        ref={fileInput => this.fileInput = fileInput}
+                      />
+                      <button
+                        type='button'
+                        onClick={(ev) => this.fileInput.click(ev)}
+                      >
+                        Avatar From File
+                      </button>
                     </DivAvatar>
                   </DivRightSide>
                 </DivAccountDetails>

@@ -168,6 +168,7 @@ export const register = creds => dispatch => {
     status: accountStatusTypes[1],
     signature: creds.signature,
     avatarUrl: creds.avatarUrl,
+    fileAvatarImage: creds.fileAvatarImage,
     subPlan: creds.subPlan
   };
   return axios
@@ -404,7 +405,7 @@ export const editSignature = signature => dispatch => {
   const body = { signature };
   dispatch({ type: EDIT_SIGNATURE_LOADING });
   return axios
-    .put(`${ backendUrl }/users/edit-signature/${ user_id }`, body, headers)
+    .put(`${backendUrl}/users/edit-signature/${user_id}`, body, headers)
     .then(res => dispatch({ type: EDIT_SIGNATURE_SUCCESS, payload: res.data[0] }))
     .catch(err => handleError(err, EDIT_SIGNATURE_FAILURE)(dispatch));
 };
