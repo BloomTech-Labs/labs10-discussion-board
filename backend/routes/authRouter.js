@@ -72,7 +72,7 @@ const {
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
-router.post('/register', requestClientIP, async (req, res) => {
+router.post('/register', requestClientIP, (req, res) => {
   const accountCreatedAt = Date.now();
   // username and password must keep rules of syntax
   if (!req.body.username || !validateNewUsername(req.body.username)) {
@@ -103,7 +103,7 @@ router.post('/register', requestClientIP, async (req, res) => {
   // add user
   return db
     .insert(newUserCreds) // [ { id: 1, username: 'username', email: 'email' } ]
-    .then(async userAddedResults => {
+    .then(userAddedResults => {
       let email_confirm = null;
 
       // if they registered with an email, send a confirmation email
@@ -111,8 +111,10 @@ router.post('/register', requestClientIP, async (req, res) => {
         // generate a random uuid for email confirmation URL
         email_confirm = uuidv4();
       }
-      await db.addEmailConfirm(userAddedResults[0].id, email_confirm);
-
+      db.addEmailConfirm(userAddedResults[0].id, email_confirm);
+      return Promise.resolve([userAddedResults, email_confirm]);
+    })
+    .then(([userAddedResults, email_confirm]) => {
       // add user settings
       let userSettings = {
         user_id: userAddedResults[0].id
@@ -148,21 +150,24 @@ router.post('/register', requestClientIP, async (req, res) => {
         const url = req.body.avatarUrl;
         base64Img.requestBase64(url, async function (err, result, body) { // callback only adds variable inside callback
           userSettings.avatar = body;
-          await db.addUserSettings(userSettings);
+          db.addUserSettings(userSettings);
         });
       } else {
-        await db.addUserSettings(userSettings);
+        db.addUserSettings(userSettings);
       }
-
+      return Promise.resolve([userAddedResults, email_confirm]);
+    }).then(([userAddedResults, email_confirm]) => {
       // Get first token for front end (for login after register)
-      const token = await generateToken(
+      return generateToken(
         userAddedResults[0].id,
-        userAddedResults[0].username
-      );
-
-      return db
-        .findById(userAddedResults[0].id)
-        .then(foundUser => {
+        userAddedResults[0].username,
+        '24hr'
+      ).then(token => {
+        return db.findById(userAddedResults[0].id).then(foundUser => {
+          console.log('userAddedResults', userAddedResults)
+          console.log('email_confirm', email_confirm)
+          console.log('token2', token)
+          console.log('foundUser2', foundUser);
           if (foundUser.length) {
             let message = 'Thanks for registering! Please consider adding an e-mail address in the future so you are able to recover your account in case you forget your password.';
             if (email_confirm) {
@@ -216,12 +221,17 @@ router.post('/register', requestClientIP, async (req, res) => {
               }
             ]);
           }
+          console.log('bar')
           return res
             .status(401)
             .json({ error: 'No users found with findById().' });
         })
+          .catch(err =>
+            res.status(500).json({ error: `Failed to findById(): ${err}` })
+          );
+      })
         .catch(err =>
-          res.status(500).json({ error: `Failed to findById(): ${err}` })
+          res.status(500).json({ error: `Failed to generate token` })
         );
     })
     .catch(err =>

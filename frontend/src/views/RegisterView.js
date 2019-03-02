@@ -865,7 +865,7 @@ class RegisterView extends Component {
     console.log('found');
     Promise.resolve(this.setState({ fileAvatarImage: ev.target.files[0] })).then(() => {
       const setAvatar = (base64) => {
-        this.setState({ avatar: base64, avatarUrl: '' });
+        Promise.resolve(this.setState({ avatar: base64, avatarUrl: '' })).then(() => console.log(this.state.fileAvatarImage));
       }
       const fd = new FormData();
       const file = this.state.fileAvatarImage;
