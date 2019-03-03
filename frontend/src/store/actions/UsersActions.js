@@ -167,17 +167,56 @@ export const register = creds => dispatch => {
     email: creds.email,
     status: accountStatusTypes[1],
     signature: creds.signature,
-    avatarUrl: creds.avatarUrl,
-    fileAvatarImage: creds.fileAvatarImage,
+    avatarURL: creds.avatarURL,
+    avatarData: creds.avatarData,
     subPlan: creds.subPlan
   };
   return axios
     .post(`${backendUrl}/auth/register`, backendCreds)
     .then(response => {
-      localStorage.setItem('symposium_token', response.data[0].token);
-      localStorage.setItem('symposium_user_id', response.data[0].id);
-      dispatch({ type: USER_REGISTER_SUCCESS, payload: response.data[0] });
-      handlePusher.subscribeToPusher(response.data[0].uuid)(dispatch);
+      return Promise.resolve(response.data[0]); // user and user settings added, but still need to set avatar
+    })
+    .then(regData => {
+
+      if (backendCreds.avatarData) { // avatar from file on pc
+        const headers = {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: regData.token,
+          }
+        };
+        const avatarData = backendCreds.avatarData;
+
+        return axios
+          .put(`${backendUrl}/users/avatar/${regData.id}`, avatarData, headers)
+          .then(avatarRes => {
+            regData.avatar = avatarRes.data;
+            localStorage.setItem('symposium_token', regData.token);
+            localStorage.setItem('symposium_user_id', regData.id);
+            dispatch({ type: USER_REGISTER_SUCCESS, payload: regData });
+            handlePusher.subscribeToPusher(regData.uuid)(dispatch);
+          })
+          .catch(err => handleError(err, UPLOAD_AVATAR_FAILURE)(dispatch));
+      } else if (backendCreds.avatarURL) { // avatar from url
+        const headers = { headers: { Authorization: regData.token } };
+        const avatarUrl = { avatarUrl: backendCreds.avatarURL };
+
+        return axios
+          .put(`${backendUrl}/users/avatar-url/${regData.id}`, avatarUrl, headers)
+          .then(avatarRes => {
+            regData.avatar = avatarRes.data;
+            localStorage.setItem('symposium_token', regData.token);
+            localStorage.setItem('symposium_user_id', regData.id);
+            dispatch({ type: USER_REGISTER_SUCCESS, payload: regData });
+            handlePusher.subscribeToPusher(regData.uuid)(dispatch);
+          })
+          .catch(err => handleError(err, UPLOAD_AVATAR_URL_FAILURE)(dispatch));
+      } else { // no avatar given, use default
+        localStorage.setItem('symposium_token', regData.token);
+        localStorage.setItem('symposium_user_id', regData.id);
+        dispatch({ type: USER_REGISTER_SUCCESS, payload: regData });
+        handlePusher.subscribeToPusher(regData.uuid)(dispatch);
+      }
     })
     .catch(err => handleError(err, USER_REGISTER_FAILURE)(dispatch));
 };
