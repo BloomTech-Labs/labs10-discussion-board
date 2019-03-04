@@ -7,20 +7,19 @@ import { updateEmail, displayError } from '../../store/actions/index.js';
 
 const Container = styled.div`
 	width: 100%;
+	height: 50px;
 	display: flex;
 	justify-content: center;
 `;
 
 const StyledUpdateEmailForm = styled.form`
-	width: 70%;
+	width: 90%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 20px;
-	padding: 10px;
-	border-radius: 20px;
+	border-radius: 10px;
 	background-color: #54BDFF;
 
 	input {
