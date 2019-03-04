@@ -23,6 +23,7 @@ const EditPasswordFormWrapper = styled.form`
 
 		h1 {
 			margin-top: 0px;
+			margin-bottom: 55px;
 		}
 	
 	@media (max-width: 520px){

@@ -7,19 +7,24 @@ import { updateEmail, displayError } from '../../store/actions/index.js';
 
 const Container = styled.div`
 	width: 60%;
-	height: 36%;
+	height: auto;
 	display: flex;
 	justify-content: flex-end;
 `;
 
 const StyledUpdateEmailForm = styled.form`
 	width: 90%;
+	height: 200px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
 	background-color: #54BDFF;
+
+	h1 {
+		margin-top: 0px;
+	}
 
 	input {
 		width: 75%;
@@ -67,6 +72,7 @@ class UpdateEmailForm extends Component {
 		return(
 			<Container>
 			<StyledUpdateEmailForm onSubmit = { this.handleSubmit }>
+				<h1>Update E-mail</h1>
 				<input
 					className = 'update-email-input'
 					autoComplete = 'on'

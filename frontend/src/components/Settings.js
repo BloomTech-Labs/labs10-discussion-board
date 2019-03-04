@@ -164,14 +164,21 @@ const Buttons = styled.div`
 `;
 
 const AvatarContainer = styled.div`
-  display: flex;
-  justify-content: center;
+	width: 60%;
+	height: auto;
+	display: flex;
+	justify-content: flex-end;
 `;
 
 const EditAvatarMenu = styled.div`
-  margin: 20px 0px;
-  display: flex;
-  flex-direction: column;
+  background-color: #54BDFF;
+  width: 90%;
+  height: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: baseline;
+	align-items: center;
+	border-radius: 10px;
 
   button {
           margin: 7px;
@@ -191,6 +198,7 @@ const EditAvatarMenu = styled.div`
   .changeavatar {
     text-align: center;
     font-weight: bold;
+    margin-top: 20px;
     margin-bottom: 7px;
   }
 `;
@@ -279,7 +287,7 @@ class Settings extends Component {
           {showForm === 'avatar-btns' && (
             <AvatarContainer>
               <EditAvatarMenu>
-                <div className = 'changeavatar'>Upload new avatar:</div>
+                <h1 className = 'changeavatar'>Upload new avatar</h1>
                 <button onClick={() => this.toggleForm('avatar-pc-form')}>
                   Upload from PC
                 </button>
