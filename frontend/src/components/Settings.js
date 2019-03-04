@@ -107,7 +107,7 @@ const EmailForm = styled.div`
     display: flex;
     justify-content: center;
     .email {
-      width: 20%;
+      width: 35%;
       margin: 7px;
       border-radius: 10px;
       height: 50px;
@@ -130,10 +130,12 @@ const Buttons = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   button {
     margin: 7px;
     border-radius: 10px;
-    width: 20%;
+    width: 35%;
     height: 50px;
     font-size: 16px;
     font-weight: bold;
