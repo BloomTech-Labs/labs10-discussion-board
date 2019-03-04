@@ -23,12 +23,6 @@ const phoneL = '(max-width: 599px)'; // landscape
 const tabletP = '(max-width: 768px)'; // portrait
 const tabletL = '(max-width: 1024px)'; // landscape
 
-//Designs
-
-//FOOTER
-// const footerHeight = '2.5rem'
-// const footerSpace = footerHeight; //space between content and footer, on each componentwrapper
-
 // Copy from backend globals (can't import from out of src folder)
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
 

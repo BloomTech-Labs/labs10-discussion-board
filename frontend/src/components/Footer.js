@@ -9,9 +9,6 @@ import { phoneP, phoneL, tabletP, footerHeight, footerSpace } from '../globals/g
 /***************************************************************************************************
  *********************************************** Styles *********************************************
  **************************************************************************************************/
-//take off the globall footer space
-// take off the margin bottoms for the categories, discussions, hot discussions
-//take off the background colors
 
  const DivWrapper = styled.div`
   width: 100%;
