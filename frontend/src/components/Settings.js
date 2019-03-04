@@ -50,6 +50,7 @@ const UsernameSettings = styled.div`
 const UserSettings = styled.div`
   width: 92%;
   display: flex;
+  justify-content: space-evenly;
   margin-bottom: 10px;
 `;
 
@@ -89,13 +90,13 @@ const AuthOEditForms = styled.div`
     padding-bottom: 10px;
 `;
 
-const EditMenu = styled.div`
+const EditButtons = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 25%;
 
     p {
       margin-bottom: 7px;
@@ -238,7 +239,7 @@ class Settings extends Component {
           }
           </ProfileSettings>
         <AuthOEditForms>
-            <EditMenu>
+            <EditButtons>
               <EmailForm>
               {
                 isAuth0 ?
@@ -271,7 +272,7 @@ class Settings extends Component {
                 Delete account
               </button>
             </Buttons>
-          </EditMenu>
+          </EditButtons>
           {showForm === 'password-form' && (
             <EditPasswordForm toggleForm={this.toggleForm} />
           )}
