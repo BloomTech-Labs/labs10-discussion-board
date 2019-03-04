@@ -13,13 +13,10 @@ import { phoneP, phoneL, tabletP } from '../globals/globals.js'
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
-  background-color: gray;
   color: white;
   height: 80px;
   margin: 0;
-  padding: 7px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+
   justify-content: space-evenly;
 
   @media ${tabletP}{

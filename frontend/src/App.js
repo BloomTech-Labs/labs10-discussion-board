@@ -15,6 +15,7 @@ import {
   Profile,
   Settings,
   Error,
+  Footer,
   Message,
   ConfirmEmail,
   RequestResetPWForm,
@@ -41,6 +42,9 @@ const AppWrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+  position: relative;
+  min-height: 100vh;
+  justify-content: space-between;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -51,13 +55,19 @@ const GlobalStyle = createGlobalStyle`
     	padding: 0;
 		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 		  display: flex;
-		  align-items: center;
+      align-items: center;
+      justify-content: center;
 		  flex-wrap: wrap;
       flex-direction: column;
       background: ${props => props.theme.appBgColor};
-      width: 100%;
+      min-width: 100%;
+      min-height: 100vh;
 	}
 `;
+
+const Foot = styled.div`
+
+`
 
 const ButtonContainer = styled.div`
     width: 90%;
@@ -130,16 +140,17 @@ class App extends Component {
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             <Logo />
-            <Route exact path='/' component={HotDiscussionsView} />
-            <Route path='/home' component={LandingView} />
-            <Route path='/profiles' component={Profiles} />
-            <Route path='/profile/:id' component={Profile} />
-            <Route path='/categories' component={CategoriesView} />
-            <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
-            <Route path='/settings/:id' component={Settings} />
-            <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-            <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
 
+              <Route exact path='/' component={HotDiscussionsView} />
+              <Route path='/home' component={LandingView} />
+              <Route path='/profiles' component={Profiles} />
+              <Route path='/profile/:id' component={Profile} />
+              <Route path='/categories' component={CategoriesView} />
+              <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+              <Route path='/settings/:id' component={Settings} />
+              <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+              <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+              <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch}  />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
@@ -154,6 +165,7 @@ class App extends Component {
             <GlobalStyle />
             <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
+>
             <Switch>
               <Route path='/register' component={RegisterView} />
               <Route path='/request-reset-pw' component={RequestResetPWForm} />
@@ -166,7 +178,7 @@ class App extends Component {
               <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
               <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
             </Switch>
-
+            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
