@@ -483,11 +483,6 @@ router.post('/stripe', (req, res, next) => {
   const payment = Number(req.body.data.payment);
   const subPlan = req.body.description;
   const email = req.body.email;
-  console.log('stripeToken', stripeToken);
-  console.log('payment', payment);
-  console.log('description', req.body.description);
-  console.log('subPlan', subPlan);
-  console.log('email', email);
 
 
   (async () => {
