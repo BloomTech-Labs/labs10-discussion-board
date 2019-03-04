@@ -1051,7 +1051,9 @@ class RegisterView extends Component {
       },
       data: {
         stripeToken: token.id,
-        payment: this.getStripePayment()
+        payment: this.getStripePayment(),
+        subPlan: this.state.subPlan,
+        email: this.state.email
       }
     }
     this.props.stripePayment(headersObj).then(() => this.submitHandler());
@@ -1060,6 +1062,7 @@ class RegisterView extends Component {
   render() {
     const paymentPlanCost = this.getPaymentAmount();
     const total = this.getPaymentAmount();
+    const stripeAmount = this.getStripePayment();
     return (
       <DivWrapper>
         <H1Register>Register New Account</H1Register>
@@ -1094,6 +1097,8 @@ class RegisterView extends Component {
                     <ButtonStripeCheckout
                       token={this.onToken}
                       stripeKey={stripeToken}
+                      email={this.state.email}
+                      amount={stripeAmount}
                     />
                   </DivStripeCheckout>
                 )}

@@ -14,9 +14,6 @@ const {
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
-const base64Img = require('base64-img');
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const FileReader = require('filereader');
 const uuidv4 = require('uuid/v4');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
@@ -484,6 +481,8 @@ router.post('/auth0-login', async (req, res) => {
 router.post('/stripe', (req, res, next) => {
   const stripeToken = req.body.data.stripeToken;
   const payment = Number(req.body.data.payment);
+  const email = req.body.email;
+  const subPlan = req.body.subPlan;
 
 
   (async () => {
@@ -491,8 +490,10 @@ router.post('/stripe', (req, res, next) => {
       const charge = await stripe.charges.create({
         amount: payment,
         currency: 'usd',
-        description: 'bronze plan',
-        source: stripeToken
+        description: subPlan,
+        source: stripeToken,
+        statement_descriptor: subPlan,
+        email: email
       });
       res.status(201).json([{ charge }]);
     } catch (err) {
