@@ -16,9 +16,7 @@ const DivWrapper = styled.div`
   color: white;
   height: 80px;
   margin: 0;
-  // padding: 7px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+
   justify-content: space-evenly;
 
   @media ${tabletP}{
