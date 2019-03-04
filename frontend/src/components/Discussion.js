@@ -146,9 +146,11 @@ const Elip = styled.div`
 const Sort = styled.div`
 display: flex;
 flex-direction: row;
-padding-bottom: 1em;
+padding-bottom: 20px;
 align-items: baseline;
 justify-content: space-between;
+border-top: 1px solid;
+padding-top: 20px;
 
 @media ${tabletP} {
   display: flex;
