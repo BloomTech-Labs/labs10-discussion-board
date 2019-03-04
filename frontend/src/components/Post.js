@@ -14,13 +14,16 @@ import { handlePostVote } from '../store/actions/index.js';
 
 const PostWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+`
+
+const PostSubWrapper = styled.div`
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   border-top: 1px solid black;
-  border-bottom: 1px solid black;
   padding-top: 16px;
   padding-bottom: 16px;
-  margin: 0 auto;
 
   @media ${phoneL} {
     display: flex;
@@ -30,7 +33,7 @@ const PostWrapper = styled.div`
   }
 `;
 
-const PostSubWrapper = styled.div`
+const SubWrapper = styled.div`
 width: 80%;
 display: flex;
 flex-direction: column;
@@ -92,7 +95,7 @@ flex-direction: row;
 const UserActions = styled.div`
 display: flex;
 flex-direction: row;
-left: 0;
+align-self: flex-end;
 color: ${props => props.theme.discussionPostColor};
 
   @media ${phoneL}{
@@ -138,60 +141,65 @@ const Post = ({
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   const userCreatedPost = loggedInUserId === user_id;
   return (
-    // name attribute for use with react-scroll
-    <PostWrapper name={id}>
-      <PostSubWrapper>
-        {reply_to && <Quote reply_to={reply_to} />}
-        <VoteAndBody>
-          <VoteCount
-            handleVote={handleVote}
-            vote_count={post_votes}
-            user_vote={user_vote}
-          />
-          <DivBody>
-            {last_edited_at && (
-              <p>
-                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-              </p>
-            )}
-            <p>{body}</p>
-            { signature && <H5signature>{ signature }</H5signature> }
-          </DivBody>
-        </VoteAndBody>
-        <UserActions>
-          {
-            loggedInUserId !== 0 &&
-            <h4 onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
-          }
-          {userCreatedPost &&
-            (showEditPostForm === id ? (
-              <EditPostForm
-                user_id={user_id}
-                post_id={id}
-                discussion_id={discussion_id}
-                historyPush={historyPush}
-                updateEditPostForm={updateEditPostForm}
-              />
-            ) : (
-                <>
-                  <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>
-                </>
-              ))}
-          {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
-        </UserActions>
+    //Changed some of the styled div names and incorporated a new
+    //styled div with the name Post Wrapper
+    //in order to place the UserActions (reply/edit/remove) on the bottom
+    //Of the component
+    <PostWrapper>
+      <PostSubWrapper name={id}>
+        <SubWrapper>
+          {reply_to && <Quote reply_to={reply_to} />}
+          <VoteAndBody>
+            <VoteCount
+              handleVote={handleVote}
+              vote_count={post_votes}
+              user_vote={user_vote}
+            />
+            <PostedBy>
+              <Avatar height={'72px'} width={'72px'} src={avatar} />
+              {
+                username ?
+                  <Link className='username' to={`/profile/${user_id}`}>
+                    {username},
+                  </Link> :
+                  <Deleted />
+              }
+              <p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
+            </PostedBy>
+          </VoteAndBody>
+        </SubWrapper>
+        <DivBody>
+          {last_edited_at && (
+            <p>
+              Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+            </p>
+          )}
+          <p>{body}</p>
+          { signature && <H5signature>{ signature }</H5signature> }
+        </DivBody>
       </PostSubWrapper>
-      <PostedBy>
-        <Avatar height={'72px'} width={'72px'} src={avatar} />
-        {
-          username ?
-            <Link className='username' to={`/profile/${user_id}`}>
-              {username},
-            </Link> :
-            <Deleted />
-        }
-        <p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
-      </PostedBy>
-    </PostWrapper>
+      <UserActions>
+      {
+        loggedInUserId !== 0 &&
+        <h4 onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
+      }
+      {userCreatedPost &&
+        (showEditPostForm === id ? (
+          <EditPostForm
+            user_id={user_id}
+            post_id={id}
+            discussion_id={discussion_id}
+            historyPush={historyPush}
+            updateEditPostForm={updateEditPostForm}
+          />
+        ) : (
+            <>
+              <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>
+            </>
+          ))}
+      {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
+    </UserActions>
+  </PostWrapper>
   );
 };
 
