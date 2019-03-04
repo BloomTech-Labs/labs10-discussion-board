@@ -48,12 +48,13 @@ const UsernameSettings = styled.div`
 `;
 
 const UserSettings = styled.div`
-  width: 95%;
+  width: 92%;
   display: flex;
+  margin-bottom: 10px;
 `;
 
 const ProfileSettings = styled.div`
-  width: 50%;
+  width: 30%;
 `;
 
 const EmailAndAvatar = styled.div`
@@ -83,9 +84,8 @@ const AvatarPic = styled.div`
 
 const AuthOEditForms = styled.div`
     display: flex;
-    width: 50%;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: flex-end;
+    width: 70%;
     padding-bottom: 10px;
 `;
 
@@ -95,7 +95,7 @@ const EditMenu = styled.div`
     text-align: center;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 50%;
 
     p {
       margin-bottom: 7px;
@@ -107,8 +107,8 @@ const EmailForm = styled.div`
     display: flex;
     justify-content: center;
     .email {
-      width: 35%;
-      margin: 7px;
+      width: 100%;
+      margin-bottom: 7px;
       border-radius: 10px;
       height: 50px;
       font-size: 16px;
@@ -133,9 +133,9 @@ const Buttons = styled.div`
   flex-direction: column;
   align-items: center;
   button {
+    width: 100%;
     margin: 7px;
     border-radius: 10px;
-    width: 35%;
     height: 50px;
     font-size: 16px;
     font-weight: bold;
@@ -201,8 +201,8 @@ const Signature = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
 
-  .signature-text {
-    margin-left: 10px;
+  p {
+    margin: 0px 0px 7px 0px;
   }  
 `;
 
