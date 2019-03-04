@@ -55,6 +55,7 @@ const ProfileSettings = styled.div`
 `;
 
 const EmailAndAvatar = styled.div`
+    width: 50%;
     font-size: 20px;
     display: flex;
     flex-direction: column;
@@ -71,7 +72,7 @@ const EmailAndAvatar = styled.div`
 
 const AvatarPic = styled.div`
     display: flex;
-    align-items: center;
+    width: 50%;
 
     p {
       margin-right: 20px;
@@ -190,12 +191,15 @@ const EditAvatarMenu = styled.div`
 `;
 
 const Signature = styled.div`
+  font-size: 20px;
+  width: 50%;
   display: flex;
-  justify-content: center;
-  align-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  flex-direction: column;
-  text-align: center;
+
+  .signature-text {
+    margin-left: 10px;
+  }  
 `;
 
 class Settings extends Component {
@@ -215,18 +219,17 @@ class Settings extends Component {
         <UserSettings>
           <ProfileSettings>
           <EmailAndAvatar>
-            <p>Email: {email || 'N/A'}</p>
-            { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
-            <AvatarPic>
-              <p>Avatar:</p>
+          <AvatarPic>
               <Avatar height='100px' width='100px' src={avatar} />
             </AvatarPic>
+            <p>Email: {email || 'N/A'}</p>
+            { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
           </EmailAndAvatar>
           {
             signature !== null &&
             <Signature>
               <p>Signature:</p>
-              <p>{ signature || 'none' }</p>
+              <p className = 'signature-text'>{ signature || 'none' }</p>
             </Signature>
           }
           </ProfileSettings>
