@@ -7,9 +7,17 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  background-color: grey;
   height: 90px;
   width: 100%;
   z-index: 9000;
+  align-self: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+
   @media(max-width: 750px){
     width: 100%;
     @media (max-width: 450px){
@@ -20,6 +28,9 @@ const StyledHeader = styled.div`
 `;
 
 const Navi = styled.div`
+width: 100%;
+align-self: center;
+
   @media (max-width: 768px){
     display: flex;
     width: 100%;

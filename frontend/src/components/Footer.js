@@ -9,20 +9,20 @@ import { phoneP, phoneL, tabletP, footerHeight, footerSpace } from '../globals/g
 /***************************************************************************************************
  *********************************************** Styles *********************************************
  **************************************************************************************************/
-const DivWrapper = styled.div`
+//take off the globall footer space
+// take off the margin bottoms for the categories, discussions, hot discussions
+//take off the background colors
+
+ const DivWrapper = styled.div`
   width: 100%;
   display: flex;
-  display: flex-direction;
   background-color: gray;
   color: white;
   margin: 0;
-  padding: 7px;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   justify-content: space-evenly;
-  position: absolute;
-  bottom: 0;
-
+  margin-top: 30px;
   @media ${tabletP}{
     width: 100%;
     
@@ -67,7 +67,6 @@ const ButtonContainer = styled.div`
 const FooterContents = styled.div`
     display: inline;
     margin: 0 auto;
-    border: 1px solid black;
 
     i {
         font-size: 11px;
