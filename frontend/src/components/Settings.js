@@ -21,10 +21,14 @@ import {
 } from './index.js';
 
 const SettingsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: ${props => props.theme.settingsBgColor};
   box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
-  width: 70%;
+  width: 80%;
   @media (max-width: 960px){
       width: 85%;
   }
@@ -43,11 +47,17 @@ const UsernameSettings = styled.div`
     }
 `;
 
+const UserSettings = styled.div`
+  width: 95%;
+`;
+
+const ProfileSettings = styled.div`
+`;
+
 const EmailAndAvatar = styled.div`
     font-size: 20px;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: column;
     @media ${tabletP}{
       font-size: 16px;
     }
@@ -202,21 +212,24 @@ class Settings extends Component {
     return (
       <SettingsWrapper>
         <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
-        <EmailAndAvatar>
-          <p>Email: {email || 'N/A'}</p>
-          { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
-          <AvatarPic>
-            <p>Avatar:</p>
-            <Avatar height='100px' width='100px' src={avatar} />
-          </AvatarPic>
-        </EmailAndAvatar>
-        {
-          signature !== null &&
-          <Signature>
-            <p>Signature:</p>
-            <p>{ signature || 'none' }</p>
-          </Signature>
-        }
+        <UserSettings>
+          <ProfileSettings>
+          <EmailAndAvatar>
+            <p>Email: {email || 'N/A'}</p>
+            { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+            <AvatarPic>
+              <p>Avatar:</p>
+              <Avatar height='100px' width='100px' src={avatar} />
+            </AvatarPic>
+          </EmailAndAvatar>
+          {
+            signature !== null &&
+            <Signature>
+              <p>Signature:</p>
+              <p>{ signature || 'none' }</p>
+            </Signature>
+          }
+          </ProfileSettings>
         <br />
         <AuthOEditForms>
             <EditMenu>
@@ -295,6 +308,7 @@ class Settings extends Component {
             <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
           )}
         </AuthOEditForms>
+        </UserSettings>
       </SettingsWrapper>
     );
   }
