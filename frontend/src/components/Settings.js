@@ -182,7 +182,7 @@ const EditAvatarMenu = styled.div`
 const Signature = styled.div`
   display: flex;
   justify-content: center;
-  align-center: center;
+  align-content: center;
   flex-wrap: wrap;
   flex-direction: column;
   text-align: center;
