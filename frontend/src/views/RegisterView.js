@@ -888,7 +888,7 @@ class RegisterView extends Component {
           cb(reader.result)
         };
         reader.onerror = function (error) {
-          console.log('Error: ', error);
+          this.props.displayError(error);
         };
       }
 
@@ -1052,7 +1052,7 @@ class RegisterView extends Component {
       data: {
         stripeToken: token.id,
         payment: this.getStripePayment(),
-        subPlan: this.state.subPlan,
+        description: this.state.subPlan.toUpperCase(),
         email: this.state.email
       }
     }
@@ -1063,6 +1063,8 @@ class RegisterView extends Component {
     const paymentPlanCost = this.getPaymentAmount();
     const total = this.getPaymentAmount();
     const stripeAmount = this.getStripePayment();
+    const stripeEmail = this.state.email;
+    const subPlan = this.state.subPlan.toUpperCase();
     return (
       <DivWrapper>
         <H1Register>Register New Account</H1Register>
@@ -1097,7 +1099,8 @@ class RegisterView extends Component {
                     <ButtonStripeCheckout
                       token={this.onToken}
                       stripeKey={stripeToken}
-                      email={this.state.email}
+                      email={stripeEmail}
+                      description={subPlan}
                       amount={stripeAmount}
                     />
                   </DivStripeCheckout>

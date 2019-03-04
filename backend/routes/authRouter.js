@@ -214,11 +214,11 @@ router.post('/register', requestClientIP, (req, res) => {
               );
           })
             .catch(err =>
-              res.status(500).json({ error: `Failed to generate token` })
+              res.status(500).json({ error: `Failed to generate token: ${err}` })
             );
         })
         .catch(err =>
-          res.status(500).json({ error: `Failed to set user settings` })
+          res.status(500).json({ error: `Failed to addUserSettings(): ${err}` })
         );
     })
     .catch(err =>
@@ -481,8 +481,13 @@ router.post('/auth0-login', async (req, res) => {
 router.post('/stripe', (req, res, next) => {
   const stripeToken = req.body.data.stripeToken;
   const payment = Number(req.body.data.payment);
+  const subPlan = req.body.description;
   const email = req.body.email;
-  const subPlan = req.body.subPlan;
+  console.log('stripeToken', stripeToken);
+  console.log('payment', payment);
+  console.log('description', req.body.description);
+  console.log('subPlan', subPlan);
+  console.log('email', email);
 
 
   (async () => {
@@ -492,8 +497,7 @@ router.post('/stripe', (req, res, next) => {
         currency: 'usd',
         description: subPlan,
         source: stripeToken,
-        statement_descriptor: subPlan,
-        email: email
+        statement_descriptor: subPlan
       });
       res.status(201).json([{ charge }]);
     } catch (err) {
