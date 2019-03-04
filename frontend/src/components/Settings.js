@@ -49,13 +49,15 @@ const UsernameSettings = styled.div`
 
 const UserSettings = styled.div`
   width: 95%;
+  display: flex;
 `;
 
 const ProfileSettings = styled.div`
+  width: 50%;
 `;
 
 const EmailAndAvatar = styled.div`
-    width: 50%;
+    width: 100%;
     font-size: 20px;
     display: flex;
     flex-direction: column;
@@ -81,7 +83,7 @@ const AvatarPic = styled.div`
 
 const AuthOEditForms = styled.div`
     display: flex;
-    width: 100%;
+    width: 50%;
     justify-content: center;
     flex-direction: column;
     padding-bottom: 10px;
@@ -192,7 +194,7 @@ const EditAvatarMenu = styled.div`
 
 const Signature = styled.div`
   font-size: 20px;
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -233,7 +235,6 @@ class Settings extends Component {
             </Signature>
           }
           </ProfileSettings>
-        <br />
         <AuthOEditForms>
             <EditMenu>
               <EmailForm>
