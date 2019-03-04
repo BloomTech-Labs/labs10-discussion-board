@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import base64Img from 'base64-img';
 import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, defaultAvatar, tabletL, phoneL } from '../globals/globals.js';
 import {
   register,
@@ -538,6 +537,10 @@ const DivAvatar = styled.div`
       border: 2px solid black;
       transition: all 0.2s ease-in;
     }
+
+    &:last-child {
+      margin-top: 15px;
+    }
   }
 `;
 
@@ -550,6 +553,7 @@ const DivRegistryButtons = styled.div`
   max-width: 800px;
 
   button {
+    user-select: none;
     width: 200px;
     padding: 5px;
     background: lime;
@@ -618,6 +622,7 @@ const DivConfirm = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   h1 {
     text-decoration: underline;
@@ -808,12 +813,15 @@ class RegisterView extends Component {
       email: '',
       signature: '',
       avatar: defaultAvatar,
-      avatarUrl: '',
+      fileAvatarImage: '',
+      avatarData: '',
+      avatarURL: '',
       isReady: false
     };
   }
 
   //========================== Methods =========================
+
   componentDidMount() {
     this.setState({
       subPlan: subscriptionPlans[0],
@@ -822,29 +830,18 @@ class RegisterView extends Component {
       email: '',
       signature: '',
       avatar: defaultAvatar,
-      avatarUrl: '',
+      fileAvatarImage: '',
+      avatarData: '',
+      avatarURL: '',
       isReady: false
-    });
+    })
   }
 
-  // clearRegisterState = ev => {
-  //   ev.preventDefault();
-  //   this.setState({
-  //     subPlan: subscriptionPlans[0],
-  //     username: '',
-  //     password: '',
-  //     email: '',
-  //     signature: '',
-  //     avatar: defaultAvatar,
-  //     avatarUrl: '',
-  //     isReady: false
-  //   });
-  // };
-
   convertAndSetAvatarUrlToBase64 = () => {
-    const url = this.state.avatarUrl;
+    const url = this.state.avatarURL;
+
     const setAvatar = (base64) => {
-      this.setState({ avatar: base64 });
+      this.setState({ ...this.state, avatar: base64, fileAvatarImage: '', avatarData: '' });
     }
 
     let getDataUri = function (url, callback) {
@@ -865,6 +862,40 @@ class RegisterView extends Component {
     getDataUri(url, function (base64) {
       setAvatar(base64);
     })
+  }
+
+
+
+  fileSelectHandler = ev => {
+    ev.preventDefault();
+    const imageFile = ev.target.files[0];
+    const imageData = new FormData();
+    imageData.append('imageFile', imageFile);
+    imageData.append('name', imageFile.name);
+    Promise.resolve(this.setState({ fileAvatarImage: imageFile, avatarData: imageData })).then(() => {
+      const setAvatar = (base64) => {
+        this.setState({ avatar: base64, avatarURL: '' });
+      }
+
+      const file = this.state.fileAvatarImage;
+      const fd = new FormData();
+      fd.append('image', file);
+
+      let getBase64FromFile = (file, cb) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          cb(reader.result)
+        };
+        reader.onerror = function (error) {
+          this.props.displayError(error);
+        };
+      }
+
+      getBase64FromFile(file, function (base64) {
+        setAvatar(base64);
+      })
+    });
   }
 
   selectSubPlan = sub => {
@@ -916,9 +947,7 @@ class RegisterView extends Component {
         }
       });
     } else {
-      this.setState({ isReady: status }, () =>
-        this.props.history.push('/home')
-      );
+      this.props.history.push('/home');
     }
   };
 
@@ -966,7 +995,8 @@ class RegisterView extends Component {
           password: this.state.password,
           email: this.state.email,
           signature: this.state.signature,
-          avatarUrl: this.state.avatarUrl
+          avatarData: this.state.avatarData,
+          avatarURL: this.state.avatarURL
         };
       } else if ( // free or bronze
         this.state.subPlan === subscriptionPlans[0] ||
@@ -1021,7 +1051,9 @@ class RegisterView extends Component {
       },
       data: {
         stripeToken: token.id,
-        payment: this.getStripePayment()
+        payment: this.getStripePayment(),
+        description: this.state.subPlan.toUpperCase(),
+        email: this.state.email
       }
     }
     this.props.stripePayment(headersObj).then(() => this.submitHandler());
@@ -1030,6 +1062,9 @@ class RegisterView extends Component {
   render() {
     const paymentPlanCost = this.getPaymentAmount();
     const total = this.getPaymentAmount();
+    const stripeAmount = this.getStripePayment();
+    const stripeEmail = this.state.email;
+    const subPlan = this.state.subPlan.toUpperCase();
     return (
       <DivWrapper>
         <H1Register>Register New Account</H1Register>
@@ -1064,6 +1099,9 @@ class RegisterView extends Component {
                     <ButtonStripeCheckout
                       token={this.onToken}
                       stripeKey={stripeToken}
+                      email={stripeEmail}
+                      description={subPlan}
+                      amount={stripeAmount}
                     />
                   </DivStripeCheckout>
                 )}
@@ -1289,11 +1327,24 @@ class RegisterView extends Component {
                       <input
                         onChange={this.handleInputChange}
                         placeholder='PNG URL...'
-                        value={this.state.avatarUrl}
-                        name='avatarUrl'
+                        value={this.state.avatarURL}
+                        name='avatarURL'
                         autoComplete='off'
                       />
-                      <button type='button' onClick={() => this.convertAndSetAvatarUrlToBase64()}>Set Avatar</button>
+                      <button type='button' onClick={() => this.convertAndSetAvatarUrlToBase64()}>Avatar URL</button>
+                      <input
+                        style={{ display: 'none' }}
+                        type='file'
+                        onChange={ev => this.fileSelectHandler(ev)}
+                        value=''
+                        ref={fileInput => this.fileInput = fileInput}
+                      />
+                      <button
+                        type='button'
+                        onClick={(ev) => this.fileInput.click(ev)}
+                      >
+                        Avatar From File
+                      </button>
                     </DivAvatar>
                   </DivRightSide>
                 </DivAccountDetails>

@@ -18,7 +18,7 @@ const generateToken = async (id, username, expiration, email) => {
     total_hours: totalHours
   };
 
-  if (email) payload.email = email;
+  // if (email) payload.email = email;
 
   const secret =
     secureKey || 'Should configure local .env file for secretString'; // hard coding this in the code is bad practice
@@ -26,7 +26,9 @@ const generateToken = async (id, username, expiration, email) => {
   const options = {
     expiresIn: expiration || tokenOptionExpiration // 60 seconds... otherValues(20, '2 days', '10h', '7d'), a number represents seconds (not milliseconds)
   };
-  return jwt.sign(payload, secret, options);
+
+  const token = await jwt.sign(payload, secret, options);
+  return token;
 };
 
 const refreshTokenAsNeeded = async token => {
@@ -43,7 +45,7 @@ const refreshTokenAsNeeded = async token => {
   let now = await new Date();
   return token_decoded.total_hours &&
     token_decoded.total_hours - now.getTime() / 1000 / 3600 <
-      tokenTimeLeftRefresh
+    tokenTimeLeftRefresh
     ? generateToken(token_decoded.id, token_decoded.username)
     : token;
 };
