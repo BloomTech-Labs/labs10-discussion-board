@@ -15,16 +15,11 @@ import { Search } from './index.js';
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
+  width: 30%;
   display: flex;
   color: black;
   height: 80px;
-  margin: 0;
-  justify-content: space-evenly;
-
-  i {
-    display: flex;
-    align-items: center;
-  }
+  justify-content: space-between;
 
   @media ${tabletP}{
     width: 100%;
@@ -35,46 +30,46 @@ const DivWrapper = styled.div`
   }
 `;
 
-const Links = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 50%;
-  margin: 0;
-  align-items: center;
+// const Links = styled.div`
+//   display: flex;
+//   justify-content: space-around;
+//   width: 50%;
+//   margin: 0;
+//   align-items: center;
 
-  .link {
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.7em;
-    color: black;
-    :hover {
-      color: black;
-    }
+//   .link {
+//     font-weight: bold;
+//     text-decoration: none;
+//     font-size: 1.7em;
+//     color: black;
+//     :hover {
+//       color: black;
+//     }
 
-    @media ${phoneL}{
-      width: 100%;
-      display: flex;
-      justify-content: flex-start;
-    }
-  }
+//     @media ${phoneL}{
+//       width: 100%;
+//       display: flex;
+//       justify-content: flex-start;
+//     }
+//   }
 
-  @media (max-width: 960px){
-    font-size: 12px;
-    display: flex;
-    margin: 0 px;
+//   @media (max-width: 960px){
+//     font-size: 12px;
+//     display: flex;
+//     margin: 0 px;
 
-    @media ${phoneL}{
-      width: 25%;
-      font-size: 8px;
-      display: flex;
-      flex-direction: column;
-    }
-  }
-`;
+//     @media ${phoneL}{
+//       width: 25%;
+//       font-size: 8px;
+//       display: flex;
+//       flex-direction: column;
+//     }
+//   }
+// `;
 
 const DivAuth = styled.div`
   display: flex;
-  width: 10%;
+  width: 100%;
   height: 100%;
 
   @media ${tabletP}{
@@ -85,6 +80,11 @@ const DivAuth = styled.div`
     width: 35%;
     display: flex;
     justify-content: flex-end;
+  }
+
+  i {
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -136,7 +136,7 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        <Links>
+        {/* <Links>
           <Link className='link' to='/'>
             Hot Discussions
           </Link>
@@ -146,7 +146,7 @@ class Nav extends Component {
           <Link className='link' to='/categories'>
             Categories
           </Link>
-        </Links>
+        </Links> */}
         <ButtonContainer>
           <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
         </ButtonContainer>
@@ -156,12 +156,12 @@ class Nav extends Component {
           ) : (
               <Auth history={this.props.history} />
             )}
-        </DivAuth>
-        {
+            {
           this.props.isDay ?
           <i onClick = {this.props.switchTheme} className = 'fas fa-sun' /> :
           <i onClick = {this.props.switchTheme} className = 'fas fa-moon' />
         }
+        </DivAuth>
       </DivWrapper>
     );
   }

@@ -5,19 +5,13 @@ import { Nav } from '../components/index.js';
 const StyledHeader = styled.div`
   position: fixed;
   display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 90px;
+  justify-content: center;
+  height: 80px;
   width: 100%;
   z-index: 9000;
   align-self: center;
-  left: 0;
-  right: 0;
-  top: 0;
-  margin-left: auto;
-  margin-right: auto;
   background-color: white;
-  border: 5px solid ${props => props.theme.borderColor};
+  border-bottom: 5px solid ${props => props.theme.borderColor};
 
   @media(max-width: 750px){
     width: 100%;
@@ -28,28 +22,29 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Navi = styled.div`
-width: 100%;
-align-self: center;
+const Container = styled.div`
+ width: 97%;
+ display: flex;
+ justify-content: space-between;
+`
 
-  @media (max-width: 768px){
-    display: flex;
-    width: 100%;
-    margin: 0 auto;
-    justify-content: center;
-    margin-bottom: 1em;
-    @media (max-width: 450px){
-      width: 100%;
-    }
-  }
-`;
 
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
-      <Navi>
-        <Nav showSearch = { showSearch } scrollTo = { scrollTo } pathname = { pathname } goTo = { goTo } isDay = { isDay } history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched} />
-      </Navi>
+      <Container>
+      <div>Lambda Logo</div>
+        <Nav showSearch = {showSearch} 
+             scrollTo = {scrollTo} 
+             pathname = {pathname} 
+             goTo = {goTo} 
+             isDay = {isDay} 
+             history = {history} 
+             isAuthenticated = {isAuthenticated} 
+             toggleSearch = {toggleSearch} 
+             switchTheme = {switched}
+             />
+      </Container>
     </StyledHeader >
   );
 };
