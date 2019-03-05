@@ -100,10 +100,25 @@ const ButtonContainer = styled.div`
     }
 
   button {
+<<<<<<< HEAD
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  margin-top: 12px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #54bdff;
+  }
+  &:focus {
+    outline: none;
+  }
+=======
     width: 100%;
     font-size: 14px;
     border-radius: 7px;
     margin-top: 12px;
+>>>>>>> 484cbd99e589ff75aa55e0c7294eb7d3524629f0
 
     &:hover {
       cursor: pointer;
