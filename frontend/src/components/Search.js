@@ -145,7 +145,7 @@ const asc = 'asc';
 
 class Search extends Component {
 	state = {
-		searchBy: categories,
+		searchBy: all,
 		searchText: '',
 		searchResults: [],
 		loading: false,
@@ -267,8 +267,18 @@ class Search extends Component {
 				{ (showSearch && searchResults.length > 0) &&
 				<div className = 'search-results-wrapper'>
 
-
 					<div className = 'search-by-wrapper'>
+						<label className = 'container'>All
+							<input
+								type = 'radio'
+								checked = { searchBy === all }
+								name = 'searchBy'
+								value = { all }
+								onChange = { this.handleInputChange }
+							/>
+							<span className ='checkmark' />
+						</label>
+
 						<label className = 'container'>Categories
 							<input
 								type = 'radio'
@@ -297,17 +307,6 @@ class Search extends Component {
 								checked = { searchBy === posts }
 								name = 'searchBy'
 								value = { posts }
-								onChange = { this.handleInputChange }
-							/>
-							<span className ='checkmark' />
-						</label>
-
-						<label className = 'container'>All
-							<input
-								type = 'radio'
-								checked = { searchBy === all }
-								name = 'searchBy'
-								value = { all }
 								onChange = { this.handleInputChange }
 							/>
 							<span className ='checkmark' />
