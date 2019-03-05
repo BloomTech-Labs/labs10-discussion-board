@@ -153,6 +153,7 @@ const DivFeatures = styled.div`
 
 const DivFreePlan = styled.div`
   display: flex;
+  width: 214px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[0]
@@ -202,13 +203,14 @@ const DivFreePlan = styled.div`
 
 const DivBronzePlan = styled.div`
   display: flex;
+  width: 214px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[1]
       ? '5px solid lime'
       : '5px solid rgba(0, 0, 0, 0)'};
   border-radius: 10px;
-  background-color: #553621;
+  background-color: #ca620d;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -251,6 +253,7 @@ const DivBronzePlan = styled.div`
 
 const DivSilverPlan = styled.div`
   display: flex;
+  width: 214px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[2]
@@ -300,6 +303,7 @@ const DivSilverPlan = styled.div`
 
 const DivGoldPlan = styled.div`
   display: flex;
+  width: 214px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[3]
@@ -655,7 +659,7 @@ const H3PaymentPlan = styled.h3`
 
   span {
     color: ${({ subPlan }) =>
-    (subPlan === subscriptionPlans[1] && '#553621') ||
+    (subPlan === subscriptionPlans[1] && '#ca620d') ||
     (subPlan === subscriptionPlans[2] && '#c0c0c0') ||
     (subPlan === subscriptionPlans[3] && '#ffd700') ||
     'black'
@@ -1120,9 +1124,9 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[0]}>
                         <h2>Free Plan</h2>
                         <ul>
-                          <li>Create Categories</li>
-                          <li>Create Discussions</li>
-                          <li>Create Posts(replies)</li>
+                          <li>Account Profile</li>
+                          <li>Account Settings</li>
+                          <li>Add Posts</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[0]}</h4>
@@ -1145,10 +1149,10 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[1]}>
                         <h2>Bronze Plan</h2>
                         <ul>
-                          <li>Create Categories</li>
-                          <li>Create Discussions</li>
-                          <li>Create Posts(replies)</li>
-                          <li>No Ads</li>
+                          <li>Account Profile</li>
+                          <li>Account Settings</li>
+                          <li>Add Posts</li>
+                          <li>Add Discussions</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[1]}</h4>
@@ -1171,10 +1175,11 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[2]}>
                         <h2>Silver Plan</h2>
                         <ul>
-                          <li>Create Categories</li>
-                          <li>Create Discussions</li>
-                          <li>Create Posts(replies)</li>
-                          <li>No Ads</li>
+                          <li>Account Profile</li>
+                          <li>Account Settings</li>
+                          <li>Add Posts</li>
+                          <li>Add Discussions</li>
+                          <li>Add Categories</li>
                           <li>Gets Signature</li>
                         </ul>
                       </DivFeatures>
@@ -1198,10 +1203,11 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[3]}>
                         <h2>Gold Plan</h2>
                         <ul>
-                          <li>Create Categories</li>
-                          <li>Create Discussions</li>
-                          <li>Create Posts(replies)</li>
-                          <li>No Ads</li>
+                          <li>Account Profile</li>
+                          <li>Account Settings</li>
+                          <li>Add Posts</li>
+                          <li>Add Discussions</li>
+                          <li>Add Categories</li>
                           <li>Gets Signature</li>
                           <li>Gets Avatar</li>
                         </ul>
