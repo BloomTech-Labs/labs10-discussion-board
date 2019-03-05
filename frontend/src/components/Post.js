@@ -25,8 +25,7 @@ const PostSubWrapper = styled.div`
   padding-bottom: 16px;
 
   @media ${phoneL} {
-    display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
   }
@@ -39,13 +38,21 @@ const SubWrapper = styled.div`
 const PostedBy = styled.div`
   display: flex;
   flex-direction: column;
-  width: 180px;
+  width: 160px;
   height: 230px;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: start;
   text-align: center;
   box-shadow: 2px 3px 2px 2px grey;
   background-color: lavender;
+
+  img {
+    height: 128px;
+    width: 132px;
+    margin: 10px;
+    border-radius: 5%;
+    border: 1px solid purple;
+  }
 
   @media ${phoneL} {
     height: 170px;
@@ -180,7 +187,7 @@ const Post = ({
               user_vote={user_vote}
             />
             <PostedBy>
-              <Avatar height={'49%'} width={'65%'} src={avatar} />
+            <div className='avatar'><img alt='picture' src={avatar} /></div>              
               {
                 username ?
                   <Link className='username' to={`/profile/${user_id}`}>

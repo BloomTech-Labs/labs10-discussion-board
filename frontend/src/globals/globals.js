@@ -26,7 +26,13 @@ const tabletL = '(max-width: 1024px)'; // landscape
 // Copy from backend globals (can't import from out of src folder)
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
 
+//subFontColors - sub fonts refer to fonts below the body of the post/comment,
+//next to the user avatar and username. Also includes Search bar
+
 const dayTheme = {
+  
+  subFontColor: 'darkgray',
+
   appBgColor: '#54bdff',
   authBgColor: 'gray',
   authColor: 'white',
@@ -129,6 +135,9 @@ const dayTheme = {
 };
 
 const nightTheme = {
+
+  subFontColor: 'lightgray',
+
   appBgColor: '#330136',
   authBgColor: 'gray',
   authColor: 'white',
