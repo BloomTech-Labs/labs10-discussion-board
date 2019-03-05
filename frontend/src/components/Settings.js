@@ -21,10 +21,14 @@ import {
 } from './index.js';
 
 const SettingsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: ${props => props.theme.settingsBgColor};
   box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
-  width: 70%;
+  width: 80%;
   @media (max-width: 960px){
       width: 85%;
   }
@@ -43,11 +47,22 @@ const UsernameSettings = styled.div`
     }
 `;
 
+const UserSettings = styled.div`
+  width: 92%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+`;
+
+const ProfileSettings = styled.div`
+  width: 30%;
+`;
+
 const EmailAndAvatar = styled.div`
+    width: 100%;
     font-size: 20px;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: column;
     @media ${tabletP}{
       font-size: 16px;
     }
@@ -61,7 +76,7 @@ const EmailAndAvatar = styled.div`
 
 const AvatarPic = styled.div`
     display: flex;
-    align-items: center;
+    width: 50%;
 
     p {
       margin-right: 20px;
@@ -70,19 +85,18 @@ const AvatarPic = styled.div`
 
 const AuthOEditForms = styled.div`
     display: flex;
-    width: 100%;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: flex-end;
+    width: 70%;
     padding-bottom: 10px;
 `;
 
-const EditMenu = styled.div`
+const EditButtons = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 25%;
 
     p {
       margin-bottom: 7px;
@@ -94,8 +108,8 @@ const EmailForm = styled.div`
     display: flex;
     justify-content: center;
     .email {
-      width: 20%;
-      margin: 7px;
+      width: 100%;
+      margin-bottom: 7px;
       border-radius: 10px;
       height: 50px;
       font-size: 16px;
@@ -103,6 +117,9 @@ const EmailForm = styled.div`
       &:hover {
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
+    }
+      &:focus {
+        outline: none;
     }
     @media (max-width: 520px){
       font-size: 12px;
@@ -114,10 +131,12 @@ const Buttons = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   button {
+    width: 100%;
     margin: 7px;
     border-radius: 10px;
-    width: 20%;
     height: 50px;
     font-size: 16px;
     font-weight: bold;
@@ -125,6 +144,9 @@ const Buttons = styled.div`
     &:hover {
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
+    }
+    &:focus {
+      outline: none;
     }
     @media (max-width: 960px){
       font-size: 14px;
@@ -142,14 +164,21 @@ const Buttons = styled.div`
 `;
 
 const AvatarContainer = styled.div`
-  display: flex;
-  justify-content: center;
+	width: 60%;
+	height: auto;
+	display: flex;
+	justify-content: flex-end;
 `;
 
 const EditAvatarMenu = styled.div`
-  margin: 20px 0px;
-  display: flex;
-  flex-direction: column;
+  background-color: #54BDFF;
+  width: 90%;
+  height: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: baseline;
+	align-items: center;
+	border-radius: 10px;
 
   button {
           margin: 7px;
@@ -162,21 +191,28 @@ const EditAvatarMenu = styled.div`
             background-color: ${props => props.theme.settingsEditAvatarButtonBgHov};
             cursor: pointer;
           }
+          &:focus {
+            outline: none;
+          }
         }
   .changeavatar {
     text-align: center;
     font-weight: bold;
+    margin-top: 20px;
     margin-bottom: 7px;
   }
 `;
 
 const Signature = styled.div`
+  font-size: 20px;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-center: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  flex-direction: column;
-  text-align: center;
+
+  p {
+    margin: 0px 0px 7px 0px;
+  }  
 `;
 
 class Settings extends Component {
@@ -193,24 +229,25 @@ class Settings extends Component {
     return (
       <SettingsWrapper>
         <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
-        <EmailAndAvatar>
-          <p>Email: {email || 'N/A'}</p>
-          { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+        <UserSettings>
+          <ProfileSettings>
+          <EmailAndAvatar>
           <AvatarPic>
-            <p>Avatar:</p>
-            <Avatar height='100px' width='100px' src={avatar} />
-          </AvatarPic>
-        </EmailAndAvatar>
-        {
-          signature !== null &&
-          <Signature>
-            <p>Signature:</p>
-            <p>{ signature || 'none' }</p>
-          </Signature>
-        }
-        <br />
+              <Avatar height='100px' width='100px' src={avatar} />
+            </AvatarPic>
+            <p>Email: {email || 'N/A'}</p>
+            { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+          </EmailAndAvatar>
+          {
+            signature !== null &&
+            <Signature>
+              <p>Signature:</p>
+              <p className = 'signature-text'>{ signature || 'none' }</p>
+            </Signature>
+          }
+          </ProfileSettings>
         <AuthOEditForms>
-            <EditMenu>
+            <EditButtons>
               <EmailForm>
               {
                 isAuth0 ?
@@ -243,14 +280,14 @@ class Settings extends Component {
                 Delete account
               </button>
             </Buttons>
-          </EditMenu>
+          </EditButtons>
           {showForm === 'password-form' && (
             <EditPasswordForm toggleForm={this.toggleForm} />
           )}
           {showForm === 'avatar-btns' && (
             <AvatarContainer>
               <EditAvatarMenu>
-                <div className = 'changeavatar'>Upload new avatar:</div>
+                <h1 className = 'changeavatar'>Upload new avatar</h1>
                 <button onClick={() => this.toggleForm('avatar-pc-form')}>
                   Upload from PC
                 </button>
@@ -286,6 +323,7 @@ class Settings extends Component {
             <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
           )}
         </AuthOEditForms>
+        </UserSettings>
       </SettingsWrapper>
     );
   }
