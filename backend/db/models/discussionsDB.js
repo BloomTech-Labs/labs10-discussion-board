@@ -112,6 +112,8 @@ const findById = (id, user_id, order, orderType) => {
       'u.username',
       'd.category_id',
       'c.name as category_name',
+      'us.avatar',
+      'us.signature',
       'd.title',
       'd.body',
       'd.created_at',
@@ -121,12 +123,13 @@ const findById = (id, user_id, order, orderType) => {
     )
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
+    .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin(userDiscussionVoteQuery.as('uv'), function () {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     .where('d.id', id)
-    .groupBy('d.id', 'u.username', 'c.name', 'uv.type');
+    .groupBy('d.id', 'u.username', 'c.name', 'uv.type', 'us.avatar', 'us.signature');
 
   const userPostVoteQuery = db('post_votes as pv')
     .select('pv.type', 'pv.post_id')
