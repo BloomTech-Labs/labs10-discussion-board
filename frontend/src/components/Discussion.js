@@ -60,7 +60,6 @@ h1 {
 //Or should they both be different?
 const DiscussionInfo = styled.div`
   display: flex;
-  justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 20px;
 
@@ -112,7 +111,7 @@ const TitleSub = styled.div`
 const PostedBy = styled.div`
   display: flex;
   flex-direction: column;
-  width: 180px;
+  width: 245px;
   height: 230px;
   align-items: center;
   justify-content: space-evenly;

@@ -52,13 +52,6 @@ const PostedBy = styled.div`
     width: 294px;
   }
 
-  img {
-    height: 49%;
-    width: 65%;
-    border-radius: 0;
-    margin:0;
-  }
-
   .username {
     font-weight: bold;
     color: ${props => props.theme.discussionAvatarUsernameColor};
@@ -85,7 +78,7 @@ const DivBody = styled.div `
 
   p {
     margin: 0; 
-    margin-bottom: 10px;
+    margin-bottom: 80px;
     margin-top: 16px
     word-break: break-word;
     color: ${props => props.theme.discussionPostColor};
@@ -187,7 +180,7 @@ const Post = ({
               user_vote={user_vote}
             />
             <PostedBy>
-              <Avatar className='avatar' height={'49%'} width={'65%'} src={avatar} />
+              <Avatar height={'49%'} width={'65%'} src={avatar} />
               {
                 username ?
                   <Link className='username' to={`/profile/${user_id}`}>
