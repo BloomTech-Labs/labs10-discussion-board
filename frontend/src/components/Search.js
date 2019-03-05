@@ -15,58 +15,26 @@ import { SearchCatResult, SearchDisResult, SearchPostResult } from './index.js';
 // action creators
 import { getCategories, displayError } from '../store/actions/index.js';
 
-const SearchWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
-	background-color: ${props => props.theme.searchWrapperBgColor};
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	overflow: auto;
-	z-index: 9001;
-	max-height: 100%;
-`;
-
 const SearchBox = styled.div`
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: column;
 	background-color: ${props => props.theme.searchBoxBgColor};
-	padding: 30px 10px 0 10px;
 	border-radius: 5px;
 	border: ${props => props.theme.searchBoxBorder};
 	position: relative;
-	height: 80%;
-	width: 65%;
-
-	.close-btn {
-		border:1px solid white;
-		border-radius: 10px;
-		background-color: ${props => props.theme.searchBoxCloseBtnBgColor};
-		padding: 5px 10px;
-		position: absolute;
-		top: 0;
-		right: 0;
-		color: white;
-
-		&:hover {
-			cursor: pointer;
-		}
-	}
 
 	.search-by-wrapper {
 		/* The container */
 		.container {
 			display: inline-block;
 			position: relative;
-			padding: 10px 10px 10px 35px;
-			margin: 12px;
+			padding: 5px;
+			padding-left: 25px;
+			margin: 4px;
 			cursor: pointer;
-			font-size: 22px;
+			font-size: 12px;
 			-webkit-user-select: none;
 			-moz-user-select: none;
 			-ms-user-select: none;
@@ -85,10 +53,10 @@ const SearchBox = styled.div`
 		/* Create a custom radio button */
 		.checkmark {
 			position: absolute;
-			top: 0;
+			bottom: 5px;
 			left: 0;
-			height: 25px;
-			width: 25px;
+			height: 15px;
+			width: 15px;
 			background-color: #eee;
 			border-radius: 50%;
 			margin-top: 12px;
@@ -119,12 +87,22 @@ const SearchBox = styled.div`
 
 		/* Style the indicator (dot/circle) */
 		.container .checkmark:after {
-			top: 9px;
-			left: 9px;
-			width: 8px;
-			height: 8px;
+			top: 4px;
+			left: 4px;
+			width: 6px;
+			height: 6px;
 			border-radius: 50%;
 			background: white;
+		}
+	}
+
+	.order-type-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		select {
+			border-radius: 5px;
 		}
 	}
 
@@ -136,8 +114,17 @@ const SearchBox = styled.div`
 	}
 
 	.search-results-wrapper {
-		height: 70%;
+		height: 50vh;
 		overflow: auto;
+		position: absolute;
+		right: -34%;
+		top: 32px;
+		z-index: 9001;
+		border-radius: 5px;
+		background-color: ${props => props.theme.searchBoxBgColor};
+		color: black;
+		width: 340px;
+		border: 1px solid black;
 
 		.results-length {
 			text-align: center;
@@ -165,6 +152,10 @@ class Search extends Component {
 		order: created_at, // created_at or (votes or name)
 		orderType: desc, // asc or desc
 	};
+	goTo = async url => {
+		await this.props.goTo(url);
+		return this.setState({ searchText: '' });
+	};
 	searchCategories = () => {
 		const { displayError } = this.props;
 		const { searchText, order, orderType } = this.state;
@@ -173,6 +164,7 @@ class Search extends Component {
 			return axios.get(`${ backendUrl }/categories/search`, headers)
 				.then(res => this.setState({ searchResults: res.data }))
 				.then(() => this.setState({ loading: false }))
+				.then(() => !this.props.showSearch && this.props.toggleSearch())
 				.catch(err => {
 					const errMsg = err.response ? err.response.data.error : err.toString();
 					return displayError(errMsg).then(() => this.setState({ loading: false }));
@@ -187,6 +179,7 @@ class Search extends Component {
 			return axios.get(`${ backendUrl }/discussions/search`, headers)
 				.then(res => this.setState({ searchResults: res.data }))
 				.then(() => this.setState({ loading: false }))
+				.then(() => !this.props.showSearch && this.props.toggleSearch())
 				.catch(err => {
 					const errMsg = err.response ? err.response.data.error : err.toString();
 					return displayError(errMsg).then(() => this.setState({ loading: false }));
@@ -201,6 +194,7 @@ class Search extends Component {
 			return axios.get(`${ backendUrl }/posts/search`, headers)
 				.then(res => this.setState({ searchResults: res.data }))
 				.then(() => this.setState({ loading: false }))
+				.then(() => !this.props.showSearch && this.props.toggleSearch())
 				.catch(err => {
 					const errMsg = err.response ? err.response.data.error : err.toString();
 					return displayError(errMsg).then(() => this.setState({ loading: false }));
@@ -215,6 +209,7 @@ class Search extends Component {
 			return axios.get(`${ backendUrl }/users/search-all`, headers)
 				.then(res => this.setState({ searchResults: res.data }))
 				.then(() => this.setState({ loading: false }))
+				.then(() => !this.props.showSearch && this.props.toggleSearch())
 				.catch(err => {
 					const errMsg = err.response ? err.response.data.error : err.toString();
 					return displayError(errMsg).then(() => this.setState({ loading: false }));
@@ -255,12 +250,23 @@ class Search extends Component {
 		});
 	};
 	render() {
-		const { searchBy, searchText, searchResults, loading, order, orderType } = this.state;
-		const { toggleSearch, goTo, pathname, scrollTo } = this.props;
+		const { searchBy, searchText, searchResults, loading, order } = this.state;
+		const { showSearch, pathname, scrollTo } = this.props;
 		return(
-			<SearchWrapper>
-				<SearchBox>
-					<span className = 'close-btn' onClick = { toggleSearch }>X</span>
+			<SearchBox>
+				<div className = 'search-input-wrapper'>
+					<input
+						type = 'text'
+						name = 'searchText'
+						className = 'search-input'
+						value = { searchText }
+						onChange = { this.handleInputChange }
+					/>
+				</div>
+
+				{ (showSearch && searchResults.length > 0) &&
+				<div className = 'search-results-wrapper'>
+
 
 					<div className = 'search-by-wrapper'>
 						<label className = 'container'>Categories
@@ -277,6 +283,7 @@ class Search extends Component {
 						<label className = 'container'>Discussions
 							<input
 								type = 'radio'
+								checked = { searchBy === discussions }
 								name = 'searchBy'
 								value = { discussions }
 								onChange = { this.handleInputChange }
@@ -287,6 +294,7 @@ class Search extends Component {
 						<label className = 'container'>Posts
 							<input
 								type = 'radio'
+								checked = { searchBy === posts }
 								name = 'searchBy'
 								value = { posts }
 								onChange = { this.handleInputChange }
@@ -297,6 +305,7 @@ class Search extends Component {
 						<label className = 'container'>All
 							<input
 								type = 'radio'
+								checked = { searchBy === all }
 								name = 'searchBy'
 								value = { all }
 								onChange = { this.handleInputChange }
@@ -334,97 +343,81 @@ class Search extends Component {
 							</option>
 						</select>
 					</div>
-
-					<div className = 'search-input-wrapper'>
-						<input
-							type = 'text'
-							name = 'searchText'
-							className = 'search-input'
-							value = { searchText }
-							onChange = { this.handleInputChange }
-						/>
-					</div>
-
-					<div className = 'search-results-wrapper'>
+					<p
+						className = 'results-length'
+					>{ searchResults.length } result{ searchResults.length > 1 && 's' }</p>
+					<div className = 'results'>
 						{
-							searchResults.length > 0 &&
-							<p
-								className = 'results-length'
-							>{ searchResults.length } result{ searchResults.length > 1 && 's' }</p>
-						}
-						<div className = 'results'>
-							{
-								loading ?
-								<img src = { spinner2 } alt = 'spinner' /> :
-								searchResults.length ?
-								searchResults.map((result, i) => {
-									if (searchBy === categories) {
-										return <SearchCatResult
-											key = { i }
-											category = { result }
-											goTo = { goTo }
-											searchText = { searchText }
-										/>
+							loading ?
+							<img src = { spinner2 } alt = 'spinner' /> :
+							searchResults.length ?
+							searchResults.map((result, i) => {
+								if (searchBy === categories) {
+									return <SearchCatResult
+										key = { i }
+										category = { result }
+										goTo = { this.goTo }
+										searchText = { searchText }
+									/>
+								}
+								if (searchBy === discussions) {
+									return <SearchDisResult
+										key = { i }
+										discussion = { result }
+										goTo = { this.goTo }
+										searchText = { searchText }
+									/>
+								}
+								if (searchBy === posts) {
+									return <SearchPostResult
+										key = { i }
+										post = { result }
+										goTo = { this.goTo }
+										searchText = { searchText }
+										scrollTo = { scrollTo }
+										pathname = { pathname }
+									/>
+								}
+								if (searchBy === all) {
+									if (result.type === 'category') {
+										return(
+											<SearchCatResult
+												key = { i }
+												category = { result.result }
+												goTo = { this.goTo }
+												searchText = { searchText }
+												type = { result.type }
+											/>
+										);
 									}
-									if (searchBy === discussions) {
+									if (result.type === 'discussion') {
 										return <SearchDisResult
 											key = { i }
-											discussion = { result }
-											goTo = { goTo }
+											discussion = { result.result }
+											goTo = { this.goTo }
 											searchText = { searchText }
+											type = { result.type }
 										/>
 									}
-									if (searchBy === posts) {
+									if (result.type === 'post') {
 										return <SearchPostResult
 											key = { i }
-											post = { result }
-											goTo = { goTo }
+											post = { result.result }
+											goTo = { this.goTo }
 											searchText = { searchText }
 											scrollTo = { scrollTo }
 											pathname = { pathname }
+											type = { result.type }
 										/>
 									}
-									if (searchBy === all) {
-										if (result.type === 'category') {
-											return(
-												<SearchCatResult
-													key = { i }
-													category = { result.result }
-													goTo = { goTo }
-													searchText = { searchText }
-													type = { result.type }
-												/>
-											);
-										}
-										if (result.type === 'discussion') {
-											return <SearchDisResult
-												key = { i }
-												discussion = { result.result }
-												goTo = { goTo }
-												searchText = { searchText }
-												type = { result.type }
-											/>
-										}
-										if (result.type === 'post') {
-											return <SearchPostResult
-												key = { i }
-												post = { result.result }
-												goTo = { goTo }
-												searchText = { searchText }
-												scrollTo = { scrollTo }
-												pathname = { pathname }
-												type = { result.type }
-											/>
-										}
-									}
-									return null;
-								}) :
-								<p>No search results</p>
-							}
-						</div>
+								}
+								return null;
+							}) :
+							null
+						}
 					</div>
-				</SearchBox>
-			</SearchWrapper>
+				</div>}
+			</SearchBox>
 		);
 	}
 };

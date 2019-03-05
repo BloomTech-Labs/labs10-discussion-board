@@ -43,17 +43,16 @@ align-self: center;
       width: 100%;
     }
   }
-`
+`;
 
-const Header = ({ history, isAuthenticated, toggleSearch, switched }) => {
+const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
       <Navi>
-        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched} />
+        <Nav showSearch = { showSearch } scrollTo = { scrollTo } pathname = { pathname } goTo = { goTo } isDay = { isDay } history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched} />
       </Navi>
     </StyledHeader >
   );
-
 };
 
 export default Header;

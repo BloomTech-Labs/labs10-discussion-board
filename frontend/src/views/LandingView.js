@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {phoneP, tabletP, } from '../globals/globals';
 
 // views
-import { TopDiscussionsView } from './index.js';
+import { TopDiscussionsView, HotDiscussionsView } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -13,6 +13,7 @@ const LandingViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
   width: 740px;
   border-radius: 30px;
+  
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
@@ -34,7 +35,10 @@ const LandingView = props => {
       {props.loggingInLoadingMessage ? (
         <div>Logging in...</div>
       ) : (
-        <TopDiscussionsView />
+        <div>
+          <TopDiscussionsView />
+          <HotDiscussionsView />
+        </div>
       )}
     </LandingViewWrapper>
   );
