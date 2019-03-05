@@ -11,16 +11,21 @@ import { PostCount, VoteCount, Deleted } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const TopDiscussionWrapper = styled.div`
-  border-radius: 15px;
+  width: 15%;
+  height: 141px;
+  overflow: hidden;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   margin: 5px;
   padding: 10px;
   box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
   &:hover {
-    // background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+    background-color: ${props => props.theme.topDiscussionWrapperBgHov};
+    cursor: pointer;
   }
 
   .title {
@@ -29,9 +34,11 @@ const TopDiscussionWrapper = styled.div`
     font-size: 16px;
     color: ${props => props.theme.topDiscussionTitleColor};
     margin-bottom: 15px;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 5;
     text-overflow: ellipsis;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
     word-wrap: break-word;
     @media ${tabletP}{
       display: flex;
@@ -56,14 +63,28 @@ const TopDiscussionWrapper = styled.div`
   .category {
     text-decoration: none;
     color: ${props => props.theme.topDiscussionCatColor};
-    a {
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    .category-title {
       margin-left: 5px;
       margin-top: 5px;
       text-decoration: none;
-      font-size: 16px;
+      font-size: .4rem;
       font-style: oblique;
       font-weight: bold;
       color: ${props => props.theme.topDiscussionCatColor};
+      -webkit-line-clamp: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
       @media ${tabletP}{
         margin: 10px;
         padding: 14px;
@@ -85,6 +106,7 @@ const TopDiscussionWrapper = styled.div`
     font-size: 14px;
     font-style: italic;
     color: ${props => props.theme.topDiscussionNameDateColor};
+    display: none;
     @media ${tabletP}{
       margin: 2px;
       display: flex;
@@ -115,6 +137,7 @@ const TopDiscussionWrapper = styled.div`
 const Vote = styled.div `
 display: flex;
 margin-right: 10px;
+display: none;
 // box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
   @media ${phoneP}{
     display: flex;
@@ -125,6 +148,25 @@ margin-right: 10px;
 
 const Contenter = styled.div `
 padding: 10px;
+display: none;
+  @media ${phoneP}{
+  display: none;
+  width: 240px;
+  }
+`;
+
+const VoteCounter = styled.div `
+padding: 10px;
+display: none;
+  @media ${phoneP}{
+  display: none;
+  width: 240px;
+  }
+`;
+
+const NameandDate = styled.div `
+padding: 10px;
+display: none;
   @media ${phoneP}{
   display: none;
   width: 240px;
@@ -134,7 +176,7 @@ padding: 10px;
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
+const TopDiscussion = ({ discussion, handleDiscussionVote, history }) => {
   const {
     body,
     category_id,
@@ -151,13 +193,16 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
   } = discussion;
 
   const handleVote = type => handleDiscussionVote(id, type);
+  const goTo = () => history.push(`/discussions/category/${category_id}`)
   return (
-    <TopDiscussionWrapper>
+    <TopDiscussionWrapper onClick = {goTo}>
+      <VoteCounter>
       <VoteCount
         handleVote={handleVote}
         vote_count={vote_count}
         user_vote={user_vote}
       />
+      </VoteCounter>
       <div className='content'>
         <div>
           <Link to={`/discussion/${id}`} className='title'>
@@ -165,13 +210,13 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
           </Link>
           &#8201;
           <span className='category'>
-            <Link to={`/discussions/category/${category_id}`} className='category'>
+            <span className='category-title'>
               /d/{category_name}
-            </Link>
+            </span>
           </span>
         </div>
 
-        <div>
+        <NameandDate>
           {
             username ?
             <Link to={`/profile/${user_id}`} className='nameanddate'>
@@ -184,7 +229,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote }) => {
             {' '}
             - {moment(new Date(Number(created_at))).fromNow()}
           </span>
-        </div>
+        </NameandDate>
         <Contenter>
         <Link to={`/discussion/${id}`} className='content'>{body}</Link>
         </Contenter>

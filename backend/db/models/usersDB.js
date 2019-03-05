@@ -256,6 +256,13 @@ const update = (id, user) => {
     .update(user);
 };
 
+//Update a username
+const updateUsername = (id, username) => {
+  return db('users')
+  .where({ id })
+  .update({ username });
+};
+
 // update password
 const updatePassword = (id, password) => {
   return db('users')
@@ -306,5 +313,6 @@ module.exports = {
   updatePassword,
   updateEmail,
   updateLastLogin,
+  updateUsername,
   remove
 };

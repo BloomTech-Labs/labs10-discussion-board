@@ -191,6 +191,20 @@ router.put('/edit-signature/:user_id', authenticate, async (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to updateSignature(): ${ err }` }));
 });
 
+// change username
+router.put('/edit-username/:user_id', authenticate, async (req, res) => {
+  const { user_id } = req.params;
+  const { username } = req.body;
+  const { user_type } = await usersDB.getUserType(user_id);
+  if (!['silver_member', 'gold_member', 'admin'].includes(user_type)) {
+    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  }
+  return usersDB
+    .updateUsername(user_id, username)
+    .then(username => res.status(201).json(username))
+    .catch(err => res.status(500).json({ error: `Failed to updateUsername(): ${ err }` }));
+});
+
 // get info from reset-pw-token
 router.get('/token-info', validateToken, (req, res) => {
   const { id, username, email } = req.decoded;

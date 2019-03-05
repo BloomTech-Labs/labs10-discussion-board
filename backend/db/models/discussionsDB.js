@@ -42,7 +42,7 @@ const getTopDailyDiscussions = (user_id, order, orderType) => {
     // order by given order and orderType
     // else default to ordering by vote_count descending
     .orderBy(`${order ? order : 'vote_count'}`, `${orderType ? orderType : 'desc'}`)
-    .limit(10);
+    .limit(5);
 };
 
 // get hottest (limit 10) discussions

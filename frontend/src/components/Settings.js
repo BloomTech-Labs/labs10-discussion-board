@@ -29,6 +29,7 @@ const SettingsWrapper = styled.div`
   box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
   width: 80%;
+  margin-top: 100px;
   @media (max-width: 960px){
       width: 85%;
   }
@@ -52,6 +53,7 @@ const UserSettings = styled.div`
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 const ProfileSettings = styled.div`
@@ -127,6 +129,29 @@ const EmailForm = styled.div`
     }
 `;
 
+const PasswordForm = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .email {
+      width: 100%;
+      margin-bottom: 7px;
+      border-radius: 10px;
+      height: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      &:hover {
+      background-color: ${props => props.theme.settingsButtonHov};
+      cursor: pointer;
+    }
+      &:focus {
+        outline: none;
+    }
+    @media (max-width: 520px){
+      font-size: 12px;
+    }
+    }
+`;
 const Buttons = styled.div`
   width: 100%;
   display: flex;
@@ -215,6 +240,28 @@ const Signature = styled.div`
   }  
 `;
 
+const Email = styled.div`
+  font-size: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  p {
+    margin: 0px 0px 7px 0px;
+  }  
+`;
+const Password = styled.div`
+  font-size: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  p {
+    margin: 0px 0px 7px 0px;
+  }  
+`;
 class Settings extends Component {
   state = { showForm: '', showDeleteModal: '' };
   getProfile = () => this.props.getProfile(this.props.match.params.id);
@@ -235,20 +282,26 @@ class Settings extends Component {
           <AvatarPic>
               <Avatar height='100px' width='100px' src={avatar} />
             </AvatarPic>
-            <p>Email: {email || 'N/A'}</p>
-            { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+            {
+                isUserType(user_type, ['gold_member', 'admin']) &&
+                <p onClick={() => this.toggleForm('avatar-btns')}>
+                  Edit avatar
+                </p>
+              }
           </EmailAndAvatar>
-          {
+          
+          {/* {
             signature !== null &&
             <Signature>
               <p>Signature:</p>
               <p className = 'signature-text'>{ signature || 'none' }</p>
             </Signature>
-          }
+          } */}
           </ProfileSettings>
-        <AuthOEditForms>
-            <EditButtons>
-              <EmailForm>
+          <Email>
+          <p>Email: {email || 'N/A'}</p>
+           
+            <EmailForm>
               {
                 isAuth0 ?
                 <p>You are Auth0. You cannot change your email.</p>
@@ -260,16 +313,19 @@ class Settings extends Component {
                 
               }
               </EmailForm>
+            </Email>
+            <Password>
+              <p>Password: </p>
+                <PasswordForm>
+                  <button className = 'change email' onClick={() => this.toggleForm('password-form')}>
+                      Edit password
+                  </button>
+                </PasswordForm>
+            </Password>
+        <AuthOEditForms>
+            <EditButtons>
+              
               <Buttons>
-                <button onClick={() => this.toggleForm('password-form')}>
-                  Edit password
-                </button>
-              {
-                isUserType(user_type, ['gold_member', 'admin']) &&
-                <button onClick={() => this.toggleForm('avatar-btns')}>
-                  Edit avatar
-                </button>
-              }
               {
                 isUserType(user_type, ['silver_member', 'gold_member', 'admin']) &&
                 <button onClick={() => this.toggleForm('signature-form')}>

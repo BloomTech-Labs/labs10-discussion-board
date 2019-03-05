@@ -12,8 +12,7 @@ import { TopDiscussionsView, HotDiscussionsView } from './index.js';
 const LandingViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
   width: 740px;
-  border-radius: 30px;
-  
+  border-radius: 5px;
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
@@ -36,7 +35,7 @@ const LandingView = props => {
         <div>Logging in...</div>
       ) : (
         <div>
-          <TopDiscussionsView />
+          <TopDiscussionsView history={props.history}/>
           <HotDiscussionsView />
         </div>
       )}

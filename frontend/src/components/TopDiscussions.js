@@ -12,12 +12,24 @@ import { getTopDiscussions, handleDiscussionVote } from '../store/actions/index.
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const TopDiscussionsViewWrapper = styled.div`
-display: flex;
-flex-direction: row;
 .sort{
+	display: flex;
 	color: ${props => props.theme.topDiscussionTitleColor};
 	padding: 5px;
 }
+`;
+
+const DiscussionsWrapper = styled.div`
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+`;
+
+const SortWrapper = styled.div`
+display: flex;
+align-items: center;
+padding-left: 5px;
 `;
 
 /***************************************************************************************************
@@ -39,10 +51,11 @@ class TopDiscussions extends Component {
 	});
 	componentDidMount = () => this.props.getTopDiscussions(this.state.order, this.state.orderType);
 	render() {
-		const { topDiscussions } = this.props;
+		const { topDiscussions, history } = this.props;
 		const { order } = this.state;
 		return (
 			<TopDiscussionsViewWrapper>
+			<SortWrapper>
 				<span className = 'sort'>Sort</span>
 				<select onChange = { this.handleSelectChange } name = 'order'>
 					<option value = 'vote_count'>votes</option>
@@ -57,15 +70,19 @@ class TopDiscussions extends Component {
 						{ order === 'created_at' ? 'least recent first' : 'least first' }
 					</option>
 				</select>
+			</SortWrapper>
+				<DiscussionsWrapper>
 				{
 					topDiscussions.map((discussion, index) =>
 						<TopDiscussion
 							key = { index }
 							discussion = { discussion }
 							handleDiscussionVote = { this.handleDiscussionVote }
+							history = { history }
 						/>
 					)
 				}
+				</DiscussionsWrapper>
 			</TopDiscussionsViewWrapper>
 		);
 	}
