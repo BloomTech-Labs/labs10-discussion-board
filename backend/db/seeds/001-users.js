@@ -73,8 +73,8 @@ const generateSeeds = () => {
   });
   // prettier-ignore
   arr.push({
-    username: 'huth',
-    password: bcrypt.hashSync('huth', numOfHashes),
+    username: 'huff',
+    password: bcrypt.hashSync('huff', numOfHashes),
     email: null,
     status: 'active',
     uuid: uuidv4(),

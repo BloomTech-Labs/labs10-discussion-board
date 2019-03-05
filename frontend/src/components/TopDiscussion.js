@@ -13,6 +13,7 @@ import { PostCount, VoteCount, Deleted } from './index.js';
 const TopDiscussionWrapper = styled.div`
   border-radius: 15px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin: 5px;

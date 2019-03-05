@@ -96,13 +96,13 @@ const TopDiscussionsView = () => {
             <h1 className ='toptitle'>Top Discussions</h1>
           </TopDiscussionsTitle>
         </div>
-        <TextLooper>
+        {/* <TextLooper>
           <TextLoop className = 'looptext'>
             <span className = 'looptext'>See what's being discussed</span>
             <span className = 'looptext'>Find your interests</span>
             <span className = 'looptext'>Start talking!</span>
           </TextLoop>{' '}
-        </TextLooper>
+        </TextLooper> */}
       </TopDiscussionsHeader>
       <hr />
       <TopDiscussions />

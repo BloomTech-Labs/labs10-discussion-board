@@ -12,6 +12,8 @@ import { getTopDiscussions, handleDiscussionVote } from '../store/actions/index.
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const TopDiscussionsViewWrapper = styled.div`
+display: flex;
+flex-direction: row;
 .sort{
 	color: ${props => props.theme.topDiscussionTitleColor};
 	padding: 5px;
