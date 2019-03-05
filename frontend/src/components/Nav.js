@@ -94,6 +94,7 @@ const ButtonContainer = styled.div`
 
   @media ${tabletP}{
     width: 18%;
+    }
     
     @media ${phoneL}{
       width: 25%;

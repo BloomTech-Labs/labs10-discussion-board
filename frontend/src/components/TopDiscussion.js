@@ -36,7 +36,7 @@ const TopDiscussionWrapper = styled.div`
       display: flex;
       align-items: center;
       font-size: 18px;
-      @media${phoneP}{
+      @media ${phoneP}{
         display: flex;
         font-size: 18px;
       }
@@ -67,7 +67,7 @@ const TopDiscussionWrapper = styled.div`
         margin: 10px;
         padding: 14px;
         font-size: 14px;
-        @media${phoneP}{
+        @media ${phoneP}{
           font-size: 14px;
           align-items: center;
           padding: 20px;
@@ -91,7 +91,7 @@ const TopDiscussionWrapper = styled.div`
       width: 20px;
       padding: 10px;
       font-size: 12px;
-      @media${phoneP}{
+      @media ${phoneP}{
         display: flex;
         align-items: center;
       }
@@ -115,21 +115,19 @@ const Vote = styled.div `
 display: flex;
 margin-right: 10px;
 // box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-  @media${phoneP}{
+  @media ${phoneP}{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
   }
-}
 `;
 
 const Contenter = styled.div `
 padding: 10px;
-  @media${phoneP}{
+  @media ${phoneP}{
   display: none;
   width: 240px;
   }
-}
 `;
 
 /***************************************************************************************************

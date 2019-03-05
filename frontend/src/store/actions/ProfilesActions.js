@@ -34,8 +34,10 @@ export const getProfiles = () => dispatch => {
 
 // Get single profile
 export const getProfile = user_id => dispatch => {
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
   dispatch({ type: GET_PROFILE_LOADING });
-  return axios.get(`${backendUrl}/users/user/${user_id}`)
+  return axios.get(`${backendUrl}/users/user/${user_id}`, headers)
     .then(res => {
       dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data });
     })

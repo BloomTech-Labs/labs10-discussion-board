@@ -12,8 +12,11 @@ const DivWrapper = styled.div`
   z-index: 9999;
   position: absolute;
   background-color: #54BDFF;
-  margin-top: 120px;
-  width: 120px;
+  margin-top: 100px;
+  width: 150px;
+  background: #3a77bd;
+  border-radius: 10px;
+  padding: 20px 0;
 `;
 
 const LinkItem = styled(Link)`
@@ -24,9 +27,11 @@ const LinkItem = styled(Link)`
   width: 100%;
   text-decoration: none;
   color: white;
+  width: 100%;
   cursor: pointer;
+  text-align: center;
   &:hover {
-    color: #54BDFF;
+    color: #3a77bd;
     background-color: white;
   }
 `;
@@ -38,8 +43,9 @@ const Item = styled.a`
   user-select: none;
   width: 100%;
   cursor: pointer;
+  text-align: center;
   &:hover {
-    color: #54BDFF;
+    color: #3a77bd;
     background-color: white;
   }
 `;
