@@ -19,7 +19,6 @@ import {
   ConfirmEmail,
   RequestResetPWForm,
   ResetPWForm,
-  Search,
 } from './components/index.js';
 
 // views
@@ -121,14 +120,14 @@ class App extends Component {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
   render() {
-    const { showSearch } = this.state;
+    const { showSearch, isDay } = this.state;
     const { error, history, message, location,  } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
             <Route exact path='/' component={HotDiscussionsView} />
             <Route path='/home' component={LandingView} />
@@ -139,8 +138,6 @@ class App extends Component {
             <Route path='/settings/:id' component={Settings} />
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-
-            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch}  />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
@@ -152,7 +149,7 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
             <Switch>
               <Route path='/register' component={RegisterView} />
@@ -166,8 +163,6 @@ class App extends Component {
               <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
               <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
             </Switch>
-
-            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
