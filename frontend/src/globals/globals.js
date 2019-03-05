@@ -26,7 +26,7 @@ const tabletL = '(max-width: 1024px)'; // landscape
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
 
 const dayTheme = {
-  appBgColor: '#54bdff',
+  appBgColor: '#f8f9fe',
   authBgColor: 'gray',
   authColor: 'white',
   authLinkRegColor: 'white',
