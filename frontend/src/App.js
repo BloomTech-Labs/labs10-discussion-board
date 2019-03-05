@@ -64,9 +64,6 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-const Foot = styled.div`
-
-`
 
 const ButtonContainer = styled.div`
     width: 90%;
