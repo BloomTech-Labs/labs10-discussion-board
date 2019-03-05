@@ -83,7 +83,7 @@ const Title = styled.div`
   padding-bottom: 60px;
 
   h1 {
-    
+    font-size: 21px;
   }
 `
 
@@ -145,7 +145,11 @@ const Elip = styled.div`
   word-wrap: break-word;
   padding: 10px;
   color: ${props => props.theme.discussionPostColor};
+  font-size: 12px;
 
+  p{
+    font-size: 16px;
+  }
 
   @media ${tabletP} {
     text-align: center;
@@ -287,12 +291,12 @@ class Discussion extends Component {
     const timeStamp =() => {
       if(last_edited_at){
         return (
-              <p>
+              <span>
                 Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-              </p>
+              </span>
             )
       } else if(created_at) {
-        return (<p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
+        return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
         )
       }
     }
@@ -356,7 +360,7 @@ class Discussion extends Component {
                     <Deleted />
                 }
               </PostedBy> 
-              <Elip>{timeStamp(last_edited_at, created_at)}{body}</Elip>
+              <Elip>{timeStamp(last_edited_at, created_at)}<p>{body}</p></Elip>
             </DiscussionInfo>
             <Sort>
               <div className='dropDowns'>

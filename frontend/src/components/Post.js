@@ -20,7 +20,6 @@ const PostWrapper = styled.div`
 const PostSubWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   border-top: 1px solid black;
   padding-top: 16px;
   padding-bottom: 16px;
@@ -34,9 +33,6 @@ const PostSubWrapper = styled.div`
 `;
 
 const SubWrapper = styled.div`
-width: 80%;
-display: flex;
-flex-direction: column;
 `;
 
 //make a global for the avatar box Background
@@ -81,12 +77,22 @@ const PostedBy = styled.div`
 const DivBody = styled.div `
   padding: 1.5em;
   width: 100%;
+  
+  span{
+    font-size: 12px;
+  }
 
   p {
     margin: 0;
     margin-bottom: 10px;
     word-break: break-word;
     color: ${props => props.theme.discussionPostColor};
+    font-size: 16px;
+  }
+
+  .signature{
+    border: 1px solid;
+    height: 30px;
   }
 `;
 
@@ -154,16 +160,16 @@ const Post = ({
   const timeStamp =() => {
     if(last_edited_at){
       return (
-            <p>
+            <span>
               Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-            </p>
+            </span>
           )
     } else if(created_at) {
-      return (<p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
+      return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       )
     }
   }
-  
+
   return (
     //Changed some of the styled div names and incorporated a new
     //styled div with the name Post Wrapper
@@ -194,7 +200,9 @@ const Post = ({
         <DivBody>
           {timeStamp(last_edited_at, created_at)}
           <p>{body}</p>
-          { signature && <H5signature>{ signature }</H5signature> }
+          <div className='signature'>
+            { signature && <H5signature>{ signature }</H5signature> }
+          </div>
         </DivBody>
       </PostSubWrapper>
       <UserActions>
