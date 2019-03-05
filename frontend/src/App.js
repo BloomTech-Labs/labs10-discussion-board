@@ -15,11 +15,11 @@ import {
   Profile,
   Settings,
   Error,
+  Footer,
   Message,
   ConfirmEmail,
   RequestResetPWForm,
   ResetPWForm,
-  Search,
 } from './components/index.js';
 
 // views
@@ -41,6 +41,9 @@ const AppWrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+  position: relative;
+  min-height: 100vh;
+  justify-content: space-between;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -51,21 +54,15 @@ const GlobalStyle = createGlobalStyle`
     	padding: 0;
 		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 		  display: flex;
-		  align-items: center;
+      align-items: center;
+      justify-content: center;
 		  flex-wrap: wrap;
       flex-direction: column;
       background: ${props => props.theme.appBgColor};
-      width: 100%;
+      min-width: 100%;
+      min-height: 100vh;
 	}
 `;
-
-const ButtonContainer = styled.div`
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 110px;
-`;
-
 
 class App extends Component {
   constructor(props) {
@@ -121,14 +118,14 @@ class App extends Component {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
   render() {
-    const { showSearch } = this.state;
+    const { showSearch, isDay } = this.state;
     const { error, history, message, location,  } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       return (
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
             <Route exact path='/' component={HotDiscussionsView} />
             <Route path='/home' component={LandingView} />
@@ -139,8 +136,7 @@ class App extends Component {
             <Route path='/settings/:id' component={Settings} />
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-
-            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch}  />}
+            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
@@ -152,7 +148,7 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
             <Switch>
               <Route path='/register' component={RegisterView} />
@@ -166,8 +162,7 @@ class App extends Component {
               <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
               <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
             </Switch>
-
-            {showSearch && <Search scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} toggleSearch={this.toggleSearch} />}
+            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import chevron from '../assets/img/chevron.png';
 
 // components
 import { Avatar, AvatarDropdown, Notifications } from './index.js';
@@ -15,7 +14,7 @@ import { signout, markNotificationsAsRead } from '../store/actions';
 const DivWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
 `;
@@ -68,7 +67,13 @@ const PWelcomeMessage = styled.p`
           cursor: pointer;
         }
       }
+
+      i {
+        color: #2C2E31;
+      }
     }
+
+
 
     @media (max-width: 750px){
       font-size: 16px;
@@ -128,12 +133,11 @@ class DisplayUser extends Component {
     return (
       <DivWrapper>
         <PWelcomeMessage newNotifications={this.props.newNotifications}>
-          Welcome, {this.props.username}&nbsp;
           <span className='notifications-icon-wrapper'>
             <span className='notifications-count'>{this.props.newNotifications ? this.props.newNotificationCount : null}</span>
             <i
               onClick={this.toggleShowNotifications}
-              className='far fa-envelope notifications-icon'
+              className='fas fa-bell'
             />
           </span>
         </PWelcomeMessage>
@@ -151,8 +155,7 @@ class DisplayUser extends Component {
             isAvatarClicked={isAvatarClicked}
           >
 
-            <Avatar height={'72px'} width={'72px'} src={this.props.avatar} />
-            <img src={chevron} alt='chevron' />
+            <Avatar height={'50px'} width={'50px'} src={this.props.avatar} />
           </DivAvatar>
           {(isAvatarClicked) && <AvatarDropdown clickSignout={this.clickSignout} user_id={this.props.user_id} />}
         </DivUser>

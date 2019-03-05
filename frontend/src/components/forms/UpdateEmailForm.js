@@ -6,28 +6,32 @@ import styled				from 'styled-components';
 import { updateEmail, displayError } from '../../store/actions/index.js';
 
 const Container = styled.div`
-	width: 100%;
+	width: 60%;
+	height: auto;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 `;
 
 const StyledUpdateEmailForm = styled.form`
-	width: 70%;
+	width: 90%;
+	height: 200px;
 	display: flex;
-	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 20px;
-	padding: 10px;
-	border-radius: 20px;
+	border-radius: 10px;
 	background-color: #54BDFF;
 
+	h1 {
+		margin-top: 0px;
+	}
+
 	input {
-		padding: 6px 20px;
+		width: 75%;
+		margin-top: 10px;
+		padding: 5px;
 		font-size: 16px;
 		border-radius: 5px;
-		margin: 10px;
 	}
 
 	.buttons-wrapper {
@@ -68,6 +72,7 @@ class UpdateEmailForm extends Component {
 		return(
 			<Container>
 			<StyledUpdateEmailForm onSubmit = { this.handleSubmit }>
+				<h1>Update E-mail</h1>
 				<input
 					className = 'update-email-input'
 					autoComplete = 'on'

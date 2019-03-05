@@ -23,6 +23,7 @@ const ProfileWrapper = styled.div`
   width: 480px;
   background-color: ${props => props.theme.profileBgColor};
   box-shadow: ${props => props.theme.profileBxShdw};
+
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
@@ -47,6 +48,7 @@ const WrappedDiv = styled.div`
   margin: 3px;
   padding: 3px;
 
+
   .property-title {
     font-weight: bold;
     display: flex;
@@ -56,6 +58,7 @@ const WrappedDiv = styled.div`
     padding: 3px;
     color: ${props => props.theme.profileTitleColor};
   }
+
   .property-titleC {
     font-weight: bold;
     display: flex;
@@ -64,6 +67,7 @@ const WrappedDiv = styled.div`
     margin: 3px;
     padding: 3px;
     color: ${props => props.theme.profileTitleContentColor};
+
       @media ${phoneP} {
         display: none;
       }
@@ -89,7 +93,8 @@ align-self: center;
 margin: 3px;
 padding: 3px;
 color: ${props => props.theme.profileTitleContentDColor};
-`
+`;
+
 const SubContentDiv = styled.div`
 margin: 5px;
 padding: 2%;
@@ -104,7 +109,7 @@ text-overflow: ellipsis;
 overflow: hidden;
 display: -webkit-box;
 -webkit-box-orient: vertical;
-word-wrap: break-word;
+word-break: break-word;
 color: ${props => props.theme.profileTitleSubContentDColor};
 
 @media ${tabletP}{
@@ -117,7 +122,7 @@ color: ${props => props.theme.profileTitleSubContentDColor};
     display: none;
   }
 }
-`
+`;
 
 // const ProfileTitle = styled.div`
 //   margin: 5px;

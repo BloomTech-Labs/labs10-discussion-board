@@ -41,6 +41,9 @@ const EditAvatarUrlFormWrapper = styled.form`
 			cursor: pointer;
 			background-color: #4ca0e0;
 		}
+		&:focus {
+    	outline: none;
+  	}
 	}
 
 	.btn {
@@ -54,6 +57,9 @@ const EditAvatarUrlFormWrapper = styled.form`
             background-color: #4ca0e0;
             cursor: pointer;
           }
+					&:focus {
+    				outline: none;
+  				}
         }
 `;
 

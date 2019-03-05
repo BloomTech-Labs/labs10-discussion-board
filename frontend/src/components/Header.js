@@ -10,6 +10,15 @@ const StyledHeader = styled.div`
   height: 90px;
   width: 100%;
   z-index: 9000;
+  align-self: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border: 5px solid ${props => props.theme.borderColor};
+
   @media(max-width: 750px){
     width: 100%;
     @media (max-width: 450px){
@@ -20,6 +29,9 @@ const StyledHeader = styled.div`
 `;
 
 const Navi = styled.div`
+width: 100%;
+align-self: center;
+
   @media (max-width: 768px){
     display: flex;
     width: 100%;
@@ -30,17 +42,16 @@ const Navi = styled.div`
       width: 100%;
     }
   }
-`
+`;
 
-const Header = ({ history, isAuthenticated, toggleSearch, switched }) => {
+const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
       <Navi>
-        <Nav history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched} />
+        <Nav showSearch = { showSearch } scrollTo = { scrollTo } pathname = { pathname } goTo = { goTo } isDay = { isDay } history={history} isAuthenticated={isAuthenticated} toggleSearch={toggleSearch} switchTheme={switched} />
       </Navi>
     </StyledHeader >
   );
-
 };
 
 export default Header;

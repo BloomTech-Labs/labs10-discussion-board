@@ -7,7 +7,7 @@ import { addDiscussion } from '../../store/actions/index.js';
 
 const AddDiscussionFormWrapper = styled.form`
 	padding: 10px;
-	color: ${props => props.theme.discussionPostColor}
+	color: ${props => props.theme.discussionPostColor};
 
 `;
 

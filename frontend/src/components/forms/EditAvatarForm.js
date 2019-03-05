@@ -70,6 +70,9 @@ const EditAvatarFormWrapper = styled.form`
 			cursor: pointer;
 			background-color: #4ca0e0;
 		}
+		&:focus {
+    	outline: none;
+  	}
 	}
 
 	.btn {

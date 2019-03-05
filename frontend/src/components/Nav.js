@@ -6,21 +6,25 @@ import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js'
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
+// components
+import { Search } from './index.js';
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
-  background-color: gray;
-  color: white;
+  color: black;
   height: 80px;
   margin: 0;
-  padding: 7px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
   justify-content: space-evenly;
+
+  i {
+    display: flex;
+    align-items: center;
+  }
 
   @media ${tabletP}{
     width: 100%;
@@ -42,7 +46,7 @@ const Links = styled.div`
     font-weight: bold;
     text-decoration: none;
     font-size: 1.7em;
-    color: white;
+    color: black;
     :hover {
       color: black;
     }
@@ -70,7 +74,7 @@ const Links = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  width: 28%;
+  width: 10%;
   height: 100%;
 
   @media ${tabletP}{
@@ -84,12 +88,11 @@ const DivAuth = styled.div`
   }
 `;
 
-
 const ButtonContainer = styled.div`
-  width: 10%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  align-content: center;
+  justify-content: center;
   align-items: center;
 
   @media ${tabletP}{
@@ -110,12 +113,21 @@ const ButtonContainer = styled.div`
     cursor: pointer;
     background-color: #54bdff;
   }
-
-  @media ${tabletP}{
-    width: 80%;
+  &:focus {
+    outline: none;
   }
-}
-  `;
+
+
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
+
+    @media ${tabletP}{
+      width: 80%;
+    }
+  }
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -136,17 +148,20 @@ class Nav extends Component {
           </Link>
         </Links>
         <ButtonContainer>
-          <button onClick={this.props.toggleSearch}>search</button>
-          <button onClick={this.props.switchTheme}>switch theme</button>
+          <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
         </ButtonContainer>
         <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
-
           ) : (
               <Auth history={this.props.history} />
             )}
         </DivAuth>
+        {
+          this.props.isDay ?
+          <i onClick = {this.props.switchTheme} className = 'fas fa-sun' /> :
+          <i onClick = {this.props.switchTheme} className = 'fas fa-moon' />
+        }
       </DivWrapper>
     );
   }
