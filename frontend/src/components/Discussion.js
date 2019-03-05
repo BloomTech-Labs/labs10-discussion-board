@@ -227,7 +227,8 @@ class Discussion extends Component {
       username,
       user_vote,
     } = discussion;
-
+    
+    console.log('discussion', discussion);
     const handleVote = type => this.handleDiscussionVote(id, type);
     const timeStamp =() => {
       if(last_edited_at){
