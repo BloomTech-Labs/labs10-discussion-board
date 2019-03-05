@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { checkPropTypes } from 'prop-types';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -23,7 +24,7 @@ const DivButtons = styled.div`
 `;
 
 const ButtonAddCategory = styled.button`
-  display: flex;
+  display: ${props => props.user_id ? 'flex' : 'none'};
   justify-content: center;
   align-items: center;
   background: rgb(0, 200, 0);
@@ -83,7 +84,8 @@ const SelectSortDropdown = styled.select`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const CategoriesNav = ({ toggleAddForm, sortHandler, order, orderType }) => {
+const CategoriesNav = ({ toggleAddForm, sortHandler, order, user_id }) => {
+  console.log('user_id', user_id);
   return (
     <DivNav>
       <DivSort>
@@ -109,7 +111,7 @@ const CategoriesNav = ({ toggleAddForm, sortHandler, order, orderType }) => {
         </SelectSortDropdown>
       </DivSort>
       <DivButtons>
-        <ButtonAddCategory onClick={toggleAddForm}>
+        <ButtonAddCategory onClick={toggleAddForm} user_id={user_id}>
           Add Category
         </ButtonAddCategory>
       </DivButtons>

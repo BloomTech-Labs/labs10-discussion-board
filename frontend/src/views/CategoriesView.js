@@ -53,6 +53,7 @@ class CategoriesView extends Component {
   }
 
   render() {
+    console.log('props', this.props);
     const { showAddForm } = this.state;
     const { history, user_id } = this.props;
     return (
@@ -70,6 +71,7 @@ class CategoriesView extends Component {
                 sortHandler={this.sortHandler}
                 order={this.order}
                 orderType={this.orderType}
+                user_id={user_id}
               />
               <Categories categories={this.props.categories} />
             </DivCategoriesComponent>
