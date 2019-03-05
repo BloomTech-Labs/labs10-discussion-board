@@ -14,7 +14,6 @@ const {
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
-const base64Img = require('base64-img');
 const uuidv4 = require('uuid/v4');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
@@ -72,7 +71,7 @@ const {
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
-router.post('/register', requestClientIP, async (req, res) => {
+router.post('/register', requestClientIP, (req, res) => {
   const accountCreatedAt = Date.now();
   // username and password must keep rules of syntax
   if (!req.body.username || !validateNewUsername(req.body.username)) {
@@ -103,7 +102,7 @@ router.post('/register', requestClientIP, async (req, res) => {
   // add user
   return db
     .insert(newUserCreds) // [ { id: 1, username: 'username', email: 'email' } ]
-    .then(async userAddedResults => {
+    .then(userAddedResults => {
       let email_confirm = null;
 
       // if they registered with an email, send a confirmation email
@@ -111,8 +110,10 @@ router.post('/register', requestClientIP, async (req, res) => {
         // generate a random uuid for email confirmation URL
         email_confirm = uuidv4();
       }
-      await db.addEmailConfirm(userAddedResults[0].id, email_confirm);
-
+      db.addEmailConfirm(userAddedResults[0].id, email_confirm);
+      return Promise.resolve([userAddedResults, email_confirm]);
+    })
+    .then(([userAddedResults, email_confirm]) => {
       // add user settings
       let userSettings = {
         user_id: userAddedResults[0].id
@@ -137,46 +138,53 @@ router.post('/register', requestClientIP, async (req, res) => {
       // prettier-ignore
       if (
         userSettings.user_type === accountRoleTypes[2] || // silver
-          userSettings.user_type === accountRoleTypes[3] // gold
+        userSettings.user_type === accountRoleTypes[3] // gold
       ) {
         userSettings.signature = req.body.signature || '';
       }
 
-      // avatar given and is gold sub
-      // prettier-ignore
-      if (req.body.avatarUrl && userSettings.user_type === accountRoleTypes[3]) {
-        const url = req.body.avatarUrl;
-        base64Img.requestBase64(url, async function (err, result, body) { // callback only adds variable inside callback
-          userSettings.avatar = body;
-          await db.addUserSettings(userSettings);
-        });
-      } else {
-        await db.addUserSettings(userSettings);
-      }
-
-      // Get first token for front end (for login after register)
-      const token = await generateToken(
-        userAddedResults[0].id,
-        userAddedResults[0].username
-      );
-
-      return db
-        .findById(userAddedResults[0].id)
-        .then(foundUser => {
-          if (foundUser.length) {
-            let message = 'Thanks for registering! Please consider adding an e-mail address in the future so you are able to recover your account in case you forget your password.';
-            if (email_confirm) {
-              const mailOptions = getMailOptions(
-                'register',
-                userAddedResults[0].email,
-                email_confirm,
-                req.body.clientIP,
-              );
-              return transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                  message = `Server failed to send e-mail confirmation: ${error}`;
-                } else {
-                  message = `Thanks for signing up! An e-mail was sent to ${userAddedResults[0].email}. Please confirm your e-mail address in order to be able to reset your password in the future (You might want to check your spam folder).`;
+      return db.addUserSettings(userSettings)
+        .then(() => {
+          // Get first token for front end (for login after register)
+          return generateToken(
+            userAddedResults[0].id,
+            userAddedResults[0].username,
+            '24hr'
+          ).then(token => {
+            return db.findById(userAddedResults[0].id).then(foundUser => {
+              if (foundUser.length) {
+                let message = 'Thanks for registering! Please consider adding an e-mail address in the future so you are able to recover your account in case you forget your password.';
+                if (email_confirm) {
+                  const mailOptions = getMailOptions(
+                    'register',
+                    userAddedResults[0].email,
+                    email_confirm,
+                    req.body.clientIP,
+                  );
+                  return transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                      message = `Server failed to send e-mail confirmation: ${error}`;
+                    } else {
+                      message = `Thanks for signing up! An e-mail was sent to ${userAddedResults[0].email}. Please confirm your e-mail address in order to be able to reset your password in the future (You might want to check your spam folder).`;
+                    }
+                    return res.status(201).json([
+                      {
+                        id: userAddedResults[0].id,
+                        token,
+                        message,
+                        username: userAddedResults[0].username,
+                        avatar: foundUser[0].avatar,
+                        isAuth0: foundUser[0].password ? false : true,
+                        email_confirm: foundUser[0].email_confirm,
+                        discussionFollows: foundUser[0].discussionFollows,
+                        notifications: foundUser[0].notifications,
+                        uuid: foundUser[0].uuid,
+                        last_login: foundUser[0].last_login,
+                        signature: foundUser[0].signature,
+                        user_type: foundUser[0].user_type,
+                      }
+                    ]);
+                  });
                 }
                 return res.status(201).json([
                   {
@@ -188,6 +196,7 @@ router.post('/register', requestClientIP, async (req, res) => {
                     isAuth0: foundUser[0].password ? false : true,
                     email_confirm: foundUser[0].email_confirm,
                     discussionFollows: foundUser[0].discussionFollows,
+                    categoryFollows: foundUser[0].categoryFollows,
                     notifications: foundUser[0].notifications,
                     uuid: foundUser[0].uuid,
                     last_login: foundUser[0].last_login,
@@ -195,33 +204,21 @@ router.post('/register', requestClientIP, async (req, res) => {
                     user_type: foundUser[0].user_type,
                   }
                 ]);
-              });
-            }
-            return res.status(201).json([
-              {
-                id: userAddedResults[0].id,
-                token,
-                message,
-                username: userAddedResults[0].username,
-                avatar: foundUser[0].avatar,
-                isAuth0: foundUser[0].password ? false : true,
-                email_confirm: foundUser[0].email_confirm,
-                discussionFollows: foundUser[0].discussionFollows,
-                categoryFollows: foundUser[0].categoryFollows,
-                notifications: foundUser[0].notifications,
-                uuid: foundUser[0].uuid,
-                last_login: foundUser[0].last_login,
-                signature: foundUser[0].signature,
-                user_type: foundUser[0].user_type,
               }
-            ]);
-          }
-          return res
-            .status(401)
-            .json({ error: 'No users found with findById().' });
+              return res
+                .status(401)
+                .json({ error: 'No users found with findById().' });
+            })
+              .catch(err =>
+                res.status(500).json({ error: `Failed to findById(): ${err}` })
+              );
+          })
+            .catch(err =>
+              res.status(500).json({ error: `Failed to generate token: ${err}` })
+            );
         })
         .catch(err =>
-          res.status(500).json({ error: `Failed to findById(): ${err}` })
+          res.status(500).json({ error: `Failed to addUserSettings(): ${err}` })
         );
     })
     .catch(err =>
@@ -484,6 +481,8 @@ router.post('/auth0-login', async (req, res) => {
 router.post('/stripe', (req, res, next) => {
   const stripeToken = req.body.data.stripeToken;
   const payment = Number(req.body.data.payment);
+  const subPlan = req.body.description;
+  const email = req.body.email;
 
 
   (async () => {
@@ -491,8 +490,9 @@ router.post('/stripe', (req, res, next) => {
       const charge = await stripe.charges.create({
         amount: payment,
         currency: 'usd',
-        description: 'bronze plan',
-        source: stripeToken
+        description: subPlan,
+        source: stripeToken,
+        statement_descriptor: subPlan
       });
       res.status(201).json([{ charge }]);
     } catch (err) {

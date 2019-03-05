@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted } from './index.js';
+import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted, Avatar } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -19,7 +19,8 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 /***************************************************************************************************
  ********************************************* Styles *********************************************
  **************************************************************************************************/
-const DiscussionWrapper = styled.div`
+
+ const DiscussionWrapper = styled.div`
 display: flex;
 flex-direction: column;
 border-radius: 15px;
@@ -54,9 +55,13 @@ h1 {
 }
 `;
 
+//Should This Avatar/Body spacing be used 
+//Or should the Post's Avatar/Body spacing be used
+//Or should they both be different?
 const DiscussionInfo = styled.div`
   display: flex;
-  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
   @media ${tabletP} {
     display: flex;
@@ -67,14 +72,26 @@ const DiscussionInfo = styled.div`
 const Posts = styled.div`
 `
 
-const Title = styled.div`
-  color: ${props => props.theme.discussionPostColor};
+const TitleVote = styled.div`
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid;
 `
 
-const PostedBy = styled.div`
+const Title = styled.div`
+  color: ${props => props.theme.discussionPostColor};
+  padding-bottom: 60px;
+
+  h1 {
+    font-size: 21px;
+  }
+`
+
+const TitleSub = styled.div`
   display: flex;
   flex-direction: row;
   text-decoration: none;
+  font-size: 12px;
 
   @media ${tabletP}{
       justify-content: space-evenly;
@@ -91,14 +108,46 @@ const PostedBy = styled.div`
   }
 `;
 
+const PostedBy = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 245px;
+  height: 230px;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  box-shadow: 2px 3px 2px 2px grey;
+  background-color: lavender;
+
+  @media ${phoneL} {
+    height: 170px;
+    width: 294px;
+  }
+
+  .username {
+    font-weight: bold;
+    color: ${props => props.theme.discussionAvatarUsernameColor};
+    text-decoration: none;
+    width: 100%;
+    background-color: mediumpurple;
+    padding: 7px 0;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+`;
+
 const Elip = styled.div`
   display: inline;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
-  padding: 10px;
+  padding: 30px;
+  padding-top: 10px;
   color: ${props => props.theme.discussionPostColor};
-
+  font-size: 16px;
 
   @media ${tabletP} {
     text-align: center;
@@ -108,9 +157,11 @@ const Elip = styled.div`
 const Sort = styled.div`
 display: flex;
 flex-direction: row;
-padding-bottom: 1em;
+padding-bottom: 20px;
 align-items: baseline;
 justify-content: space-between;
+border-top: 1px solid;
+padding-top: 20px;
 
 @media ${tabletP} {
   display: flex;
@@ -209,6 +260,8 @@ class Discussion extends Component {
     const { order, orderType } = this.state;
     if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
+
+  
   render() {
     const {
       order,
@@ -224,6 +277,7 @@ class Discussion extends Component {
       created_at,
       last_edited_at,
       discussion_votes,
+      avatar,
       id,
       posts,
       title,
@@ -232,14 +286,21 @@ class Discussion extends Component {
       user_vote,
     } = discussion;
     const handleVote = type => this.handleDiscussionVote(id, type);
+    const timeStamp =() => {
+      if(last_edited_at){
+        return (
+              <span>
+                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+              </span>
+            )
+      } else if(created_at) {
+        return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
+        )
+      }
+    }
     return (
       <DiscussionWrapper>
         <DiscussionSubWrapper>
-          <VoteCount
-            handleVote={handleVote}
-            vote_count={discussion_votes}
-            user_vote={user_vote}
-          />
           <SubWrapper>
             {
               loggedInUserId === user_id &&
@@ -266,21 +327,40 @@ class Discussion extends Component {
               loggedInUserId === user_id &&
               <button onClick={this.handleRemoveDiscussion}>Remove discussion</button>
             }
-            <Title>
-              <h1> {title} </h1>
+            <TitleVote>
+              <VoteCount
+                handleVote={handleVote}
+                vote_count={discussion_votes}
+                user_vote={user_vote}
+              />
+              <Title>
+                <h1> {title} </h1>
+                <TitleSub>
+                  Posted by: &nbsp;&nbsp;
+                  {
+                    username ?
+                      <Link className='username' to={`/profile/${user_id}`}>
+                        {username},
+                    </Link> :
+                      <Deleted />   
+                  }
+                  &nbsp;&nbsp;
+                  {timeStamp(last_edited_at, created_at)}
+                </TitleSub>
+                
+              </Title>
+            </TitleVote>
+            <DiscussionInfo>
               <PostedBy>
-                Posted by: &nbsp;
+                <Avatar height={'49%'} width={'65%'} src={avatar} />
                 {
                   username ?
                     <Link className='username' to={`/profile/${user_id}`}>
                       {username},
-                  </Link> :
+                    </Link> :
                     <Deleted />
                 }
-                <div>{moment(new Date(Number(created_at))).fromNow()}</div>
-              </PostedBy>
-            </Title>
-            <DiscussionInfo>
+              </PostedBy> 
               <Elip>{body}</Elip>
             </DiscussionInfo>
             <Sort>

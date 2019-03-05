@@ -6,20 +6,20 @@ import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js'
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
+// components
+import { Search } from './index.js';
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
-  background-color: gray;
   color: white;
   height: 80px;
   margin: 0;
-  padding: 7px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+
   justify-content: space-evenly;
 
   @media ${tabletP}{
@@ -84,12 +84,11 @@ const DivAuth = styled.div`
   }
 `;
 
-
 const ButtonContainer = styled.div`
-  width: 10%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  align-content: center;
+  justify-content: center;
   align-items: center;
 
   @media ${tabletP}{
@@ -101,6 +100,7 @@ const ButtonContainer = styled.div`
     }
 
   button {
+<<<<<<< HEAD
   width: 100%;
   font-size: 14px;
   border-radius: 7px;
@@ -113,12 +113,23 @@ const ButtonContainer = styled.div`
   &:focus {
     outline: none;
   }
+=======
+    width: 100%;
+    font-size: 14px;
+    border-radius: 7px;
+    margin-top: 12px;
+>>>>>>> 484cbd99e589ff75aa55e0c7294eb7d3524629f0
 
-  @media ${tabletP}{
-    width: 80%;
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
+
+    @media ${tabletP}{
+      width: 80%;
+    }
   }
-}
-  `;
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -139,17 +150,20 @@ class Nav extends Component {
           </Link>
         </Links>
         <ButtonContainer>
-          <button onClick={this.props.toggleSearch}>search</button>
-          <button onClick={this.props.switchTheme}>switch theme</button>
+          <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
         </ButtonContainer>
         <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
-
           ) : (
               <Auth history={this.props.history} />
             )}
         </DivAuth>
+        {
+          this.props.isDay ?
+          <i onClick = {this.props.switchTheme} className = 'fas fa-sun' /> :
+          <i onClick = {this.props.switchTheme} className = 'fas fa-moon' />
+        }
       </DivWrapper>
     );
   }
