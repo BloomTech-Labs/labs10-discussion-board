@@ -16,11 +16,15 @@ import { Search } from './index.js';
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
-  color: white;
+  color: black;
   height: 80px;
   margin: 0;
-
   justify-content: space-evenly;
+
+  i {
+    display: flex;
+    align-items: center;
+  }
 
   @media ${tabletP}{
     width: 100%;
@@ -42,7 +46,7 @@ const Links = styled.div`
     font-weight: bold;
     text-decoration: none;
     font-size: 1.7em;
-    color: white;
+    color: black;
     :hover {
       color: black;
     }
@@ -70,7 +74,7 @@ const Links = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  width: 28%;
+  width: 10%;
   height: 100%;
 
   @media ${tabletP}{
@@ -100,10 +104,26 @@ const ButtonContainer = styled.div`
     }
 
   button {
+<<<<<<< HEAD
     width: 100%;
     font-size: 14px;
     border-radius: 7px;
     margin-top: 12px;
+=======
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  margin-top: 12px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #54bdff;
+  }
+  &:focus {
+    outline: none;
+  }
+
+>>>>>>> f9931e8f1da05a386739a040250d923450584571
 
     &:hover {
       cursor: pointer;

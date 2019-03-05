@@ -48,6 +48,12 @@ const UsernameSettings = styled.div`
     }
 `;
 
+const UserProperties = styled.div`
+    width: 100%;
+    display:flex;
+    flex-wrap: wrap;
+`;
+
 const UserSettings = styled.div`
   width: 92%;
   display: flex;
@@ -239,10 +245,20 @@ const Signature = styled.div`
     margin: 0px 0px 7px 0px;
   }  
 `;
+const FirstName = styled.div `
+  font-size: 20px;
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 
+  p {
+    margin: 0px 0px 7px 0px;
+  }  
+`;
 const Email = styled.div`
   font-size: 20px;
-  width: 100%;
+  width: 50%;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -253,7 +269,7 @@ const Email = styled.div`
 `;
 const Password = styled.div`
   font-size: 20px;
-  width: 100%;
+  width: 50%;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -298,30 +314,34 @@ class Settings extends Component {
             </Signature>
           } */}
           </ProfileSettings>
-          <Email>
-          <p>Email: {email || 'N/A'}</p>
-           
-            <EmailForm>
-              {
-                isAuth0 ?
-                <p>You are Auth0. You cannot change your email.</p>
-                :
-                email ?
-                <button className = 'change email' onClick = { () => this.toggleForm('email-form') }>Edit email</button>
-                :
-                <button className = 'set email' onClick = { () => this.toggleForm('email-form') }>Set email</button>
-                
-              }
-              </EmailForm>
+          <UserProperties>
+            <FirstName><p> First Name</p></FirstName>
+            <FirstName><p> Last Name</p></FirstName>
+            <Email>
+            <p>Email: {email || 'N/A'}</p>
+            
+              <EmailForm>
+                {
+                  isAuth0 ?
+                  <p>You are Auth0. You cannot change your email.</p>
+                  :
+                  email ?
+                  <button className = 'change email' onClick = { () => this.toggleForm('email-form') }>Edit email</button>
+                  :
+                  <button className = 'set email' onClick = { () => this.toggleForm('email-form') }>Set email</button>
+                  
+                }
+                </EmailForm>
             </Email>
-            <Password>
-              <p>Password: </p>
-                <PasswordForm>
-                  <button className = 'change email' onClick={() => this.toggleForm('password-form')}>
-                      Edit password
-                  </button>
-                </PasswordForm>
-            </Password>
+              <Password>
+                <p>Password: </p>
+                  <PasswordForm>
+                    <button className = 'change email' onClick={() => this.toggleForm('password-form')}>
+                        Edit password
+                    </button>
+                  </PasswordForm>
+              </Password>
+          </UserProperties>
         <AuthOEditForms>
             <EditButtons>
               

@@ -171,6 +171,7 @@ export const register = creds => dispatch => {
     avatarData: creds.avatarData,
     subPlan: creds.subPlan
   };
+  console.log('username', creds.username)
   return axios
     .post(`${backendUrl}/auth/register`, backendCreds)
     .then(response => {
