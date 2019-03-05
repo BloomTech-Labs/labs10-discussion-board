@@ -56,6 +56,13 @@ const PostedBy = styled.div`
     width: 294px;
   }
 
+  img {
+    height: 49%;
+    width: 65%;
+    border-radius: 0;
+    margin:0;
+  }
+
   .username {
     font-weight: bold;
     color: ${props => props.theme.discussionAvatarUsernameColor};
@@ -142,6 +149,21 @@ const Post = ({
   const handleEdit = () => updateEditPostForm(id);
   const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   const userCreatedPost = loggedInUserId === user_id;
+
+  //Shows Created timestamp, then Edited Time stamp overrides it once post is edited
+  const timeStamp =() => {
+    if(last_edited_at){
+      return (
+            <p>
+              Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+            </p>
+          )
+    } else if(created_at) {
+      return (<p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
+      )
+    }
+  }
+  
   return (
     //Changed some of the styled div names and incorporated a new
     //styled div with the name Post Wrapper
@@ -158,7 +180,7 @@ const Post = ({
               user_vote={user_vote}
             />
             <PostedBy>
-              <Avatar className='avatar' height={'72px'} width={'72px'} src={avatar} />
+              <Avatar className='avatar' height={'49%'} width={'65%'} src={avatar} />
               {
                 username ?
                   <Link className='username' to={`/profile/${user_id}`}>
@@ -166,16 +188,11 @@ const Post = ({
                   </Link> :
                   <Deleted />
               }
-              <p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
             </PostedBy>
           </VoteAndBody>
         </SubWrapper>
         <DivBody>
-          {last_edited_at && (
-            <p>
-              Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-            </p>
-          )}
+          {timeStamp(last_edited_at, created_at)}
           <p>{body}</p>
           { signature && <H5signature>{ signature }</H5signature> }
         </DivBody>

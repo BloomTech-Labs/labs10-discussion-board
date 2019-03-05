@@ -81,6 +81,10 @@ const TitleVote = styled.div`
 const Title = styled.div`
   color: ${props => props.theme.discussionPostColor};
   padding-bottom: 60px;
+
+  h1 {
+    
+  }
 `
 
 const TitleSub = styled.div`
@@ -118,12 +122,6 @@ const PostedBy = styled.div`
     height: 170px;
     width: 294px;
   }
-
-  // avatar {
-  //   height: 49%;
-  //   width: 65%;
-  //   border-radius: 0;
-  // }
 
   .username {
     font-weight: bold;
@@ -260,6 +258,8 @@ class Discussion extends Component {
     const { order, orderType } = this.state;
     if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
+
+  
   render() {
     const {
       order,
@@ -284,6 +284,18 @@ class Discussion extends Component {
       user_vote,
     } = discussion;
     const handleVote = type => this.handleDiscussionVote(id, type);
+    const timeStamp =() => {
+      if(last_edited_at){
+        return (
+              <p>
+                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+              </p>
+            )
+      } else if(created_at) {
+        return (<p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
+        )
+      }
+    }
     return (
       <DiscussionWrapper>
         <DiscussionSubWrapper>
@@ -328,15 +340,14 @@ class Discussion extends Component {
                       <Link className='username' to={`/profile/${user_id}`}>
                         {username},
                     </Link> :
-                      <Deleted />
+                      <Deleted />   
                   }
-                  <div>{moment(new Date(Number(created_at))).fromNow()}</div>
                 </TitleSub>
               </Title>
             </TitleVote>
             <DiscussionInfo>
               <PostedBy>
-                <Avatar height={'72px'} width={'72px'} src={avatar} />
+                <Avatar height={'49%'} width={'65%'} src={avatar} />
                 {
                   username ?
                     <Link className='username' to={`/profile/${user_id}`}>
@@ -344,9 +355,8 @@ class Discussion extends Component {
                     </Link> :
                     <Deleted />
                 }
-                <p>Created: {moment(new Date(Number(created_at))).fromNow()}</p>
               </PostedBy> 
-              <Elip>{body}</Elip>
+              <Elip>{timeStamp(last_edited_at, created_at)}{body}</Elip>
             </DiscussionInfo>
             <Sort>
               <div className='dropDowns'>
