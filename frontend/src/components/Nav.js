@@ -6,7 +6,10 @@ import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js'
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
+// components
+import { Search } from './index.js';
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
@@ -81,12 +84,11 @@ const DivAuth = styled.div`
   }
 `;
 
-
 const ButtonContainer = styled.div`
-  width: 10%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  align-content: center;
+  justify-content: center;
   align-items: center;
 
   @media ${tabletP}{
@@ -98,21 +100,21 @@ const ButtonContainer = styled.div`
     }
 
   button {
-  width: 100%;
-  font-size: 14px;
-  border-radius: 7px;
-  margin-top: 12px;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 7px;
+    margin-top: 12px;
 
-  &:hover {
-    cursor: pointer;
-    background-color: #54bdff;
-  }
+    &:hover {
+      cursor: pointer;
+      background-color: #54bdff;
+    }
 
-  @media ${tabletP}{
-    width: 80%;
+    @media ${tabletP}{
+      width: 80%;
+    }
   }
-}
-  `;
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -133,17 +135,20 @@ class Nav extends Component {
           </Link>
         </Links>
         <ButtonContainer>
-          <button onClick={this.props.toggleSearch}>search</button>
-          <button onClick={this.props.switchTheme}>switch theme</button>
+          <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
         </ButtonContainer>
         <DivAuth>
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
-
           ) : (
               <Auth history={this.props.history} />
             )}
         </DivAuth>
+        {
+          this.props.isDay ?
+          <i onClick = {this.props.switchTheme} className = 'fas fa-sun' /> :
+          <i onClick = {this.props.switchTheme} className = 'fas fa-moon' />
+        }
       </DivWrapper>
     );
   }
