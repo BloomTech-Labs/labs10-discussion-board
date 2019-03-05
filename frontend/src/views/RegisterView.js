@@ -1056,7 +1056,7 @@ class RegisterView extends Component {
       data: {
         stripeToken: token.id,
         payment: this.getStripePayment(),
-        description: this.state.subPlan.toUpperCase(),
+        description: `${this.state.subPlan.toUpperCase()} Plan`,
         email: this.state.email
       }
     }
@@ -1068,7 +1068,7 @@ class RegisterView extends Component {
     const total = this.getPaymentAmount();
     const stripeAmount = this.getStripePayment();
     const stripeEmail = this.state.email;
-    const subPlan = this.state.subPlan.toUpperCase();
+    const subPlan = `${this.state.subPlan.toUpperCase()} Plan`;
     return (
       <DivWrapper>
         <H1Register>Register New Account</H1Register>

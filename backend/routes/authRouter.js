@@ -481,8 +481,14 @@ router.post('/auth0-login', async (req, res) => {
 router.post('/stripe', (req, res, next) => {
   const stripeToken = req.body.data.stripeToken;
   const payment = Number(req.body.data.payment);
-  const subPlan = req.body.description;
-  const email = req.body.email;
+  const subPlan = req.body.data.description;
+  const email = req.body.data.email;
+  console.log('body', req.body);
+  console.log('stripeToken', stripeToken);
+  console.log('payment', payment);
+  console.log('description', req.body.data.description);
+  console.log('subPlan', subPlan);
+  console.log('email', email);
 
 
   (async () => {
