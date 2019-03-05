@@ -148,6 +148,7 @@ class App extends Component {
             <Route path='/settings/:id' component={Settings} />
             <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
             <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
@@ -161,7 +162,6 @@ class App extends Component {
             <GlobalStyle />
             <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
             <Logo />
->
             <Switch>
               <Route path='/register' component={RegisterView} />
               <Route path='/request-reset-pw' component={RequestResetPWForm} />
@@ -174,6 +174,7 @@ class App extends Component {
               <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
               <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
             </Switch>
+            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme}/>
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
