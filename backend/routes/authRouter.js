@@ -498,7 +498,8 @@ router.post('/stripe', (req, res, next) => {
         currency: 'usd',
         description: subPlan,
         source: stripeToken,
-        statement_descriptor: subPlan
+        statement_descriptor: subPlan,
+        receipt_email: email
       });
       res.status(201).json([{ charge }]);
     } catch (err) {

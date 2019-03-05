@@ -1036,11 +1036,11 @@ class RegisterView extends Component {
 
   getStripePayment = () => {
     switch (this.state.subPlan) {
-      case subscriptionPlans[1]:
+      case subscriptionPlans[1]: // Bronze
         return stripePayFormat[0];
-      case subscriptionPlans[2]:
+      case subscriptionPlans[2]: // Silver
         return stripePayFormat[1];
-      case subscriptionPlans[3]:
+      case subscriptionPlans[3]: // Gold
         return stripePayFormat[2];
       default:
         return 0;
