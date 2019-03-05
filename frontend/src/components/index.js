@@ -4,10 +4,12 @@ import Discussion from './Discussion.js';
 import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 
+
 import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
 import Header from './Header.js';
+import Footer from './Footer.js';
 import Logo from './Logo.js';
 import TopDiscussions from './TopDiscussions.js';
 import TopDiscussion from './TopDiscussion.js';
@@ -63,6 +65,7 @@ export {
   LoginDropdown,
   Nav,
   Header,
+  Footer,
   Logo,
   TopDiscussions,
   TopDiscussion,
