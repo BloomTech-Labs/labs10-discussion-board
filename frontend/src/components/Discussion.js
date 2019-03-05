@@ -19,7 +19,8 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 /***************************************************************************************************
  ********************************************* Styles *********************************************
  **************************************************************************************************/
-const DiscussionWrapper = styled.div`
+
+ const DiscussionWrapper = styled.div`
 display: flex;
 flex-direction: column;
 border-radius: 15px;
@@ -91,6 +92,7 @@ const TitleSub = styled.div`
   display: flex;
   flex-direction: row;
   text-decoration: none;
+  font-size: 12px;
 
   @media ${tabletP}{
       justify-content: space-evenly;
@@ -143,13 +145,10 @@ const Elip = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
-  padding: 10px;
+  padding: 30px;
+  padding-top: 10px;
   color: ${props => props.theme.discussionPostColor};
-  font-size: 12px;
-
-  p{
-    font-size: 16px;
-  }
+  font-size: 16px;
 
   @media ${tabletP} {
     text-align: center;
@@ -338,7 +337,7 @@ class Discussion extends Component {
               <Title>
                 <h1> {title} </h1>
                 <TitleSub>
-                  Posted by: &nbsp;
+                  Posted by: &nbsp;&nbsp;
                   {
                     username ?
                       <Link className='username' to={`/profile/${user_id}`}>
@@ -346,7 +345,10 @@ class Discussion extends Component {
                     </Link> :
                       <Deleted />   
                   }
+                  &nbsp;&nbsp;
+                  {timeStamp(last_edited_at, created_at)}
                 </TitleSub>
+                
               </Title>
             </TitleVote>
             <DiscussionInfo>
@@ -360,7 +362,7 @@ class Discussion extends Component {
                     <Deleted />
                 }
               </PostedBy> 
-              <Elip>{timeStamp(last_edited_at, created_at)}<p>{body}</p></Elip>
+              <Elip>{body}</Elip>
             </DiscussionInfo>
             <Sort>
               <div className='dropDowns'>

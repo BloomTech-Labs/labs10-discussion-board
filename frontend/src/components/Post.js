@@ -75,7 +75,8 @@ const PostedBy = styled.div`
 `;
 
 const DivBody = styled.div `
-  padding: 1.5em;
+  padding: 30px;
+  padding-top: 10px;
   width: 100%;
   
   span{
@@ -83,8 +84,9 @@ const DivBody = styled.div `
   }
 
   p {
-    margin: 0;
+    margin: 0; 
     margin-bottom: 10px;
+    margin-top: 16px
     word-break: break-word;
     color: ${props => props.theme.discussionPostColor};
     font-size: 16px;
@@ -92,7 +94,6 @@ const DivBody = styled.div `
 
   .signature{
     border: 1px solid;
-    height: 30px;
   }
 `;
 
