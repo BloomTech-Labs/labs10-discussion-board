@@ -43,7 +43,6 @@ flex-direction: column;
 const PostedBy = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
   width: 180px;
   height: 230px;
   align-items: center;
@@ -61,6 +60,9 @@ const PostedBy = styled.div`
     font-weight: bold;
     color: ${props => props.theme.discussionAvatarUsernameColor};
     text-decoration: none;
+    width: 100%;
+    background-color: mediumpurple;
+    padding: 7px 0;
 
     &:hover {
       cursor: pointer;
@@ -156,7 +158,7 @@ const Post = ({
               user_vote={user_vote}
             />
             <PostedBy>
-              <Avatar height={'72px'} width={'72px'} src={avatar} />
+              <Avatar className='avatar' height={'72px'} width={'72px'} src={avatar} />
               {
                 username ?
                   <Link className='username' to={`/profile/${user_id}`}>

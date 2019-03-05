@@ -54,6 +54,9 @@ h1 {
 }
 `;
 
+//Should This Avatar/Body spacing be used 
+//Or should the Post's Avatar/Body spacing be used
+//Or should they both be different?
 const DiscussionInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -103,7 +106,6 @@ const TitleSub = styled.div`
 const PostedBy = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
   width: 180px;
   height: 230px;
   align-items: center;
@@ -117,10 +119,19 @@ const PostedBy = styled.div`
     width: 294px;
   }
 
+  // avatar {
+  //   height: 49%;
+  //   width: 65%;
+  //   border-radius: 0;
+  // }
+
   .username {
     font-weight: bold;
     color: ${props => props.theme.discussionAvatarUsernameColor};
     text-decoration: none;
+    width: 100%;
+    background-color: mediumpurple;
+    padding: 7px 0;
 
     &:hover {
       cursor: pointer;
