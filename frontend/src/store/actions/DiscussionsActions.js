@@ -137,12 +137,12 @@ export const addDiscussion = (dBody, category_id) => dispatch => {
 		.catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
 
-export const editDiscussion = (discussion_id, title, dBody, historyPush) => dispatch => {
+export const editDiscussion = (discussion_id, dBody, historyPush) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   dispatch({ type: EDIT_DISCUSSION_LOADING });
   const headers = { headers: { Authorization: token } };
-	const body = { discussion_id, title, dBody };
+	const body = { discussion_id, dBody };
 	return axios.put(`${ backendURL }/discussions/${user_id}`, body, headers)
 		.then(() => dispatch({ type: EDIT_DISCUSSION_SUCCESS }))
 		.then(() => historyPush('/'))
