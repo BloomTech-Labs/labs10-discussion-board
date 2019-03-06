@@ -19,6 +19,15 @@ const DivWrapper = styled.div`
   border: 2px solid ${props => props.theme.borderColor};
   border-top: 2px solid white;
   padding: 10px 0;
+
+  @media(max-width: 750px){
+    height: 60px;
+    width: 100px;
+  }
+  @media (max-width: 450px){
+    padding-right: 15px;
+    padding-top: 0px;
+  }
 `;
 
 const LinkItem = styled(Link)`
@@ -36,6 +45,12 @@ const LinkItem = styled(Link)`
     color: black;
     background-color: ${props => props.theme.borderColor};
   }
+
+  @media(max-width: 750px){
+    font-size: 16px;
+  }
+  @media (max-width: 450px){
+  }
 `;
 
 const Item = styled.a`
@@ -49,6 +64,12 @@ const Item = styled.a`
   &:hover {
     color: black;
     background-color: ${props => props.theme.borderColor};
+  }
+
+  @media(max-width: 750px){
+    font-size: 16px;
+  }
+  @media (max-width: 450px){
   }
 `;
 

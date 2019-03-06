@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import chevron from '../assets/img/chevron.png';
 
+// globals
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
 // components
 import { Avatar, AvatarDropdown, Notifications } from './index.js';
 
@@ -18,6 +21,11 @@ const DivWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 55%;
+  @media ${phoneL}{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+  }
 `;
 
 const DivUser = styled.div`

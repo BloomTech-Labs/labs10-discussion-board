@@ -40,9 +40,9 @@ const DivAuth = styled.div`
   }
 
   @media ${phoneL}{
-    width: 35%;
+    width: 40%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   i {
@@ -52,7 +52,7 @@ const DivAuth = styled.div`
   }
 `;
 
-const ButtonContainer = styled.div`
+const SearchContainer = styled.div`
   display: flex;
   width: 60%;
   justify-content: center;
@@ -75,9 +75,9 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        <ButtonContainer>
+        <SearchContainer>
           <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
-        </ButtonContainer>
+        </SearchContainer>
         <DivAuth>{this.props.isDay ?
           <i onClick = {this.props.switchTheme} className = 'fas fa-sun' /> :
           <i onClick = {this.props.switchTheme} className = 'fas fa-moon' />
