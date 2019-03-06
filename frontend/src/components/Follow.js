@@ -79,7 +79,7 @@ class Follow extends Component {
                   style={{backgroundColor: isFollowing ? 'lightsteelblue' : 'steelblue'}}
                   value={followed ? 'Followed' : 'Follow?'}
               >
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;{followUnfollow()}
+                <i className="fas fa-plus"></i>&nbsp;&nbsp;{followUnfollow()}
               </button>
               {
                 !user_id &&

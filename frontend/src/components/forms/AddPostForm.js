@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import CKEditor from 'ckeditor4-react';
 // import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
 // import Parser from 'html-react-parser';
-import { Avatar } from '../index.js'
+import { Avatar } from '../index.js';
 
 import { appBgColor } from '../../globals/globals.js'
 
@@ -14,6 +15,7 @@ import { appBgColor } from '../../globals/globals.js'
 import { addPost } from '../../store/actions/index.js';
 
 const AddPostFormWrapper = styled.form`
+	width: 80%;
 	padding: 10px;
 	color: ${props => props.theme.discussionPostColor};
 
@@ -48,6 +50,7 @@ const UserActions = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 
 	button {
 		color: steelblue;
@@ -57,6 +60,18 @@ const UserActions = styled.div`
 			cursor: pointer;
 			color: black;
 		}
+	}
+
+	.user {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.username {
+		margin-left: 10px;
+		color: black;
+		text-decoration: none;
 	}
 `;
 
@@ -73,9 +88,10 @@ class AddPostForm extends Component {
 	};
 	
 	render() {
-		console.log('this props', this.props)
+		
 		const { postBody } = this.state;
-		const { toggleAddPostForm } = this.props;
+		const { toggleAddPostForm, username, user_id } = this.props;
+		console.log('state', username, 'id', user_id)
 		return(
 			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
 				<AddCommentTitle>
@@ -87,7 +103,6 @@ class AddPostForm extends Component {
 					><i className="far fa-times-circle"></i></a>
 				</AddCommentTitle>
 				<textarea
-					
 					type= 'text'
 					placeholder = 'Write your comment'
 					name = 'postBody'
@@ -95,7 +110,12 @@ class AddPostForm extends Component {
 					value = { postBody }
 				/>
 				<UserActions>
-					<Avatar height='30px' width='30px' />
+					<div className='user'>
+						<Avatar height='30px' width='30px' />
+						<Link className='username' to={`/profile/${user_id}`}>
+							{username}
+						</Link>
+					</div>
 					<button type = 'submit'>Post comment</button>	
 				</UserActions>
 			</AddPostFormWrapper>
@@ -103,6 +123,12 @@ class AddPostForm extends Component {
 	}
 };
 
+const mapStateToProps = state => ({
+	username: state.users.username,
+	user_id: state.users.user_id
+  });
+
+export default connect(mapStateToProps, { addPost })(AddPostForm);
 
 // Using React Quill
 // 	//    * Quill editor formats
@@ -263,5 +289,3 @@ class AddPostForm extends Component {
 // 		</AddPostFormWrapper>
 // 		)}
 // }
-
-export default connect(null, { addPost })(AddPostForm);
