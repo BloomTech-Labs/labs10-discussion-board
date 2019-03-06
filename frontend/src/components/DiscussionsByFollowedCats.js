@@ -89,6 +89,7 @@ const DiscussionHeader = styled.div`
 			cursor: pointer;
 			background-color: white;
 			color: #418DCF;
+			border: 1px solid #418DCF;
 		}
 	}
 `;

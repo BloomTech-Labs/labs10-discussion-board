@@ -118,27 +118,26 @@ const AddPostBtn = styled.div``;
 
 //Commented Out sections
 
-// const Sort = styled.div`
-// display: flex;
-// flex-direction: row;
-// padding-bottom: 20px;
-// align-items: baseline;
-// justify-content: space-between;
-// border-top: 1px solid;
-// padding-top: 20px;
+const Sort = styled.span`
+display: flex;
+flex-direction: row;
+padding-bottom: 20px;
+align-items: baseline;
+justify-content: space-between;
+padding-top: 20px;
 
-// @media ${tabletP} {
-//   // display: flex;
-//   // flex-direction: column;
-//   // align-items: center;
-//   // margin: 0 auto;
+@media ${tabletP} {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // margin: 0 auto;
 
-//   @media ${phoneP}{
-//   margin: 0 auto;
-//   align-items: center;
-//   width: 70%;
-//   }
-// }
+  @media ${phoneP}{
+  margin: 0 auto;
+  align-items: center;
+  width: 70%;
+  }
+}
 
 // .sortName {
 //   margin: 5px;
@@ -209,7 +208,7 @@ class Discussion extends Component {
   handleDiscussionVote = (discussion_id, type) => {
     const { order, orderType } = this.state;
     const { id, getDiscussionById, handleDiscussionVote } = this.props;
-    return handleDiscussionVote(discussion_id, this.props.loggedInUserId, type)
+    return handleDiscussionVote(discussion_id, type)
       .then(() => getDiscussionById(id, order, orderType));
   };
   componentDidMount = () => {
@@ -238,7 +237,8 @@ class Discussion extends Component {
       body,
       created_at,
       last_edited_at,
-      discussion_votes,
+      upvotes,
+      downvotes,
       avatar,
       category_name,
       category_id,
@@ -250,7 +250,7 @@ class Discussion extends Component {
       user_vote,
     } = discussion;
 
-    const handleVote = type => this.handleDiscussionVote(id, type);
+    const handleVote = (e, type) => this.handleDiscussionVote(id, type);
     
 
     // Back Button needs to take in the dynamic (category_id)
@@ -302,9 +302,10 @@ class Discussion extends Component {
                 &nbsp;
               <div className='c-name'><span>{category_name}</span></div>
               <VoteCount
-                  handleVote={handleVote}
-                  vote_count={discussion_votes}
-                  user_vote={user_vote}
+                upvotes = { upvotes }
+                downvotes = { downvotes }
+                user_vote = { user_vote }
+                handleVote = { handleVote }
               />
                 &nbsp;
                 &nbsp;
@@ -315,7 +316,24 @@ class Discussion extends Component {
             </PostedBy>
           </DiscussionContent>  
           <CommentWrapper>  
-            <p className='title'>Comments</p>
+            <span className='title'>Comments</span>
+            <Sort>
+              <div className='dropDowns'>
+                <span className='sorted'>Sort</span>
+                <select className='sortName' onChange={this.handleSelectChange} name='order'>
+                  <option value='created_at'>date created</option>
+                  <option value='post_votes'>votes</option>
+                </select>
+                <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
+                  <option value='desc'>
+                    {order === 'created_at' ? 'most recent first' : 'most first'}
+                  </option>
+                  <option value='asc'>
+                    {order === 'created_at' ? 'least recent first' : 'least first'}
+                  </option>
+                </select>
+              </div>
+            </Sort>
               <Posts>
                 <PostsView
                   posts={posts}
