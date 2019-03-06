@@ -16,15 +16,18 @@ const LandingViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
   width: 740px;
   border-radius: 5px;
+  margin-top: 100px;
+
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
     width: 90%;
-    @media ${phoneP}{
-      display: flex;
-      flex-direction: column;
-      width: 90%;
-    }
+  }
+
+  @media ${phoneP}{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
   }
 `;
 

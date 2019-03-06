@@ -17,18 +17,43 @@ const DiscussionsWrapper = styled.div`
 	flex-direction: column;
 	padding: 10px;
 	position: relative;
+	justify-content: center;
+	align-items: center;
+
+	hr {
+		width: 100%;
+		border: 1px solid #d3d3d3;
+	}
+
+	.content {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 95%;
+
+		@media ${ tabletP } {
+			width: 100%;
+		}
+	}
 `;
 
 const DiscussionHeader = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
+	width: 100%;
 
 	.all-posts {
 		font-size: 36px;
 		flex-grow: 2;
+
+		@media ${ tabletP } {
+			flex-grow: 0;
+		}
 	}
 
 	.filter-wrapper {
@@ -54,6 +79,10 @@ const DiscussionHeader = styled.div`
 		border: none;
 		background-color: #418DCF;
 		color: white;
+
+		@media ${ phoneP } {
+			width: 100%;
+		}
 
 		&:hover {
 			cursor: pointer;
@@ -137,16 +166,19 @@ class AllDiscussionsByFollowedCats extends Component {
 						<i className = 'fas fa-plus-circle' />&nbsp;Add Post
 					</button>
 				</DiscussionHeader>
-				{
-					showAddDiscussionForm &&
-					<AddDiscussionForm
-						toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
-						getDiscussions = { this.getDiscussions }
-					/>
-				}
-				{ followedDiscussions.map((discussion, i) =>
-					<DiscussionByFollowedCats key = { i } discussion = { discussion } />)
-				}
+				<hr/>
+				<div className = 'content'>
+					{
+						showAddDiscussionForm &&
+						<AddDiscussionForm
+							toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
+							getDiscussions = { this.getDiscussions }
+						/>
+					}
+					{ followedDiscussions.map((discussion, i) =>
+						<DiscussionByFollowedCats key = { i } discussion = { discussion } />)
+					}
+				</div>
 			</DiscussionsWrapper>
 		);
 	}
