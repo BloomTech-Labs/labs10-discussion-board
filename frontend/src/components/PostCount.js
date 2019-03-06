@@ -8,19 +8,14 @@ import {phoneP, tabletP, } from '../globals/globals';
 const PostCountWrapper = styled.div`
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
-	flex-direction: column;
-	margin: 0px;
-	padding: 5px;
+	flex-direction: row;
 	border: ${props => props.theme.postCountWrapperBorder};
-	width: 60px;
 	color: ${props => props.theme.postCountWrapperColor};
+
 	@media ${tabletP}{
-		display: flex;
-		flex-direction: column;
+
 		@media ${phoneP}{
-		  display: flex;
-		  flex-direction: column;
+
 		}
 	  }
 `;
@@ -28,11 +23,20 @@ const PostCountWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const PostCount = ({ post_count }) => {
+
+
+ const PostCount = ({ post_count }) => {
+	 let plural = () => {
+		if (post_count <= 1) {
+			return 'Comment'
+		} else {
+			return 'Comments'
+		}
+	}
 	return (
 		<PostCountWrapper>
-			<p>Posts</p>
-			<div>{ post_count }</div>
+			<div>{ post_count } </div>
+			<div>&nbsp;&nbsp;{plural()}</div>
 		</PostCountWrapper>
 	);
 };

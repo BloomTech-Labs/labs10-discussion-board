@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, AddPostForm, EditDiscussionForm, VoteCount, Deleted, Avatar } from './index.js';
+import { AddReplyForm, AddPostForm, EditDiscussionForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -19,201 +19,163 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 /***************************************************************************************************
  ********************************************* Styles *********************************************
  **************************************************************************************************/
+//Example: how to use themes
+// ${props => props.theme.discussionAvatarUsernameColor};
+// display: flex;
+// flex-direction: column;
+// border-radius: 15px;
+// border-bottom: 16px;
+// padding: 10px;
+// box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
+// background-color: ${props => props.theme.topDiscussionWrapperBgHov};
 
- const DiscussionWrapper = styled.div`
-display: flex;
-flex-direction: column;
-border-radius: 15px;
-border-bottom: 16px;
-padding: 10px;
-box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-background-color: ${props => props.theme.topDiscussionWrapperBgHov};
-`
-const DiscussionSubWrapper = styled.div`
+const DiscussionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-`
+  width: 80%;
+  margin-top: 100px;
+  justify-content: flex-end;
 
-const SubWrapper = styled.div`
-width: 98%;
-display: flex;
-flex-direction: column;
-margin: 0 auto;
-
-@media ${tabletP} {
-  width: 90%;
-}
-
-  @media ${phoneL}{
-    width: 90%;
-    text-align: center;
-  }
-
-h1 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-`;
-
-//Should This Avatar/Body spacing be used 
-//Or should the Post's Avatar/Body spacing be used
-//Or should they both be different?
-const DiscussionInfo = styled.div`
-  display: flex;
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-  @media ${tabletP} {
-    display: flex;
-    width: 90%;
-  }
-`;
-
-const Posts = styled.div`
-`
-
-const TitleVote = styled.div`
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid;
-`
-
-const Title = styled.div`
-  color: ${props => props.theme.discussionPostColor};
-  padding-bottom: 60px;
-
-  h1 {
-    font-size: 21px;
-  }
-`
-
-const TitleSub = styled.div`
-  display: flex;
-  flex-direction: row;
-  text-decoration: none;
-  font-size: 12px;
-
-  @media ${tabletP}{
-      justify-content: space-evenly;
-  }
-
-  .username {
-    color: ${props => props.theme.discussionUsernameColor}; 
-    font-weight: bold;
-
-    &:hover {
+  .back {
+    font-size: 47px;
+    padding-right: 35px;
+    padding-top: 15px
+    color: black;
+    
+    &:hover{
       cursor: pointer;
-      text-decoration: underline;
     }
   }
+`;
+const SubWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DiscussionContent = styled.div`
+  // color: darkgray;
+
+  p{
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 0
+    padding-top: 25px;
+  }
+}
 `;
 
 const PostedBy = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 245px;
-  height: 230px;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: space-evenly;
-  text-align: center;
-  box-shadow: 2px 3px 2px 2px grey;
-  background-color: lavender;
+  font-size: 12px;
+  // color: darkgray;
 
-  @media ${phoneL} {
-    height: 170px;
-    width: 294px;
+  .d-creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+  img{
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 23px;
   }
 
-  .username {
-    font-weight: bold;
-    color: ${props => props.theme.discussionAvatarUsernameColor};
+  .username{
     text-decoration: none;
-    width: 100%;
-    background-color: mediumpurple;
-    padding: 7px 0;
+  }
+}
 
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
+  .c-name{
   }
 `;
 
-const Elip = styled.div`
-  display: inline;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  padding: 30px;
-  padding-top: 10px;
-  color: ${props => props.theme.discussionPostColor};
-  font-size: 16px;
+const CommentWrapper = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
 
   @media ${tabletP} {
+    
+  }
+
+  @media ${phoneL}{
     text-align: center;
   }
+
+  .title {
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
 `;
 
-const Sort = styled.div`
-display: flex;
-flex-direction: row;
-padding-bottom: 20px;
-align-items: baseline;
-justify-content: space-between;
-border-top: 1px solid;
-padding-top: 20px;
+const Posts = styled.div``;
 
-@media ${tabletP} {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
+const AddPostBtn = styled.div``;
 
-  @media ${phoneP}{
-  margin: 0 auto;
-  align-items: center;
-  width: 70%;
-  }
-}
+//Commented Out sections
 
-.sortName {
-  margin: 5px;
-}
+// const Sort = styled.div`
+// display: flex;
+// flex-direction: row;
+// padding-bottom: 20px;
+// align-items: baseline;
+// justify-content: space-between;
+// border-top: 1px solid;
+// padding-top: 20px;
 
-.sorted {
-  font-weight: bold;
-  padding: 5px;
-  color: ${props => props.theme.discussionPostColor};
+// @media ${tabletP} {
+//   // display: flex;
+//   // flex-direction: column;
+//   // align-items: center;
+//   // margin: 0 auto;
 
-}
+//   @media ${phoneP}{
+//   margin: 0 auto;
+//   align-items: center;
+//   width: 70%;
+//   }
+// }
 
-  button{
-    margin-top: 10px;
+// .sortName {
+//   margin: 5px;
+// }
 
-    @media ${phoneL} {
-      font-size: 17px;
-      padding: 11px 0px;
-      width: 110px;
-    }
-  }
+// .sorted {
+//   font-weight: bold;
+//   padding: 5px;
+//   color: ${props => props.theme.discussionPostColor};
 
-.dropDowns {
-  display: flex;
-  flex-direction: row;
+// }
 
-  @media ${phoneP}{
-    flex-direction: column;
-    margin: 0 auto;
-  }
-  @media ${phoneL}{
-    flex-direction: column;
-  }
-}
-`;
+//   button{
+//     margin-top: 10px;
 
-const AddPostBtn = styled.div`
+//     @media ${phoneL} {
+//       font-size: 17px;
+//       padding: 11px 0px;
+//       width: 110px;
+//     }
+//   }
 
-`;
+// .dropDowns {
+//   display: flex;
+//   flex-direction: row;
+
+//   @media ${phoneP}{
+//     flex-direction: column;
+//     margin: 0 auto;
+//   }
+//   @media ${phoneL}{
+//     flex-direction: column;
+//   }
+// }
+// `;
+
+
 
 class Discussion extends Component {
   state = {
@@ -278,31 +240,133 @@ class Discussion extends Component {
       last_edited_at,
       discussion_votes,
       avatar,
+      category_name,
+      category_id,
       id,
       posts,
-      title,
+      post_count,
       user_id,
       username,
       user_vote,
     } = discussion;
+
     const handleVote = type => this.handleDiscussionVote(id, type);
-    const timeStamp =() => {
-      if(last_edited_at){
-        return (
-              <span>
-                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-              </span>
-            )
-      } else if(created_at) {
-        return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-        )
-      }
-    }
+    
+
+    // Back Button needs to take in the dynamic (category_id)
+    //Add an icon by the category name
+    //Vote Count should be each up and each down
+    //Post Count Not rendering
+    //Reply Modal should render right below the comment in a bar
+    //Replies to Comments should render nested in the comment
+
+    //TimeStamp 
+
+    //Function
+    // const timeStamp =() => {
+    //   if(last_edited_at){
+    //     return (
+    //           <span>
+    //             Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+    //           </span>
+    //         )
+    //   } else if(created_at) {
+    //     return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
+    //     )
+    //   }
+    // }
+
+    //Call
+    // {timeStamp(last_edited_at, created_at)}   
+
     return (
       <DiscussionWrapper>
-        <DiscussionSubWrapper>
-          <SubWrapper>
-            {
+        <Link className='back' to={`/discussions/category/${category_id}`}><i class="far fa-arrow-alt-circle-left"></i></Link>
+        <SubWrapper>
+          <DiscussionContent>
+            <div className='content'>
+              <p>{body}</p>
+            </div>
+            <PostedBy>
+              <div className='d-creator'>
+                <img alt='picture' src={avatar} />              
+                {
+                  username ?
+                    <Link className='username' to={`/profile/${user_id}`}>
+                      {username}
+                    </Link> :
+                    <Deleted />
+                }
+              </div>
+                &nbsp;
+                &nbsp;
+              <div className='c-name'><span>{category_name}</span></div>
+              <VoteCount
+                  handleVote={handleVote}
+                  vote_count={discussion_votes}
+                  user_vote={user_vote}
+              />
+                &nbsp;
+                &nbsp;
+              <PostCount post_count = { post_count || 0 } />
+                &nbsp;
+                &nbsp;
+              <Follow discussion_id = {id} historyPush = { historyPush }/> 
+            </PostedBy>
+          </DiscussionContent>  
+          <CommentWrapper>  
+            <p className='title'>Comments</p>
+              <Posts>
+                <PostsView
+                  posts={posts}
+                  historyPush={historyPush}
+                  showEditPostForm={showEditPostForm}
+                  updateEditPostForm={this.updateEditPostForm}
+                  handleRemovePost={this.handleRemovePost}
+                  toggleAddReplyForm={this.toggleAddReplyForm}
+                  order={order}
+                  orderType={orderType}
+                />
+                {
+                  showAddReplyForm &&
+                  <AddReplyForm
+                    toggleAddReplyForm={this.toggleAddReplyForm}
+                    discussion_id={id}
+                    historyPush={historyPush}
+                    repliedPost={posts.find(post => post.id === showAddReplyForm)}
+                  />
+                }
+                <AddPostBtn>
+                  {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
+                  {showAddPostForm && (
+                    <AddPostForm
+                      user_id={loggedInUserId}
+                      discussion_id={id}
+                      historyPush={historyPush}
+                      toggleAddPostForm={this.toggleAddPostForm}
+                    />
+                  )}
+                </AddPostBtn>
+              </Posts>
+          </CommentWrapper>
+        </SubWrapper>
+      </DiscussionWrapper>
+    );
+  }
+};
+
+const mapStateToProps = state => ({
+  discussion: state.discussions.discussion,
+  loggedInUserId: state.users.user_id
+});
+
+export default connect(
+  mapStateToProps,
+  { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
+)(Discussion);
+
+//Edit and Remove 
+{/* {
               loggedInUserId === user_id &&
               (
                 showEditDiscussionForm ?
@@ -326,44 +390,11 @@ class Discussion extends Component {
             {
               loggedInUserId === user_id &&
               <button onClick={this.handleRemoveDiscussion}>Remove discussion</button>
-            }
-            <TitleVote>
-              <VoteCount
-                handleVote={handleVote}
-                vote_count={discussion_votes}
-                user_vote={user_vote}
-              />
-              <Title>
-                <h1> {title} </h1>
-                <TitleSub>
-                  Posted by: &nbsp;&nbsp;
-                  {
-                    username ?
-                      <Link className='username' to={`/profile/${user_id}`}>
-                        {username},
-                    </Link> :
-                      <Deleted />   
-                  }
-                  &nbsp;&nbsp;
-                  {timeStamp(last_edited_at, created_at)}
-                </TitleSub>
-                
-              </Title>
-            </TitleVote>
-            <DiscussionInfo>
-              <PostedBy>
-                <Avatar height={'49%'} width={'65%'} src={avatar} />
-                {
-                  username ?
-                    <Link className='username' to={`/profile/${user_id}`}>
-                      {username},
-                    </Link> :
-                    <Deleted />
-                }
-              </PostedBy> 
-              <Elip>{body}</Elip>
-            </DiscussionInfo>
-            <Sort>
+            } */}
+           
+// SORT   
+
+            {/* <Sort>
               <div className='dropDowns'>
                 <span className='sorted'>Sort</span>
                 <select className='sortName' onChange={this.handleSelectChange} name='order'>
@@ -379,63 +410,4 @@ class Discussion extends Component {
                   </option>
                 </select>
               </div>
-              <AddPostBtn>
-                {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
-                {showAddPostForm && (
-                  <AddPostForm
-                    user_id={loggedInUserId}
-                    discussion_id={id}
-                    historyPush={historyPush}
-                    toggleAddPostForm={this.toggleAddPostForm}
-                  />
-                )}
-              </AddPostBtn>
-            </Sort>
-          </SubWrapper>
-        </DiscussionSubWrapper>
-        <Posts>
-          <PostsView
-            posts={posts}
-            historyPush={historyPush}
-            showEditPostForm={showEditPostForm}
-            updateEditPostForm={this.updateEditPostForm}
-            handleRemovePost={this.handleRemovePost}
-            toggleAddReplyForm={this.toggleAddReplyForm}
-            order={order}
-            orderType={orderType}
-          />
-          {
-            showAddReplyForm &&
-            <AddReplyForm
-              toggleAddReplyForm={this.toggleAddReplyForm}
-              discussion_id={id}
-              historyPush={historyPush}
-              repliedPost={posts.find(post => post.id === showAddReplyForm)}
-            />
-          }
-          <AddPostBtn>
-            {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
-            {showAddPostForm && (
-              <AddPostForm
-                user_id={loggedInUserId}
-                discussion_id={id}
-                historyPush={historyPush}
-                toggleAddPostForm={this.toggleAddPostForm}
-              />
-            )}
-          </AddPostBtn>
-        </Posts>
-      </DiscussionWrapper>
-    );
-  }
-};
-
-const mapStateToProps = state => ({
-  discussion: state.discussions.discussion,
-  loggedInUserId: state.users.user_id
-});
-
-export default connect(
-  mapStateToProps,
-  { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
-)(Discussion);
+            </Sort> */}
