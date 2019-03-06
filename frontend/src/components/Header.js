@@ -33,6 +33,15 @@ const LogoContainer = styled.div`
   border-right: 2px solid ${props => props.theme.borderColor};
   padding-right: 100px;
 
+  @media(max-width: 750px){
+    padding-right: 50px;
+  }
+    @media (max-width: 450px){
+      padding-right: 15px;
+
+    }
+
+
 `;
 
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {

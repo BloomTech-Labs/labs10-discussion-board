@@ -16,7 +16,7 @@ const DivWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 70%;
+  width: 55%;
 `;
 
 const DivUser = styled.div`

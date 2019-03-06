@@ -15,7 +15,7 @@ import { Search } from './index.js';
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
-  width: 35%;
+  width: 45%;
   display: flex;
   color: black;
   justify-content: space-between;
@@ -96,11 +96,12 @@ const ButtonContainer = styled.div`
   align-items: center;
 
   @media ${tabletP}{
-    width: 25%;
+    width: 40%;
     }
     
     @media ${phoneL}{
-      width: 25%;
+      margin-left: 10px;
+      width: 45%;
     }
 `;
 
