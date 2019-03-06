@@ -28,7 +28,7 @@ const SettingsWrapper = styled.div`
   background-color: ${props => props.theme.settingsBgColor};
   box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
-  width: 80%;
+  width: 90%;
   margin-top: 100px;
   margin-left: 100px;
   @media (max-width: 960px){
@@ -52,18 +52,21 @@ const UserProperties = styled.form`
     width: 100%;
     display:flex;
     flex-wrap: wrap;
+    margin-left: 10px;
     .input-style {
       margin-left: 1%;
-      border: 1px solid rgb(222,249,254);
+      border: 1px solid rgb(222,180,200, 0.2);
+      width: 180px;
+      height: 20px;
     }
     button {
-      width: 40%;
+      width: 45%;
       margin: 7px;
       margin-top: 20px;
       border-radius: 5px;
-      height: 50px;
-      font-size: 16px;
-      font-weight: bold;
+      height: 30px;
+      font-size: 12px;
+      color: white;
       background-color: ${props => props.theme.settingsButtonBgColor}
       &:hover {
         background-color: ${props => props.theme.settingsButtonHov};
@@ -91,6 +94,16 @@ const UserSettings = styled.div`
 
 const ProfileSettings = styled.div`
   width: 30%;
+  margin-left: 100px;
+  align-items: center;
+  justify-content: center;
+  .avatar-change{
+    font-size: 12px;
+    cursor: pointer;
+    color: blue;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const EmailAndAvatar = styled.div`
@@ -98,6 +111,8 @@ const EmailAndAvatar = styled.div`
     font-size: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+  justify-content: center;
     @media ${tabletP}{
       font-size: 16px;
     }
@@ -110,7 +125,9 @@ const EmailAndAvatar = styled.div`
 
 const AvatarPic = styled.div`
     display: flex;
-    width: 50%;
+    width: 100%;
+    align-items: center;
+  justify-content: center;
     p {
       margin-right: 20px;
     }
@@ -216,10 +233,9 @@ const Buttons = styled.div`
 `;
 
 const AvatarContainer = styled.div`
-	width: 60%;
+	width: 100%;
 	height: auto;
 	display: flex;
-	justify-content: flex-end;
 `;
 
 const EditAvatarMenu = styled.div`
@@ -228,7 +244,7 @@ const EditAvatarMenu = styled.div`
   height: 250px;
 	display: flex;
 	flex-direction: column;
-	justify-content: baseline;
+	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
   button {
@@ -264,17 +280,18 @@ const Signature = styled.div`
   }  
 `;
 const FirstName = styled.div `
-  font-size: 20px;
+  font-size: 14px;
   width: 50%;
   display: flex;
   justify-content: flex-start;
+  margin-bottom: 20px;
   flex-wrap: wrap;
   p {
     margin: 0px 0px 7px 0px;
   }  
 `;
 const Email = styled.div`
-  font-size: 20px;
+  font-size: 14px;
   width: 50%;
   display: flex;
   justify-content: flex-start;
@@ -284,7 +301,7 @@ const Email = styled.div`
   }  
 `;
 const Password = styled.div`
-  font-size: 20px;
+  font-size: 14px;
   width: 50%;
   display: flex;
   justify-content: flex-start;
@@ -333,8 +350,8 @@ class Settings extends Component {
               <Avatar height='100px' width='100px' src={avatar} />
             </AvatarPic>
            
-                <p onClick={() => this.toggleForm('avatar-btns')}>
-                  Edit avatar
+                <p className = 'avatar-change' onClick={() => this.toggleForm('avatar-btns')}>
+                  (change)
                 </p>
             
           </EmailAndAvatar>
@@ -348,10 +365,10 @@ class Settings extends Component {
           } */}
           </ProfileSettings>
           <UserProperties onSubmit = {this.handleSubmit}>
-            <FirstName><p> First Name: <input className = 'input-style' name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange}/></p></FirstName>
-            <FirstName><p> Last Name: <input className = 'input-style' name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
+            <FirstName><p> First Name <input className = 'input-style' name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange}/></p></FirstName>
+            <FirstName><p> Last Name <input className = 'input-style' name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
             <Email>
-              <p>Email: {isAuth0 ? <p>{email}</p> : <input className = 'input-style' name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
+              <p>Email {isAuth0 ? <p>{email}</p> : <input className = 'input-style' name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
               
             
               {/* <EmailForm>
@@ -368,8 +385,8 @@ class Settings extends Component {
                 </EmailForm> */}
             </Email>
               <Password>
-                <p>Old Password: <input name = 'oldPassword' className = 'input-style' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
-                <p>New Password: <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
+                <p>Old Password <input name = 'oldPassword' className = 'input-style' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
+                <p>New Password <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
                   {/* <PasswordForm>
                     <button className = 'change email' onClick={() => this.toggleForm('password-form')}>
                         Edit password
@@ -388,6 +405,20 @@ class Settings extends Component {
               toggleForm={this.toggleForm}
               onUploadAvatarSuccess={this.onUploadAvatarSuccess}
             />
+          )}
+          {showForm === 'avatar-btns' && (
+            <AvatarContainer>
+              <EditAvatarMenu>
+                <h1 className = 'changeavatar'>Upload new avatar</h1>
+                <button onClick={() => this.toggleForm('avatar-pc-form')}>
+                  Upload from PC
+                </button>
+                <button onClick={() => this.toggleForm('avatar-url-form')}>
+                  Upload from URL
+                </button>
+                <button onClick={() => this.toggleForm('')}>Cancel</button>
+              </EditAvatarMenu>
+            </AvatarContainer>
           )}
           </UserProperties>
         <AuthOEditForms>
@@ -408,20 +439,7 @@ class Settings extends Component {
           {showForm === 'password-form' && (
             <EditPasswordForm toggleForm={this.toggleForm} />
           )}
-          {showForm === 'avatar-btns' && (
-            <AvatarContainer>
-              <EditAvatarMenu>
-                <h1 className = 'changeavatar'>Upload new avatar</h1>
-                <button onClick={() => this.toggleForm('avatar-pc-form')}>
-                  Upload from PC
-                </button>
-                <button onClick={() => this.toggleForm('avatar-url-form')}>
-                  Upload from URL
-                </button>
-                <button onClick={() => this.toggleForm('')}>Cancel</button>
-              </EditAvatarMenu>
-            </AvatarContainer>
-          )}
+          
           {/* {showForm === 'signature-form' && (
             <EditSignatureForm signature = { signature } toggleForm={this.toggleForm} />
           )} */}
