@@ -201,8 +201,8 @@ class AddCategoryModal extends Component {
             <DivLeft>
               <ImgPreview src={require('../../assets/img/CategoryBook2.png')} alt='icon' />
               <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From List</button>
-              <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From File</button>
-              <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From URL</button>
+              {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From File</button> */}
+              {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From URL</button> */}
             </DivLeft>
             <DivRight>
               <DivName>
