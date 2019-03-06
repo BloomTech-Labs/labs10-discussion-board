@@ -27,9 +27,10 @@ const SearchBox = styled.div`
 	input {
 		background-color: #F7F9FC;
 		border-radius: 35px;
+
 		&:focus {
-    	outline: none;
-  		}
+			outline: none;
+		}
 	}
 
 	.search-by-wrapper {
@@ -107,9 +108,11 @@ const SearchBox = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		padding: 5px;
 
 		select {
 			border-radius: 5px;
+			padding: 5px;
 		}
 	}
 
@@ -121,8 +124,9 @@ const SearchBox = styled.div`
 			color: #ACB1BC;
 			position: absolute;
 			top: 7px;
-  			left: 10px;
+			left: 10px;
 		}
+
 		.search-input {
 			width: 95%;
 			border: none;
@@ -147,7 +151,8 @@ const SearchBox = styled.div`
 		background-color: ${props => props.theme.searchBoxBgColor};
 		color: black;
 		width: 340px;
-		border: 1px solid black;
+		border: 1px solid #bababa;
+		padding: 10px;
 
 		.results-length {
 			text-align: center;
@@ -157,8 +162,8 @@ const SearchBox = styled.div`
 
 // constants
 const categories = 'categories';
-const discussions = 'discussions';
 const posts = 'posts';
+const comments = 'comments';
 const all = 'all';
 const created_at = 'created_at';
 const votes = 'votes';
@@ -244,9 +249,9 @@ class Search extends Component {
 		switch(searchBy) {
 			case categories:
 				return this.searchCategories();
-			case discussions:
-				return this.searchDiscussions();
 			case posts:
+				return this.searchDiscussions();
+			case comments:
 				return this.searchPosts();
 			case all:
 				return this.searchAll();
@@ -278,7 +283,7 @@ class Search extends Component {
 		return(
 			<SearchBox>
 				<div className = 'search-input-wrapper'>
-				<span class="fa fa-search"></span>
+				<span className = 'fa fa-search'></span>
 					<input
 						type = 'text'
 						name = 'searchText'
@@ -315,17 +320,6 @@ class Search extends Component {
 							<span className = 'checkmark' />
 						</label>
 
-						<label className = 'container'>Discussions
-							<input
-								type = 'radio'
-								checked = { searchBy === discussions }
-								name = 'searchBy'
-								value = { discussions }
-								onChange = { this.handleInputChange }
-							/>
-							<span className ='checkmark' />
-						</label>
-
 						<label className = 'container'>Posts
 							<input
 								type = 'radio'
@@ -336,10 +330,21 @@ class Search extends Component {
 							/>
 							<span className ='checkmark' />
 						</label>
+
+						<label className = 'container'>Comments
+							<input
+								type = 'radio'
+								checked = { searchBy === comments }
+								name = 'searchBy'
+								value = { comments }
+								onChange = { this.handleInputChange }
+							/>
+							<span className ='checkmark' />
+						</label>
 					</div>
 
 					<div className = 'order-type-wrapper'>
-						<span>Sort by: </span>
+						<span>Sort by:&nbsp;</span>
 						{
 							searchBy === all ?
 							<span>date created &nbsp;</span> :
@@ -384,7 +389,7 @@ class Search extends Component {
 										searchText = { searchText }
 									/>
 								}
-								if (searchBy === discussions) {
+								if (searchBy === posts) {
 									return <SearchDisResult
 										key = { i }
 										discussion = { result }
@@ -392,7 +397,7 @@ class Search extends Component {
 										searchText = { searchText }
 									/>
 								}
-								if (searchBy === posts) {
+								if (searchBy === comments) {
 									return <SearchPostResult
 										key = { i }
 										post = { result }
@@ -414,7 +419,7 @@ class Search extends Component {
 											/>
 										);
 									}
-									if (result.type === 'discussion') {
+									if (result.type === 'post') {
 										return <SearchDisResult
 											key = { i }
 											discussion = { result.result }
@@ -423,7 +428,7 @@ class Search extends Component {
 											type = { result.type }
 										/>
 									}
-									if (result.type === 'post') {
+									if (result.type === 'comment') {
 										return <SearchPostResult
 											key = { i }
 											post = { result.result }
