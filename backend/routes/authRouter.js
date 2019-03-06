@@ -481,9 +481,8 @@ router.post('/auth0-login', async (req, res) => {
 router.post('/stripe', (req, res, next) => {
   const stripeToken = req.body.data.stripeToken;
   const payment = Number(req.body.data.payment);
-  const subPlan = req.body.description;
-  const email = req.body.email;
-
+  const subPlan = req.body.data.description;
+  const email = req.body.data.email;
 
   (async () => {
     try {
@@ -492,7 +491,8 @@ router.post('/stripe', (req, res, next) => {
         currency: 'usd',
         description: subPlan,
         source: stripeToken,
-        statement_descriptor: subPlan
+        statement_descriptor: subPlan,
+        receipt_email: email
       });
       res.status(201).json([{ charge }]);
     } catch (err) {

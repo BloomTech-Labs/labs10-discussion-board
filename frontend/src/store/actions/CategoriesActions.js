@@ -52,10 +52,10 @@ export const addCategory = (name, historyPush) => dispatch => {
   const headers = { headers: { Authorization: token } };
   const body = { name };
   dispatch({ type: ADD_CATEGORY_LOADING });
-  return axios.post(`${ backendUrl }/categories/${ user_id }`, body, headers)
+  return axios.post(`${backendUrl}/categories/${user_id}`, body, headers)
     .then(res => {
       dispatch({ type: ADD_CATEGORY_SUCCESS });
-      historyPush(`/discussions/category/${ res.data }`)
+      historyPush(`/discussions/category/${res.data}`);
     })
     .catch(err => handleError(err, ADD_CATEGORY_FAILURE)(dispatch));
 };
