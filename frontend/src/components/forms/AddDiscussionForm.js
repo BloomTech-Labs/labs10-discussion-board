@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { addDiscussion, displayError } from '../../store/actions/index.js';
 
 // globals
-import { backendUrl } from '../../globals/globals.js';
+import { backendUrl, tabletP, phoneP } from '../../globals/globals.js';
 
 const AddDiscussionFormWrapper = styled.div`
 	display: flex;
@@ -38,6 +38,12 @@ const AddDiscussionFormBox = styled.form`
 	.body-input, .categories-select {
 		border-radius: 5px;
 		padding: 5px 10px;
+	}
+
+	.body-input {
+		@media ${ tabletP } {
+			width: 20em;
+		}
 	}
 
 	.buttons-wrapper {
