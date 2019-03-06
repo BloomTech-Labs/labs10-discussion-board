@@ -7,7 +7,7 @@ import {phoneP, tabletP, } from '../globals/globals';
 import { isUserType } from '../helpers/index.js';
 
 // action creators
-import { getProfile } from '../store/actions/index.js';
+import { getProfile, editUser, displayError } from '../store/actions/index.js';
 
 // components
 import {
@@ -28,7 +28,9 @@ const SettingsWrapper = styled.div`
   background-color: ${props => props.theme.settingsBgColor};
   box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
-  width: 80%;
+  width: 90%;
+  margin-top: 100px;
+  margin-left: 100px;
   @media (max-width: 960px){
       width: 85%;
   }
@@ -41,9 +43,44 @@ const UsernameSettings = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-
     @media (max-width: 500px){
       font-size: 12px;
+    }
+`;
+
+const UserProperties = styled.form`
+    width: 100%;
+    display:flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    .input-style {
+      margin-left: 1%;
+      border: 1px solid rgb(222,180,200, 0.2);
+      width: 180px;
+      height: 20px;
+    }
+    button {
+      width: 45%;
+      margin: 7px;
+      margin-top: 20px;
+      border-radius: 5px;
+      height: 30px;
+      font-size: 12px;
+      color: white;
+      background-color: ${props => props.theme.settingsButtonBgColor}
+      &:hover {
+        background-color: ${props => props.theme.settingsButtonHov};
+        cursor: pointer;
+      }
+      &:focus {
+        outline: none;
+      }
+      @media (max-width: 960px){
+        font-size: 14px;
+      }
+      @media (max-width: 520px){
+        font-size: 12px;
+      }
     }
 `;
 
@@ -52,10 +89,21 @@ const UserSettings = styled.div`
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 const ProfileSettings = styled.div`
   width: 30%;
+  margin-left: 100px;
+  align-items: center;
+  justify-content: center;
+  .avatar-change{
+    font-size: 12px;
+    cursor: pointer;
+    color: blue;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const EmailAndAvatar = styled.div`
@@ -63,10 +111,11 @@ const EmailAndAvatar = styled.div`
     font-size: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+  justify-content: center;
     @media ${tabletP}{
       font-size: 16px;
     }
-
     @media (max-width: 680px){
       font-size: 18px;
       display: flex;
@@ -76,8 +125,9 @@ const EmailAndAvatar = styled.div`
 
 const AvatarPic = styled.div`
     display: flex;
-    width: 50%;
-
+    width: 100%;
+    align-items: center;
+  justify-content: center;
     p {
       margin-right: 20px;
     }
@@ -97,7 +147,6 @@ const EditButtons = styled.div`
     align-items: center;
     justify-content: center;
     width: 25%;
-
     p {
       margin-bottom: 7px;
     }
@@ -127,6 +176,29 @@ const EmailForm = styled.div`
     }
 `;
 
+const PasswordForm = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .email {
+      width: 100%;
+      margin-bottom: 7px;
+      border-radius: 10px;
+      height: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      &:hover {
+      background-color: ${props => props.theme.settingsButtonHov};
+      cursor: pointer;
+    }
+      &:focus {
+        outline: none;
+    }
+    @media (max-width: 520px){
+      font-size: 12px;
+    }
+    }
+`;
 const Buttons = styled.div`
   width: 100%;
   display: flex;
@@ -140,7 +212,6 @@ const Buttons = styled.div`
     height: 50px;
     font-size: 16px;
     font-weight: bold;
-
     &:hover {
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
@@ -154,9 +225,7 @@ const Buttons = styled.div`
     @media (max-width: 520px){
       font-size: 12px;
     }
-
   }
-
   .delete-btn {
     background-color: ${props => props.theme.settingsDeleteButtonBg};
     color: ${props => props.theme.settingsDeleteButtonColor};
@@ -164,10 +233,9 @@ const Buttons = styled.div`
 `;
 
 const AvatarContainer = styled.div`
-	width: 60%;
+	width: 100%;
 	height: auto;
 	display: flex;
-	justify-content: flex-end;
 `;
 
 const EditAvatarMenu = styled.div`
@@ -176,17 +244,15 @@ const EditAvatarMenu = styled.div`
   height: 250px;
 	display: flex;
 	flex-direction: column;
-	justify-content: baseline;
+	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
-
   button {
           margin: 7px;
           border-radius: 10px;
           width: 200px;
           height: 30px;
           font-size: 16px;
-
           &:hover {
             background-color: ${props => props.theme.settingsEditAvatarButtonBgHov};
             cursor: pointer;
@@ -209,23 +275,71 @@ const Signature = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-
   p {
     margin: 0px 0px 7px 0px;
   }  
 `;
-
+const FirstName = styled.div `
+  font-size: 14px;
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  p {
+    margin: 0px 0px 7px 0px;
+  }  
+`;
+const Email = styled.div`
+  font-size: 14px;
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  p {
+    margin: 0px 0px 7px 0px;
+  }  
+`;
+const Password = styled.div`
+  font-size: 14px;
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  p {
+    margin: 0px 0px 7px 0px;
+  }  
+`;
 class Settings extends Component {
-  state = { showForm: '', showDeleteModal: '' };
+  state = { showForm: '',
+            showDeleteModal: '',
+            firstName: '',
+            lastName: '', 
+            email: '',
+            oldPassword: '',
+            newPassword: '',};
+
   getProfile = () => this.props.getProfile(this.props.match.params.id);
   toggleForm = formName => this.setState({ showForm: formName });
   toggleDeleteModal = () => this.setState({ showDeleteModal: !this.state.showDeleteModal });
   onUploadAvatarSuccess = () => this.setState({ showForm: '' }, () => this.getProfile());
-  componentDidMount = () => this.getProfile();
+  componentDidMount = () => this.getProfile().then(() => this.setState({ 
+    firstName: this.props.profile.username.split(' ')[0],
+    lastName: this.props.profile.username.split(' ')[1],
+    email: this.props.profile.email,
+}));
+  handleInputChange = e => this.setState({[e.target.name]: e.target.value})
+  handleSubmit = e => {
+    e.preventDefault()
+    const {firstName, lastName, email, oldPassword, newPassword} = this.state
+    const username = firstName + ' ' + lastName;
+    this.props.editUser(username, email, oldPassword, newPassword).then(() => this.getProfile())
+  }
   render() {
     const { showForm, showDeleteModal } = this.state;
     const { profile, user_type, signature } = this.props;
-    const { username, email, avatar, isAuth0, email_confirm } = profile;
+    const { username, email, avatar, isAuth0, email_confirm, password } = profile;
+    const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
         <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
@@ -235,54 +349,62 @@ class Settings extends Component {
           <AvatarPic>
               <Avatar height='100px' width='100px' src={avatar} />
             </AvatarPic>
-            <p>Email: {email || 'N/A'}</p>
-            { (email && !isAuth0) && <p>{ email_confirm === 'true' ? 'E-mail confirmed!' : 'Email NOT confirmed.' }</p> }
+           
+                <p className = 'avatar-change' onClick={() => this.toggleForm('avatar-btns')}>
+                  (change)
+                </p>
+            
           </EmailAndAvatar>
-          {
+          
+          {/* {
             signature !== null &&
             <Signature>
               <p>Signature:</p>
               <p className = 'signature-text'>{ signature || 'none' }</p>
             </Signature>
-          }
+          } */}
           </ProfileSettings>
-        <AuthOEditForms>
-            <EditButtons>
-              <EmailForm>
-              {
-                isAuth0 ?
-                <p>You are Auth0. You cannot change your email.</p>
-                :
-                email ?
-                <button className = 'change email' onClick = { () => this.toggleForm('email-form') }>Edit email</button>
-                :
-                <button className = 'set email' onClick = { () => this.toggleForm('email-form') }>Set email</button>
-                
-              }
-              </EmailForm>
-              <Buttons>
-                <button onClick={() => this.toggleForm('password-form')}>
-                  Edit password
-                </button>
-              {
-                isUserType(user_type, ['gold_member', 'admin']) &&
-                <button onClick={() => this.toggleForm('avatar-btns')}>
-                  Edit avatar
-                </button>
-              }
-              {
-                isUserType(user_type, ['silver_member', 'gold_member', 'admin']) &&
-                <button onClick={() => this.toggleForm('signature-form')}>
-                  Edit signature
-                </button>
-              }
-              <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
-                Delete account
-              </button>
-            </Buttons>
-          </EditButtons>
-          {showForm === 'password-form' && (
-            <EditPasswordForm toggleForm={this.toggleForm} />
+          <UserProperties onSubmit = {this.handleSubmit}>
+            <FirstName><p> First Name <input className = 'input-style' name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange}/></p></FirstName>
+            <FirstName><p> Last Name <input className = 'input-style' name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
+            <Email>
+              <p>Email {isAuth0 ? <p>{email}</p> : <input className = 'input-style' name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
+              
+            
+              {/* <EmailForm>
+                {
+                  isAuth0 ?
+                  <p>You are Auth0. You cannot change your email.</p>
+                  :
+                  email ?
+                  <button className = 'change email' onClick = { () => this.toggleForm('email-form') }>Edit email</button>
+                  :
+                  <button className = 'set email' onClick = { () => this.toggleForm('email-form') }>Set email</button>
+                  
+                }
+                </EmailForm> */}
+            </Email>
+              <Password>
+                <p>Old Password <input name = 'oldPassword' className = 'input-style' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
+                <p>New Password <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
+                  {/* <PasswordForm>
+                    <button className = 'change email' onClick={() => this.toggleForm('password-form')}>
+                        Edit password
+                    </button>
+                  </PasswordForm> */}
+              </Password>
+              <button type = 'submit' >Save settings</button>
+              {showForm === 'avatar-pc-form' && (
+            <EditAvatarForm
+              toggleForm={this.toggleForm}
+              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+            />
+          )}
+          {showForm === 'avatar-url-form' && (
+            <EditAvatarUrlForm
+              toggleForm={this.toggleForm}
+              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+            />
           )}
           {showForm === 'avatar-btns' && (
             <AvatarContainer>
@@ -298,21 +420,30 @@ class Settings extends Component {
               </EditAvatarMenu>
             </AvatarContainer>
           )}
-          {showForm === 'signature-form' && (
+          </UserProperties>
+        <AuthOEditForms>
+            <EditButtons>
+              
+              <Buttons>
+              {
+                // isUserType(user_type, ['silver_member', 'gold_member', 'admin']) &&
+                // <button onClick={() => this.toggleForm('signature-form')}>
+                //   Edit signature
+                // </button>
+              }
+              <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
+                Delete account
+              </button>
+            </Buttons>
+          </EditButtons>
+          {showForm === 'password-form' && (
+            <EditPasswordForm toggleForm={this.toggleForm} />
+          )}
+          
+          {/* {showForm === 'signature-form' && (
             <EditSignatureForm signature = { signature } toggleForm={this.toggleForm} />
-          )}
-          {showForm === 'avatar-pc-form' && (
-            <EditAvatarForm
-              toggleForm={this.toggleForm}
-              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-            />
-          )}
-          {showForm === 'avatar-url-form' && (
-            <EditAvatarUrlForm
-              toggleForm={this.toggleForm}
-              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-            />
-          )}
+          )} */}
+          
           {showForm === 'email-form' && (
             <UpdateEmailForm
               toggleForm={this.toggleForm}
@@ -328,14 +459,12 @@ class Settings extends Component {
     );
   }
 }
-
 const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData[0],
   user_type: state.users.user_type,
   signature: state.users.signature,
 });
-
 export default connect(
   mapStateToProps,
-  { getProfile }
+  { getProfile, editUser }
 )(Settings);

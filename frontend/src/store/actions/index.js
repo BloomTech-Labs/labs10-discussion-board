@@ -148,6 +148,10 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
 
+  EDIT_USER_LOADING,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAILURE,
+  
   PASSWORD_UPDATE_LOADING,
   PASSWORD_UPDATE_SUCCESS,
   PASSWORD_UPDATE_FAILURE,
@@ -235,6 +239,7 @@ import {
   getNotifications,
   markNotificationsAsRead,
   editSignature,
+  editUser,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -322,6 +327,10 @@ export {
   USER_REGISTER_LOADING,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
+
+  EDIT_USER_LOADING,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAILURE,
 
   PASSWORD_UPDATE_LOADING,
   PASSWORD_UPDATE_SUCCESS,
@@ -454,6 +463,7 @@ export {
   getNotifications,
   markNotificationsAsRead,
   editSignature,
+  editUser,
 
   // Profile Action Creators
   getProfiles,

@@ -12,6 +12,8 @@ const TitleAndLogoContainer = styled.div`
   justify-content: center;
   margin-top: 110px;
   margin-bottom: 10px;
+  display: none;
+
   @media ${tabletP}{
     
   }

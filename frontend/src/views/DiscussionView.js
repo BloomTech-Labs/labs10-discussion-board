@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 // components
-import { Discussion, Follow } from '../components/index.js';
+import { Discussion} from '../components/index.js';
 
 const DiscussionViewWrapper = styled.div`
-	width: 90%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 `;
 
 const DiscussionView = ({ history, match, scrollTo }) => {
@@ -13,7 +15,6 @@ const DiscussionView = ({ history, match, scrollTo }) => {
 	const historyPush = history.push;
 	return(
 		<DiscussionViewWrapper>
-			<Follow discussion_id = {id} historyPush = { historyPush }/>
 			<Discussion id = { id } scrollTo = {scrollTo} historyPush = { historyPush } history = { history } />
 		</DiscussionViewWrapper>
 	);

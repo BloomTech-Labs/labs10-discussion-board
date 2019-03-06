@@ -14,6 +14,7 @@ const ViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
   width: 740px;
   border-radius: 30px;
+  margin-right: 30%;
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
@@ -107,18 +108,18 @@ const HotDiscussionsView = () => {
 		<HotDiscussionsViewWrapper>
 			<HotDiscussionsHeader>
 				<div className='logotopd'>
-				<HotDiscussionsImage src={Discuss} alt='Hot discussions' />
+				{/* <HotDiscussionsImage src={Discuss} alt='Hot discussions' /> */}
 				<HotDiscussionsTitle>
 					<h1 className ='toptitle'>Hot Discussions</h1>
 				</HotDiscussionsTitle>
 				</div>
-				<TextLooper>
+				{/* <TextLooper>
 				<TextLoop className = 'looptext'>
 					<span className = 'looptext'>See what's being discussed</span>
 					<span className = 'looptext'>Find your interests</span>
 					<span className = 'looptext'>Start talking!</span>
 				</TextLoop>{' '}
-				</TextLooper>
+				</TextLooper> */}
 			</HotDiscussionsHeader>
 			<hr />
 			<HotDiscussions />
