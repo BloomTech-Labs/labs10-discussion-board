@@ -30,6 +30,7 @@ const SettingsWrapper = styled.div`
   border-radius: 30px;
   width: 80%;
   margin-top: 100px;
+  margin-left: 100px;
   @media (max-width: 960px){
       width: 85%;
   }
@@ -53,11 +54,13 @@ const UserProperties = styled.form`
     flex-wrap: wrap;
     .input-style {
       margin-left: 1%;
+      border: 1px solid rgb(222,249,254);
     }
     button {
-      width: 100%;
+      width: 40%;
       margin: 7px;
-      border-radius: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
       height: 50px;
       font-size: 16px;
       font-weight: bold;
@@ -349,7 +352,7 @@ class Settings extends Component {
             <FirstName><p> Last Name: <input className = 'input-style' name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
             <Email>
               <p>Email: {isAuth0 ? <p>{email}</p> : <input className = 'input-style' name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
-              <button type = 'submit' >submit</button>
+              
             
               {/* <EmailForm>
                 {
@@ -373,6 +376,19 @@ class Settings extends Component {
                     </button>
                   </PasswordForm> */}
               </Password>
+              <button type = 'submit' >Save settings</button>
+              {showForm === 'avatar-pc-form' && (
+            <EditAvatarForm
+              toggleForm={this.toggleForm}
+              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+            />
+          )}
+          {showForm === 'avatar-url-form' && (
+            <EditAvatarUrlForm
+              toggleForm={this.toggleForm}
+              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+            />
+          )}
           </UserProperties>
         <AuthOEditForms>
             <EditButtons>
@@ -409,18 +425,7 @@ class Settings extends Component {
           {showForm === 'signature-form' && (
             <EditSignatureForm signature = { signature } toggleForm={this.toggleForm} />
           )}
-          {showForm === 'avatar-pc-form' && (
-            <EditAvatarForm
-              toggleForm={this.toggleForm}
-              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-            />
-          )}
-          {showForm === 'avatar-url-form' && (
-            <EditAvatarUrlForm
-              toggleForm={this.toggleForm}
-              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-            />
-          )}
+          
           {showForm === 'email-form' && (
             <UpdateEmailForm
               toggleForm={this.toggleForm}
