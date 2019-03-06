@@ -12,6 +12,9 @@ const DiscussionWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
+	justify-content: flex-start;
+	width: 100%;
+	margin-bottom: 20px;
 
 	@media ${ tabletP } {
 		background-color: red;
@@ -22,16 +25,32 @@ const DiscussionWrapper = styled.div`
 	}
 `;
 
-const BodyWrapper = styled.p``;
+const BodyWrapper = styled.p`
+	text-align: justify;
+`;
 
 const InfoWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
+	font-size: 0.8rem;
+	color: #a7a7a7;
+
+	.fa-circle {
+		font-size: 0.4rem;
+		margin-top: 7px;
+		margin-left: 4px;
+		margin-right: 4px;
+	}
+
+	.category-name {
+		margin-left: 5px;
+	}
 `;
 
 const UsernameWrapper = styled.span`
-	margin-right: 30px;
+	margin-right: 20px;
+	color: black;
 `;
 
 const VotesWrapper = styled.div`
@@ -68,15 +87,16 @@ const DiscussionByFollowedCats = ({ discussion }) => {
 					width = '20px'
 					src = { avatar }
 				/>
+				&nbsp;
 				<UsernameWrapper>{ username }</UsernameWrapper>
 				<VotesWrapper>
 					<i className = 'fas fa-arrow-alt-circle-up' />
-					<span>{ upvotes }</span>
+					<span>{ upvotes || 0 }</span>
 					<i className = 'fas fa-arrow-alt-circle-down' />
-					<span>{ downvotes }</span>
+					<span>{ downvotes || 0 }</span>
 				</VotesWrapper>
 				<i className = { category_icon } />
-				<span>{ category_name }</span>
+				<span className = 'category-name'>{ category_name }</span>
 				<i className = 'fas fa-circle' />
 				<span>{moment(new Date(Number(created_at))).fromNow()}</span>
 				<i className = 'fas fa-circle' />

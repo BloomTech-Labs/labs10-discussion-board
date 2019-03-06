@@ -131,8 +131,8 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <Logo />
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
+            {/* <Logo /> */}
             <Route exact path='/' component={HotDiscussionsView} />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />
@@ -154,8 +154,8 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <Logo />
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
+            {/* <Logo /> */}
             <Switch>
               <Route path='/register' component={RegisterView} />
               <Route path='/request-reset-pw' component={RequestResetPWForm} />
