@@ -30,7 +30,6 @@ const SettingsWrapper = styled.div`
   border-radius: 30px;
   width: 90%;
   margin-top: 100px;
-  margin-left: 100px;
   @media (max-width: 960px){
       width: 85%;
   }
@@ -52,12 +51,28 @@ const UserProperties = styled.form`
     width: 100%;
     display:flex;
     flex-wrap: wrap;
-    margin-left: 10px;
     .input-style {
+      margin-top: 5px;
       margin-left: 1%;
       border: 1px solid rgb(222,180,200, 0.2);
       width: 180px;
       height: 20px;
+    }
+    .delete-btn {
+      background-color: ${props => props.theme.settingsDeleteButtonBg};
+      color: ${props => props.theme.settingsDeleteButtonColor};
+      &:hover {
+        background-color: ${props => props.theme.settingsDeleteButtonBgHov};
+        cursor: pointer;
+      }
+    }
+    .save-settings {
+      background-color: ${props => props.theme.settingsButtonBgColor};
+      color: ${props => props.theme.settingsDeleteButtonColor};
+      &:hover {
+        background-color: ${props => props.theme.settingsButtonHov};
+        cursor: pointer;
+      }
     }
     button {
       width: 45%;
@@ -67,11 +82,8 @@ const UserProperties = styled.form`
       height: 30px;
       font-size: 12px;
       color: white;
-      background-color: ${props => props.theme.settingsButtonBgColor}
-      &:hover {
-        background-color: ${props => props.theme.settingsButtonHov};
-        cursor: pointer;
-      }
+      justify-content: center;
+      align-items: center;
       &:focus {
         outline: none;
       }
@@ -133,12 +145,12 @@ const AvatarPic = styled.div`
     }
 `;
 
-const AuthOEditForms = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    width: 70%;
-    padding-bottom: 10px;
-`;
+// const AuthOEditForms = styled.div`
+//     display: flex;
+//     justify-content: flex-end;
+//     width: 70%;
+//     padding-bottom: 10px;
+// `;
 
 const EditButtons = styled.div`
     display: flex;
@@ -226,10 +238,6 @@ const Buttons = styled.div`
       font-size: 12px;
     }
   }
-  .delete-btn {
-    background-color: ${props => props.theme.settingsDeleteButtonBg};
-    color: ${props => props.theme.settingsDeleteButtonColor};
-  }
 `;
 
 const AvatarContainer = styled.div`
@@ -240,7 +248,7 @@ const AvatarContainer = styled.div`
 
 const EditAvatarMenu = styled.div`
   background-color: #54BDFF;
-  width: 90%;
+  width: 95%;
   height: 250px;
 	display: flex;
 	flex-direction: column;
@@ -284,7 +292,7 @@ const FirstName = styled.div `
   width: 50%;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
   p {
     margin: 0px 0px 7px 0px;
@@ -342,12 +350,12 @@ class Settings extends Component {
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
-        <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
+        {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
         <UserSettings>
           <ProfileSettings>
           <EmailAndAvatar>
           <AvatarPic>
-              <Avatar height='100px' width='100px' src={avatar} />
+              <Avatar height='150px' width='150px' src={avatar} />
             </AvatarPic>
            
                 <p className = 'avatar-change' onClick={() => this.toggleForm('avatar-btns')}>
@@ -393,7 +401,10 @@ class Settings extends Component {
                     </button>
                   </PasswordForm> */}
               </Password>
-              <button type = 'submit' >Save settings</button>
+              <button className = 'save-settings' type = 'submit' >Save settings</button>
+              <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
+                Delete account
+              </button>
               {showForm === 'avatar-pc-form' && (
             <EditAvatarForm
               toggleForm={this.toggleForm}
@@ -421,7 +432,7 @@ class Settings extends Component {
             </AvatarContainer>
           )}
           </UserProperties>
-        <AuthOEditForms>
+        {/* <AuthOEditForms>
             <EditButtons>
               
               <Buttons>
@@ -431,18 +442,16 @@ class Settings extends Component {
                 //   Edit signature
                 // </button>
               }
-              <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
-                Delete account
-              </button>
+              
             </Buttons>
           </EditButtons>
           {showForm === 'password-form' && (
             <EditPasswordForm toggleForm={this.toggleForm} />
           )}
           
-          {/* {showForm === 'signature-form' && (
+          {showForm === 'signature-form' && (
             <EditSignatureForm signature = { signature } toggleForm={this.toggleForm} />
-          )} */}
+          )}
           
           {showForm === 'email-form' && (
             <UpdateEmailForm
@@ -453,7 +462,7 @@ class Settings extends Component {
           {showDeleteModal && (
             <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
           )}
-        </AuthOEditForms>
+        </AuthOEditForms> */}
         </UserSettings>
       </SettingsWrapper>
     );
