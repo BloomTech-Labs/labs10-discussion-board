@@ -16,9 +16,8 @@ const StyledHeader = styled.div`
   top: 0;
   margin-left: auto;
   margin-right: auto;
-  background-color: grey;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  background-color: white;
+  border: 5px solid ${props => props.theme.borderColor};
 
   @media(max-width: 750px){
     width: 100%;

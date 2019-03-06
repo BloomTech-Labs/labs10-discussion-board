@@ -64,15 +64,6 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-
-const ButtonContainer = styled.div`
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 110px;
-`;
-
-
 class App extends Component {
   constructor(props) {
     super(props);
