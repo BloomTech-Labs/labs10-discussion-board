@@ -30,8 +30,10 @@ const SettingsWrapper = styled.div`
   border-radius: 30px;
   width: 90%;
   margin-top: 100px;
-  @media (max-width: 960px){
-      width: 85%;
+  @media ${tabletP}{
+    display: flex;
+    flex-directon: column;      
+
   }
   @media (max-width: 520px){
       width: 85%;
@@ -57,6 +59,10 @@ const UserProperties = styled.form`
       border: 1px solid rgb(222,180,200, 0.2);
       width: 180px;
       height: 20px;
+      @media ${tabletP}{
+        display: flex;
+        flex-wrap: wrap;      
+      }
     }
     .delete-btn {
       background-color: ${props => props.theme.settingsDeleteButtonBg};
@@ -81,7 +87,7 @@ const UserProperties = styled.form`
       border-radius: 5px;
       height: 30px;
       font-size: 12px;
-      color: white;
+      color: black;
       justify-content: center;
       align-items: center;
       &:focus {
@@ -131,7 +137,7 @@ const EmailAndAvatar = styled.div`
     @media (max-width: 680px){
       font-size: 18px;
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
     }
 `;
 
@@ -297,6 +303,10 @@ const FirstName = styled.div `
   p {
     margin: 0px 0px 7px 0px;
   }  
+  @media ${tabletP}{
+    display: flex;
+    flex-wrap: wrap;      
+  }
 `;
 const Email = styled.div`
   font-size: 14px;
@@ -307,6 +317,10 @@ const Email = styled.div`
   p {
     margin: 0px 0px 7px 0px;
   }  
+  @media ${tabletP}{
+    display: flex;
+    flex-wrap: wrap;      
+  }
 `;
 const Password = styled.div`
   font-size: 14px;
@@ -317,6 +331,10 @@ const Password = styled.div`
   p {
     margin: 0px 0px 7px 0px;
   }  
+  @media ${tabletP}{
+    display: flex;
+    flex-wrap: wrap;      
+  }
 `;
 class Settings extends Component {
   state = { showForm: '',
@@ -402,9 +420,12 @@ class Settings extends Component {
                   </PasswordForm> */}
               </Password>
               <button className = 'save-settings' type = 'submit' >Save settings</button>
-              <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
+              <button className = 'delete-btn' type = 'button' onClick={ this.toggleDeleteModal }>
                 Delete account
               </button>
+              {showDeleteModal && (
+                <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
+                )}
               {showForm === 'avatar-pc-form' && (
             <EditAvatarForm
               toggleForm={this.toggleForm}
@@ -459,9 +480,7 @@ class Settings extends Component {
               history = { this.props.history }
             />
           )}
-          {showDeleteModal && (
-            <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
-          )}
+          
         </AuthOEditForms> */}
         </UserSettings>
       </SettingsWrapper>
