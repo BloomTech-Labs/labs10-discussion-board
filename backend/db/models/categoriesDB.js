@@ -19,6 +19,19 @@ const getCategories = (order, orderType) => {
         .orderBy(`${ order ? order : 'name' }`, `${ orderType ? orderType : 'asc' }`);
 };
 
+const getFollowedCategoryNames = user_id => {
+    const categoryFollowsQuery = db('category_follows')
+        .select('category_id')
+        .where({ user_id });
+
+    return db('categories as c')
+        .select('c.id', 'c.name')
+        .join(categoryFollowsQuery.as('cf'), function() {
+            this.on('cf.category_id', '=', 'c.id');
+        })
+        .orderBy('c.id');
+};
+
 // get category by name
 const getCategoryByName = name => {
     return db('categories')
@@ -70,6 +83,7 @@ const search = (searchText, order, orderType) => {
 module.exports = {
     getCategories,
     getCategoryByName,
+    getFollowedCategoryNames,
     findById,
     search,
     insert,
