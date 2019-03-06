@@ -57,10 +57,11 @@ const DivBody = styled.div`
 
 const DivSideNav = styled.div`
   display: flex;
-  min-width: 200px;
+  min-width: 300px;
   min-height: 100%;
   position: fixed;
   z-index: 9801;
+  border-right: 5px solid rgb(243, 245, 248);
 `;
 
 const DivPage = styled.div`
@@ -71,7 +72,7 @@ const DivPage = styled.div`
   width: 100%;
   min-height: 100%;
   position: relative;
-  margin: 0 0 40px 200px;
+  margin: 0 0 40px 300px;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -195,7 +196,7 @@ class App extends Component {
             {/* <Logo /> */}
             <DivBody>
               <DivSideNav>
-                <SideNav />
+                {/* <SideNav /> */}
               </DivSideNav>
               <DivPage>
                 <Switch>
