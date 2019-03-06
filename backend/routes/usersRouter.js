@@ -222,17 +222,30 @@ router.get('/search-all', (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to searchAll(): ${err}` }));
 });
 
-// Updates a user
-router.put('/user/:id', (req, res, next) => {
-  const { id } = req.params;
-  const { username, password, email, status } = req.body;
-  const newUser = { username, password, email, status };
+// updates a user
+router.put('/user/:user_id', (req, res) => {
+  const { user_id } = req.params;
+  const { username, oldPassword, newPassword, email, status } = req.body;
+  if (!oldPassword || oldPassword === '') {
+    return res.status(400).json({ error: 'Old password must not be empty.' });
+  }
+  if (!newPassword || newPassword === '') {
+    return res.status(400).json({ error: 'New password must not be empty.' });
+  }
   return usersDB
-    .update(id, newUser)
-    .then(user => res.status(200).json(user))
-    .catch(err =>
-      res.status(500).json({ error: `Failed to update(): ${err}` })
-    );
+    .getPassword(user_id)
+    .then(currentPW => {
+      if (currentPW && bcrypt.compareSync(oldPassword, currentPW.password)) {
+        const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
+        const newUser = { username, password:newHashedPassword, email, status};
+        return usersDB
+          .update(user_id, newUser)
+          .then(() => res.status(201).json({ message: 'User update succesful.' }))
+          .catch(err => res.status(400).json({ error: `Failed to update(): ${err}` }));
+      }
+      return res.status(400).json({ error: 'Old password is wrong.' });
+    })
+    .catch(err => res.status(500).json({ error: `Failed to getPassword(): ${err}` }));
 });
 
 // Update the password of a user given their ID

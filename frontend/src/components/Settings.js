@@ -7,7 +7,7 @@ import {phoneP, tabletP, } from '../globals/globals';
 import { isUserType } from '../helpers/index.js';
 
 // action creators
-import { getProfile } from '../store/actions/index.js';
+import { getProfile, editUser, displayError } from '../store/actions/index.js';
 
 // components
 import {
@@ -48,7 +48,7 @@ const UsernameSettings = styled.div`
     }
 `;
 
-const UserProperties = styled.div`
+const UserProperties = styled.form`
     width: 100%;
     display:flex;
     flex-wrap: wrap;
@@ -279,16 +279,35 @@ const Password = styled.div`
   }  
 `;
 class Settings extends Component {
-  state = { showForm: '', showDeleteModal: '' };
+  state = { showForm: '',
+            showDeleteModal: '',
+            firstName: '',
+            lastName: '', 
+            email: '',
+            oldPassword: '',
+            newPassword: '',};
+
   getProfile = () => this.props.getProfile(this.props.match.params.id);
   toggleForm = formName => this.setState({ showForm: formName });
   toggleDeleteModal = () => this.setState({ showDeleteModal: !this.state.showDeleteModal });
   onUploadAvatarSuccess = () => this.setState({ showForm: '' }, () => this.getProfile());
-  componentDidMount = () => this.getProfile();
+  componentDidMount = () => this.getProfile().then(() => this.setState({ 
+    firstName: this.props.profile.username.split(' ')[0],
+    lastName: this.props.profile.username.split(' ')[1],
+    email: this.props.profile.email,
+}));
+  handleInputChange = e => this.setState({[e.target.name]: e.target.value})
+  handleSubmit = e => {
+    e.preventDefault()
+    const {firstName, lastName, email, oldPassword, newPassword} = this.state
+    const username = firstName + ' ' + lastName;
+    this.props.editUser(username, email, oldPassword, newPassword).then(() => this.getProfile())
+  }
   render() {
     const { showForm, showDeleteModal } = this.state;
     const { profile, user_type, signature } = this.props;
-    const { username, email, avatar, isAuth0, email_confirm } = profile;
+    const { username, email, avatar, isAuth0, email_confirm, password } = profile;
+    const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
         <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
@@ -314,13 +333,14 @@ class Settings extends Component {
             </Signature>
           } */}
           </ProfileSettings>
-          <UserProperties>
-            <FirstName><p> First Name</p></FirstName>
-            <FirstName><p> Last Name</p></FirstName>
+          <UserProperties onSubmit = {this.handleSubmit}>
+            <FirstName><p> First Name: <input name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange} /></p></FirstName>
+            <FirstName><p> Last Name: <input name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
             <Email>
-            <p>Email: {email || 'N/A'}</p>
+              <p>Email: {isAuth0 ? <p>{email}</p> : <input name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
+              <button type = 'submit' >submit</button>
             
-              <EmailForm>
+              {/* <EmailForm>
                 {
                   isAuth0 ?
                   <p>You are Auth0. You cannot change your email.</p>
@@ -331,15 +351,16 @@ class Settings extends Component {
                   <button className = 'set email' onClick = { () => this.toggleForm('email-form') }>Set email</button>
                   
                 }
-                </EmailForm>
+                </EmailForm> */}
             </Email>
               <Password>
-                <p>Password: </p>
-                  <PasswordForm>
+                <p>Old Password: <input name = 'oldPassword' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
+                <p>New Password: <input name = 'newPassword' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
+                  {/* <PasswordForm>
                     <button className = 'change email' onClick={() => this.toggleForm('password-form')}>
                         Edit password
                     </button>
-                  </PasswordForm>
+                  </PasswordForm> */}
               </Password>
           </UserProperties>
         <AuthOEditForms>
@@ -413,5 +434,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfile }
+  { getProfile, editUser }
 )(Settings);

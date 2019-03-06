@@ -249,10 +249,10 @@ const updateSignature = (user_id, signature) => {
     .update({ signature }, ['signature']); // update the signature, returning the updated signature
 };
 
-//Update a user
+// update a user
 const update = (id, user) => {
   return db('users')
-    .where('id', Number(id))
+    .where({ id })
     .update(user);
 };
 

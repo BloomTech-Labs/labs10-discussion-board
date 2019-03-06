@@ -5,7 +5,7 @@ const AvatarWrapper = styled.div`
   display: inline-block;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  margin: 0 auto;
+  
   background-image: ${({ src }) => `url('${src}')`};
   background-size: cover;
   background-repeat: no-repeat;

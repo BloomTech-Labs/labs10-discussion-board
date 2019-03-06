@@ -1,5 +1,7 @@
 import CategoriesList from './CategoriesList.js';
-import Categories from './Categories.js';
+import Categories from './categories/Categories.js';
+import CategoriesNav from './categories/CategoriesNav.js';
+import Category from './categories/Category.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
@@ -59,6 +61,8 @@ export {
   Auth,
   CategoriesList,
   Categories,
+  CategoriesNav,
+  Category,
   Discussion,
   DiscussionsByCat,
   DiscussionsByCats,

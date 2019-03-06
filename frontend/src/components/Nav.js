@@ -104,12 +104,6 @@ const ButtonContainer = styled.div`
     }
 
   button {
-<<<<<<< HEAD
-    width: 100%;
-    font-size: 14px;
-    border-radius: 7px;
-    margin-top: 12px;
-=======
   width: 100%;
   font-size: 14px;
   border-radius: 7px;
@@ -123,7 +117,6 @@ const ButtonContainer = styled.div`
     outline: none;
   }
 
->>>>>>> f9931e8f1da05a386739a040250d923450584571
 
     &:hover {
       cursor: pointer;

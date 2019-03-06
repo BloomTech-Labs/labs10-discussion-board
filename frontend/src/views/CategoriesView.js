@@ -1,88 +1,92 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { CategoriesList } from '../components/index.js';
-import {phoneP, tabletP, } from '../globals/globals';
+
+// actions
+import { getCategories } from '../store/actions/index.js';
+
+// globals
+import { phoneP, tabletP, tabletL } from '../globals/globals';
 
 // components
-import { AddCategoryForm } from '../components/index.js';
+import { AddCategoryForm, Categories, CategoriesNav } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
-  width: 700px;
-  background-color: ${props => props.theme.catViewWrapperBgColor};
-  @media ${tabletP}{
-    display: flex;
-    flex-direction: column;
-    width: 380px;
-    @media${phoneP}{
-      display: flex;
-      flex-direction: column;
-      width: 240px;
-    }
-  }
-  .cat-header{
-    color: ${props => props.theme.catViewWrapperHeaderColor};
-  }
-  .header {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  hr {
-    border-color: black;
-    margin-bottom: 5px;
-  }
-  .link {
-    font-weight: bold;
-    width: 5%;
-    font-size: 40px;
-    display: flex;
-    margin: 20px 0 0 20px;
-    align-items: center;
-    text-decoration: none;
-    color: black;
-    &:hover {
-      cursor: pointer;
-      color: black;
-      text-decoration: underline;
-    }
-  }
+  width: 1024px;
 `;
 
+const H1Categories = styled.h1`
+  user-select: none;
+  width: 100%;
+  text-align: center;
+`;
+
+const DivCategoriesComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 3px solid black;
+  background: rgba(84, 189, 255, 0.3);
+  border-radius: 10px;
+`;
+
+
+
 class CategoriesView extends Component {
-  state = { showAddForm: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAddForm: false,
+      order: 'name', // possible values: 'name', 'discussion_count', 'created_at'
+      orderType: '', // possible values: 'asc', 'desc'
+    };
+  }
+
+  componentDidMount = () => this.props.getCategories(this.state.order, this.state.orderType);
+
   toggleAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
+
+  sortHandler = ev => {
+    ev.preventDefault();
+    return Promise.resolve(this.setState({ [ev.target.name]: ev.target.value })).then(() => {
+      this.props.getCategories(this.state.order, this.state.orderType);
+    });
+  }
+
   render() {
+    console.log('props', this.props);
     const { showAddForm } = this.state;
     const { history, user_id } = this.props;
     return (
       <CategoriesWrapper>
-        <div className='header'>
-          {/* <Link className='link c-link' to='/profiles'>
-            Profiles
-          </Link> */}
-          <h1 className = 'cat-header'> Categories </h1>
-          {
-            user_id !== 0 &&
-            (
-              showAddForm ?
-              <AddCategoryForm
-                toggleAddForm = { this.toggleAddForm }
-                historyPush = { history.push }
-              /> :
-              <button onClick = { this.toggleAddForm }>Add a category</button>
-            )
-          }
-        </div>
-        <hr />
-        <CategoriesList />
+        <H1Categories className='cat-header'>Categories</H1Categories>
+        {user_id && showAddForm ? (
+          <AddCategoryForm
+            toggleAddForm={this.toggleAddForm}
+            historyPush={history.push}
+          />
+        ) : (
+            <DivCategoriesComponent>
+              <CategoriesNav
+                toggleAddForm={this.toggleAddForm}
+                sortHandler={this.sortHandler}
+                order={this.order}
+                orderType={this.orderType}
+                user_id={user_id}
+              />
+              <Categories categories={this.props.categories} />
+            </DivCategoriesComponent>
+          )}
       </CategoriesWrapper>
     );
   }
-};
-
+}
+// <CategoriesList />
 const mapStateToProps = state => ({
   user_id: state.users.user_id,
+  categories: state.categories.categories,
 });
 
-export default connect(mapStateToProps, {})(CategoriesView);
+export default connect(
+  mapStateToProps,
+  { getCategories }
+)(CategoriesView);

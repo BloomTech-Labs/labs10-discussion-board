@@ -108,6 +108,10 @@ export const EDIT_SIGNATURE_LOADING = 'EDIT_SIGNATURE_LOADING';
 export const EDIT_SIGNATURE_SUCCESS = 'EDIT_SIGNATURE_SUCCESS';
 export const EDIT_SIGNATURE_FAILURE = 'EDIT_SIGNATURE_FAILURE';
 
+export const EDIT_USER_LOADING = 'EDIT_USER_LOADING';
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -231,7 +235,7 @@ export const updatePassword = (oldPassword, newPassword, toggleForm) => dispatch
   // prettier-ignore
   return axios
     .put(`${backendUrl}/users/password/${user_id}`, body, headers)
-    .then(() => displayMessage('Password has been updated.', PASSWORD_UPDATE_SUCCESS)(dispatch))
+    .then(() => displayMessage('Password has been updated.')(dispatch))
     .then(() => toggleForm(''))
     .catch(err => handleError(err, PASSWORD_UPDATE_FAILURE)(dispatch));
 };
@@ -449,3 +453,18 @@ export const editSignature = signature => dispatch => {
     .then(res => dispatch({ type: EDIT_SIGNATURE_SUCCESS, payload: res.data[0] }))
     .catch(err => handleError(err, EDIT_SIGNATURE_FAILURE)(dispatch));
 };
+
+export const editUser = (username, email, oldPassword, newPassword) => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  const body = { username, email, oldPassword, newPassword };
+  dispatch({ type: EDIT_USER_LOADING});
+  return axios
+    .put(`${backendUrl}/users/user/${user_id}`, body, headers)
+    .then(() => {
+      dispatch({type: EDIT_USER_SUCCESS});
+      displayMessage('User has been updated.')(dispatch)
+    })
+    .catch(err => handleError(err, EDIT_USER_FAILURE)(dispatch))
+}
