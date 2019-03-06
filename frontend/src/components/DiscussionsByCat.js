@@ -25,7 +25,7 @@ const DiscussionByCatWrapper = styled.div`
     width: 90%;
     margin: 0 auto;
   }
-  .title {
+  .body {
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
@@ -90,7 +90,6 @@ const DiscussionsByCat = ({ discussion, handleDiscussionVote }) => {
     created_at,
     id,
     post_count,
-    title,
     user_id,
     username,
     discussion_votes,
@@ -107,7 +106,7 @@ return (
       />
 			<div className = 'content'>
 				<div>
-					<Link to = { `/discussion/${ id }` } className = 'title'>{ title }</Link>
+					<Link to = { `/discussion/${ id }` } className = 'body'>{ body }</Link>
 					<span className = 'category'>
             <Link to={`/discussions/category/${category_id}`} className= 'category'>
             /d/{ category_name }

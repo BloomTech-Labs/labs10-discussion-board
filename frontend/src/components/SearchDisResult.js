@@ -20,6 +20,7 @@ const SearchDisResultWrapper = styled.div`
 		background-color: ${props => props.theme.searchDisResultWrapperTypeBgColor};
 		text-align: center;
 		color: ${props => props.theme.searchDisResultWrapperTypeColor};
+		padding: 7px;
 	}
 
 	.discussion-wrapper, .username-wrapper, .category-wrapper {
@@ -42,7 +43,6 @@ const SearchDisResultWrapper = styled.div`
 const SearchDisResult = ({ discussion, goTo, searchText, type }) => {
 	const {
 		id,
-		title,
 		body,
 		user_id,
 		username,
@@ -55,71 +55,11 @@ const SearchDisResult = ({ discussion, goTo, searchText, type }) => {
 	const handleDiscussionClick = () => goTo(`/discussion/${ id }`);
 	const handleUsernameClick = () => goTo(`/profile/${ user_id }`);
 	searchText = searchText.toLowerCase();
-	const lowerCaseTitle = title.toLowerCase();
 	const lowerCaseBody = body.toLowerCase();
 	return(
 		<SearchDisResultWrapper>
 			{ type && <p className = 'type'>{ type }</p> }
 			<div className = 'discussion-wrapper' onClick = { handleDiscussionClick }>
-				{
-					// if it includes the searchText
-					lowerCaseTitle.includes(searchText) ?
-					(
-						<p>
-							{
-								// if the portion after the searchText is longer than or equal to
-								// the portion before it, render this portion
-								title.substr(lowerCaseTitle.indexOf(searchText)).length >= title.substr(0, lowerCaseTitle.indexOf(searchText)).length ?
-								<>
-									{
-										// if searchText is not at the beginning,
-										// place an ellipsis at the beginning
-										lowerCaseTitle.indexOf(searchText) === 0 ? '' : '... '
-									}
-									<Highlight
-										// highlight the searchText
-										text = { title.substr(lowerCaseTitle.indexOf(searchText)).slice(0, searchText.length) }
-										color = 'red'
-									/>
-									{
-										// render a substring of all the chars to the right
-										// of the searchText, up to a limit.
-										// if the length exceeds limit, include an ellipsis at the end.
-										title.substr(lowerCaseTitle.indexOf(searchText) + searchText.length, searchCharLimit) + (title.substr(lowerCaseTitle.indexOf(searchText)).length > searchCharLimit ? ' ...' : '')
-									}
-								</>
-								:
-								// else if the portion before the searchText is longer, render this portion
-								<>
-									{
-										// render a substring of all the chars to the left
-										// of the searchText, up to a limit,
-										// starting at the searchText and going left.
-										// if the length exceeds limit, include an ellipsis at the beginning.
-										(title.substring(0, lowerCaseTitle.indexOf(searchText)).length > searchCharLimit ? '... ' : '') + title.substring(0, lowerCaseTitle.indexOf(searchText)).slice(-searchCharLimit)
-									}
-									<Highlight
-										// highlight the searchText
-										text = { title.substr(lowerCaseTitle.indexOf(searchText)).slice(0, searchText.length) }
-										color = 'red'
-									/>
-									{
-										// if searchText is not at the end, place an ellipsis at the end
-										lowerCaseTitle.indexOf(searchText) + searchText.length >= title.length ? '' : ' ...'
-									}
-								</>
-							}
-						</p>
-					) :
-					(
-						// else if it doesnt include the searchText and is longer than limit,
-						// slice first chars up to limit, and include an ellipsis at the end.
-						// else if shorter than limit, render the entirety of it
-						title.length > searchCharLimit ?
-						<p>{ title.slice(0, searchCharLimit) + ' ...' }</p> :
-						<p>{ title }</p>
-					)
-				}
 				{
 					// if it includes the searchText
 					lowerCaseBody.includes(searchText) ?
@@ -194,7 +134,9 @@ const SearchDisResult = ({ discussion, goTo, searchText, type }) => {
 					>{ username }</span> :
 					<Deleted />
 				}
-				&nbsp; {moment(new Date(Number(created_at))).fromNow()}
+				<br />
+				<br />
+				{moment(new Date(Number(created_at))).fromNow()}
 			</p>
 			<p>In category
 				<span

@@ -34,10 +34,10 @@ const LandingViewWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = props => {
+const LandingView = ({ history }) => {
   return (
     <LandingViewWrapper>
-      <DiscussionsByFollowedCats />
+      <DiscussionsByFollowedCats history = { history } />
     </LandingViewWrapper>
   );
 };

@@ -13,7 +13,7 @@ const pusher = require('../config/pusherConfig.js');
 /***************************************************************************************************
  ******************************************** middleware ********************************************
  **************************************************************************************************/
-const { authenticate, authenticateIfTokenExists } = require('../config/middleware/authenticate.js');
+const { authenticate } = require('../config/middleware/authenticate.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
@@ -22,7 +22,7 @@ const { authenticate, authenticateIfTokenExists } = require('../config/middlewar
 
 
 // get top (limit 10) daily discussions ordered by vote_count
-router.get('/top-daily/:user_id', authenticateIfTokenExists, (req, res) => {
+router.get('/top-daily/:user_id', authenticate, (req, res) => {
   const order = req.get('order');
   const orderType = req.get('orderType');
   let { user_id } = req.params;
@@ -33,7 +33,7 @@ router.get('/top-daily/:user_id', authenticateIfTokenExists, (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to getTopDailyDiscussions(): ${err}` }));
 });
 
-router.get('/hottest/:user_id', authenticateIfTokenExists, (req, res) => {
+router.get('/hottest/:user_id', authenticate, (req, res) => {
   let { user_id } = req.params;
   if (user_id === 'null') user_id = 0;
   return discussionsDB
@@ -58,7 +58,7 @@ router.get('/all-by-followed-categories/:user_id', authenticate, (req, res) => {
 });
 
 //GET Discussion by Discussion ID
-router.get('/discussion/:id/:user_id', authenticateIfTokenExists, (req, res) => {
+router.get('/discussion/:id/:user_id', authenticate, (req, res) => {
   const order = req.get('order');
   const orderType = req.get('orderType');
   const { id } = req.params;
@@ -94,7 +94,7 @@ router.get('/user/:user_id', (req, res) => {
 });
 
 //GET Discussion by Category ID
-router.get('/category/:category_id/:user_id', authenticateIfTokenExists, (req, res) => {
+router.get('/category/:category_id/:user_id', authenticate, (req, res) => {
   const order = req.get('order');
   const orderType = req.get('orderType');
   const { category_id } = req.params;
@@ -137,10 +137,9 @@ router.post('/:user_id', authenticate, (req, res) => {
 
 // edit post with given post id
 router.put('/:user_id', authenticate, (req, res) => {
-  const { discussion_id, title, dBody } = req.body;
+  const { discussion_id, dBody } = req.body;
   const last_edited_at = Date.now();
-  const discussion = { title, body: dBody, last_edited_at };
-  if (!title) return res.status(400).json({ error: 'Discussion title must not be empty.' });
+  const discussion = { body: dBody, last_edited_at };
   if (!dBody) return res.status(400).json({ error: 'Discussion body must not be empty.' });
   if (!discussion_id) return res.status(400).json({ error: 'Discussion ID is required.' });
   return discussionsDB

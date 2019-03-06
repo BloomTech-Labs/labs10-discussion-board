@@ -15,7 +15,8 @@ export const HANDLE_DISCUSSION_VOTE_FAILURE = 'HANDLE_DISCUSSION_VOTE_FAILURE';
 /***************************************************************************************************
  ********************************************** Actions ********************************************
  **************************************************************************************************/
-export const handleDiscussionVote = (discussion_id, user_id, type) => dispatch => {
+export const handleDiscussionVote = (discussion_id, type) => dispatch => {
+	const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
 	const body = { discussion_id, type };

@@ -17,6 +17,7 @@ const SearchCatResultWrapper = styled.div`
 		background-color: ${props => props.theme.searchCatResultWrapperTypeBgColor};
 		text-align: center;
 		color: ${props => props.theme.searchCatResultWrapperTypeColor};
+		padding: 7px;
 	}
 
 	.category-wrapper, .username-wrapper {
@@ -88,7 +89,9 @@ const SearchCatResult = ({ category, goTo, searchText, type }) => {
 					>{ username }</span> :
 					<Deleted />
 				}
-				&nbsp; {moment(new Date(Number(created_at))).fromNow()}
+				<br />
+				<br />
+				{moment(new Date(Number(created_at))).fromNow()}
 			</p>
 		</SearchCatResultWrapper>
 	);
