@@ -8,7 +8,7 @@ import { maxLengthInNotifications } from '../globals/globals.js';
 const NotificationWrapper = styled.div`
 	margin: 5px;
 	border-radius: 5px;
-	border: 1px solid blue;
+	border: 1px solid black;
 	padding: 5px;
 	position: relative;
 
