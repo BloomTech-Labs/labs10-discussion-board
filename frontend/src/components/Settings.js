@@ -42,6 +42,7 @@ const SettingsWrapper = styled.div`
     font-size: 2rem;
     align-self: flex-start;
     margin-left: 150px;
+    cursor: pointer;
     @media ${tabletP}{
       margin-left: 40px;
     }
