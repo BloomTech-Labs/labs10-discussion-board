@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {phoneP, tabletP, } from '../globals/globals';
 
+// components
+import { DiscussionsByFollowedCats } from '../components/index.js';
+
 // views
-import { TopDiscussionsView } from './index.js';
+import { TopDiscussionsView, HotDiscussionsView } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -12,16 +15,19 @@ import { TopDiscussionsView } from './index.js';
 const LandingViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
   width: 740px;
-  border-radius: 30px;
+  border-radius: 5px;
+  margin-top: 100px;
+
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
     width: 90%;
-    @media ${phoneP}{
-      display: flex;
-      flex-direction: column;
-      width: 90%;
-    }
+  }
+
+  @media ${phoneP}{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
   }
 `;
 
@@ -31,11 +37,7 @@ const LandingViewWrapper = styled.div`
 const LandingView = props => {
   return (
     <LandingViewWrapper>
-      {props.loggingInLoadingMessage ? (
-        <div>Logging in...</div>
-      ) : (
-        <TopDiscussionsView />
-      )}
+      <DiscussionsByFollowedCats />
     </LandingViewWrapper>
   );
 };

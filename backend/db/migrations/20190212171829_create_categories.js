@@ -1,7 +1,8 @@
 exports.up = function (knex, Promise) {
   return knex.schema.createTable('categories', function (tbl) {
     // Primary Key 'id'
-    tbl.increments();
+    tbl
+      .increments();
 
     //Foreign Key 'users_id'
     tbl
@@ -10,13 +11,18 @@ exports.up = function (knex, Promise) {
       .inTable('users')
       .onDelete('SET NULL');
 
-    // Other Columns
-    tbl.string('name', 32)
+    tbl
+      .string('name', 32)
       .unique()
       .notNullable();
 
     // Date in milliseconds
-    tbl.bigInteger('created_at').notNullable();
+    tbl
+      .bigInteger('created_at')
+      .notNullable();
+
+    tbl
+      .string('icon');
   });
 };
 

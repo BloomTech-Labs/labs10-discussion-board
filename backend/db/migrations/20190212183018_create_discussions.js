@@ -18,9 +18,6 @@ exports.up = function (knex, Promise) {
       .notNullable()
       .onDelete('CASCADE');
 
-    // Other Columns
-    tbl.string('title', 128).notNullable();
-
     tbl.text('body', 512).notNullable();
 
     // Date in milliseconds
@@ -28,6 +25,8 @@ exports.up = function (knex, Promise) {
 
     // Date in milliseconds
     tbl.bigInteger('last_edited_at');
+
+    tbl.integer('views').defaultTo(0);
   });
 };
 

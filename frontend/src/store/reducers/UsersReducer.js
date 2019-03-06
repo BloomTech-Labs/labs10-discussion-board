@@ -24,6 +24,9 @@ import {
   UPLOAD_AVATAR_URL_LOADING,
   UPLOAD_AVATAR_URL_SUCCESS,
   UPLOAD_AVATAR_URL_FAILURE,
+  EDIT_USER_LOADING,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAILURE,
 
   FOLLOW_DISCUSSION_SUCCESS,
   FOLLOW_CATEGORY_SUCCESS,
@@ -369,6 +372,9 @@ export const UsersReducer = (state = initialState, action) => {
     case EMAIL_CONFIRM_FAILURE:
     case UPLOAD_AVATAR_URL_FAILURE:
     case UPLOAD_AVATAR_FAILURE:
+    case EDIT_USER_LOADING:
+    case EDIT_USER_SUCCESS:
+    case EDIT_USER_FAILURE:
     default:
       return state;
   }

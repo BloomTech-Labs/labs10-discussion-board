@@ -9,7 +9,6 @@ const search = (searchText, order, orderType) => {
       'p.body',
       'p.user_id',
       'u.username',
-      'd.title as discussion_title',
       'c.id as category_id',
       'c.name as category_name',
       db.raw('SUM(COALESCE(pv.type, 0)) AS votes'),
@@ -19,7 +18,7 @@ const search = (searchText, order, orderType) => {
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .whereRaw('LOWER(p.body) LIKE ?', `%${ searchText.toLowerCase() }%`)
-    .groupBy('p.id', 'u.username', 'd.title', 'c.name', 'c.id')
+    .groupBy('p.id', 'u.username', 'c.name', 'c.id')
     // order by given order and orderType, else default to ordering by created_at descending
     .orderBy(`${ order ? order : 'p.created_at' }`, `${ orderType ? orderType : 'desc' }`);
 };
