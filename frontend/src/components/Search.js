@@ -16,14 +16,25 @@ import { SearchCatResult, SearchDisResult, SearchPostResult } from './index.js';
 import { getCategories, displayError } from '../store/actions/index.js';
 
 const SearchBox = styled.div`
+	width: 100%;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	background-color: ${props => props.theme.searchBoxBgColor};
-	border-radius: 5px;
-	border: ${props => props.theme.searchBoxBorder};
+	border-radius: 35px;
 	position: relative;
+
+	div {
+		border: none;
+	}
+
+	input {
+		background-color: ${props => props.theme.borderColor};
+		border-radius: 35px;
+		&:focus {
+    	outline: none;
+  		}
+	}
 
 	.search-by-wrapper {
 		/* The container */
@@ -108,7 +119,8 @@ const SearchBox = styled.div`
 
 	.search-input-wrapper {
 		.search-input {
-			border-radius: 10px;
+			border: none;
+			border-radius: 55px;
 			padding: 5px 10px;
 		}
 	}
