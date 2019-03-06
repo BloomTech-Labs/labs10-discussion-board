@@ -181,6 +181,14 @@ const findById = (id, user_id, order, orderType) => {
     .select('dv.type', 'dv.discussion_id')
     .where({ user_id });
 
+  const discussionVotesQuery = db('discussion_votes')
+    .select(
+      db.raw('COUNT(CASE WHEN type = 1 THEN 1 END) AS upvotes'),
+      db.raw('COUNT(CASE WHEN type = -1 THEN 1 END) AS downvotes'),
+      'discussion_id',
+    )
+    .groupBy('discussion_id');
+
   const discussionQuery = db('discussions as d')
     .select(
       'd.id',
@@ -194,22 +202,27 @@ const findById = (id, user_id, order, orderType) => {
       'd.body',
       'd.created_at',
       'd.last_edited_at',
+      'dv.upvotes',
+      'dv.downvotes',
       db.raw('COALESCE(pc.post_count, 0) AS post_count'),
-      db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
+      // db.raw('SUM(COALESCE(dv.type, 0)) AS discussion_votes'),
       'uv.type as user_vote'
     )
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
-    .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
+    // .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin(postCountQuery.as('pc'), function () {
       this.on('pc.discussion_id', '=', 'd.id');
     })
     .leftOuterJoin(userDiscussionVoteQuery.as('uv'), function () {
       this.on('uv.discussion_id', '=', 'd.id');
     })
+    .leftOuterJoin(discussionVotesQuery.as('dv'), function() {
+      this.on('dv.discussion_id', '=', 'd.id');
+    })
     .where('d.id', id)
-    .groupBy('d.id', 'u.username', 'c.name', 'c.id', 'uv.type', 'us.avatar', 'us.signature','pc.post_count');
+    .groupBy('d.id', 'u.username', 'c.name', 'c.id', 'uv.type', 'us.avatar', 'us.signature','pc.post_count', 'dv.upvotes', 'dv.downvotes');
 
   const userPostVoteQuery = db('post_votes as pv')
     .select('pv.type', 'pv.post_id')

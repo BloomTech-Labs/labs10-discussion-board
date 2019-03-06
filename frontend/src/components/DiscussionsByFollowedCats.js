@@ -3,7 +3,7 @@ import { connect }			from 'react-redux';
 import styled				from 'styled-components';
 
 // action creators
-import { getAllDiscussionsByFollowedCategories } from '../store/actions/index.js';
+import { getAllDiscussionsByFollowedCategories, handleDiscussionVote } from '../store/actions/index.js';
 
 // components
 import { DiscussionByFollowedCats, AddDiscussionForm } from './index.js';
@@ -82,17 +82,15 @@ const DiscussionHeader = styled.div`
 
 		@media ${ phoneP } {
 			width: 100%;
+			margin-left: 0;
 		}
 
 		&:hover {
 			cursor: pointer;
 			background-color: white;
 			color: #418DCF;
+			border: 1px solid #418DCF;
 		}
-	}
-
-	@media ${ phoneP } {
-		background-color: green;
 	}
 `;
 
@@ -140,9 +138,13 @@ class AllDiscussionsByFollowedCats extends Component {
 	}, () => this.handleFilterChange());
 	getDiscussions = () => this.props.getAllDiscussionsByFollowedCategories()
 		.then(() => this.setState({ followedDiscussions: this.props.followedDiscussions }));
+	voteOnDiscussion = (id, type) => this.props.handleDiscussionVote(id, type)
+		.then(() => this.getDiscussions())
+		.then(() => this.handleFilterChange());
 	componentDidMount = () => this.getDiscussions();
 	render() {
 		const { followedDiscussions, showAddDiscussionForm } = this.state;
+		const { history } = this.props;
 		return(
 			<DiscussionsWrapper>
 				<DiscussionHeader>
@@ -168,17 +170,22 @@ class AllDiscussionsByFollowedCats extends Component {
 				</DiscussionHeader>
 				<hr/>
 				<div className = 'content'>
-					{
-						showAddDiscussionForm &&
-						<AddDiscussionForm
-							toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
-							getDiscussions = { this.getDiscussions }
-						/>
-					}
 					{ followedDiscussions.map((discussion, i) =>
-						<DiscussionByFollowedCats key = { i } discussion = { discussion } />)
+						<DiscussionByFollowedCats
+							key = { i }
+							discussion = { discussion }
+							history = { history }
+							voteOnDiscussion = { this.voteOnDiscussion }
+						/>)
 					}
 				</div>
+				{
+					showAddDiscussionForm &&
+					<AddDiscussionForm
+						toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
+						getDiscussions = { this.getDiscussions }
+					/>
+				}
 			</DiscussionsWrapper>
 		);
 	}
@@ -188,4 +195,4 @@ const mapStateToProps = state => ({
 	followedDiscussions: state.discussions.followedDiscussions,
 });
 
-export default connect(mapStateToProps, { getAllDiscussionsByFollowedCategories })(AllDiscussionsByFollowedCats);
+export default connect(mapStateToProps, { getAllDiscussionsByFollowedCategories, handleDiscussionVote })(AllDiscussionsByFollowedCats);

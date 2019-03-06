@@ -22,7 +22,7 @@ const HotDiscussionWrapper = styled.div`
     // background-color: ${props => props.theme.topDiscussionWrapperBgHov};
   }
 
-  .title {
+  .body {
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
@@ -130,7 +130,6 @@ const HotDiscussion = ({ discussion, handleDiscussionVote }) => {
     created_at,
     id,
     post_count,
-    title,
     user_id,
     username,
     vote_count,
@@ -147,8 +146,8 @@ const HotDiscussion = ({ discussion, handleDiscussionVote }) => {
       />
       <div className='content'>
         <div>
-          <Link to={`/discussion/${id}`} className='title'>
-            {title}
+          <Link to={`/discussion/${id}`} className='body'>
+            {body}
           </Link>
           &#8201;
           <span className='category'>
