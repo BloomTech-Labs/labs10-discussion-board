@@ -70,6 +70,7 @@ const PostedBy = styled.div`
   justify-content: flex-start;
   align-items: center;
   font-size: 12px;
+  margin-bottom: 15px;
   // color: darkgray;
 
   .d-creator {
@@ -97,34 +98,32 @@ width: 100%;
 display: flex;
 flex-direction: column;
 
-  @media ${tabletP} {
-    
+  @media ${tabletP} { 
   }
 
   @media ${phoneL}{
     text-align: center;
   }
-
-  .title {
-    margin-top: 30px;
-    margin-bottom: 5px;
-  }
-
 `;
 
 const Posts = styled.div``;
 
 const AddPostBtn = styled.div``;
 
-//Commented Out sections
+const CommentSort = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px; 
+`;
 
 const Sort = styled.span`
 display: flex;
 flex-direction: row;
-padding-bottom: 20px;
 align-items: baseline;
 justify-content: space-between;
-padding-top: 20px;
 
 @media ${tabletP} {
   // display: flex;
@@ -173,8 +172,6 @@ padding-top: 20px;
 //   }
 // }
 // `;
-
-
 
 class Discussion extends Component {
   state = {
@@ -316,24 +313,30 @@ class Discussion extends Component {
             </PostedBy>
           </DiscussionContent>  
           <CommentWrapper>  
-            <span className='title'>Comments</span>
-            <Sort>
-              <div className='dropDowns'>
-                <span className='sorted'>Sort</span>
-                <select className='sortName' onChange={this.handleSelectChange} name='order'>
-                  <option value='created_at'>date created</option>
-                  <option value='post_votes'>votes</option>
-                </select>
-                <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
-                  <option value='desc'>
-                    {order === 'created_at' ? 'most recent first' : 'most first'}
-                  </option>
-                  <option value='asc'>
-                    {order === 'created_at' ? 'least recent first' : 'least first'}
-                  </option>
-                </select>
-              </div>
-            </Sort>
+            <CommentSort>
+              <span className='title'>Comments</span>
+              <Sort>
+                <div className='dropDowns'>
+                  <span className='sorted'>Sort</span>
+                  &nbsp;
+                  &nbsp;
+                  <select className='sortName' onChange={this.handleSelectChange} name='order'>
+                    <option value='created_at'>date created</option>
+                    <option value='post_votes'>votes</option>
+                  </select>
+                  &nbsp;
+                  &nbsp;
+                  <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
+                    <option value='desc'>
+                      {order === 'created_at' ? 'most recent first' : 'most first'}
+                    </option>
+                    <option value='asc'>
+                      {order === 'created_at' ? 'least recent first' : 'least first'}
+                    </option>
+                  </select>
+                </div>
+              </Sort>
+            </CommentSort>
               <Posts>
                 <PostsView
                   posts={posts}

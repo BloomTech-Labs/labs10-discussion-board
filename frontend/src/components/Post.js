@@ -33,8 +33,7 @@ const PostWrapper = styled.div`
     margin-bottom: 0;
     margin-top: 30px;
   }
-
-`
+`;
 
 //make a global for the avatar box Background
 const PostedBy = styled.div`

@@ -33,7 +33,7 @@ const Followed = styled.div`
 
   button{
     color: white;
-    padding: 10px;
+    padding: 4px;
     font-size: 12px;
   }
 `;
