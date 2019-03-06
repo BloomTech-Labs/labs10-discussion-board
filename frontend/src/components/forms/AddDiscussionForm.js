@@ -7,11 +7,17 @@ import styled from 'styled-components';
 import { addDiscussion, displayError } from '../../store/actions/index.js';
 
 // globals
-import { backendUrl } from '../../globals/globals.js';
+import { backendUrl, tabletP, phoneP } from '../../globals/globals.js';
 
 const AddDiscussionFormWrapper = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 	position: absolute;
 	padding: 10px;
+	padding-top: 40px;
 	border-radius: 5px;
 	width: 100%;
 	height: 100%;
@@ -20,7 +26,7 @@ const AddDiscussionFormWrapper = styled.div`
 
 const AddDiscussionFormBox = styled.form`
 	border-radius: 5px;
-	padding: 10px;
+	padding: 40px;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
@@ -28,6 +34,55 @@ const AddDiscussionFormBox = styled.form`
 	align-items: center;
 	width: 80%;
 	background-color: white;
+
+	.body-input, .categories-select {
+		border-radius: 5px;
+		padding: 5px 10px;
+	}
+
+	.body-input {
+		@media ${ tabletP } {
+			width: 20em;
+		}
+	}
+
+	.buttons-wrapper {
+		display: flex;
+		justify-content: space-around;
+		width: 80%;
+		margin-top: 10px;
+
+		button {
+			border: 1px solid white;
+			border-radius: 5px;
+			padding: 10px 15px;
+			width: 30%;
+			color: white;
+
+			&:hover {
+				cursor: pointer;
+				background-color: white;
+			}
+		}
+
+		.submit-btn {
+			background-color: #418DCF;
+
+			&:hover {
+				color: #418DCF;
+				border: 1px solid #418DCF;
+			}
+		}
+
+		.cancel-btn {
+			background-color: #4a4a4a;
+
+			&:hover {
+				color: #4a4a4a;
+				border: 1px solid #4a4a4a;
+			}
+		}
+	}
 `;
 
 class AddDiscussionForm extends Component {
@@ -60,14 +115,18 @@ class AddDiscussionForm extends Component {
 		return(
 			<AddDiscussionFormWrapper onSubmit = { this.handleSubmit }>
 				<AddDiscussionFormBox>
-					<h1>Add Discussion form</h1>
-
-					<input
-						placeholder = 'Add discussion body...'
+					<textarea
+						rows = '10'
+						cols = '50'
+						className = 'body-input'
+						type = 'text'
+						placeholder = 'Add a post...'
 						name = 'body'
 						onChange = { this.handleInputChange }
 						value = { body }
 					/>
+
+					<span>in</span>
 
 					<select
 						className = 'categories-select'
@@ -81,12 +140,15 @@ class AddDiscussionForm extends Component {
 						}
 					</select>
 
-					<button type = 'submit'>Submit</button>
+					<div className = 'buttons-wrapper'>
+						<button className = 'submit-btn' type = 'submit'>Post</button>
 
-					<button
-						onClick = { toggleAddDiscussionForm }
-						type = 'button' // prevents form submission
-					>Cancel</button>
+						<button
+							className = 'cancel-btn'
+							onClick = { toggleAddDiscussionForm }
+							type = 'button' // prevents form submission
+						>Cancel</button>
+					</div>
 				</AddDiscussionFormBox>
 			</AddDiscussionFormWrapper>
 		);

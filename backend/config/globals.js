@@ -9,6 +9,8 @@ const numOfDiscussionVotes = 5000;
 const tokenOptionExpiration = '24h';
 const tokenTimeLeftRefresh = 3; // in hrs
 const maxNumOfNotifications = 5;
+const numOfReplies = 50;
+const numOfReplyVotes = 1000;
 
 const allowedAvatarTypes = [
   'image/jpeg',
@@ -97,6 +99,8 @@ module.exports = {
   numOfHashes,
   numOfPostVotes,
   numOfDiscussionVotes,
+  numOfReplies,
+  numOfReplyVotes,
   maxNumOfNotifications,
   safeUsrnameSqlLetters,
   safePwdSqlLetters,
