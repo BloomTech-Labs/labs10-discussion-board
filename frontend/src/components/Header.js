@@ -27,12 +27,15 @@ const Container = styled.div`
  width: 90%;
  display: flex;
  justify-content: space-between;
-`
-const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  border-right: 2px solid ${props => props.theme.borderColor};
-  padding-right: 100px;
+
+  .LogoContainer {
+    display: flex;
+    align-items: center;
+    border-right: 2px solid ${props => props.theme.borderColor};
+    padding-right: 100px;
+      &:hover {
+        cursor: pointer;
+      }
 
   @media(max-width: 750px){
     padding-right: 50px;
@@ -41,6 +44,7 @@ const LogoContainer = styled.div`
       padding-right: 15px;
 
     }
+  }
 `;
 
 const LambdaLogo = styled.div`
@@ -56,9 +60,9 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
   return (
     <StyledHeader>
       <Container>
-        <LogoContainer>
-          <LambdaLogo />
-        </LogoContainer>
+        <a className = 'LogoContainer' href = '/home'>
+          <LambdaLogo/>
+        </a>
         <Nav showSearch = {showSearch} 
              scrollTo = {scrollTo} 
              pathname = {pathname} 
