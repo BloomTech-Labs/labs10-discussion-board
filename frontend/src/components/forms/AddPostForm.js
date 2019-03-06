@@ -6,6 +6,8 @@ import CKEditor from 'ckeditor4-react';
 // import 'react-quill/dist/quill.snow.css';
 // import Parser from 'html-react-parser';
 
+import { appBgColor } from '../../globals/globals.js'
+
 
 // action creators
 import { addPost } from '../../store/actions/index.js';
@@ -46,8 +48,9 @@ const UserActions = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 
-	a {
+	button {
 		color: steelblue;
+		background: clear;
 		
 		&:hover {
 			cursor: pointer;
