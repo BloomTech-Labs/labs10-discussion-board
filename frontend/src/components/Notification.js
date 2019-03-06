@@ -47,14 +47,14 @@ const Notification = ({ notification, goTo, removeNotification }) => {
 		created_at,
 	} = notification;
 	let {
-		discussion_title,
+		discussion_body,
 		post_body,
 	} = notification;
 	const goToDiscussion = () => goTo(`/discussion/${ discussion_id }`);
 	const goToPost = () => goTo(`/discussion/${ discussion_id }#${ post_id }`);
 	const handleRemove = () => removeNotification(id);
-	if (discussion_title && discussion_title.length > maxLengthInNotifications) {
-		discussion_title = discussion_title.slice(0, maxLengthInNotifications) + '...';
+	if (discussion_body && discussion_body.length > maxLengthInNotifications) {
+		discussion_body = discussion_body.slice(0, maxLengthInNotifications) + '...';
 	}
 	if (post_body && post_body.length > maxLengthInNotifications) {
 		post_body = post_body.slice(0, maxLengthInNotifications) + '...';
@@ -63,10 +63,10 @@ const Notification = ({ notification, goTo, removeNotification }) => {
 		<NotificationWrapper>
 			<i onClick = { handleRemove } className = 'far fa-times-circle remove-btn' />
 			<p>New { category_id ? 'discussion' : 'post' } added { moment(new Date(Number(created_at))).fromNow() } in</p>
-			<p>{ category_id ? `/d/${ category_name }` : `${ discussion_title }` }:</p>
+			<p>{ category_id ? `/d/${ category_name }` : `${ discussion_body }` }:</p>
 			{
 				category_id ?
-				<p className = 'links' onClick = { goToDiscussion }>{ discussion_title }</p> :
+				<p className = 'links' onClick = { goToDiscussion }>{ discussion_body }</p> :
 				<p className = 'links' onClick = { goToPost }>{ post_body }</p>
 			}
 		</NotificationWrapper>

@@ -187,7 +187,7 @@ class Profile extends Component {
                 <p className='property-title'> Followed Discussions: </p>
                 {profile.discussionFollows.map((discussionFollowed, index) =>
                   <ContentDiv key={index}>
-                    <Link to={`/discussion/${discussionFollowed.discussion_id}`}><p className='property-content'> {discussionFollowed.title}</p></Link>
+                    <Link to={`/discussion/${discussionFollowed.discussion_id}`}><p className='property-content'> {discussionFollowed.body}</p></Link>
                   </ContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>

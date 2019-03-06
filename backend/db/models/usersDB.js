@@ -10,7 +10,7 @@ const findById = id => {
   const getDiscussions = db('discussions').where('user_id', id);
   const getPosts = db('posts').where('user_id', id);
   const getDiscussionFollows = db('discussion_follows as df')
-    .select('df.discussion_id', 'd.title')
+    .select('df.discussion_id', 'd.body')
     .join('discussions as d', 'd.id', 'df.discussion_id')
     .where('df.user_id', id);
   const getCategoryFollows = db('category_follows as cf')
@@ -23,7 +23,7 @@ const findById = id => {
       'un.category_id',
       'c.name as category_name',
       'un.discussion_id',
-      'd.title as discussion_title',
+      'd.body as discussion_body',
       'un.post_id',
       'p.body as post_body',
       'un.created_at',
@@ -120,7 +120,6 @@ const searchAll = (searchText, orderType) => {
   const discussionsQuery = db('discussions as d')
     .select(
       'd.id',
-      'd.title',
       'd.body',
       'd.user_id',
       'u.username',
@@ -132,7 +131,6 @@ const searchAll = (searchText, orderType) => {
     .leftOuterJoin('discussion_votes as dv', 'dv.discussion_id', 'd.id')
     .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
-    .whereRaw('LOWER(d.title) LIKE ?', `%${searchText.toLowerCase()}%`)
     .orWhereRaw('LOWER(d.body) LIKE ?', `%${searchText.toLowerCase()}%`)
     .groupBy('d.id', 'u.username', 'c.name');
 
@@ -144,7 +142,6 @@ const searchAll = (searchText, orderType) => {
       'p.body',
       'p.user_id',
       'u.username',
-      'd.title as discussion_title',
       'c.id as category_id',
       'c.name as category_name',
       db.raw('SUM(COALESCE(pv.type, 0)) AS votes'),
@@ -154,7 +151,7 @@ const searchAll = (searchText, orderType) => {
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .whereRaw('LOWER(p.body) LIKE ?', `%${searchText.toLowerCase()}%`)
-    .groupBy('p.id', 'u.username', 'd.title', 'c.name', 'c.id');
+    .groupBy('p.id', 'u.username', 'c.name', 'c.id');
 
   const promises = [categoriesQuery, discussionsQuery, postsQuery];
   return Promise.all(promises)

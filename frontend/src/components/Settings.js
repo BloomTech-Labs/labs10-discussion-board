@@ -395,10 +395,10 @@ class Settings extends Component {
               
               <Buttons>
               {
-                isUserType(user_type, ['silver_member', 'gold_member', 'admin']) &&
-                <button onClick={() => this.toggleForm('signature-form')}>
-                  Edit signature
-                </button>
+                // isUserType(user_type, ['silver_member', 'gold_member', 'admin']) &&
+                // <button onClick={() => this.toggleForm('signature-form')}>
+                //   Edit signature
+                // </button>
               }
               <button className = 'delete-btn' onClick={ this.toggleDeleteModal }>
                 Delete account
@@ -422,9 +422,9 @@ class Settings extends Component {
               </EditAvatarMenu>
             </AvatarContainer>
           )}
-          {showForm === 'signature-form' && (
+          {/* {showForm === 'signature-form' && (
             <EditSignatureForm signature = { signature } toggleForm={this.toggleForm} />
-          )}
+          )} */}
           
           {showForm === 'email-form' && (
             <UpdateEmailForm
