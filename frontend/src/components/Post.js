@@ -29,6 +29,11 @@ const PostWrapper = styled.div`
     margin-bottom: 5px;
   }
 
+  p {
+    margin-bottom: 0;
+    margin-top: 30px;
+  }
+
 `
 
 //make a global for the avatar box Background
@@ -36,8 +41,7 @@ const PostedBy = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin-right: 100px;
+  justify-content: flex-start;
   font-size: 12px;
 
   .p-creator{
@@ -48,7 +52,8 @@ const PostedBy = styled.div`
 
   img {
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 10px;
+    width: 23px;
   }
 
   @media ${phoneL} {
@@ -118,7 +123,6 @@ const Post = ({
     //in order to place the UserActions (reply/edit/remove) on the bottom
     //Of the component
     <PostWrapper>
-      <p className='title'>Comments</p>
       <p>{body}</p>
       <PostedBy>
         <div className='p-creator'>
@@ -131,15 +135,21 @@ const Post = ({
               <Deleted />
           }
         </div>
+          &nbsp;
+          &nbsp;
         {
         loggedInUserId !== 0 &&
-        <p onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</p>
+        <span onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
         }
+          &nbsp;
+          &nbsp;
         <VoteCount
           handleVote={handleVote}
           vote_count={post_votes}
           user_vote={user_vote}
         />
+          &nbsp;
+          &nbsp;
         {timeStamp(last_edited_at, created_at)}
       </PostedBy>
   </PostWrapper>

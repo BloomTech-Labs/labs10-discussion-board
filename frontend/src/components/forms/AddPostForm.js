@@ -11,10 +11,51 @@ import CKEditor from 'ckeditor4-react';
 import { addPost } from '../../store/actions/index.js';
 
 const AddPostFormWrapper = styled.form`
-	border: 1px solid blue;
 	padding: 10px;
 	color: ${props => props.theme.discussionPostColor};
+
+	textarea {
+		width: 100%;
+		height: 150px;
+		padding: 12px 20px;
+		box-sizing: border-box;
+		border: 1px solid #f8f8f8;
+		border-radius: 4px;
+		background-color: #f8f8f8;
+		resize: none; 
+	}
 `;
+
+const AddCommentTitle = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	.exit{
+		
+		&:hover {
+			cursor: pointer;
+			color: steelblue;
+		}
+	}
+`;
+
+const UserActions = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	a {
+		color: steelblue;
+		
+		&:hover {
+			cursor: pointer;
+			color: black;
+		}
+	}
+`;
+
 
 
 class AddPostForm extends Component {
@@ -26,26 +67,32 @@ class AddPostForm extends Component {
 		const { discussion_id, historyPush } = this.props;
 		return this.props.addPost(discussion_id, postBody, historyPush);
 	};
+	
 	render() {
+		console.log('this props', this.props)
 		const { postBody } = this.state;
 		const { toggleAddPostForm } = this.props;
 		return(
 			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
-				<h1>Add post form</h1>
-
-				<input
-					placeholder = 'Add post...'
+				<AddCommentTitle>
+					<p>Write a comment</p>
+					<a
+						className = 'exit'
+						onClick = { toggleAddPostForm }
+						type = 'button' // prevents form submission
+					><i className="far fa-times-circle"></i></a>
+				</AddCommentTitle>
+				<textarea
+					type= 'text'
+					placeholder = 'Write your comment'
 					name = 'postBody'
 					onChange = { this.handleChange }
 					value = { postBody }
 				/>
-
-				<button type = 'submit'>Submit</button>
-
-				<button
-					onClick = { toggleAddPostForm }
-					type = 'button' // prevents form submission
-				>Cancel</button>
+				<UserActions>
+					<div>IMG GOES HERE</div>
+					<button type = 'submit'>Post comment</button>	
+				</UserActions>
 			</AddPostFormWrapper>
 		);
 	}

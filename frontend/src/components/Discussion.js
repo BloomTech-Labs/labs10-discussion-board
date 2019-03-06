@@ -36,7 +36,8 @@ const DiscussionWrapper = styled.div`
 
   .back {
     font-size: 47px;
-    margin-right: 50px;
+    padding-right: 35px;
+    padding-top: 15px
     color: black;
     
     &:hover{
@@ -54,6 +55,9 @@ const DiscussionContent = styled.div`
 
   p{
     font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 0
+    padding-top: 25px;
   }
 }
 `;
@@ -61,9 +65,8 @@ const DiscussionContent = styled.div`
 const PostedBy = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  margin-right: 100px;
   font-size: 12px;
   // color: darkgray;
 
@@ -74,7 +77,8 @@ const PostedBy = styled.div`
 
   img{
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 10px;
+    width: 23px;
   }
 
   .username{
@@ -97,6 +101,11 @@ flex-direction: column;
 
   @media ${phoneL}{
     text-align: center;
+  }
+
+  .title {
+    margin-top: 30px;
+    margin-bottom: 5px;
   }
 
 `;
@@ -287,17 +296,24 @@ class Discussion extends Component {
                     <Deleted />
                 }
               </div>
+                &nbsp;
+                &nbsp;
               <div className='c-name'><span>{category_name}</span></div>
               <VoteCount
                   handleVote={handleVote}
                   vote_count={discussion_votes}
                   user_vote={user_vote}
-                />
+              />
+                &nbsp;
+                &nbsp;
               <PostCount post_count = { post_count || 0 } />
+                &nbsp;
+                &nbsp;
               <Follow discussion_id = {id} historyPush = { historyPush }/> 
             </PostedBy>
           </DiscussionContent>  
-          <CommentWrapper>      
+          <CommentWrapper>  
+            <p className='title'>Comments</p>
               <Posts>
                 <PostsView
                   posts={posts}
