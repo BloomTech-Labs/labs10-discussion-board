@@ -31,7 +31,7 @@ router.get('/followed/:user_id', authenticate, (req, res) => {
   const user_id = req.params.user_id;
   return categoriesDB.getFollowedCategoryNames(user_id)
     .then(categories => res.status(200).json(categories))
-    .catch(err => res.status(500).json({ error: `Failed to getCategories(): ${err}` }));
+    .catch(err => res.status(500).json({ error: `Failed to getFollowedCategoryNames(): ${err}` }));
 });
 
 router.get('/search', (req, res) => {
