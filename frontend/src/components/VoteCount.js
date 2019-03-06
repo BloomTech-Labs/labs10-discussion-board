@@ -1,30 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-
-// action creators
-import { displayError } from '../store/actions/index.js';
-
-// components
-import { ToolTip } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const VoteCountWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	flex-direction: column;
-	margin: 5px;
-	padding: 10px;
-	position: relative;
-	color:${props => props.theme.topDiscussionTitleColor};
-	&:hover {
-		.tooltiptext {
-			visibility: visible;
-			opacity: 1;
-		}
+	margin-right: 10px;
+
+	i {
+		padding-left: 10px;
+		padding-right: 5px;
 	}
 
 	.fa-arrow-alt-circle-up {
@@ -49,41 +34,20 @@ const VoteCountWrapper = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 const VoteCount = ({
-	vote_count,
+	upvotes,
+	downvotes,
 	handleVote,
-	user_id,
-	displayError,
 	user_vote,
 }) => {
-	const handleClick = type => {
-		if (user_id) return handleVote(type);
-		return displayError('You must be logged in to vote.');
-	};
+	const handleClick = (e, type) => handleVote(e, type);
 	return (
 		<VoteCountWrapper user_vote = { user_vote }>
-			<i
-				className = 'fas fa-arrow-alt-circle-up'
-				onClick = { () => handleClick(1) }
-			/>
-			<div>{ vote_count || 0 }</div>
-			<i
-				className = 'fas fa-arrow-alt-circle-down'
-				onClick = { () => handleClick(-1) }
-			/>
-			{
-				!user_id &&
-				<ToolTip
-					text = 'You must be logged in to vote.' // must  be any string
-					arrow = 'bottom' // must be string that says 'top', 'right', 'left', or 'bottom'
-					width = { 100 } // must be a number
-				/>
-			}
+			<i onClick = { e => handleClick(e, 1) } className = 'fas fa-arrow-alt-circle-up' />
+			<span>{ upvotes || 0 }</span>
+			<i onClick = { e => handleClick(e, -1) } className = 'fas fa-arrow-alt-circle-down' />
+			<span>{ downvotes || 0 }</span>
 		</VoteCountWrapper>
 	);
 };
 
-const mapStateToProps = state => ({
-	user_id: state.users.user_id,
-});
-
-export default connect(mapStateToProps, { displayError })(VoteCount);
+export default VoteCount;

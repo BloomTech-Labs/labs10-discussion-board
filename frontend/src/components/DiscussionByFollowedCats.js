@@ -3,7 +3,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { Avatar } from './index.js';
+import { Avatar, VoteCount } from './index.js';
 
 // globals
 import { phoneP, tabletP } from '../globals/globals.js';
@@ -15,6 +15,13 @@ const DiscussionWrapper = styled.div`
 	justify-content: flex-start;
 	width: 100%;
 	margin-bottom: 20px;
+	border-radius: 5px;
+	padding: 5px;
+
+	&:hover {
+		background-color: #d3d3d3;
+		cursor: pointer;
+	}
 `;
 
 const BodyWrapper = styled.p`
@@ -66,7 +73,7 @@ const VotesWrapper = styled.div`
 	}
 `;
 
-const DiscussionByFollowedCats = ({ discussion }) => {
+const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => {
 	const {
 		avatar,
 		body,
@@ -82,8 +89,13 @@ const DiscussionByFollowedCats = ({ discussion }) => {
 		username,
 		views,
 	} = discussion;
+	const handleDiscussionClick = () => history.push(`/discussion/${ id }`);
+	const handleVote = (e, type) => {
+		e.stopPropagation();
+		return voteOnDiscussion(id, type);
+	};
 	return(
-		<DiscussionWrapper>
+		<DiscussionWrapper onClick = { handleDiscussionClick }>
 			<BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
 			<InfoWrapper>
 				<div className = 'user-info'>
@@ -96,10 +108,12 @@ const DiscussionByFollowedCats = ({ discussion }) => {
 					<UsernameWrapper>{ username }</UsernameWrapper>
 				</div>
 				<VotesWrapper>
-					<i className = 'fas fa-arrow-alt-circle-up' />
-					<span>{ upvotes || 0 }</span>
-					<i className = 'fas fa-arrow-alt-circle-down' />
-					<span>{ downvotes || 0 }</span>
+					<VoteCount
+						upvotes = { upvotes }
+						downvotes = { downvotes }
+						user_vote = { user_vote }
+						handleVote = { handleVote }
+					/>
 				</VotesWrapper>
 				<i className = { category_icon } />
 				<span className = 'category-name'>{ category_name }</span>
