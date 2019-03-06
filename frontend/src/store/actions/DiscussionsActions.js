@@ -24,6 +24,10 @@ export const GET_DISCUSSION_BY_ID_LOADING = 'GET_DISCUSSION_BY_ID_LOADING';
 export const GET_DISCUSSION_BY_ID_SUCCESS = 'GET_DISCUSSION_BY_ID_SUCCESS';
 export const GET_DISCUSSION_BY_ID_FAILURE = 'GET_DISCUSSION_BY_ID_FAILURE';
 
+export const GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING = 'GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING';
+export const GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS = 'GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS';
+export const GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE = 'GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE';
+
 export const FOLLOW_DISCUSSION_LOADING = 'FOLLOW_DISCUSSION_LOADING';
 export const FOLLOW_DISCUSSION_SUCCESS = 'FOLLOW_DISCUSSION_SUCCESS';
 export const FOLLOW_DISCUSSION_FAILURE = 'FOLLOW_DISCUSSION_FAILURE';
@@ -80,6 +84,17 @@ export const getDiscussionById = (id, order, orderType) => dispatch => {
     .catch(err => handleError(err, GET_DISCUSSION_BY_ID_FAILURE)(dispatch));
 };
 
+export const getAllDiscussionsByFollowedCategories = () => dispatch => {
+  const user_id = localStorage.getItem('symposium_user_id');
+	const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+  dispatch({ type: GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING });
+  return axios
+    .get(`${ backendURL }/discussions/all-by-followed-categories/${ user_id }`, headers)
+    .then(res => dispatch({ type: GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE)(dispatch));
+};
+
 export const getDiscussionsByCat = (category_id, order, orderType) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
@@ -111,17 +126,14 @@ export const followDiscussion = (discussion_id, user_id, followed, historyPush) 
 };
 
 // add a discussion
-export const addDiscussion = (category_id, title, dBody, historyPush) => dispatch => {
+export const addDiscussion = (dBody, category_id) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
-	const body = { category_id, title, dBody };
+	const body = { dBody, category_id };
 	dispatch({ type: ADD_DISCUSSION_LOADING });
-	return axios.post(`${ backendURL }/discussions/${user_id}`, body, headers)
-    .then(res => {
-      dispatch({ type: ADD_DISCUSSION_SUCCESS });
-      return historyPush(`/discussion/${ res.data }`);
-    })
+	return axios.post(`${ backendURL }/discussions/${ user_id }`, body, headers)
+    .then(() => dispatch({ type: ADD_DISCUSSION_SUCCESS }))
 		.catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
 

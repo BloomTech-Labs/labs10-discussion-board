@@ -36,6 +36,10 @@ import {
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
 
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE,
+
 		//FOLLOW DISCUSSIONS
 		FOLLOW_DISCUSSION_LOADING,
 		FOLLOW_DISCUSSION_SUCCESS,
@@ -61,7 +65,8 @@ import {
   // Action Creators
 		getTopDiscussions,
 		getDiscussionsByCat,
-		getDiscussionById,
+    getDiscussionById,
+    getAllDiscussionsByFollowedCategories,
     followDiscussion,
     addDiscussion,
     editDiscussion,
@@ -143,6 +148,10 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
 
+  EDIT_USER_LOADING,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAILURE,
+  
   PASSWORD_UPDATE_LOADING,
   PASSWORD_UPDATE_SUCCESS,
   PASSWORD_UPDATE_FAILURE,
@@ -230,6 +239,7 @@ import {
   getNotifications,
   markNotificationsAsRead,
   editSignature,
+  editUser,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -264,6 +274,10 @@ export {
   GET_DISCUSSION_BY_ID_LOADING,
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
+
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE,
 
   FOLLOW_DISCUSSION_LOADING,
   FOLLOW_DISCUSSION_SUCCESS,
@@ -313,6 +327,10 @@ export {
   USER_REGISTER_LOADING,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
+
+  EDIT_USER_LOADING,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAILURE,
 
   PASSWORD_UPDATE_LOADING,
   PASSWORD_UPDATE_SUCCESS,
@@ -409,6 +427,7 @@ export {
   getTopDiscussions,
   getDiscussionsByCat,
   getDiscussionById,
+  getAllDiscussionsByFollowedCategories,
   followDiscussion,
   addDiscussion,
   editDiscussion,
@@ -444,6 +463,7 @@ export {
   getNotifications,
   markNotificationsAsRead,
   editSignature,
+  editUser,
 
   // Profile Action Creators
   getProfiles,

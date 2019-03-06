@@ -6,19 +6,25 @@ import styled from 'styled-components';
 import { updatePassword, displayError } from '../../store/actions/index.js';
 
 const EditPasswordDiv = styled.div`
+	width: 60%;
+	height: auto;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 `;
 
 const EditPasswordFormWrapper = styled.form`
-	text-align: center;
-	width: 60%;
+	width: 90%;
 	display: flex;
 	flex-direction: column;
-	margin: 20px;
-	padding: 10px;
-	border-radius: 20px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
 	background-color: #54BDFF;
+
+		h1 {
+			margin-top: 0px;
+			margin-bottom: 55px;
+		}
 	
 	@media (max-width: 520px){
       width: 80%;
@@ -26,12 +32,16 @@ const EditPasswordFormWrapper = styled.form`
 `;
 
 const Inputs = styled.div`
+	width: 80%;
 	display: flex;
 	flex-direction: column;
 	
 	input {
-		margin: 7px 0px;
-		font-size: 20px;
+		width: 90%;
+		margin-top: 10px;
+		padding: 5px;
+		font-size: 16px;
+		border-radius: 5px;
 	}
 `;
 
@@ -51,6 +61,9 @@ const Buttons = styled.div`
             background-color: #4ca0e0;
             cursor: pointer;
           }
+					&:focus {
+    				outline: none;
+  				}
 	}
 `;
 
@@ -81,7 +94,7 @@ class EditPasswordForm extends Component {
 					<h1>Edit password</h1>
 					<Inputs>
 						<input
-							placeholder = 'Enter old password'
+							placeholder = 'Old password'
 							name = 'oldPassword'
 							type = 'password'
 							onChange = { this.handleChange }
@@ -89,7 +102,7 @@ class EditPasswordForm extends Component {
 						/>
 
 						<input
-							placeholder = 'Enter new password'
+							placeholder = 'New password'
 							name = 'newPassword'
 							type = 'password'
 							onChange = { this.handleChange }
@@ -97,7 +110,7 @@ class EditPasswordForm extends Component {
 						/>
 
 						<input
-							placeholder = 'Enter new password again'
+							placeholder = 'New password again'
 							name = 'newPassword1'
 							type = 'password'
 							onChange = { this.handleChange }

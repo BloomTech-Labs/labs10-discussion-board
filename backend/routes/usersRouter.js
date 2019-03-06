@@ -208,17 +208,30 @@ router.get('/search-all', (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to searchAll(): ${err}` }));
 });
 
-// Updates a user
-router.put('/user/:id', (req, res, next) => {
-  const { id } = req.params;
-  const { username, password, email, status } = req.body;
-  const newUser = { username, password, email, status };
+// updates a user
+router.put('/user/:user_id', (req, res) => {
+  const { user_id } = req.params;
+  const { username, oldPassword, newPassword, email, status } = req.body;
+  if (!oldPassword || oldPassword === '') {
+    return res.status(400).json({ error: 'Old password must not be empty.' });
+  }
+  if (!newPassword || newPassword === '') {
+    return res.status(400).json({ error: 'New password must not be empty.' });
+  }
   return usersDB
-    .update(id, newUser)
-    .then(user => res.status(200).json(user))
-    .catch(err =>
-      res.status(500).json({ error: `Failed to update(): ${err}` })
-    );
+    .getPassword(user_id)
+    .then(currentPW => {
+      if (currentPW && bcrypt.compareSync(oldPassword, currentPW.password)) {
+        const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
+        const newUser = { username, password:newHashedPassword, email, status};
+        return usersDB
+          .update(user_id, newUser)
+          .then(() => res.status(201).json({ message: 'User update succesful.' }))
+          .catch(err => res.status(400).json({ error: `Failed to update(): ${err}` }));
+      }
+      return res.status(400).json({ error: 'Old password is wrong.' });
+    })
+    .catch(err => res.status(500).json({ error: `Failed to getPassword(): ${err}` }));
 });
 
 // Update the password of a user given their ID
@@ -293,10 +306,10 @@ router.put('/update-email/:user_id', authenticate, requestClientIP, (req, res) =
 // Update the avatar of a user given their ID
 router.put('/avatar/:user_id', authenticate, fileUpload(), async (req, res) => {
   const { user_id } = req.params;
-  const { user_type } = await usersDB.getUserType(user_id);
-  if (!['gold_member', 'admin'].includes(user_type)) {
-    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
-  }
+  // const { user_type } = await usersDB.getUserType(user_id);
+  // if (!['gold_member', 'admin'].includes(user_type)) {
+  //   return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  // }
   let { avatarData } = req.body;
   if (avatarData === null) {
     avatarData = defaultAvatar;
@@ -350,10 +363,10 @@ router.put('/avatar/:user_id', authenticate, fileUpload(), async (req, res) => {
 // Update the avatar (as a url) of a user given their ID
 router.put('/avatar-url/:user_id', authenticate, async (req, res) => {
   const { user_id } = req.params;
-  const { user_type } = await usersDB.getUserType(user_id);
-  if (!['gold_member', 'admin'].includes(user_type)) {
-    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
-  }
+  // const { user_type } = await usersDB.getUserType(user_id);
+  // if (!['gold_member', 'admin'].includes(user_type)) {
+  //   return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  // }
   let { avatarUrl } = req.body;
   if (avatarUrl === null) {
     // reset avatar to default

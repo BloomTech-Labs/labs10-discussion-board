@@ -120,7 +120,10 @@ class DiscussionsByCatView extends Component {
 					</TextLooper>
 				</DiscussionsByCatHeader>
 				<hr />
-				{
+				{/* NOTE: this add discussion form will no longer be used for this purpose.
+					I'm leaving it commented out just in case.
+				*/ }
+				{/* {
 					showAddForm ?
 					<AddDiscussionForm
 						toggleShowAddForm = { this.toggleShowAddForm }
@@ -129,7 +132,7 @@ class DiscussionsByCatView extends Component {
 					/>
 					:
 					<button onClick = { this.toggleShowAddForm }>Add a discussion</button>
-				}
+				} */}
 				<CatsByDis>
 					<DiscussionsByCats category_id = {match.params.category_id}/>
 				</CatsByDis>
