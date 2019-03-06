@@ -29,43 +29,6 @@ const DivWrapper = styled.div`
   }
 `;
 
-// const Links = styled.div`
-//   display: flex;
-//   justify-content: space-around;
-//   width: 50%;
-//   margin: 0;
-//   align-items: center;
-
-//   .link {
-//     font-weight: bold;
-//     text-decoration: none;
-//     font-size: 1.7em;
-//     color: black;
-//     :hover {
-//       color: black;
-//     }
-
-//     @media ${phoneL}{
-//       width: 100%;
-//       display: flex;
-//       justify-content: flex-start;
-//     }
-//   }
-
-//   @media (max-width: 960px){
-//     font-size: 12px;
-//     display: flex;
-//     margin: 0 px;
-
-//     @media ${phoneL}{
-//       width: 25%;
-//       font-size: 8px;
-//       display: flex;
-//       flex-direction: column;
-//     }
-//   }
-// `;
-
 const DivAuth = styled.div`
   display: flex;
   justify-content: space-between;
@@ -112,17 +75,6 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        {/* <Links>
-          <Link className='link' to='/'>
-            Hot Discussions
-          </Link>
-          <Link className='link' to='/home'>
-            Top Discussions
-          </Link>
-          <Link className='link' to='/categories'>
-            Categories
-          </Link>
-        </Links> */}
         <ButtonContainer>
           <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
         </ButtonContainer>
