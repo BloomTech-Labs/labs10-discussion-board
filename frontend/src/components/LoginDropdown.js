@@ -6,6 +6,9 @@ import auth0 from 'auth0-js';
 import { Auth0Lock } from 'auth0-lock';
 import { login, auth0Login, displayError } from '../store/actions/index.js';
 
+//globals
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
 // globals
 import {
   auth0Domain,
@@ -53,6 +56,11 @@ const FormLogin = styled.form`
     &:focus {
     	outline: none;
   	}
+  }
+
+  @media ${tabletP}{
+  }
+  @media ${phoneL}{
   }
 `;
 
