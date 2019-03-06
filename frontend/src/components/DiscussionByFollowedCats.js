@@ -15,14 +15,6 @@ const DiscussionWrapper = styled.div`
 	justify-content: flex-start;
 	width: 100%;
 	margin-bottom: 20px;
-
-	@media ${ tabletP } {
-		background-color: red;
-	}
-
-	@media ${ phoneP } {
-		background-color: blue;
-	}
 `;
 
 const BodyWrapper = styled.p`
@@ -36,6 +28,12 @@ const InfoWrapper = styled.div`
 	font-size: 0.8rem;
 	color: #a7a7a7;
 
+	.user-info {
+		@media ${ phoneP } {
+			width: 100%;
+		}
+	}
+
 	.fa-circle {
 		font-size: 0.4rem;
 		margin-top: 7px;
@@ -45,6 +43,12 @@ const InfoWrapper = styled.div`
 
 	.category-name {
 		margin-left: 5px;
+	}
+
+	.date-views-comment {
+		@media ${ phoneP } {
+			display: none;
+		}
 	}
 `;
 
@@ -82,13 +86,15 @@ const DiscussionByFollowedCats = ({ discussion }) => {
 		<DiscussionWrapper>
 			<BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
 			<InfoWrapper>
-				<Avatar
-					height = '20px'
-					width = '20px'
-					src = { avatar }
-				/>
-				&nbsp;
-				<UsernameWrapper>{ username }</UsernameWrapper>
+				<div className = 'user-info'>
+					<Avatar
+						height = '20px'
+						width = '20px'
+						src = { avatar }
+					/>
+					&nbsp;
+					<UsernameWrapper>{ username }</UsernameWrapper>
+				</div>
 				<VotesWrapper>
 					<i className = 'fas fa-arrow-alt-circle-up' />
 					<span>{ upvotes || 0 }</span>
@@ -97,12 +103,14 @@ const DiscussionByFollowedCats = ({ discussion }) => {
 				</VotesWrapper>
 				<i className = { category_icon } />
 				<span className = 'category-name'>{ category_name }</span>
-				<i className = 'fas fa-circle' />
-				<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-				<i className = 'fas fa-circle' />
-				<span>{ views } View{ views !== 1 && 's' }</span>
-				<i className = 'fas fa-circle' />
-				<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
+				<div className = 'date-views-comment'>
+					<i className = 'fas fa-circle' />
+					<span>{moment(new Date(Number(created_at))).fromNow()}</span>
+					<i className = 'fas fa-circle' />
+					<span>{ views } View{ views !== 1 && 's' }</span>
+					<i className = 'fas fa-circle' />
+					<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
+				</div>
 			</InfoWrapper>
 		</DiscussionWrapper>
 	);

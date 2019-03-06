@@ -82,6 +82,7 @@ const DiscussionHeader = styled.div`
 
 		@media ${ phoneP } {
 			width: 100%;
+			margin-left: 0;
 		}
 
 		&:hover {
