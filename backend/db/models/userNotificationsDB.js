@@ -7,7 +7,7 @@ const getAll = user_id => {
 		'un.category_id',
 		'c.name as category_name',
 		'un.discussion_id',
-		'd.title as discussion_title',
+		'd.body as discussion_body',
 		'un.post_id',
 		'p.body as post_body',
 		'un.created_at',

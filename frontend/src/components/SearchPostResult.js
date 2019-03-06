@@ -49,7 +49,7 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 		votes,
 		user_id,
 		username,
-		discussion_title,
+		discussion_body,
 		category_id,
 		category_name,
 	} = post;
@@ -127,10 +127,10 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 			<p>In discussion &nbsp;
 				<span onClick = { handleDiscussionClick } className = 'discussion-wrapper'>
 					{
-						// if discussion_title is longer than limit,
+						// if discussion_body is longer than limit,
 						// slice first chars up to limit, and include an ellipsis at the end.
 						// else if shorter than limit, render the entirety of it
-						discussion_title.length > searchCharLimit ? discussion_title.slice(0, searchCharLimit) + ' ...' : discussion_title
+						discussion_body.length > searchCharLimit ? discussion_body.slice(0, searchCharLimit) + ' ...' : discussion_body
 					}
 				</span>
 			</p>
