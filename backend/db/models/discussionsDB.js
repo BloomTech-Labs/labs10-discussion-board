@@ -118,6 +118,7 @@ const findById = (id, user_id, order, orderType) => {
       'u.username',
       'd.category_id',
       'c.name as category_name',
+      'c.id as category_id',
       'us.avatar',
       'us.signature',
       'd.title',
@@ -139,7 +140,7 @@ const findById = (id, user_id, order, orderType) => {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     .where('d.id', id)
-    .groupBy('d.id', 'u.username', 'c.name', 'uv.type', 'us.avatar', 'us.signature','pc.post_count');
+    .groupBy('d.id', 'u.username', 'c.name', 'c.id', 'uv.type', 'us.avatar', 'us.signature','pc.post_count');
 
   const userPostVoteQuery = db('post_votes as pv')
     .select('pv.type', 'pv.post_id')

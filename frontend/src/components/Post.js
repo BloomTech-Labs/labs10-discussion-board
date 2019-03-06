@@ -12,60 +12,51 @@ import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
+//Styled Divs 
+// const H5signature = styled.h5`
+//   border-top: 1px solid black;
+//   padding: 15px;
+// `;
+
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+  width: 100%;
+  font-size: 14px;
 
-const PostSubWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  border-top: 1px solid black;
-  padding-top: 16px;
-  padding-bottom: 16px;
-
-  @media ${phoneL} {
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  .title {
+    margin-top: 30px;
+    margin-bottom: 5px;
   }
-`;
 
-const SubWrapper = styled.div`
-`;
+`
 
 //make a global for the avatar box Background
 const PostedBy = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 160px;
-  height: 230px;
+  flex-direction: row;
   align-items: center;
-  justify-content: start;
-  text-align: center;
-  box-shadow: 2px 3px 2px 2px grey;
-  background-color: lavender;
+  justify-content: space-between;
+  margin-right: 100px;
+  font-size: 12px;
+
+  .p-creator{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 
   img {
-    height: 128px;
-    width: 132px;
-    margin: 10px;
-    border-radius: 5%;
-    border: 1px solid purple;
+    border-radius: 50%;
+    margin-right: 15px;
   }
 
   @media ${phoneL} {
-    height: 170px;
-    width: 294px;
+
   }
 
   .username {
-    font-weight: bold;
-    color: ${props => props.theme.discussionAvatarUsernameColor};
     text-decoration: none;
-    width: 100%;
-    background-color: mediumpurple;
-    padding: 7px 0;
 
     &:hover {
       cursor: pointer;
@@ -73,56 +64,6 @@ const PostedBy = styled.div`
     }
   }
 `;
-
-const DivBody = styled.div `
-  padding: 30px;
-  padding-top: 10px;
-  width: 100%;
-  
-  span{
-    font-size: 12px;
-  }
-
-  p {
-    margin: 0; 
-    margin-bottom: 80px;
-    margin-top: 16px
-    word-break: break-word;
-    color: ${props => props.theme.discussionPostColor};
-    font-size: 16px;
-  }
-
-  .signature{
-    border: 1px solid;
-  }
-`;
-
-const H5signature = styled.h5`
-  border-top: 1px solid black;
-  padding: 15px;
-`;
-
-const VoteAndBody = styled.div`
-display: flex;
-flex-direction: row;
-
-`;
-
-const UserActions = styled.div`
-display: flex;
-flex-direction: row;
-align-self: flex-end;
-color: ${props => props.theme.discussionPostColor};
-
-  @media ${phoneL}{
-    
-  }
-
- h4{
-   cursor: pointer;
- }
- `;
-
 
 const Post = ({
   post,
@@ -153,9 +94,9 @@ const Post = ({
   } = post;
 
   const handleVote = type => handlePostVote(post.id, type, discussion_id, order, orderType);
-  const handleEdit = () => updateEditPostForm(id);
-  const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
-  const userCreatedPost = loggedInUserId === user_id;
+  // const handleEdit = () => updateEditPostForm(id);
+  // const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
+  // const userCreatedPost = loggedInUserId === user_id;
 
   //Shows Created timestamp, then Edited Time stamp overrides it once post is edited
   const timeStamp =() => {
@@ -177,56 +118,30 @@ const Post = ({
     //in order to place the UserActions (reply/edit/remove) on the bottom
     //Of the component
     <PostWrapper>
-      <PostSubWrapper name={id}>
-        <SubWrapper>
-          {reply_to && <Quote reply_to={reply_to} />}
-          <VoteAndBody>
-            <VoteCount
-              handleVote={handleVote}
-              vote_count={post_votes}
-              user_vote={user_vote}
-            />
-            <PostedBy>
-            <div className='avatar'><img alt='picture' src={avatar} /></div>              
-              {
-                username ?
-                  <Link className='username' to={`/profile/${user_id}`}>
-                    {username},
-                  </Link> :
-                  <Deleted />
-              }
-            </PostedBy>
-          </VoteAndBody>
-        </SubWrapper>
-        <DivBody>
-          {timeStamp(last_edited_at, created_at)}
-          <p>{body}</p>
-          <div className='signature'>
-            { signature && <H5signature>{ signature }</H5signature> }
-          </div>
-        </DivBody>
-      </PostSubWrapper>
-      <UserActions>
-      {
+      <p className='title'>Comments</p>
+      <p>{body}</p>
+      <PostedBy>
+        <div className='p-creator'>
+          <img alt='picture' src={avatar} />              
+          {
+            username ?
+              <Link className='username' to={`/profile/${user_id}`}>
+                {username}
+              </Link> :
+              <Deleted />
+          }
+        </div>
+        {
         loggedInUserId !== 0 &&
-        <h4 onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</h4>
-      }
-      {userCreatedPost &&
-        (showEditPostForm === id ? (
-          <EditPostForm
-            user_id={user_id}
-            post_id={id}
-            discussion_id={discussion_id}
-            historyPush={historyPush}
-            updateEditPostForm={updateEditPostForm}
-          />
-        ) : (
-            <>
-              <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>
-            </>
-          ))}
-      {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
-    </UserActions>
+        <p onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</p>
+        }
+        <VoteCount
+          handleVote={handleVote}
+          vote_count={post_votes}
+          user_vote={user_vote}
+        />
+        {timeStamp(last_edited_at, created_at)}
+      </PostedBy>
   </PostWrapper>
   );
 };
@@ -240,3 +155,34 @@ export default connect(
   mapStateToProps,
   { handlePostVote }
 )(Post);
+
+//Signature
+
+{/* <div className='signature'>
+  { signature && <H5signature>{ signature }</H5signature> }
+</div> */}
+
+//Reply with Quote Modal
+
+{/* {reply_to && <Quote reply_to={reply_to} />} */}
+
+//Remove Written Post
+
+// {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
+
+//Edit Post Form
+
+// {userCreatedPost &&
+//   (showEditPostForm === id ? (
+//     <EditPostForm
+//       user_id={user_id}
+//       post_id={id}
+//       discussion_id={discussion_id}
+//       historyPush={historyPush}
+//       updateEditPostForm={updateEditPostForm}
+//     />
+//   ) : (
+//       <>
+//         <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>
+//       </>
+//     ))}

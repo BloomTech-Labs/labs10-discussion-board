@@ -32,18 +32,30 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 const DiscussionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;;
-  border: 1px solid;
+  width: 70%;
+
+  .back {
+    font-size: 47px;
+    margin-right: 50px;
+    color: black;
+    
+    &:hover{
+      cursor: pointer;
+    }
+  }
 `;
 const SubWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid yellow;
 `;
 
 const DiscussionContent = styled.div`
-  border: 1px solid purple;
   // color: darkgray;
+
+  p{
+    font-size: 14px;
+  }
+}
 `;
 
 const PostedBy = styled.div`
@@ -51,22 +63,24 @@ const PostedBy = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-right: 100px;
+  font-size: 12px;
   // color: darkgray;
 
   .d-creator {
     display: flex;
     flex-direction: row;
-    align-items: center
+    align-items: center;
 
-    img{
-      border-radius: 50%;
-      margin-right: 15px;
-    }
-  
-    .username{
-      text-decoration: none;
-    }
+  img{
+    border-radius: 50%;
+    margin-right: 15px;
   }
+
+  .username{
+    text-decoration: none;
+  }
+}
 
   .c-name{
   }
@@ -77,18 +91,14 @@ width: 100%;
 display: flex;
 flex-direction: column;
 
-@media ${tabletP} {
-  
-}
+  @media ${tabletP} {
+    
+  }
 
   @media ${phoneL}{
     text-align: center;
   }
 
-h1 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
 `;
 
 const Posts = styled.div``;
@@ -220,6 +230,7 @@ class Discussion extends Component {
       discussion_votes,
       avatar,
       category_name,
+      category_id,
       id,
       posts,
       post_count,
@@ -228,20 +239,8 @@ class Discussion extends Component {
       user_vote,
     } = discussion;
 
-    console.log('discussion', discussion);
     const handleVote = type => this.handleDiscussionVote(id, type);
-    const timeStamp =() => {
-      if(last_edited_at){
-        return (
-              <span>
-                Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-              </span>
-            )
-      } else if(created_at) {
-        return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-        )
-      }
-    }
+    
 
     // Back Button needs to take in the dynamic (category_id)
     //Add an icon by the category name
@@ -250,13 +249,31 @@ class Discussion extends Component {
     //Reply Modal should render right below the comment in a bar
     //Replies to Comments should render nested in the comment
 
+    //TimeStamp 
+
+    //Function
+    // const timeStamp =() => {
+    //   if(last_edited_at){
+    //     return (
+    //           <span>
+    //             Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+    //           </span>
+    //         )
+    //   } else if(created_at) {
+    //     return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
+    //     )
+    //   }
+    // }
+
+    //Call
+    // {timeStamp(last_edited_at, created_at)}   
+
     return (
       <DiscussionWrapper>
-        <div className='back'>Back</div>
+        <Link className='back' to={`/discussions/category/${category_id}`}><i class="far fa-arrow-alt-circle-left"></i></Link>
         <SubWrapper>
           <DiscussionContent>
             <div className='content'>
-              {timeStamp(last_edited_at, created_at)}    
               <p>{body}</p>
             </div>
             <PostedBy>
@@ -280,8 +297,7 @@ class Discussion extends Component {
               <Follow discussion_id = {id} historyPush = { historyPush }/> 
             </PostedBy>
           </DiscussionContent>  
-          <CommentWrapper>
-              <h5>Comments</h5>      
+          <CommentWrapper>      
               <Posts>
                 <PostsView
                   posts={posts}

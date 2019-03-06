@@ -7,7 +7,7 @@ import { Discussion} from '../components/index.js';
 const DiscussionViewWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
-	width: 90%;
+	justify-content: flex-end;
 `;
 
 const DiscussionView = ({ history, match, scrollTo }) => {
