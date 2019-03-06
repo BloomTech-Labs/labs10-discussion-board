@@ -36,6 +36,10 @@ import {
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
 
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE,
+
 		//FOLLOW DISCUSSIONS
 		FOLLOW_DISCUSSION_LOADING,
 		FOLLOW_DISCUSSION_SUCCESS,
@@ -61,7 +65,8 @@ import {
   // Action Creators
 		getTopDiscussions,
 		getDiscussionsByCat,
-		getDiscussionById,
+    getDiscussionById,
+    getAllDiscussionsByFollowedCategories,
     followDiscussion,
     addDiscussion,
     editDiscussion,
@@ -265,6 +270,10 @@ export {
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
 
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE,
+
   FOLLOW_DISCUSSION_LOADING,
   FOLLOW_DISCUSSION_SUCCESS,
   FOLLOW_DISCUSSION_FAILURE,
@@ -409,6 +418,7 @@ export {
   getTopDiscussions,
   getDiscussionsByCat,
   getDiscussionById,
+  getAllDiscussionsByFollowedCategories,
   followDiscussion,
   addDiscussion,
   editDiscussion,

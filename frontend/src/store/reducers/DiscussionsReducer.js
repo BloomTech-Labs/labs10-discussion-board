@@ -11,6 +11,10 @@ import {
   GET_DISCUSSION_BY_ID_SUCCESS,
   GET_DISCUSSION_BY_ID_FAILURE,
 
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS,
+  GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE,
+
   FOLLOW_DISCUSSION_LOADING,
   FOLLOW_DISCUSSION_FAILURE,
   FOLLOW_CATEGORY_LOADING,
@@ -47,7 +51,24 @@ const initialState = {
   discussions: [],
   follows: {
     discussionId: []
-  }
+  },
+  followedDiscussions: [
+    {
+      avatar: '',
+      body: '',
+      category_icon: '',
+      category_id: 0,
+      category_name: '',
+      created_at: '',
+      downvotes: '',
+      id: 0,
+      post_count: '',
+      upvotes: '',
+      user_vote: null,
+      username: '',
+      views: 0,
+    }
+  ],
 };
 
 export const DiscussionsReducer = (state = initialState, action) => {
@@ -78,6 +99,14 @@ export const DiscussionsReducer = (state = initialState, action) => {
         hotDiscussions: action.payload,
       };
 
+    case GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS:
+      return {
+        ...state,
+        followedDiscussions: action.payload,
+      };
+
+    case GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING:
+    case GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE:
     case GET_HOT_DISCUSSIONS_LOADING:
     case GET_HOT_DISCUSSIONS_FAILURE:
     case HANDLE_DISCUSSION_VOTE_LOADING:

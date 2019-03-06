@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {phoneP, tabletP, } from '../globals/globals';
 
+// components
+import { DiscussionsByFollowedCats } from '../components/index.js';
+
 // views
 import { TopDiscussionsView } from './index.js';
 
@@ -31,11 +34,7 @@ const LandingViewWrapper = styled.div`
 const LandingView = props => {
   return (
     <LandingViewWrapper>
-      {props.loggingInLoadingMessage ? (
-        <div>Logging in...</div>
-      ) : (
-        <TopDiscussionsView />
-      )}
+      <DiscussionsByFollowedCats />
     </LandingViewWrapper>
   );
 };
