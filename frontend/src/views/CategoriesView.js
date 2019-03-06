@@ -9,7 +9,7 @@ import { getCategories } from '../store/actions/index.js';
 import { phoneP, tabletP, tabletL } from '../globals/globals';
 
 // components
-import { AddCategoryForm, Categories, CategoriesNav } from '../components/index.js';
+import { Categories, CategoriesNav, AddCategoryModal } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
   width: 1024px;
@@ -35,15 +35,12 @@ class CategoriesView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAddForm: false,
       order: 'name', // possible values: 'name', 'discussion_count', 'created_at'
       orderType: '', // possible values: 'asc', 'desc'
     };
   }
 
   componentDidMount = () => this.props.getCategories(this.state.order, this.state.orderType);
-
-  toggleAddForm = () => this.setState({ showAddForm: !this.state.showAddForm });
 
   sortHandler = ev => {
     ev.preventDefault();
@@ -53,34 +50,26 @@ class CategoriesView extends Component {
   }
 
   render() {
-    console.log('props', this.props);
-    const { showAddForm } = this.state;
-    const { history, user_id } = this.props;
+    const { user_id, setAddCatModalRaised, isAddCatModalRaised, historyPush } = this.props;
     return (
       <CategoriesWrapper>
         <H1Categories className='cat-header'>Categories</H1Categories>
-        {user_id && showAddForm ? (
-          <AddCategoryForm
-            toggleAddForm={this.toggleAddForm}
-            historyPush={history.push}
+        <DivCategoriesComponent>
+          {(user_id && isAddCatModalRaised) && <AddCategoryModal historyPush={historyPush} setAddCatModalRaised={setAddCatModalRaised} />}
+          <CategoriesNav
+            sortHandler={this.sortHandler}
+            order={this.order}
+            orderType={this.orderType}
+            user_id={user_id}
+            setAddCatModalRaised={setAddCatModalRaised}
           />
-        ) : (
-            <DivCategoriesComponent>
-              <CategoriesNav
-                toggleAddForm={this.toggleAddForm}
-                sortHandler={this.sortHandler}
-                order={this.order}
-                orderType={this.orderType}
-                user_id={user_id}
-              />
-              <Categories categories={this.props.categories} />
-            </DivCategoriesComponent>
-          )}
+          <Categories categories={this.props.categories} />
+        </DivCategoriesComponent>
       </CategoriesWrapper>
     );
   }
 }
-// <CategoriesList />
+
 const mapStateToProps = state => ({
   user_id: state.users.user_id,
   categories: state.categories.categories,

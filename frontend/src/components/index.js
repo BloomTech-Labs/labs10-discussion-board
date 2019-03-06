@@ -1,7 +1,7 @@
-import CategoriesList from './CategoriesList.js';
 import Categories from './categories/Categories.js';
 import CategoriesNav from './categories/CategoriesNav.js';
 import Category from './categories/Category.js';
+import AddCategoryModal from './categories/AddCategoryModal.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
@@ -55,16 +55,15 @@ import UpdateEmailForm from './forms/UpdateEmailForm.js';
 import EditDiscussionForm from './forms/EditDiscussionForm.js';
 import RequestResetPWForm from './forms/RequestResetPWForm';
 import ResetPWForm from './forms/ResetPWForm.js';
-import AddCategoryForm from './forms/AddCategoryForm.js';
 import AddReplyForm from './forms/AddReplyForm.js';
 import EditSignatureForm from './forms/EditSignatureForm.js';
 
 export {
   Auth,
-  CategoriesList,
   Categories,
   CategoriesNav,
   Category,
+  AddCategoryModal,
   Discussion,
   DiscussionsByCat,
   DiscussionsByCats,
@@ -115,7 +114,6 @@ export {
   EditDiscussionForm,
   RequestResetPWForm,
   ResetPWForm,
-  AddCategoryForm,
   AddReplyForm,
   EditSignatureForm,
 };

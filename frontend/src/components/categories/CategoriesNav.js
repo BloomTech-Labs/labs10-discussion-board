@@ -30,7 +30,7 @@ const ButtonAddCategory = styled.button`
   background: rgb(0, 200, 0);
   height: 45px;
   width: 170px;
-  border-radius: 10px;
+  border-radius: 5px;
   outline: none;
   cursor: pointer;
   font-weight: bold;
@@ -84,8 +84,8 @@ const SelectSortDropdown = styled.select`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const CategoriesNav = ({ toggleAddForm, sortHandler, order, user_id }) => {
-  console.log('user_id', user_id);
+const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id }) => {
+
   return (
     <DivNav>
       <DivSort>
@@ -111,16 +111,12 @@ const CategoriesNav = ({ toggleAddForm, sortHandler, order, user_id }) => {
         </SelectSortDropdown>
       </DivSort>
       <DivButtons>
-        <ButtonAddCategory onClick={toggleAddForm} user_id={user_id}>
+        <ButtonAddCategory onClick={(ev) => setAddCatModalRaised(ev, true)} user_id={user_id}>
           Add Category
         </ButtonAddCategory>
       </DivButtons>
     </DivNav>
   );
 };
-
-// CategoriesNav.propTypes = {
-//   propertyName: PropTypes.string
-// }
 
 export default CategoriesNav;
