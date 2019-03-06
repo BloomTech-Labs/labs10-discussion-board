@@ -47,9 +47,14 @@ router.get('/', (req, res) => {
   return discussionsDB
     .getDiscussions()
     .then(discussMap => res.status(200).json(discussMap))
-    .catch(err =>
-      res.status(500).json({ error: `Failed to getDiscussions(): ${err}` })
-    );
+    .catch(err => res.status(500).json({ error: `Failed to getDiscussions(): ${err}` }));
+});
+
+router.get('/all-by-followed-categories/:user_id', authenticate, (req, res) => {
+  const { user_id } = req.params;
+  return discussionsDB.getAllDiscussionsByFollowedCategories(user_id)
+    .then(discussions => res.status(200).json(discussions))
+    .catch(err => res.status(500).json({ error: `Failed to getAllDiscussionsByFollowedCategories(): ${err}` }));
 });
 
 //GET Discussion by Discussion ID
@@ -104,11 +109,10 @@ router.get('/category/:category_id/:user_id', authenticateIfTokenExists, (req, r
 //Add Discussion
 router.post('/:user_id', authenticate, (req, res) => {
   const { user_id } = req.params;
-  const { category_id, title, dBody } = req.body;
+  const { dBody, category_id } = req.body;
   const created_at = Date.now();
-  if (!title) return res.status(400).json({ error: 'discussion title must not be empty.' });
   if (!dBody) return res.status(400).json({ error: 'discussion body must not be empty.' });
-  const newDiscussion = { user_id, category_id, title, body: dBody, created_at };
+  const newDiscussion = { user_id, category_id, body: dBody, created_at };
   return discussionsDB
     .insert(newDiscussion)
     .then(async newId => {

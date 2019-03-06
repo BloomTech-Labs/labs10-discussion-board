@@ -131,8 +131,8 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <Logo />
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
+            {/* <Logo /> */}
             <Route exact path='/' component={HotDiscussionsView} />
             <Route path='/home' component={LandingView} />
             <Route path='/profiles' component={Profiles} />
@@ -154,19 +154,19 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <Logo />
+            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
+            {/* <Logo /> */}
             <Switch>
               <Route path='/register' component={RegisterView} />
               <Route path='/request-reset-pw' component={RequestResetPWForm} />
               <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
-              <Route exact path='/' component={HotDiscussionsView} />
+              {/* <Route exact path='/' component={HotDiscussionsView} />
               <Route path='/home' component={LandingView} />
               <Route path='/profile/:id' component={Profile} />
               <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
               <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
               <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-              <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+              <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
             </Switch>
             <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme} />
             {error && <Error error={error} />}

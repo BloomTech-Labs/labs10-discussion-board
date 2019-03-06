@@ -41,6 +41,8 @@ import Notifications from './Notifications.js';
 import Notification from './Notification.js';
 import HotDiscussions from './HotDiscussions.js';
 import HotDiscussion from './HotDiscussion.js';
+import DiscussionsByFollowedCats from './DiscussionsByFollowedCats.js';
+import DiscussionByFollowedCats from './DiscussionByFollowedCats.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -98,6 +100,8 @@ export {
   Notification,
   HotDiscussions,
   HotDiscussion,
+  DiscussionsByFollowedCats,
+  DiscussionByFollowedCats,
 
   // forms
   AddPostForm,
