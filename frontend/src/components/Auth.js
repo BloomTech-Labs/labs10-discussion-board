@@ -18,21 +18,6 @@ const NotLoggedIn = styled.div`
   flex-direction: column;
 `;
 
-const DivAuthTitle = styled.div`
-    display: flex;
-    justify-content: flex-end;
-  p {
-    margin: 0 0 0.67em 0;
-  }
-
-  @media (max-width: 750px){
-      display: none;
-    @media (max-width: 450px){
-      display: none;
-    }
-  }
-`;
-
 const DivAuthRegLog = styled.div`
   margin-top: -5px;
   display: flex;
@@ -110,11 +95,6 @@ class Auth extends Component {
   render() {
     return (
       <NotLoggedIn>
-        <DivAuthTitle>
-          <p>
-            Want to participate in the conversation?
-          </p>
-        </DivAuthTitle>
         <DivAuthRegLog>
           <LinkRegister to='/register'>Register</LinkRegister>
           &nbsp;|&nbsp;
