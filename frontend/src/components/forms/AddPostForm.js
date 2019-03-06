@@ -83,6 +83,7 @@ class AddPostForm extends Component {
 					><i className="far fa-times-circle"></i></a>
 				</AddCommentTitle>
 				<textarea
+					
 					type= 'text'
 					placeholder = 'Write your comment'
 					name = 'postBody'

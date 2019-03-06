@@ -32,7 +32,9 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 const DiscussionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 70%;
+  width: 80%;
+  margin-top: 100px;
+  justify-content: flex-end;
 
   .back {
     font-size: 47px;
