@@ -14,7 +14,6 @@ import { ToolTip } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const FollowWrapper = styled.div`
-  padding: 10px;
 `;
 
 const Followed = styled.div`
@@ -30,17 +29,17 @@ const Followed = styled.div`
   
   .follow {
     cursor: pointer;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+  }
+
+  button{
+    color: white;
+    padding: 10px;
   }
 `;
 
-const FollowDis = styled.div`
-  color: ${props => props.theme.topDiscussionTitleColor};
-  font-style: oblique;
-  font-weight: bold;
-`;
+
+  // color: ${props => props.theme.topDiscussionTitleColor};
+
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -62,17 +61,25 @@ class Follow extends Component {
         const { followed } = this.state;
         const { user_id } = this.props;
         const isFollowing = this.props.discussionFollows.some(follow => follow.discussion_id === Number(this.props.discussion_id));
+        const followUnfollow = () => {
+          if(isFollowing === true){
+            return 'Unfollow Thread'
+          } else {
+            return 'Follow Thread'
+          }
+        }
         return (
           <FollowWrapper>
             <Followed>
-            <FollowDis>Follow</FollowDis>
-              <button
+            <button
                   className="follow"
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
-                  style={{backgroundColor: isFollowing ? 'green' : 'red'}}
+                  style={{backgroundColor: isFollowing ? 'lightsteelblue' : 'steelblue'}}
                   value={followed ? 'Followed' : 'Follow?'}
-              />
+              >
+                <i class="fas fa-plus"></i>&nbsp;&nbsp;{followUnfollow()}
+              </button>
               {
                 !user_id &&
                 <ToolTip

@@ -43,6 +43,7 @@ const SubWrapper = styled.div`
 
 const DiscussionContent = styled.div`
   border: 1px solid purple;
+  // color: darkgray;
 `;
 
 const PostedBy = styled.div`
@@ -50,7 +51,7 @@ const PostedBy = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: ${props => props.theme.discussionAvatarUsernameColor};
+  // color: darkgray;
 
   .d-creator {
     display: flex;
@@ -64,7 +65,6 @@ const PostedBy = styled.div`
   
     .username{
       text-decoration: none;
-      color: black;
     }
   }
 
@@ -227,7 +227,7 @@ class Discussion extends Component {
       username,
       user_vote,
     } = discussion;
-    
+
     console.log('discussion', discussion);
     const handleVote = type => this.handleDiscussionVote(id, type);
     const timeStamp =() => {
