@@ -27,11 +27,11 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to getCategories(): ${err}` }));
 });
 
-router.get('/all-names/:user_id', authenticate, (req, res) => {
-  const { user_id } = req.params;
+router.get('/followed/:user_id', authenticate, (req, res) => {
+  const user_id = req.params.user_id;
   return categoriesDB.getFollowedCategoryNames(user_id)
     .then(categories => res.status(200).json(categories))
-    .catch(err => res.status(500).json({ error: `Failed to getFollowedCategoryNames(): ${err}` }));
+    .catch(err => res.status(500).json({ error: `Failed to getCategories(): ${err}` }));
 });
 
 router.get('/search', (req, res) => {
@@ -69,7 +69,7 @@ router.post('/:user_id', authenticate, (req, res) => {
   name = name.trim();
   return categoriesDB.getCategoryByName(name)
     .then(cats => {
-      if (cats) return res.status(400).json({ error: `Category ${ cats.name } already exists.` });
+      if (cats) return res.status(400).json({ error: `Category ${cats.name} already exists.` });
       let category = { name, user_id };
       category.created_at = Date.now();
       return categoriesDB.insert(category)

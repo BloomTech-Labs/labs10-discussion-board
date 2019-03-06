@@ -527,6 +527,10 @@ const DivAvatar = styled.div`
   visibility: ${props =>
     props.subPlan === subscriptionPlans[3] ? 'show' : 'hidden'};
 
+  .avatar {
+    margin: 0 auto;
+  }
+
   input {
     margin: 20px 0 10px;
     padding: 5px;
