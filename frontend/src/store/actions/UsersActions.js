@@ -175,7 +175,6 @@ export const register = creds => dispatch => {
     avatarData: creds.avatarData,
     subPlan: creds.subPlan
   };
-  console.log('username', creds.username)
   return axios
     .post(`${backendUrl}/auth/register`, backendCreds)
     .then(response => {
@@ -459,11 +458,11 @@ export const editUser = (username, email, oldPassword, newPassword) => dispatch 
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   const body = { username, email, oldPassword, newPassword };
-  dispatch({ type: EDIT_USER_LOADING});
+  dispatch({ type: EDIT_USER_LOADING });
   return axios
     .put(`${backendUrl}/users/user/${user_id}`, body, headers)
     .then(() => {
-      dispatch({type: EDIT_USER_SUCCESS});
+      dispatch({ type: EDIT_USER_SUCCESS });
       displayMessage('User has been updated.')(dispatch)
     })
     .catch(err => handleError(err, EDIT_USER_FAILURE)(dispatch))
