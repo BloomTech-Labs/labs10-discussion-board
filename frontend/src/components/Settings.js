@@ -310,19 +310,19 @@ class Settings extends Component {
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
-        <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
+        {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
         <UserSettings>
           <ProfileSettings>
           <EmailAndAvatar>
           <AvatarPic>
               <Avatar height='100px' width='100px' src={avatar} />
             </AvatarPic>
-            {
-                isUserType(user_type, ['gold_member', 'admin']) &&
+            
+                
                 <p onClick={() => this.toggleForm('avatar-btns')}>
                   Edit avatar
                 </p>
-              }
+              
           </EmailAndAvatar>
           
           {/* {
@@ -338,7 +338,7 @@ class Settings extends Component {
             <FirstName><p> Last Name: <input name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
             <Email>
               <p>Email: {isAuth0 ? <p>{email}</p> : <input name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
-              <button type = 'submit' >submit</button>
+              <button type = 'submit' >Save settings</button>
             
               {/* <EmailForm>
                 {

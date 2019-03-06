@@ -320,10 +320,10 @@ router.put('/update-email/:user_id', authenticate, requestClientIP, (req, res) =
 // Update the avatar of a user given their ID
 router.put('/avatar/:user_id', authenticate, fileUpload(), async (req, res) => {
   const { user_id } = req.params;
-  const { user_type } = await usersDB.getUserType(user_id);
-  if (!['gold_member', 'admin'].includes(user_type)) {
-    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
-  }
+  // const { user_type } = await usersDB.getUserType(user_id);
+  // if (!['gold_member', 'admin'].includes(user_type)) {
+  //   return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  // }
   let { avatarData } = req.body;
   if (avatarData === null) {
     avatarData = defaultAvatar;
@@ -377,10 +377,10 @@ router.put('/avatar/:user_id', authenticate, fileUpload(), async (req, res) => {
 // Update the avatar (as a url) of a user given their ID
 router.put('/avatar-url/:user_id', authenticate, async (req, res) => {
   const { user_id } = req.params;
-  const { user_type } = await usersDB.getUserType(user_id);
-  if (!['gold_member', 'admin'].includes(user_type)) {
-    return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
-  }
+  // const { user_type } = await usersDB.getUserType(user_id);
+  // if (!['gold_member', 'admin'].includes(user_type)) {
+  //   return res.status(401).json({ error: 'You do not have the permissions to access to this.' });
+  // }
   let { avatarUrl } = req.body;
   if (avatarUrl === null) {
     // reset avatar to default
