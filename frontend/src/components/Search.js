@@ -24,12 +24,8 @@ const SearchBox = styled.div`
 	border-radius: 35px;
 	position: relative;
 
-	div {
-		border: none;
-	}
-
 	input {
-		background-color: ${props => props.theme.borderColor};
+		background-color: #F7F9FC;
 		border-radius: 35px;
 		&:focus {
     	outline: none;
@@ -118,10 +114,25 @@ const SearchBox = styled.div`
 	}
 
 	.search-input-wrapper {
+		position: relative;
+		border: none;
+
+		.fa-search {
+			color: #ACB1BC;
+			position: absolute;
+			top: 7px;
+  			left: 10px;
+		}
 		.search-input {
+			width: 95%;
 			border: none;
 			border-radius: 55px;
 			padding: 5px 10px;
+			font-size: 14px;
+			text-indent: 27px;
+				::placeholder {
+					color: #BABEC8;
+				}
 		}
 	}
 
@@ -267,12 +278,14 @@ class Search extends Component {
 		return(
 			<SearchBox>
 				<div className = 'search-input-wrapper'>
+				<span class="fa fa-search"></span>
 					<input
 						type = 'text'
 						name = 'searchText'
 						className = 'search-input'
 						value = { searchText }
 						onChange = { this.handleInputChange }
+						placeholder = 'Search'
 					/>
 				</div>
 

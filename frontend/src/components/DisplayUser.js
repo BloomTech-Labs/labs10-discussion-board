@@ -14,9 +14,9 @@ import { signout, markNotificationsAsRead } from '../store/actions';
 const DivWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  width: 50%;
+  width: 70%;
 `;
 
 const DivUser = styled.div`
@@ -45,7 +45,6 @@ const DivAvatar = styled.div`
 
 const PWelcomeMessage = styled.p`
     font-size: 20px;
-    margin-right: 15px;
 
     .notifications-icon-wrapper {
       position: relative;
@@ -79,9 +78,6 @@ const PWelcomeMessage = styled.p`
       font-size: 16px;
       width: 40%;
       margin-right: 0px;
-    }
-    @media (max-width: 570px){
-      display: none;
     }
 `;
 

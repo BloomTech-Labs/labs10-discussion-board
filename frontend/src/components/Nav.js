@@ -21,10 +21,10 @@ const DivWrapper = styled.div`
   justify-content: space-between;
 
   @media ${tabletP}{
-    width: 100%;
+    width: 75%;
     
     @media ${phoneL}{
-      width: 100%;
+      width: 75%;
     }
   }
 `;
@@ -68,8 +68,8 @@ const DivWrapper = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  justify-content: space-between;
+  width: 35%;
   height: 100%;
 
   @media ${tabletP}{
@@ -91,11 +91,12 @@ const DivAuth = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
+  width: 60%;
   justify-content: center;
   align-items: center;
 
   @media ${tabletP}{
-    width: 18%;
+    width: 25%;
     }
     
     @media ${phoneL}{

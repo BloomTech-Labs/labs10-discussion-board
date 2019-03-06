@@ -30,6 +30,9 @@ const Container = styled.div`
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
+  border-right: 2px solid ${props => props.theme.borderColor};
+  padding-right: 100px;
+
 `;
 
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
@@ -37,7 +40,7 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
     <StyledHeader>
       <Container>
         <LogoContainer>
-          <div>Lambda Logo</div>
+          <div>Lambda</div>
         </LogoContainer>
         <Nav showSearch = {showSearch} 
              scrollTo = {scrollTo} 
