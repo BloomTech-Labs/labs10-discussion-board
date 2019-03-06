@@ -13,9 +13,9 @@ const NotificationsWrapper = styled.div`
 	flex-direction: column;
 	z-index: 2;
 	position: absolute;
-	border: 1px solid red;
+	border: 1px solid black;
 	border-radius: 5px;
-	background-color: #54BDFF;
+	background-color: white;
 	color: black;
 	padding: 5px;
 	width: 310px;

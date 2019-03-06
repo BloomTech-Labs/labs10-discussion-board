@@ -142,6 +142,7 @@ const searchAll = (searchText, orderType) => {
       'p.body',
       'p.user_id',
       'u.username',
+      'd.body as discussion_body',
       'c.id as category_id',
       'c.name as category_name',
       db.raw('SUM(COALESCE(pv.type, 0)) AS votes'),
@@ -151,16 +152,16 @@ const searchAll = (searchText, orderType) => {
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .whereRaw('LOWER(p.body) LIKE ?', `%${searchText.toLowerCase()}%`)
-    .groupBy('p.id', 'u.username', 'c.name', 'c.id');
+    .groupBy('p.id', 'u.username', 'c.name', 'c.id', 'd.body');
 
   const promises = [categoriesQuery, discussionsQuery, postsQuery];
   return Promise.all(promises)
     .then(results => {
       const [categoriesResults, discussionsResults, postsResults] = results;
       const resultArr = [];
-      categoriesResults.forEach(cat => resultArr.push({ type: 'category', result: cat }));
+      categoriesResults.forEach(cat => resultArr.push({ type: 'categoriy', result: cat }));
       discussionsResults.forEach(dis => resultArr.push({ type: 'discussion', result: dis }));
-      postsResults.forEach(post => resultArr.push({ type: 'post', result: post }));
+      postsResults.forEach(post => resultArr.push({ type: 'comment', result: post }));
       resultArr.sort((a, b) => {
         if (orderType === 'desc') return b.result.created_at - a.result.created_at;
         return a.result.created_at - b.result.created_at;

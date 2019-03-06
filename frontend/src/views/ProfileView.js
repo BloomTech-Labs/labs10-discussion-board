@@ -199,7 +199,7 @@ class Profile extends Component {
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-titleC'> Discussions: </p>
-                {profile.discussions.map((discussion, index) => <SubContentDiv key={index}>{discussion.title}</SubContentDiv>)}
+                {profile.discussions.map((discussion, index) => <SubContentDiv key={index}>{discussion.body}</SubContentDiv>)}
               </WrappedDiv>
               <WrappedDiv>
                 <p className='property-titleC'> Posts: </p>
