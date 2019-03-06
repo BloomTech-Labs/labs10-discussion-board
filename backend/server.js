@@ -33,6 +33,7 @@ const {
   discussionVotesRouter,
   postsRouter,
   postVoteRouter,
+  repliesRouter,
   testRouter,
   usersRouter,
   discussionFollowsRouter,
@@ -46,6 +47,7 @@ server.use('/discussions', discussionsRouter);
 server.use('/discussion-votes', discussionVotesRouter);
 server.use('/posts', postsRouter);
 server.use('/post-votes', postVoteRouter);
+server.use('/replies', repliesRouter);
 server.use('/tests', testRouter);
 server.use('/users', usersRouter);
 server.use('/discussion-follows', discussionFollowsRouter);
