@@ -38,7 +38,7 @@ const Container = styled.div`
       }
 
   @media(max-width: 750px){
-    padding-right: 50px;
+    padding-right: 30px;
   }
     @media (max-width: 450px){
       padding-right: 15px;

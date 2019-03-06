@@ -116,6 +116,7 @@ const SearchBox = styled.div`
 	.search-input-wrapper {
 		position: relative;
 		border: none;
+		width: 100%;
 
 		.fa-search {
 			color: #ACB1BC;
@@ -124,7 +125,7 @@ const SearchBox = styled.div`
   			left: 10px;
 		}
 		.search-input {
-			width: 95%;
+			width: 80%;
 			border: none;
 			border-radius: 55px;
 			padding: 5px 10px;
