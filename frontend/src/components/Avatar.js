@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {connect} from 'react-redux';
 
 const AvatarWrapper = styled.div`
   display: inline-block;
@@ -12,8 +13,12 @@ const AvatarWrapper = styled.div`
   border-radius: 50%;
 `;
 
-const Avatar = ({ height, width, src }) => {
-  return <AvatarWrapper height={height} width={width} src={src} />;
+const Avatar = ({ height, width, avatar, src }) => {
+  return <AvatarWrapper height={height} width={width} src={src || avatar} />;
 };
 
-export default Avatar;
+const mapStateToProps = state => ({
+	avatar: state.users.avatar,
+  });
+
+export default connect(mapStateToProps, {})(Avatar);

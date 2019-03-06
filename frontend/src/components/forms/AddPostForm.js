@@ -5,6 +5,7 @@ import CKEditor from 'ckeditor4-react';
 // import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
 // import Parser from 'html-react-parser';
+import { Avatar } from '../index.js'
 
 import { appBgColor } from '../../globals/globals.js'
 
@@ -94,7 +95,7 @@ class AddPostForm extends Component {
 					value = { postBody }
 				/>
 				<UserActions>
-					<div>IMG GOES HERE</div>
+					<Avatar height='30px' width='30px' />
 					<button type = 'submit'>Post comment</button>	
 				</UserActions>
 			</AddPostFormWrapper>
@@ -262,6 +263,5 @@ class AddPostForm extends Component {
 // 		</AddPostFormWrapper>
 // 		)}
 // }
-
 
 export default connect(null, { addPost })(AddPostForm);

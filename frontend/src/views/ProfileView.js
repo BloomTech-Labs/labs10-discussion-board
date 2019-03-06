@@ -172,7 +172,6 @@ class Profile extends Component {
                 <Avatar
                   height='50px'
                   width='50px'
-                  src={profile.avatar}
                 />
               </WrappedDiv>
               <WrappedDiv>

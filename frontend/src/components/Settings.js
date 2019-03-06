@@ -347,7 +347,7 @@ class Settings extends Component {
           <ProfileSettings>
           <EmailAndAvatar>
           <AvatarPic>
-              <Avatar height='100px' width='100px' src={avatar} />
+              <Avatar height='100px' width='100px' />
             </AvatarPic>
            
                 <p className = 'avatar-change' onClick={() => this.toggleForm('avatar-btns')}>
@@ -368,7 +368,7 @@ class Settings extends Component {
             <FirstName><p> First Name <input className = 'input-style' name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange}/></p></FirstName>
             <FirstName><p> Last Name <input className = 'input-style' name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
             <Email>
-              <p>Email {isAuth0 ? <p>{email}</p> : <input className = 'input-style' name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
+              <p>Email {isAuth0 ? <span>{email}</span> : <input className = 'input-style' name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
               
             
               {/* <EmailForm>

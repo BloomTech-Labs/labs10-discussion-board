@@ -281,7 +281,7 @@ class Discussion extends Component {
 
     return (
       <DiscussionWrapper>
-        <Link className='back' to={`/discussions/category/${category_id}`}><i class="far fa-arrow-alt-circle-left"></i></Link>
+        <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
         <SubWrapper>
           <DiscussionContent>
             <div className='content'>

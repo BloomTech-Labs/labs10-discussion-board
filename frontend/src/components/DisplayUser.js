@@ -155,7 +155,7 @@ class DisplayUser extends Component {
             isAvatarClicked={isAvatarClicked}
           >
 
-            <Avatar height={'50px'} width={'50px'} src={this.props.avatar} />
+            <Avatar height={'50px'} width={'50px'} />
           </DivAvatar>
           {(isAvatarClicked) && <AvatarDropdown clickSignout={this.clickSignout} user_id={this.props.user_id} />}
         </DivUser>
