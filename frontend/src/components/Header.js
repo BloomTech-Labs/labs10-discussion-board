@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Nav } from '../components/index.js';
+import Lambda from '../assets/img/Lambda.png';
 
 const StyledHeader = styled.div`
   position: fixed;
@@ -40,8 +41,15 @@ const LogoContainer = styled.div`
       padding-right: 15px;
 
     }
+`;
 
-
+const LambdaLogo = styled.div`
+  width: 130px;
+  height: 50px;
+  background-image: url(${Lambda});
+    &:hover {
+      cursor: pointer;
+    }
 `;
 
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
@@ -49,7 +57,7 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
     <StyledHeader>
       <Container>
         <LogoContainer>
-          <div>Lambda</div>
+          <LambdaLogo />
         </LogoContainer>
         <Nav showSearch = {showSearch} 
              scrollTo = {scrollTo} 
