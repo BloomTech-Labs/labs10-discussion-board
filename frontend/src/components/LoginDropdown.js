@@ -25,12 +25,41 @@ const FormLogin = styled.form`
   top: 30px;
   right: 0;
   width: 270px;
-  background-color: #3a77bd;
+  border: 2px solid ${props => props.theme.borderColor};
+  background-color: white;
   border-radius: 10px;
-  padding: 25px;
+  padding: 20px;
+
+  input {
+    height: 22px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    background-color: ${props => props.theme.borderColor};
+    color: black;
+    
+    &:focus {
+    	outline: none;
+  	}
+  }
+
+  button {
+    font-size: 14px;
+    height: 25px;
+    border-radius: 10px;
+    &:hover {
+      cursor: pointer;
+      background-color: ${props => props.theme.borderColor}
+    }
+    &:focus {
+    	outline: none;
+  	}
+  }
 `;
 
 const LinkForgotUserPass = styled(Link)`
+  margin: 20px 0px;
+  text-align: center;
+  color: black;
   font-size: 16px;
   text-decoration: none;
 `;
@@ -139,7 +168,6 @@ class LoginDropdown extends Component {
           Login
         </button>
         <LinkForgotUserPass to='/request-reset-pw'>Forgot your username/password?</LinkForgotUserPass>
-        <h3>----------- OR ------------</h3>
         <button type='button' onClick={() => this.handleAuth0Login()}>Login via Auth0</button>
       </FormLogin>
     );
