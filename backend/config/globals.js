@@ -10,7 +10,7 @@ const tokenOptionExpiration = '24h';
 const tokenTimeLeftRefresh = 3; // in hrs
 const maxNumOfNotifications = 5;
 const numofReplies = 50;
-const numOfReplyVotes = 1000;
+const numOfReplyVotes = 500;
 
 const allowedAvatarTypes = [
   'image/jpeg',
