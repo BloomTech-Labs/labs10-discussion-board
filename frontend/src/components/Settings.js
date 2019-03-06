@@ -42,7 +42,6 @@ const UsernameSettings = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-
     @media (max-width: 500px){
       font-size: 12px;
     }
@@ -52,6 +51,31 @@ const UserProperties = styled.form`
     width: 100%;
     display:flex;
     flex-wrap: wrap;
+    .input-style {
+      margin-left: 1%;
+    }
+    button {
+      width: 100%;
+      margin: 7px;
+      border-radius: 10px;
+      height: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: ${props => props.theme.settingsButtonBgColor}
+      &:hover {
+        background-color: ${props => props.theme.settingsButtonHov};
+        cursor: pointer;
+      }
+      &:focus {
+        outline: none;
+      }
+      @media (max-width: 960px){
+        font-size: 14px;
+      }
+      @media (max-width: 520px){
+        font-size: 12px;
+      }
+    }
 `;
 
 const UserSettings = styled.div`
@@ -74,7 +98,6 @@ const EmailAndAvatar = styled.div`
     @media ${tabletP}{
       font-size: 16px;
     }
-
     @media (max-width: 680px){
       font-size: 18px;
       display: flex;
@@ -85,7 +108,6 @@ const EmailAndAvatar = styled.div`
 const AvatarPic = styled.div`
     display: flex;
     width: 50%;
-
     p {
       margin-right: 20px;
     }
@@ -105,7 +127,6 @@ const EditButtons = styled.div`
     align-items: center;
     justify-content: center;
     width: 25%;
-
     p {
       margin-bottom: 7px;
     }
@@ -171,7 +192,6 @@ const Buttons = styled.div`
     height: 50px;
     font-size: 16px;
     font-weight: bold;
-
     &:hover {
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
@@ -185,9 +205,7 @@ const Buttons = styled.div`
     @media (max-width: 520px){
       font-size: 12px;
     }
-
   }
-
   .delete-btn {
     background-color: ${props => props.theme.settingsDeleteButtonBg};
     color: ${props => props.theme.settingsDeleteButtonColor};
@@ -210,14 +228,12 @@ const EditAvatarMenu = styled.div`
 	justify-content: baseline;
 	align-items: center;
 	border-radius: 10px;
-
   button {
           margin: 7px;
           border-radius: 10px;
           width: 200px;
           height: 30px;
           font-size: 16px;
-
           &:hover {
             background-color: ${props => props.theme.settingsEditAvatarButtonBgHov};
             cursor: pointer;
@@ -240,7 +256,6 @@ const Signature = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-
   p {
     margin: 0px 0px 7px 0px;
   }  
@@ -251,7 +266,6 @@ const FirstName = styled.div `
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-
   p {
     margin: 0px 0px 7px 0px;
   }  
@@ -262,7 +276,6 @@ const Email = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-
   p {
     margin: 0px 0px 7px 0px;
   }  
@@ -273,7 +286,6 @@ const Password = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-
   p {
     margin: 0px 0px 7px 0px;
   }  
@@ -310,19 +322,18 @@ class Settings extends Component {
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
-        {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
+        <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings>
         <UserSettings>
           <ProfileSettings>
           <EmailAndAvatar>
           <AvatarPic>
               <Avatar height='100px' width='100px' src={avatar} />
             </AvatarPic>
-            
-                
+           
                 <p onClick={() => this.toggleForm('avatar-btns')}>
                   Edit avatar
                 </p>
-              
+            
           </EmailAndAvatar>
           
           {/* {
@@ -334,11 +345,11 @@ class Settings extends Component {
           } */}
           </ProfileSettings>
           <UserProperties onSubmit = {this.handleSubmit}>
-            <FirstName><p> First Name: <input name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange} /></p></FirstName>
-            <FirstName><p> Last Name: <input name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
+            <FirstName><p> First Name: <input className = 'input-style' name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange}/></p></FirstName>
+            <FirstName><p> Last Name: <input className = 'input-style' name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
             <Email>
-              <p>Email: {isAuth0 ? <p>{email}</p> : <input name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
-              <button type = 'submit' >Save settings</button>
+              <p>Email: {isAuth0 ? <p>{email}</p> : <input className = 'input-style' name = 'email' type = 'email' placeholder = {email} value = {this.state.email} onChange = {this.handleInputChange} /> }</p>
+              <button type = 'submit' >submit</button>
             
               {/* <EmailForm>
                 {
@@ -354,8 +365,8 @@ class Settings extends Component {
                 </EmailForm> */}
             </Email>
               <Password>
-                <p>Old Password: <input name = 'oldPassword' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
-                <p>New Password: <input name = 'newPassword' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
+                <p>Old Password: <input name = 'oldPassword' className = 'input-style' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
+                <p>New Password: <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
                   {/* <PasswordForm>
                     <button className = 'change email' onClick={() => this.toggleForm('password-form')}>
                         Edit password
@@ -425,13 +436,11 @@ class Settings extends Component {
     );
   }
 }
-
 const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData[0],
   user_type: state.users.user_type,
   signature: state.users.signature,
 });
-
 export default connect(
   mapStateToProps,
   { getProfile, editUser }
