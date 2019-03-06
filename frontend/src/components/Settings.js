@@ -33,10 +33,21 @@ const SettingsWrapper = styled.div`
   @media ${tabletP}{
     display: flex;
     flex-directon: column;      
-
+    justify-content: space-between;
   }
-  @media (max-width: 520px){
+  @media ${phoneP}{
       width: 85%;
+  }
+  .fa-arrow-circle-left {
+    font-size: 2rem;
+    align-self: flex-start;
+    margin-left: 150px;
+    @media ${tabletP}{
+      margin-left: 40px;
+    }
+    @media ${phoneP}{
+      margin-left: 10px;
+    }
   }
 `;
 
@@ -53,20 +64,44 @@ const UserProperties = styled.form`
     width: 100%;
     display:flex;
     flex-wrap: wrap;
+    @media ${tabletP}{
+      flex-direction: column;
+      width: 60%;  
+      p {
+        padding-left: 5px;
+      } 
+    }
+    @media ${phoneP}{
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
     .input-style {
       margin-top: 5px;
       margin-left: 1%;
       border: 1px solid rgb(222,180,200, 0.2);
       width: 180px;
       height: 20px;
+      border-radius: 5px;
+      padding: 5px;
       @media ${tabletP}{
-        display: flex;
-        flex-wrap: wrap;      
+        width: 150%;      
+      }
+      @media ${phoneP}{
+        width: 95%;
+        margin-left: 0px;
       }
     }
     .delete-btn {
       background-color: ${props => props.theme.settingsDeleteButtonBg};
       color: ${props => props.theme.settingsDeleteButtonColor};
+      @media ${tabletP}{
+        width: 75%;      
+      }
+      @media ${phoneP}{
+        width: 90%;  
+        padding: 15px 0px 30px 0px;    
+      }
       &:hover {
         background-color: ${props => props.theme.settingsDeleteButtonBgHov};
         cursor: pointer;
@@ -75,6 +110,13 @@ const UserProperties = styled.form`
     .save-settings {
       background-color: ${props => props.theme.settingsButtonBgColor};
       color: ${props => props.theme.settingsDeleteButtonColor};
+      @media ${tabletP}{
+        width: 75%;      
+      }
+      @media ${phoneP}{
+        width: 90%;  
+        padding: 15px 0px 30px 0px;    
+      }
       &:hover {
         background-color: ${props => props.theme.settingsButtonHov};
         cursor: pointer;
@@ -108,6 +150,10 @@ const UserSettings = styled.div`
   justify-content: space-evenly;
   margin-bottom: 10px;
   margin-top: 10px;
+  @media ${phoneP}{
+    flex-direction: column;
+    width: 85%;
+  }
 `;
 
 const ProfileSettings = styled.div`
@@ -121,6 +167,13 @@ const ProfileSettings = styled.div`
     color: blue;
     align-items: center;
     justify-content: center;
+  }
+  @media ${tabletP}{
+    margin-left: 0px;  
+    width: 40%;  
+  }
+  @media ${phoneP}{
+    width: 100%;
   }
 `;
 
@@ -304,8 +357,10 @@ const FirstName = styled.div `
     margin: 0px 0px 7px 0px;
   }  
   @media ${tabletP}{
-    display: flex;
-    flex-wrap: wrap;      
+    flex-direction: column;      
+  }
+  @media ${phoneP}{
+    width: 95%;
   }
 `;
 const Email = styled.div`
@@ -318,8 +373,10 @@ const Email = styled.div`
     margin: 0px 0px 7px 0px;
   }  
   @media ${tabletP}{
-    display: flex;
-    flex-wrap: wrap;      
+    flex-direction: column;      
+  }
+  @media ${phoneP}{
+    width: 95%;
   }
 `;
 const Password = styled.div`
@@ -332,8 +389,10 @@ const Password = styled.div`
     margin: 0px 0px 7px 0px;
   }  
   @media ${tabletP}{
-    display: flex;
-    flex-wrap: wrap;      
+    flex-direction: column;      
+  }
+  @media ${phoneP}{
+    width: 95%;
   }
 `;
 class Settings extends Component {
@@ -350,9 +409,9 @@ class Settings extends Component {
   toggleDeleteModal = () => this.setState({ showDeleteModal: !this.state.showDeleteModal });
   onUploadAvatarSuccess = () => this.setState({ showForm: '' }, () => this.getProfile());
   componentDidMount = () => this.getProfile().then(() => this.setState({ 
-    firstName: this.props.profile.username.split(' ')[0],
-    lastName: this.props.profile.username.split(' ')[1],
-    email: this.props.profile.email,
+    firstName: this.props.profile.username.split(' ')[0] || '',
+    lastName: this.props.profile.username.split(' ')[1] || '',
+    email: this.props.profile.email || '',
 }));
   handleInputChange = e => this.setState({[e.target.name]: e.target.value})
   handleSubmit = e => {
@@ -361,6 +420,7 @@ class Settings extends Component {
     const username = firstName + ' ' + lastName;
     this.props.editUser(username, email, oldPassword, newPassword).then(() => this.getProfile())
   }
+  goBack = () => this.props.history.goBack()
   render() {
     const { showForm, showDeleteModal } = this.state;
     const { profile, user_type, signature } = this.props;
@@ -368,8 +428,10 @@ class Settings extends Component {
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
+        <i onClick = {this.goBack} className = "fas fa-arrow-circle-left"/>
         {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
         <UserSettings>
+        
           <ProfileSettings>
           <EmailAndAvatar>
           <AvatarPic>

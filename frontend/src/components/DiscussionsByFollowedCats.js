@@ -170,13 +170,6 @@ class AllDiscussionsByFollowedCats extends Component {
 				</DiscussionHeader>
 				<hr/>
 				<div className = 'content'>
-					{
-						showAddDiscussionForm &&
-						<AddDiscussionForm
-							toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
-							getDiscussions = { this.getDiscussions }
-						/>
-					}
 					{ followedDiscussions.map((discussion, i) =>
 						<DiscussionByFollowedCats
 							key = { i }
@@ -186,6 +179,13 @@ class AllDiscussionsByFollowedCats extends Component {
 						/>)
 					}
 				</div>
+				{
+					showAddDiscussionForm &&
+					<AddDiscussionForm
+						toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
+						getDiscussions = { this.getDiscussions }
+					/>
+				}
 			</DiscussionsWrapper>
 		);
 	}

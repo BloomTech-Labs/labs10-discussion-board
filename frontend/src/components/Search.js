@@ -278,7 +278,7 @@ class Search extends Component {
 		return(
 			<SearchBox>
 				<div className = 'search-input-wrapper'>
-				<span class="fa fa-search"></span>
+				<span className="fa fa-search"></span>
 					<input
 						type = 'text'
 						name = 'searchText'
