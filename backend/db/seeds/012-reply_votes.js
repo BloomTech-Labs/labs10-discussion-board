@@ -17,7 +17,7 @@ const generateSeeds = () => {
   let arr = [];
   for (let i = 1; i <= numOfReplyVotes; i++) {
     arr.push({
-      post_id: getRandomIntInclusive(1, numOfReplies),
+      reply_id: getRandomIntInclusive(1, numOfReplies),
       user_id: generateRandomUserId(),
       type: getRandomIntInclusive(0, 5) > 1 ? 1 : -1 // 2/3 chance of receiving an upvote
     });
