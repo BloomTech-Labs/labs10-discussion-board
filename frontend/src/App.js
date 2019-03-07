@@ -22,6 +22,7 @@ import {
   RequestResetPWForm,
   ResetPWForm,
   DiscussionsByCats,
+  AddCategoryModal,
 } from './components/index.js';
 
 // views
@@ -167,6 +168,7 @@ class App extends Component {
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
+                {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
                 <Route exact path='/' component={HotDiscussionsView} />
                 <Route path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
