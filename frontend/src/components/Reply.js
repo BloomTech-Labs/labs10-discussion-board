@@ -4,7 +4,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import {Deleted} from './index.js'
+import { Deleted } from './index.js'
 
 //styles
 const ReplyWrapper = styled.div`
