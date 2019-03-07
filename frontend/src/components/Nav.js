@@ -22,7 +22,7 @@ const DivWrapper = styled.div`
   justify-content: space-between;
 
   @media ${tabletL}{
-    width: 75%;
+    width: 90%;
   }
     @media ${phoneL}{
       width: 75%;
