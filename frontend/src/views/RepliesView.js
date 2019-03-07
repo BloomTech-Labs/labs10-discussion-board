@@ -7,7 +7,9 @@ const RepliesViewWrapper = styled.div``;
 
 const RepliesView = ({
     replies,
-    historyPush
+    historyPush,
+    showAddReplyForm,
+    toggleAddReplyForm,
 }) => {
     return(
         <RepliesViewWrapper>
@@ -16,9 +18,10 @@ const RepliesView = ({
                     key = {index}
                     reply = {reply}
                     history = { historyPush }
+                    showAddReplyForm={showAddReplyForm}
+                    toggleAddReplyForm={toggleAddReplyForm}
                 />)
             }
-            {console.log('replies', replies)}
         </RepliesViewWrapper>
     )
 };

@@ -23,7 +23,7 @@ import { handlePostVote } from '../store/actions/index.js';
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   font-size: 14px;
 
   .title {
@@ -32,7 +32,7 @@ const PostWrapper = styled.div`
   }
 
   p {
-    margin-bottom: 10px;
+    margin-bottom: 0;
     margin-top: 30px;
   }
 
@@ -45,7 +45,7 @@ const PostedBy = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-size: 12px;
-  border: 1px solid;
+
 
   .p-creator{
     display: flex;
@@ -112,6 +112,14 @@ const Post = ({
   } = post;
 
   const handleVote = type => handlePostVote(post.id, type, discussion_id, order, orderType);
+
+  const handleAddReply = () => {
+   if (showAddReplyForm === id){
+     return toggleAddReplyForm()
+   } else{
+     return toggleAddReplyForm(id)
+   }
+  }
   // const handleEdit = () => updateEditPostForm(id);
   // const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   // const userCreatedPost = loggedInUserId === user_id;
@@ -129,8 +137,7 @@ const Post = ({
       )
     }
   }
-  console.log('showReply', showAddReplyForm)
-  console.log('toggle', toggleAddReplyForm)
+
   return (
     <PostWrapper>
       <p>{body}</p>
@@ -146,7 +153,7 @@ const Post = ({
           }
           {
             loggedInUserId !== 0 &&
-            <span onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
+            <span onClick={handleAddReply}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
           }
         </div>
           &nbsp;
@@ -161,7 +168,7 @@ const Post = ({
         {timeStamp(last_edited_at, created_at)}
       </PostedBy>
         {  
-          showAddReplyForm &&
+          showAddReplyForm === id &&
           <AddReplyForm
             user_id={loggedInUserId}
             toggleAddReplyForm={toggleAddReplyForm}
@@ -173,6 +180,8 @@ const Post = ({
         <RepliesView
             replies = {replies}
             historyPush = {historyPush}
+            toggleAddReplyForm={toggleAddReplyForm}
+            showAddReplyForm = {showAddReplyForm}
           />
           &nbsp;
           &nbsp;    

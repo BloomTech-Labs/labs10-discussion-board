@@ -35,6 +35,7 @@ const Followed = styled.div`
     color: white;
     padding: 4px;
     font-size: 12px;
+    width: 117px;
   }
 `;
 

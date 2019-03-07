@@ -32,8 +32,7 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 const DiscussionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 80%;
-  margin-top: 100px;
+  width: 90%;
   justify-content: flex-end;
 
   .back {
@@ -117,6 +116,7 @@ const CommentSort = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 15px; 
+ 
 `;
 
 const Sort = styled.span`
@@ -187,7 +187,7 @@ class Discussion extends Component {
   });
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
-  toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id });
+  toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id || null});
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);

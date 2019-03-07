@@ -4,15 +4,15 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { Deleted } from './index.js'
+import { Deleted, AddReplyForm } from './index.js'
 
 //styles
 const ReplyWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 90%;
     font-size: 14px;
-    border: 1px solid red;
+    margin-left: 50px;
 `;
 
 const PostedBy = styled.div`
@@ -26,20 +26,33 @@ const PostedBy = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
-        
-        img {
+      }
+    
+      img {
         border-radius: 50%;
         margin-right: 10px;
         width: 23px;
-    }
-
-    .username {
+      }
+    
+      .username {
         text-decoration: none;
         margin-right: 15px;
-    }
-      }
-
+        color: black;
     
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    
+      span {
+        cursor: pointer;
+        margin-right: 12px;
+    
+        &:hover {
+          color: steelblue;
+        };
+    }  
 `;
 
 //components
@@ -48,6 +61,8 @@ const Reply = ({
     reply,
     loggedInUserId,
     historyPush,
+    toggleAddReplyForm,
+    showAddReplyForm,
 }) => {
     const {
         body, 
@@ -57,7 +72,19 @@ const Reply = ({
         avatar,
         username,
         user_id,
+        id,
     } = reply
+
+    // const handleToggleReply = () => {
+
+    // }
+    const handleAddReply = () => {
+       if (showAddReplyForm === id){
+         return toggleAddReplyForm()
+       } else{
+         return toggleAddReplyForm(id)
+       }
+      }
 
     const timeStamp =() => {
         if(last_edited_at){
@@ -72,7 +99,6 @@ const Reply = ({
         }
       }
 
-    console.log('whats in reply', reply)
     return(
         <ReplyWrapper>
             <p>{body}</p>
@@ -86,10 +112,12 @@ const Reply = ({
                         </Link> :
                         <Deleted />
                     }
-                </div>
-                    &nbsp;
-                    &nbsp;
                 
+                    {
+                        loggedInUserId !== 0 &&
+                        <span onClick={handleAddReply}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
+                    }
+                </div>
                     {/* &nbsp;
                     &nbsp; */}
                 {/* <VoteCount
@@ -101,6 +129,15 @@ const Reply = ({
                     &nbsp; */}
                 {timeStamp(last_edited_at, created_at)}
             </PostedBy>
+            {  
+            showAddReplyForm === id &&
+            <AddReplyForm
+                user_id={loggedInUserId}
+                toggleAddReplyForm={toggleAddReplyForm}
+                reply_id={id}
+                historyPush={historyPush}
+            />
+            }
         </ReplyWrapper>
     );
 };
