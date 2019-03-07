@@ -16,7 +16,6 @@ const LandingViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
   width: 740px;
   border-radius: 5px;
-  margin-top: 100px;
 
   @media ${tabletP}{
     display: flex;
