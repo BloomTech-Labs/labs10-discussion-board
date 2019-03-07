@@ -8,7 +8,7 @@ import { displayMessage } from '../store/actions/index.js';
 const MessageWrapper = styled.div`
 	background-color: ${props => props.theme.messageWrapperBgColor};
 	position: absolute;
-	z-index: 2;
+	z-index: 80001;
 	height: 100vh;
 	width: 100vw;
 	display: flex;

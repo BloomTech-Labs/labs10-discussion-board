@@ -22,6 +22,7 @@ import {
   RequestResetPWForm,
   ResetPWForm,
   DiscussionsByCats,
+  AddCategoryModal,
 } from './components/index.js';
 
 // views
@@ -162,12 +163,12 @@ class App extends Component {
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
             <div style={{ width: '100%', height: topHeaderHeight }} />
-            {/* <Logo /> */}
             <DivBody>
               <DivSideNav>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
+                {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
                 <Route exact path='/' component={HotDiscussionsView} />
                 <Route path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
@@ -193,7 +194,6 @@ class App extends Component {
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
             <div style={{ width: '100%', height: topHeaderHeight }} />
-            {/* <Logo /> */}
             <DivBody>
               <DivSideNav>
                 {/* <SideNav /> */}
