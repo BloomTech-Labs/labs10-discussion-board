@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import chevron from '../assets/img/chevron.png';
 
+// globals
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
 // components
 import { Avatar, AvatarDropdown, Notifications } from './index.js';
 
@@ -15,9 +18,14 @@ import { signout, markNotificationsAsRead } from '../store/actions';
 const DivWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 55%;
+  @media ${phoneL}{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+  }
 `;
 
 const DivUser = styled.div`
@@ -45,6 +53,7 @@ const DivAvatar = styled.div`
 `;
 
 const PWelcomeMessage = styled.p`
+    margin-right: 20px;
     font-size: 20px;
 
     .notifications-icon-wrapper {
@@ -76,7 +85,6 @@ const PWelcomeMessage = styled.p`
 
 
     @media (max-width: 750px){
-      font-size: 16px;
       width: 40%;
       margin-right: 0px;
     }
