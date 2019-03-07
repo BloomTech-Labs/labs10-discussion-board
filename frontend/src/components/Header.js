@@ -16,12 +16,17 @@ const StyledHeader = styled.div`
   align-self: center;
   background-color: white;
   border-bottom: 2px solid ${props => props.theme.borderColor};
-
   @media ${tabletL}{
+    width: 100%;
+  }
+  @media ${tabletP}{
     width: 100%;
   }
   @media ${phoneL} {
       width: 100%;
+  }
+  @media ${phoneP}{
+    width: 100%;
   }
 
   .LogoContainer {
