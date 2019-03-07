@@ -54,7 +54,7 @@ const SubWrapper = styled.div`
 const DiscussionContent = styled.div`
   // color: darkgray;
 
-  span{
+  p {
     font-size: 22px;
     margin-top: 25px;
     margin-top: 0;
@@ -89,7 +89,14 @@ const PostedBy = styled.div`
 }
 
 .c-name {
-  margin-left: 5px;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  span {
+    margin-left: 5px;
+  }
 }
 `;
 
@@ -284,7 +291,7 @@ class Discussion extends Component {
         <SubWrapper>
           <DiscussionContent>
             <div className='content'>
-              <span>{body}</span>
+              <p>{body}</p>
             </div>
             <PostedBy>
               <div className='d-creator'>
