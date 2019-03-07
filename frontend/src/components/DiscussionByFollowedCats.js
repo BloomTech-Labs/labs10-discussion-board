@@ -105,7 +105,7 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 					<Avatar
 						height = '20px'
 						width = '20px'
-						scr = { avatar }
+						src = { avatar }
 					/>
 					&nbsp;
 					<UsernameWrapper>{ username }</UsernameWrapper>
