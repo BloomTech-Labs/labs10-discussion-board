@@ -5,7 +5,7 @@ import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 // globals
-import { dayTheme, nightTheme, sideNavWidth } from './globals/globals.js';
+import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
 
 // components
 import {
@@ -60,8 +60,8 @@ const DivSideNav = styled.div`
   min-width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
-  z-index: 9801;
-  border-right: 5px solid rgb(243, 245, 248);
+  z-index: 7801;
+  border-right: 2px solid rgb(243, 245, 248);
 `;
 
 const DivPage = styled.div`
@@ -161,11 +161,11 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <div style={{ width: '100%', height: '100px' }} />
+            <div style={{ width: '100%', height: topHeaderHeight }} />
             {/* <Logo /> */}
             <DivBody>
               <DivSideNav>
-                <SideNav />
+                <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
                 <Route exact path='/' component={HotDiscussionsView} />
@@ -192,7 +192,7 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <div style={{ width: '100%', height: '100px' }} />
+            <div style={{ width: '100%', height: topHeaderHeight }} />
             {/* <Logo /> */}
             <DivBody>
               <DivSideNav>

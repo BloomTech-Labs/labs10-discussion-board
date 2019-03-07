@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { Nav } from '../components/index.js';
 import Lambda from '../assets/img/Lambda.png';
 
+// Globals
+import { topHeaderHeight } from '../globals/globals.js';
+
 const StyledHeader = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
-  height: 60px;
+  height: ${topHeaderHeight};
   width: 100%;
   z-index: 9000;
   align-self: center;
@@ -60,19 +63,19 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
   return (
     <StyledHeader>
       <Container>
-        <a className = 'LogoContainer' href = '/home'>
-          <LambdaLogo/>
+        <a className='LogoContainer' href='/home'>
+          <LambdaLogo />
         </a>
-        <Nav showSearch = {showSearch} 
-             scrollTo = {scrollTo} 
-             pathname = {pathname} 
-             goTo = {goTo} 
-             isDay = {isDay} 
-             history = {history} 
-             isAuthenticated = {isAuthenticated} 
-             toggleSearch = {toggleSearch} 
-             switchTheme = {switched}
-             />
+        <Nav showSearch={showSearch}
+          scrollTo={scrollTo}
+          pathname={pathname}
+          goTo={goTo}
+          isDay={isDay}
+          history={history}
+          isAuthenticated={isAuthenticated}
+          toggleSearch={toggleSearch}
+          switchTheme={switched}
+        />
       </Container>
     </StyledHeader >
   );
