@@ -78,6 +78,13 @@ const findById = id => {
     });
 };
 
+const getUserName = id => {
+  return db('users')
+    .select('username')
+    .where({ id })
+    .first();
+};
+
 // gets password for user with given id
 const getPassword = id => {
   return db('users')
@@ -285,6 +292,7 @@ const remove = id => {
 module.exports = {
   getUsers,
   getPassword,
+  getUserName,
   findById,
   findByUsername,
   searchAll,
