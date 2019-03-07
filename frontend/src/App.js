@@ -21,6 +21,7 @@ import {
   ConfirmEmail,
   RequestResetPWForm,
   ResetPWForm,
+  DiscussionsByCats,
 } from './components/index.js';
 
 // views
@@ -28,7 +29,6 @@ import {
   LandingView,
   CategoriesView,
   DiscussionView,
-  DiscussionsByCatView,
   RegisterView,
   HotDiscussionsView,
 } from './views/index.js';
@@ -162,7 +162,6 @@ class App extends Component {
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
             <div style={{ width: '100%', height: '100px' }} />
-            {/* <Logo /> */}
             <DivBody>
               <DivSideNav>
                 <SideNav />
@@ -175,7 +174,7 @@ class App extends Component {
                 <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
                 <Route path='/settings/:id' component={Settings} />
-                <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+                <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
               </DivPage>
             </DivBody>
@@ -193,7 +192,6 @@ class App extends Component {
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
             <div style={{ width: '100%', height: '100px' }} />
-            {/* <Logo /> */}
             <DivBody>
               <DivSideNav>
                 {/* <SideNav /> */}
@@ -208,7 +206,7 @@ class App extends Component {
                   <Route path='/profile/:id' component={Profile} />
                   <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                   <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
-                  <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+                  <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
                 </Switch>
               </DivPage>
