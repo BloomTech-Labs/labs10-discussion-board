@@ -27,6 +27,8 @@ const DivWrapper = styled.div`
     @media ${phoneL}{
       width: 75%;
   }
+  @media ${phoneP}{
+  }
 `;
 
 const DivAuth = styled.div`
