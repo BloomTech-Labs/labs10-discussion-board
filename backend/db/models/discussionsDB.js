@@ -44,54 +44,6 @@ const getTopDailyDiscussions = (user_id, order, orderType) => {
     .limit(5);
 };
 
-// get hottest (limit 10) discussions
-const getHottestDiscussions = user_id => {
-  const voteCountQuery = db('discussion_votes')
-    .select('discussion_id')
-    .sum('type as vote_count')
-    .groupBy('discussion_id');
-
-  const postCountQuery = db('posts as p')
-    .select('p.discussion_id')
-    .count({ post_count: 'p.id' })
-    .join('discussions as d', 'd.id', 'p.discussion_id')
-    .groupBy('p.discussion_id');
-
-  const userVoteQuery = db('discussion_votes as dv')
-    .select('dv.type', 'dv.discussion_id')
-    .where({ user_id });
-
-  // prettier-ignore
-  return db('discussions as d')
-    .select(
-      'd.id',
-      'd.user_id',
-      'u.username',
-      'd.category_id',
-      'c.name as category_name',
-      'd.body',
-      'd.created_at',
-      db.raw('COALESCE(pc.post_count, 0) AS post_count'),
-      'dv.vote_count',
-      'uv.type as user_vote',
-      db.raw('(d.created_at / (1000 * 60 * 60 * 24) + (COALESCE(dv.vote_count, 0) / 10)) AS hotness_rank'),
-    )
-    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
-    .join('categories as c', 'c.id', 'd.category_id')
-    .leftOuterJoin(voteCountQuery.as('dv'), function () {
-      this.on('dv.discussion_id', '=', 'd.id');
-    })
-    .leftOuterJoin(postCountQuery.as('pc'), function () {
-      this.on('pc.discussion_id', '=', 'd.id');
-    })
-    .leftOuterJoin(userVoteQuery.as('uv'), function () {
-      this.on('uv.discussion_id', '=', 'd.id');
-    })
-    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type', 'dv.vote_count')
-    .orderBy('hotness_rank', 'desc')
-    .limit(10);
-};
-
 //gets All Discussions
 const getDiscussions = () => {
   return db('discussions');

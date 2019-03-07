@@ -30,7 +30,6 @@ import {
   CategoriesView,
   DiscussionView,
   RegisterView,
-  HotDiscussionsView,
 } from './views/index.js';
 
 // action creators
@@ -168,7 +167,6 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
-                {/* <Route exact path='/' component={HotDiscussionsView} /> */}
                 <Route exact path= '/' component={LandingView} />
                 <Route exact path= '/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
@@ -203,7 +201,6 @@ class App extends Component {
                   <Route path='/register' component={RegisterView} />
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
-                  {/* <Route exact path='/' component={HotDiscussionsView} />
                   <Route path='/home' component={LandingView} />
                   <Route path='/profile/:id' component={Profile} />
                   <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />

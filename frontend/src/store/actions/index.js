@@ -77,7 +77,6 @@ import {
   addDiscussion,
   editDiscussion,
   removeDiscussion,
-  getHotDiscussions,
 } from './DiscussionsActions.js';
 
 import {
@@ -443,7 +442,6 @@ export {
   addDiscussion,
   editDiscussion,
   removeDiscussion,
-  getHotDiscussions,
 
   // Discussion Vote Action Creators
   handleDiscussionVote,
