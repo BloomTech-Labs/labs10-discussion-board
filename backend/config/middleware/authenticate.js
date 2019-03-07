@@ -59,7 +59,7 @@ function authenticate(req, res, next) {
       error: 'No token provided. It must be set on the Authorization Header.'
     });
   }
-  return jwt.verify(token, secureKey, (err, decoded) => {
+  return jwt.verify(token, secureKey, async (err, decoded) => {
     if (err)
       return res
         .status(401)
@@ -67,10 +67,13 @@ function authenticate(req, res, next) {
     req.decoded = decoded;
     const requestingUserID = req.params.user_id;
     const loggedInUserID = '' + req.decoded.id;
+    const currentUser = await usersDB.getUserName(req.decoded.id);
+    if (req.decoded.name !== currentUser.username) {
+      return res.status(401).json({ error: 'You need to delete localStorage.' });
+    }
     if (requestingUserID !== loggedInUserID) {
       return res.status(401).json({ error: 'Not authorized.' });
     }
-
     next();
   });
 };
