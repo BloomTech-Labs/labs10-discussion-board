@@ -48,7 +48,20 @@ const initialState = {
     posts: []
   },
   category: '',
-  discussions: [],
+  discussions: [{
+    body: '',
+    category_id: 0,
+    category_name: '',
+    created_at: '',
+    downvotes: '',
+    id: 0,
+    post_count: '',
+    upvotes: '',
+    user_id: 0,
+    user_vote: null,
+    username: '',
+    views: 0,
+  }],
   follows: {
     discussionId: []
   },

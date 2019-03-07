@@ -55,7 +55,6 @@ class CategoriesView extends Component {
       <CategoriesWrapper>
         <H1Categories className='cat-header'>Categories</H1Categories>
         <DivCategoriesComponent>
-          {(user_id && isAddCatModalRaised) && <AddCategoryModal historyPush={historyPush} setAddCatModalRaised={setAddCatModalRaised} />}
           <CategoriesNav
             sortHandler={this.sortHandler}
             order={this.order}
