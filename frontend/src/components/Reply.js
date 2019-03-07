@@ -74,7 +74,7 @@ const Reply = ({
         user_id,
         id,
         discussion_id,
-    } = reply
+    } = reply;
 
     const handleAddReply = () => {
        if (showAddReplyForm === id){
@@ -82,7 +82,7 @@ const Reply = ({
        } else{
          return toggleAddReplyForm(id)
        }
-      }
+      };
 
     const timeStamp =() => {
         if(last_edited_at){
@@ -95,8 +95,8 @@ const Reply = ({
           return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
           )
         }
-      }
-      console.log('id', id)
+      };
+
       //Bug 1: Vote currently does not work
     return(
         <ReplyWrapper>
