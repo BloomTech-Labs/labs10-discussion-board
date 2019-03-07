@@ -355,7 +355,6 @@ const remove = id => {
 
 module.exports = {
   getTopDailyDiscussions,
-  getHottestDiscussions,
   getDiscussions,
   getAllDiscussionsByFollowedCategories,
   search,
