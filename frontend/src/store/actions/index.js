@@ -115,6 +115,16 @@ import {
 } from './PostsActions.js';
 
 import {
+  //Actions
+  ADD_REPLY_LOADING,
+	ADD_REPLY_SUCCESS,
+  ADD_REPLY_FAILURE,
+  
+  //Action Creators
+  addReply,
+} from './RepliesActions.js';
+
+import {
   // Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -310,6 +320,7 @@ export {
   HANDLE_POST_VOTE_SUCCESS,
   HANDLE_POST_VOTE_FAILURE,
 
+
   // Users Actions
   USER_LOGIN_LOADING,
   USER_LOGIN_SUCCESS,
@@ -419,6 +430,11 @@ export {
   UPDATE_EMAIL_SUCCESS,
   UPDATE_EMAIL_FAILURE,
 
+  //Reply Actions
+  ADD_REPLY_LOADING,
+	ADD_REPLY_SUCCESS,
+  ADD_REPLY_FAILURE,
+
   // Categories Action Creators
   getCategories,
   getCategoriesFollowed,
@@ -474,4 +490,7 @@ export {
   addPost,
   editPost,
   removePost,
+
+  // Reply Action Creators
+  addReply,
 };

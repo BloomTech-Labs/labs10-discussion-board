@@ -31,12 +31,12 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 const DiscussionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 80%;
-  margin-top: 100px;
-  justify-content: flex-end;
+  width: 100%;
+  margin: 0 auto;
+  margin-left: 10px;
 
   .back {
-    font-size: 47px;
+    font-size: 30px;
     padding-right: 35px;
     padding-top: 15px;
     color: black;
@@ -54,11 +54,9 @@ const SubWrapper = styled.div`
 const DiscussionContent = styled.div`
   // color: darkgray;
 
-  p{
-    font-size: 14px;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding-top: 25px;
+  p {
+    font-size: 22px;
+    margin-top: 16px;
   }
 `;
 
@@ -68,26 +66,38 @@ const PostedBy = styled.div`
   justify-content: flex-start;
   align-items: center;
   font-size: 12px;
-  // color: darkgray;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+	color: #a7a7a7;
 
   .d-creator {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-  img{
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 23px;
+    img{
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 23px;
+    }
+
+    .username{
+      text-decoration: none;
+      font-size: 0.8rem;
+      color: black;
+    }
   }
 
-  .username{
-    text-decoration: none;
+.c-name {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  span {
+    margin-left: 5px;
   }
 }
-
-  .c-name{
-  }
 `;
 
 const CommentWrapper = styled.div`
@@ -95,34 +105,33 @@ width: 100%;
 display: flex;
 flex-direction: column;
 
-  @media ${tabletP} {
-    
+  @media ${tabletP} { 
   }
 
   @media ${phoneL}{
     text-align: center;
   }
-
-  .title {
-    margin-top: 30px;
-    margin-bottom: 5px;
-  }
-
 `;
 
 const Posts = styled.div``;
 
 const AddPostBtn = styled.div``;
 
-//Commented Out sections
+const CommentSort = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px; 
+ 
+`;
 
 const Sort = styled.span`
 display: flex;
 flex-direction: row;
-padding-bottom: 20px;
 align-items: baseline;
 justify-content: space-between;
-padding-top: 20px;
 
 @media ${tabletP} {
   // display: flex;
@@ -145,7 +154,6 @@ padding-top: 20px;
 //   font-weight: bold;
 //   padding: 5px;
 //   color: ${props => props.theme.discussionPostColor};
-
 // }
 
 //   button{
@@ -172,8 +180,6 @@ padding-top: 20px;
 // }
 // `;
 
-
-
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
@@ -181,14 +187,14 @@ class Discussion extends Component {
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
     order: 'created_at', // possible values: 'created_at', 'post_votes'
-    orderType: '', // possible values: 'desc', 'asc'
+    orderType: 'asc', // possible values: 'desc', 'asc'
   };
   handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
     return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
   });
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
-  toggleAddReplyForm = id => this.setState({ showAddReplyForm: id });
+  toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id || null});
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);
@@ -222,6 +228,7 @@ class Discussion extends Component {
 
 
   render() {
+    
     const {
       order,
       orderType,
@@ -230,6 +237,7 @@ class Discussion extends Component {
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
+
     const {
       body,
       // created_at,
@@ -239,6 +247,7 @@ class Discussion extends Component {
       avatar,
       category_name,
       category_id,
+      category_icon,
       id,
       posts,
       post_count,
@@ -297,7 +306,12 @@ class Discussion extends Component {
               </div>
               &nbsp;
               &nbsp;
-              <div className='c-name'><span>{category_name}</span></div>
+              <div className='c-name'>
+                <i className = { category_icon } />
+                <span>
+                  {category_name}
+                </span>
+              </div>
               <VoteCount
                 upvotes={upvotes}
                 downvotes={downvotes}
@@ -311,58 +325,66 @@ class Discussion extends Component {
               &nbsp;
               <Follow discussion_id={id} historyPush={historyPush} />
             </PostedBy>
-          </DiscussionContent>
-          <CommentWrapper>
-            <span className='title'>Comments</span>
-            <Sort>
-              <div className='dropDowns'>
-                <span className='sorted'>Sort</span>
-                <select className='sortName' onChange={this.handleSelectChange} name='order'>
-                  <option value='created_at'>date created</option>
-                  <option value='post_votes'>votes</option>
-                </select>
-                <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
-                  <option value='desc'>
-                    {order === 'created_at' ? 'most recent first' : 'most first'}
-                  </option>
-                  <option value='asc'>
-                    {order === 'created_at' ? 'least recent first' : 'least first'}
-                  </option>
-                </select>
-              </div>
-            </Sort>
-            <Posts>
-              <PostsView
-                posts={posts}
-                historyPush={historyPush}
-                showEditPostForm={showEditPostForm}
-                updateEditPostForm={this.updateEditPostForm}
-                handleRemovePost={this.handleRemovePost}
-                toggleAddReplyForm={this.toggleAddReplyForm}
-                order={order}
-                orderType={orderType}
-              />
-              {
-                showAddReplyForm &&
-                <AddReplyForm
+          </DiscussionContent>  
+          <CommentWrapper>  
+            <CommentSort>
+              <span className='title'>Comments</span>
+              <Sort>
+                <div className='dropDowns'>
+                  <span className='sorted'>Sort</span>
+                  &nbsp;
+                  &nbsp;
+                  <select className='sortName' onChange={this.handleSelectChange} name='order'>
+                    <option value='created_at'>date created</option>
+                    <option value='post_votes'>votes</option>
+                  </select>
+                  &nbsp;
+                  &nbsp;
+                  <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
+                    <option value='desc'>
+                      {order === 'created_at' ? 'most recent first' : 'most first'}
+                    </option>
+                    <option value='asc'>
+                      {order === 'created_at' ? 'least recent first' : 'least first'}
+                    </option>
+                  </select>
+                </div>
+              </Sort>
+            </CommentSort>
+              <Posts>
+                <PostsView
+                  posts={posts}
+                  historyPush={historyPush}
+                  showEditPostForm={showEditPostForm}
+                  updateEditPostForm={this.updateEditPostForm}
+                  handleRemovePost={this.handleRemovePost}
+                  showAddReplyForm = {showAddReplyForm}
                   toggleAddReplyForm={this.toggleAddReplyForm}
                   discussion_id={id}
                   historyPush={historyPush}
                   repliedPost={posts.find(post => post.id === showAddReplyForm)}
                 />
-              }
-              <AddPostBtn>
-                {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
-                {showAddPostForm && (
-                  <AddPostForm
-                    user_id={loggedInUserId}
+                {/* {
+                  showAddReplyForm &&
+                  <AddReplyForm
+                    toggleAddReplyForm={this.toggleAddReplyForm}
                     discussion_id={id}
                     historyPush={historyPush}
                     toggleAddPostForm={this.toggleAddPostForm}
                   />
-                )}
-              </AddPostBtn>
-            </Posts>
+                } */}
+                <AddPostBtn>
+                  {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
+                  {showAddPostForm && (
+                    <AddPostForm
+                      user_id={loggedInUserId}
+                      discussion_id={id}
+                      historyPush={historyPush}
+                      toggleAddPostForm={this.toggleAddPostForm}
+                    />
+                  )}
+                </AddPostBtn>
+              </Posts>
           </CommentWrapper>
         </SubWrapper>
       </DiscussionWrapper>

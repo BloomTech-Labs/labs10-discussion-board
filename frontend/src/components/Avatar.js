@@ -13,7 +13,7 @@ const AvatarWrapper = styled.div`
 `;
 
 const Avatar = ({ height, width, src }) => {
-  return <AvatarWrapper className='avatar' height={height} width={width} src={src} />;
+  return <AvatarWrapper height={height} width={width} src={src} />;
 };
 
 export default Avatar;
