@@ -11,7 +11,6 @@ const ReplyWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 90%;
-    font-size: 14px;
     margin-left: 50px;
 `;
 
@@ -20,7 +19,8 @@ const PostedBy = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    font-size: 12px
+    font-size: 0.8rem;
+    color: #a7a7a7;
 
     .r-creator{
         display: flex;
@@ -97,8 +97,7 @@ const Reply = ({
         }
       }
       console.log('id', id)
-      //Bug 1: Reply Button renders Reply form for all users of the same ID
-      //Bug 2: Post Reply sends undefined post id
+      //Bug 1: Vote currently does not work
     return(
         <ReplyWrapper>
             <p>{body}</p>

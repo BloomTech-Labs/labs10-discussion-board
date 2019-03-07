@@ -54,11 +54,10 @@ const SubWrapper = styled.div`
 const DiscussionContent = styled.div`
   // color: darkgray;
 
-  p{
-    font-size: 14px;
-    margin-bottom: 10px;
-    margin-top: 0
-    padding-top: 25px;
+  span{
+    font-size: 22px;
+    margin-top: 25px;
+    margin-top: 0;
   }
 `;
 
@@ -69,7 +68,8 @@ const PostedBy = styled.div`
   align-items: center;
   font-size: 12px;
   margin-bottom: 15px;
-  // color: darkgray;
+  font-size: 0.8rem;
+	color: #a7a7a7;
 
   .d-creator {
     display: flex;
@@ -84,15 +84,13 @@ const PostedBy = styled.div`
 
   .username{
     text-decoration: none;
-  }
-
-  .c-name {
-    margin-left: 5px;
+    font-size: 0.8rem;
   }
 }
 
-  .c-name{
-  }
+.c-name {
+  margin-left: 5px;
+}
 `;
 
 const CommentWrapper = styled.div`
@@ -149,7 +147,6 @@ justify-content: space-between;
 //   font-weight: bold;
 //   padding: 5px;
 //   color: ${props => props.theme.discussionPostColor};
-
 // }
 
 //   button{
@@ -233,6 +230,7 @@ class Discussion extends Component {
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
+
     const {
       body,
       // created_at,
@@ -286,7 +284,7 @@ class Discussion extends Component {
         <SubWrapper>
           <DiscussionContent>
             <div className='content'>
-              <p>{body}</p>
+              <span>{body}</span>
             </div>
             <PostedBy>
               <div className='d-creator'>
@@ -301,8 +299,12 @@ class Discussion extends Component {
               </div>
               &nbsp;
               &nbsp;
-              <i className = { category_icon } />
-              <div className='c-name'><span>{category_name}</span></div>
+              <div className='c-name'>
+                <i className = { category_icon } />
+                <span>
+                  {category_name}
+                </span>
+              </div>
               <VoteCount
                 upvotes={upvotes}
                 downvotes={downvotes}

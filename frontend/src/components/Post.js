@@ -28,7 +28,7 @@ const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
 
   .title {
     margin-top: 30px;
@@ -36,8 +36,8 @@ const PostWrapper = styled.div`
   }
 
   p {
-    margin-bottom: 0;
-    margin-top: 30px;
+    margin-bottom: 16px;
+    margin-top: 16px;
   }
 
 `
