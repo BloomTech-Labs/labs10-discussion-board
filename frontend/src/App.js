@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-// themes
-import { dayTheme, nightTheme } from './globals/globals';
+// globals
+import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
 
 // components
 import {
   Header,
-  Logo,
+  SideNav,
   Profiles,
   Profile,
   Settings,
@@ -20,6 +20,8 @@ import {
   ConfirmEmail,
   RequestResetPWForm,
   ResetPWForm,
+  DiscussionsByCats,
+  AddCategoryModal,
 } from './components/index.js';
 
 // views
@@ -27,13 +29,12 @@ import {
   LandingView,
   CategoriesView,
   DiscussionView,
-  DiscussionsByCatView,
   RegisterView,
   HotDiscussionsView,
 } from './views/index.js';
 
 // action creators
-import { logBackIn, editDiscussion } from './store/actions/index.js';
+import { logBackIn } from './store/actions/index.js';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -44,6 +45,34 @@ const AppWrapper = styled.div`
   position: relative;
   min-height: 100vh;
   justify-content: space-between;
+`;
+
+const DivBody = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+`;
+
+const DivSideNav = styled.div`
+  display: flex;
+  min-width: ${sideNavWidth};
+  min-height: 100%;
+  position: fixed;
+  z-index: 7801;
+  border-right: 2px solid rgb(243, 245, 248);
+`;
+
+const DivPage = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+  margin: 0 0 40px ${sideNavWidth};
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -60,7 +89,7 @@ const GlobalStyle = createGlobalStyle`
       flex-direction: column;
       background: ${props => props.theme.appBgColor};
       min-width: 100%;
-      min-height: 100vh;
+      min-height: 100%;
 	}
 `;
 
@@ -131,17 +160,25 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
-            {/* <Logo /> */}
-            <Route exact path='/' component={HotDiscussionsView} />
-            <Route path='/home' component={LandingView} />
-            <Route path='/profiles' component={Profiles} />
-            <Route path='/profile/:id' component={Profile} />
-            <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
-            <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
-            <Route path='/settings/:id' component={Settings} />
-            <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-            <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
+            <div style={{ width: '100%', height: topHeaderHeight }} />
+            <DivBody>
+              <DivSideNav>
+                <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
+              </DivSideNav>
+              <DivPage>
+                {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
+                <Route exact path='/' component={HotDiscussionsView} />
+                <Route path='/home' component={LandingView} />
+                <Route path='/profiles' component={Profiles} />
+                <Route path='/profile/:id' component={Profile} />
+                <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
+                <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+                <Route path='/settings/:id' component={Settings} />
+                <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
+                <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+              </DivPage>
+            </DivBody>
             <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme} />
             {error && <Error error={error} />}
             {message && <Message message={message} />}
@@ -154,20 +191,27 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch = {showSearch} scrollTo = {this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay = {isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch } switched={this.switchTheme} />
-            {/* <Logo /> */}
-            <Switch>
-              <Route path='/register' component={RegisterView} />
-              <Route path='/request-reset-pw' component={RequestResetPWForm} />
-              <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
-              {/* <Route exact path='/' component={HotDiscussionsView} />
-              <Route path='/home' component={LandingView} />
-              <Route path='/profile/:id' component={Profile} />
-              <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
-              <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
-              <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
-              <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
-            </Switch>
+            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
+            <div style={{ width: '100%', height: topHeaderHeight }} />
+            <DivBody>
+              <DivSideNav>
+                {/* <SideNav /> */}
+              </DivSideNav>
+              <DivPage>
+                <Switch>
+                  <Route path='/register' component={RegisterView} />
+                  <Route path='/request-reset-pw' component={RequestResetPWForm} />
+                  <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
+                  {/* <Route exact path='/' component={HotDiscussionsView} />
+                  <Route path='/home' component={LandingView} />
+                  <Route path='/profile/:id' component={Profile} />
+                  <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
+                  <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
+                  <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
+                  <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
+                </Switch>
+              </DivPage>
+            </DivBody>
             <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme} />
             {error && <Error error={error} />}
             {message && <Message message={message} />}

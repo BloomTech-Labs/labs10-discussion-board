@@ -73,13 +73,13 @@ class Follow extends Component {
           <FollowWrapper>
             <Followed>
             <button
-                  className="follow"
+                  className = 'follow'
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: isFollowing ? 'lightsteelblue' : 'steelblue'}}
                   value={followed ? 'Followed' : 'Follow?'}
               >
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;{followUnfollow()}
+                <i className = 'fas fa-plus'></i>&nbsp;&nbsp;{followUnfollow()}
               </button>
               {
                 !user_id &&

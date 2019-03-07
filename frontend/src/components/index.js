@@ -3,13 +3,13 @@ import CategoriesNav from './categories/CategoriesNav.js';
 import Category from './categories/Category.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import Discussion from './Discussion.js';
-import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 
 
 import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
+import SideNav from './SideNav.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Logo from './Logo.js';
@@ -65,10 +65,10 @@ export {
   Category,
   AddCategoryModal,
   Discussion,
-  DiscussionsByCat,
   DiscussionsByCats,
   LoginDropdown,
   Nav,
+  SideNav,
   Header,
   Footer,
   Logo,

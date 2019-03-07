@@ -16,14 +16,22 @@ import { SearchCatResult, SearchDisResult, SearchPostResult } from './index.js';
 import { getCategories, displayError } from '../store/actions/index.js';
 
 const SearchBox = styled.div`
+	width: 100%;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	background-color: ${props => props.theme.searchBoxBgColor};
-	border-radius: 5px;
-	border: ${props => props.theme.searchBoxBorder};
+	border-radius: 35px;
 	position: relative;
+
+	input {
+		background-color: #F7F9FC;
+		border-radius: 35px;
+
+		&:focus {
+			outline: none;
+		}
+	}
 
 	.search-by-wrapper {
 		/* The container */
@@ -100,16 +108,36 @@ const SearchBox = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		padding: 5px;
 
 		select {
 			border-radius: 5px;
+			padding: 5px;
 		}
 	}
 
 	.search-input-wrapper {
+		position: relative;
+		border: none;
+		width: 100%;
+
+		.fa-search {
+			color: #ACB1BC;
+			position: absolute;
+			top: 7px;
+			left: 10px;
+		}
+
 		.search-input {
-			border-radius: 10px;
+			width: 80%;
+			border: none;
+			border-radius: 55px;
 			padding: 5px 10px;
+			font-size: 14px;
+			text-indent: 27px;
+				::placeholder {
+					color: #BABEC8;
+				}
 		}
 	}
 
@@ -124,7 +152,8 @@ const SearchBox = styled.div`
 		background-color: ${props => props.theme.searchBoxBgColor};
 		color: black;
 		width: 340px;
-		border: 1px solid black;
+		border: 1px solid #bababa;
+		padding: 10px;
 
 		.results-length {
 			text-align: center;
@@ -134,8 +163,8 @@ const SearchBox = styled.div`
 
 // constants
 const categories = 'categories';
-const discussions = 'discussions';
 const posts = 'posts';
+const comments = 'comments';
 const all = 'all';
 const created_at = 'created_at';
 const votes = 'votes';
@@ -221,9 +250,9 @@ class Search extends Component {
 		switch(searchBy) {
 			case categories:
 				return this.searchCategories();
-			case discussions:
-				return this.searchDiscussions();
 			case posts:
+				return this.searchDiscussions();
+			case comments:
 				return this.searchPosts();
 			case all:
 				return this.searchAll();
@@ -255,12 +284,14 @@ class Search extends Component {
 		return(
 			<SearchBox>
 				<div className = 'search-input-wrapper'>
+				<span className = 'fa fa-search'></span>
 					<input
 						type = 'text'
 						name = 'searchText'
 						className = 'search-input'
 						value = { searchText }
 						onChange = { this.handleInputChange }
+						placeholder = 'Search'
 					/>
 				</div>
 
@@ -290,17 +321,6 @@ class Search extends Component {
 							<span className = 'checkmark' />
 						</label>
 
-						<label className = 'container'>Discussions
-							<input
-								type = 'radio'
-								checked = { searchBy === discussions }
-								name = 'searchBy'
-								value = { discussions }
-								onChange = { this.handleInputChange }
-							/>
-							<span className ='checkmark' />
-						</label>
-
 						<label className = 'container'>Posts
 							<input
 								type = 'radio'
@@ -311,10 +331,21 @@ class Search extends Component {
 							/>
 							<span className ='checkmark' />
 						</label>
+
+						<label className = 'container'>Comments
+							<input
+								type = 'radio'
+								checked = { searchBy === comments }
+								name = 'searchBy'
+								value = { comments }
+								onChange = { this.handleInputChange }
+							/>
+							<span className ='checkmark' />
+						</label>
 					</div>
 
 					<div className = 'order-type-wrapper'>
-						<span>Sort by: </span>
+						<span>Sort by:&nbsp;</span>
 						{
 							searchBy === all ?
 							<span>date created &nbsp;</span> :
@@ -359,7 +390,7 @@ class Search extends Component {
 										searchText = { searchText }
 									/>
 								}
-								if (searchBy === discussions) {
+								if (searchBy === posts) {
 									return <SearchDisResult
 										key = { i }
 										discussion = { result }
@@ -367,7 +398,7 @@ class Search extends Component {
 										searchText = { searchText }
 									/>
 								}
-								if (searchBy === posts) {
+								if (searchBy === comments) {
 									return <SearchPostResult
 										key = { i }
 										post = { result }
@@ -389,7 +420,7 @@ class Search extends Component {
 											/>
 										);
 									}
-									if (result.type === 'discussion') {
+									if (result.type === 'post') {
 										return <SearchDisResult
 											key = { i }
 											discussion = { result.result }
@@ -398,7 +429,7 @@ class Search extends Component {
 											type = { result.type }
 										/>
 									}
-									if (result.type === 'post') {
+									if (result.type === 'comment') {
 										return <SearchPostResult
 											key = { i }
 											post = { result.result }

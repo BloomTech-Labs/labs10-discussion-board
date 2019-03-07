@@ -6,80 +6,98 @@ import LoginDropdown from './LoginDropdown.js';
 import chevron from '../assets/img/chevron.png';
 // import PropTypes from 'prop-types';
 
+// globals
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
-const NotLoggedIn = styled.div`
+const LogInContainer = styled.div`
   display: flex;
-  background-color: ${props => props.theme.authBgColor};
+  align-items: center;
+  justify-content: flex-end;
+  background-color: white;
   color: ${props => props.theme.authColor};
   font-size: 18px;
-  width: 100%;
-  flex-direction: column;
-`;
+  width: 40%;
 
-const DivAuthTitle = styled.div`
-    display: flex;
-    justify-content: flex-end;
-  p {
-    margin: 0 0 0.67em 0;
-  }
-
-  @media (max-width: 750px){
-      display: none;
-    @media (max-width: 450px){
-      display: none;
+  @media ${phoneL}{
+      width: 80%;
     }
-  }
+    @media ${phoneP}{
+      width: 80%;
+      }
 `;
 
 const DivAuthRegLog = styled.div`
+  width: 90%;
   margin-top: -5px;
   display: flex;
-  flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  div {
+    color: black;
+  }
 
   @media (max-width: 750px){
-    margin-top: 5px;
+
   }
-    @media (max-width: 458px){
-      margin-top: 5px;
+  @media ${phoneL}{
+      width: 80%;
       display: flex;
       flex-direction: column;
+      .line {
+        display: none;
+      }
     }
+    @media ${phoneP}{
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      .line {
+        display: none;
+      }
+    }
+
 `;
 
 const DivLogin = styled.div`
   display: flex;
   position: relative;
-  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 const LinkRegister = styled(Link)`
+  text-decoration: none;
   margin-right: 0px;
   user-select: none;
   cursor: pointer;
-  color: ${props => props.theme.authLinkRegColor};
+  color: black;
   font-size: 18px;
   &:hover {
     cursor: pointer;
     color: ${props => props.theme.authLinkRegColorHov};
     text-decoration: underline;
   }
+  @media ${tabletP}{
+  }
+    @media ${phoneL}{
+    }
 `;
 
 const Login = styled.a`
   margin-left: 5px;
   user-select: none;
   cursor: pointer;
-  color: ${props => props.theme.authLoginColor};
+  color: black;
   font-size: 18px;
   &:hover {
     cursor: pointer;
     color: ${props => props.theme.authLoginColorHov};
     text-decoration: underline;
   }
+  @media ${phoneL}{
+    }
 
   img {
     transform: ${props => props.isLoginDropdownClicked && 'rotate(180deg)'};
@@ -109,25 +127,15 @@ class Auth extends Component {
 
   render() {
     return (
-      <NotLoggedIn>
-        <DivAuthTitle>
-          <p>
-            Want to participate in the conversation?
-          </p>
-        </DivAuthTitle>
+      <LogInContainer>
         <DivAuthRegLog>
           <LinkRegister to='/register'>Register</LinkRegister>
-          &nbsp;|&nbsp;
+          <div className = "line">&nbsp;|&nbsp;</div>
           <DivLogin>
-            <Login
-              onClick={ev => {
-                this.toggleLoginDropdown(ev);
-              }}
+            <Login onClick = {ev => {this.toggleLoginDropdown(ev);}}
               isLoginDropdownClicked={this.state.isLoginDropdownClicked}
             >
-              Login &nbsp;
-              <img src={chevron} alt='chevron' />
-
+              Login
             </Login>
             <LoginDropdown
               {...this.props}
@@ -136,7 +144,7 @@ class Auth extends Component {
             />
           </DivLogin>
         </DivAuthRegLog>
-      </NotLoggedIn>
+      </LogInContainer>
     );
   }
 }

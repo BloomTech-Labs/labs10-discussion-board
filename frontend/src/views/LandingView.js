@@ -6,9 +6,6 @@ import {phoneP, tabletP, } from '../globals/globals';
 // components
 import { DiscussionsByFollowedCats } from '../components/index.js';
 
-// views
-import { TopDiscussionsView, HotDiscussionsView } from './index.js';
-
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
@@ -16,7 +13,6 @@ const LandingViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
   width: 740px;
   border-radius: 5px;
-  margin-top: 100px;
 
   @media ${tabletP}{
     display: flex;
@@ -34,10 +30,10 @@ const LandingViewWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = props => {
+const LandingView = ({ history }) => {
   return (
     <LandingViewWrapper>
-      <DiscussionsByFollowedCats />
+      <DiscussionsByFollowedCats history = { history } />
     </LandingViewWrapper>
   );
 };

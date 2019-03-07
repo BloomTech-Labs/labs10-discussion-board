@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 //globals
-import { phoneP, phoneL, tabletP, footerHeight, footerSpace, } from '../globals/globals.js'
+import { phoneL, tabletP } from '../globals/globals.js'
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 
- const DivWrapper = styled.div`
+const DivWrapper = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
@@ -19,7 +17,7 @@ import { phoneP, phoneL, tabletP, footerHeight, footerSpace, } from '../globals/
   margin: 0;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  z-index: 9901;
   @media ${tabletP}{
     width: 100%;
     
@@ -42,15 +40,15 @@ const FooterContents = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const Footer = ({toggleSearch, switchTheme}) => {
-    return (
-      <DivWrapper>
-        <FooterContents>
-            <p>Lambda School <i className="far fa-copyright"></i> 2018</p>
-        </FooterContents>
-      </DivWrapper>
-    );
-  
+const Footer = ({ toggleSearch, switchTheme }) => {
+  return (
+    <DivWrapper>
+      <FooterContents>
+        <p>Lambda School <i className="far fa-copyright"></i> 2018</p>
+      </FooterContents>
+    </DivWrapper>
+  );
+
 }
 
 export default Footer;
