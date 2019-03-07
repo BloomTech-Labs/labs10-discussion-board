@@ -4,7 +4,7 @@ import Category from './categories/Category.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
-
+import Reply from './Reply.js';
 
 import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
@@ -56,6 +56,7 @@ import AddReplyForm from './forms/AddReplyForm.js';
 import EditSignatureForm from './forms/EditSignatureForm.js';
 
 export {
+  Reply,
   Auth,
   Categories,
   CategoriesNav,
