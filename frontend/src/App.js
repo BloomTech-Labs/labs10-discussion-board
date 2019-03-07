@@ -52,6 +52,10 @@ const DivBody = styled.div`
   width: 100%;
   height: 100%;
   flex-grow: 1;
+
+  @media(max-width: 1345px) {
+    flex-direction: column;
+  }
 `;
 
 const DivSideNav = styled.div`
@@ -61,6 +65,13 @@ const DivSideNav = styled.div`
   position: fixed;
   z-index: 7801;
   border-right: 2px solid rgb(243, 245, 248);
+
+  @media(max-width: 1345px) {
+    position: static;
+    height: auto;
+    width: 99.9%;
+    border: none;
+  }
 `;
 
 const DivPage = styled.div`
@@ -72,6 +83,10 @@ const DivPage = styled.div`
   min-height: 100%;
   position: relative;
   margin: 0 0 40px ${sideNavWidth};
+
+  @media(max-width: 1345px) {
+    margin: 0 0 40px 0;
+  }
 `;
 
 const GlobalStyle = createGlobalStyle`
