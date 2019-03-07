@@ -149,7 +149,7 @@ export default connect(mapStateToProps, { addPost })(AddPostForm);
 // 	// 	  ['clean']
 // 	// 	],
 // 	//   }
-	 
+
 // 	//  formats = [
 // 	// 	'header', 'font', 'size',
 // 	// 	'bold', 'italic', 'underline', 'strike', 'blockquote',
@@ -198,21 +198,21 @@ export default connect(mapStateToProps, { addPost })(AddPostForm);
 // 	render() {
 // 		const { postBody } = this.state;
 // 		const { toggleAddPostForm } = this.props;
-		
+
 // 		return(
 // 			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
 // 				<h1>Add post form</h1>
 
-				
+
 // 				{Parser(postBody)}
-				
+
 // 				<ReactQuill
 // 					placeholder = 'Add post...'
 // 					name = 'postBody'
 // 					handleChange = { this.handleChange }
 // 					value = {this.state.postBody}
 // 				/>
-			
+
 // 				<button type = 'submit'>Submit</button>
 // 				{/* <div dangerouslySetInnerHTML={{__html: this.state.postBody}}></div> */}
 // 				<button
@@ -278,7 +278,7 @@ export default connect(mapStateToProps, { addPost })(AddPostForm);
 // 					onClick = { toggleAddPostForm }
 // 					type = 'button' // prevents form submission
 // 				>Cancel</button>
-			
+
 // 		<label>
 // 		Change val:
 // 		<textarea defaultValue={this.state.postBody} onChange={this.handleChange} />

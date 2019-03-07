@@ -10,6 +10,7 @@ import Reply from './Reply.js';
 import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
 import Nav from './Nav.js';
+import SideNav from './SideNav.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Logo from './Logo.js';
@@ -70,6 +71,7 @@ export {
   DiscussionsByCats,
   LoginDropdown,
   Nav,
+  SideNav,
   Header,
   Footer,
   Logo,

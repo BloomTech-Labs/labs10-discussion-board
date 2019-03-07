@@ -20,6 +20,7 @@ const SearchPostResultWrapper = styled.div`
 		background-color: ${props => props.theme.searchPostResultWrapperTypeBgColor};
 		text-align: center;
 		color: ${props => props.theme.searchPostResultWrapperTypeColor};
+		padding: 7px;
 	}
 
 	.post-body-wrapper, .username-wrapper, .category-wrapper, .discussion-wrapper {
@@ -122,18 +123,20 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 					>{ username }</span> :
 					<Deleted />
 				}
-				&nbsp; {moment(new Date(Number(created_at))).fromNow()}
+				<br />
+				<br />
+				{moment(new Date(Number(created_at))).fromNow()}
 			</p>
-			<p>In discussion &nbsp;
-				<span onClick = { handleDiscussionClick } className = 'discussion-wrapper'>
+			<div>In post &nbsp;
+				<div onClick = { handleDiscussionClick } className = 'discussion-wrapper'>
 					{
 						// if discussion_body is longer than limit,
 						// slice first chars up to limit, and include an ellipsis at the end.
 						// else if shorter than limit, render the entirety of it
 						discussion_body.length > searchCharLimit ? discussion_body.slice(0, searchCharLimit) + ' ...' : discussion_body
 					}
-				</span>
-			</p>
+				</div>
+			</div>
 			<p>In category
 				<span
 					onClick = { handleCategoryClick }

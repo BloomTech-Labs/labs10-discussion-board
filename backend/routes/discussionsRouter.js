@@ -137,10 +137,9 @@ router.post('/:user_id', authenticate, (req, res) => {
 
 // edit post with given post id
 router.put('/:user_id', authenticate, (req, res) => {
-  const { discussion_id, title, dBody } = req.body;
+  const { discussion_id, dBody } = req.body;
   const last_edited_at = Date.now();
-  const discussion = { title, body: dBody, last_edited_at };
-  if (!title) return res.status(400).json({ error: 'Discussion title must not be empty.' });
+  const discussion = { body: dBody, last_edited_at };
   if (!dBody) return res.status(400).json({ error: 'Discussion body must not be empty.' });
   if (!discussion_id) return res.status(400).json({ error: 'Discussion ID is required.' });
   return discussionsDB

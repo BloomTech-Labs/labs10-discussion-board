@@ -12,31 +12,23 @@ const EditDiscussionFormWrapper = styled.form`
 
 class EditDiscussionForm extends Component {
 	state = {
-		title: this.props.title,
 		body: this.props.body,
 	};
 	handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
 	handleSubmit = e => {
 		e.preventDefault();
-		const { title, body } = this.state;
+		const { body } = this.state;
 		const { discussion_id, editDiscussion, historyPush } = this.props;
-		return editDiscussion(discussion_id, title, body, historyPush);
+		return editDiscussion(discussion_id, body, historyPush);
 	};
 	render() {
 		const {
 			toggleEditDiscussionForm,
 		} = this.props;
-		const { title, body } = this.state;
+		const { body } = this.state;
 		return(
 			<EditDiscussionFormWrapper onSubmit = { this.handleSubmit }>
 				<h1>Edit Discussion</h1>
-
-				<input
-					placeholder = 'Enter new title...'
-					name = 'title'
-					value = { title }
-					onChange = { this.handleInputChange }
-				/>
 
 				<input
 					placeholder = 'Enter new body...'

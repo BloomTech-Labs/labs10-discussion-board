@@ -6,32 +6,59 @@ import LoginDropdown from './LoginDropdown.js';
 import chevron from '../assets/img/chevron.png';
 // import PropTypes from 'prop-types';
 
+// globals
+import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const LogInContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   background-color: white;
   color: ${props => props.theme.authColor};
   font-size: 18px;
-  width: 100%;
+  width: 40%;
+
+  @media ${phoneL}{
+      width: 80%;
+    }
+    @media ${phoneP}{
+      width: 80%;
+      }
 `;
 
 const DivAuthRegLog = styled.div`
+  width: 90%;
   margin-top: -5px;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
+  div {
+    color: black;
+  }
 
   @media (max-width: 750px){
-    margin-top: 5px;
+
   }
-    @media (max-width: 458px){
-      margin-top: 5px;
+  @media ${phoneL}{
+      width: 80%;
       display: flex;
       flex-direction: column;
+      .line {
+        display: none;
+      }
     }
+    @media ${phoneP}{
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      .line {
+        display: none;
+      }
+    }
+
 `;
 
 const DivLogin = styled.div`
@@ -52,6 +79,10 @@ const LinkRegister = styled(Link)`
     color: ${props => props.theme.authLinkRegColorHov};
     text-decoration: underline;
   }
+  @media ${tabletP}{
+  }
+    @media ${phoneL}{
+    }
 `;
 
 const Login = styled.a`
@@ -65,6 +96,8 @@ const Login = styled.a`
     color: ${props => props.theme.authLoginColorHov};
     text-decoration: underline;
   }
+  @media ${phoneL}{
+    }
 
   img {
     transform: ${props => props.isLoginDropdownClicked && 'rotate(180deg)'};
@@ -97,7 +130,7 @@ class Auth extends Component {
       <LogInContainer>
         <DivAuthRegLog>
           <LinkRegister to='/register'>Register</LinkRegister>
-          &nbsp;|&nbsp;
+          <div className = "line">&nbsp;|&nbsp;</div>
           <DivLogin>
             <Login onClick = {ev => {this.toggleLoginDropdown(ev);}}
               isLoginDropdownClicked={this.state.isLoginDropdownClicked}

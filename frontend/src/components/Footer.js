@@ -10,7 +10,7 @@ import { phoneP, phoneL, tabletP, footerHeight, footerSpace, } from '../globals/
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 
- const DivWrapper = styled.div`
+const DivWrapper = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
@@ -19,7 +19,7 @@ import { phoneP, phoneL, tabletP, footerHeight, footerSpace, } from '../globals/
   margin: 0;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  z-index: 9901;
   @media ${tabletP}{
     width: 100%;
     
@@ -42,15 +42,15 @@ const FooterContents = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const Footer = ({toggleSearch, switchTheme}) => {
-    return (
-      <DivWrapper>
-        <FooterContents>
-            <p>Lambda School <i className="far fa-copyright"></i> 2018</p>
-        </FooterContents>
-      </DivWrapper>
-    );
-  
+const Footer = ({ toggleSearch, switchTheme }) => {
+  return (
+    <DivWrapper>
+      <FooterContents>
+        <p>Lambda School <i className="far fa-copyright"></i> 2018</p>
+      </FooterContents>
+    </DivWrapper>
+  );
+
 }
 
 export default Footer;
