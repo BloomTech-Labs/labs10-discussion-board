@@ -4,8 +4,6 @@ import LandingView from './LandingView.js';
 import PostsView from './PostsView.js';
 import RegisterView from './RegisterView.js';
 import TopDiscussionsView from './TopDiscussionsView.js';
-import DiscussionsByCatView from './DiscussionsByCatView.js';
-import HotDiscussionsView from './HotDiscussionsView.js';
 import RepliesView from './RepliesView.js'
 
 export {
@@ -15,6 +13,5 @@ export {
   PostsView,
   RegisterView,
   TopDiscussionsView,
-  HotDiscussionsView,
   RepliesView,
 };
