@@ -99,6 +99,7 @@ const Reply = ({
         }
       }
 
+      console.log('history', historyPush)
     return(
         <ReplyWrapper>
             <p>{body}</p>
@@ -134,7 +135,7 @@ const Reply = ({
             <AddReplyForm
                 user_id={loggedInUserId}
                 toggleAddReplyForm={toggleAddReplyForm}
-                reply_id={id}
+                post_id={post_id}
                 historyPush={historyPush}
             />
             }

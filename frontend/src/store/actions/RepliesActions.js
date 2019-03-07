@@ -15,7 +15,7 @@ const backendURL = process.env.REACT_APP_BACKEND_URL;
  **************************************************************************************************/
 
 //Add Reply
-export const addReply = (post_id, discussion_id, replyBody, historyPUsh) => dispatch => {
+export const addReply = (post_id, discussion_id, replyBody, historyPush) => dispatch => {
 	const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
@@ -24,7 +24,7 @@ export const addReply = (post_id, discussion_id, replyBody, historyPUsh) => disp
     dispatch({ type: ADD_REPLY_LOADING });
     return axios.post(`${backendURL}/replies/${user_id}`, body, headers)
         .then(() => dispatch({ type: ADD_REPLY_SUCCESS }))
-        .then(() => historyPUsh('/'))
-        .then(() => historyPUsh(`/discussion/${ discussion_id }`))
+        .then(() => historyPush('/'))
+        .then(() => historyPush(`/discussion/${ discussion_id }`))
         .catch(err => handleError(err, ADD_REPLY_FAILURE)(dispatch));
 }

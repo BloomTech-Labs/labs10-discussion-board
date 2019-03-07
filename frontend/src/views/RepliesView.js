@@ -17,7 +17,7 @@ const RepliesView = ({
                 <Reply
                     key = {index}
                     reply = {reply}
-                    history = { historyPush }
+                    historyPush = { historyPush }
                     showAddReplyForm={showAddReplyForm}
                     toggleAddReplyForm={toggleAddReplyForm}
                 />)
