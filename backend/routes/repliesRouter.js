@@ -23,7 +23,6 @@ router.post('/:user_id', authenticate, (req, res) => {
 
     if(!replyBody) return res.status(400).json({ error: 'Reply body must not be empty.' });
     const newReply = { user_id, post_id, body: replyBody, created_at };
-    console.log('newReply', newReply)
     return repliesDB
         .insert(newReply)
         .then(async newId => {
