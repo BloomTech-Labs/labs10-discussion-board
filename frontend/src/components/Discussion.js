@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
 import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, AddPostForm, EditDiscussionForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
+import { AddReplyForm, AddPostForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -228,14 +227,13 @@ class Discussion extends Component {
       orderType,
       showAddPostForm,
       showEditPostForm,
-      showEditDiscussionForm,
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
     const {
       body,
-      created_at,
-      last_edited_at,
+      // created_at,
+      // last_edited_at,
       upvotes,
       downvotes,
       avatar,
@@ -288,7 +286,7 @@ class Discussion extends Component {
             </div>
             <PostedBy>
               <div className='d-creator'>
-                <img alt='picture' src={avatar} />
+                <img alt='user' src={avatar} />
                 {
                   username ?
                     <Link className='username' to={`/profile/${user_id}`}>
@@ -381,50 +379,3 @@ export default connect(
   mapStateToProps,
   { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 )(Discussion);
-
-//Edit and Remove 
-{/* {
-              loggedInUserId === user_id &&
-              (
-                showEditDiscussionForm ?
-                  <EditDiscussionForm
-                    toggleEditDiscussionForm={this.toggleEditDiscussionForm}
-                    title={title}
-                    body={body}
-                    discussion_id={id}
-                    historyPush={historyPush}
-                  />
-                  :
-                  <button onClick={this.toggleEditDiscussionForm}
-                  >Edit discussion</button>
-              )
-            }
-            {last_edited_at && (
-              <p>
-                Last edited {moment(new Date(Number(last_edited_at))).fromNow()}
-              </p>
-            )}
-            {
-              loggedInUserId === user_id &&
-              <button onClick={this.handleRemoveDiscussion}>Remove discussion</button>
-            } */}
-
-// SORT   
-
-{/* <Sort>
-              <div className='dropDowns'>
-                <span className='sorted'>Sort</span>
-                <select className='sortName' onChange={this.handleSelectChange} name='order'>
-                  <option value='created_at'>date created</option>
-                  <option value='post_votes'>votes</option>
-                </select>
-                <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
-                  <option value='desc'>
-                    {order === 'created_at' ? 'most recent first' : 'most first'}
-                  </option>
-                  <option value='asc'>
-                    {order === 'created_at' ? 'least recent first' : 'least first'}
-                  </option>
-                </select>
-              </div>
-            </Sort> */}

@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 //globals
-import { phoneP, phoneL, tabletP, footerHeight, footerSpace, } from '../globals/globals.js'
+import { phoneL, tabletP } from '../globals/globals.js'
 
 /***************************************************************************************************
  *********************************************** Styles *********************************************

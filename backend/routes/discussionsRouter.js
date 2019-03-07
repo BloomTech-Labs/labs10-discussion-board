@@ -33,15 +33,6 @@ router.get('/top-daily/:user_id', authenticate, (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to getTopDailyDiscussions(): ${err}` }));
 });
 
-router.get('/hottest/:user_id', authenticate, (req, res) => {
-  let { user_id } = req.params;
-  if (user_id === 'null') user_id = 0;
-  return discussionsDB
-    .getHottestDiscussions(user_id)
-    .then(hottestDiscussions => res.status(200).json(hottestDiscussions))
-    .catch(err => res.status(500).json({ error: `Failed to getHottestDiscussions(): ${ err }` }));
-});
-
 //GET All Discussions
 router.get('/', (req, res) => {
   return discussionsDB

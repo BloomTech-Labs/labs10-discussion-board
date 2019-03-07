@@ -10,7 +10,6 @@ import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/g
 // components
 import {
   Header,
-  Logo,
   SideNav,
   Profiles,
   Profile,
@@ -31,11 +30,10 @@ import {
   CategoriesView,
   DiscussionView,
   RegisterView,
-  HotDiscussionsView,
 } from './views/index.js';
 
 // action creators
-import { logBackIn, editDiscussion } from './store/actions/index.js';
+import { logBackIn } from './store/actions/index.js';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -184,8 +182,8 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
-                <Route exact path='/' component={HotDiscussionsView} />
-                <Route path='/home' component={LandingView} />
+                <Route exact path= '/' component={LandingView} />
+                <Route exact path= '/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
@@ -218,8 +216,7 @@ class App extends Component {
                   <Route path='/register' component={RegisterView} />
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
-                  {/* <Route exact path='/' component={HotDiscussionsView} />
-                  <Route path='/home' component={LandingView} />
+                  {/* <Route path='/home' component={LandingView} />
                   <Route path='/profile/:id' component={Profile} />
                   <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                   <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />

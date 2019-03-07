@@ -6,9 +6,6 @@ import {phoneP, tabletP, } from '../globals/globals';
 // components
 import { DiscussionsByFollowedCats } from '../components/index.js';
 
-// views
-import { TopDiscussionsView, HotDiscussionsView } from './index.js';
-
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/

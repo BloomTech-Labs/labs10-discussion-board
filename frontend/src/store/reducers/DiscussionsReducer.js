@@ -35,15 +35,10 @@ import {
   HANDLE_DISCUSSION_VOTE_LOADING,
   HANDLE_DISCUSSION_VOTE_SUCCESS,
   HANDLE_DISCUSSION_VOTE_FAILURE,
-
-  GET_HOT_DISCUSSIONS_LOADING,
-  GET_HOT_DISCUSSIONS_SUCCESS,
-  GET_HOT_DISCUSSIONS_FAILURE,
 } from '../actions/index.js';
 
 const initialState = {
   topDiscussions: [],
-  hotDiscussions: [],
   discussion: {
     posts: []
   },
@@ -106,12 +101,6 @@ export const DiscussionsReducer = (state = initialState, action) => {
         category: action.payload.category,
       };
 
-    case GET_HOT_DISCUSSIONS_SUCCESS:
-      return {
-        ...state,
-        hotDiscussions: action.payload,
-      };
-
     case GET_ALL_DISCS_BY_FOLLOWED_CATS_SUCCESS:
       return {
         ...state,
@@ -120,8 +109,6 @@ export const DiscussionsReducer = (state = initialState, action) => {
 
     case GET_ALL_DISCS_BY_FOLLOWED_CATS_LOADING:
     case GET_ALL_DISCS_BY_FOLLOWED_CATS_FAILURE:
-    case GET_HOT_DISCUSSIONS_LOADING:
-    case GET_HOT_DISCUSSIONS_FAILURE:
     case HANDLE_DISCUSSION_VOTE_LOADING:
     case HANDLE_DISCUSSION_VOTE_SUCCESS:
     case HANDLE_DISCUSSION_VOTE_FAILURE:
