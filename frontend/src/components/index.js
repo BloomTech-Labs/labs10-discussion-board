@@ -3,7 +3,6 @@ import CategoriesNav from './categories/CategoriesNav.js';
 import Category from './categories/Category.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import Discussion from './Discussion.js';
-import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 
 
@@ -66,7 +65,6 @@ export {
   Category,
   AddCategoryModal,
   Discussion,
-  DiscussionsByCat,
   DiscussionsByCats,
   LoginDropdown,
   Nav,

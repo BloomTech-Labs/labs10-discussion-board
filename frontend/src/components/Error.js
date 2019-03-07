@@ -16,7 +16,7 @@ const ErrorWrapper = styled.div`
 	height: 100vh;
 	width: 100vw;
 	overflow: auto;
-	z-index: 2;
+	z-index: 9999;
 `;
 
 const ErrorBox = styled.div`

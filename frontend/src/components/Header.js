@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { Nav } from '../components/index.js';
 import Lambda from '../assets/img/Lambda.png';
 
+// Globals
+import { topHeaderHeight } from '../globals/globals.js';
+
 const StyledHeader = styled.div`
   position: fixed;
   display: flex;
   justify-content: space-between;
-  height: 60px;
+  height: ${topHeaderHeight};
   width: 100%;
   z-index: 9000;
   align-self: center;

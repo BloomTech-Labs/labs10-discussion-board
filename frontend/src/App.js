@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-// themes
-import { dayTheme, nightTheme } from './globals/globals';
+// globals
+import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
 
 // components
 import {
@@ -21,6 +21,8 @@ import {
   ConfirmEmail,
   RequestResetPWForm,
   ResetPWForm,
+  DiscussionsByCats,
+  AddCategoryModal,
 } from './components/index.js';
 
 // views
@@ -28,7 +30,6 @@ import {
   LandingView,
   CategoriesView,
   DiscussionView,
-  DiscussionsByCatView,
   RegisterView,
   HotDiscussionsView,
 } from './views/index.js';
@@ -57,11 +58,11 @@ const DivBody = styled.div`
 
 const DivSideNav = styled.div`
   display: flex;
-  min-width: 300px;
+  min-width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
-  z-index: 9801;
-  border-right: 5px solid rgb(243, 245, 248);
+  z-index: 7801;
+  border-right: 2px solid rgb(243, 245, 248);
 `;
 
 const DivPage = styled.div`
@@ -72,7 +73,7 @@ const DivPage = styled.div`
   width: 100%;
   min-height: 100%;
   position: relative;
-  margin: 0 0 40px 300px;
+  margin: 0 0 40px ${sideNavWidth};
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -161,13 +162,13 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <div style={{ width: '100%', height: '100px' }} />
-            {/* <Logo /> */}
+            <div style={{ width: '100%', height: topHeaderHeight }} />
             <DivBody>
               <DivSideNav>
-                <SideNav />
+                <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
+                {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
                 <Route exact path='/' component={HotDiscussionsView} />
                 <Route path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
@@ -175,7 +176,7 @@ class App extends Component {
                 <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
                 <Route path='/settings/:id' component={Settings} />
-                <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+                <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
               </DivPage>
             </DivBody>
@@ -192,8 +193,7 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <div style={{ width: '100%', height: '100px' }} />
-            {/* <Logo /> */}
+            <div style={{ width: '100%', height: topHeaderHeight }} />
             <DivBody>
               <DivSideNav>
                 {/* <SideNav /> */}
@@ -208,7 +208,7 @@ class App extends Component {
                   <Route path='/profile/:id' component={Profile} />
                   <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                   <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
-                  <Route path='/discussions/category/:category_id' component={DiscussionsByCatView} />
+                  <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
                 </Switch>
               </DivPage>
