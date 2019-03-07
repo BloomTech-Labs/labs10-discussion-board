@@ -258,33 +258,6 @@ class Discussion extends Component {
 
     const handleVote = (e, type) => this.handleDiscussionVote(id, type);
 
-
-    // Back Button needs to take in the dynamic (category_id)
-    //Add an icon by the category name
-    //Vote Count should be each up and each down
-    //Post Count Not rendering
-    //Reply Modal should render right below the comment in a bar
-    //Replies to Comments should render nested in the comment
-
-    //TimeStamp 
-
-    //Function
-    // const timeStamp =() => {
-    //   if(last_edited_at){
-    //     return (
-    //           <span>
-    //             Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-    //           </span>
-    //         )
-    //   } else if(created_at) {
-    //     return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-    //     )
-    //   }
-    // }
-
-    //Call
-    // {timeStamp(last_edited_at, created_at)}   
-
     return (
       <DiscussionWrapper>
         <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>

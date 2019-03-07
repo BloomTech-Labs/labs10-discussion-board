@@ -156,7 +156,7 @@ const Post = ({
    } else{
      return toggleAddReplyForm(id)
    }
-  }
+  };
   // const handleEdit = () => updateEditPostForm(id);
   // const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
   // const userCreatedPost = loggedInUserId === user_id;
@@ -173,8 +173,8 @@ const Post = ({
       return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       )
     }
-  }
-console.log('post.id', post.id)
+  };
+
   return (
     <PostWrapper>
       <p>{body}</p>
