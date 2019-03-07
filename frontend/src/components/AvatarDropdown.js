@@ -11,33 +11,50 @@ const DivWrapper = styled.div`
   flex-direction: column;
   z-index: 9999;
   position: absolute;
-  background-color: #54BDFF;
-  margin-top: 100px;
-  width: 150px;
-  background: #3a77bd;
-  border-radius: 10px;
-  padding: 20px 0;
+  background-color: white;
+  margin-top: 56px;
+  width: 140px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: 2px solid ${props => props.theme.borderColor};
+  border-top: 2px solid white;
+  padding: 10px 0;
+
+  @media(max-width: 750px){
+    height: 60px;
+    width: 100px;
+  }
+  @media (max-width: 450px){
+    padding-right: 15px;
+    padding-top: 0px;
+  }
 `;
 
 const LinkItem = styled(Link)`
-  margin: 0;
+  margin-bottom: 5px;
   font-weight: bold;
   font-size: 24px;
   user-select: none;
   width: 100%;
   text-decoration: none;
-  color: white;
+  color: black;
   width: 100%;
   cursor: pointer;
   text-align: center;
   &:hover {
-    color: #3a77bd;
-    background-color: white;
+    color: black;
+    background-color: ${props => props.theme.borderColor};
+  }
+
+  @media(max-width: 750px){
+    font-size: 16px;
+  }
+  @media (max-width: 450px){
   }
 `;
 
 const Item = styled.a`
-  margin: 0;
+  margin-bottom: 5px;
   font-weight: bold;
   font-size: 24px;
   user-select: none;
@@ -45,8 +62,14 @@ const Item = styled.a`
   cursor: pointer;
   text-align: center;
   &:hover {
-    color: #3a77bd;
-    background-color: white;
+    color: black;
+    background-color: ${props => props.theme.borderColor};
+  }
+
+  @media(max-width: 750px){
+    font-size: 16px;
+  }
+  @media (max-width: 450px){
   }
 `;
 

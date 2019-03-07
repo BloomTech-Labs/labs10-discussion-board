@@ -15,7 +15,7 @@ import { Search } from './index.js';
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
-  width: 45%;
+  width: 70%;
   display: flex;
   color: black;
   justify-content: space-between;
@@ -31,35 +31,40 @@ const DivWrapper = styled.div`
 
 const DivAuth = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 35%;
+  justify-content: flex-end;
+  width: 70%;
   height: 100%;
 
   @media ${tabletP}{
-    width: 25%;
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
   }
 
   @media ${phoneL}{
-    width: 35%;
+    width: 50%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   i {
+    margin-left: 10px;
     display: flex;
     align-items: center;
     cursor: pointer;
   }
 `;
 
-const ButtonContainer = styled.div`
+const SearchContainer = styled.div`
+  margin-left: 15px;
   display: flex;
-  width: 60%;
+  width: 30%;
   justify-content: center;
   align-items: center;
 
   @media ${tabletP}{
     width: 40%;
+    margin-left: 10px;
     }
     
     @media ${phoneL}{
@@ -75,9 +80,9 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        <ButtonContainer>
+        <SearchContainer>
           <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
-        </ButtonContainer>
+        </SearchContainer>
         <DivAuth>{this.props.isDay ?
           <i onClick = {this.props.switchTheme} className = 'fas fa-sun' /> :
           <i onClick = {this.props.switchTheme} className = 'fas fa-moon' />
