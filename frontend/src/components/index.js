@@ -12,7 +12,6 @@ import Nav from './Nav.js';
 import SideNav from './SideNav.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
-import Logo from './Logo.js';
 import TopDiscussions from './TopDiscussions.js';
 import TopDiscussion from './TopDiscussion.js';
 import PostCount from './PostCount.js';
@@ -69,7 +68,6 @@ export {
   SideNav,
   Header,
   Footer,
-  Logo,
   TopDiscussions,
   TopDiscussion,
   PostCount,
