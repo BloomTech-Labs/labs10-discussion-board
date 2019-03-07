@@ -35,12 +35,12 @@ const DivHeader = styled.div`
 
 const H4BrowseCategories = styled.h4`
     width: 95%;
-    border-left: ${props => props.islinkselected ? '5px solid blue' : '5px solid transparent'};
+    border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
 `;
 
 const LinkSideNav = styled(Link)`
-  text-decoration: ${props => props.islinkselected ? 'underline' : 'none'};
-  color: ${props => props.islinkselected ? 'blue' : 'black'};
+  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
   span {
     width: 46px;
@@ -60,8 +60,8 @@ const LinkSideNav = styled(Link)`
 `;
 
 const LinkBrowseCategories = styled(Link)`
-  text-decoration: ${props => props.islinkselected ? 'underline' : 'none'};
-  color: ${props => props.islinkselected ? 'blue' : 'black'};
+  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
   i {
     cursor: pointer;
@@ -85,11 +85,11 @@ const DivCatFollowList = styled.div`
 const LiCategoryFollowed = styled.li`
   display: ${props => props.isfollowedcatsopen ? 'list-item' : 'none'};
   padding-left: 42px;
-  border-left: ${props => props.islinkselected ? '5px solid blue' : '5px solid transparent'};
+  border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
   list-style-position: inside;
   &::before{
     content: "";
-    background-color: ${props => props.islinkselected ? 'blue' : 'black'};
+    background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
     font-weight: bold;
     display: inline-block; 
     width: 6px;
@@ -103,7 +103,7 @@ const LiCategoryFollowed = styled.li`
 const H4AllCategories = styled.h4`
   display: flex;
   align-items: center;
-  border-left: ${props => props.islinkselected ? '5px solid blue' : '5px solid transparent'};
+  border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
 
   i {
     cursor: pointer;
@@ -120,8 +120,8 @@ const H4AllCategories = styled.h4`
 
 const LinkAllPosts = styled(Link)`
   display: flex;
-  text-decoration: ${props => props.islinkselected ? 'underline' : 'none'};
-  color: ${props => props.islinkselected ? 'blue' : 'black'};
+  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
   &:hover {
     color: blue;
@@ -131,7 +131,7 @@ const LinkAllPosts = styled(Link)`
   }
 
   .div-window {
-    background-color: ${props => props.islinkselected ? 'blue' : 'black'};
+    background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   }
 `;
 
@@ -195,21 +195,21 @@ class SideNav extends Component {
       <DivSideNav>
         <DivHeader>
           <H4BrowseCategories
-            islinkselected={this.state.linkSelected === 'BrowseCategories'}
+            islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
           >
 
             <LinkBrowseCategories
               to={`/categories`}
-              islinkselected={this.state.linkSelected === 'BrowseCategories'}
+              islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
               onClick={() => this.selectLink('BrowseCategories')}
             ><i className="fas fa-book-open" />Browse Categories</LinkBrowseCategories>
           </H4BrowseCategories>
           <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
         </DivHeader>
         <DivCatFollowList>
-          <H4AllCategories islinkselected={this.state.linkSelected === 'AllPosts'}>
+          <H4AllCategories islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
             <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
-            <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={this.state.linkSelected === 'AllPosts'}>
+            <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
               <DivWindows>
                 <div className='div-window' />
                 <div className='div-window' />
@@ -219,7 +219,7 @@ class SideNav extends Component {
           </H4AllCategories>
           <ul>
             {this.state.categories.map((category, index) => (
-              <LiCategoryFollowed isfollowedcatsopen={this.state.isFollowedCatsOpen} key={index} islinkselected={this.state.linkSelected === category.name}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={this.state.linkSelected === category.name} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={this.state.linkSelected === category.name} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
+              <LiCategoryFollowed isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} key={index} islinkselected={(this.state.linkSelected === category.name).toString()}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={(this.state.linkSelected === category.name).toString()} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={(this.state.linkSelected === category.name).toString()} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
             ))}
           </ul>
         </DivCatFollowList>
