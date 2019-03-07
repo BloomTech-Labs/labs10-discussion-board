@@ -16,7 +16,7 @@ import {
 } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
-  width: 1024px;
+  width: 95%;
 `;
 
 const H1Categories = styled.h1`
