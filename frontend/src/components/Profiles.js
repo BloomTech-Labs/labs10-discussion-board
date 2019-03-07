@@ -68,11 +68,11 @@ const ProfilesTitle = styled.div`
   font-size: 36px;
 `;
 
-const ProfilesList = styled.div`
-    display: flex;
-    width: 200px;
+// const ProfilesList = styled.div`
+//     display: flex;
+//     width: 200px;
 
-`;
+// `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
