@@ -27,7 +27,7 @@ import { handlePostVote } from '../store/actions/index.js';
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   font-size: 14px;
 
   .title {

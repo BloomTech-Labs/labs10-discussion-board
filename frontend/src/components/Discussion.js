@@ -31,8 +31,9 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 const DiscussionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 90%;
-  justify-content: flex-end;
+  width: 100%;
+  margin: 0 auto;
+  margin-left: 10px;
 
   .back {
     font-size: 47px;
@@ -108,7 +109,7 @@ const Posts = styled.div``;
 const AddPostBtn = styled.div``;
 
 const CommentSort = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
