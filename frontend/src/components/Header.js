@@ -4,12 +4,12 @@ import { Nav } from '../components/index.js';
 import Lambda from '../assets/img/Lambda.png';
 
 // Globals
-import { topHeaderHeight } from '../globals/globals.js';
+import { topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
 
 const StyledHeader = styled.div`
   position: fixed;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   height: ${topHeaderHeight};
   width: 100%;
   z-index: 9000;
@@ -17,36 +17,35 @@ const StyledHeader = styled.div`
   background-color: white;
   border-bottom: 2px solid ${props => props.theme.borderColor};
 
-  @media(max-width: 750px){
+  @media ${tabletL}{
     width: 100%;
-    @media (max-width: 450px){
-      width: 100%;
-
-    }
   }
-`;
-
-const Container = styled.div`
- width: 90%;
- display: flex;
- justify-content: space-between;
+  @media ${phoneL} {
+      width: 100%;
+  }
 
   .LogoContainer {
+    width: 300px;
     display: flex;
+    justify-content: center;
     align-items: center;
     border-right: 2px solid ${props => props.theme.borderColor};
-    padding-right: 100px;
       &:hover {
         cursor: pointer;
       }
-
-  @media(max-width: 750px){
-    padding-right: 30px;
   }
-    @media (max-width: 450px){
-      padding-right: 15px;
+`;
 
-    }
+const NavContainer = styled.div`
+ width: 60%;
+ display: flex;
+ justify-content: center;
+
+ @media ${tabletL}{
+    width: 60%;
+  }
+  @media ${phoneL} {
+      width: 60%;
   }
 `;
 
@@ -62,21 +61,21 @@ const LambdaLogo = styled.div`
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
-      <Container>
-        <a className='LogoContainer' href='/home'>
-          <LambdaLogo />
+      <a className = 'LogoContainer' href = '/home'>
+          <LambdaLogo/>
         </a>
-        <Nav showSearch={showSearch}
-          scrollTo={scrollTo}
-          pathname={pathname}
-          goTo={goTo}
-          isDay={isDay}
-          history={history}
-          isAuthenticated={isAuthenticated}
-          toggleSearch={toggleSearch}
-          switchTheme={switched}
-        />
-      </Container>
+      <NavContainer>
+        <Nav showSearch = {showSearch} 
+             scrollTo = {scrollTo} 
+             pathname = {pathname} 
+             goTo = {goTo} 
+             isDay = {isDay} 
+             history = {history} 
+             isAuthenticated = {isAuthenticated} 
+             toggleSearch = {toggleSearch} 
+             switchTheme = {switched}
+             />
+      </NavContainer>
     </StyledHeader >
   );
 };
