@@ -50,7 +50,7 @@ const Elip = styled.div `
 
 const Quote = ({ reply_to }) => {
 	const {
-		id,
+		// id,
 		user_id,
 		username,
 		body,

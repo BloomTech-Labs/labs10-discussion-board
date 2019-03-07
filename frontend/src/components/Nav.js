@@ -5,7 +5,9 @@ import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import { phoneL, tabletP } from '../globals/globals.js';
+
+import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js'
+
 
 // components
 import { Search } from './index.js';
@@ -14,28 +16,27 @@ import { Search } from './index.js';
  *********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
-  width: 70%;
+  width: 90%;
   display: flex;
   color: black;
   justify-content: space-between;
 
-  @media ${tabletP}{
-    width: 75%;
-    
+  @media ${tabletL}{
+    width: 90%;
+  }
     @media ${phoneL}{
       width: 75%;
-    }
   }
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  justify-content: flex-end;
-  width: 70%;
+  justify-content: space-between;
+  width: 35%;
   height: 100%;
 
-  @media ${tabletP}{
-    width: 45%;
+  @media ${tabletL}{
+    width: 50%;
     display: flex;
     justify-content: space-between;
   }

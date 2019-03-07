@@ -151,7 +151,7 @@ const SearchBox = styled.div`
 		border-radius: 5px;
 		background-color: ${props => props.theme.searchBoxBgColor};
 		color: black;
-		width: 340px;
+		width: 350px;
 		border: 1px solid #bababa;
 		padding: 10px;
 

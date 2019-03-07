@@ -6,7 +6,10 @@ import styled from 'styled-components';
 import { addDiscussion, displayError } from '../../store/actions/index.js';
 
 // globals
-import { tabletP, phoneP } from '../../globals/globals.js';
+import {
+	tabletP,
+	// phoneP,
+} from '../../globals/globals.js';
 
 const AddDiscussionFormWrapper = styled.div`
 	display: flex;
