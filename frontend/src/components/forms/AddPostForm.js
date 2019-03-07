@@ -87,11 +87,9 @@ class AddPostForm extends Component {
 		return this.props.addPost(discussion_id, postBody, historyPush);
 	};
 	
-	render() {
-		
+	render() {		
 		const { postBody } = this.state;
 		const { toggleAddPostForm, username, user_id } = this.props;
-		console.log('state', username, 'id', user_id)
 		return(
 			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
 				<AddCommentTitle>
@@ -261,7 +259,7 @@ export default connect(mapStateToProps, { addPost })(AddPostForm);
 
 
 // 	render() {
-// 		console.log('whats chanigng', this.state)
+
 // 		const { postBody } = this.state;
 // 		const { toggleAddPostForm } = this.props;
 // 		return(

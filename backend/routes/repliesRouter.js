@@ -19,9 +19,10 @@ const { authenticate } = require('../config/middleware/authenticate.js');
 router.post('/:user_id', authenticate, (req, res) => {
     const { user_id } = req.params;
     const { post_id, replyBody } = req.body;
-    const create_at = Date.now();
+    const created_at = Date.now();
+
     if(!replyBody) return res.status(400).json({ error: 'Reply body must not be empty.' });
-    const newReply = { user_id, post_id, body: replyBody, create_at };
+    const newReply = { user_id, post_id, body: replyBody, created_at };
     return repliesDB
         .insert(newReply)
         .then(async newId => {

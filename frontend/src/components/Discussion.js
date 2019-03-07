@@ -187,7 +187,7 @@ class Discussion extends Component {
   });
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
-  toggleAddReplyForm = id => this.setState({ showAddReplyForm: id });
+  toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id });
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);
@@ -221,6 +221,7 @@ class Discussion extends Component {
 
   
   render() {
+    
     const {
       order,
       orderType,
@@ -344,11 +345,12 @@ class Discussion extends Component {
                   showEditPostForm={showEditPostForm}
                   updateEditPostForm={this.updateEditPostForm}
                   handleRemovePost={this.handleRemovePost}
+                  showAddReplyForm = {showAddReplyForm}
                   toggleAddReplyForm={this.toggleAddReplyForm}
                   order={order}
                   orderType={orderType}
                 />
-                {
+                {/* {
                   showAddReplyForm &&
                   <AddReplyForm
                     toggleAddReplyForm={this.toggleAddReplyForm}
@@ -356,7 +358,7 @@ class Discussion extends Component {
                     historyPush={historyPush}
                     repliedPost={posts.find(post => post.id === showAddReplyForm)}
                   />
-                }
+                } */}
                 <AddPostBtn>
                   {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
                   {showAddPostForm && (

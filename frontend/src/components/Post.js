@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
 import { phoneP, phoneL, tabletP } from '../globals/globals.js'
 
 // components
-import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
+import { AddReplyForm, EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
+
+import { RepliesView } from '../views/index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
@@ -30,10 +32,11 @@ const PostWrapper = styled.div`
   }
 
   p {
-    margin-bottom: 10px;
+    margin-bottom: 0;
     margin-top: 30px;
   }
-`;
+
+`
 
 //make a global for the avatar box Background
 const PostedBy = styled.div`
@@ -42,6 +45,7 @@ const PostedBy = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-size: 12px;
+  border: 1px solid;
 
   .p-creator{
     display: flex;
@@ -61,11 +65,20 @@ const PostedBy = styled.div`
 
   .username {
     text-decoration: none;
+    margin-right: 15px;
 
     &:hover {
       cursor: pointer;
       text-decoration: underline;
     }
+  }
+
+  span {
+    cursor: pointer;
+
+    &:hover {
+      color: steelblue;
+    };
   }
 `;
 
@@ -76,6 +89,7 @@ const Post = ({
   showEditPostForm,
   updateEditPostForm,
   handleRemovePost,
+  showAddReplyForm,
   handlePostVote,
   order,
   orderType,
@@ -89,7 +103,7 @@ const Post = ({
     id,
     last_edited_at,
     post_votes,
-    reply_to,
+    replies,
     user_id,
     username,
     user_vote,
@@ -115,12 +129,9 @@ const Post = ({
       )
     }
   }
-
+  console.log('showReply', showAddReplyForm)
+  console.log('toggle', toggleAddReplyForm)
   return (
-    //Changed some of the styled div names and incorporated a new
-    //styled div with the name Post Wrapper
-    //in order to place the UserActions (reply/edit/remove) on the bottom
-    //Of the component
     <PostWrapper>
       <p>{body}</p>
       <PostedBy>
@@ -133,13 +144,11 @@ const Post = ({
               </Link> :
               <Deleted />
           }
+          {
+            loggedInUserId !== 0 &&
+            <span onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
+          }
         </div>
-          &nbsp;
-          &nbsp;
-        {
-        loggedInUserId !== 0 &&
-        <span onClick={() => toggleAddReplyForm(id)}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
-        }
           &nbsp;
           &nbsp;
         <VoteCount
@@ -151,6 +160,22 @@ const Post = ({
           &nbsp;
         {timeStamp(last_edited_at, created_at)}
       </PostedBy>
+        {  
+          showAddReplyForm &&
+          <AddReplyForm
+            user_id={loggedInUserId}
+            toggleAddReplyForm={toggleAddReplyForm}
+            post_id={id}
+            discussion_id = {discussion_id}
+            historyPush={historyPush}
+          />
+        }
+        <RepliesView
+            replies = {replies}
+            historyPush = {historyPush}
+          />
+          &nbsp;
+          &nbsp;    
   </PostWrapper>
   );
 };
@@ -158,6 +183,7 @@ const Post = ({
 const mapStateToProps = state => ({
   loggedInUserId: state.users.user_id,
   avatar: state.users.avatar,
+
 });
 
 export default connect(

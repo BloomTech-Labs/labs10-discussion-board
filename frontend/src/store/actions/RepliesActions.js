@@ -20,6 +20,7 @@ export const addReply = (post_id, discussion_id, replyBody, historyPUsh) => disp
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token } };
     const body = { post_id, replyBody };
+    console.log('reply body', replyBody)
     dispatch({ type: ADD_REPLY_LOADING });
     return axios.post(`${backendURL}/replies/${user_id}`, body, headers)
         .then(() => dispatch({ type: ADD_REPLY_SUCCESS }))
