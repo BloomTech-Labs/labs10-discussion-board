@@ -10,7 +10,6 @@ import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/g
 // components
 import {
   Header,
-  Logo,
   SideNav,
   Profiles,
   Profile,
@@ -35,7 +34,7 @@ import {
 } from './views/index.js';
 
 // action creators
-import { logBackIn, editDiscussion } from './store/actions/index.js';
+import { logBackIn } from './store/actions/index.js';
 
 const AppWrapper = styled.div`
   display: flex;

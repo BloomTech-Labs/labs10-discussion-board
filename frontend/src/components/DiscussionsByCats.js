@@ -128,31 +128,26 @@ class DiscussionsByCats extends Component {
 		let order = 'created_at';
 		let orderType;
 		switch(e.target.value) {
-			case newest: {
+			case newest:
 				order = 'created_at';
 				orderType = 'desc';
 				break;
-			};
-			case oldest: {
+			case oldest:
 				order = 'created_at';
 				orderType = 'asc';
 				break;
-			};
-			case mostUpvotes: {
+			case mostUpvotes:
 				order = 'upvotes';
 				orderType = 'desc';
 				break;
-			};
-			case mostViews: {
+			case mostViews:
 				order = 'views';
 				orderType = 'desc';
 				break;
-			};
-			case mostComments: {
+			case mostComments:
 				order = 'post_count';
 				orderType = 'desc';
 				break;
-			};
 			default:
 				break;
 		};

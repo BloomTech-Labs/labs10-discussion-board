@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Discuss from '../assets/img/Discuss.png';
-import TextLoop from 'react-text-loop';
 import {phoneP, tabletP, } from '../globals/globals';
 
 // components
@@ -38,12 +36,12 @@ const ViewWrapper = styled.div`
   }
 `;
 
-const HotDiscussionsImage = styled.img`
-  src: url(${props => props.src});
-  display: flex;
-  height: 120px;
-  width: 120px;
-`;
+// const HotDiscussionsImage = styled.img`
+//   src: url(${props => props.src});
+//   display: flex;
+//   height: 120px;
+//   width: 120px;
+// `;
 
 const HotDiscussionsHeader = styled.div`
   display: flex;
@@ -84,18 +82,18 @@ const HotDiscussionsTitle = styled.div`
   
 `;
 
-const TextLooper = styled.div`
-  display: flex;
-  align-self: center;
-  font-size: 24px;
-  color: ${props => props.theme.topDiscussionTitleColor};
-  @media (max-width: 768px){
-    display: none;
-  }
-  .looptext {
-    font-size: 22px;
-  }
-`;
+// const TextLooper = styled.div`
+//   display: flex;
+//   align-self: center;
+//   font-size: 24px;
+//   color: ${props => props.theme.topDiscussionTitleColor};
+//   @media (max-width: 768px){
+//     display: none;
+//   }
+//   .looptext {
+//     font-size: 22px;
+//   }
+// `;
 
 
 
