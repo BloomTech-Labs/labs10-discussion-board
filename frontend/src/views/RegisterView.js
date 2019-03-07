@@ -158,7 +158,7 @@ const DivFreePlan = styled.div`
   border: ${props =>
     props.subPlan === subscriptionPlans[0]
       ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
+      : '5px solid transparent'};
   border-radius: 10px;
   background-color: white;
   font-weight: bold;
@@ -208,7 +208,7 @@ const DivBronzePlan = styled.div`
   border: ${props =>
     props.subPlan === subscriptionPlans[1]
       ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
+      : '5px solid transparent'};
   border-radius: 10px;
   background-color: #ca620d;
   font-weight: bold;
@@ -258,7 +258,7 @@ const DivSilverPlan = styled.div`
   border: ${props =>
     props.subPlan === subscriptionPlans[2]
       ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
+      : '5px solid transparent'};
   border-radius: 10px;
   background-color: silver;
   font-weight: bold;
@@ -308,7 +308,7 @@ const DivGoldPlan = styled.div`
   border: ${props =>
     props.subPlan === subscriptionPlans[3]
       ? '5px solid lime'
-      : '5px solid rgba(0, 0, 0, 0)'};
+      : '5px solid transparent'};
   border-radius: 10px;
   background-color: gold;
   font-weight: bold;

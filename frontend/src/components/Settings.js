@@ -23,6 +23,7 @@ const SettingsWrapper = styled.div`
   box-shadow: ${props => props.theme.settingsBxShdw};
   border-radius: 30px;
   width: 90%;
+  margin-top: 10px;
   @media ${tabletP}{
     display: flex;
     flex-directon: column;      
@@ -31,7 +32,7 @@ const SettingsWrapper = styled.div`
   @media ${phoneP}{
       width: 85%;
   }
-  .fa-arrow-circle-left {
+  .fa-arrow-alt-circle-left {
     font-size: 2rem;
     align-self: flex-start;
     margin-left: 20px;
@@ -309,7 +310,7 @@ class Settings extends Component {
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
-        <i onClick = {this.goBack} className = "fas fa-arrow-circle-left"/>
+        <i onClick = {this.goBack} className = "far fa-arrow-alt-circle-left"/>
         {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
         <UserSettings>
           <ProfileSettings>

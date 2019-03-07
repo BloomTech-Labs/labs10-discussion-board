@@ -29,7 +29,7 @@ const ProfileWrapper = styled.div`
   margin: 10px;
   padding: 10px;
   // border: ${props => props.theme.profileBorder};
-  width: 100%;
+  width: 92%;
   // box-shadow: ${props => props.theme.profileBxShdw};
   @media ${tabletP} {
     .react-tabs__tab {
@@ -226,14 +226,14 @@ class Profile extends Component {
               </HeaderStyle>
               <Tabs>
                 <TabList>
-                  <Tab> Followed Discussions</Tab>
+                  <Tab> Followed Post</Tab>
                   <Tab>Followed Categories</Tab>
-                  <Tab>Discussions</Tab>
                   <Tab>Posts</Tab>
+                  <Tab>Comments</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
-                    <p className='property-title'> Followed Discussions: </p>
+                    <p className='property-title'> Followed Posts </p>
                       {profile.discussionFollows.map((discussionFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
@@ -253,7 +253,7 @@ class Profile extends Component {
                 </TabPanel>
                 <TabPanel>
                   <WrappedDiv>
-                    <p className='property-titleC'> Discussions: </p>
+                    <p className='property-titleC'> Posts: </p>
                       {profile.discussions.map((discussion, index) => 
                         <SubContentDiv key={index}>
                           {discussion.body}
@@ -262,7 +262,7 @@ class Profile extends Component {
                 </TabPanel>
                 <TabPanel>
                 <WrappedDiv>
-                    <p className='property-titleC'> Posts: </p>
+                    <p className='property-titleC'> Comments: </p>
                       <Elip>{profile.posts.map((post, index) => 
                         <SubContentDiv key={index}>
                           {post.body}</SubContentDiv>)}
