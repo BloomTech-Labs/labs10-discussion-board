@@ -85,6 +85,10 @@ const PostedBy = styled.div`
   .username{
     text-decoration: none;
   }
+
+  .c-name {
+    margin-left: 5px;
+  }
 }
 
   .c-name{
@@ -238,6 +242,7 @@ class Discussion extends Component {
       avatar,
       category_name,
       category_id,
+      category_icon,
       id,
       posts,
       post_count,
@@ -296,6 +301,7 @@ class Discussion extends Component {
               </div>
               &nbsp;
               &nbsp;
+              <i className = { category_icon } />
               <div className='c-name'><span>{category_name}</span></div>
               <VoteCount
                 upvotes={upvotes}

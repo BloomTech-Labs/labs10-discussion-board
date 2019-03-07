@@ -48,7 +48,8 @@ const PostedBy = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: 12px;
+  font-size: 0.8rem;
+	color: #a7a7a7;
 
 
   .p-creator{
