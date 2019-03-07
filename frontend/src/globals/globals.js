@@ -5,11 +5,13 @@ const auth0RedirectUri = process.env.REACT_APP_REDIRECT_URI;
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const pusherKey = process.env.REACT_APP_PUSHER_KEY;
 const pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
-const stripePayFormat = [99, 199, 299]; // matching subscriptionPrices
+const sideNavWidth = '300px';
+const stripePayFormat = [999, 1999, 2999]; // matching subscriptionPrices
 const stripeToken = process.env.REACT_APP_STRIPE_TOKEN;
 const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
-const subscriptionPrices = ['$0.00', '$0.99/yr', '$1.99/yr', '$2.99/yr']; // same order as subscriptionPlans
+const subscriptionPrices = ['$0.00', '$9.99/yr', '$19.99/yr', '$29.99/yr']; // same order as subscriptionPlans
 const searchCharLimit = 64; // limits the max number of characters to return in a search
+const topHeaderHeight = '60px';
 const maxLengthInNotifications = 32;
 const maxNumOfNotifications = 5;
 
@@ -244,11 +246,13 @@ module.exports = {
   defaultAvatar,
   phoneP,
   phoneL,
+  sideNavWidth,
   stripePayFormat,
   stripeToken,
   subscriptionPlans,
   subscriptionPrices,
   searchCharLimit,
+  topHeaderHeight,
   maxLengthInNotifications,
   maxNumOfNotifications,
   pusherKey,

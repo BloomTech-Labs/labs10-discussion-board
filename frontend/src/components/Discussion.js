@@ -39,7 +39,7 @@ const DiscussionWrapper = styled.div`
   .back {
     font-size: 47px;
     padding-right: 35px;
-    padding-top: 15px
+    padding-top: 15px;
     color: black;
     
     &:hover{
@@ -58,10 +58,9 @@ const DiscussionContent = styled.div`
   p{
     font-size: 14px;
     margin-bottom: 0;
-    margin-top: 0
+    margin-top: 0;
     padding-top: 25px;
   }
-}
 `;
 
 const PostedBy = styled.div`
@@ -222,7 +221,7 @@ class Discussion extends Component {
     if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
 
-  
+
   render() {
     const {
       order,
@@ -251,7 +250,7 @@ class Discussion extends Component {
     } = discussion;
 
     const handleVote = (e, type) => this.handleDiscussionVote(id, type);
-    
+
 
     // Back Button needs to take in the dynamic (category_id)
     //Add an icon by the category name
@@ -289,7 +288,7 @@ class Discussion extends Component {
             </div>
             <PostedBy>
               <div className='d-creator'>
-                <img alt='picture' src={avatar} />              
+                <img alt='picture' src={avatar} />
                 {
                   username ?
                     <Link className='username' to={`/profile/${user_id}`}>
@@ -298,24 +297,24 @@ class Discussion extends Component {
                     <Deleted />
                 }
               </div>
-                &nbsp;
-                &nbsp;
+              &nbsp;
+              &nbsp;
               <div className='c-name'><span>{category_name}</span></div>
               <VoteCount
-                upvotes = { upvotes }
-                downvotes = { downvotes }
-                user_vote = { user_vote }
-                handleVote = { handleVote }
+                upvotes={upvotes}
+                downvotes={downvotes}
+                user_vote={user_vote}
+                handleVote={handleVote}
               />
-                &nbsp;
-                &nbsp;
-              <PostCount post_count = { post_count || 0 } />
-                &nbsp;
-                &nbsp;
-              <Follow discussion_id = {id} historyPush = { historyPush }/> 
+              &nbsp;
+              &nbsp;
+              <PostCount post_count={post_count || 0} />
+              &nbsp;
+              &nbsp;
+              <Follow discussion_id={id} historyPush={historyPush} />
             </PostedBy>
-          </DiscussionContent>  
-          <CommentWrapper>  
+          </DiscussionContent>
+          <CommentWrapper>
             <span className='title'>Comments</span>
             <Sort>
               <div className='dropDowns'>
@@ -334,38 +333,38 @@ class Discussion extends Component {
                 </select>
               </div>
             </Sort>
-              <Posts>
-                <PostsView
-                  posts={posts}
-                  historyPush={historyPush}
-                  showEditPostForm={showEditPostForm}
-                  updateEditPostForm={this.updateEditPostForm}
-                  handleRemovePost={this.handleRemovePost}
+            <Posts>
+              <PostsView
+                posts={posts}
+                historyPush={historyPush}
+                showEditPostForm={showEditPostForm}
+                updateEditPostForm={this.updateEditPostForm}
+                handleRemovePost={this.handleRemovePost}
+                toggleAddReplyForm={this.toggleAddReplyForm}
+                order={order}
+                orderType={orderType}
+              />
+              {
+                showAddReplyForm &&
+                <AddReplyForm
                   toggleAddReplyForm={this.toggleAddReplyForm}
-                  order={order}
-                  orderType={orderType}
+                  discussion_id={id}
+                  historyPush={historyPush}
+                  repliedPost={posts.find(post => post.id === showAddReplyForm)}
                 />
-                {
-                  showAddReplyForm &&
-                  <AddReplyForm
-                    toggleAddReplyForm={this.toggleAddReplyForm}
+              }
+              <AddPostBtn>
+                {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
+                {showAddPostForm && (
+                  <AddPostForm
+                    user_id={loggedInUserId}
                     discussion_id={id}
                     historyPush={historyPush}
-                    repliedPost={posts.find(post => post.id === showAddReplyForm)}
+                    toggleAddPostForm={this.toggleAddPostForm}
                   />
-                }
-                <AddPostBtn>
-                  {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
-                  {showAddPostForm && (
-                    <AddPostForm
-                      user_id={loggedInUserId}
-                      discussion_id={id}
-                      historyPush={historyPush}
-                      toggleAddPostForm={this.toggleAddPostForm}
-                    />
-                  )}
-                </AddPostBtn>
-              </Posts>
+                )}
+              </AddPostBtn>
+            </Posts>
           </CommentWrapper>
         </SubWrapper>
       </DiscussionWrapper>
@@ -409,10 +408,10 @@ export default connect(
               loggedInUserId === user_id &&
               <button onClick={this.handleRemoveDiscussion}>Remove discussion</button>
             } */}
-           
+
 // SORT   
 
-            {/* <Sort>
+{/* <Sort>
               <div className='dropDowns'>
                 <span className='sorted'>Sort</span>
                 <select className='sortName' onChange={this.handleSelectChange} name='order'>
