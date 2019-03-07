@@ -149,6 +149,7 @@ const findById = (id, user_id, order, orderType) => {
       'd.category_id',
       'c.name as category_name',
       'c.id as category_id',
+      'c.icon as category_icon',
       'us.avatar',
       'us.signature',
       'd.body',
@@ -212,9 +213,25 @@ const findById = (id, user_id, order, orderType) => {
     const [discussionResults, postsResults] = results;
     if (!discussionResults.length) throw `No discussion found with ID ${id}`;
     const postIDs = postsResults.map(post => post.id);
-    const repliesQuery = db('replies')
-      .select('user_id', 'post_id', 'body', 'created_at')
-      .whereIn('post_id', postIDs);
+    const repliesQuery = db('replies as r')
+      .select(
+        'r.user_id', 
+        'r.post_id', 
+        'r.body', 
+        'r.created_at',
+        'u.username',
+        'r.id',
+        'us.avatar',
+        'd.id as discussion_id'
+        )
+        .join('users as u', 'u.id', 'r.user_id')
+        .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+        .leftOuterJoin('posts as p', 'p.id', 'r.post_id')
+        .leftOuterJoin('discussions as d', 'd.id', 'p.discussion_id')
+      .whereIn('r.post_id', postIDs)
+      .groupBy('r.id','u.username', 'us.avatar', 'u.id', 'd.id')
+      .orderBy('r.created_at', 'desc');
+
 
     return Promise.all([repliesQuery])
       .then(result => {
@@ -284,11 +301,21 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
     )
     .groupBy('discussion_id');
 
+  const userSettingsQuery = db('user_settings')
+    .select('user_id', 'avatar');
+
+  const userQuery = db('users as u')
+    .select('u.id', 'u.username', 'us.avatar')
+    .leftOuterJoin(userSettingsQuery.as('us'), function() {
+      this.on('us.user_id', '=', 'u.id');
+    });
+
   const discussionQuery = db('discussions as d')
     .select(
       'd.id',
       'd.user_id',
       'u.username',
+      'u.avatar',
       'd.category_id',
       'c.name as category_name',
       'd.body',
@@ -299,10 +326,13 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
       db.raw('COALESCE(pc.post_count, 0) AS post_count'),
       'uv.type as user_vote'
     )
-    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
+    // .leftOuterJoin('users as u', 'u.id', 'd.user_id')
     .join('categories as c', 'c.id', 'd.category_id')
     .leftOuterJoin(discussionVotesQuery.as('dv'), function() {
       this.on('dv.discussion_id', '=', 'd.id');
+    })
+    .leftOuterJoin(userQuery.as('u'), function() {
+      this.on('u.id', '=', 'd.user_id');
     })
     .leftOuterJoin(postCountQuery.as('pc'), function () {
       this.on('pc.discussion_id', '=', 'd.id');
@@ -311,7 +341,7 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     .where('c.id', category_id)
-    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type', 'dv.upvotes', 'dv.downvotes')
+    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type', 'dv.upvotes', 'dv.downvotes', 'u.avatar')
     // order by given order and orderType variables
     // else default to ordering by created_at descending
     .orderBy(`${order ? order : 'created_at'}`, `${orderType ? orderType : 'desc'}`);

@@ -12,6 +12,7 @@ const PostsView = ({
 	posts,
 	historyPush,
 	showEditPostForm,
+	showAddReplyForm,
 	updateEditPostForm,
 	handleRemovePost,
 	toggleAddReplyForm,
@@ -26,6 +27,7 @@ const PostsView = ({
 					post = { post }
 					historyPush = { historyPush }
 					showEditPostForm = { showEditPostForm }
+					showAddReplyForm = {showAddReplyForm}
 					updateEditPostForm = { updateEditPostForm }
 					handleRemovePost = { handleRemovePost }
 					toggleAddReplyForm = { toggleAddReplyForm }

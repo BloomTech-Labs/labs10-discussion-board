@@ -10,7 +10,8 @@ const PostCountWrapper = styled.div`
 	align-items: center;
 	flex-direction: row;
 	border: ${props => props.theme.postCountWrapperBorder};
-	color: ${props => props.theme.postCountWrapperColor};
+	font-size: 0.8rem;
+	color: #a7a7a7;
 
 	@media ${tabletP}{
 

@@ -7,6 +7,7 @@ const discussionFollowsDB = require('./discussionFollowsDB.js');
 const categoryFollowsDB = require('./categoryFollowsDB.js');
 const postVotesDB = require('./postVotesDB.js');
 const userNotificationsDB = require('./userNotificationsDB.js');
+const repliesDB = require('./repliesDB.js');
 
 module.exports = {
 	categoriesDB,
@@ -14,6 +15,7 @@ module.exports = {
 	discussionVotesDB,
 	postsDB,
 	postVotesDB,
+	repliesDB,
 	usersDB,
 	discussionFollowsDB,
 	categoryFollowsDB,
