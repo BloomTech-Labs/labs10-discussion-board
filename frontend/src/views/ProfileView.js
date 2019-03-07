@@ -93,7 +93,6 @@ const WrappedDiv = styled.div`
   justify-content: center;
   margin: 3px;
   padding: 3px;
-
   .property-title {
     font-weight: bold;
     display: flex;
@@ -111,7 +110,6 @@ const WrappedDiv = styled.div`
     margin: 3px;
     padding: 3px;
     color: ${props => props.theme.profileTitleContentColor};
-
       @media ${phoneP} {
         display: none;
       }
@@ -221,14 +219,10 @@ class Profile extends Component {
                     src={profile.avatar}
                   />
                 </WrappedDiv>
-              
                 <WrappedDiv className = 'username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
                   <p className='property-content'> ({profile.status})</p>
                 </WrappedDiv>
-                {/* <WrappedDiv className = 'status-style'>
-                 
-                </WrappedDiv> */}
               </HeaderStyle>
               <Tabs>
                 <TabList>
@@ -237,15 +231,13 @@ class Profile extends Component {
                   <Tab>Discussions</Tab>
                   <Tab>Posts</Tab>
                 </TabList>
-
                 <TabPanel>
                   <WrappedDiv>
                     <p className='property-title'> Followed Discussions: </p>
                       {profile.discussionFollows.map((discussionFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
-                            <p className='property-content'> {discussionFollowed.body}</p>
-                          </Link>
+                            <p className='property-content'> {discussionFollowed.body}</p></Link>
                         </ContentDiv>)}
                   </WrappedDiv>
                 </TabPanel>
@@ -287,10 +279,8 @@ class Profile extends Component {
     }
     return (
       <ProfileStyle>
-        {/* <ProfileTitle> PROFILE </ProfileTitle> */}
         {profileItems}
       </ProfileStyle>
-      
     );
   }
 }
