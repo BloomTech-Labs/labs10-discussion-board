@@ -195,21 +195,21 @@ class SideNav extends Component {
       <DivSideNav>
         <DivHeader>
           <H4BrowseCategories
-            islinkselected={this.state.linkSelected === 'BrowseCategories'}
+            islinkselected={this.state.linkSelected === 'BrowseCategories' ? true : undefined}
           >
 
             <LinkBrowseCategories
               to={`/categories`}
-              islinkselected={this.state.linkSelected === 'BrowseCategories'}
+              islinkselected={this.state.linkSelected === 'BrowseCategories' ? true : undefined}
               onClick={() => this.selectLink('BrowseCategories')}
             ><i className="fas fa-book-open" />Browse Categories</LinkBrowseCategories>
           </H4BrowseCategories>
           <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
         </DivHeader>
         <DivCatFollowList>
-          <H4AllCategories islinkselected={this.state.linkSelected === 'AllPosts'}>
+          <H4AllCategories islinkselected={this.state.linkSelected === 'AllPosts' ? true : undefined}>
             <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
-            <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={this.state.linkSelected === 'AllPosts'}>
+            <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={this.state.linkSelected === 'AllPosts' ? true : undefined}>
               <DivWindows>
                 <div className='div-window' />
                 <div className='div-window' />
@@ -219,7 +219,7 @@ class SideNav extends Component {
           </H4AllCategories>
           <ul>
             {this.state.categories.map((category, index) => (
-              <LiCategoryFollowed isfollowedcatsopen={this.state.isFollowedCatsOpen} key={index} islinkselected={this.state.linkSelected === category.name}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={this.state.linkSelected === category.name} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={this.state.linkSelected === category.name} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
+              <LiCategoryFollowed isfollowedcatsopen={this.state.isFollowedCatsOpen} key={index} islinkselected={this.state.linkSelected === category.name ? true : undefined}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={this.state.linkSelected === category.name ? true : undefined} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={this.state.linkSelected === category.name ? true : undefined} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
             ))}
           </ul>
         </DivCatFollowList>
