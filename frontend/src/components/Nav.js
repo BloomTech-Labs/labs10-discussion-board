@@ -5,7 +5,9 @@ import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
+
+import { phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js'
+
 
 // components
 import { Search } from './index.js';
