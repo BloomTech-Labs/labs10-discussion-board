@@ -213,6 +213,7 @@ class AddCategoryModal extends Component {
                   name='name'
                   value={name}
                   onChange={this.handleInputChange}
+                  autoComplete='off'
                 />
               </DivName>
               <DivButtons>

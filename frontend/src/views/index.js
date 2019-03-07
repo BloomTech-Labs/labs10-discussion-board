@@ -13,7 +13,6 @@ export {
   DiscussionView,
   LandingView,
   PostsView,
-  DiscussionsByCatView,
   RegisterView,
   TopDiscussionsView,
   HotDiscussionsView,

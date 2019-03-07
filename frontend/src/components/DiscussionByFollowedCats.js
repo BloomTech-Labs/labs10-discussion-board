@@ -6,7 +6,10 @@ import styled from 'styled-components';
 import { Avatar, VoteCount } from './index.js';
 
 // globals
-import { phoneP, tabletP } from '../globals/globals.js';
+import {
+	phoneP,
+	// tabletP,
+} from '../globals/globals.js';
 
 const DiscussionWrapper = styled.div`
 	display: flex;
@@ -78,7 +81,7 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 		avatar,
 		body,
 		category_icon,
-		category_id,
+		// category_id,
 		category_name,
 		created_at,
 		downvotes,

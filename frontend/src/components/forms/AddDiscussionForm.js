@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -7,7 +6,10 @@ import styled from 'styled-components';
 import { addDiscussion, displayError } from '../../store/actions/index.js';
 
 // globals
-import { backendUrl, tabletP, phoneP } from '../../globals/globals.js';
+import {
+	tabletP,
+	// phoneP,
+} from '../../globals/globals.js';
 
 const AddDiscussionFormWrapper = styled.div`
 	display: flex;
@@ -96,21 +98,10 @@ class AddDiscussionForm extends Component {
       .then(() => toggleAddDiscussionForm())
       .then(() => getDiscussions());
   };
-  getCategoryNames = () => {
-    const user_id = localStorage.getItem('symposium_user_id');
-    const token = localStorage.getItem('symposium_token');
-    const headers = { headers: { Authorization: token } };
-    return axios
-      .get(`${backendUrl}/categories/followed/${user_id}`, headers)
-      .then(res => this.setState({ categoryNames: res.data }))
-      .catch(err => {
-        const errMsg = err.response ? err.response.data.error : err.toString();
-        return displayError(errMsg);
-      });
-  };
+  getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id });
   componentDidMount = () => this.getCategoryNames();
   render() {
-    const { body, categoryNames } = this.state;
+    const { body, categoryNames, category_id } = this.state;
     const { toggleAddDiscussionForm } = this.props;
     return (
       <AddDiscussionFormWrapper onSubmit={this.handleSubmit}>
@@ -131,7 +122,8 @@ class AddDiscussionForm extends Component {
           <select
             className='categories-select'
             onChange={this.handleInputChange}
-            name='category_id'
+						name='category_id'
+						value = {category_id}
           >
             {
               categoryNames.map((cat, i) =>
@@ -155,4 +147,8 @@ class AddDiscussionForm extends Component {
   }
 };
 
-export default connect(null, { addDiscussion, displayError })(AddDiscussionForm);
+const mapStateToProps = state => ({
+  categoriesFollowed: state.categories.categoriesFollowed,
+});
+
+export default connect(mapStateToProps, { addDiscussion, displayError })(AddDiscussionForm);

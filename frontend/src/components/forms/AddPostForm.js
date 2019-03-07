@@ -8,7 +8,7 @@ import CKEditor from 'ckeditor4-react';
 // import Parser from 'html-react-parser';
 import { Avatar } from '../index.js';
 
-import { appBgColor } from '../../globals/globals.js'
+// import { appBgColor } from '../../globals/globals.js'
 
 
 // action creators

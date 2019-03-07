@@ -180,7 +180,7 @@ const TopDiscussion = ({ discussion, handleDiscussionVote, history }) => {
   const {
     body,
     category_id,
-    discussion_id,
+    // discussion_id,
     category_name,
     created_at,
     id,

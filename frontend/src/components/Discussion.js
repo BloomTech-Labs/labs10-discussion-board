@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
 import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, AddPostForm, EditDiscussionForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
+import { AddReplyForm, AddPostForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -38,7 +37,7 @@ const DiscussionWrapper = styled.div`
   .back {
     font-size: 47px;
     padding-right: 35px;
-    padding-top: 15px
+    padding-top: 15px;
     color: black;
     
     &:hover{
@@ -60,7 +59,6 @@ const DiscussionContent = styled.div`
     margin-top: 0
     padding-top: 25px;
   }
-}
 `;
 
 const PostedBy = styled.div`
@@ -219,7 +217,7 @@ class Discussion extends Component {
     if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
   };
 
-  
+
   render() {
     
     const {
@@ -227,14 +225,13 @@ class Discussion extends Component {
       orderType,
       showAddPostForm,
       showEditPostForm,
-      showEditDiscussionForm,
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
     const {
       body,
-      created_at,
-      last_edited_at,
+      // created_at,
+      // last_edited_at,
       upvotes,
       downvotes,
       avatar,
@@ -249,7 +246,7 @@ class Discussion extends Component {
     } = discussion;
 
     const handleVote = (e, type) => this.handleDiscussionVote(id, type);
-    
+
 
     // Back Button needs to take in the dynamic (category_id)
     //Add an icon by the category name
@@ -287,7 +284,7 @@ class Discussion extends Component {
             </div>
             <PostedBy>
               <div className='d-creator'>
-                <img alt='picture' src={avatar} />              
+                <img alt='user' src={avatar} />
                 {
                   username ?
                     <Link className='username' to={`/profile/${user_id}`}>
@@ -296,21 +293,21 @@ class Discussion extends Component {
                     <Deleted />
                 }
               </div>
-                &nbsp;
-                &nbsp;
+              &nbsp;
+              &nbsp;
               <div className='c-name'><span>{category_name}</span></div>
               <VoteCount
-                upvotes = { upvotes }
-                downvotes = { downvotes }
-                user_vote = { user_vote }
-                handleVote = { handleVote }
+                upvotes={upvotes}
+                downvotes={downvotes}
+                user_vote={user_vote}
+                handleVote={handleVote}
               />
-                &nbsp;
-                &nbsp;
-              <PostCount post_count = { post_count || 0 } />
-                &nbsp;
-                &nbsp;
-              <Follow discussion_id = {id} historyPush = { historyPush }/> 
+              &nbsp;
+              &nbsp;
+              <PostCount post_count={post_count || 0} />
+              &nbsp;
+              &nbsp;
+              <Follow discussion_id={id} historyPush={historyPush} />
             </PostedBy>
           </DiscussionContent>  
           <CommentWrapper>  
@@ -347,8 +344,9 @@ class Discussion extends Component {
                   handleRemovePost={this.handleRemovePost}
                   showAddReplyForm = {showAddReplyForm}
                   toggleAddReplyForm={this.toggleAddReplyForm}
-                  order={order}
-                  orderType={orderType}
+                  discussion_id={id}
+                  historyPush={historyPush}
+                  repliedPost={posts.find(post => post.id === showAddReplyForm)}
                 />
                 {/* {
                   showAddReplyForm &&
@@ -356,7 +354,7 @@ class Discussion extends Component {
                     toggleAddReplyForm={this.toggleAddReplyForm}
                     discussion_id={id}
                     historyPush={historyPush}
-                    repliedPost={posts.find(post => post.id === showAddReplyForm)}
+                    toggleAddPostForm={this.toggleAddPostForm}
                   />
                 } */}
                 <AddPostBtn>
@@ -387,50 +385,3 @@ export default connect(
   mapStateToProps,
   { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 )(Discussion);
-
-//Edit and Remove 
-{/* {
-              loggedInUserId === user_id &&
-              (
-                showEditDiscussionForm ?
-                  <EditDiscussionForm
-                    toggleEditDiscussionForm={this.toggleEditDiscussionForm}
-                    title={title}
-                    body={body}
-                    discussion_id={id}
-                    historyPush={historyPush}
-                  />
-                  :
-                  <button onClick={this.toggleEditDiscussionForm}
-                  >Edit discussion</button>
-              )
-            }
-            {last_edited_at && (
-              <p>
-                Last edited {moment(new Date(Number(last_edited_at))).fromNow()}
-              </p>
-            )}
-            {
-              loggedInUserId === user_id &&
-              <button onClick={this.handleRemoveDiscussion}>Remove discussion</button>
-            } */}
-           
-// SORT   
-
-            {/* <Sort>
-              <div className='dropDowns'>
-                <span className='sorted'>Sort</span>
-                <select className='sortName' onChange={this.handleSelectChange} name='order'>
-                  <option value='created_at'>date created</option>
-                  <option value='post_votes'>votes</option>
-                </select>
-                <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
-                  <option value='desc'>
-                    {order === 'created_at' ? 'most recent first' : 'most first'}
-                  </option>
-                  <option value='asc'>
-                    {order === 'created_at' ? 'least recent first' : 'least first'}
-                  </option>
-                </select>
-              </div>
-            </Sort> */}

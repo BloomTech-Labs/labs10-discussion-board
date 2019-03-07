@@ -6,10 +6,14 @@ import { connect } from 'react-redux';
 import { getCategories } from '../store/actions/index.js';
 
 // globals
-import { phoneP, tabletP, tabletL } from '../globals/globals';
+// import { phoneP, tabletP, tabletL } from '../globals/globals';
 
 // components
-import { Categories, CategoriesNav, AddCategoryModal } from '../components/index.js';
+import {
+  Categories,
+  CategoriesNav,
+  // AddCategoryModal
+} from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
   width: 1024px;
@@ -50,12 +54,16 @@ class CategoriesView extends Component {
   }
 
   render() {
-    const { user_id, setAddCatModalRaised, isAddCatModalRaised, historyPush } = this.props;
+    const {
+      user_id,
+      setAddCatModalRaised,
+      // isAddCatModalRaised,
+      // historyPush,
+    } = this.props;
     return (
       <CategoriesWrapper>
         <H1Categories className='cat-header'>Categories</H1Categories>
         <DivCategoriesComponent>
-          {(user_id && isAddCatModalRaised) && <AddCategoryModal historyPush={historyPush} setAddCatModalRaised={setAddCatModalRaised} />}
           <CategoriesNav
             sortHandler={this.sortHandler}
             order={this.order}

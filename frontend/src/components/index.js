@@ -3,7 +3,6 @@ import CategoriesNav from './categories/CategoriesNav.js';
 import Category from './categories/Category.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import Discussion from './Discussion.js';
-import DiscussionsByCat from './DiscussionsByCat.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 import Reply from './Reply.js';
 
@@ -40,8 +39,6 @@ import Deleted from './Deleted.js';
 import Quote from './Quote.js';
 import Notifications from './Notifications.js';
 import Notification from './Notification.js';
-import HotDiscussions from './HotDiscussions.js';
-import HotDiscussion from './HotDiscussion.js';
 import DiscussionsByFollowedCats from './DiscussionsByFollowedCats.js';
 import DiscussionByFollowedCats from './DiscussionByFollowedCats.js';
 
@@ -67,7 +64,6 @@ export {
   Category,
   AddCategoryModal,
   Discussion,
-  DiscussionsByCat,
   DiscussionsByCats,
   LoginDropdown,
   Nav,
@@ -101,8 +97,6 @@ export {
   Quote,
   Notifications,
   Notification,
-  HotDiscussions,
-  HotDiscussion,
   DiscussionsByFollowedCats,
   DiscussionByFollowedCats,
 
