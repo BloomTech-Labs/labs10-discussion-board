@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // components
-import { DiscussionByFollowedCats, AddDiscussionForm } from './index.js';
+import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from './index.js';
 
 // action creators
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
@@ -24,6 +24,7 @@ const DiscussionsWrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 740px;
+	min-height: 100%;
 
 	hr {
 		width: 100%;
@@ -175,12 +176,16 @@ class DiscussionsByCats extends Component {
 		};
 	};
 	render() {
-		const { discussions, history } = this.props;
+		const { discussions, history, category_name, match } = this.props;
 		const { showAddDiscussionForm } = this.state;
 		return (
 			<DiscussionsWrapper>
 				<DiscussionHeader>
-					<h2 className = 'all-posts'>{ discussions[0].category_name }</h2>
+					<FollowCat
+						category_id = { match.params.category_id }
+						historyPush = { history.push }
+					/>
+					<h2 className = 'all-posts'>{ category_name }</h2>
 					<div className = 'filter-wrapper'>
 						<i className = 'fab fa-mix' />
 						<span>Filter by</span>
@@ -216,6 +221,7 @@ class DiscussionsByCats extends Component {
 					<AddDiscussionForm
 						toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
 						getDiscussions = { this.getDiscussions }
+						category_id = { match.params.category_id }
 					/>
 				}
 			</DiscussionsWrapper>
@@ -225,6 +231,7 @@ class DiscussionsByCats extends Component {
 
 const mapStateToProps = state => ({
 	discussions: state.discussions.discussions,
+	category_name: state.categories.category.name,
 });
 
 export default connect(mapStateToProps, {getDiscussionsByCat, handleDiscussionVote})(DiscussionsByCats);

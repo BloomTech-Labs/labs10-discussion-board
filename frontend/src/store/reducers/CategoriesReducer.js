@@ -13,6 +13,7 @@ import {
 } from '../actions/index.js';
 
 const initialState = {
+  category: { name: '' },
   categories: [],
   categoriesFollowed: []
 };
