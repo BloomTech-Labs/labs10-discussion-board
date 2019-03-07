@@ -214,7 +214,6 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 <Switch>
-                  <Route path='/register' component={RegisterView} />
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   {/* <Route path='/home' component={LandingView} />
@@ -223,6 +222,7 @@ class App extends Component {
                   <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
                   <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
+                  <Route component={RegisterView} />
                 </Switch>
               </DivPage>
             </DivBody>
