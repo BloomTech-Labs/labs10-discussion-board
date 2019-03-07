@@ -171,6 +171,7 @@ const getAllDiscussionsByFollowedCategories = user_id => {
 
 //Find By ID (discussions own ID)
 const findById = (id, user_id, order, orderType) => {
+  console.log('id', id, 'user_id',user_id, 'order', order, 'orderType', orderType)
   const postCountQuery = db('posts as p')
     .select('p.discussion_id')
     .count({ post_count: 'p.id' })
@@ -267,13 +268,18 @@ const findById = (id, user_id, order, orderType) => {
         'r.body', 
         'r.created_at',
         'u.username',
-        'u.id',
-        'us.avatar'
+        'r.id',
+        'us.avatar',
+        'd.id as discussion_id'
         )
         .join('users as u', 'u.id', 'r.user_id')
         .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+        .leftOuterJoin('posts as p', 'p.id', 'r.post_id')
+        .leftOuterJoin('discussions as d', 'd.id', 'p.discussion_id')
       .whereIn('r.post_id', postIDs)
-      .groupBy('r.id','u.username', 'us.avatar', 'u.id')
+      .groupBy('r.id','u.username', 'us.avatar', 'u.id', 'd.id')
+      .orderBy('r.created_at', 'desc');
+
 
     return Promise.all([repliesQuery])
       .then(result => {

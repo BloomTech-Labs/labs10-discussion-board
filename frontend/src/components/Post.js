@@ -137,7 +137,7 @@ const Post = ({
       )
     }
   }
-
+console.log('post.id', post.id)
   return (
     <PostWrapper>
       <p>{body}</p>

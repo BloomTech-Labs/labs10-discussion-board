@@ -73,11 +73,9 @@ const Reply = ({
         username,
         user_id,
         id,
+        discussion_id,
     } = reply
 
-    // const handleToggleReply = () => {
-
-    // }
     const handleAddReply = () => {
        if (showAddReplyForm === id){
          return toggleAddReplyForm()
@@ -98,8 +96,9 @@ const Reply = ({
           )
         }
       }
-
-      console.log('history', historyPush)
+      console.log('id', id)
+      //Bug 1: Reply Button renders Reply form for all users of the same ID
+      //Bug 2: Post Reply sends undefined post id
     return(
         <ReplyWrapper>
             <p>{body}</p>
@@ -135,6 +134,7 @@ const Reply = ({
             <AddReplyForm
                 user_id={loggedInUserId}
                 toggleAddReplyForm={toggleAddReplyForm}
+                discussion_id = {discussion_id}
                 post_id={post_id}
                 historyPush={historyPush}
             />

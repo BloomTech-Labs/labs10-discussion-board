@@ -180,7 +180,7 @@ class Discussion extends Component {
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
     order: 'created_at', // possible values: 'created_at', 'post_votes'
-    orderType: '', // possible values: 'desc', 'asc'
+    orderType: 'asc', // possible values: 'desc', 'asc'
   };
   handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
     return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
