@@ -32,7 +32,7 @@ const PostWrapper = styled.div`
   }
 
   p {
-    margin-bottom: 0;
+    margin-bottom: 10px;
     margin-top: 30px;
   }
 

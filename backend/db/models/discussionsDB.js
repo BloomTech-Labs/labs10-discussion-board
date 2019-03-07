@@ -260,9 +260,20 @@ const findById = (id, user_id, order, orderType) => {
     const [discussionResults, postsResults] = results;
     if (!discussionResults.length) throw `No discussion found with ID ${id}`;
     const postIDs = postsResults.map(post => post.id);
-    const repliesQuery = db('replies')
-      .select('user_id', 'post_id', 'body', 'created_at')
-      .whereIn('post_id', postIDs);
+    const repliesQuery = db('replies as r')
+      .select(
+        'r.user_id', 
+        'r.post_id', 
+        'r.body', 
+        'r.created_at',
+        'u.username',
+        'u.id',
+        'us.avatar'
+        )
+        .join('users as u', 'u.id', 'r.user_id')
+        .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+      .whereIn('r.post_id', postIDs)
+      .groupBy('r.id','u.username', 'us.avatar', 'u.id')
 
     return Promise.all([repliesQuery])
       .then(result => {

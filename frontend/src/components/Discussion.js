@@ -57,7 +57,7 @@ const DiscussionContent = styled.div`
 
   p{
     font-size: 14px;
-    margin-bottom: 0;
+    margin-bottom: 10px;
     margin-top: 0
     padding-top: 25px;
   }

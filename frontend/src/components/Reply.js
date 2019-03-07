@@ -26,7 +26,20 @@ const PostedBy = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
+        
+        img {
+        border-radius: 50%;
+        margin-right: 10px;
+        width: 23px;
+    }
+
+    .username {
+        text-decoration: none;
+        margin-right: 15px;
+    }
       }
+
+    
 `;
 
 //components
@@ -65,14 +78,14 @@ const Reply = ({
             <p>{body}</p>
             <PostedBy>
                 <div className = 'r-creator'>
-                <img alt='picture' src={avatar} />              
-                {
-                    username ?
-                    <Link className='username' to={`/profile/${user_id}`}>
-                        {username}
-                    </Link> :
-                    <Deleted />
-                }
+                    <img alt='picture' src={avatar} />              
+                    {
+                        username ?
+                        <Link className='username' to={`/profile/${user_id}`}>
+                            {username}
+                        </Link> :
+                        <Deleted />
+                    }
                 </div>
                     &nbsp;
                     &nbsp;
@@ -89,8 +102,8 @@ const Reply = ({
                 {timeStamp(last_edited_at, created_at)}
             </PostedBy>
         </ReplyWrapper>
-    )
-}
+    );
+};
 
 const mapStateToProps = state => ({
     loggedInUserId: state.users.user_id,
