@@ -5,10 +5,18 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 //globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js'
+import {
+  // phoneP,
+  phoneL,
+  // tabletP,
+} from '../globals/globals.js'
 
 // components
-import { EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
+import {
+  VoteCount,
+  Deleted,
+  // Avatar,
+} from './index.js';
 
 import { handlePostVote } from '../store/actions/index.js';
 
@@ -70,13 +78,44 @@ const PostedBy = styled.div`
   }
 `;
 
+//Signature
+
+/* <div className='signature'>
+  { signature && <H5signature>{ signature }</H5signature> }
+</div> */
+
+//Reply with Quote Modal
+
+/* {reply_to && <Quote reply_to={reply_to} />} */
+
+//Remove Written Post
+
+// {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
+
+//Edit Post Form
+
+// {userCreatedPost &&
+//   (showEditPostForm === id ? (
+//     <EditPostForm
+//       user_id={user_id}
+//       post_id={id}
+//       discussion_id={discussion_id}
+//       historyPush={historyPush}
+//       updateEditPostForm={updateEditPostForm}
+//     />
+//   ) : (
+//       <>
+//         <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>
+//       </>
+//     ))}
+
 const Post = ({
   post,
   loggedInUserId,
-  historyPush,
-  showEditPostForm,
-  updateEditPostForm,
-  handleRemovePost,
+  // historyPush,
+  // showEditPostForm,
+  // updateEditPostForm,
+  // handleRemovePost,
   handlePostVote,
   order,
   orderType,
@@ -90,12 +129,12 @@ const Post = ({
     id,
     last_edited_at,
     post_votes,
-    reply_to,
+    // reply_to,
     user_id,
     username,
     user_vote,
     avatar,
-    signature,
+    // signature,
   } = post;
 
   const handleVote = type => handlePostVote(post.id, type, discussion_id, order, orderType);
@@ -126,7 +165,7 @@ const Post = ({
       <p>{body}</p>
       <PostedBy>
         <div className='p-creator'>
-          <img alt='picture' src={avatar} />              
+          <img alt='user' src={avatar} />              
           {
             username ?
               <Link className='username' to={`/profile/${user_id}`}>
@@ -165,34 +204,3 @@ export default connect(
   mapStateToProps,
   { handlePostVote }
 )(Post);
-
-//Signature
-
-{/* <div className='signature'>
-  { signature && <H5signature>{ signature }</H5signature> }
-</div> */}
-
-//Reply with Quote Modal
-
-{/* {reply_to && <Quote reply_to={reply_to} />} */}
-
-//Remove Written Post
-
-// {userCreatedPost && <h4 onClick={handleRemove}>{' '}<i className="fas fa-trash-alt"></i>{' '} Remove</h4>}
-
-//Edit Post Form
-
-// {userCreatedPost &&
-//   (showEditPostForm === id ? (
-//     <EditPostForm
-//       user_id={user_id}
-//       post_id={id}
-//       discussion_id={discussion_id}
-//       historyPush={historyPush}
-//       updateEditPostForm={updateEditPostForm}
-//     />
-//   ) : (
-//       <>
-//         <h4 onClick={handleEdit}>{'| '} Edit {' |'}</h4>
-//       </>
-//     ))}

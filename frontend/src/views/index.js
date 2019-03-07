@@ -4,7 +4,6 @@ import LandingView from './LandingView.js';
 import PostsView from './PostsView.js';
 import RegisterView from './RegisterView.js';
 import TopDiscussionsView from './TopDiscussionsView.js';
-import HotDiscussionsView from './HotDiscussionsView.js';
 
 export {
   CategoriesView,
@@ -13,5 +12,4 @@ export {
   PostsView,
   RegisterView,
   TopDiscussionsView,
-  HotDiscussionsView,
 };
