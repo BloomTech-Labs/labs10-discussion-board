@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Discuss from '../assets/img/Discuss.png';
 import TextLoop from 'react-text-loop';
 import {phoneP, tabletP, } from '../globals/globals';
 
@@ -21,12 +20,12 @@ const TopDiscussionsViewWrapper = styled.div`
   }
 `;
 
-const TopDiscussionsImage = styled.img`
-  src: url(${props => props.src});
-  display: flex;
-  height: 120px;
-  width: 120px;
-`;
+// const TopDiscussionsImage = styled.img`
+//   src: url(${props => props.src});
+//   display: flex;
+//   height: 120px;
+//   width: 120px;
+// `;
 
 const TopDiscussionsHeader = styled.div`
   display: flex;

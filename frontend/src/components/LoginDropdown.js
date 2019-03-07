@@ -7,7 +7,7 @@ import { Auth0Lock } from 'auth0-lock';
 import { login, auth0Login, displayError } from '../store/actions/index.js';
 
 //globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+import { phoneL, tabletP } from '../globals/globals.js';
 
 // globals
 import {

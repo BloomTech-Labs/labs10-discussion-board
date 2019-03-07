@@ -144,7 +144,7 @@ class AllDiscussionsByFollowedCats extends Component {
 	componentDidMount = () => this.getDiscussions();
 	render() {
 		const { followedDiscussions, showAddDiscussionForm } = this.state;
-		const { history } = this.props;
+		const { history, match } = this.props;
 		return(
 			<DiscussionsWrapper>
 				<DiscussionHeader>
@@ -184,6 +184,7 @@ class AllDiscussionsByFollowedCats extends Component {
 					<AddDiscussionForm
 						toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
 						getDiscussions = { this.getDiscussions }
+						category_id = { match.params.category_id }
 					/>
 				}
 			</DiscussionsWrapper>

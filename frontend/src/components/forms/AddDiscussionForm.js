@@ -95,10 +95,10 @@ class AddDiscussionForm extends Component {
       .then(() => toggleAddDiscussionForm())
       .then(() => getDiscussions());
   };
-  getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed });
+  getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id });
   componentDidMount = () => this.getCategoryNames();
   render() {
-    const { body, categoryNames } = this.state;
+    const { body, categoryNames, category_id } = this.state;
     const { toggleAddDiscussionForm } = this.props;
     return (
       <AddDiscussionFormWrapper onSubmit={this.handleSubmit}>
@@ -119,7 +119,8 @@ class AddDiscussionForm extends Component {
           <select
             className='categories-select'
             onChange={this.handleInputChange}
-            name='category_id'
+						name='category_id'
+						value = {category_id}
           >
             {
               categoryNames.map((cat, i) =>

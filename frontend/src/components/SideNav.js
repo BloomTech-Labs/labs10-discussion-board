@@ -175,7 +175,7 @@ class SideNav extends Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.categoryFollows != this.props.categoryFollows) {
+    if (prevProps.categoryFollows !== this.props.categoryFollows) {
       this.props.getCategoriesFollowed().then(() => {
         this.setState({ categories: this.props.categoriesFollowed, categoryFollows: this.props.categoryFollows });
       });

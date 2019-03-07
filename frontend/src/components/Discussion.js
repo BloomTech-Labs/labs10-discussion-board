@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import styled from 'styled-components';
 
 //globals
 import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, AddPostForm, EditDiscussionForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
+import { AddReplyForm, AddPostForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -228,14 +227,13 @@ class Discussion extends Component {
       orderType,
       showAddPostForm,
       showEditPostForm,
-      showEditDiscussionForm,
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
     const {
       body,
-      created_at,
-      last_edited_at,
+      // created_at,
+      // last_edited_at,
       upvotes,
       downvotes,
       avatar,

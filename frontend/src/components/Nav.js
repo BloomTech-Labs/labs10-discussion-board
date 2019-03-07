@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DisplayUser from './DisplayUser.js';
 import Auth from './Auth.js';
 
 //globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+import { phoneL, tabletP } from '../globals/globals.js';
 
 // components
 import { Search } from './index.js';
