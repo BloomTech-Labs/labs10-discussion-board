@@ -64,10 +64,6 @@ import {
   REMOVE_DISCUSSION_SUCCESS,
   REMOVE_DISCUSSION_FAILURE,
 
-  GET_HOT_DISCUSSIONS_LOADING,
-  GET_HOT_DISCUSSIONS_SUCCESS,
-  GET_HOT_DISCUSSIONS_FAILURE,
-
   // Action Creators
   getTopDiscussions,
   getDiscussionsByCat,
@@ -77,7 +73,6 @@ import {
   addDiscussion,
   editDiscussion,
   removeDiscussion,
-  getHotDiscussions,
 } from './DiscussionsActions.js';
 
 import {
@@ -305,10 +300,6 @@ export {
   REMOVE_DISCUSSION_SUCCESS,
   REMOVE_DISCUSSION_FAILURE,
 
-  GET_HOT_DISCUSSIONS_LOADING,
-  GET_HOT_DISCUSSIONS_SUCCESS,
-  GET_HOT_DISCUSSIONS_FAILURE,
-
   // Discussion Vote Actions
   HANDLE_DISCUSSION_VOTE_LOADING,
   HANDLE_DISCUSSION_VOTE_SUCCESS,
@@ -443,7 +434,6 @@ export {
   addDiscussion,
   editDiscussion,
   removeDiscussion,
-  getHotDiscussions,
 
   // Discussion Vote Action Creators
   handleDiscussionVote,

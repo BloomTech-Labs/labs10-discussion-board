@@ -16,10 +16,6 @@ export const GET_DISCUSSIONS_LOADING = 'GET_DISCUSSIONS_LOADING';
 export const GET_DISCUSSIONS_SUCCESS = 'GET_DISCUSSIONS_SUCCESS';
 export const GET_DISCUSSIONS_FAILURE = 'GET_DISCUSSIONS_FAILURE';
 
-export const GET_HOT_DISCUSSIONS_LOADING = 'GET_HOT_DISCUSSIONS_LOADING';
-export const GET_HOT_DISCUSSIONS_SUCCESS = 'GET_HOT_DISCUSSIONS_SUCCESS';
-export const GET_HOT_DISCUSSIONS_FAILURE = 'GET_HOT_DISCUSSIONS_FAILURE';
-
 export const GET_DISCUSSION_BY_ID_LOADING = 'GET_DISCUSSION_BY_ID_LOADING';
 export const GET_DISCUSSION_BY_ID_SUCCESS = 'GET_DISCUSSION_BY_ID_SUCCESS';
 export const GET_DISCUSSION_BY_ID_FAILURE = 'GET_DISCUSSION_BY_ID_FAILURE';
@@ -60,17 +56,6 @@ export const getTopDiscussions = (order, orderType) => dispatch => {
     .get(`${backendURL}/discussions/top-daily/${user_id}`, headers)
     .then(res => dispatch({ type: TOP_DISCUSSIONS_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, TOP_DISCUSSIONS_FAILURE)(dispatch));
-};
-
-export const getHotDiscussions = () => dispatch => {
-  const user_id = localStorage.getItem('symposium_user_id');
-	const token = localStorage.getItem('symposium_token');
-	const headers = { headers: { Authorization: token } };
-  dispatch({ type: GET_HOT_DISCUSSIONS_LOADING });
-  return axios
-    .get(`${backendURL}/discussions/hottest/${ user_id }`, headers)
-    .then(res => dispatch({ type: GET_HOT_DISCUSSIONS_SUCCESS, payload: res.data }))
-    .catch(err => handleError(err, GET_HOT_DISCUSSIONS_FAILURE)(dispatch));
 };
 
 export const getDiscussionById = (id, order, orderType) => dispatch => {

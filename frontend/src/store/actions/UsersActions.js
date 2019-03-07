@@ -244,8 +244,7 @@ export const signout = uuid => dispatch => {
   localStorage.removeItem('symposium_user_id');
   localStorage.removeItem('symposium_auth0_access_token');
   localStorage.removeItem('symposium_auth0_expires_at');
-  handlePusher.unsubscribeToPusher(uuid);
-  displayMessage('You have been signed out. Thanks for coming by!')(dispatch);
+  if (uuid) handlePusher.unsubscribeToPusher(uuid);
   dispatch({ type: USER_SIGNOUT_SUCCESS });
   return Promise.resolve();
 };
