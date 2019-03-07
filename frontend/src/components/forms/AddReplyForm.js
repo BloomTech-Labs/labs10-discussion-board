@@ -86,7 +86,7 @@ class AddReplyForm extends Component {
 	handleToggle = () => this.props.toggleAddReplyForm();
 	render() {
 		const { replyBody } = this.state;
-		const{ username, user_id } = this.props;
+		const{ username, user_id, avatar } = this.props;
 		return(
 			<AddReplyFormWrapper onSubmit = { this.handleSubmit } >
 				<AddReplyTitle>
@@ -106,7 +106,7 @@ class AddReplyForm extends Component {
 				/>
 				<UserActions>
 					<div className='user'>
-						<Avatar height='30px' width='30px' />
+						<Avatar height='30px' width='30px' src = { avatar } />
 						<Link className='username' to={`/profile/${user_id}`}>
 							{username}
 						</Link>
@@ -121,8 +121,9 @@ class AddReplyForm extends Component {
 
 const mapStateToProps = state => ({
 	username: state.users.username,
-	user_id: state.users.user_id
-  });
+	user_id: state.users.user_id,
+	avatar: state.users.avatar,
+});
 
 export default connect(mapStateToProps, { addReply })(AddReplyForm);
 

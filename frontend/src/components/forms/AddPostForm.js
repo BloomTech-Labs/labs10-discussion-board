@@ -76,58 +76,6 @@ const UserActions = styled.div`
 `;
 
 
-
-class AddPostForm extends Component {
-	state = { postBody: '' };
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
-	handleSubmit = e => {
-		e.preventDefault();
-		const { postBody } = this.state;
-		const { discussion_id, historyPush } = this.props;
-		return this.props.addPost(discussion_id, postBody, historyPush);
-	};
-	
-	render() {		
-		const { postBody } = this.state;
-		const { toggleAddPostForm, username, user_id } = this.props;
-		return(
-			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
-				<AddCommentTitle>
-					<p>Write a comment</p>
-					<a
-						className = 'exit'
-						onClick = { toggleAddPostForm }
-						type = 'button' // prevents form submission
-					><i className="far fa-times-circle"></i></a>
-				</AddCommentTitle>
-				<textarea
-					type= 'text'
-					placeholder = 'Write your comment'
-					name = 'postBody'
-					onChange = { this.handleChange }
-					value = { postBody }
-				/>
-				<UserActions>
-					<div className='user'>
-						<Avatar height='30px' width='30px' />
-						<Link className='username' to={`/profile/${user_id}`}>
-							{username}
-						</Link>
-					</div>
-					<button type = 'submit'>Post comment</button>	
-				</UserActions>
-			</AddPostFormWrapper>
-		);
-	}
-};
-
-const mapStateToProps = state => ({
-	username: state.users.username,
-	user_id: state.users.user_id
-  });
-
-export default connect(mapStateToProps, { addPost })(AddPostForm);
-
 // Using React Quill
 // 	//    * Quill editor formats
 // 	//    * See https://quilljs.com/docs/formats/
@@ -287,3 +235,55 @@ export default connect(mapStateToProps, { addPost })(AddPostForm);
 // 		</AddPostFormWrapper>
 // 		)}
 // }
+
+class AddPostForm extends Component {
+	state = { postBody: '' };
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+	handleSubmit = e => {
+		e.preventDefault();
+		const { postBody } = this.state;
+		const { discussion_id, historyPush } = this.props;
+		return this.props.addPost(discussion_id, postBody, historyPush);
+	};
+	
+	render() {		
+		const { postBody } = this.state;
+		const { toggleAddPostForm, username, user_id, avatar } = this.props;
+		return(
+			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
+				<AddCommentTitle>
+					<p>Write a comment</p>
+					<a
+						className = 'exit'
+						onClick = { toggleAddPostForm }
+						type = 'button' // prevents form submission
+					><i className="far fa-times-circle"></i></a>
+				</AddCommentTitle>
+				<textarea
+					type= 'text'
+					placeholder = 'Write your comment'
+					name = 'postBody'
+					onChange = { this.handleChange }
+					value = { postBody }
+				/>
+				<UserActions>
+					<div className='user'>
+						<Avatar height='30px' width='30px' src = { avatar } />
+						<Link className='username' to={`/profile/${user_id}`}>
+							{username}
+						</Link>
+					</div>
+					<button type = 'submit'>Post comment</button>	
+				</UserActions>
+			</AddPostFormWrapper>
+		);
+	}
+};
+
+const mapStateToProps = state => ({
+	username: state.users.username,
+	user_id: state.users.user_id,
+	avatar: state.users.avatar,
+});
+
+export default connect(mapStateToProps, { addPost })(AddPostForm);
