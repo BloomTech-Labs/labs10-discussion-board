@@ -13,11 +13,17 @@ const DivSideNav = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  @media(max-width: 1345px) {
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
 `;
 
 const DivHeader = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 
   .fa-plus-circle {
@@ -30,12 +36,26 @@ const DivHeader = styled.div`
     &:hover {
       color: green;
     }
+
+    @media(max-width: 1345px) {
+      display: none;
+    }
+  }
+
+  @media(max-width: 1345px) {
+    margin: 0;
   }
 `;
 
 const H4BrowseCategories = styled.h4`
     width: 95%;
     border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
+
+    @media(max-width: 1345px) {
+      display: flex;
+      width: auto;
+      border: none;
+    }
 `;
 
 const LinkSideNav = styled(Link)`
@@ -52,10 +72,30 @@ const LinkSideNav = styled(Link)`
       color: inherit;
       margin-left: 15px;
     }
+
+    @media(max-width: 1345px) {
+      width: auto;
+    }
+  }
+
+  @media(max-width: 1345px) {
+    display: flex;
+    white-space: pre;
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
+    padding: 7px 12px 7px 0;
+    border-radius: 20px;
+    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
   }
 
   &:hover {
     color: blue;
+
+    @media(max-width: 1345px) {
+      border: 2px solid blue;
+    }
   }
 `;
 
@@ -68,10 +108,24 @@ const LinkBrowseCategories = styled(Link)`
     padding: 10px 8px 10px 0;
     color: inherit;
     margin-left: 12px;
+
+    @media(max-width: 1345px) {
+      padding: 10px 8px 6px 0;
+      margin: 0;
+    }
   }
 
   &:hover {
     color: blue;
+  }
+
+  @media(max-width: 1345px) {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
+    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    border-radius: 20px;
   }
 `;
 
@@ -79,6 +133,15 @@ const DivCatFollowList = styled.div`
   ul {
     list-style: none;
     padding-left: 0;
+
+    @media(max-width: 1345px) {
+      display: flex;
+      margin: 0;
+    }
+  }
+
+  @media(max-width: 1345px) {
+    display: flex;
   }
 `;
 
@@ -97,6 +160,18 @@ const LiCategoryFollowed = styled.li`
     border-radius: 50%;
     margin-right: 16px;
     margin-bottom: 3px;
+
+    @media(max-width: 1345px) {
+      display: none;
+    }
+  }
+
+  @media(max-width: 1345px) {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border: none;
+    align-items: center;
   }
 `;
 
@@ -115,6 +190,14 @@ const H4AllCategories = styled.h4`
     &:hover {
       opacity: 1;
     }
+
+    @media(max-width: 1345px) {
+      display: none;
+    }
+  }
+
+  @media(max-width: 1345px) {
+    border: none;
   }
 `;
 
@@ -132,6 +215,17 @@ const LinkAllPosts = styled(Link)`
 
   .div-window {
     background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+
+    @media(max-width: 1345px) {
+      background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    }
+  }
+
+  @media(max-width: 1345px) {
+    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
+    border-radius: 20px;
+    padding: 15px;
   }
 `;
 
@@ -202,7 +296,7 @@ class SideNav extends Component {
               to={`/categories`}
               islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
               onClick={() => this.selectLink('BrowseCategories')}
-            ><i className="fas fa-book-open" />Browse Categories</LinkBrowseCategories>
+            ><i className="fas fa-book-open" />Browse&nbsp;Categories</LinkBrowseCategories>
           </H4BrowseCategories>
           <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
         </DivHeader>
@@ -215,7 +309,7 @@ class SideNav extends Component {
                 <div className='div-window' />
                 <div className='div-window' />
                 <div className='div-window' />
-              </DivWindows>All Posts</LinkAllPosts>
+              </DivWindows>All&nbsp;Posts</LinkAllPosts>
           </H4AllCategories>
           <ul>
             {this.state.categories.map((category, index) => (
