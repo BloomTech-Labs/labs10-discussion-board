@@ -71,6 +71,7 @@ const PostedBy = styled.div`
   .username {
     text-decoration: none;
     margin-right: 15px;
+    color: black;
 
     &:hover {
       cursor: pointer;

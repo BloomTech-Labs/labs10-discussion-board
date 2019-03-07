@@ -36,7 +36,7 @@ const DiscussionWrapper = styled.div`
   margin-left: 10px;
 
   .back {
-    font-size: 47px;
+    font-size: 30px;
     padding-right: 35px;
     padding-top: 15px;
     color: black;
@@ -56,8 +56,7 @@ const DiscussionContent = styled.div`
 
   p {
     font-size: 22px;
-    margin-top: 25px;
-    margin-top: 0;
+    margin-top: 16px;
   }
 `;
 
@@ -76,17 +75,18 @@ const PostedBy = styled.div`
     flex-direction: row;
     align-items: center;
 
-  img{
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 23px;
-  }
+    img{
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 23px;
+    }
 
-  .username{
-    text-decoration: none;
-    font-size: 0.8rem;
+    .username{
+      text-decoration: none;
+      font-size: 0.8rem;
+      color: black;
+    }
   }
-}
 
 .c-name {
   font-size: 0.8rem;
