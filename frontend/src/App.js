@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-// themes
-import { dayTheme, nightTheme } from './globals/globals';
+// globals
+import { dayTheme, nightTheme, sideNavWidth } from './globals/globals.js';
 
 // components
 import {
@@ -57,7 +57,7 @@ const DivBody = styled.div`
 
 const DivSideNav = styled.div`
   display: flex;
-  min-width: 300px;
+  min-width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
   z-index: 9801;
@@ -72,7 +72,7 @@ const DivPage = styled.div`
   width: 100%;
   min-height: 100%;
   position: relative;
-  margin: 0 0 40px 300px;
+  margin: 0 0 40px ${sideNavWidth};
 `;
 
 const GlobalStyle = createGlobalStyle`
