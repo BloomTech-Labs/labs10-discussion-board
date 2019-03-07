@@ -38,7 +38,6 @@ const ProfileWrapper = styled.div`
     }
   }
   @media ${phoneP} {
-    background-color: blue;
     .react-tabs__tab {
       width: 93%;
       text-align: center;
