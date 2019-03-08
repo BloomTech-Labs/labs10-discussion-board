@@ -199,14 +199,12 @@ const findById = (id, user_id, order, orderType) => {
       'p.created_at',
       'p.last_edited_at',
       'p.reply_to',
-      // db.raw('SUM(COALESCE(pv.type, 0)) AS post_votes'),
       'uv.type as user_vote',
       'pv.upvotes',
       'pv.downvotes',
     )
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .leftOuterJoin('users as u', 'u.id', 'p.user_id')
-    // .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
     .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
     .leftOuterJoin(userPostVoteQuery.as('uv'), function () {
       this.on('uv.post_id', '=', 'p.id');
@@ -243,7 +241,7 @@ const findById = (id, user_id, order, orderType) => {
         .leftOuterJoin('discussions as d', 'd.id', 'p.discussion_id')
       .whereIn('r.post_id', postIDs)
       .groupBy('r.id','u.username', 'us.avatar', 'u.id', 'd.id')
-      .orderBy('r.created_at', 'desc');
+      .orderBy('r.created_at');
 
 
     return Promise.all([repliesQuery])
