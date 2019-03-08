@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
 import Lambda from '../assets/img/Lambda.png';
 
@@ -56,7 +57,7 @@ const NavContainer = styled.div`
   }
 `;
 
-const LambdaLogo = styled.div`
+const LambdaLogo = styled.span`
   width: 130px;
   height: 50px;
   background-image: url(${Lambda});
@@ -68,9 +69,7 @@ const LambdaLogo = styled.div`
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
-      <a className='LogoContainer' href='/home'>
-        <LambdaLogo />
-      </a>
+      <Link className = 'LogoContainer' to = '/home'><LambdaLogo /></Link>
       <NavContainer>
         <Nav showSearch={showSearch}
           scrollTo={scrollTo}
