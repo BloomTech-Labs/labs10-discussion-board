@@ -34,6 +34,14 @@ const DivWrapper = styled.div`
       }
     }
   }
+
+  @media (max-width: 620px) {
+    .tooltip {
+      .tooltiptext {
+        display: none;
+      }
+    }
+  }
 `;
 
 const H1Register = styled.h1`
