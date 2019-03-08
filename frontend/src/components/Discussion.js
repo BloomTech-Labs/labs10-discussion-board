@@ -31,11 +31,12 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 const DiscussionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 90%;
-  justify-content: flex-end;
+  width: 100%;
+  margin: 0 auto;
+  margin-left: 10px;
 
   .back {
-    font-size: 47px;
+    font-size: 30px;
     padding-right: 35px;
     padding-top: 15px;
     color: black;
@@ -53,11 +54,9 @@ const SubWrapper = styled.div`
 const DiscussionContent = styled.div`
   // color: darkgray;
 
-  p{
-    font-size: 14px;
-    margin-bottom: 10px;
-    margin-top: 0
-    padding-top: 25px;
+  p {
+    font-size: 22px;
+    margin-top: 16px;
   }
 `;
 
@@ -68,26 +67,37 @@ const PostedBy = styled.div`
   align-items: center;
   font-size: 12px;
   margin-bottom: 15px;
-  // color: darkgray;
+  font-size: 0.8rem;
+	color: #a7a7a7;
 
   .d-creator {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-  img{
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 23px;
+    img{
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 23px;
+    }
+
+    .username{
+      text-decoration: none;
+      font-size: 0.8rem;
+      color: black;
+    }
   }
 
-  .username{
-    text-decoration: none;
+.c-name {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  span {
+    margin-left: 5px;
   }
 }
-
-  .c-name{
-  }
 `;
 
 const CommentWrapper = styled.div`
@@ -108,7 +118,7 @@ const Posts = styled.div``;
 const AddPostBtn = styled.div``;
 
 const CommentSort = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -144,7 +154,6 @@ justify-content: space-between;
 //   font-weight: bold;
 //   padding: 5px;
 //   color: ${props => props.theme.discussionPostColor};
-
 // }
 
 //   button{
@@ -228,6 +237,7 @@ class Discussion extends Component {
       showAddReplyForm,
     } = this.state;
     const { discussion, historyPush, loggedInUserId } = this.props;
+
     const {
       body,
       // created_at,
@@ -237,6 +247,7 @@ class Discussion extends Component {
       avatar,
       category_name,
       category_id,
+      category_icon,
       id,
       posts,
       post_count,
@@ -246,33 +257,6 @@ class Discussion extends Component {
     } = discussion;
 
     const handleVote = (e, type) => this.handleDiscussionVote(id, type);
-
-
-    // Back Button needs to take in the dynamic (category_id)
-    //Add an icon by the category name
-    //Vote Count should be each up and each down
-    //Post Count Not rendering
-    //Reply Modal should render right below the comment in a bar
-    //Replies to Comments should render nested in the comment
-
-    //TimeStamp 
-
-    //Function
-    // const timeStamp =() => {
-    //   if(last_edited_at){
-    //     return (
-    //           <span>
-    //             Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-    //           </span>
-    //         )
-    //   } else if(created_at) {
-    //     return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-    //     )
-    //   }
-    // }
-
-    //Call
-    // {timeStamp(last_edited_at, created_at)}   
 
     return (
       <DiscussionWrapper>
@@ -295,7 +279,12 @@ class Discussion extends Component {
               </div>
               &nbsp;
               &nbsp;
-              <div className='c-name'><span>{category_name}</span></div>
+              <div className='c-name'>
+                <i className = { category_icon } />
+                <span>
+                  {category_name}
+                </span>
+              </div>
               <VoteCount
                 upvotes={upvotes}
                 downvotes={downvotes}

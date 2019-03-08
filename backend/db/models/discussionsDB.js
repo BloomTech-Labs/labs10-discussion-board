@@ -150,6 +150,7 @@ const findById = (id, user_id, order, orderType) => {
       'd.category_id',
       'c.name as category_name',
       'c.id as category_id',
+      'c.icon as category_icon',
       'us.avatar',
       'us.signature',
       'd.body',

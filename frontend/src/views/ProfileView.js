@@ -24,7 +24,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center
+  justify-content: center;
   align-self: center;
   margin: 10px;
   padding: 10px;

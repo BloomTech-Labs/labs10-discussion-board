@@ -27,8 +27,8 @@ import { handlePostVote } from '../store/actions/index.js';
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
-  font-size: 14px;
+  width: 100%;
+  font-size: 16px;
 
   .title {
     margin-top: 30px;
@@ -36,8 +36,8 @@ const PostWrapper = styled.div`
   }
 
   p {
-    margin-bottom: 0;
-    margin-top: 30px;
+    margin-bottom: 16px;
+    margin-top: 16px;
   }
 
 `
@@ -48,7 +48,8 @@ const PostedBy = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: 12px;
+  font-size: 0.8rem;
+	color: #a7a7a7;
 
 
   .p-creator{
@@ -70,6 +71,7 @@ const PostedBy = styled.div`
   .username {
     text-decoration: none;
     margin-right: 15px;
+    color: black;
 
     &:hover {
       cursor: pointer;
@@ -172,7 +174,8 @@ const Post = ({
       return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
       )
     }
-  }
+  };
+
   return (
     <PostWrapper>
       <p>{body}</p>
