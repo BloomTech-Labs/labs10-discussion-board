@@ -35,6 +35,24 @@ import {
 // action creators
 import { logBackIn } from './store/actions/index.js';
 
+const GlobalStyle = createGlobalStyle`
+	html,
+	body,
+	#root {
+    	margin: 0 auto;
+    	padding: 0;
+		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+		  display: flex;
+      align-items: center;
+      justify-content: center;
+		  flex-wrap: wrap;
+      flex-direction: column;
+      background: ${props => props.theme.appBgColor};
+      width: 100%;
+      min-height: 100vh;
+	}
+`;
+
 const AppWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -43,23 +61,24 @@ const AppWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   position: relative;
-  min-height: 100%;
+  min-height: 100vh;
 `;
 
 const DivBody = styled.div`
   display: flex;
   flex-direction: row;
   width: calc(100% - ${sideNavWidth});
-  height: 100%;
+  min-height: 100%;
   flex-grow: 1;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin: 0 0 40px ${sideNavWidth};
 
   @media(max-width: 1345px) {
     width: 100%;
     margin: 0 0 40px 0;
     flex-direction: column;
+    justify-content: flex-start;
   }
 `;
 
@@ -90,24 +109,6 @@ const DivPage = styled.div`
   width: 100%;
   min-height: 100%;
   position: relative;
-`;
-
-const GlobalStyle = createGlobalStyle`
-	html,
-	body,
-	#root {
-    	margin: 0 auto;
-    	padding: 0;
-		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-		  display: flex;
-      align-items: center;
-      justify-content: center;
-		  flex-wrap: wrap;
-      flex-direction: column;
-      background: ${props => props.theme.appBgColor};
-      width: 100%;
-      min-height: 100vh;
-	}
 `;
 
 class App extends Component {
@@ -214,6 +215,7 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 <Switch>
+                  <Route path='/register' component={RegisterView} />
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   {/* <Route path='/home' component={LandingView} />
@@ -222,7 +224,6 @@ class App extends Component {
                   <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
                   <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
-                  <Route component={RegisterView} />
                 </Switch>
               </DivPage>
             </DivBody>
