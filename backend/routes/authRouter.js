@@ -347,7 +347,7 @@ router.post('/auth0-login', async (req, res) => {
   let userSettings = {};
   let token;
   return db
-    .findByUsername(name)
+    .findByEmail(email)
     .then(async user => {
       // if the user already exists in the DB, return the user
       if (user) {

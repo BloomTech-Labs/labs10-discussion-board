@@ -30,10 +30,10 @@ const LandingViewWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = ({ history }) => {
+const LandingView = ({ history, match }) => {
   return (
     <LandingViewWrapper>
-      <DiscussionsByFollowedCats history = { history } />
+      <DiscussionsByFollowedCats history = { history } match = { match } />
     </LandingViewWrapper>
   );
 };

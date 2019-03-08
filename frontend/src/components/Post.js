@@ -139,7 +139,8 @@ const Post = ({
     discussion_id,
     id,
     last_edited_at,
-    post_votes,
+    upvotes,
+    downvotes,
     replies,
     user_id,
     username,
@@ -148,14 +149,14 @@ const Post = ({
     // signature,
   } = post;
 
-  const handleVote = type => handlePostVote(post.id, type, discussion_id, order, orderType);
+  const handleVote = (e, type) => handlePostVote(post.id, type, discussion_id, order, orderType);
 
   const handleAddReply = () => {
-   if (showAddReplyForm === id){
-     return toggleAddReplyForm()
-   } else{
-     return toggleAddReplyForm(id)
-   }
+    if (showAddReplyForm === id){
+      return toggleAddReplyForm()
+    } else{
+      return toggleAddReplyForm(id)
+    }
   };
   // const handleEdit = () => updateEditPostForm(id);
   // const handleRemove = () => handleRemovePost(loggedInUserId, id, historyPush, discussion_id);
@@ -196,9 +197,10 @@ const Post = ({
           &nbsp;
           &nbsp;
         <VoteCount
-          handleVote={handleVote}
-          vote_count={post_votes}
-          user_vote={user_vote}
+          upvotes = { upvotes }
+          downvotes = { downvotes }
+          user_vote = { user_vote }
+          handleVote = { handleVote }
         />
           &nbsp;
           &nbsp;
