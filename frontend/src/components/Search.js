@@ -295,7 +295,7 @@ class Search extends Component {
 					/>
 				</div>
 
-				{ (showSearch && searchResults.length > 0) &&
+				{ (showSearch && searchText.length > 0) &&
 				<div className = 'search-results-wrapper'>
 
 					<div className = 'search-by-wrapper'>

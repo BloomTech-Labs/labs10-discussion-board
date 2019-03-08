@@ -98,7 +98,7 @@ class AddDiscussionForm extends Component {
       .then(() => toggleAddDiscussionForm())
       .then(() => getDiscussions());
   };
-  getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id });
+  getCategoryNames = () => this.setState({ categoryNames: this.props.categoriesFollowed, category_id: this.props.category_id || this.props.categoriesFollowed[0].id });
   componentDidMount = () => this.getCategoryNames();
   render() {
     const { body, categoryNames, category_id } = this.state;

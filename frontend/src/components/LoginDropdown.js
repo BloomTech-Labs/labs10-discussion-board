@@ -26,7 +26,7 @@ const FormLogin = styled.form`
   z-index: 9999;
   position: absolute;
   top: 30px;
-  right: 0;
+  right: -32px;
   width: 270px;
   border: 2px solid ${props => props.theme.borderColor};
   background-color: white;

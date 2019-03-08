@@ -21,10 +21,10 @@ const DiscussionsWrapper = styled.div`
 	flex-direction: column;
 	padding: 10px;
 	position: relative;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
-	width: 740px;
-	min-height: 100%;
+	width: 95%;
+	min-height: 100vh;
 
 	hr {
 		width: 100%;
