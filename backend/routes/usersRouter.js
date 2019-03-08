@@ -209,18 +209,20 @@ router.get('/search-all', (req, res) => {
 router.put('/user/:user_id', async (req, res) => {
   const { user_id } = req.params;
   const { username, oldPassword, newPassword, email, status } = req.body;
-  let newUser;
+  let newUser = {};
   let currentPW;
-  newUser = { username, email, status};
+  newUser.status = status;
+  if (username) newUser.username = username;
+  if (email) newUser.email = email;
   if (oldPassword && (!newPassword || newPassword === '')) {
     return res.status(400).json({ error: 'New password must not be empty.' });
   }
   if (oldPassword) {
     try {
-      if (currentPW && bcrypt.compareSync(oldPassword, currentPW.password)) {
+      currentPW = await usersDB.getPassword(user_id);
+      if (bcrypt.compareSync(oldPassword, currentPW.password)) {
         const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
         newUser.password = newHashedPassword;
-        currentPW = usersDB.getPassword(user_id);      
       } else {
         return res.status(400).json({ error: 'Old password is wrong.' });
       }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
-import {phoneP, tabletP, } from '../globals/globals';
+import { tabletP } from '../globals/globals';
  
 const VideoPlayer = styled.div `
     margin-top: 5%;
