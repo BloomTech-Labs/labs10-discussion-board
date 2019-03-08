@@ -123,6 +123,7 @@ const getAllDiscussionsByFollowedCategories = user_id => {
 
 //Find By ID (discussions own ID)
 const findById = (id, user_id, order, orderType) => {
+  if (order === 'undefined') order = undefined;
   const postCountQuery = db('posts as p')
     .select('p.discussion_id')
     .count({ post_count: 'p.id' })
@@ -179,6 +180,14 @@ const findById = (id, user_id, order, orderType) => {
     .select('pv.type', 'pv.post_id')
     .where({ user_id });
 
+  const postVotesQuery = db('post_votes')
+    .select(
+      db.raw('COUNT(CASE WHEN type = 1 THEN 1 END) AS upvotes'),
+      db.raw('COUNT(CASE WHEN type = -1 THEN 1 END) AS downvotes'),
+      'post_id',
+    )
+    .groupBy('post_id');
+
   const postsQuery = db('posts as p')
     .select(
       'p.id',
@@ -191,18 +200,21 @@ const findById = (id, user_id, order, orderType) => {
       'p.created_at',
       'p.last_edited_at',
       'p.reply_to',
-      db.raw('SUM(COALESCE(pv.type, 0)) AS post_votes'),
-      'uv.type as user_vote'
+      'uv.type as user_vote',
+      'pv.upvotes',
+      'pv.downvotes',
     )
     .join('discussions as d', 'd.id', 'p.discussion_id')
     .leftOuterJoin('users as u', 'u.id', 'p.user_id')
-    .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
     .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
     .leftOuterJoin(userPostVoteQuery.as('uv'), function () {
       this.on('uv.post_id', '=', 'p.id');
     })
+    .leftOuterJoin(postVotesQuery.as('pv'), function() {
+      this.on('pv.post_id', '=', 'p.id');
+    })
     .where('p.discussion_id', id)
-    .groupBy('p.id', 'u.username', 'uv.type', 'us.avatar', 'us.signature')
+    .groupBy('p.id', 'u.username', 'uv.type', 'us.avatar', 'us.signature', 'pv.upvotes', 'pv.downvotes')
     // order by order and orderType variables
     // else default to ordering by created_at descending
     .orderBy(`${order ? order : 'created_at'}`, `${orderType ? orderType : 'desc'}`);
@@ -230,7 +242,7 @@ const findById = (id, user_id, order, orderType) => {
         .leftOuterJoin('discussions as d', 'd.id', 'p.discussion_id')
       .whereIn('r.post_id', postIDs)
       .groupBy('r.id','u.username', 'us.avatar', 'u.id', 'd.id')
-      .orderBy('r.created_at', 'desc');
+      .orderBy('r.created_at');
 
 
     return Promise.all([repliesQuery])

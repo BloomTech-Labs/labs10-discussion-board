@@ -460,9 +460,10 @@ export const editUser = (username, email, oldPassword, newPassword) => dispatch 
   dispatch({ type: EDIT_USER_LOADING });
   return axios
     .put(`${backendUrl}/users/user/${user_id}`, body, headers)
-    .then(() => {
+    .then(res => {
+      localStorage.setItem('symposium_token', res.data);
       dispatch({ type: EDIT_USER_SUCCESS });
-      displayMessage('User has been updated.')(dispatch)
+      return displayMessage('You have successfully updated your profile.')(dispatch);
     })
     .catch(err => handleError(err, EDIT_USER_FAILURE)(dispatch))
-}
+};

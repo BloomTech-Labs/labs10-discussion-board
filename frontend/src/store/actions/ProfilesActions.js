@@ -33,16 +33,14 @@ export const getProfiles = () => dispatch => {
 };
 
 // Get single profile
-export const getProfile = user_id => dispatch => {
+export const getProfile = (user_id, history) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   dispatch({ type: GET_PROFILE_LOADING });
   return axios.get(`${backendUrl}/users/user/${user_id}`, headers)
-    .then(res => {
-      dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data });
-    })
-    .catch(err => handleError(err, GET_PROFILE_FAILURE)(dispatch));
+    .then(res => dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data }))
+    .catch(err => {
+      history.push('/home');
+      handleError(err, GET_PROFILE_FAILURE)(dispatch);
+    });
 };
-
-
-
