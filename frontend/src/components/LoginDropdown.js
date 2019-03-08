@@ -156,7 +156,7 @@ class LoginDropdown extends Component {
       <FormLogin isLoginDropdownClicked={this.props.isLoginDropdownClicked}>
         <input
           onChange={this.handleInputChange}
-          placeholder='Username'
+          placeholder='Name'
           value={this.state.username}
           name='username'
           autoComplete='off'
