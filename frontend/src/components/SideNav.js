@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 // actions
 import { getCategoriesFollowed } from '../store/actions/index.js';
 
+// globals
+import { phoneL } from '../globals/globals.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
@@ -46,6 +49,10 @@ const DivHeader = styled.div`
   @media(max-width: 1345px) {
     margin: 20px;
   }
+
+  @media ${phoneL} {
+    margin: 0 10px;
+  }
 `;
 
 const H4BrowseCategories = styled.h4`
@@ -59,46 +66,7 @@ const H4BrowseCategories = styled.h4`
     }
 `;
 
-const LinkSideNav = styled(Link)`
-  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
-  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
-  span {
-    width: 46px;
-    display: inline-block;
-    text-align: center;
-    i {
-      cursor: pointer;
-      padding: 10px 10px 10px 0;
-      color: inherit;
-      margin-left: 15px;
-    }
-
-    @media(max-width: 1345px) {
-      width: auto;
-    }
-  }
-
-  @media(max-width: 1345px) {
-    display: flex;
-    white-space: pre;
-    justify-content: center;
-    align-items: center;
-    height: 38px;
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    padding: 7px 12px 7px 0;
-    border-radius: 20px;
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-  }
-
-  &:hover {
-    color: blue;
-
-    @media(max-width: 1345px) {
-      border: 2px solid blue;
-    }
-  }
-`;
 
 const LinkBrowseCategories = styled(Link)`
   text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
@@ -127,6 +95,15 @@ const LinkBrowseCategories = styled(Link)`
     border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
     color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
     border-radius: 20px;
+
+    &:hover {
+      border: 2px solid blue;
+    }
+  }
+
+  @media ${phoneL} {
+    padding: 5px;
+    font-size: 12px;
   }
 `;
 
@@ -139,6 +116,10 @@ const DivCatFollowList = styled.div`
       display: flex;
       margin: 0 20px 0 0;
     }
+
+    @media ${phoneL} {
+      margin: 0 10px 0 0;
+    }
   }
 
   @media(max-width: 1345px) {
@@ -146,8 +127,107 @@ const DivCatFollowList = styled.div`
   }
 `;
 
+const H4AllPosts = styled.h4`
+  display: flex;
+  align-items: center;
+  border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
+
+  i {
+    cursor: pointer;
+    font-size: 21px;
+    color: black;
+    padding: 0 7px 2px 10px;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    @media(max-width: 1345px) {
+      display: none;
+    }
+  }
+
+  @media(max-width: 1345px) {
+    border: none;
+    margin-right: 20px;
+  }
+
+  @media ${phoneL} {
+    margin-right: 10px;
+  }
+`;
+
+const LinkAllPosts = styled(Link)`
+  display: flex;
+  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+
+  &:hover {
+    color: blue;
+    .div-window {
+      background-color:blue;
+    }
+  }
+
+  .div-window {
+    background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+
+    @media(max-width: 1345px) {
+      background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    }
+  }
+
+  @media(max-width: 1345px) {
+    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
+    border-radius: 20px;
+    padding: 15px;
+
+    &:hover {
+      border: 2px solid blue;
+    }
+  }
+
+  @media ${phoneL} {
+    padding: 11px 10px 11px 6px;
+    font-size: 12px;
+  }
+`;
+
+const DivWindows = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+  flex-wrap: wrap;
+  margin: 0 6px;
+  background-color: inherit;
+  width: 20px;
+  height: 20px;
+  padding-top: 1.8px;
+
+  div {
+    background-color: black;
+    border-radius: 2px;
+    width: 43%;
+    height: 40%;
+  }
+
+  @media ${phoneL} {
+    width: 10px;
+    height: 10px;
+    padding-top: 5px;
+
+    div {
+      border-radius: 1.5px;
+      width: 42%;
+      height: 32%;
+    }
+  }
+`;
+
 const LiCategoryFollowed = styled.li`
-  display: ${props => props.isfollowedcatsopen ? 'list-item' : 'none'};
+  display: ${props => props.isfollowedcatsopen === 'true' ? 'list-item' : 'none'};
   padding-left: 42px;
   border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
   list-style-position: inside;
@@ -178,81 +258,64 @@ const LiCategoryFollowed = styled.li`
       margin-right: 20px;
     }
   }
-`;
 
-const H4AllPosts = styled.h4`
-  display: flex;
-  align-items: center;
-  border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
-
-  i {
-    cursor: pointer;
-    font-size: 21px;
-    color: black;
-    padding: 0 7px 2px 10px;
-    opacity: 0.6;
-
-    &:hover {
-      opacity: 1;
+  @media ${phoneL} {
+    &:not(:last-child) {
+      margin-right: 10px;
     }
-
-    @media(max-width: 1345px) {
-      display: none;
-    }
-  }
-
-  @media(max-width: 1345px) {
-    border: none;
-    margin-right: 20px;
   }
 `;
 
-const LinkAllPosts = styled(Link)`
-  display: flex;
+const LinkSideNav = styled(Link)`
   text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
   color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
-  &:hover {
-    color: blue;
-    .div-window {
-      background-color:blue;
+  span {
+    width: 46px;
+    display: inline-block;
+    text-align: center;
+    i {
+      cursor: pointer;
+      padding: 10px 10px 10px 0;
+      color: inherit;
+      margin-left: 15px;
+      @media(max-width: 1345px) {
+        margin-left: 0;
+      }
     }
-  }
-
-  .div-window {
-    background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
     @media(max-width: 1345px) {
-      background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+      width: auto;
     }
   }
 
   @media(max-width: 1345px) {
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    display: flex;
+    white-space: pre;
+    justify-content: center;
+    align-items: center;
+    height: 38px;
     border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
+    padding: 7px 12px 7px 15px;
     border-radius: 20px;
-    padding: 15px;
+    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+  }
+
+  @media ${phoneL} {
+    padding: 0 7px 0 10px;
+    font-size: 12px;
+  }
+
+  &:hover {
+    color: blue;
+
+    @media(max-width: 1345px) {
+      border: 2px solid blue;
+    }
   }
 `;
 
-const DivWindows = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: space-between;
-  flex-wrap: wrap;
-  margin: 0 6px;
-  background-color: inherit;
-  width: 20px;
-  height: 20px;
-  padding-top: 1.8px;
 
-  div {
-    background-color: black;
-    border-radius: 2px;
-    width: 43%;
-    height: 40%;
-  }
-`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
