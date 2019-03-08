@@ -30,6 +30,7 @@ import {
   CategoriesView,
   DiscussionView,
   RegisterView,
+  NonUserLandingView,
 } from './views/index.js';
 
 // action creators
@@ -216,6 +217,7 @@ class App extends Component {
                 <Switch>
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
+                  <Route exact path='/newuser' component={NonUserLandingView} />
                   {/* <Route path='/home' component={LandingView} />
                   <Route path='/profile/:id' component={Profile} />
                   <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
