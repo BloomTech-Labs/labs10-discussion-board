@@ -137,7 +137,7 @@ const DivCatFollowList = styled.div`
 
     @media(max-width: 1345px) {
       display: flex;
-      margin: 0;
+      margin: 0 20px 0 0;
     }
   }
 
