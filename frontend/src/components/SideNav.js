@@ -147,7 +147,7 @@ const DivCatFollowList = styled.div`
 `;
 
 const LiCategoryFollowed = styled.li`
-  display: ${props => props.isfollowedcatsopen ? 'list-item' : 'none'};
+  display: ${props => props.isfollowedcatsopen === 'true' ? 'list-item' : 'none'};
   padding-left: 42px;
   border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
   list-style-position: inside;
