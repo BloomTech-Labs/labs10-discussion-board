@@ -226,7 +226,7 @@ class Profile extends Component {
               </HeaderStyle>
               <Tabs>
                 <TabList>
-                  <Tab> Followed Post</Tab>
+                  <Tab> Followed Posts</Tab>
                   <Tab>Followed Categories</Tab>
                   <Tab>Posts</Tab>
                   <Tab>Comments</Tab>

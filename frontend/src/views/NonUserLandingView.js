@@ -28,9 +28,9 @@ class NonUserLandingView extends Component {
         <VideoPlayer>
             <ReactPlayer 
             className = 'vid-player' 
-            url='https://youtu.be/x9y0P1q7ca8' 
+            url='https://youtu.be/T-Dji780Ro0' 
             width = '100%' height = '100%' 
-             />
+            controls = 'true'/>
          </VideoPlayer>
          )
   }
