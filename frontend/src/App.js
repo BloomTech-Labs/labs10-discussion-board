@@ -30,6 +30,7 @@ import {
   CategoriesView,
   DiscussionView,
   RegisterView,
+  NonUserLandingView,
 } from './views/index.js';
 
 // action creators
@@ -185,7 +186,7 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
-                <Route exact path='/' component={LandingView} />
+                <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
@@ -215,9 +216,10 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 <Switch>
+                <Route exact path='/' component={NonUserLandingView} />
                   <Route path='/register' component={RegisterView} />
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
-                  <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
+                  <Route path='/reset/:reset_pw_token' component={ResetPWForm} />       
                   {/* <Route path='/home' component={LandingView} />
                   <Route path='/profile/:id' component={Profile} />
                   <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
