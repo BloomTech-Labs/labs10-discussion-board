@@ -197,10 +197,10 @@ class AddCategoryModal extends Component {
         <DivModalCloser onClick={(ev) => setAddCatModalRaised(ev, false)} />
         <DivModal>
           <h1>Add&nbsp;Category</h1>
-          <FormContent>
+          <FormContent onSubmit={this.handleSubmit}>
             <DivLeft>
               <ImgPreview src={require('../../assets/img/CategoryBook2.png')} alt='icon' />
-              <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From List</button>
+              <button type='button' onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From List</button>
               {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From File</button> */}
               {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From URL</button> */}
             </DivLeft>
@@ -218,7 +218,7 @@ class AddCategoryModal extends Component {
               </DivName>
               <DivButtons>
                 <button type='button' onClick={(ev) => setAddCatModalRaised(ev, false)}>Cancel</button>
-                <button type='button' onClick={this.handleSubmit}>Submit</button>
+                <button type='submit'>Submit</button>
               </DivButtons>
             </DivRight>
 

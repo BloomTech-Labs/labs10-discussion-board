@@ -13,6 +13,7 @@ const DivSideNav = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  user-select:none;
 
   @media(max-width: 1345px) {
     flex-direction: row;
@@ -31,7 +32,7 @@ const DivHeader = styled.div`
     cursor: pointer;
     padding: 10px;
     color: red;
-    margin-right: 10px;
+    margin: 10px;
 
     &:hover {
       color: green;
@@ -43,7 +44,7 @@ const DivHeader = styled.div`
   }
 
   @media(max-width: 1345px) {
-    margin: 0;
+    margin: 20px;
   }
 `;
 
@@ -136,7 +137,7 @@ const DivCatFollowList = styled.div`
 
     @media(max-width: 1345px) {
       display: flex;
-      margin: 0;
+      margin: 0 20px 0 0;
     }
   }
 
@@ -172,10 +173,14 @@ const LiCategoryFollowed = styled.li`
     padding: 0;
     border: none;
     align-items: center;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
   }
 `;
 
-const H4AllCategories = styled.h4`
+const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
   border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
@@ -198,6 +203,7 @@ const H4AllCategories = styled.h4`
 
   @media(max-width: 1345px) {
     border: none;
+    margin-right: 20px;
   }
 `;
 
@@ -301,7 +307,7 @@ class SideNav extends Component {
           <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
         </DivHeader>
         <DivCatFollowList>
-          <H4AllCategories islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+          <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
             <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
             <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
               <DivWindows>
@@ -310,7 +316,7 @@ class SideNav extends Component {
                 <div className='div-window' />
                 <div className='div-window' />
               </DivWindows>All&nbsp;Posts</LinkAllPosts>
-          </H4AllCategories>
+          </H4AllPosts>
           <ul>
             {this.state.categories.map((category, index) => (
               <LiCategoryFollowed isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} key={index} islinkselected={(this.state.linkSelected === category.name).toString()}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={(this.state.linkSelected === category.name).toString()} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={(this.state.linkSelected === category.name).toString()} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
