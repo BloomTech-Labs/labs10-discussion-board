@@ -216,16 +216,11 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 <Switch>
-                <Route exact path='/' component={NonUserLandingView} />
                   <Route path='/register' component={RegisterView} />
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
-                  <Route path='/reset/:reset_pw_token' component={ResetPWForm} />       
-                  {/* <Route path='/home' component={LandingView} />
-                  <Route path='/profile/:id' component={Profile} />
-                  <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
-                  <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
-                  <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
-                  <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} /> */}
+                  <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
+                  <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+                  <Route component={NonUserLandingView} />
                 </Switch>
               </DivPage>
             </DivBody>
