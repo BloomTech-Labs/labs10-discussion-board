@@ -35,23 +35,51 @@ import {
 // action creators
 import { logBackIn } from './store/actions/index.js';
 
+const GlobalStyle = createGlobalStyle`
+	html,
+	body,
+	#root {
+    	margin: 0 auto;
+    	padding: 0;
+		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+		  display: flex;
+      align-items: center;
+      justify-content: center;
+		  flex-wrap: wrap;
+      flex-direction: column;
+      background: ${props => props.theme.appBgColor};
+      width: 100%;
+      min-height: 100vh;
+	}
+`;
+
 const AppWrapper = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
   position: relative;
   min-height: 100vh;
-  justify-content: space-between;
 `;
 
 const DivBody = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - ${sideNavWidth});
+  min-height: 100%;
   flex-grow: 1;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 0 40px ${sideNavWidth};
+
+  @media(max-width: 1345px) {
+    width: 100%;
+    margin: 0 0 40px 0;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 `;
 
 const DivSideNav = styled.div`
@@ -59,8 +87,18 @@ const DivSideNav = styled.div`
   min-width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
+  left: 0;
+  top: ${topHeaderHeight};
   z-index: 7801;
   border-right: 2px solid rgb(243, 245, 248);
+
+  @media(max-width: 1345px) {
+    position: relative;
+    height: auto;
+    width: 99.9%;
+    border: none;
+    top: 0;
+  }
 `;
 
 const DivPage = styled.div`
@@ -71,25 +109,6 @@ const DivPage = styled.div`
   width: 100%;
   min-height: 100%;
   position: relative;
-  margin: 0 0 40px ${sideNavWidth};
-`;
-
-const GlobalStyle = createGlobalStyle`
-	html,
-	body,
-	#root {
-    	margin: 0;
-    	padding: 0;
-		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-		  display: flex;
-      align-items: center;
-      justify-content: center;
-		  flex-wrap: wrap;
-      flex-direction: column;
-      background: ${props => props.theme.appBgColor};
-      min-width: 100%;
-      min-height: 100%;
-	}
 `;
 
 class App extends Component {
@@ -160,15 +179,14 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <div style={{ width: '100%', height: topHeaderHeight }} />
             <DivBody>
               <DivSideNav>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
-                <Route exact path= '/' component={LandingView} />
-                <Route exact path= '/home' component={LandingView} />
+                <Route exact path='/' component={LandingView} />
+                <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/categories' render={() => <CategoriesView historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
@@ -191,7 +209,6 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
-            <div style={{ width: '100%', height: topHeaderHeight }} />
             <DivBody>
               <DivSideNav>
                 {/* <SideNav /> */}

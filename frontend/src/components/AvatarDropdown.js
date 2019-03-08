@@ -11,6 +11,7 @@ const DivWrapper = styled.div`
   flex-direction: column;
   z-index: 9999;
   position: absolute;
+  right: 0;
   background-color: white;
   margin-top: 56px;
   width: 140px;
