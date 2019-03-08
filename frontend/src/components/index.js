@@ -4,7 +4,7 @@ import Category from './categories/Category.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
-
+import Reply from './Reply.js';
 
 import Auth from './Auth.js';
 import LoginDropdown from './LoginDropdown.js';
@@ -12,7 +12,6 @@ import Nav from './Nav.js';
 import SideNav from './SideNav.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
-import Logo from './Logo.js';
 import TopDiscussions from './TopDiscussions.js';
 import TopDiscussion from './TopDiscussion.js';
 import PostCount from './PostCount.js';
@@ -57,6 +56,7 @@ import AddReplyForm from './forms/AddReplyForm.js';
 import EditSignatureForm from './forms/EditSignatureForm.js';
 
 export {
+  Reply,
   Auth,
   Categories,
   CategoriesNav,
@@ -69,7 +69,6 @@ export {
   SideNav,
   Header,
   Footer,
-  Logo,
   TopDiscussions,
   TopDiscussion,
   PostCount,

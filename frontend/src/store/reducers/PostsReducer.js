@@ -10,6 +10,11 @@ import {
 	REMOVE_POST_LOADING,
 	REMOVE_POST_SUCCESS,
 	REMOVE_POST_FAILURE,
+
+	HANDLE_POST_VOTE_LOADING,
+	HANDLE_POST_VOTE_SUCCESS,
+	HANDLE_POST_VOTE_FAILURE,
+
 } from '../actions/index.js';
 
 export const PostsReducer = (state = {}, action) => {
@@ -23,6 +28,9 @@ export const PostsReducer = (state = {}, action) => {
 		case REMOVE_POST_LOADING:
 		case REMOVE_POST_SUCCESS:
 		case REMOVE_POST_FAILURE:
+		case HANDLE_POST_VOTE_LOADING:
+		case HANDLE_POST_VOTE_SUCCESS:
+		case HANDLE_POST_VOTE_FAILURE:
 		default:
 		return state;
 	}

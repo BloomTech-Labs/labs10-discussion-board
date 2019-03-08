@@ -117,6 +117,21 @@ const findByUsername = username => {
     .first();
 };
 
+const findByEmail = email => {
+  return db('users as u')
+    .select(
+      'u.id',
+      'u.username',
+      'u.password',
+      'u.email',
+      'u.status',
+      'us.avatar'
+    )
+    .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
+    .where({ email })
+    .first();
+};
+
 // search through categories, discussions and posts
 const searchAll = (searchText, orderType) => {
   const categoriesQuery = db('categories as c')
@@ -258,7 +273,8 @@ const updateSignature = (user_id, signature) => {
 const update = (id, user) => {
   return db('users')
     .where({ id })
-    .update(user);
+    .update(user)
+    .returning(['id', 'username']);
 };
 
 // update password
@@ -295,6 +311,7 @@ module.exports = {
   getUserName,
   findById,
   findByUsername,
+  findByEmail,
   searchAll,
   isUsernameTaken,
   isEmailTaken,

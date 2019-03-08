@@ -7,19 +7,22 @@ import styled from 'styled-components';
 const DivNav = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 25px;
+  margin: 15px 10px 20px 10px;
 `;
 
 const DivSort = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
 const H3SortLabel = styled.h3``;
 
 const DivButtons = styled.div`
+  width: 20%;
   display: flex;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ButtonAddCategory = styled.button`
@@ -28,7 +31,7 @@ const ButtonAddCategory = styled.button`
   align-items: center;
   background: rgb(0, 200, 0);
   height: 45px;
-  width: 170px;
+  width: 90%;
   border-radius: 5px;
   outline: none;
   cursor: pointer;
@@ -59,9 +62,9 @@ const SelectSortDropdown = styled.select`
   display: inline-block;
   font-size: 18px;
   line-height: 1.5em;
-  padding: 0.5em 3.5em 0.5em 1em;
+  padding: 0.5em 3em 0.5em 1em;
   outline: none;
-  width: 190px;
+  width: 35%;
   text-align-last: center;
   margin: 10px;
   box-sizing: border-box;

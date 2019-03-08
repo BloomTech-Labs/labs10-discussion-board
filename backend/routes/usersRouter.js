@@ -57,9 +57,6 @@ router.get('/discussions/:user_id', (req, res, next) => {
 // Gets a user by their ID (mock data)
 router.get('/user/:user_id', authenticate, (req, res) => {
   const { user_id } = req.params;
-  if (user_id === 'null') {
-    return res.status(400).json({ error: 'User either never existed or has deleted their account.' });
-  }
   return usersDB
     .findById(user_id)
     .then(user => {
@@ -209,29 +206,39 @@ router.get('/search-all', (req, res) => {
 });
 
 // updates a user
-router.put('/user/:user_id', (req, res) => {
+router.put('/user/:user_id', async (req, res) => {
   const { user_id } = req.params;
   const { username, oldPassword, newPassword, email, status } = req.body;
-  if (!oldPassword || oldPassword === '') {
-    return res.status(400).json({ error: 'Old password must not be empty.' });
-  }
-  if (!newPassword || newPassword === '') {
+  let newUser = {};
+  let currentPW;
+  newUser.status = status;
+  if (username) newUser.username = username;
+  if (email) newUser.email = email;
+  if (oldPassword && (!newPassword || newPassword === '')) {
     return res.status(400).json({ error: 'New password must not be empty.' });
   }
-  return usersDB
-    .getPassword(user_id)
-    .then(currentPW => {
-      if (currentPW && bcrypt.compareSync(oldPassword, currentPW.password)) {
+  if (oldPassword) {
+    try {
+      currentPW = await usersDB.getPassword(user_id);
+      if (bcrypt.compareSync(oldPassword, currentPW.password)) {
         const newHashedPassword = bcrypt.hashSync(newPassword, numOfHashes);
-        const newUser = { username, password:newHashedPassword, email, status};
-        return usersDB
-          .update(user_id, newUser)
-          .then(() => res.status(201).json({ message: 'User update succesful.' }))
-          .catch(err => res.status(400).json({ error: `Failed to update(): ${err}` }));
+        newUser.password = newHashedPassword;
+      } else {
+        return res.status(400).json({ error: 'Old password is wrong.' });
       }
-      return res.status(400).json({ error: 'Old password is wrong.' });
+    }
+    catch(err) {
+      res.status(500).json({ error: `Failed to compare, hash, and get password: ${err}` })
+    }
+  }
+  return usersDB
+    .update(user_id, newUser)
+    .then(async updatedUser => {
+      const { id, username } = updatedUser[0];
+      const token = await generateToken(id, username);
+      res.status(201).json(token);
     })
-    .catch(err => res.status(500).json({ error: `Failed to getPassword(): ${err}` }));
+    .catch(err => res.status(400).json({ error: `Failed to update(): ${err}` }));
 });
 
 // Update the password of a user given their ID

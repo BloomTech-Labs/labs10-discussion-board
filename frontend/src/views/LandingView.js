@@ -11,7 +11,7 @@ import { DiscussionsByFollowedCats } from '../components/index.js';
  **************************************************************************************************/
 const LandingViewWrapper = styled.div`
   background-color: ${props => props.theme.landingViewWrapperBgColor};
-  width: 740px;
+  width: 95%;
   border-radius: 5px;
 
   @media ${tabletP}{
@@ -30,10 +30,10 @@ const LandingViewWrapper = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const LandingView = ({ history }) => {
+const LandingView = ({ history, match }) => {
   return (
     <LandingViewWrapper>
-      <DiscussionsByFollowedCats history = { history } />
+      <DiscussionsByFollowedCats history = { history } match = { match } />
     </LandingViewWrapper>
   );
 };

@@ -7,7 +7,9 @@ import Lambda from '../assets/img/Lambda.png';
 import { topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
 
 const StyledHeader = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   height: ${topHeaderHeight};
@@ -16,12 +18,17 @@ const StyledHeader = styled.div`
   align-self: center;
   background-color: white;
   border-bottom: 2px solid ${props => props.theme.borderColor};
-
   @media ${tabletL}{
+    width: 100%;
+  }
+  @media ${tabletP}{
     width: 100%;
   }
   @media ${phoneL} {
       width: 100%;
+  }
+  @media ${phoneP}{
+    width: 100%;
   }
 
   .LogoContainer {
@@ -61,20 +68,20 @@ const LambdaLogo = styled.div`
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
   return (
     <StyledHeader>
-      <a className = 'LogoContainer' href = '/home'>
-          <LambdaLogo/>
-        </a>
+      <a className='LogoContainer' href='/home'>
+        <LambdaLogo />
+      </a>
       <NavContainer>
-        <Nav showSearch = {showSearch} 
-             scrollTo = {scrollTo} 
-             pathname = {pathname} 
-             goTo = {goTo} 
-             isDay = {isDay} 
-             history = {history} 
-             isAuthenticated = {isAuthenticated} 
-             toggleSearch = {toggleSearch} 
-             switchTheme = {switched}
-             />
+        <Nav showSearch={showSearch}
+          scrollTo={scrollTo}
+          pathname={pathname}
+          goTo={goTo}
+          isDay={isDay}
+          history={history}
+          isAuthenticated={isAuthenticated}
+          toggleSearch={toggleSearch}
+          switchTheme={switched}
+        />
       </NavContainer>
     </StyledHeader >
   );
