@@ -9,9 +9,9 @@ import {
   displayError,
   isUsernameTaken,
   isEmailTaken,
-  stripePayment
+  stripePayment,
 } from '../store/actions/index';
-import { Avatar } from '../components/index.js';
+import { Avatar, ToolTip } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -20,6 +20,28 @@ const DivWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  .tooltip {
+    z-index: 9000;
+    position: relative;
+
+    &:hover {
+      .tooltiptext {
+        margin-top: 20px;
+        visibility: visible;
+        opacity: 1;
+        color: white;
+      }
+    }
+  }
+
+  @media (max-width: 620px) {
+    .tooltip {
+      .tooltiptext {
+        display: none;
+      }
+    }
+  }
 `;
 
 const H1Register = styled.h1`
@@ -1252,11 +1274,28 @@ class RegisterView extends Component {
                             alt='spinner'
                           />
                         )}
-                      {(this.state.username === '' ||
-                        (!this.props.userExistsLoadingMessage &&
-                          this.props.usernameTaken)) && (
+                      {
+                        this.state.username === "" ?
+                        <span className = 'tooltip'>
                           <img src={require('../assets/img/redX.png')} alt='X' />
-                        )}
+                          <ToolTip
+                            text = 'Invalid username.' // must  be any string
+                            arrow = 'left' // must be string that says 'top', 'right', 'left', or 'bottom'
+                            width = { 200 } // must be a number
+                          />
+                        </span> :
+                        (!this.props.userExistsLoadingMessage &&
+                          this.props.usernameTaken) && (
+                          <span className = 'tooltip'>
+                            <img src={require('../assets/img/redX.png')} alt='X' />
+                            <ToolTip
+                              text = 'Username already taken.' // must  be any string
+                              arrow = 'left' // must be string that says 'top', 'right', 'left', or 'bottom'
+                              width = { 200 } // must be a number
+                            />
+                          </span>
+                        )
+                      }
                       {this.state.username !== '' &&
                         !this.props.userExistsLoadingMessage &&
                         !this.props.usernameTaken && (
@@ -1298,7 +1337,14 @@ class RegisterView extends Component {
                       {this.state.email !== '' &&
                         !this.props.emailExistsLoadingMessage &&
                         this.props.emailTaken && (
+                          <span className = 'tooltip'>
                           <img src={require('../assets/img/redX.png')} alt='X' />
+                          <ToolTip
+                            text = 'Email is already taken.' // must  be any string
+                            arrow = 'left' // must be string that says 'top', 'right', 'left', or 'bottom'
+                            width = { 200 } // must be a number
+                          />
+                          </span>
                         )}
                       {this.state.email !== '' &&
                         !this.props.emailExistsLoadingMessage &&
