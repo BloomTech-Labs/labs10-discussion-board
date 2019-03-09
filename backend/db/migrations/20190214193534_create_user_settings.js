@@ -1,5 +1,8 @@
 const { defaultAvatar } = require('../../config/globals.js');
 
+// globals
+const { accountUserTypes } = require('../../config/globals.js');
+
 exports.up = function (knex, Promise) {
   return knex.schema.createTable('user_settings', function (tbl) {
     /*  Relationship
@@ -20,7 +23,7 @@ exports.up = function (knex, Promise) {
 
     // Account type: user, bronze_member, silver_member, gold_member, and admin
     // Note: admin can be set only by postgress query command
-    tbl.string('user_type', 32).defaultTo('user');
+    tbl.string('user_type', 32).defaultTo(accountUserTypes[0]);
 
     // Signature
     tbl.string('signature', 64);

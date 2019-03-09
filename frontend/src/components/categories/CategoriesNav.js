@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { phoneL } from '../../globals/globals.js';
+// globals
+import { phoneL, accountUserTypes, addCatPermStartIndex } from '../../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -118,8 +119,7 @@ const SelectSortDropdown = styled.select`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id }) => {
-
+const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id, user_type }) => {
   return (
     <DivNav>
       <DivSort>
@@ -144,11 +144,13 @@ const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id }) =>
           </option>
         </SelectSortDropdown>
       </DivSort>
-      <DivButtons>
-        <ButtonAddCategory onClick={(ev) => setAddCatModalRaised(ev, true)} user_id={user_id}>
-          Add&nbsp;Category
-        </ButtonAddCategory>
-      </DivButtons>
+      {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
+        <DivButtons>
+          <ButtonAddCategory onClick={(ev) => setAddCatModalRaised(ev, true)} user_id={user_id}>
+            Add&nbsp;Category
+          </ButtonAddCategory>
+        </DivButtons>
+      }
     </DivNav>
   );
 };
