@@ -91,6 +91,7 @@ const DivSideNav = styled.div`
   left: 0;
   top: ${topHeaderHeight};
   z-index: 7801;
+  box-sizing: border-box;
   border-right: 2px solid rgb(243, 245, 248);
 
   @media(max-width: 1345px) {
