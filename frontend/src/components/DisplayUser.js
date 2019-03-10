@@ -127,8 +127,7 @@ class DisplayUser extends Component {
   clickSignout = ev => {
     ev.preventDefault();
     return this.props.signout(this.props.uuid)
-      .then(() => this.props.history.push('/'))
-      .then(() => this.props.history.push('/home'));
+      .then(() => this.props.history.push('/'));
   };
 
   goToProfilePage = () => this.props.history.push(`/profile/${this.props.user_id}`);
