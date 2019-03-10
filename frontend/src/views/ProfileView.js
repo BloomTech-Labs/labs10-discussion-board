@@ -230,6 +230,7 @@ class Profile extends Component {
                   <Tab>Followed Categories</Tab>
                   <Tab>Posts</Tab>
                   <Tab>Comments</Tab>
+                  <Tab>Replies</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
@@ -268,6 +269,18 @@ class Profile extends Component {
                           {post.body}</SubContentDiv>)}
                       </Elip>
                 </WrappedDiv>
+                </TabPanel>
+                <TabPanel>
+                  <WrappedDiv>
+                    <p className='property-titleC'> Replies: </p>
+                      {profile.replies.map((reply, index) => 
+                        <SubContentDiv key={index}>
+                          {reply.body}
+                        </SubContentDiv>)}
+                  </WrappedDiv>
+                </TabPanel>
+                <TabPanel>
+                  TEST
                 </TabPanel>
               </Tabs>
             </ProfileWrapper>

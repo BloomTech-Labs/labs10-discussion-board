@@ -9,6 +9,7 @@ const getUsers = () => {
 const findById = id => {
   const getDiscussions = db('discussions').where('user_id', id);
   const getPosts = db('posts').where('user_id', id);
+  const getReplies = db('replies').where('user_id', id);
   const getDiscussionFollows = db('discussion_follows as df')
     .select('df.discussion_id', 'd.body')
     .join('discussions as d', 'd.id', 'df.discussion_id')
@@ -53,6 +54,7 @@ const findById = id => {
   const promises = [
     getDiscussions,
     getPosts,
+    getReplies,
     getUser,
     getDiscussionFollows,
     getCategoryFollows,
@@ -63,6 +65,7 @@ const findById = id => {
       let [
         getDiscussionsResults,
         getPostsResults,
+        gerRepliesResults,
         getUserResults,
         getDiscussionFollowsResults,
         getCategoryFollowsResults,
@@ -71,6 +74,7 @@ const findById = id => {
       if (!getUserResults.length) throw `User with ID ${id} does not exist.`;
       getUserResults[0].discussions = getDiscussionsResults;
       getUserResults[0].posts = getPostsResults;
+      getUserResults[0].replies = gerRepliesResults;
       getUserResults[0].discussionFollows = getDiscussionFollowsResults;
       getUserResults[0].categoryFollows = getCategoryFollowsResults;
       getUserResults[0].notifications = getNotificationsResults;
