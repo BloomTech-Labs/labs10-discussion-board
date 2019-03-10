@@ -279,9 +279,6 @@ class Profile extends Component {
                         </SubContentDiv>)}
                   </WrappedDiv>
                 </TabPanel>
-                <TabPanel>
-                  TEST
-                </TabPanel>
               </Tabs>
             </ProfileWrapper>
           </ProfileStyle>
