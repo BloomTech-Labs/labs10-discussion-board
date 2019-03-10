@@ -17,6 +17,7 @@ const router = express.Router();
 const uuidv4 = require('uuid/v4');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
+const { categoryFollowsDB } = require('../db/models/index.js');
 const stripe = require('stripe')(backendStripePkToken);
 
 /***************************************************************************************************
@@ -111,6 +112,7 @@ router.post('/register', requestClientIP, (req, res) => {
         email_confirm = uuidv4();
       }
       await db.addEmailConfirm(userAddedResults[0].id, email_confirm);
+      await categoryFollowsDB.addDefaultCategoryFollows(userAddedResults[0].id);
       return Promise.resolve([userAddedResults, email_confirm]);
     })
     .then(([userAddedResults, email_confirm]) => {
@@ -424,6 +426,8 @@ router.post('/auth0-login', async (req, res) => {
             userSettings.subscribed_at = accountCreatedAt;
             await db.addUserSettings(userSettings);
           }
+
+          await categoryFollowsDB.addDefaultCategoryFollows(userAddedResults[0].id);
 
           return db
             .findByUsername(userAddedResults[0].username)

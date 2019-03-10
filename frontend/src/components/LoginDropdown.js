@@ -90,10 +90,10 @@ class LoginDropdown extends Component {
         );
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
-        return this.props.auth0Login(accessToken);
+        return this.props.auth0Login(accessToken, this.props.history);
       } else if (err) this.props.displayError(err);
     });
-  }
+  };
 
   authLockOptions = {
     rememberLastLogin: false
@@ -176,7 +176,7 @@ class LoginDropdown extends Component {
           Login
         </button>
         <LinkForgotUserPass to='/request-reset-pw'>Forgot your username/password?</LinkForgotUserPass>
-        <button type='button' onClick={() => this.handleAuth0Login()}>Login via Auth0</button>
+        <button type='button' onClick={ this.handleAuth0Login }>Login via Auth0</button>
       </FormLogin>
     );
   }

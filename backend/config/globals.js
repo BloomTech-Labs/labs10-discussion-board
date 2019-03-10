@@ -2,7 +2,7 @@
 const numOfFakeUsers = 500;
 const numOfHashes = 10;
 const numOfDiscussions = 29;
-const numOfCategories = 7;
+const numOfDefaultCategories = 7;
 const numOfPosts = 59;
 const numOfPostVotes = 500; // must be same as numOfFakeUsers
 const numOfDiscussionVotes = 5000;
@@ -93,7 +93,7 @@ const pusherCluster = process.env.PUSHER_CLUSTER;
 module.exports = {
   // variables
   numOfDiscussions,
-  numOfCategories,
+  numOfDefaultCategories,
   numOfPosts,
   numOfFakeUsers,
   numOfHashes,
