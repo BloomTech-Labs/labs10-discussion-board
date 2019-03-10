@@ -102,7 +102,7 @@ router.post('/register', requestClientIP, (req, res) => {
   // add user
   return db
     .insert(newUserCreds) // [ { id: 1, username: 'username', email: 'email' } ]
-    .then(userAddedResults => {
+    .then(async userAddedResults => {
       let email_confirm = null;
 
       // if they registered with an email, send a confirmation email
@@ -110,7 +110,7 @@ router.post('/register', requestClientIP, (req, res) => {
         // generate a random uuid for email confirmation URL
         email_confirm = uuidv4();
       }
-      db.addEmailConfirm(userAddedResults[0].id, email_confirm);
+      await db.addEmailConfirm(userAddedResults[0].id, email_confirm);
       return Promise.resolve([userAddedResults, email_confirm]);
     })
     .then(([userAddedResults, email_confirm]) => {
