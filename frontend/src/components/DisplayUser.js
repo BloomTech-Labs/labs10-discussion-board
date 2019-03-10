@@ -52,7 +52,7 @@ const DivAvatar = styled.div`
   cursor: pointer;
 
   img {
-    transform: ${props => props.isAvatarClicked && 'rotate(180deg)'};
+    transform: ${props => props.isAvatarModalRaised === 'true' && 'rotate(180deg)'};
   }
 `;
 
@@ -101,7 +101,6 @@ class DisplayUser extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isAvatarClicked: false,
       showNotifications: false,
     }
   }
@@ -114,22 +113,9 @@ class DisplayUser extends Component {
     this.setState({ isAvatarClicked: false });
   }
 
-  toggleAvatarClicked = () => this.setState({
-    isAvatarClicked: !this.state.isAvatarClicked,
-    showNotifications: false,
-  });
-
   toggleShowNotifications = () => this.setState({
-    showNotifications: !this.state.showNotifications,
-    isAvatarClicked: false,
+    showNotifications: !this.state.showNotifications
   }, () => this.props.newNotifications && this.props.markNotificationsAsRead());
-
-  clickSignout = ev => {
-    ev.preventDefault();
-    localStorage.removeItem('symposium_auth0_access_token');
-    localStorage.removeItem('symposium_auth0_expires_at');
-    return this.props.signout(this.props.uuid);
-  };
 
   goToProfilePage = () => this.props.history.push(`/profile/${this.props.user_id}`);
 
@@ -138,7 +124,7 @@ class DisplayUser extends Component {
   });
 
   render() {
-    const { isAvatarClicked, showNotifications } = this.state;
+    const { showNotifications } = this.state;
     return (
       <DivWrapper>
         <PWelcomeMessage newNotifications={this.props.newNotifications}>
@@ -160,14 +146,13 @@ class DisplayUser extends Component {
         }
         <DivUser>
           <DivAvatar
-            onClick={() => this.toggleAvatarClicked()}
-            isAvatarClicked={isAvatarClicked}
+            onClick={(ev) => this.props.setAvatarModalRaised(ev, true)}
+            isAvatarModalRaised={this.props.isAvatarModalRaised.toString()}
           >
 
             <Avatar height={'40px'} width={'40px'} src={this.props.avatar} />
             <img src={chevron} alt='chevron' height={'13px'} width={'13px'} />
           </DivAvatar>
-          {(isAvatarClicked) && <AvatarDropdown toggleAvatarClicked={this.toggleAvatarClicked} clickSignout={this.clickSignout} user_id={this.props.user_id} />}
         </DivUser>
       </DivWrapper>
     );
@@ -189,5 +174,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { signout, markNotificationsAsRead }
+  { markNotificationsAsRead }
 )(DisplayUser);

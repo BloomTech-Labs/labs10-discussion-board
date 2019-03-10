@@ -22,7 +22,8 @@ import {
   ResetPWForm,
   DiscussionsByCats,
   AddCategoryModal,
-  LoginDropdown
+  LoginDropdown,
+  AvatarDropdown
 } from './components/index.js';
 
 // views
@@ -123,8 +124,9 @@ class App extends Component {
       isDay: true,
       theme: dayTheme,
       showSearch: false,
-      isAddCatModalRaised: false,
-      isLoginDropdownModalRaised: false
+      isLoginDropdownModalRaised: false,
+      isAvatarModalRaised: false,
+      isAddCatModalRaised: false
     };
   }
 
@@ -141,6 +143,11 @@ class App extends Component {
   setLoginDropdownModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isLoginDropdownModalRaised: status });
+  }
+
+  setAvatarModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isAvatarModalRaised: status });
   }
 
   setAddCatModalRaised = (ev, status) => {
@@ -187,7 +194,8 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} />
+            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
+            <AvatarDropdown isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
             <DivBody>
               <DivSideNav>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
@@ -217,7 +225,7 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} />
+            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
             <DivBody>
               <LoginDropdown history={history} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} />
               <DivSideNav>

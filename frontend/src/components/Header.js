@@ -67,7 +67,7 @@ const LambdaLogo = styled.span`
     }
 `;
 
-const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised }) => {
+const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised }) => {
   return (
     <StyledHeader>
       <Link className='LogoContainer' to='/home'><LambdaLogo /></Link>
@@ -83,6 +83,8 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
           switchTheme={switched}
           isLoginDropdownModalRaised={isLoginDropdownModalRaised}
           setLoginDropdownModalRaised={setLoginDropdownModalRaised}
+          isAvatarModalRaised={isAvatarModalRaised}
+          setAvatarModalRaised={setAvatarModalRaised}
         />
       </NavContainer>
     </StyledHeader >
