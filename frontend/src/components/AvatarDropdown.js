@@ -6,7 +6,18 @@ import { Link } from 'react-router-dom';
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
-const DivWrapper = styled.div`
+const DivBackgroundModal = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+`;
+
+const DivAvatarDropdown = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 9999;
@@ -79,11 +90,13 @@ const Item = styled.a`
  **************************************************************************************************/
 const AvatarDropdown = props => {
   return (
-    <DivWrapper>
-      <LinkItem to={`/profile/${props.user_id}`}>Profile</LinkItem>
-      <LinkItem to={`/settings/${props.user_id}`}>Settings</LinkItem>
-      <Item onClick={ev => props.clickSignout(ev)}>Sign Out</Item>
-    </DivWrapper>
+    <DivBackgroundModal onClick={() => props.toggleAvatarClicked()}>
+      <DivAvatarDropdown>
+        <LinkItem to={`/profile/${props.user_id}`}>Profile</LinkItem>
+        <LinkItem to={`/settings/${props.user_id}`}>Settings</LinkItem>
+        <Item onClick={ev => props.clickSignout(ev)}>Sign Out</Item>
+      </DivAvatarDropdown>
+    </DivBackgroundModal>
   );
 }
 

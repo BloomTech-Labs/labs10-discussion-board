@@ -165,9 +165,9 @@ class DisplayUser extends Component {
           >
 
             <Avatar height={'40px'} width={'40px'} src={this.props.avatar} />
-            <img src={chevron} alt='chevron' height={'13px'} width={'13px'}/>
+            <img src={chevron} alt='chevron' height={'13px'} width={'13px'} />
           </DivAvatar>
-          {(isAvatarClicked) && <AvatarDropdown clickSignout={this.clickSignout} user_id={this.props.user_id} />}
+          {(isAvatarClicked) && <AvatarDropdown toggleAvatarClicked={this.toggleAvatarClicked} clickSignout={this.clickSignout} user_id={this.props.user_id} />}
         </DivUser>
       </DivWrapper>
     );
