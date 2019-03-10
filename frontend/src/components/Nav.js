@@ -83,16 +83,16 @@ class Nav extends Component {
     return (
       <DivWrapper>
         <SearchContainer>
-          <Search showSearch = {this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch}  />
+          <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
         </SearchContainer>
         <DivAuth>{this.props.isDay ?
-          <i onClick = {this.props.switchTheme} className = 'fas fa-sun' /> :
-          <i onClick = {this.props.switchTheme} className = 'fas fa-moon' />
+          <i onClick={this.props.switchTheme} className='fas fa-sun' /> :
+          <i onClick={this.props.switchTheme} className='fas fa-moon' />
         }
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} />
           ) : (
-              <Auth history={this.props.history} />
+              <Auth history={this.props.history} isLoginDropdownModalRaised={this.props.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.props.setLoginDropdownModalRaised} />
             )}
         </DivAuth>
       </DivWrapper>

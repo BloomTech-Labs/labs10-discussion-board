@@ -22,6 +22,7 @@ import {
   ResetPWForm,
   DiscussionsByCats,
   AddCategoryModal,
+  LoginDropdown
 } from './components/index.js';
 
 // views
@@ -122,7 +123,8 @@ class App extends Component {
       isDay: true,
       theme: dayTheme,
       showSearch: false,
-      isAddCatModalRaised: false
+      isAddCatModalRaised: false,
+      isLoginDropdownModalRaised: false
     };
   }
 
@@ -134,6 +136,11 @@ class App extends Component {
       isDay: isDay,
       theme: isDay ? dayTheme : nightTheme,
     });
+  }
+
+  setLoginDropdownModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    this.setState({ isLoginDropdownModalRaised: status });
   }
 
   setAddCatModalRaised = (ev, status) => {
@@ -180,13 +187,13 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
+            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} />
             <DivBody>
               <DivSideNav>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
-                {(this.state.isAddCatModalRaised) && <AddCategoryModal historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} />}
+                {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
@@ -210,8 +217,9 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} />
+            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} />
             <DivBody>
+              <LoginDropdown history={history} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} />
               <DivSideNav>
                 {/* <SideNav /> */}
               </DivSideNav>
