@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getCategoriesFollowed } from '../store/actions/index.js';
 
 // globals
-import { phoneL } from '../globals/globals.js';
+import { phoneL, accountUserTypes, addCatPermStartIndex } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -377,6 +377,8 @@ class SideNav extends Component {
   }
 
   render() {
+    const { user_type } = this.props;
+
     return (
       <DivSideNav>
         <DivHeader>
@@ -390,7 +392,9 @@ class SideNav extends Component {
               onClick={() => this.selectLink('BrowseCategories')}
             ><i className="fas fa-book-open" />Browse&nbsp;Categories</LinkBrowseCategories>
           </H4BrowseCategories>
-          <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+          {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
+            <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+          }
         </DivHeader>
         <DivCategoriesFollowed>
           <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle>
@@ -420,6 +424,7 @@ class SideNav extends Component {
 const mapStateToProps = state => ({
   user_id: state.users.user_id,
   categoryFollows: state.users.categoryFollows,
+  user_type: state.users.user_type,
   categoriesFollowed: state.categories.categoriesFollowed
 });
 
