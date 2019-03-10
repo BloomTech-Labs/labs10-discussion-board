@@ -27,11 +27,14 @@ const findById = id => {
       'd.body as discussion_body',
       'un.post_id',
       'p.body as post_body',
+      'un.reply_id',
+      'r.body as reply_body',
       'un.created_at',
     )
     .leftOuterJoin('categories as c', 'c.id', 'un.category_id')
     .leftOuterJoin('discussions as d', 'd.id', 'un.discussion_id')
     .leftOuterJoin('posts as p', 'p.id', 'un.post_id')
+    .leftOuterJoin('replies as r', 'r.id', 'un.reply_id')
     .where('un.user_id', id)
     .orderBy('un.created_at', 'desc');
   const getUser = db('users as u')
