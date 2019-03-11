@@ -44,11 +44,13 @@ const Notification = ({ notification, goTo, removeNotification }) => {
 		category_name,
 		discussion_id,
 		post_id,
+		reply_id,
 		created_at,
 	} = notification;
 	let {
 		discussion_body,
 		post_body,
+		reply_body,
 	} = notification;
 	const goToDiscussion = () => goTo(`/discussion/${ discussion_id }`);
 	const goToPost = () => goTo(`/discussion/${ discussion_id }#${ post_id }`);
@@ -59,14 +61,19 @@ const Notification = ({ notification, goTo, removeNotification }) => {
 	if (post_body && post_body.length > maxLengthInNotifications) {
 		post_body = post_body.slice(0, maxLengthInNotifications) + '...';
 	}
+	if (reply_body && reply_body.length > maxLengthInNotifications) {
+		reply_body = reply_body.slice(0, maxLengthInNotifications) + '...';
+	}
 	return(
 		<NotificationWrapper>
 			<i onClick = { handleRemove } className = 'far fa-times-circle remove-btn' />
-			<p>New { category_id ? 'discussion' : 'post' } added { moment(new Date(Number(created_at))).fromNow() } in</p>
-			<p>{ category_id ? `/d/${ category_name }` : `${ discussion_body }` }:</p>
+			<p>New { category_id ? 'post' : reply_id ? 'reply' : 'comment' } added { moment(new Date(Number(created_at))).fromNow() } in</p>
+			<p>{ category_id ? `/d/${ category_name }` : reply_id ? `${ post_body }` : `${ discussion_body }` }:</p>
 			{
 				category_id ?
 				<p className = 'links' onClick = { goToDiscussion }>{ discussion_body }</p> :
+				reply_id ?
+				<p className = 'links' onClick = { goToPost }>{ reply_body }</p> :
 				<p className = 'links' onClick = { goToPost }>{ post_body }</p>
 			}
 		</NotificationWrapper>

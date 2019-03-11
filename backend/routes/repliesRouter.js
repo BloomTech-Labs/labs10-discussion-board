@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { repliesDB } = require('../db/models/index.js');
+const { repliesDB, postsDB, userNotificationsDB } = require('../db/models/index.js');
 const router = express.Router();
 
 const { maxNumOfNotifications } = require('../config/globals.js');
@@ -23,11 +23,29 @@ router.post('/:user_id', authenticate, (req, res) => {
 
     if(!replyBody) return res.status(400).json({ error: 'Reply body must not be empty.' });
     const newReply = { user_id, post_id, body: replyBody, created_at };
-    console.log('newReply', newReply)
+    console.log('newReply', newReply);
     return repliesDB
         .insert(newReply)
         .then(async newId => {
-            return res.status(201).json(newId)
+            const user = await postsDB.getDiscAndUserInfoFromPostID(post_id);
+            const newNotification = {
+                user_id: user.user_id,
+                discussion_id: user.discussion_id,
+                post_id,
+                reply_id: newId[0],
+                created_at,
+            };
+            const notifications = await userNotificationsDB.getCount(user.user_id);
+            if (parseInt(notifications.count) >= maxNumOfNotifications) {
+                await userNotificationsDB.removeOldest(user.user_id);
+            }
+            await userNotificationsDB.add(newNotification);
+            pusher.trigger(
+                `user-${ user.uuid }`,
+                'notification',
+                null,
+            );
+            return res.status(201).json(newId);
         })
         .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}`}))
 });

@@ -126,9 +126,7 @@ class DisplayUser extends Component {
 
   clickSignout = ev => {
     ev.preventDefault();
-    localStorage.removeItem('symposium_auth0_access_token');
-    localStorage.removeItem('symposium_auth0_expires_at');
-    return this.props.signout(this.props.uuid);
+    return this.props.signout(this.props.uuid, this.props.history);
   };
 
   goToProfilePage = () => this.props.history.push(`/profile/${this.props.user_id}`);
