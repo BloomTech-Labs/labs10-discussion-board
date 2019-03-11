@@ -69,7 +69,6 @@ class FollowCat extends Component {
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: isFollowing ? 'green' : 'red'}}
-                  value={followed ? 'Followed' : 'Follow?'}
               >
                 <i className = 'fas fa-plus-circle' />&nbsp;Follow
               </button>

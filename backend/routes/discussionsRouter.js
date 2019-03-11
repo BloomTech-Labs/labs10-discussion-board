@@ -14,6 +14,7 @@ const pusher = require('../config/pusherConfig.js');
  ******************************************** middleware ********************************************
  **************************************************************************************************/
 const { authenticate } = require('../config/middleware/authenticate.js');
+const { authorizeAddPost } = require('../config/middleware/authorization.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
@@ -98,7 +99,7 @@ router.get('/category/:category_id/:user_id', authenticate, (req, res) => {
 });
 
 //Add Discussion
-router.post('/:user_id', authenticate, (req, res) => {
+router.post('/:user_id', authenticate, authorizeAddPost, (req, res) => {
   const { user_id } = req.params;
   const { dBody, category_id } = req.body;
   const created_at = Date.now();
@@ -116,7 +117,7 @@ router.post('/:user_id', authenticate, (req, res) => {
         }
         await userNotificationsDB.add(newNotification);
         pusher.trigger(
-          `user-${ user.uuid }`,
+          `user-${user.uuid}`,
           'notification',
           null,
         );

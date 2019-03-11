@@ -200,7 +200,6 @@ class App extends Component {
     const { error, history, message, location } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       if ((this.isAuthenticated() || localStorage.getItem('symposium_user_id'))) {
-        console.log('loggedIn')
       }
       return (
         <ThemeProvider theme={this.state.theme}>

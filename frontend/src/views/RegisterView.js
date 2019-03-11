@@ -105,7 +105,7 @@ const DivBanner = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 350px;
+  height: 390px;
   cursor: pointer;
 
   input {
@@ -115,7 +115,7 @@ const DivBanner = styled.div`
     cursor: pointer;
   }
 
-  @media ${tabletL} {
+  @media(max-width: 1080px) {
     width: 49.9%;
   }
 
@@ -175,7 +175,7 @@ const DivFeatures = styled.div`
 
 const DivFreePlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[0]
@@ -225,7 +225,7 @@ const DivFreePlan = styled.div`
 
 const DivBronzePlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[1]
@@ -275,7 +275,7 @@ const DivBronzePlan = styled.div`
 
 const DivSilverPlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[2]
@@ -325,7 +325,7 @@ const DivSilverPlan = styled.div`
 
 const DivGoldPlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[3]
@@ -1166,7 +1166,8 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[0]}</h4>
@@ -1191,8 +1192,9 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
-                          <li>Add Discussions</li>
+                          <li>Add Posts to Categories</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[1]}</h4>
@@ -1217,10 +1219,11 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
-                          <li>Add Discussions</li>
-                          <li>Add Categories</li>
                           <li>Gets Signature</li>
+                          <li>Add Categories</li>
+                          <li>Add Posts to Categories</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[2]}</h4>
@@ -1245,11 +1248,12 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
-                          <li>Add Discussions</li>
-                          <li>Add Categories</li>
                           <li>Gets Signature</li>
                           <li>Gets Avatar</li>
+                          <li>Add Categories</li>
+                          <li>Add Posts to Categories</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[3]}</h4>
