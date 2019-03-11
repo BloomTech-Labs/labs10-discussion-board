@@ -420,7 +420,7 @@ class Search extends Component {
 											/>
 										);
 									}
-									if (result.type === 'post') {
+									if (result.type === 'discussion') {
 										return <SearchDisResult
 											key = { i }
 											discussion = { result.result }
