@@ -105,7 +105,7 @@ const DivBanner = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 350px;
+  height: 390px;
   cursor: pointer;
 
   input {
@@ -1166,7 +1166,8 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
+                          <li>Add Comments</li>
+                          <li>Add Replies</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[0]}</h4>
@@ -1191,8 +1192,9 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
+                          <li>Add Comments</li>
+                          <li>Add Replies</li>
                           <li>Add Posts</li>
-                          <li>Add Discussions</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[1]}</h4>
@@ -1217,8 +1219,9 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
+                          <li>Add Comments</li>
+                          <li>Add Replies</li>
                           <li>Add Posts</li>
-                          <li>Add Discussions</li>
                           <li>Add Categories</li>
                           <li>Gets Signature</li>
                         </ul>
@@ -1245,8 +1248,9 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
+                          <li>Add Comments</li>
+                          <li>Add Replies</li>
                           <li>Add Posts</li>
-                          <li>Add Discussions</li>
                           <li>Add Categories</li>
                           <li>Gets Signature</li>
                           <li>Gets Avatar</li>
