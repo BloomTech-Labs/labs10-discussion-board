@@ -130,6 +130,7 @@ const DivLeft = styled.div`
 const ImgPreview = styled.i`
   max-width: 50px;
   max-height: 50px;
+  font-size: 2.5rem;
   width: auto;
   height: auto;
   margin-bottom: 20px;
