@@ -44,6 +44,7 @@ const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as
 // prettier-ignore
 const accountUserTypes = ['user', 'bronze_member', 'silver_member', 'gold_member', 'admin']; // Must match with globals on front end
 const addCatPermStartIndex = 2; // Must match with globals on front end
+const addPostPermStartIndex = 1; // Must match with globals on front end
 // prettier-ignore
 const permissionTypes = ['basic', accountUserTypes[0], accountUserTypes[1], accountUserTypes[2], accountUserTypes[3], 'super_moderator', 'moderator', accountUserTypes[accountUserTypes.length - 1]];
 // prettier-ignore
@@ -94,6 +95,7 @@ const pusherCluster = process.env.PUSHER_CLUSTER;
 module.exports = {
   // variables
   addCatPermStartIndex,
+  addPostPermStartIndex,
   numOfDiscussions,
   numOfCategories,
   numOfPosts,

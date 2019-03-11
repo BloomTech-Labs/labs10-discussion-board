@@ -173,10 +173,6 @@ class DiscussionsByCats extends Component {
   render() {
     const { discussions, history, category_name, match, user_type } = this.props;
     const { showAddDiscussionForm } = this.state;
-    console.log('accountUserTypes', accountUserTypes);
-    console.log('user_type', user_type);
-    console.log('addPostPermStartIndex', addPostPermStartIndex);
-    console.log('result', (accountUserTypes.indexOf(user_type) >= addPostPermStartIndex));
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
