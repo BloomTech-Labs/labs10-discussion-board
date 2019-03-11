@@ -71,7 +71,7 @@ class CategoriesView extends Component {
             setAddCatModalRaised={setAddCatModalRaised}
             user_type={user_type}
           />
-          <Categories categories={this.props.categories} />
+          <Categories categories={this.props.categories} history={this.props.history} />
         </DivCategoriesComponent>
       </CategoriesWrapper>
     );

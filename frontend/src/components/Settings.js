@@ -83,8 +83,10 @@ const UserProperties = styled.form`
   .delete-btn {
     background-color: ${props => props.theme.settingsDeleteButtonBg};
     color: ${props => props.theme.settingsDeleteButtonColor};
+
     @media ${tabletP}{
-      width: 75%;      
+      width: 75%;
+      margin-bottom: 25px;      
     }
     @media ${phoneP}{
       width: 90%;  
@@ -111,8 +113,7 @@ const UserProperties = styled.form`
     }
   }
   button {
-    width: 45%;
-    margin: 7px;
+    width: 30%;
     margin-top: 20px;
     border-radius: 5px;
     height: 30px;
@@ -123,15 +124,37 @@ const UserProperties = styled.form`
       &:focus {
         outline: none;
       }
-      @media (max-width: 960px){
+      @media ${tabletP}{
         font-size: 14px;
       }
-      @media (max-width: 520px){
+      @media ${phoneP}{
         font-size: 12px;
       }
     }
 `;
-
+const Buttons = styled.div`
+  display:flex;
+  flex-wrap: initial;
+  width: 72%;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 12px;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  @media ${tabletP}{
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+  }
+  @media ${phoneP}{
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+    justify-content: center;
+    align-items: center;
+  }
+  `;
 const UserSettings = styled.div`
   width: 92%;
   display: flex;
@@ -348,12 +371,14 @@ class Settings extends Component {
                   <p>New Password <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
                 </Password>
               }
+              <Buttons>
                 <button className = 'save-settings' type = 'submit' >
                   Save settings
                 </button>
                 <button className = 'delete-btn' type = 'button' onClick={ this.toggleDeleteModal }>
                   Delete account
                 </button>
+              </Buttons>
               {showDeleteModal && (
                 <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
                 )}

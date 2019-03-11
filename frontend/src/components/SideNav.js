@@ -42,16 +42,24 @@ const DivHeader = styled.div`
     }
 
     @media(max-width: 1345px) {
-      display: none;
+      align-self: flex-start;
+      margin: 0 10px 10px 10px;
+    }
+
+    @media ${phoneL} {
+      margin: 0 10px;
+      padding: 10px;
     }
   }
 
   @media(max-width: 1345px) {
-    margin: 20px;
+    flex-direction: column-reverse;
+    margin: 0 20px 20px 20px;
   }
 
   @media ${phoneL} {
     margin: 0 10px;
+    justify-content: flex-end;
   }
 `;
 
@@ -63,6 +71,14 @@ const H4BrowseCategories = styled.h4`
       display: flex;
       width: auto;
       border: none;
+      margin: 0 20px;
+    }
+
+    @media ${phoneL} {
+      display: flex;
+      width: auto;
+      border: none;
+      margin: 0 0 0 20px;
     }
 `;
 
@@ -117,12 +133,13 @@ const H4CategoriesFollowedTitle = styled.h4`
 
   @media (max-width: 1345px) {
     display: block;
-    margin: 0;
+    margin: 8px 0 0 0;
     color: gray;
   }
 
   @media ${phoneL} {
     font-size: 12px;
+    margin: 9px 0
   }
 `;
 

@@ -14,10 +14,12 @@ import { ToolTip } from './index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const FollowWrapper = styled.div`
+display: flex;
+width: 15%;
 `;
 
 const Followed = styled.div`
-  width: fit-content;
+  width: 100%;
   position: relative;
   
   &:hover {
@@ -35,8 +37,12 @@ const Followed = styled.div`
     color: white;
     padding: 4px;
     font-size: 12px;
-    width: 117px;
+    width: 100%;
   }
+
+  @media (max-width: 525px) {
+  width: 100%;
+}
 `;
 
 
