@@ -9,6 +9,7 @@ const getCategories = (order, orderType) => {
       'c.id',
       'c.user_id',
       'c.created_at',
+      'c.icon'
     )
     .count('d.id as discussion_count')
     .leftOuterJoin('users as u', 'u.id', 'c.user_id')
