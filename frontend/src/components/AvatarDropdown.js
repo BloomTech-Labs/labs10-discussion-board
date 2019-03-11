@@ -16,7 +16,7 @@ const DivAvatarModal = styled.div`
 const DivModalCloser = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   z-index: 9997;
@@ -26,7 +26,7 @@ const DivAvatarDropdown = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 9999;
-  position: absolute;
+  position: fixed;
   right: 0;
   background-color: white;
   margin-top: -2px;

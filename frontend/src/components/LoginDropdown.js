@@ -27,7 +27,7 @@ const FormLogin = styled.form`
   display: flex;
   flex-direction: column;
   z-index: 9999;
-  position: absolute;
+  position: fixed;
   right: 0;
   width: 270px;
   border: 2px solid ${props => props.theme.borderColor};
