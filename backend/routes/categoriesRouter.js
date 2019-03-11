@@ -11,6 +11,7 @@ const router = express.Router();
  ******************************************* middleware ******************************************
  **************************************************************************************************/
 const { authenticate } = require('../config/middleware/authenticate.js');
+const { authorizeCreateCat } = require('../config/middleware/authorization.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
@@ -63,7 +64,7 @@ router.get('/search', (req, res) => {
 // });
 
 //Add Category
-router.post('/:user_id', authenticate, (req, res) => {
+router.post('/:user_id', authenticate, authorizeCreateCat, (req, res) => {
   const { user_id } = req.params;
   let { name } = req.body;
   name = name.trim();
@@ -73,7 +74,7 @@ router.post('/:user_id', authenticate, (req, res) => {
       let category = { name, user_id };
       category.created_at = Date.now();
       return categoriesDB.insert(category)
-        .then(newId => res.status(200).json(newId))
+        .then(newId => res.status(201).json(newId))
         .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
     })
     .catch(err => res.status(500).json({ error: `Failed to getCategoryByName(): ${err}` }));

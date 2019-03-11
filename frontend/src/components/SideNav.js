@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getCategoriesFollowed } from '../store/actions/index.js';
 
 // globals
-import { phoneL } from '../globals/globals.js';
+import { phoneL, accountUserTypes, addCatPermStartIndex } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -249,6 +249,23 @@ const DivWindows = styled.div`
   }
 `;
 
+const PNoCatFollowMessage = styled.p`
+  display: ${props => props.isfollowedcatsopen === 'true' ? 'flex' : 'none'};
+  margin: 0 0 0 60px;
+  width: 180px;
+  height: 50px;
+  color: red;
+  justify-content: center;
+
+  @media(max-width: 1345px) {
+    margin: 20px 0 0 60px;
+  }
+
+  @media ${phoneL} {
+    margin: 20px 0 0 5px;
+  }
+`;
+
 const LiCategoryFollowed = styled.li`
   display: ${props => props.isfollowedcatsopen === 'true' ? 'list-item' : 'none'};
   padding-left: 42px;
@@ -377,6 +394,8 @@ class SideNav extends Component {
   }
 
   render() {
+    const { user_type } = this.props;
+
     return (
       <DivSideNav>
         <DivHeader>
@@ -390,7 +409,9 @@ class SideNav extends Component {
               onClick={() => this.selectLink('BrowseCategories')}
             ><i className="fas fa-book-open" />Browse&nbsp;Categories</LinkBrowseCategories>
           </H4BrowseCategories>
-          <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+          {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
+            <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+          }
         </DivHeader>
         <DivCategoriesFollowed>
           <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle>
@@ -406,9 +427,9 @@ class SideNav extends Component {
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
             </H4AllPosts>
             <ul>
-              {this.state.categories.map((category, index) => (
+              {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
                 <LiCategoryFollowed isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} key={index} islinkselected={(this.state.linkSelected === category.name).toString()}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={(this.state.linkSelected === category.name).toString()} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={(this.state.linkSelected === category.name).toString()} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
-              ))}
+              )))}
             </ul>
           </DivCatFollowItems>
         </DivCategoriesFollowed>
@@ -420,6 +441,7 @@ class SideNav extends Component {
 const mapStateToProps = state => ({
   user_id: state.users.user_id,
   categoryFollows: state.users.categoryFollows,
+  user_type: state.users.user_type,
   categoriesFollowed: state.categories.categoriesFollowed
 });
 
