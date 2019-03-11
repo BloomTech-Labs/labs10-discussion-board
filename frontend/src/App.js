@@ -71,12 +71,12 @@ const AppWrapper = styled.div`
 const DivBody = styled.div`
   display: flex;
   flex-direction: row;
-  width: calc(100% - ${sideNavWidth});
+  width: ${props => props.isLoggedIn ? 'calc(100% - ' + sideNavWidth + ')' : '100%'};
   min-height: 100%;
   flex-grow: 1;
   justify-content: center;
   align-items: flex-start;
-  margin: 0 0 40px ${sideNavWidth};
+  margin: ${props => props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'}  ;
 
   @media(max-width: 1345px) {
     width: 100%;
@@ -87,7 +87,7 @@ const DivBody = styled.div`
 `;
 
 const DivSideNav = styled.div`
-  display: flex;
+  display: ${props => props.isLoggedIn ? 'flex' : 'none'};
   min-width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
@@ -199,6 +199,9 @@ class App extends Component {
     const { showSearch, isDay } = this.state;
     const { error, history, message, location } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
+      if ((this.isAuthenticated() || localStorage.getItem('symposium_user_id'))) {
+        console.log('loggedIn')
+      }
       return (
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
@@ -206,8 +209,8 @@ class App extends Component {
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
             <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
             <Notifications history={history} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
-            <DivBody>
-              <DivSideNav>
+            <DivBody isLoggedIn>
+              <DivSideNav isLoggedIn>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
