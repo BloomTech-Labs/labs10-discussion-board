@@ -15,7 +15,7 @@ import { ToolTip } from './index.js';
  **************************************************************************************************/
 const FollowWrapper = styled.div`
 display: flex;
-width: 20%;
+width: 15%;
 `;
 
 const Followed = styled.div`

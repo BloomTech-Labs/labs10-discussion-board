@@ -36,6 +36,7 @@ const PostWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 16px;
+  border-bottom: 1px solid black;
 
   .title {
     margin-top: 30px;

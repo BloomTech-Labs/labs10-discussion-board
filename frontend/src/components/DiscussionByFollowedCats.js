@@ -18,11 +18,11 @@ const DiscussionWrapper = styled.div`
 	justify-content: flex-start;
 	width: 100%;
 	margin-bottom: 20px;
-	border-radius: 5px;
 	padding: 5px;
+	border-bottom: 1px solid black;
 
 	&:hover {
-		background-color: #d3d3d3;
+		background-color: white;
 		cursor: pointer;
 	}
 `;

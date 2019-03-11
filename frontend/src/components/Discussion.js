@@ -60,9 +60,9 @@ const SubWrapper = styled.div`
 `;
 
 const DiscussionContent = styled.div`
-  margin-top: 20px;
+  margin: 20px 0px 10px 0px;
   display: flex;
-  // color: darkgray;
+  border-bottom: 1px solid black;
 
   p {
     font-size: 22px;
@@ -71,6 +71,7 @@ const DiscussionContent = styled.div`
 `;
 
 const PostHeader = styled.div`
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -117,13 +118,18 @@ const Posts = styled.div``;
 const AddPostBtn = styled.div``;
 
 const CommentSort = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px; 
+  margin: 15px 0px; 
  
+
+  .title {
+    font-weight: bold;
+    font-size: 18px;
+  }
 `;
 
 const Sort = styled.span`
@@ -186,6 +192,7 @@ color: black;
 const PostedBy = styled.div`
   width: 100%;
   display: flex;
+  justify-content: space-evenly;
   margin-left: -25px;
 
   .c-name {

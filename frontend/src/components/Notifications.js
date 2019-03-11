@@ -35,8 +35,8 @@ const NotificationsWrapper = styled.div`
 	position: fixed;
 	border: 1px solid ${props => props.theme.borderColor};
 	border-radius: 5px;
-	background-color: white;
-	color: black;
+	background-color: ${props => props.theme.notificationBackgroundColor};
+	color: ${props => props.theme.notificationFontColor};
 	padding: 5px;
 	width: 310px;
 	top: 63px;
