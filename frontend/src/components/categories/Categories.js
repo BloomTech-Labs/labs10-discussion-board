@@ -42,7 +42,7 @@ const DivCategoryListTitles = styled.div`
     }
 
     &:last-child {
-      padding: 0 98px 0 20px;
+      padding: 0 98px 0 56px;
       @media (max-width: 775px) {
         display: none;
       }
@@ -65,12 +65,12 @@ const DivCategoryRows = styled.div`
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const Categories = ({ categories }) => {
+const Categories = ({ categories, history }) => {
   return (
     <DivCategories>
       <DivCategoryListTitles>
         <h2>Category</h2>
-        <h2>Created&nbsp;At</h2>
+        <h2>Created</h2>
         <h2>Super&nbsp;Moderator</h2>
       </DivCategoryListTitles>
       <DivCategoryRows>
@@ -79,6 +79,7 @@ const Categories = ({ categories }) => {
             <Category
               key={index}
               category={category}
+              history={history}
             />)
         }
       </DivCategoryRows>
