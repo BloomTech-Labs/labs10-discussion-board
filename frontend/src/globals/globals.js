@@ -8,6 +8,9 @@ const pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
 const sideNavWidth = '300px';
 const stripePayFormat = [999, 1999, 2999]; // matching subscriptionPrices
 const stripeToken = process.env.REACT_APP_STRIPE_TOKEN;
+const accountUserTypes = ['user', 'bronze_member', 'silver_member', 'gold_member', 'admin']; // Must match with globals on front end
+const addCatPermStartIndex = 2;
+const addPostPermStartIndex = 1;
 const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
 const subscriptionPrices = ['$0.00', '$9.99/yr', '$19.99/yr', '$29.99/yr']; // same order as subscriptionPlans
 const searchCharLimit = 64; // limits the max number of characters to return in a search
@@ -64,6 +67,7 @@ const dayTheme = {
   errorBoxBgColor: '#C9C19F',
   errorBoxPColor: '#b30000',
   footerColor: '#2C2E31',
+  headerBg: 'white',
   headerLinkColor: 'white',
   headerLinkColorHov: 'black',
   headerTitleColor: 'white',
@@ -128,14 +132,14 @@ const dayTheme = {
   topDiscussionCatBgColorHov: 'rgba(255, 255, 255, 0.13)',
   topDiscussionNameDateColor: 'black',
   topDiscussionNameDateBgColor: 'rgba(255, 255, 255, 0.13)',
-  topDiscussionElipBgColor: '#54bdff',
+  topDiscussionElipBgColor: 'rgba(60, 57, 57)',
   skyColor: '#37d8e6',
   symposiumBorderColor: '#f1c40f',
 
 };
 
 const nightTheme = {
-  appBgColor: '#330136',
+  appBgColor: 'rgba(60, 57, 57)',
   authBgColor: 'gray',
   authColor: 'white',
   authLinkRegColor: 'white',
@@ -170,6 +174,7 @@ const nightTheme = {
   errorBoxBgColor: 'red',
   errorBoxPColor: 'purple',
   footerColor: '#2C2E31',
+  headerBg: 'rgba(60, 57, 57)',
   headerLinkColor: 'white',
   headerLinkColorHov: 'white',
   headerTitleColor: 'white',
@@ -177,7 +182,7 @@ const nightTheme = {
   headerTitleAColorHov: 'white',
   headerTitleSubheaderColor: 'white',
   highlightWrapperColor: 'white',
-  landingViewWrapperBgColor: '#2A3240',
+  landingViewWrapperBgColor: 'rgba(60, 57, 57)',
   messageWrapperBgColor: 'rgba(0, 0, 0, 0.8)',
   messageBoxBgColor: 'pink',
   messageBoxBorder: '1px solid white',
@@ -216,11 +221,11 @@ const nightTheme = {
   searchPostResultWrapperTypeColor: 'black',
   searchPostResultWrapperUsernameBgColorHov: 'green',
   searchPostResultWrapperUsernameColorHov: 'black',
-  settingsBgColor: 'rgba(100, 200, 255, 0.80)',
+  settingsBgColor: 'rgba(60, 57, 57)',
   settingsBxShdw: '4px 6px 4px 4px #yellow',
-  settingsButtonHov: 'pink',
-  settingsDeleteButtonBg: 'purple',
-  settingsDeleteButtonBgColor: 'black',
+  settingsButtonHov: 'grey',
+  settingsDeleteButtonBg: 'red',
+  settingsDeleteButtonBgColor: 'white',
   settingsEditAvatarButtonBgHov: 'red',
   tooltipWrapperBgColor: 'white',
   tooltipWrapperColor: 'black',
@@ -240,6 +245,9 @@ const nightTheme = {
 
 module.exports = {
   accountStatusTypes,
+  accountUserTypes,
+  addCatPermStartIndex,
+  addPostPermStartIndex,
   auth0ClientID,
   auth0Domain,
   auth0RedirectUri,

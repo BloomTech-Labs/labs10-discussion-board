@@ -9,9 +9,9 @@ import {
   displayError,
   isUsernameTaken,
   isEmailTaken,
-  stripePayment
+  stripePayment,
 } from '../store/actions/index';
-import { Avatar } from '../components/index.js';
+import { Avatar, ToolTip } from '../components/index.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -20,6 +20,28 @@ const DivWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  .tooltip {
+    z-index: 9000;
+    position: relative;
+
+    &:hover {
+      .tooltiptext {
+        margin-top: 20px;
+        visibility: visible;
+        opacity: 1;
+        color: white;
+      }
+    }
+  }
+
+  @media (max-width: 620px) {
+    .tooltip {
+      .tooltiptext {
+        display: none;
+      }
+    }
+  }
 `;
 
 const H1Register = styled.h1`
@@ -83,7 +105,7 @@ const DivBanner = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 350px;
+  height: 390px;
   cursor: pointer;
 
   input {
@@ -93,7 +115,7 @@ const DivBanner = styled.div`
     cursor: pointer;
   }
 
-  @media ${tabletL} {
+  @media(max-width: 1080px) {
     width: 49.9%;
   }
 
@@ -153,7 +175,7 @@ const DivFeatures = styled.div`
 
 const DivFreePlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[0]
@@ -203,7 +225,7 @@ const DivFreePlan = styled.div`
 
 const DivBronzePlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[1]
@@ -253,7 +275,7 @@ const DivBronzePlan = styled.div`
 
 const DivSilverPlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[2]
@@ -303,7 +325,7 @@ const DivSilverPlan = styled.div`
 
 const DivGoldPlan = styled.div`
   display: flex;
-  width: 214px;
+  width: 255px;
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[3]
@@ -388,9 +410,11 @@ const DivAccountDetails = styled.div`
 const DivLeftSide = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 25px;
 
   @media ${phoneL} {
     align-items: center;
+    margin: 0;
   }
 `;
 
@@ -513,6 +537,7 @@ const TextareaSignature = styled.textarea`
 const DivRightSide = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: 25px;
 
   @media ${phoneL} {
     width: 80%;
@@ -552,6 +577,13 @@ const DivAvatar = styled.div`
   }
 `;
 
+const DivAvatarImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 const DivRegistryButtons = styled.div`
   display: flex;
   flex-direction: row;
@@ -567,6 +599,7 @@ const DivRegistryButtons = styled.div`
     background: lime;
     font-weight: bold;
     font-size: 20px;
+    margin-right: 23px;
     cursor: pointer;
     border-top: 2px solid rgb(0, 234, 0);
     border-left: 2px solid rgb(0, 234, 0);
@@ -589,6 +622,7 @@ const DivRegistryButtons = styled.div`
     button {
       width: 100%;
       padding: 15px 0;
+      margin-right: 0;
     }
   }
 `;
@@ -611,6 +645,7 @@ const ButtonCancel = styled(Link)`
   border-bottom: 3px solid rgb(137, 0, 0);
   border-right: 3px solid rgb(137, 0, 0);
   outline: none;
+  margin-left: 14px;
 
   &:active {
     border-bottom: 3px solid rgb(221, 0, 0);
@@ -622,6 +657,7 @@ const ButtonCancel = styled(Link)`
   @media ${phoneL} {
     width: 100%;
     padding: 15px 0;
+    margin-left: 0;
   }
 `;
 
@@ -1130,7 +1166,8 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[0]}</h4>
@@ -1155,8 +1192,9 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
-                          <li>Add Discussions</li>
+                          <li>Add Posts to Categories</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[1]}</h4>
@@ -1181,10 +1219,11 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
-                          <li>Add Discussions</li>
-                          <li>Add Categories</li>
                           <li>Gets Signature</li>
+                          <li>Add Categories</li>
+                          <li>Add Posts to Categories</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[2]}</h4>
@@ -1209,11 +1248,12 @@ class RegisterView extends Component {
                         <ul>
                           <li>Account Profile</li>
                           <li>Account Settings</li>
-                          <li>Add Posts</li>
-                          <li>Add Discussions</li>
-                          <li>Add Categories</li>
                           <li>Gets Signature</li>
                           <li>Gets Avatar</li>
+                          <li>Add Categories</li>
+                          <li>Add Posts to Categories</li>
+                          <li>Add Comments to Posts</li>
+                          <li>Add Replies to Comments</li>
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[3]}</h4>
@@ -1252,11 +1292,28 @@ class RegisterView extends Component {
                             alt='spinner'
                           />
                         )}
-                      {(this.state.username === '' ||
-                        (!this.props.userExistsLoadingMessage &&
-                          this.props.usernameTaken)) && (
-                          <img src={require('../assets/img/redX.png')} alt='X' />
-                        )}
+                      {
+                        this.state.username === "" ?
+                          <span className='tooltip'>
+                            <img src={require('../assets/img/redX.png')} alt='X' />
+                            <ToolTip
+                              text='Invalid username.' // must  be any string
+                              arrow='left' // must be string that says 'top', 'right', 'left', or 'bottom'
+                              width={200} // must be a number
+                            />
+                          </span> :
+                          (!this.props.userExistsLoadingMessage &&
+                            this.props.usernameTaken) && (
+                            <span className='tooltip'>
+                              <img src={require('../assets/img/redX.png')} alt='X' />
+                              <ToolTip
+                                text='Username already taken.' // must  be any string
+                                arrow='left' // must be string that says 'top', 'right', 'left', or 'bottom'
+                                width={200} // must be a number
+                              />
+                            </span>
+                          )
+                      }
                       {this.state.username !== '' &&
                         !this.props.userExistsLoadingMessage &&
                         !this.props.usernameTaken && (
@@ -1298,7 +1355,14 @@ class RegisterView extends Component {
                       {this.state.email !== '' &&
                         !this.props.emailExistsLoadingMessage &&
                         this.props.emailTaken && (
-                          <img src={require('../assets/img/redX.png')} alt='X' />
+                          <span className='tooltip'>
+                            <img src={require('../assets/img/redX.png')} alt='X' />
+                            <ToolTip
+                              text='Email is already taken.' // must  be any string
+                              arrow='left' // must be string that says 'top', 'right', 'left', or 'bottom'
+                              width={200} // must be a number
+                            />
+                          </span>
                         )}
                       {this.state.email !== '' &&
                         !this.props.emailExistsLoadingMessage &&
@@ -1333,7 +1397,9 @@ class RegisterView extends Component {
                   </DivLeftSide>
                   <DivRightSide subPlan={this.state.subPlan === subscriptionPlans[3]}>
                     <DivAvatar subPlan={this.state.subPlan}>
-                      <Avatar height={'72px'} width={'72px'} src={this.state.avatar} />
+                      <DivAvatarImg>
+                        <Avatar height={'72px'} width={'72px'} src={this.state.avatar} />
+                      </DivAvatarImg>
                       <input
                         onChange={this.handleInputChange}
                         placeholder='PNG URL...'

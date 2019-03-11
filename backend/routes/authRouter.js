@@ -7,7 +7,7 @@ const {
   safePwdSqlLetters,
   accountStatusTypes,
   numOfHashes,
-  accountRoleTypes,
+  accountUserTypes,
   subscriptionPlans,
   backendStripePkToken
 } = require('../config/globals.js');
@@ -17,6 +17,7 @@ const router = express.Router();
 const uuidv4 = require('uuid/v4');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
+const { categoryFollowsDB } = require('../db/models/index.js');
 const stripe = require('stripe')(backendStripePkToken);
 
 /***************************************************************************************************
@@ -102,7 +103,7 @@ router.post('/register', requestClientIP, (req, res) => {
   // add user
   return db
     .insert(newUserCreds) // [ { id: 1, username: 'username', email: 'email' } ]
-    .then(userAddedResults => {
+    .then(async userAddedResults => {
       let email_confirm = null;
 
       // if they registered with an email, send a confirmation email
@@ -110,7 +111,8 @@ router.post('/register', requestClientIP, (req, res) => {
         // generate a random uuid for email confirmation URL
         email_confirm = uuidv4();
       }
-      db.addEmailConfirm(userAddedResults[0].id, email_confirm);
+      await db.addEmailConfirm(userAddedResults[0].id, email_confirm);
+      await categoryFollowsDB.addDefaultCategoryFollows(userAddedResults[0].id);
       return Promise.resolve([userAddedResults, email_confirm]);
     })
     .then(([userAddedResults, email_confirm]) => {
@@ -121,24 +123,24 @@ router.post('/register', requestClientIP, (req, res) => {
 
       // set account type
       if (req.body.subPlan === subscriptionPlans[0]) {
-        userSettings.user_type = accountRoleTypes[0];
+        userSettings.user_type = accountUserTypes[0];
         userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[1]) {
-        userSettings.user_type = accountRoleTypes[1];
+        userSettings.user_type = accountUserTypes[1];
         userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[2]) {
-        userSettings.user_type = accountRoleTypes[2];
+        userSettings.user_type = accountUserTypes[2];
         userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[3]) {
-        userSettings.user_type = accountRoleTypes[3];
+        userSettings.user_type = accountUserTypes[3];
         userSettings.subscribed_at = accountCreatedAt;
       }
 
       // signature given and is gold/silver sub
       // prettier-ignore
       if (
-        userSettings.user_type === accountRoleTypes[2] || // silver
-        userSettings.user_type === accountRoleTypes[3] // gold
+        userSettings.user_type === accountUserTypes[2] || // silver
+        userSettings.user_type === accountUserTypes[3] // gold
       ) {
         userSettings.signature = req.body.signature || '';
       }
@@ -424,6 +426,8 @@ router.post('/auth0-login', async (req, res) => {
             userSettings.subscribed_at = accountCreatedAt;
             await db.addUserSettings(userSettings);
           }
+
+          await categoryFollowsDB.addDefaultCategoryFollows(userAddedResults[0].id);
 
           return db
             .findByUsername(userAddedResults[0].username)

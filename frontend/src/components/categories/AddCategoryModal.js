@@ -5,6 +5,9 @@ import styled from 'styled-components';
 // action creators
 import { addCategory } from '../../store/actions/index.js';
 
+// globals
+import { phoneL, topHeaderHeight } from '../../globals/globals.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
@@ -21,7 +24,10 @@ const ModalBackground = styled.div`
   background: rgba(0, 0, 0, 0.8);
   user-select: none;
 
-  
+  @media ${phoneL} {
+    z-index: 9950;
+    margin-top: ${topHeaderHeight};
+  }
 `;
 
 const DivModal = styled.div`
@@ -38,6 +44,22 @@ const DivModal = styled.div`
     width: 100%;
     text-align: center;
     margin: 0 0 0.67em 0;
+
+    @media ${phoneL} {
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  @media ${phoneL} {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border-radius: 0;
   }
 `;
 
@@ -48,11 +70,24 @@ const DivModalCloser = styled.div`
   top: 0;
   right: 0;
   z-index: 8002;
+
+  @media ${phoneL} {
+    display: none;
+  }
 `;
 
 const FormContent = styled.form`
   display: flex;
   justify-content: space-between;
+
+  @media ${phoneL} {
+    height: 90%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: ${topHeaderHeight};
+  }
 `;
 
 const DivLeft = styled.div`
@@ -73,6 +108,18 @@ const DivLeft = styled.div`
     &:not(:last-child) {
       margin-bottom: 20px;
     }
+
+    @media ${phoneL} {
+      padding: 15px 0;
+      width: 50%;
+    }
+  }
+
+  @media ${phoneL} {
+    align-items: center;
+    width: 100%;
+    height: 40%;
+    padding-top: 20px;
   }
 `;
 
@@ -89,12 +136,23 @@ const DivRight = styled.div`
   flex-direction: column;
   width: 60%;
   justify-content: space-between;
+
+  @media ${phoneL} {
+    width: 100%;
+    height: 60%;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const DivName = styled.div`
 
   label {
     margin-right: 15px;
+    @media ${phoneL} {
+      align-self: flex-start;
+      margin: 0;
+    }
   }
 
   input {
@@ -109,6 +167,20 @@ const DivName = styled.div`
       border-bottom: 2px solid rgba(63, 168, 234, 0.1);
       border-right: 2px solid rgba(63, 168, 234, 0.1);
     }
+
+    @media ${phoneL} {
+      padding: 10px;
+      width: 100%;
+    }
+  }
+
+  @media ${phoneL} {
+    display: flex;
+    height: 20%;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 `;
 
@@ -164,7 +236,26 @@ const DivButtons = styled.div`
       &:hover {
         background-color: rgb(255, 0, 0);
       }
+
+      @media ${phoneL} {
+        margin: 0;
+      }
     }
+
+    @media ${phoneL} {
+      width: 100%;
+      padding: 20px;
+      border-radius: 0;
+    }
+  }
+
+  @media ${phoneL} {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column-reverse;
   }
 `;
 

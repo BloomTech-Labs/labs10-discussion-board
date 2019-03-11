@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// globals
+import { phoneL, accountUserTypes, addCatPermStartIndex } from '../../globals/globals.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
@@ -8,12 +11,25 @@ const DivNav = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 15px 10px 20px 10px;
+
+  @media ${phoneL} {
+    flex-direction: column-reverse;
+    padding: 15px;
+  }
 `;
 
 const DivSort = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 775px) {
+    flex-direction: column;
+  }
+
+  @media ${phoneL} {
+    width: auto;
+  }
 `;
 
 const H3SortLabel = styled.h3``;
@@ -23,6 +39,16 @@ const DivButtons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 20px;
+
+  @media (max-width: 775px) {
+    align-items: flex-end;
+  }
+
+  @media ${phoneL} {
+    width: auto;
+    margin: 0;
+  }
 `;
 
 const ButtonAddCategory = styled.button`
@@ -30,10 +56,9 @@ const ButtonAddCategory = styled.button`
   justify-content: center;
   align-items: center;
   background: rgb(0, 200, 0);
-  height: 45px;
-  width: 90%;
   border-radius: 5px;
   outline: none;
+  padding: 10px 15px;
   cursor: pointer;
   font-weight: bold;
   font-size: 18px;
@@ -53,6 +78,10 @@ const ButtonAddCategory = styled.button`
   &:hover {
     background-color: rgb(0, 255, 0);
   }
+
+  @media ${phoneL} {
+    width: 100%;
+  }
 `;
 
 const SelectSortDropdown = styled.select`
@@ -64,7 +93,7 @@ const SelectSortDropdown = styled.select`
   line-height: 1.5em;
   padding: 0.5em 3em 0.5em 1em;
   outline: none;
-  width: 35%;
+  width: 180px;
   text-align-last: center;
   margin: 10px;
   box-sizing: border-box;
@@ -81,17 +110,20 @@ const SelectSortDropdown = styled.select`
   option {
     font-size: 18px;
   }
+
+  @media ${phoneL} {
+    width: 70%;
+  }
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id }) => {
-
+const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id, user_type }) => {
   return (
     <DivNav>
       <DivSort>
-        <H3SortLabel>Sort By:</H3SortLabel>
+        <H3SortLabel>Sort&nbsp;By:</H3SortLabel>
         <SelectSortDropdown onChange={sortHandler} name='order'>
           <option value='name'>name</option>
           <option value='discussion_count'>discussions</option>
@@ -112,11 +144,13 @@ const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id }) =>
           </option>
         </SelectSortDropdown>
       </DivSort>
-      <DivButtons>
-        <ButtonAddCategory onClick={(ev) => setAddCatModalRaised(ev, true)} user_id={user_id}>
-          Add Category
-        </ButtonAddCategory>
-      </DivButtons>
+      {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
+        <DivButtons>
+          <ButtonAddCategory onClick={(ev) => setAddCatModalRaised(ev, true)} user_id={user_id}>
+            Add&nbsp;Category
+          </ButtonAddCategory>
+        </DivButtons>
+      }
     </DivNav>
   );
 };

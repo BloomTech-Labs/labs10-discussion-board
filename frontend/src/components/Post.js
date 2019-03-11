@@ -12,7 +12,14 @@ import {
 } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, EditPostForm, VoteCount, Deleted, Avatar, Quote } from './index.js';
+import {
+  AddReplyForm,
+  // EditPostForm,
+  VoteCount,
+  Deleted,
+  // Avatar,
+  // Quote,
+} from './index.js';
 
 import { RepliesView } from '../views/index.js';
 

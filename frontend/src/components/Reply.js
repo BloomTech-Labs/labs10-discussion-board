@@ -103,7 +103,7 @@ const Reply = ({
             <p>{body}</p>
             <PostedBy>
                 <div className = 'r-creator'>
-                    <img alt='picture' src={avatar} />              
+                    <img alt='user' src={avatar} />              
                     {
                         username ?
                         <Link className='username' to={`/profile/${user_id}`}>

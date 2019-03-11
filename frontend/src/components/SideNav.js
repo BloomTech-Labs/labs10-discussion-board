@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getCategoriesFollowed } from '../store/actions/index.js';
 
 // globals
-import { phoneL } from '../globals/globals.js';
+import { phoneL, accountUserTypes, addCatPermStartIndex } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -107,7 +107,26 @@ const LinkBrowseCategories = styled(Link)`
   }
 `;
 
-const DivCatFollowList = styled.div`
+const DivCategoriesFollowed = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const H4CategoriesFollowedTitle = styled.h4`
+  display: none;
+
+  @media (max-width: 1345px) {
+    display: block;
+    margin: 0;
+    color: gray;
+  }
+
+  @media ${phoneL} {
+    font-size: 12px;
+  }
+`;
+
+const DivCatFollowItems = styled.div`
   ul {
     list-style: none;
     padding-left: 0;
@@ -124,6 +143,10 @@ const DivCatFollowList = styled.div`
 
   @media(max-width: 1345px) {
     display: flex;
+  }
+
+  @media ${phoneL} {
+    margin-top: -15px;
   }
 `;
 
@@ -223,6 +246,23 @@ const DivWindows = styled.div`
       width: 42%;
       height: 32%;
     }
+  }
+`;
+
+const PNoCatFollowMessage = styled.p`
+  display: ${props => props.isfollowedcatsopen === 'true' ? 'flex' : 'none'};
+  margin: 0 0 0 60px;
+  width: 180px;
+  height: 50px;
+  color: red;
+  justify-content: center;
+
+  @media(max-width: 1345px) {
+    margin: 20px 0 0 60px;
+  }
+
+  @media ${phoneL} {
+    margin: 20px 0 0 5px;
   }
 `;
 
@@ -354,6 +394,8 @@ class SideNav extends Component {
   }
 
   render() {
+    const { user_type } = this.props;
+
     return (
       <DivSideNav>
         <DivHeader>
@@ -367,25 +409,30 @@ class SideNav extends Component {
               onClick={() => this.selectLink('BrowseCategories')}
             ><i className="fas fa-book-open" />Browse&nbsp;Categories</LinkBrowseCategories>
           </H4BrowseCategories>
-          <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+          {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
+            <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
+          }
         </DivHeader>
-        <DivCatFollowList>
-          <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
-            <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
-            <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
-              <DivWindows>
-                <div className='div-window' />
-                <div className='div-window' />
-                <div className='div-window' />
-                <div className='div-window' />
-              </DivWindows>All&nbsp;Posts</LinkAllPosts>
-          </H4AllPosts>
-          <ul>
-            {this.state.categories.map((category, index) => (
-              <LiCategoryFollowed isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} key={index} islinkselected={(this.state.linkSelected === category.name).toString()}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={(this.state.linkSelected === category.name).toString()} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={(this.state.linkSelected === category.name).toString()} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
-            ))}
-          </ul>
-        </DivCatFollowList>
+        <DivCategoriesFollowed>
+          <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle>
+          <DivCatFollowItems>
+            <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+              <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
+              <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+                <DivWindows>
+                  <div className='div-window' />
+                  <div className='div-window' />
+                  <div className='div-window' />
+                  <div className='div-window' />
+                </DivWindows>All&nbsp;Posts</LinkAllPosts>
+            </H4AllPosts>
+            <ul>
+              {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
+                <LiCategoryFollowed isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} key={index} islinkselected={(this.state.linkSelected === category.name).toString()}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={(this.state.linkSelected === category.name).toString()} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={(this.state.linkSelected === category.name).toString()} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
+              )))}
+            </ul>
+          </DivCatFollowItems>
+        </DivCategoriesFollowed>
       </DivSideNav>
     );
   }
@@ -394,6 +441,7 @@ class SideNav extends Component {
 const mapStateToProps = state => ({
   user_id: state.users.user_id,
   categoryFollows: state.users.categoryFollows,
+  user_type: state.users.user_type,
   categoriesFollowed: state.categories.categoriesFollowed
 });
 
