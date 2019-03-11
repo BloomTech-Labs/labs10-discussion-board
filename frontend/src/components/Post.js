@@ -146,7 +146,6 @@ const Post = ({
     discussion_id,
     id,
     last_edited_at,
-    upvotes,
     downvotes,
     replies,
     user_id,
@@ -154,7 +153,6 @@ const Post = ({
     user_vote,
     avatar,
     upvotes,
-    downvotes,
     // signature,
   } = post;
 
