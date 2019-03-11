@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from './index.
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
 
 // globals
-import { tabletP, phoneP } from '../globals/globals.js';
+import { tabletP, phoneP, accountUserTypes, addPostPermStartIndex } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -21,10 +21,11 @@ const DiscussionsWrapper = styled.div`
 	flex-direction: column;
 	padding: 10px;
 	position: relative;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
-	width: 740px;
-	min-height: 100%;
+	width: 95%;
+	min-height: 100vh;
+	color: ${props => props.theme.discussionPostColor};
 
 	hr {
 		width: 100%;
@@ -38,7 +39,7 @@ const DiscussionsWrapper = styled.div`
 		justify-content: center;
 		align-items: center;
 		width: 95%;
-
+		color: ${props => props.theme.discussionPostColor};
 		@media ${ tabletP } {
 			width: 100%;
 		}
@@ -57,7 +58,7 @@ const DiscussionHeader = styled.div`
 		font-size: 36px;
 		flex-grow: 2;
 
-		@media ${ tabletP } {
+		@media ${ tabletP} {
 			flex-grow: 0;
 		}
 	}
@@ -65,13 +66,14 @@ const DiscussionHeader = styled.div`
 	.filter-wrapper {
 		i {
 			margin-right: 5px;
+			color: ${props => props.theme.discussionPostColor};
 		}
 
 		.filter {
 			border: none;
 			background-color: rgba(0, 0, 0, 0);
 			padding: 5px;
-
+			color: ${props => props.theme.discussionPostColor};
 			&:focus {
 				outline: none;
 			}
@@ -86,7 +88,7 @@ const DiscussionHeader = styled.div`
 		background-color: #418DCF;
 		color: white;
 
-		@media ${ phoneP } {
+		@media ${ phoneP} {
 			width: 100%;
 			margin-left: 0;
 		}
@@ -110,123 +112,125 @@ const mostComments = 'most comments';
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class DiscussionsByCats extends Component {
-	state = {
-		order: 'created_at', // possible values: 'created_at', 'post_count', 'discussion_votes'
-		orderType: '', // possible values: 'desc', 'asc'
-		showAddDiscussionForm: false,
-	};
-	toggleAddDiscussionForm = () => this.setState({
-		showAddDiscussionForm: !this.state.showAddDiscussionForm,
-	});
-	handleDiscussionVote = (discussion_id, type) => {
-		const { order, orderType } = this.state;
-		const { getDiscussionsByCat, handleDiscussionVote, match } = this.props;
-		return handleDiscussionVote(discussion_id, type)
-			.then(() => getDiscussionsByCat(match.params.category_id, order, orderType));
-	};
-	handleSelectChange = e => {
-		let order = 'created_at';
-		let orderType;
-		switch(e.target.value) {
-			case newest:
-				order = 'created_at';
-				orderType = 'desc';
-				break;
-			case oldest:
-				order = 'created_at';
-				orderType = 'asc';
-				break;
-			case mostUpvotes:
-				order = 'upvotes';
-				orderType = 'desc';
-				break;
-			case mostViews:
-				order = 'views';
-				orderType = 'desc';
-				break;
-			case mostComments:
-				order = 'post_count';
-				orderType = 'desc';
-				break;
-			default:
-				break;
-		};
-		return this.setState({ order, orderType }, () => {
-			return this.props.getDiscussionsByCat(this.props.match.params.category_id, this.state.order, this.state.orderType);
-		});
-	};
-	getDiscussions = () => {
-		const { order, orderType } = this.state;
-		const { getDiscussionsByCat, match } = this.props;
-		return getDiscussionsByCat(match.params.category_id, order, orderType);
-	};
-	componentDidMount = () => this.getDiscussions();
+  state = {
+    order: 'created_at', // possible values: 'created_at', 'post_count', 'discussion_votes'
+    orderType: '', // possible values: 'desc', 'asc'
+    showAddDiscussionForm: false,
+  };
+  toggleAddDiscussionForm = () => this.setState({
+    showAddDiscussionForm: !this.state.showAddDiscussionForm,
+  });
+  handleDiscussionVote = (discussion_id, type) => {
+    const { order, orderType } = this.state;
+    const { getDiscussionsByCat, handleDiscussionVote, match } = this.props;
+    return handleDiscussionVote(discussion_id, type)
+      .then(() => getDiscussionsByCat(match.params.category_id, order, orderType));
+  };
+  handleSelectChange = e => {
+    let order = 'created_at';
+    let orderType;
+    switch (e.target.value) {
+      case newest:
+        order = 'created_at';
+        orderType = 'desc';
+        break;
+      case oldest:
+        order = 'created_at';
+        orderType = 'asc';
+        break;
+      case mostUpvotes:
+        order = 'upvotes';
+        orderType = 'desc';
+        break;
+      case mostViews:
+        order = 'views';
+        orderType = 'desc';
+        break;
+      case mostComments:
+        order = 'post_count';
+        orderType = 'desc';
+        break;
+      default:
+        break;
+    };
+    return this.setState({ order, orderType }, () => {
+      return this.props.getDiscussionsByCat(this.props.match.params.category_id, this.state.order, this.state.orderType);
+    });
+  };
+  getDiscussions = () => {
+    const { order, orderType } = this.state;
+    const { getDiscussionsByCat, match } = this.props;
+    return getDiscussionsByCat(match.params.category_id, order, orderType);
+  };
+  componentDidMount = () => this.getDiscussions();
 
-	componentDidUpdate(prevProps) {
-		const { match, getDiscussionsByCat } = this.props;
-		const { category_id } = match.params;
-		const { order, orderType } = this.state;
-		if (prevProps.match.params.category_id !== category_id) {
-			return getDiscussionsByCat(category_id, order, orderType);
-		};
-	};
-	render() {
-		const { discussions, history, category_name, match } = this.props;
-		const { showAddDiscussionForm } = this.state;
-		return (
-			<DiscussionsWrapper>
-				<DiscussionHeader>
-					<FollowCat
-						category_id = { match.params.category_id }
-						historyPush = { history.push }
-					/>
-					<h2 className = 'all-posts'>{ category_name }</h2>
-					<div className = 'filter-wrapper'>
-						<i className = 'fab fa-mix' />
-						<span>Filter by</span>
-						<select
-							className = 'filter'
-							onChange = { this.handleSelectChange }
-							name = 'filter'
-						>
-							<option value = { newest }>{ newest }</option>
-							<option value = { oldest }>{ oldest }</option>
-							<option value = { mostUpvotes }>{ mostUpvotes }</option>
-							<option value = { mostViews }>{ mostViews }</option>
-							<option value = { mostComments }>{ mostComments }</option>
-						</select>
-					</div>
-					<button onClick = { this.toggleAddDiscussionForm } className = 'add-post-btn'>
-						<i className = 'fas fa-plus-circle' />&nbsp;Add Post
-					</button>
-				</DiscussionHeader>
-				<hr/>
-				<div className = 'content'>
-					{ discussions.map((discussion, i) =>
-						<DiscussionByFollowedCats
-							key = { i }
-							discussion = { discussion }
-							history = { history }
-							voteOnDiscussion = { this.handleDiscussionVote }
-						/>)
-					}
-				</div>
-				{
-					showAddDiscussionForm &&
-					<AddDiscussionForm
-						toggleAddDiscussionForm = { this.toggleAddDiscussionForm }
-						getDiscussions = { this.getDiscussions }
-						category_id = { match.params.category_id }
-					/>
-				}
-			</DiscussionsWrapper>
-		);
-	}
+  componentDidUpdate(prevProps) {
+    const { match, getDiscussionsByCat } = this.props;
+    const { category_id } = match.params;
+    const { order, orderType } = this.state;
+    if (prevProps.match.params.category_id !== category_id) {
+      return getDiscussionsByCat(category_id, order, orderType);
+    };
+  };
+  render() {
+    const { discussions, history, category_name, match, user_type } = this.props;
+    const { showAddDiscussionForm } = this.state;
+    return (
+      <DiscussionsWrapper>
+        <DiscussionHeader>
+          <FollowCat
+            category_id={match.params.category_id}
+            historyPush={history.push}
+          />
+          <h2 className='all-posts'>{category_name}</h2>
+          <div className='filter-wrapper'>
+            <i className='fab fa-mix' />
+            <span>Filter by</span>
+            <select
+              className='filter'
+              onChange={this.handleSelectChange}
+              name='filter'
+            >
+              <option value={newest}>{newest}</option>
+              <option value={oldest}>{oldest}</option>
+              <option value={mostUpvotes}>{mostUpvotes}</option>
+              <option value={mostViews}>{mostViews}</option>
+              <option value={mostComments}>{mostComments}</option>
+            </select>
+          </div>
+          {(accountUserTypes.indexOf(user_type) >= addPostPermStartIndex) &&
+            <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+              <i className='fas fa-plus-circle' />&nbsp;Add Post
+					</button>}
+        </DiscussionHeader>
+        <hr />
+        <div className='content'>
+          {discussions.map((discussion, i) =>
+            <DiscussionByFollowedCats
+              key={i}
+              discussion={discussion}
+              history={history}
+              voteOnDiscussion={this.handleDiscussionVote}
+            />)
+          }
+        </div>
+        {
+          showAddDiscussionForm &&
+          <AddDiscussionForm
+            toggleAddDiscussionForm={this.toggleAddDiscussionForm}
+            getDiscussions={this.getDiscussions}
+            category_id={match.params.category_id}
+          />
+        }
+      </DiscussionsWrapper>
+    );
+  }
 };
 
 const mapStateToProps = state => ({
-	discussions: state.discussions.discussions,
-	category_name: state.categories.category.name,
+  user_type: state.users.user_type,
+  discussions: state.discussions.discussions,
+  category_name: state.categories.category.name,
 });
 
-export default connect(mapStateToProps, {getDiscussionsByCat, handleDiscussionVote})(DiscussionsByCats);
+export default connect(mapStateToProps, { getDiscussionsByCat, handleDiscussionVote })(DiscussionsByCats);

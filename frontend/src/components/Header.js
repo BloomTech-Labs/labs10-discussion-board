@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Nav } from '../components/index.js';
-import Lambda from '../assets/img/symposium3.png';
+import Lambda from '../assets/img/symposium6.png';
 
 // Globals
 import { topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
@@ -50,7 +50,7 @@ const NavContainer = styled.div`
 `;
 
 const LambdaLogo = styled.div`
-  width: 130px;
+  width: 150px;
   height: 50px;
   background-image: url(${Lambda});
     &:hover {
