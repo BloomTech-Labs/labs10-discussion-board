@@ -30,7 +30,7 @@ class NonUserLandingView extends Component {
             className = 'vid-player' 
             url='https://youtu.be/T-Dji780Ro0' 
             width = '100%' height = '100%' 
-            controls = 'true'/>
+            controls = {true}/>
          </VideoPlayer>
          )
   }

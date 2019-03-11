@@ -121,7 +121,7 @@ const Reply = ({
                     &nbsp; */}
                 {/* <VoteCount
                     handleVote={handleVote}
-                    vote_count={post_votes}
+                    vote_count={upvotes}
                     user_vote={user_vote}
                 />
                     &nbsp;

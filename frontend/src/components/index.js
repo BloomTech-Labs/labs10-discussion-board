@@ -40,6 +40,8 @@ import Notifications from './Notifications.js';
 import Notification from './Notification.js';
 import DiscussionsByFollowedCats from './DiscussionsByFollowedCats.js';
 import DiscussionByFollowedCats from './DiscussionByFollowedCats.js';
+import IconList from './categories/IconList.js';
+import Icon from './categories/Icon.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -97,6 +99,8 @@ export {
   Notification,
   DiscussionsByFollowedCats,
   DiscussionByFollowedCats,
+  IconList,
+  Icon,
 
   // forms
   AddPostForm,

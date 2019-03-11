@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // action creators
-import { addCategory } from '../../store/actions/index.js';
+import { addCategory, displayError } from '../../store/actions/index.js';
+
+// components
+import { IconList } from '../index.js';
 
 // globals
-import { phoneL, topHeaderHeight } from '../../globals/globals.js';
+import { phoneL, topHeaderHeight, backendUrl } from '../../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -123,9 +127,10 @@ const DivLeft = styled.div`
   }
 `;
 
-const ImgPreview = styled.img`
+const ImgPreview = styled.i`
   max-width: 50px;
   max-height: 50px;
+  font-size: 2.5rem;
   width: auto;
   height: auto;
   margin-bottom: 20px;
@@ -267,22 +272,37 @@ class AddCategoryModal extends Component {
     super(props);
     this.state = {
       name: '',
-      iconPreviewBase64: ''
-    }
-  }
-
+      icon: 'fas fa-book-open',
+      showIconListComponent: false,
+      iconList: [],
+    };
+  };
   handleSubmit = ev => {
     ev.preventDefault();
-    const { name } = this.state;
+    const { name, icon } = this.state;
+    const newCategory = { name, icon };
     const { addCategory, historyPush, setAddCatModalRaised } = this.props;
-    return Promise.resolve(setAddCatModalRaised(ev, false)).then(() => addCategory(name, historyPush));
+    return Promise.resolve(setAddCatModalRaised(ev, false))
+      .then(() => addCategory(newCategory, historyPush));
   };
   handleInputChange = ev => this.setState({ [ev.target.name]: ev.target.value });
-
+  toggleIconList = () => this.setState({ showIconListComponent: !this.state.showIconListComponent });
+  setIcon = icon => this.setState({ icon, showIconListComponent: false });
+  componentDidMount = () => {
+    const user_id = localStorage.getItem('symposium_user_id');
+    const token = localStorage.getItem('symposium_token');
+    const headers = { headers: { Authorization: token } };
+    const { displayError } = this.props;
+    return axios.get(`${ backendUrl }/categories/category-icons/${ user_id }`, headers)
+      .then(res => this.setState({ iconList: res.data }))
+      .catch(err => {
+        const errMsg = err.response ? err.response.data.error : err.toString();
+        return displayError(errMsg);
+      });
+  };
   render() {
     const { setAddCatModalRaised } = this.props;
-    const { name } = this.state;
-
+    const { name, icon, iconList, showIconListComponent } = this.state;
     return (
       <ModalBackground>
         <DivModalCloser onClick={(ev) => setAddCatModalRaised(ev, false)} />
@@ -290,8 +310,8 @@ class AddCategoryModal extends Component {
           <h1>Add&nbsp;Category</h1>
           <FormContent onSubmit={this.handleSubmit}>
             <DivLeft>
-              <ImgPreview src={require('../../assets/img/CategoryBook2.png')} alt='icon' />
-              <button type='button' onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From List</button>
+              <ImgPreview className = { icon } alt='icon' />
+              <button type='button' onClick={this.toggleIconList}>Select Icons From List</button>
               {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From File</button> */}
               {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From URL</button> */}
             </DivLeft>
@@ -312,12 +332,20 @@ class AddCategoryModal extends Component {
                 <button type='submit'>Submit</button>
               </DivButtons>
             </DivRight>
-
           </FormContent>
+          {
+            showIconListComponent &&
+            <IconList
+              selectedIcon = { icon }
+              iconList = { iconList }
+              toggleIconList = { this.toggleIconList }
+              setIcon = { this.setIcon }
+            />
+          }
         </DivModal>
       </ModalBackground>
     );
   }
-}
+};
 
-export default connect(null, { addCategory })(AddCategoryModal);
+export default connect(null, { addCategory, displayError })(AddCategoryModal);
