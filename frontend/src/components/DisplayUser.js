@@ -81,7 +81,7 @@ const PWelcomeMessage = styled.p`
       }
 
       i {
-        color: #2C2E31;
+        color: ${props => props.theme.notificationFontColor}
       }
     }
 
