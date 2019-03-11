@@ -55,7 +55,7 @@ router.get('/discussions/:user_id', (req, res, next) => {
 });
 
 // Gets a user by their ID (mock data)
-router.get('/user/:user_id', authenticate, (req, res) => {
+router.get('/user/:user_id', (req, res) => {
   const { user_id } = req.params;
   return usersDB
     .findById(user_id)
