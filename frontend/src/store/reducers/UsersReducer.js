@@ -152,7 +152,7 @@ export const UsersReducer = (state = initialState, action) => {
           newNotificationCount,
           loggingInLoadingMessage: false,
           isAuth0: action.payload.isAuth0,
-          message: action.payload.message,
+          message: action.payload.message ? action.payload.message : state.message,
           uuid: action.payload.uuid,
           last_login: action.payload.last_login,
           user_type: action.payload.user_type,

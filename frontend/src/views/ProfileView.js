@@ -24,7 +24,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center
+  justify-content: center;
   align-self: center;
   margin: 10px;
   padding: 10px;
@@ -226,10 +226,11 @@ class Profile extends Component {
               </HeaderStyle>
               <Tabs>
                 <TabList>
-                  <Tab> Followed Post</Tab>
+                  <Tab> Followed Posts</Tab>
                   <Tab>Followed Categories</Tab>
                   <Tab>Posts</Tab>
                   <Tab>Comments</Tab>
+                  <Tab>Replies</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
@@ -268,6 +269,15 @@ class Profile extends Component {
                           {post.body}</SubContentDiv>)}
                       </Elip>
                 </WrappedDiv>
+                </TabPanel>
+                <TabPanel>
+                  <WrappedDiv>
+                    <p className='property-titleC'> Replies: </p>
+                      {profile.replies.map((reply, index) => 
+                        <SubContentDiv key={index}>
+                          {reply.body}
+                        </SubContentDiv>)}
+                  </WrappedDiv>
                 </TabPanel>
               </Tabs>
             </ProfileWrapper>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import CKEditor from 'ckeditor4-react';
+// import CKEditor from 'ckeditor4-react';
 // import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
 // import Parser from 'html-react-parser';
@@ -253,11 +253,11 @@ class AddPostForm extends Component {
 			<AddPostFormWrapper onSubmit = { this.handleSubmit }>
 				<AddCommentTitle>
 					<p>Write a comment</p>
-					<a
+					<span
 						className = 'exit'
 						onClick = { toggleAddPostForm }
 						type = 'button' // prevents form submission
-					><i className="far fa-times-circle"></i></a>
+					><i className="far fa-times-circle"></i></span>
 				</AddCommentTitle>
 				<textarea
 					type= 'text'

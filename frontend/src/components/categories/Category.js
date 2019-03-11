@@ -3,12 +3,16 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// Globals
+import { tabletL } from '../../globals/globals.js';
+
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivRow = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   user-select: none;
 
   &:not(:last-child) {
@@ -33,10 +37,23 @@ const ImgBook = styled.img`
   height: auto;
 `;
 
+const DivCategoryContainer = styled.div`
+  display: flex;
+  width: 450px;
+
+  @media (max-width: 1024px) {
+    width: 310px;
+  }
+
+  
+  @media (max-width: 775px) {
+    width: 100%;
+  }
+`;
+
 const DivCategory = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
 `;
 
 const LinkCategory = styled(Link)`
@@ -70,14 +87,20 @@ const DivCategoryInfo = styled.div`
       font-weight: bold;
     }
   }
+
+  @media ${tabletL} {
+    display: none;
+  }
 `;
 
-const DivRowInfo = styled.div`
-  width: 37%;
-`;
+const DivRowInfo = styled.div``;
 
 const H5CreatedAt = styled.h5`
   font-weight: bold;
+
+  @media (max-width: 878px) {
+    display: none;
+  }
 `;
 
 const LinkSuperModerator = styled(Link)`
@@ -86,12 +109,16 @@ const LinkSuperModerator = styled(Link)`
   font-weight: bold;
   cursor: pointer;
   color: black;
-  padding: 15px;
-  margin-left: -15px;
+  width: 290px;
 
   &:hover {
     color: white;
     text-decoration: underline;
+  }
+
+  
+  @media (max-width: 775px) {
+    display: none;
   }
 `;
 
@@ -102,18 +129,17 @@ const Category = ({ category }) => {
   const { id, user_username, name, created_at, user_id, discussion_count } = category;
   return (
     <DivRow>
-      <ImgBook
-        src={require('../../assets/img/CategoryBook2.png')}
-        alt='Emoji'
-      />
-      <DivCategory>
-        <LinkCategory className='link' to={`/discussions/category/${id}`}>{name}</LinkCategory>
-        <DivCategoryInfo>
-          <p><span>Discussions:</span> {discussion_count}</p>
-          <p><span>Posts:</span> #############</p>
-          <p><span>Latest:</span> Username, Date</p>
-        </DivCategoryInfo>
-      </DivCategory>
+      <DivCategoryContainer>
+        <ImgBook src={require('../../assets/img/CategoryBook2.png')} alt='Emoji' />
+        <DivCategory>
+          <LinkCategory className='link' to={`/discussions/category/${id}`}>{name}</LinkCategory>
+          <DivCategoryInfo>
+            <p><span>Discussions:</span> {discussion_count}</p>
+            <p><span>Posts:</span> #############</p>
+            <p><span>Latest:</span> Username, Date</p>
+          </DivCategoryInfo>
+        </DivCategory>
+      </DivCategoryContainer>
       <DivRowInfo>
         <H5CreatedAt>{moment(new Date(Number(created_at))).fromNow()}</H5CreatedAt>
       </DivRowInfo>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
 import Lambda from '../assets/img/symposium6.png';
 
@@ -7,7 +8,9 @@ import Lambda from '../assets/img/symposium6.png';
 import { topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
 
 const StyledHeader = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   height: ${topHeaderHeight};
@@ -16,12 +19,17 @@ const StyledHeader = styled.div`
   align-self: center;
   background-color: white;
   border-bottom: 2px solid ${props => props.theme.borderColor};
-
   @media ${tabletL}{
+    width: 100%;
+  }
+  @media ${tabletP}{
     width: 100%;
   }
   @media ${phoneL} {
       width: 100%;
+  }
+  @media ${phoneP}{
+    width: 100%;
   }
 
   .LogoContainer {
@@ -29,6 +37,7 @@ const StyledHeader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
     border-right: 2px solid ${props => props.theme.borderColor};
       &:hover {
         cursor: pointer;
@@ -58,23 +67,27 @@ const LambdaLogo = styled.div`
     }
 `;
 
-const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
+const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised }) => {
   return (
     <StyledHeader>
-      <a className = 'LogoContainer' href = '/home'>
-          <LambdaLogo/>
-        </a>
+      <Link className='LogoContainer' to='/home'><LambdaLogo /></Link>
       <NavContainer>
-        <Nav showSearch = {showSearch} 
-             scrollTo = {scrollTo} 
-             pathname = {pathname} 
-             goTo = {goTo} 
-             isDay = {isDay} 
-             history = {history} 
-             isAuthenticated = {isAuthenticated} 
-             toggleSearch = {toggleSearch} 
-             switchTheme = {switched}
-             />
+        <Nav showSearch={showSearch}
+          scrollTo={scrollTo}
+          pathname={pathname}
+          goTo={goTo}
+          isDay={isDay}
+          history={history}
+          isAuthenticated={isAuthenticated}
+          toggleSearch={toggleSearch}
+          switchTheme={switched}
+          isLoginDropdownModalRaised={isLoginDropdownModalRaised}
+          setLoginDropdownModalRaised={setLoginDropdownModalRaised}
+          isAvatarModalRaised={isAvatarModalRaised}
+          setAvatarModalRaised={setAvatarModalRaised}
+          isNotificationsModalRaised={isNotificationsModalRaised}
+          setNotificationsModalRaised={setNotificationsModalRaised}
+        />
       </NavContainer>
     </StyledHeader >
   );

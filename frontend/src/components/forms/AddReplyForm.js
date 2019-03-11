@@ -201,3 +201,56 @@ export default connect(mapStateToProps, { addReply })(AddReplyForm);
 // 		);
 // 	}
 // };
+
+class AddReplyForm extends Component {
+	state = { replyBody: '' };
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+	handleSubmit = e => {
+		e.preventDefault();
+		const { replyBody } = this.state;
+		const { post_id, historyPush, discussion_id } = this.props;
+		return this.props.addReply(post_id, discussion_id, replyBody, historyPush);
+	};
+	handleToggle = () => this.props.toggleAddReplyForm();
+	render() {
+		const { replyBody } = this.state;
+		const{ username, user_id, avatar } = this.props;
+		return(
+			<AddReplyFormWrapper onSubmit = { this.handleSubmit } >
+				<AddReplyTitle>
+					<p>Write a Reply</p>
+					<span
+						className = 'exit'
+						onClick = { this.handleToggle }
+						type = 'button' // prevents form submission
+					><i className="far fa-times-circle"></i></span>
+				</AddReplyTitle>
+				<textarea
+					type= 'text'
+					placeholder = 'Write your reply'
+					name = 'replyBody'
+					onChange = { this.handleChange }
+					value = { replyBody }
+				/>
+				<UserActions>
+					<div className='user'>
+						<Avatar height='30px' width='30px' src = { avatar } />
+						<Link className='username' to={`/profile/${user_id}`}>
+							{username}
+						</Link>
+					</div>
+					<button type = 'submit'>Post Reply</button>	
+				</UserActions>
+			</AddReplyFormWrapper>
+		)
+	}
+}
+
+
+const mapStateToProps = state => ({
+	username: state.users.username,
+	user_id: state.users.user_id,
+	avatar: state.users.avatar,
+});
+
+export default connect(mapStateToProps, { addReply })(AddReplyForm);

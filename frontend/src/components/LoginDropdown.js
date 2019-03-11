@@ -19,13 +19,15 @@ import {
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
+const DivWrapper = styled.div`
+  display: ${props => props.isLoginDropdownModalRaised === 'true' ? 'flex' : 'none'};
+`;
+
 const FormLogin = styled.form`
   display: flex;
   flex-direction: column;
-  visibility: ${props => (props.isLoginDropdownClicked ? 'show' : 'hidden')};
   z-index: 9999;
-  position: absolute;
-  top: 30px;
+  position: fixed;
   right: 0;
   width: 270px;
   border: 2px solid ${props => props.theme.borderColor};
@@ -64,6 +66,19 @@ const FormLogin = styled.form`
   }
 `;
 
+const DivModalCloser = styled.div`
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9997;
+
+  @media ${phoneL} {
+    display: none;
+  }
+`;
+
 const LinkForgotUserPass = styled(Link)`
   margin: 20px 0px;
   text-align: center;
@@ -85,9 +100,7 @@ class LoginDropdown extends Component {
     this.webAuth.parseHash((err, authResult) => {
       if (authResult) {
         const { accessToken, expiresIn } = authResult;
-        const expiresAt = JSON.stringify(
-          expiresIn * 1000 + new Date().getTime()
-        );
+        const expiresAt = JSON.stringify(expiresIn * 1000 + new Date().getTime());
         localStorage.setItem('symposium_auth0_access_token', accessToken);
         localStorage.setItem('symposium_auth0_expires_at', expiresAt);
         return this.props.auth0Login(accessToken);
@@ -119,20 +132,10 @@ class LoginDropdown extends Component {
     ev.preventDefault();
     const pathname = this.props.history.location.pathname;
     const creds = { ...this.state };
-    this.setState(
-      {
-        username: '',
-        password: ''
-      },
-      () => this.props.setIsLoginDropdownClicked(false).then(() =>
-        this.props
-          .login(creds)
-          .then(() =>
-            pathname === '/'
-              ? this.props.history.push('/home')
-              : this.props.history.push(pathname)
-          ))
-    );
+    this.props.setLoginDropdownModalRaised(ev, false);
+    Promise.resolve(this.setState({ username: '', password: '' }))
+      .then(() => this.props.login(creds))
+      .then(() => pathname === '/' ? this.props.history.push('/home') : this.props.history.push(pathname));
   };
 
   handleAuth0Login = () => {
@@ -153,31 +156,34 @@ class LoginDropdown extends Component {
 
   render() {
     return (
-      <FormLogin isLoginDropdownClicked={this.props.isLoginDropdownClicked}>
-        <input
-          onChange={this.handleInputChange}
-          placeholder='Username'
-          value={this.state.username}
-          name='username'
-          autoComplete='off'
-        />
-        <input
-          type='password'
-          onChange={this.handleInputChange}
-          placeholder='Password'
-          value={this.state.password}
-          name='password'
-          autoComplete='off'
-        />
-        <button
-          type='submit'
-          onClick={ev => this.normalLogin(ev)}
-        >
-          Login
-        </button>
-        <LinkForgotUserPass to='/request-reset-pw'>Forgot your username/password?</LinkForgotUserPass>
-        <button type='button' onClick={() => this.handleAuth0Login()}>Login via Auth0</button>
-      </FormLogin>
+      <DivWrapper isLoginDropdownModalRaised={this.props.isLoginDropdownModalRaised.toString()}>
+        <DivModalCloser onClick={(ev) => this.props.setLoginDropdownModalRaised(ev, false)} />
+        <FormLogin>
+          <input
+            onChange={this.handleInputChange}
+            placeholder='Name'
+            value={this.state.username}
+            name='username'
+            autoComplete='off'
+          />
+          <input
+            type='password'
+            onChange={this.handleInputChange}
+            placeholder='Password'
+            value={this.state.password}
+            name='password'
+            autoComplete='off'
+          />
+          <button
+            type='submit'
+            onClick={ev => this.normalLogin(ev)}
+          >
+            Login
+          </button>
+          <LinkForgotUserPass to='/request-reset-pw'>Forgot your username/password?</LinkForgotUserPass>
+          <button type='button' onClick={() => this.handleAuth0Login()}>Login via Auth0</button>
+        </FormLogin>
+      </DivWrapper>
     );
   }
 };

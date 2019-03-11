@@ -52,9 +52,9 @@ const TopDiscussionsTitle = styled.div`
   margin-left: 25px;
   color: ${props => props.theme.topDiscussionTitleColor};
   .toptitle{
-    @media  ${tabletP}{
+    @media ${tabletP}{
     
-      @media${phoneP}{
+      @media ${phoneP}{
         display: flex;
         align-content: center;
         font-size: px;

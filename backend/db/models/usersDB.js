@@ -9,6 +9,7 @@ const getUsers = () => {
 const findById = id => {
   const getDiscussions = db('discussions').where('user_id', id);
   const getPosts = db('posts').where('user_id', id);
+  const getReplies = db('replies').where('user_id', id);
   const getDiscussionFollows = db('discussion_follows as df')
     .select('df.discussion_id', 'd.body')
     .join('discussions as d', 'd.id', 'df.discussion_id')
@@ -26,11 +27,14 @@ const findById = id => {
       'd.body as discussion_body',
       'un.post_id',
       'p.body as post_body',
+      'un.reply_id',
+      'r.body as reply_body',
       'un.created_at',
     )
     .leftOuterJoin('categories as c', 'c.id', 'un.category_id')
     .leftOuterJoin('discussions as d', 'd.id', 'un.discussion_id')
     .leftOuterJoin('posts as p', 'p.id', 'un.post_id')
+    .leftOuterJoin('replies as r', 'r.id', 'un.reply_id')
     .where('un.user_id', id)
     .orderBy('un.created_at', 'desc');
   const getUser = db('users as u')
@@ -53,6 +57,7 @@ const findById = id => {
   const promises = [
     getDiscussions,
     getPosts,
+    getReplies,
     getUser,
     getDiscussionFollows,
     getCategoryFollows,
@@ -63,6 +68,7 @@ const findById = id => {
       let [
         getDiscussionsResults,
         getPostsResults,
+        gerRepliesResults,
         getUserResults,
         getDiscussionFollowsResults,
         getCategoryFollowsResults,
@@ -71,6 +77,7 @@ const findById = id => {
       if (!getUserResults.length) throw `User with ID ${id} does not exist.`;
       getUserResults[0].discussions = getDiscussionsResults;
       getUserResults[0].posts = getPostsResults;
+      getUserResults[0].replies = gerRepliesResults;
       getUserResults[0].discussionFollows = getDiscussionFollowsResults;
       getUserResults[0].categoryFollows = getCategoryFollowsResults;
       getUserResults[0].notifications = getNotificationsResults;
@@ -114,6 +121,21 @@ const findByUsername = username => {
     )
     .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
     .whereRaw('LOWER(username) = ?', username.toLowerCase())
+    .first();
+};
+
+const findByEmail = email => {
+  return db('users as u')
+    .select(
+      'u.id',
+      'u.username',
+      'u.password',
+      'u.email',
+      'u.status',
+      'us.avatar'
+    )
+    .leftOuterJoin('user_settings as us', 'u.id', 'us.user_id')
+    .where({ email })
     .first();
 };
 
@@ -258,7 +280,8 @@ const updateSignature = (user_id, signature) => {
 const update = (id, user) => {
   return db('users')
     .where({ id })
-    .update(user);
+    .update(user)
+    .returning(['id', 'username']);
 };
 
 // update password
@@ -295,6 +318,7 @@ module.exports = {
   getUserName,
   findById,
   findByUsername,
+  findByEmail,
   searchAll,
   isUsernameTaken,
   isEmailTaken,

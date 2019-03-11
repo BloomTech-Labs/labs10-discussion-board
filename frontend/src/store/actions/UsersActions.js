@@ -239,13 +239,14 @@ export const updatePassword = (oldPassword, newPassword, toggleForm) => dispatch
     .catch(err => handleError(err, PASSWORD_UPDATE_FAILURE)(dispatch));
 };
 
-export const signout = uuid => dispatch => {
+export const signout = (uuid, history) => dispatch => {
   localStorage.removeItem('symposium_token');
   localStorage.removeItem('symposium_user_id');
   localStorage.removeItem('symposium_auth0_access_token');
   localStorage.removeItem('symposium_auth0_expires_at');
   if (uuid) handlePusher.unsubscribeToPusher(uuid);
   dispatch({ type: USER_SIGNOUT_SUCCESS });
+  history.push('/');
   return Promise.resolve();
 };
 
@@ -460,9 +461,10 @@ export const editUser = (username, email, oldPassword, newPassword) => dispatch 
   dispatch({ type: EDIT_USER_LOADING });
   return axios
     .put(`${backendUrl}/users/user/${user_id}`, body, headers)
-    .then(() => {
+    .then(res => {
+      localStorage.setItem('symposium_token', res.data);
       dispatch({ type: EDIT_USER_SUCCESS });
-      displayMessage('User has been updated.')(dispatch)
+      return displayMessage('You have successfully updated your profile.')(dispatch);
     })
     .catch(err => handleError(err, EDIT_USER_FAILURE)(dispatch))
-}
+};

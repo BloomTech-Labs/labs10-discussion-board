@@ -286,7 +286,7 @@ class Settings extends Component {
             oldPassword: '',
             newPassword: '',};
 
-  getProfile = () => this.props.getProfile(this.props.match.params.id);
+  getProfile = () => this.props.getProfile(this.props.match.params.id, this.props.history);
   toggleForm = formName => this.setState({ showForm: formName });
   toggleDeleteModal = () => this.setState({ showDeleteModal: !this.state.showDeleteModal });
   onUploadAvatarSuccess = () => this.setState({ showForm: '' }, () => this.getProfile());
@@ -301,11 +301,11 @@ class Settings extends Component {
     const {firstName, lastName, email, oldPassword, newPassword} = this.state
     const username = firstName + ' ' + lastName;
     this.props.editUser(username, email, oldPassword, newPassword).then(() => this.getProfile())
-  }
+  };
   goBack = () => this.props.history.goBack()
   render() {
     const { showForm, showDeleteModal } = this.state;
-    const { profile, } = this.props;
+    const { profile } = this.props;
     const { username, email, avatar, isAuth0, } = profile;
     const splitUsername = username.split(' ');
     return (
@@ -340,10 +340,13 @@ class Settings extends Component {
                     /> }
                   </p>
             </Email>
-              <Password>
-                <p>Old Password <input name = 'oldPassword' className = 'input-style' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
-                <p>New Password <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
-              </Password>
+              {
+                !isAuth0 &&
+                <Password>
+                  <p>Old Password <input name = 'oldPassword' className = 'input-style' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
+                  <p>New Password <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
+                </Password>
+              }
                 <button className = 'save-settings' type = 'submit' >
                   Save settings
                 </button>
@@ -384,7 +387,8 @@ class Settings extends Component {
       </SettingsWrapper>
     );
   }
-}
+};
+
 const mapStateToProps = state => ({
   profile: state.profilesData.singleProfileData[0],
   user_type: state.users.user_type,
