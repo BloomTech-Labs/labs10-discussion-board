@@ -47,20 +47,17 @@ const Followed = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class Follow extends Component {
-    state = { followed: this.props.follow};
 	  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	  handleFollowClick = e => {
         e.preventDefault();
-		    const { followed } = this.state;
         const { followDiscussion, displayError, discussion_id, user_id, historyPush } = this.props;
         if (!user_id) {
           return displayError('You must be logged in to follow a discussion.');
         }
-		    return followDiscussion(discussion_id, user_id, followed, historyPush);
+		    return followDiscussion(discussion_id, user_id, historyPush);
 	  };
 
     render() {
-        const { followed } = this.state;
         const { user_id } = this.props;
         const isFollowing = this.props.discussionFollows.some(follow => follow.discussion_id === Number(this.props.discussion_id));
         const followUnfollow = () => {
@@ -78,7 +75,6 @@ class Follow extends Component {
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: isFollowing ? 'lightsteelblue' : 'steelblue'}}
-                  value={followed ? 'Followed' : 'Follow?'}
               >
                 <i className = 'fas fa-plus'></i>&nbsp;&nbsp;{followUnfollow()}
               </button>

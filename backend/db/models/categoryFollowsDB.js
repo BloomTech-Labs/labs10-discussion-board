@@ -1,5 +1,8 @@
 const db = require('../dbConfig.js');
 
+// globals
+const { numOfDefaultCategories } = require('../../config/globals.js');
+
 // checks to see if user_id is following category_id
 const get = (category_id, user_id) => {
 	return db('category_follows')
@@ -26,6 +29,15 @@ const add = (category_id, user_id) => {
 		});
 };
 
+const addDefaultCategoryFollows = user_id => {
+	let categoryFollows = [];
+	for (let i = 1; i <= numOfDefaultCategories; i++) {
+		categoryFollows.push({ category_id: i, user_id });
+	}
+	return db('category_follows')
+		.insert(categoryFollows);
+};
+
 // remove a follow from a certin category by a certain user
 const remove = (category_id, user_id) => {
 	const removeCategory = db('category_follows')
@@ -48,6 +60,7 @@ const remove = (category_id, user_id) => {
 
 module.exports = {
 	add,
+	addDefaultCategoryFollows,
 	get,
 	getFollowers,
 	remove,
