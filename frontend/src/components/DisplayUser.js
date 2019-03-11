@@ -33,7 +33,6 @@ const DivUser = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   @media (max-width: 750px){
       width: 70%;
     }
@@ -47,7 +46,6 @@ const DivAvatar = styled.div`
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-
   img {
     transform: ${props => props.isAvatarModalRaised === 'true' && 'rotate(180deg)'};
   }
@@ -56,22 +54,17 @@ const DivAvatar = styled.div`
 const PWelcomeMessage = styled.p`
     margin-right: 20px;
     font-size: 20px;
-
     .notifications-icon-wrapper {
       position: relative;
-
       .notifications-count {
         position: absolute;
-        top: -5px;
+        top: 0;
         right: -10px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        color: ${props => props.theme.notificationFontColor};
-        background-color: ${props => props.theme.notificationBackgroundColor};
+        font-size: 0.7rem;
+        background-color: yellow;
         border-radius: 50%;
         padding: 0 5px;
       }
-
       .notifications-icon {
         ${ ({ newNotifications }) => newNotifications && 'color: red;'}
         &:hover {
@@ -79,14 +72,10 @@ const PWelcomeMessage = styled.p`
           cursor: pointer;
         }
       }
-
       i {
-        color: ${props => props.theme.notificationFontColor}
+        color: #2C2E31;
       }
     }
-
-
-
     @media (max-width: 750px){
       width: 40%;
       margin-right: 0px;
