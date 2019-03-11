@@ -93,22 +93,21 @@ export const getDiscussionsByCat = (category_id, order, orderType) => dispatch =
     .catch(err => handleError(err, GET_DISCUSSIONS_FAILURE)(dispatch));
 };
 
-export const followDiscussion = (discussion_id, user_id, followed, historyPush) => dispatch => {
+export const followDiscussion = (discussion_id, user_id, historyPush) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
-  const body = { discussion_id, followed };
   dispatch({ type: FOLLOW_DISCUSSION_LOADING });
   return axios
     .post(
       `${backendURL}/discussion-follows/${user_id}/${discussion_id}`,
-      body,
+      {},
       headers
     )
     .then(res =>
       dispatch({ type: FOLLOW_DISCUSSION_SUCCESS, payload: res.data })
     )
-    .then(() => historyPush('/'))
-    .then(() => historyPush(`/discussion/${discussion_id}`))
+    .then(() => historyPush && historyPush('/'))
+    .then(() => historyPush && historyPush(`/discussion/${discussion_id}`))
     .catch(err => handleError(err, FOLLOW_DISCUSSION_FAILURE)(dispatch));
 };
 
@@ -119,8 +118,11 @@ export const addDiscussion = (dBody, category_id) => dispatch => {
   const headers = { headers: { Authorization: token } };
   const body = { dBody, category_id };
   dispatch({ type: ADD_DISCUSSION_LOADING });
-  return axios.post(`${backendURL}/discussions/${user_id}`, body, headers)
-    .then(() => dispatch({ type: ADD_DISCUSSION_SUCCESS }))
+  return axios.post(`${ backendURL }/discussions/${ user_id }`, body, headers)
+    .then(async res => {
+      dispatch({ type: ADD_DISCUSSION_SUCCESS });
+      await followDiscussion(res.data[0], user_id)(dispatch);
+    })
     .catch(err => handleError(err, ADD_DISCUSSION_FAILURE)(dispatch));
 };
 

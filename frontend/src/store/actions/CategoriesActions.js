@@ -48,12 +48,11 @@ export const getCategoriesFollowed = () => dispatch => {
     .catch(err => handleError(err, GET_CATEGORIES_FOLLOWED_FAILURE)(dispatch));
 };
 
-export const followCategory = (category_id, user_id, followed, historyPush) => dispatch => {
+export const followCategory = (category_id, user_id, historyPush) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
-  const body = { category_id, followed };
   dispatch({ type: FOLLOW_CATEGORY_LOADING });
-  return axios.post(`${backendUrl}/category-follows/${user_id}/${category_id}`, body, headers)
+  return axios.post(`${backendUrl}/category-follows/${user_id}/${category_id}`, {}, headers)
     .then(res => dispatch({ type: FOLLOW_CATEGORY_SUCCESS, payload: res.data }))
     .then(() => historyPush('/'))
     .then(() => historyPush(`/discussions/category/${category_id}`))
@@ -67,8 +66,9 @@ export const addCategory = (name, historyPush) => dispatch => {
   const body = { name };
   dispatch({ type: ADD_CATEGORY_LOADING });
   return axios.post(`${backendUrl}/categories/${user_id}`, body, headers)
-    .then(res => {
+    .then(async res => {
       dispatch({ type: ADD_CATEGORY_SUCCESS });
+      await followCategory(res.data, user_id, historyPush)(dispatch);
       historyPush(`/discussions/category/${res.data}`);
     })
     .catch(err => handleError(err, ADD_CATEGORY_FAILURE)(dispatch));

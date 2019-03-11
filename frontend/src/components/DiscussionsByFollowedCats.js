@@ -31,9 +31,9 @@ const DiscussionsWrapper = styled.div`
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		width: 95%;
-		color: ${props => props.theme.discussionPostColor};
-		@media ${ tabletP } {
+    width: 95%;
+    color: ${props => props.theme.discussionPostColor};
+    @media ${ tabletP} {
 			width: 100%;
 		}
 	}
@@ -50,25 +50,26 @@ const DiscussionHeader = styled.div`
 	.all-posts {
 		font-size: 36px;
 		flex-grow: 2;
-		color: ${props => props.theme.discussionPostColor};
-		@media ${ tabletP } {
+    color: ${props => props.theme.discussionPostColor};
+		@media ${ tabletP} {
 			flex-grow: 0;
 		}
 	}
 
 	.filter-wrapper {
 		i {
-			margin-right: 5px;
-			color: ${props => props.theme.discussionPostColor};
+      margin-right: 5px;
+      color: ${props => props.theme.discussionPostColor};
 		}
 		.filter-by{
 			color: ${props => props.theme.discussionPostColor};
 		}
+
 		.filter {
 			border: none;
 			background-color: rgba(0, 0, 0, 0);
 			padding: 5px;
-			color: ${props => props.theme.discussionPostColor};
+      color: ${props => props.theme.discussionPostColor};
 			&:focus {
 				outline: none;
 			}

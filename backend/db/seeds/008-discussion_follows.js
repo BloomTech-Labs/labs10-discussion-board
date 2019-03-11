@@ -11,7 +11,7 @@ const generateSeeds = () => {
     });
   }
   return arr;
-}
+};
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
