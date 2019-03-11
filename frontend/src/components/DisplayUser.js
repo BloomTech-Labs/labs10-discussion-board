@@ -11,10 +11,7 @@ import {
 } from '../globals/globals.js';
 
 // components
-import { Avatar, AvatarDropdown, Notifications } from './index.js';
-
-// action creators
-import { signout, markNotificationsAsRead } from '../store/actions';
+import { Avatar } from './index.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -98,59 +95,26 @@ const PWelcomeMessage = styled.p`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class DisplayUser extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showNotifications: false,
-    }
-  }
-
-  componentDidMount() {
-    this.setState({ isAvatarClicked: false });
-  }
-
-  hideAvatarDropdown = () => {
-    this.setState({ isAvatarClicked: false });
-  }
-
-  toggleShowNotifications = () => this.setState({
-    showNotifications: !this.state.showNotifications
-  }, () => this.props.newNotifications && this.props.markNotificationsAsRead());
-
-  goToProfilePage = () => this.props.history.push(`/profile/${this.props.user_id}`);
-
-  goTo = url => this.setState({ showNotifications: !this.state.showNotifications }, () => {
-    return this.props.history.push(url);
-  });
-
   render() {
-    const { showNotifications } = this.state;
+    const { newNotifications, newNotificationCount, setNotificationsModalRaised, setAvatarModalRaised, isAvatarModalRaised, avatar } = this.props;
     return (
       <DivWrapper>
-        <PWelcomeMessage newNotifications={this.props.newNotifications}>
+        <PWelcomeMessage newNotifications={newNotifications}>
           <span className='notifications-icon-wrapper'>
-            <span className='notifications-count'>{this.props.newNotifications ? this.props.newNotificationCount : null}</span>
+            <span className='notifications-count'>{newNotifications ? newNotificationCount : null}</span>
             <i
-              onClick={this.toggleShowNotifications}
+              onClick={(ev) => setNotificationsModalRaised(ev, true)}
               className='fas fa-bell'
             />
           </span>
         </PWelcomeMessage>
-        {
-          showNotifications &&
-          <Notifications
-            toggleShowNotifications={this.toggleShowNotifications}
-            notifications={this.props.notifications}
-            goTo={this.goTo}
-          />
-        }
         <DivUser>
           <DivAvatar
-            onClick={(ev) => this.props.setAvatarModalRaised(ev, true)}
-            isAvatarModalRaised={this.props.isAvatarModalRaised.toString()}
+            onClick={(ev) => setAvatarModalRaised(ev, true)}
+            isAvatarModalRaised={isAvatarModalRaised.toString()}
           >
 
-            <Avatar height={'40px'} width={'40px'} src={this.props.avatar} />
+            <Avatar height={'40px'} width={'40px'} src={avatar} />
             <img src={chevron} alt='chevron' height={'13px'} width={'13px'} />
           </DivAvatar>
         </DivUser>
@@ -161,18 +125,9 @@ class DisplayUser extends Component {
 
 
 const mapStateToProps = state => ({
-  user_id: state.users.user_id,
   avatar: state.users.avatar,
-  username: state.users.username,
-  uuid: state.users.uuid,
-  notifications: state.users.notifications,
   newNotifications: state.users.newNotifications,
-  newNotificationCount: state.users.newNotificationCount,
-  last_login: state.users.last_login,
-  loggingInLoadingMessage: state.users.loggingInLoadingMessage,
+  newNotificationCount: state.users.newNotificationCount
 });
 
-export default connect(
-  mapStateToProps,
-  { markNotificationsAsRead }
-)(DisplayUser);
+export default connect(mapStateToProps, {})(DisplayUser);

@@ -11,7 +11,7 @@ const NotificationWrapper = styled.div`
 	border: 1px solid black;
 	padding: 5px;
 	position: relative;
-  z-index: 3;
+  z-index: 9999;
 
 	* {
 		margin: 0;
@@ -51,8 +51,6 @@ const Notification = ({ notification, goTo, removeNotification }) => {
     discussion_body,
     post_body,
   } = notification;
-  const goToDiscussion = () => goTo(`/discussion/${discussion_id}`);
-  const goToPost = () => goTo(`/discussion/${discussion_id}#${post_id}`);
   const handleRemove = () => removeNotification(id);
   if (discussion_body && discussion_body.length > maxLengthInNotifications) {
     discussion_body = discussion_body.slice(0, maxLengthInNotifications) + '...';
@@ -67,8 +65,8 @@ const Notification = ({ notification, goTo, removeNotification }) => {
       <p>{category_id ? `/d/${category_name}` : `${discussion_body}`}:</p>
       {
         category_id ?
-          <p className='links' onClick={goToDiscussion}>{discussion_body}</p> :
-          <p className='links' onClick={goToPost}>{post_body}</p>
+          <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}`)}>{discussion_body}</p> :
+          <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}#${post_id}`)}>{post_body}</p>
       }
     </NotificationWrapper>
   );
