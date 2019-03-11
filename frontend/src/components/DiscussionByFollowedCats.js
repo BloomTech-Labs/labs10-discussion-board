@@ -8,7 +8,8 @@ import { Avatar, VoteCount } from './index.js';
 // globals
 import {
 	phoneP,
-	// tabletP,
+	tabletP,
+	phoneL,
 } from '../globals/globals.js';
 
 const DiscussionWrapper = styled.div`
@@ -16,7 +17,7 @@ const DiscussionWrapper = styled.div`
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: flex-start;
-	width: 100%;
+	width: 98%;
 	margin-bottom: 20px;
 	padding: 5px;
 	border-bottom: 1px solid black;
@@ -29,18 +30,27 @@ const DiscussionWrapper = styled.div`
 
 const BodyWrapper = styled.p`
 	text-align: justify;
+	margin-bottom: 20px;
 `;
 
 const InfoWrapper = styled.div`
+	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	font-size: 0.8rem;
+	justify-content: space-between;
+	align-items: flex-end;
+	font-size: 0.9rem;
 	color: #a7a7a7;
 
+	@media ${ phoneL } {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		}
+
 	.user-info {
-		@media ${ phoneP } {
-			width: 100%;
+		width: 25%;
+		@media ${ phoneL } {
+			width: 38%;
 		}
 	}
 
@@ -53,11 +63,24 @@ const InfoWrapper = styled.div`
 
 	.category-name {
 		margin-left: 5px;
+		
+		@media ${ tabletP } {
+			display: none;
+		}
 	}
 
 	.date-views-comment {
-		@media ${ phoneP } {
-			display: none;
+		display: flex;
+		justify-content: space-between;
+		width: 25%;
+
+		@media (max-width: 755px) {
+      	width: 35%;
+    	}
+
+		@media ${ phoneL } {
+			margin-top: 20px;
+			width: 90%;
 		}
 	}
 `;
@@ -121,11 +144,8 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 				<i className = { category_icon } />
 				<span className = 'category-name'>{ category_name }</span>
 				<div className = 'date-views-comment'>
-					<i className = 'fas fa-circle' />
 					<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-					<i className = 'fas fa-circle' />
 					<span>{ views } View{ views !== 1 && 's' }</span>
-					<i className = 'fas fa-circle' />
 					<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
 				</div>
 			</InfoWrapper>
