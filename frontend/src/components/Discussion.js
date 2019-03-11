@@ -193,8 +193,8 @@ class Discussion extends Component {
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
-    order: 'created_at', // possible values: 'created_at', 'post_votes'
-    orderType: 'asc', // possible values: 'desc', 'asc'
+    order: 'created_at', // possible values: 'created_at', 'upvotes'
+    orderType: 'desc', // possible values: 'desc', 'asc'
   };
   handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
     return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
@@ -316,7 +316,7 @@ class Discussion extends Component {
                   &nbsp;
                   <select className='sortName' onChange={this.handleSelectChange} name='order'>
                     <option value='created_at'>date created</option>
-                    <option value='post_votes'>votes</option>
+                    <option value='upvotes'>votes</option>
                   </select>
                   &nbsp;
                   &nbsp;
