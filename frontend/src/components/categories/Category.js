@@ -149,11 +149,9 @@ const Category = ({ category, history }) => {
     ev.stopPropagation();
     history.push(`/profile/${user_id}`);
   }
-  console.log('icon', category.icon);
   return (
     <DivRow onClick={() => history.push(`/discussions/category/${id}`)}>
       <DivCategoryContainer>
-        {/* {src={require('../../assets/img/CategoryBook2.png')} alt='Emoji'} */}
         <DivIcon>
           {(category.icon) ? <i className={category.icon} /> : <img src={require('../../assets/img/CategoryBook2.png')} alt='Emoji' />}
         </DivIcon>
