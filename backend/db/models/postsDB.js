@@ -24,6 +24,15 @@ const search = (searchText, order, orderType) => {
     .orderBy(`${ order ? order : 'p.created_at' }`, `${ orderType ? orderType : 'desc' }`);
 };
 
+// get the user_id and discussion_id related to the post with the given id
+const getDiscAndUserInfoFromPostID = id => {
+  return db('posts as p')
+    .select('p.user_id', 'p.discussion_id', 'u.uuid')
+    .leftOuterJoin('users as u', 'u.id', '=', 'p.user_id')
+    .where('p.id', id)
+    .first();
+};
+
 // create a post by a given user_id to a given discussion_id
 const insert = newPost => {
   return db('posts').insert(newPost).returning('id');
@@ -41,6 +50,7 @@ const remove = id => {
 
 module.exports = {
   search,
+  getDiscAndUserInfoFromPostID,
   insert,
   update,
   remove,

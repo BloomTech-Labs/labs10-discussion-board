@@ -20,13 +20,18 @@ exports.up = function(knex, Promise) {
 			.integer('discussion_id')
 			.references('id')
 			.inTable('discussions')
-			.notNullable()
 			.onDelete('CASCADE');
 
 		tbl
 			.integer('post_id')
 			.references('id')
 			.inTable('posts')
+			.onDelete('CASCADE');
+
+		tbl
+			.integer('reply_id')
+			.references('id')
+			.inTable('replies')
 			.onDelete('CASCADE');
 
 		tbl

@@ -142,7 +142,7 @@ export const logBackIn = (id, token) => dispatch => {
     .catch(err => handleError(err, USER_LOG_BACK_IN_FAILURE)(dispatch));
 };
 
-export const auth0Login = accessToken => dispatch => {
+export const auth0Login = (accessToken, history) => dispatch => {
   const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
   dispatch({ type: USER_AUTH0_LOGIN_LOADING });
   return axios
@@ -156,6 +156,7 @@ export const auth0Login = accessToken => dispatch => {
           localStorage.setItem('symposium_token', response.data[0].token);
           localStorage.setItem('symposium_user_id', response.data[0].id);
           dispatch({ type: USER_AUTH0_LOGIN_SUCCESS, payload: response.data[0] });
+          history.push('/home');
           handlePusher.subscribeToPusher(response.data[0].uuid)(dispatch);
         })
         .catch(err => handleError(err, USER_AUTH0_LOGIN_FAILURE)(dispatch));
@@ -239,13 +240,14 @@ export const updatePassword = (oldPassword, newPassword, toggleForm) => dispatch
     .catch(err => handleError(err, PASSWORD_UPDATE_FAILURE)(dispatch));
 };
 
-export const signout = uuid => dispatch => {
+export const signout = (uuid, history) => dispatch => {
   localStorage.removeItem('symposium_token');
   localStorage.removeItem('symposium_user_id');
   localStorage.removeItem('symposium_auth0_access_token');
   localStorage.removeItem('symposium_auth0_expires_at');
   if (uuid) handlePusher.unsubscribeToPusher(uuid);
   dispatch({ type: USER_SIGNOUT_SUCCESS });
+  history.push('/');
   return Promise.resolve();
 };
 

@@ -26,9 +26,12 @@ const FollowWrapper = styled.div`
 const Followed = styled.div`
   .follow {
     cursor: pointer;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+		border-radius: 5px;
+		border: none;
+		background-color: #418DCF;
+		color: white;
   }
 `;
 
@@ -42,33 +45,30 @@ const FollowDis = styled.div`
  ********************************************* Component *******************************************
  **************************************************************************************************/
 class FollowCat extends Component {
-    state = { followed: this.props.follow};
 	  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 	  handleFollowClick = e => {
         e.preventDefault();
-		    const { followed } = this.state;
         const { followCategory, displayError, category_id, user_id, historyPush } = this.props;
         if (!user_id) {
           return displayError('You must be logged in to follow a category.');
         }
-		    return followCategory(category_id, user_id, followed, historyPush);
+		    return followCategory(category_id, user_id, historyPush);
 	  };
 
     render() {
-        const { followed } = this.state;
         const { user_id } = this.props;
         const isFollowing = this.props.categoryFollows.some(follow => follow.category_id === Number(this.props.category_id));
         return (
           <FollowWrapper>
             <Followed>
-              <FollowDis>Follow</FollowDis>
               <button
                   className="follow"
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: isFollowing ? 'green' : 'red'}}
-                  value={followed ? 'Followed' : 'Follow?'}
-              />
+              >
+                <i className = 'fas fa-plus-circle' />&nbsp;Follow
+              </button>
             </Followed>
             {
                 !user_id &&

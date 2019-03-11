@@ -56,9 +56,8 @@ class CategoriesView extends Component {
   render() {
     const {
       user_id,
+      user_type,
       setAddCatModalRaised,
-      // isAddCatModalRaised,
-      // historyPush,
     } = this.props;
     return (
       <CategoriesWrapper>
@@ -70,6 +69,7 @@ class CategoriesView extends Component {
             orderType={this.orderType}
             user_id={user_id}
             setAddCatModalRaised={setAddCatModalRaised}
+            user_type={user_type}
           />
           <Categories categories={this.props.categories} />
         </DivCategoriesComponent>
@@ -80,6 +80,7 @@ class CategoriesView extends Component {
 
 const mapStateToProps = state => ({
   user_id: state.users.user_id,
+  user_type: state.users.user_type,
   categories: state.categories.categories,
 });
 

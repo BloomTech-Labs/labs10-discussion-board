@@ -7,7 +7,14 @@ import styled from 'styled-components';
 import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, AddPostForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
+import {
+  // AddReplyForm,
+  AddPostForm,
+  Follow,
+  PostCount,
+  VoteCount,
+  Deleted,
+} from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -34,7 +41,7 @@ const DiscussionWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   margin-left: 10px;
-
+  color: ${props => props.theme.discussionPostColor};
   .back {
     font-size: 30px;
     padding-right: 35px;
@@ -84,7 +91,7 @@ const PostedBy = styled.div`
     .username{
       text-decoration: none;
       font-size: 0.8rem;
-      color: black;
+      color: ${props => props.theme.discussionPostColor};
     }
   }
 
@@ -194,7 +201,7 @@ class Discussion extends Component {
   });
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
-  toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id || null});
+  toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id || null });
   updateEditPostForm = post_id => this.setState({ showEditPostForm: post_id });
   handleRemovePost = (user_id, post_id, historyPush, discussion_id) => {
     return this.props.removePost(user_id, post_id, historyPush, discussion_id);
@@ -228,10 +235,10 @@ class Discussion extends Component {
 
 
   render() {
-    
+
     const {
       order,
-      orderType,
+      // orderType,
       showAddPostForm,
       showEditPostForm,
       showAddReplyForm,
@@ -280,7 +287,7 @@ class Discussion extends Component {
               &nbsp;
               &nbsp;
               <div className='c-name'>
-                <i className = { category_icon } />
+                <i className={category_icon} />
                 <span>
                   {category_name}
                 </span>
@@ -298,8 +305,8 @@ class Discussion extends Component {
               &nbsp;
               <Follow discussion_id={id} historyPush={historyPush} />
             </PostedBy>
-          </DiscussionContent>  
-          <CommentWrapper>  
+          </DiscussionContent>
+          <CommentWrapper>
             <CommentSort>
               <span className='title'>Comments</span>
               <Sort>
@@ -324,20 +331,19 @@ class Discussion extends Component {
                 </div>
               </Sort>
             </CommentSort>
-              <Posts>
-                <PostsView
-                  posts={posts}
-                  historyPush={historyPush}
-                  showEditPostForm={showEditPostForm}
-                  updateEditPostForm={this.updateEditPostForm}
-                  handleRemovePost={this.handleRemovePost}
-                  showAddReplyForm = {showAddReplyForm}
-                  toggleAddReplyForm={this.toggleAddReplyForm}
-                  discussion_id={id}
-                  historyPush={historyPush}
-                  repliedPost={posts.find(post => post.id === showAddReplyForm)}
-                />
-                {/* {
+            <Posts>
+              <PostsView
+                posts={posts}
+                showEditPostForm={showEditPostForm}
+                updateEditPostForm={this.updateEditPostForm}
+                handleRemovePost={this.handleRemovePost}
+                showAddReplyForm={showAddReplyForm}
+                toggleAddReplyForm={this.toggleAddReplyForm}
+                discussion_id={id}
+                historyPush={historyPush}
+                repliedPost={posts.find(post => post.id === showAddReplyForm)}
+              />
+              {/* {
                   showAddReplyForm &&
                   <AddReplyForm
                     toggleAddReplyForm={this.toggleAddReplyForm}
@@ -346,18 +352,18 @@ class Discussion extends Component {
                     toggleAddPostForm={this.toggleAddPostForm}
                   />
                 } */}
-                <AddPostBtn>
-                  {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Post</button>}
-                  {showAddPostForm && (
-                    <AddPostForm
-                      user_id={loggedInUserId}
-                      discussion_id={id}
-                      historyPush={historyPush}
-                      toggleAddPostForm={this.toggleAddPostForm}
-                    />
-                  )}
-                </AddPostBtn>
-              </Posts>
+              <AddPostBtn>
+                {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Comment</button>}
+                {showAddPostForm && (
+                  <AddPostForm
+                    user_id={loggedInUserId}
+                    discussion_id={id}
+                    historyPush={historyPush}
+                    toggleAddPostForm={this.toggleAddPostForm}
+                  />
+                )}
+              </AddPostBtn>
+            </Posts>
           </CommentWrapper>
         </SubWrapper>
       </DiscussionWrapper>

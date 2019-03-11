@@ -18,22 +18,41 @@ const DivCategoryListTitles = styled.div`
   border-bottom: 3px solid black;
   margin: 0;
   background: rgba(84, 189, 255, 0.9);
+  justify-content: space-between;
 
   h2 {
     margin: 5px 0;
 
     &:first-child {
-      width: 75%;
-      padding-left: 78px;
+      padding: 0 340px 0 78px;
+
+      @media (max-width: 1024px) {
+        padding: 0 200px 0 78px;
+      }
+
+      @media (max-width: 775px) {
+        padding: 0 20px;
+      }
     }
 
     &:nth-child(2) {
-      width: 37%;
+      @media (max-width: 878px) {
+        display: none;
+      }
     }
 
     &:last-child {
-      width: 37%;
+      padding: 0 98px 0 20px;
+      @media (max-width: 775px) {
+        display: none;
+      }
     }
+  }
+
+  
+
+  @media (max-width: 775px) {
+    justify-content: center;
   }
 `;
 

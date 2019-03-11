@@ -166,11 +166,11 @@ class AddReplyForm extends Component {
 			<AddReplyFormWrapper onSubmit = { this.handleSubmit } >
 				<AddReplyTitle>
 					<p>Write a Reply</p>
-					<a
+					<span
 						className = 'exit'
 						onClick = { this.handleToggle }
 						type = 'button' // prevents form submission
-					><i className="far fa-times-circle"></i></a>
+					><i className="far fa-times-circle"></i></span>
 				</AddReplyTitle>
 				<textarea
 					type= 'text'

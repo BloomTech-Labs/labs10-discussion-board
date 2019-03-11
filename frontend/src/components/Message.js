@@ -8,11 +8,12 @@ import { displayMessage } from '../store/actions/index.js';
 const MessageWrapper = styled.div`
 	background-color: ${props => props.theme.messageWrapperBgColor};
 	position: absolute;
+	top: 0;
 	z-index: 80001;
-	height: 100vh;
-	width: 100vw;
+	height: 100%;
+	width: 100%;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 `;
 
@@ -23,6 +24,7 @@ const MessageBox = styled.div`
 	flex-wrap: wrap;
 	flex-direction: column;
 	background-color: ${props => props.theme.messageBoxBgColor};
+	margin-top: 40vh;
 	padding: 10px;
 	border-radius: 5px;
 	border: ${props => props.theme.messageBoxBorder};

@@ -31,6 +31,7 @@ const ProfileWrapper = styled.div`
   // border: ${props => props.theme.profileBorder};
   width: 92%;
   // box-shadow: ${props => props.theme.profileBxShdw};
+  color: ${props => props.theme.discussionPostColor};
   @media ${tabletP} {
     .react-tabs__tab {
       width: 93%;
@@ -230,6 +231,7 @@ class Profile extends Component {
                   <Tab>Followed Categories</Tab>
                   <Tab>Posts</Tab>
                   <Tab>Comments</Tab>
+                  <Tab>Replies</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
@@ -268,6 +270,15 @@ class Profile extends Component {
                           {post.body}</SubContentDiv>)}
                       </Elip>
                 </WrappedDiv>
+                </TabPanel>
+                <TabPanel>
+                  <WrappedDiv>
+                    <p className='property-titleC'> Replies: </p>
+                      {profile.replies.map((reply, index) => 
+                        <SubContentDiv key={index}>
+                          {reply.body}
+                        </SubContentDiv>)}
+                  </WrappedDiv>
                 </TabPanel>
               </Tabs>
             </ProfileWrapper>

@@ -17,7 +17,7 @@ const StyledHeader = styled.div`
   width: 100%;
   z-index: 9000;
   align-self: center;
-  background-color: white;
+  background-color: ${props => props.theme.headerBg};;
   border-bottom: 2px solid ${props => props.theme.borderColor};
   @media ${tabletL}{
     width: 100%;
@@ -37,6 +37,7 @@ const StyledHeader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
     border-right: 2px solid ${props => props.theme.borderColor};
       &:hover {
         cursor: pointer;
@@ -66,10 +67,10 @@ const LambdaLogo = styled.span`
     }
 `;
 
-const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched }) => {
+const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised }) => {
   return (
     <StyledHeader>
-      <Link className = 'LogoContainer' to = '/home'><LambdaLogo /></Link>
+      <Link className='LogoContainer' to='/home'><LambdaLogo /></Link>
       <NavContainer>
         <Nav showSearch={showSearch}
           scrollTo={scrollTo}
@@ -80,6 +81,12 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
           isAuthenticated={isAuthenticated}
           toggleSearch={toggleSearch}
           switchTheme={switched}
+          isLoginDropdownModalRaised={isLoginDropdownModalRaised}
+          setLoginDropdownModalRaised={setLoginDropdownModalRaised}
+          isAvatarModalRaised={isAvatarModalRaised}
+          setAvatarModalRaised={setAvatarModalRaised}
+          isNotificationsModalRaised={isNotificationsModalRaised}
+          setNotificationsModalRaised={setNotificationsModalRaised}
         />
       </NavContainer>
     </StyledHeader >

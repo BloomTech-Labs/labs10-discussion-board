@@ -1,5 +1,5 @@
 // External API containing mock data for various endpoints
-const { numOfFakeUsers, accountRoleTypes } = require('../../config/globals.js');
+const { numOfFakeUsers, accountUserTypes } = require('../../config/globals.js');
 const faker = require('faker');
 
 // For loop to generate numOfFakeUsers
@@ -18,7 +18,7 @@ const generateSeeds = () => {
   }
 
   // our test accounts (owners) for authentication/authorization
-  const admin = accountRoleTypes[accountRoleTypes.length - 1];
+  const admin = accountUserTypes[accountUserTypes.length - 1];
   arr.push({
     user_id: 501,
     avatar:
