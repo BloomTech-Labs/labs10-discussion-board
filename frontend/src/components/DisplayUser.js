@@ -66,7 +66,8 @@ const PWelcomeMessage = styled.p`
         right: -10px;
         font-size: 0.8rem;
         font-weight: bold;
-        background-color: white;
+        color: ${props => props.theme.notificationFontColor};
+        background-color: ${props => props.theme.notificationBackgroundColor};
         border-radius: 50%;
         padding: 0 5px;
       }
