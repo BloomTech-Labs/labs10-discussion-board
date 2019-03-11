@@ -26,9 +26,12 @@ const FollowWrapper = styled.div`
 const Followed = styled.div`
   .follow {
     cursor: pointer;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+		border-radius: 5px;
+		border: none;
+		background-color: #418DCF;
+		color: white;
   }
 `;
 
@@ -61,14 +64,15 @@ class FollowCat extends Component {
         return (
           <FollowWrapper>
             <Followed>
-              <FollowDis>Follow</FollowDis>
               <button
                   className="follow"
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                   style={{backgroundColor: isFollowing ? 'green' : 'red'}}
                   value={followed ? 'Followed' : 'Follow?'}
-              />
+              >
+                <i className = 'fas fa-plus-circle' />&nbsp;Follow
+              </button>
             </Followed>
             {
                 !user_id &&
