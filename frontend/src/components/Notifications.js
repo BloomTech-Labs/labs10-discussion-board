@@ -33,7 +33,7 @@ const NotificationsWrapper = styled.div`
 	flex-direction: column;
 	z-index: 9998;
 	position: fixed;
-	border: 1px solid black;
+	border: 1px solid ${props => props.theme.borderColor};
 	border-radius: 5px;
 	background-color: white;
 	color: black;

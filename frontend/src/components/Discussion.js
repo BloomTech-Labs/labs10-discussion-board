@@ -40,12 +40,12 @@ const DiscussionWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   margin: 0 auto;
-  margin-left: 10px;
   color: ${props => props.theme.discussionPostColor};
   .back {
+    margin-right: 5px;
+    width: 7%;
+    height: 50px;
     font-size: 30px;
-    padding-right: 35px;
-    padding-top: 15px;
     color: black;
     
     &:hover{
@@ -54,11 +54,14 @@ const DiscussionWrapper = styled.div`
   }
 `;
 const SubWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 const DiscussionContent = styled.div`
+  margin-top: 20px;
+  display: flex;
   // color: darkgray;
 
   p {
@@ -67,11 +70,11 @@ const DiscussionContent = styled.div`
   }
 `;
 
-const PostedBy = styled.div`
+const PostHeader = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   font-size: 12px;
   margin-bottom: 15px;
   font-size: 0.8rem;
@@ -94,17 +97,6 @@ const PostedBy = styled.div`
       color: ${props => props.theme.discussionPostColor};
     }
   }
-
-.c-name {
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  span {
-    margin-left: 5px;
-  }
-}
 `;
 
 const CommentWrapper = styled.div`
@@ -187,6 +179,35 @@ justify-content: space-between;
 // }
 // `;
 
+const DiscussionTitle = styled.div`
+color: black;
+`;
+
+const PostedBy = styled.div`
+  width: 100%;
+  display: flex;
+  margin-left: -25px;
+
+  .c-name {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  span {
+    margin-left: 5px;
+    
+    @media (max-width: 525px) {
+      display: none;
+    }
+  }
+
+    @media (max-width: 525px) {
+      display: none;
+    }
+}
+`;
+
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
@@ -267,13 +288,16 @@ class Discussion extends Component {
 
     return (
       <DiscussionWrapper>
-        <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
         <SubWrapper>
           <DiscussionContent>
-            <div className='content'>
-              <p>{body}</p>
-            </div>
-            <PostedBy>
+          <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
+            <PostHeader>
+              <DiscussionTitle>
+                <div className='content'>
+                  <p>{body}</p>
+                </div>
+              </DiscussionTitle>
+              <PostedBy>
               <div className='d-creator'>
                 <img alt='user' src={avatar} />
                 {
@@ -304,7 +328,8 @@ class Discussion extends Component {
               &nbsp;
               &nbsp;
               <Follow discussion_id={id} historyPush={historyPush} />
-            </PostedBy>
+              </PostedBy>
+            </PostHeader>
           </DiscussionContent>
           <CommentWrapper>
             <CommentSort>
