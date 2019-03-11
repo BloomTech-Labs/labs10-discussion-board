@@ -59,7 +59,6 @@ export const getTopDiscussions = (order, orderType) => dispatch => {
 };
 
 export const getDiscussionById = (id, order, orderType) => dispatch => {
-  console.log('in the id', id, 'order', order, 'orderType', orderType)
   const user_id = localStorage.getItem('symposium_user_id');
 	const token = localStorage.getItem('symposium_token');
 	const headers = { headers: { Authorization: token, order, orderType } };

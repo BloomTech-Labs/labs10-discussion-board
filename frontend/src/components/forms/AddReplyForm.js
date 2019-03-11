@@ -80,7 +80,6 @@ class AddReplyForm extends Component {
 		e.preventDefault();
 		const { replyBody } = this.state;
 		const { post_id, historyPush, discussion_id } = this.props;
-		console.log('In the AddReply', discussion_id)
 		return this.props.addReply(post_id, discussion_id, replyBody, historyPush);
 	};
 	handleToggle = () => this.props.toggleAddReplyForm();

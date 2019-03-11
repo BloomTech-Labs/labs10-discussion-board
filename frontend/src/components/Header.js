@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Nav } from '../components/index.js';
-import Lambda from '../assets/img/Lambda.png';
+import Lambda from '../assets/img/symposium3.png';
 
 // Globals
 import { topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';

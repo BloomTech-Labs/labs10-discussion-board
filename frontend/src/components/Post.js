@@ -145,6 +145,8 @@ const Post = ({
     username,
     user_vote,
     avatar,
+    upvotes,
+    downvotes,
     // signature,
   } = post;
 
@@ -196,8 +198,9 @@ const Post = ({
           &nbsp;
           &nbsp;
         <VoteCount
+          upvotes={upvotes}
+          downvotes={downvotes}
           handleVote={handleVote}
-          vote_count={post_votes}
           user_vote={user_vote}
         />
           &nbsp;
