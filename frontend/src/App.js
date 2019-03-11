@@ -155,8 +155,6 @@ class App extends Component {
 
   setNotificationsModalRaised = (ev, status) => {
     ev.stopPropagation();
-    console.log('isNotificationsModalRaised', this.state.isNotificationsModalRaised);
-    console.log('ev', ev);
     this.setState({ isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead());
   }
