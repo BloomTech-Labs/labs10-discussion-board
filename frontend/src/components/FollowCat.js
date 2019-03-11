@@ -52,7 +52,7 @@ class FollowCat extends Component {
     
     render() {
         const { user_id } = this.props;
-        const isFollowing = this.props.categoryFollows.some(follow => follow.category_id === Number(this.props.category_id));
+        const isFollowing = this.props.categoriesFollowed.some(follow => follow.id === Number(this.props.category_id));
         const followUnfollow = () => {
           if(isFollowing === true){
             return 'Unfollow'
