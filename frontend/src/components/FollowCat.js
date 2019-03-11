@@ -49,10 +49,17 @@ class FollowCat extends Component {
         }
 		    return followCategory(category_id, user_id, historyPush);
 	  };
-
+    
     render() {
         const { user_id } = this.props;
         const isFollowing = this.props.categoryFollows.some(follow => follow.category_id === Number(this.props.category_id));
+        const followUnfollow = () => {
+          if(isFollowing === true){
+            return 'Unfollow'
+          } else {
+            return 'Follow'
+          }
+        }
         return (
           <FollowWrapper>
             <Followed>
@@ -62,7 +69,8 @@ class FollowCat extends Component {
                   onChange = { this.handleChange }
                   style={{backgroundColor: isFollowing ? 'green' : 'red'}}
               >
-                <i className = 'fas fa-plus-circle' />&nbsp;Follow
+              
+                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;{followUnfollow()}
               </button>
             </Followed>
             {
