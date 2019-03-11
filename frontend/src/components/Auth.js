@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LoginDropdown from './LoginDropdown.js';
 // import chevron from '../assets/img/chevron.png';
-// import PropTypes from 'prop-types';
 
 // globals
 import { phoneP, phoneL, tabletP } from '../globals/globals.js';
@@ -100,57 +98,29 @@ const Login = styled.a`
     }
 
   img {
-    transform: ${props => props.isLoginDropdownClicked && 'rotate(180deg)'};
+    transform: ${props => props.isLoginDropdownModalRaised && 'rotate(180deg)'};
   }
 `;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-class Auth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoginDropdownClicked: false
-    };
-  };
-
-  toggleLoginDropdown = ev => {
-    ev.preventDefault();
-    this.setIsLoginDropdownClicked(!this.state.isLoginDropdownClicked);
-  };
-
-  setIsLoginDropdownClicked = isClicked => {
-    this.setState({ isLoginDropdownClicked: isClicked });
-    return Promise.resolve();
-  };
-
-  render() {
-    return (
-      <LogInContainer>
-        <DivAuthRegLog>
-          <LinkRegister to='/register'>Register</LinkRegister>
-          <div className = "line">&nbsp;|&nbsp;</div>
-          <DivLogin>
-            <Login onClick = {ev => {this.toggleLoginDropdown(ev);}}
-              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
-            >
-              Login
+const Auth = (props) => {
+  return (
+    <LogInContainer>
+      <DivAuthRegLog>
+        <LinkRegister to='/register'>Register</LinkRegister>
+        <div className="line">&nbsp;|&nbsp;</div>
+        <DivLogin>
+          <Login onClick={ev => props.setLoginDropdownModalRaised(ev, !props.isLoginDropdownModalRaised)}
+            isLoginDropdownModalRaised={props.isLoginDropdownModalRaised}
+          >
+            Login
             </Login>
-            <LoginDropdown
-              {...this.props}
-              isLoginDropdownClicked={this.state.isLoginDropdownClicked}
-              setIsLoginDropdownClicked={this.setIsLoginDropdownClicked}
-            />
-          </DivLogin>
-        </DivAuthRegLog>
-      </LogInContainer>
-    );
-  }
+        </DivLogin>
+      </DivAuthRegLog>
+    </LogInContainer>
+  );
 }
-
-// Auth.propTypes = {
-//   propertyName: PropTypes.string
-// }
 
 export default connect(null, {})(Auth);

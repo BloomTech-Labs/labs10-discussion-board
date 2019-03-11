@@ -8,6 +8,8 @@ const pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
 const sideNavWidth = '300px';
 const stripePayFormat = [999, 1999, 2999]; // matching subscriptionPrices
 const stripeToken = process.env.REACT_APP_STRIPE_TOKEN;
+const accountUserTypes = ['user', 'bronze_member', 'silver_member', 'gold_member', 'admin']; // Must match with globals on front end
+const addCatPermStartIndex = 2;
 const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
 const subscriptionPrices = ['$0.00', '$9.99/yr', '$19.99/yr', '$29.99/yr']; // same order as subscriptionPlans
 const searchCharLimit = 64; // limits the max number of characters to return in a search
@@ -240,6 +242,8 @@ const nightTheme = {
 
 module.exports = {
   accountStatusTypes,
+  accountUserTypes,
+  addCatPermStartIndex,
   auth0ClientID,
   auth0Domain,
   auth0RedirectUri,
