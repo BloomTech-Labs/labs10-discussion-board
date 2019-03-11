@@ -51,6 +51,7 @@ const UserProperties = styled.form`
   width: 100%;
   display:flex;
   flex-wrap: wrap;
+  color: ${props => props.theme.discussionPostColor};
   @media ${tabletP}{
     flex-direction: column;
     width: 60%;  

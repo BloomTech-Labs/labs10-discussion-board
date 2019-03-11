@@ -17,7 +17,7 @@ const StyledHeader = styled.div`
   width: 100%;
   z-index: 9000;
   align-self: center;
-  background-color: white;
+  background-color: ${props => props.theme.headerBg};;
   border-bottom: 2px solid ${props => props.theme.borderColor};
   @media ${tabletL}{
     width: 100%;

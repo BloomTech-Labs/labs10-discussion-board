@@ -41,7 +41,7 @@ const DiscussionWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   margin-left: 10px;
-
+  color: ${props => props.theme.discussionPostColor};
   .back {
     font-size: 30px;
     padding-right: 35px;
@@ -91,7 +91,7 @@ const PostedBy = styled.div`
     .username{
       text-decoration: none;
       font-size: 0.8rem;
-      color: black;
+      color: ${props => props.theme.discussionPostColor};
     }
   }
 
