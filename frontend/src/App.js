@@ -206,14 +206,14 @@ class App extends Component {
           <AppWrapper>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
-            <AvatarDropdown isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
+            <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
             <Notifications history={history} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
             <DivBody>
               <DivSideNav>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
               </DivSideNav>
               <DivPage>
-                {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
+                {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
                 <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />

@@ -99,11 +99,10 @@ class AvatarDropdown extends Component {
     this.props.setAvatarModalRaised(ev, false);
     localStorage.removeItem('symposium_auth0_access_token');
     localStorage.removeItem('symposium_auth0_expires_at');
-    return this.props.signout(this.props.uuid);
+    return this.props.signout(this.props.uuid, this.props.history);
   };
 
   render() {
-    console.log('isAvatarModalRaised', this.props.isAvatarModalRaised)
     return (
       <DivAvatarModal isAvatarModalRaised={this.props.isAvatarModalRaised.toString()}>
         <DivModalCloser onClick={(ev) => this.props.setAvatarModalRaised(ev, false)} />

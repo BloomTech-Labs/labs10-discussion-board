@@ -239,13 +239,14 @@ export const updatePassword = (oldPassword, newPassword, toggleForm) => dispatch
     .catch(err => handleError(err, PASSWORD_UPDATE_FAILURE)(dispatch));
 };
 
-export const signout = uuid => dispatch => {
+export const signout = (uuid, history) => dispatch => {
   localStorage.removeItem('symposium_token');
   localStorage.removeItem('symposium_user_id');
   localStorage.removeItem('symposium_auth0_access_token');
   localStorage.removeItem('symposium_auth0_expires_at');
   if (uuid) handlePusher.unsubscribeToPusher(uuid);
   dispatch({ type: USER_SIGNOUT_SUCCESS });
+  history.push('/');
   return Promise.resolve();
 };
 

@@ -7,7 +7,14 @@ import styled from 'styled-components';
 import { phoneL, phoneP, tabletP } from '../globals/globals.js'
 
 // components
-import { AddReplyForm, AddPostForm, Follow, PostCount, VoteCount, Deleted } from './index.js';
+import {
+  // AddReplyForm,
+  AddPostForm,
+  Follow,
+  PostCount,
+  VoteCount,
+  Deleted,
+} from './index.js';
 
 // views
 import { PostsView } from '../views/index.js';
@@ -231,7 +238,7 @@ class Discussion extends Component {
     
     const {
       order,
-      orderType,
+      // orderType,
       showAddPostForm,
       showEditPostForm,
       showAddReplyForm,
@@ -327,7 +334,6 @@ class Discussion extends Component {
               <Posts>
                 <PostsView
                   posts={posts}
-                  historyPush={historyPush}
                   showEditPostForm={showEditPostForm}
                   updateEditPostForm={this.updateEditPostForm}
                   handleRemovePost={this.handleRemovePost}
