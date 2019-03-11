@@ -73,7 +73,7 @@ const PWelcomeMessage = styled.p`
         }
       }
       i {
-        color: ${props => props.theme.notificationFontColor};;
+        color: ${props => props.theme.notificationFontColor};
       }
     }
     @media (max-width: 750px){
