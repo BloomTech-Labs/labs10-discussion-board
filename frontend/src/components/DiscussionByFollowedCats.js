@@ -64,7 +64,7 @@ const InfoWrapper = styled.div`
 
 const UsernameWrapper = styled.span`
 	margin-right: 20px;
-	color: black;
+	color: ${props => props.theme.discussionPostColor};
 `;
 
 const VotesWrapper = styled.div`

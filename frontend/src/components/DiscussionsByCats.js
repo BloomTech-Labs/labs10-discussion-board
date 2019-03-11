@@ -25,6 +25,7 @@ const DiscussionsWrapper = styled.div`
 	align-items: center;
 	width: 95%;
 	min-height: 100vh;
+	color: ${props => props.theme.discussionPostColor};
 
 	hr {
 		width: 100%;
@@ -38,8 +39,8 @@ const DiscussionsWrapper = styled.div`
 		justify-content: center;
 		align-items: center;
 		width: 95%;
-
-		@media ${ tabletP} {
+		color: ${props => props.theme.discussionPostColor};
+		@media ${ tabletP } {
 			width: 100%;
 		}
 	}
@@ -65,13 +66,14 @@ const DiscussionHeader = styled.div`
 	.filter-wrapper {
 		i {
 			margin-right: 5px;
+			color: ${props => props.theme.discussionPostColor};
 		}
 
 		.filter {
 			border: none;
 			background-color: rgba(0, 0, 0, 0);
 			padding: 5px;
-
+			color: ${props => props.theme.discussionPostColor};
 			&:focus {
 				outline: none;
 			}
