@@ -62,10 +62,11 @@ const PWelcomeMessage = styled.p`
 
       .notifications-count {
         position: absolute;
-        top: 0;
+        top: -5px;
         right: -10px;
-        font-size: 0.7rem;
-        background-color: black;
+        font-size: 0.8rem;
+        font-weight: bold;
+        background-color: white;
         border-radius: 50%;
         padding: 0 5px;
       }
