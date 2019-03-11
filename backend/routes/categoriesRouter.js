@@ -3,7 +3,7 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const { categoriesDB } = require('../db/models/index.js');
+const { categoriesDB, categoryFollowsDB } = require('../db/models/index.js');
 
 const router = express.Router();
 

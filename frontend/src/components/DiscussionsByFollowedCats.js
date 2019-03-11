@@ -31,9 +31,9 @@ const DiscussionsWrapper = styled.div`
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		width: 95%;
-
-		@media ${ tabletP} {
+    width: 95%;
+    color: ${props => props.theme.discussionPostColor};
+    @media ${ tabletP} {
 			width: 100%;
 		}
 	}
@@ -50,7 +50,7 @@ const DiscussionHeader = styled.div`
 	.all-posts {
 		font-size: 36px;
 		flex-grow: 2;
-
+    color: ${props => props.theme.discussionPostColor};
 		@media ${ tabletP} {
 			flex-grow: 0;
 		}
@@ -58,14 +58,18 @@ const DiscussionHeader = styled.div`
 
 	.filter-wrapper {
 		i {
-			margin-right: 5px;
+      margin-right: 5px;
+      color: ${props => props.theme.discussionPostColor};
+		}
+		.filter-by{
+			color: ${props => props.theme.discussionPostColor};
 		}
 
 		.filter {
 			border: none;
 			background-color: rgba(0, 0, 0, 0);
 			padding: 5px;
-
+      color: ${props => props.theme.discussionPostColor};
 			&:focus {
 				outline: none;
 			}
@@ -151,7 +155,7 @@ class AllDiscussionsByFollowedCats extends Component {
           <h2 className='all-posts'>All Posts</h2>
           <div className='filter-wrapper'>
             <i className='fab fa-mix' />
-            <span>Filter by</span>
+            <span className = 'filter-by'>Filter by</span>
             <select
               className='filter'
               onChange={this.handleSelectChange}

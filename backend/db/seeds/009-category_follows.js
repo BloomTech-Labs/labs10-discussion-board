@@ -1,12 +1,12 @@
 const{
-  numOfCategories,
+  numOfDefaultCategories,
 } = require('../../config/globals.js');
 
 const generateSeeds = () => {
   let arr = [];
   // every user profile created for the team will be following default categories
   for (let i = 501; i <= 505; i++) {
-    for (let j = 1; j <= numOfCategories - 1; j++) { // - 1 here for testing purposes
+    for (let j = 1; j <= numOfDefaultCategories; j++) {
       arr.push({ category_id: j, user_id: i });
     }
   }

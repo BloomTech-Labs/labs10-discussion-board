@@ -31,6 +31,7 @@ const ProfileWrapper = styled.div`
   // border: ${props => props.theme.profileBorder};
   width: 92%;
   // box-shadow: ${props => props.theme.profileBxShdw};
+  color: ${props => props.theme.discussionPostColor};
   @media ${tabletP} {
     .react-tabs__tab {
       width: 93%;
