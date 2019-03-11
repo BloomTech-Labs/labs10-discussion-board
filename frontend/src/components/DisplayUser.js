@@ -73,7 +73,7 @@ const PWelcomeMessage = styled.p`
         }
       }
       i {
-        color: #2C2E31;
+        color: color: ${props => props.theme.notificationFontColor};;
       }
     }
     @media (max-width: 750px){
