@@ -19,11 +19,12 @@ import {
   // Avatar,
   // Quote,
   Avatar,
+  Reply,
 } from './index.js';
 
-import { RepliesView } from '../views/index.js';
+// import { RepliesView } from '../views/index.js';
 
-import { handlePostVote } from '../store/actions/index.js';
+import { handlePostVote, handleReplyVote } from '../store/actions/index.js';
 
 //Styled Divs 
 // const H5signature = styled.h5`
@@ -36,7 +37,6 @@ const PostWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 16px;
-  border-bottom: 1px solid black;
 
   .title {
     margin-top: 30px;
@@ -58,7 +58,7 @@ const BodyWrapper = styled.p`
 const InfoWrapper = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-end;
   font-size: 0.9rem;
   color: #a7a7a7;
@@ -67,7 +67,6 @@ const InfoWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 25%;
     margin-right: 20px;
 
     .user {
@@ -89,6 +88,10 @@ const InfoWrapper = styled.div`
     display: flex;
     width: 75%;
 
+    .reply {
+      margin-right: 10px;
+    }
+
     .votes-wrapper {
       margin-right: 10px;
       display: flex;
@@ -102,7 +105,7 @@ const InfoWrapper = styled.div`
       }
     }
 
-    .date-views-comment {
+    .date {
       display: flex;
     }
 
@@ -128,13 +131,6 @@ const InfoWrapper = styled.div`
     }
   }
 
-  .fa-circle {
-    font-size: 0.4rem;
-    margin-top: 9px;
-    margin-left: 8px;
-    margin-right: 8px;
-  }
-
   @media (max-width: 830px) {
     .desktop {
       display: none;
@@ -158,53 +154,6 @@ const UsernameWrapper = styled.span`
   color: ${props => props.theme.discussionPostColor};
 `;
 
-//make a global for the avatar box Background
-const PostedBy = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 0.8rem;
-	color: #a7a7a7;
-
-  .p-creator{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  img {
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 23px;
-  }
-
-  .username {
-    text-decoration: none;
-    margin-right: 15px;
-    color: black;
-
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  }
-
-  span {
-    cursor: pointer;
-
-    &:hover {
-      color: steelblue;
-    };
-  }
-
-  .timestamp {
-    @media ${phoneL}{
-      display: none;
-    }    
-  }
-`;
-
 const Post = ({
   post,
   loggedInUserId,
@@ -214,9 +163,10 @@ const Post = ({
   handleRemovePost,
   showAddReplyForm,
   handlePostVote,
-  order,
-  orderType,
   toggleAddReplyForm,
+  handleFilterChange,
+  handleReplyVote,
+  scrollTo,
 }) => {
 
   const {
@@ -235,7 +185,13 @@ const Post = ({
     // signature,
   } = post;
 
-  const handleVote = (e, type) => handlePostVote(post.id, type, discussion_id, order, orderType);
+  const handleVote = (e, type) => handlePostVote(post.id, type)
+    .then(() => handleFilterChange())
+    .then(() => scrollTo());
+
+  const handleReplyVoting = (reply_id, type) => handleReplyVote(reply_id, type)
+    .then(() => handleFilterChange())
+    .then(() => scrollTo());
 
   const handleAddReply = () => {
     if (showAddReplyForm === id){
@@ -246,18 +202,18 @@ const Post = ({
   };
 
   //Shows Created timestamp, then Edited Time stamp overrides it once post is edited
-  const timeStamp =() => {
-    if(last_edited_at){
-      return (
-            <span>
-              Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-            </span>
-          )
-    } else if(created_at) {
-      return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-      )
-    }
-  };
+  // const timeStamp =() => {
+  //   if(last_edited_at){
+  //     return (
+  //           <span>
+  //             Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
+  //           </span>
+  //         )
+  //   } else if(created_at) {
+  //     return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
+  //     )
+  //   }
+  // };
 
   const handleUserClick = e => {
     e.stopPropagation();
@@ -280,6 +236,7 @@ const Post = ({
           </div>
         </div>
         <div className = 'discussion-info'>
+          <span className = 'reply' onClick = { handleAddReply }>Reply</span>
           <div className = 'votes-wrapper'>
             <VoteCount
               upvotes = { upvotes }
@@ -288,59 +245,34 @@ const Post = ({
               handleVote = { handleVote }
             />
           </div>
-          <div className = 'date-views-comment tablet'>
+          <div className = 'date tablet'>
             <span>{moment(new Date(Number(created_at))).fromNow()}</span>
           </div>
         </div>
       </InfoWrapper>
-      {/* <p>{body}</p>
-      <PostedBy>
-        <div className='p-creator'>
-          <img alt='user' src={avatar} />              
-          {
-            username ?
-              <Link className='username' to={`/profile/${user_id}`}>
-                {username}
-              </Link> :
-              <Deleted />
-          }
-          {
-            loggedInUserId !== 0 &&
-            <span onClick={handleAddReply}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
-          }
-        </div>
-          &nbsp;
-          &nbsp;
-        <VoteCount
-          upvotes = { upvotes }
-          downvotes = { downvotes }
-          user_vote = { user_vote }
-          handleVote = { handleVote }
-        />
-          &nbsp;
-          &nbsp;
-        <div className='timestamp'>
-          {timeStamp(last_edited_at, created_at)}
-        </div>
-      </PostedBy>
-        {  
+      <div>
+        {
+          replies.map((reply, i) =>
+            <Reply
+              key = { i }
+              reply = { reply }
+              historyPush = { historyPush }
+              toggleAddReplyForm = { toggleAddReplyForm }
+              showAddReplyForm = { showAddReplyForm }
+              handleReplyVote = { handleReplyVoting }
+            />
+          )
+        }
+      </div>
+      {
           showAddReplyForm === id &&
           <AddReplyForm
-            user_id={loggedInUserId}
-            toggleAddReplyForm={toggleAddReplyForm}
-            post_id={id}
-            discussion_id = {discussion_id}
-            historyPush={historyPush}
+            post_id = { id }
+            historyPush = { historyPush }
+            discussion_id = { discussion_id }
+            toggleAddReplyForm = { toggleAddReplyForm }
           />
         }
-        <RepliesView
-            replies = {replies}
-            historyPush = {historyPush}
-            toggleAddReplyForm={toggleAddReplyForm}
-            showAddReplyForm = {showAddReplyForm}
-          />
-          &nbsp;
-          &nbsp;     */}
   </PostWrapper>
   );
 };
@@ -353,5 +285,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { handlePostVote }
+  { handlePostVote, handleReplyVote }
 )(Post);

@@ -81,18 +81,39 @@ flex-direction: column;
 
 const Posts = styled.div``;
 
-const AddPostBtn = styled.div``;
-
 const CommentSort = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 15px 0px; 
+  margin: 15px 0px;
 
-    .title {
-      font-weight: bold;  
+  .title-add-wrapper {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    align-items: center;
+
+    .add-post-btn {
+      margin-left: 10px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      background-color: #418DCF;
+      color: white;
+  
+      @media ${ phoneP} {
+        width: 100%;
+        margin-left: 0;
+      }
+  
+      &:hover {
+        cursor: pointer;
+        background-color: white;
+        color: #418DCF;
+        border: 1px solid #418DCF;
+      }
     }
   }
 
@@ -196,7 +217,7 @@ class Discussion extends Component {
       showEditPostForm,
       showAddReplyForm,
     } = this.state;
-    const { discussion, history, historyPush, loggedInUserId } = this.props;
+    const { discussion, history, historyPush, loggedInUserId, scrollTo } = this.props;
     const {
       // body,
       // created_at,
@@ -226,7 +247,12 @@ class Discussion extends Component {
           />
           <CommentWrapper>
             <CommentSort>
-              <span className='title'>Comments</span>
+              <div className = 'title-add-wrapper'>
+                <span className='title'>Comments</span>
+                <button onClick={this.toggleAddPostForm} className='add-post-btn'>
+                  <i className='fas fa-plus-circle' />&nbsp;Add Comment
+              </button>
+              </div>
               <div className = 'sort'>
                 <div className='filter-wrapper'>
                   <i className='fab fa-mix' />
@@ -243,6 +269,14 @@ class Discussion extends Component {
                 </div>
               </div>
             </CommentSort>
+            {showAddPostForm && (
+              <AddPostForm
+                user_id={loggedInUserId}
+                discussion_id={id}
+                historyPush={historyPush}
+                toggleAddPostForm={this.toggleAddPostForm}
+              />
+            )}
             <Posts>
               <PostsView
                 posts={posts}
@@ -254,27 +288,9 @@ class Discussion extends Component {
                 discussion_id={id}
                 historyPush={historyPush}
                 repliedPost={posts.find(post => post.id === showAddReplyForm)}
+                handleFilterChange = {this.handleFilterChange}
+                scrollTo = {scrollTo}
               />
-              {/* {
-                  showAddReplyForm &&
-                  <AddReplyForm
-                    toggleAddReplyForm={this.toggleAddReplyForm}
-                    discussion_id={id}
-                    historyPush={historyPush}
-                    toggleAddPostForm={this.toggleAddPostForm}
-                  />
-                } */}
-              <AddPostBtn>
-                {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Comment</button>}
-                {showAddPostForm && (
-                  <AddPostForm
-                    user_id={loggedInUserId}
-                    discussion_id={id}
-                    historyPush={historyPush}
-                    toggleAddPostForm={this.toggleAddPostForm}
-                  />
-                )}
-              </AddPostBtn>
             </Posts>
           </CommentWrapper>
         </SubWrapper>
