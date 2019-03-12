@@ -7,9 +7,8 @@ import { Avatar, VoteCount } from './index.js';
 
 // globals
 import {
-	phoneP,
-	tabletP,
-	phoneL,
+  tabletP,
+  phoneL,
 } from '../globals/globals.js';
 
 const DiscussionWrapper = styled.div`
@@ -41,7 +40,7 @@ const InfoWrapper = styled.div`
 	font-size: 0.9rem;
 	color: #a7a7a7;
 
-	@media ${ phoneL } {
+	@media ${ phoneL} {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: flex-start;
@@ -49,7 +48,7 @@ const InfoWrapper = styled.div`
 
 	.user-info {
 		width: 25%;
-		@media ${ phoneL } {
+		@media ${ phoneL} {
 			width: 38%;
 		}
 	}
@@ -64,7 +63,7 @@ const InfoWrapper = styled.div`
 	.category-name {
 		margin-left: 5px;
 		
-		@media ${ tabletP } {
+		@media ${ tabletP} {
 			display: none;
 		}
 	}
@@ -78,7 +77,7 @@ const InfoWrapper = styled.div`
       	width: 35%;
     	}
 
-		@media ${ phoneL } {
+		@media ${ phoneL} {
 			margin-top: 20px;
 			width: 90%;
 		}
@@ -100,57 +99,57 @@ const VotesWrapper = styled.div`
 `;
 
 const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => {
-	const {
-		avatar,
-		body,
-		category_icon,
-		// category_id,
-		category_name,
-		created_at,
-		downvotes,
-		id,
-		post_count,
-		upvotes,
-		user_vote,
-		username,
-		views,
-	} = discussion;
-	const handleDiscussionClick = () => history.push(`/discussion/${ id }`);
-	const handleVote = (e, type) => {
-		e.stopPropagation();
-		return voteOnDiscussion(id, type);
-	};
-	return(
-		<DiscussionWrapper onClick = { handleDiscussionClick }>
-			<BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
-			<InfoWrapper>
-				<div className = 'user-info'>
-					<Avatar
-						height = '20px'
-						width = '20px'
-						src = { avatar }
-					/>
-					&nbsp;
-					<UsernameWrapper>{ username }</UsernameWrapper>
-				</div>
-				<VotesWrapper>
-					<VoteCount
-						upvotes = { upvotes }
-						downvotes = { downvotes }
-						user_vote = { user_vote }
-						handleVote = { handleVote }
-					/>
-				</VotesWrapper>
-				<i className = { category_icon } />
-				<span className = 'category-name'>{ category_name }</span>
-				<div className = 'date-views-comment'>
-					<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-					<span>{ views } View{ views !== 1 && 's' }</span>
-					<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
-				</div>
-			</InfoWrapper>
-		</DiscussionWrapper>
-	);
+  const {
+    avatar,
+    body,
+    category_icon,
+    // category_id,
+    category_name,
+    created_at,
+    downvotes,
+    id,
+    post_count,
+    upvotes,
+    user_vote,
+    username,
+    views,
+  } = discussion;
+  const handleDiscussionClick = () => history.push(`/discussion/${id}`);
+  const handleVote = (e, type) => {
+    e.stopPropagation();
+    return voteOnDiscussion(id, type);
+  };
+  return (
+    <DiscussionWrapper onClick={handleDiscussionClick}>
+      <BodyWrapper>{body.length > 183 ? body.substr(0, 183) + '...' : body}</BodyWrapper>
+      <InfoWrapper>
+        <div className='user-info'>
+          <Avatar
+            height='20px'
+            width='20px'
+            src={avatar}
+          />
+          &nbsp;
+					<UsernameWrapper>{username}</UsernameWrapper>
+        </div>
+        <VotesWrapper>
+          <VoteCount
+            upvotes={upvotes}
+            downvotes={downvotes}
+            user_vote={user_vote}
+            handleVote={handleVote}
+          />
+        </VotesWrapper>
+        <i className={category_icon} />
+        <span className='category-name'>{category_name}</span>
+        <div className='date-views-comment'>
+          <span>{moment(new Date(Number(created_at))).fromNow()}</span>
+          <span>{views} View{views !== 1 && 's'}</span>
+          <span>{post_count} Comment{Number(post_count) !== 1 && 's'}</span>
+        </div>
+      </InfoWrapper>
+    </DiscussionWrapper>
+  );
 };
 
 export default DiscussionByFollowedCats;
