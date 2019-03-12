@@ -58,7 +58,6 @@ const PostedBy = styled.div`
   font-size: 0.8rem;
 	color: #a7a7a7;
 
-
   .p-creator{
     display: flex;
     flex-direction: row;
@@ -69,10 +68,6 @@ const PostedBy = styled.div`
     border-radius: 50%;
     margin-right: 10px;
     width: 23px;
-  }
-
-  @media ${phoneL} {
-
   }
 
   .username {
@@ -92,6 +87,12 @@ const PostedBy = styled.div`
     &:hover {
       color: steelblue;
     };
+  }
+
+  .timestamp {
+    @media ${phoneL}{
+      display: none;
+    }    
   }
 `;
 
@@ -211,7 +212,9 @@ const Post = ({
         />
           &nbsp;
           &nbsp;
-        {timeStamp(last_edited_at, created_at)}
+        <div className='timestamp'>
+          {timeStamp(last_edited_at, created_at)}
+        </div>
       </PostedBy>
         {  
           showAddReplyForm === id &&

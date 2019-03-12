@@ -42,6 +42,13 @@ const DiscussionWrapper = styled.div`
   margin: 0 auto;
   margin-left: 10px;
   color: ${props => props.theme.discussionPostColor};
+
+  @media ${phoneL}{
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+  }
+
   .back {
     font-size: 30px;
     padding-right: 35px;
@@ -59,11 +66,26 @@ const SubWrapper = styled.div`
 `;
 
 const DiscussionContent = styled.div`
-  // color: darkgray;
+  @media ${phoneL}{
+    width: 100%;
+    border-bottom: 2px solid lightgray;
+  }
 
   p {
     font-size: 22px;
     margin-top: 16px;
+  }
+
+  .sub-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @media ${phoneL} {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 `;
 
@@ -75,7 +97,24 @@ const PostedBy = styled.div`
   font-size: 12px;
   margin-bottom: 15px;
   font-size: 0.8rem;
-	color: #a7a7a7;
+  color: #a7a7a7;
+
+  @media ${phoneL} {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .mobile-div {
+      display: flex;
+      flex-direction: row;
+
+    @media ${phoneL} {
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+  }
 
   .d-creator {
     display: flex;
@@ -116,7 +155,7 @@ flex-direction: column;
   }
 
   @media ${phoneL}{
-    text-align: center;
+    text-align: flex-start;
   }
 `;
 
@@ -131,7 +170,21 @@ const CommentSort = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 15px; 
- 
+
+  @media ${tabletP} {
+    flex-direction: column;
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+    @media ${phoneL} {
+      align-items: flex-start;
+    }
+
+    .title {
+      font-weight: bold;
+
+    }
+  }
 `;
 
 const Sort = styled.span`
@@ -141,17 +194,12 @@ align-items: baseline;
 justify-content: space-between;
 
 @media ${tabletP} {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // margin: 0 auto;
 
   @media ${phoneP}{
-  margin: 0 auto;
-  align-items: center;
-  width: 70%;
+  display: none;
   }
 }
+
 
 // .sortName {
 //   margin: 5px;
@@ -274,36 +322,40 @@ class Discussion extends Component {
               <p>{body}</p>
             </div>
             <PostedBy>
-              <div className='d-creator'>
-                <img alt='user' src={avatar} />
-                {
-                  username ?
-                    <Link className='username' to={`/profile/${user_id}`}>
-                      {username}
-                    </Link> :
-                    <Deleted />
-                }
-              </div>
-              &nbsp;
-              &nbsp;
-              <div className='c-name'>
-                <i className={category_icon} />
-                <span>
-                  {category_name}
-                </span>
-              </div>
-              <VoteCount
-                upvotes={upvotes}
-                downvotes={downvotes}
-                user_vote={user_vote}
-                handleVote={handleVote}
-              />
-              &nbsp;
-              &nbsp;
-              <PostCount post_count={post_count || 0} />
-              &nbsp;
-              &nbsp;
-              <Follow discussion_id={id} historyPush={historyPush} />
+              <div className = 'mobile-div'>
+                <div className='d-creator'>
+                  <img alt='user' src={avatar} />
+                  {
+                    username ?
+                      <Link className='username' to={`/profile/${user_id}`}>
+                        {username}
+                      </Link> :
+                      <Deleted />
+                  }
+                </div>
+                &nbsp;
+                &nbsp;
+                <div className='c-name'>
+                  <i className={category_icon} />
+                  <span>
+                    {category_name}
+                  </span>
+                </div>
+                </div>
+                <div className='sub-div'>
+                  <VoteCount
+                    upvotes={upvotes}
+                    downvotes={downvotes}
+                    user_vote={user_vote}
+                    handleVote={handleVote}
+                  />
+                  &nbsp;
+                  &nbsp;
+                  <PostCount post_count={post_count || 0} />
+                  &nbsp;
+                  &nbsp;
+                  <Follow discussion_id={id} historyPush={historyPush} />
+                </div>
             </PostedBy>
           </DiscussionContent>
           <CommentWrapper>

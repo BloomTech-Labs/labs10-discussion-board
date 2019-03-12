@@ -19,6 +19,8 @@ const StyledHeader = styled.div`
   align-self: center;
   background-color: ${props => props.theme.headerBg};;
   border-bottom: 2px solid ${props => props.theme.borderColor};
+  border: 1px solid red;
+
   @media ${tabletL}{
     width: 100%;
   }
@@ -26,7 +28,7 @@ const StyledHeader = styled.div`
     width: 100%;
   }
   @media ${phoneL} {
-      width: 100%;
+    width: 100%;
   }
   @media ${phoneP}{
     width: 100%;
@@ -41,6 +43,10 @@ const StyledHeader = styled.div`
     border-right: 2px solid ${props => props.theme.borderColor};
       &:hover {
         cursor: pointer;
+      }
+
+      @media ${phoneL} {
+        width: 35%;
       }
   }
 `;
