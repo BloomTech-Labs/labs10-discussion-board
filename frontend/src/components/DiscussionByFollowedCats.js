@@ -20,10 +20,10 @@ const DiscussionWrapper = styled.div`
 	width: 98%;
 	margin-bottom: 20px;
 	padding: 5px;
-	border-bottom: 1px solid black;
+	border-radius: 5px;
 
 	&:hover {
-		background-color: white;
+		background-color: #ddd;
 		cursor: pointer;
 	}
 `;
@@ -48,54 +48,88 @@ const InfoWrapper = styled.div`
 		}
 
 	.user-info {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
 		width: 25%;
+		margin-right: 20px;
+
+		.user {
+			width: fit-content;
+			color: black;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
 		@media ${ phoneL } {
-			width: 38%;
+			width: 40%;
+		}
+	}
+
+	.discussion-info {
+		display: flex;
+		width: 75%;
+		@media ${ phoneL } {
+			width: 60%;
+		}
+
+		.category-wrapper {
+			&:hover {
+				color: black;
+				cursor: pointer;
+			}
+
+			i {
+				margin-left: 10px;
+				margin-right: 5px;
+			}
+
+			.category-name {
+				@media ${ tabletP } {
+					display: none;
+				}
+			}
+		}
+
+		.date-views-comment {
+			display: flex;
+			width: 50%;
+
+			@media (max-width: 755px) {
+				width: 35%;
+			}
+
+			@media ${ phoneL } {
+				margin-top: 20px;
+				width: 90%;
+			}
 		}
 	}
 
 	.fa-circle {
 		font-size: 0.4rem;
-		margin-top: 7px;
-		margin-left: 4px;
-		margin-right: 4px;
-	}
-
-	.category-name {
-		margin-left: 5px;
-		
-		@media ${ tabletP } {
-			display: none;
-		}
-	}
-
-	.date-views-comment {
-		display: flex;
-		justify-content: space-between;
-		width: 25%;
-
-		@media (max-width: 755px) {
-      	width: 35%;
-    	}
-
-		@media ${ phoneL } {
-			margin-top: 20px;
-			width: 90%;
-		}
+		margin-top: 9px;
+		margin-left: 8px;
+		margin-right: 8px;
 	}
 `;
 
 const UsernameWrapper = styled.span`
-	margin-right: 20px;
 	color: ${props => props.theme.discussionPostColor};
 `;
 
 const VotesWrapper = styled.div`
 	margin-right: 10px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 
 	i {
 		padding-left: 10px;
 		padding-right: 5px;
+		padding-top: 2px;
 	}
 `;
 
@@ -104,7 +138,7 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 		avatar,
 		body,
 		category_icon,
-		// category_id,
+		category_id,
 		category_name,
 		created_at,
 		downvotes,
@@ -113,9 +147,18 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 		upvotes,
 		user_vote,
 		username,
+		user_id,
 		views,
 	} = discussion;
 	const handleDiscussionClick = () => history.push(`/discussion/${ id }`);
+	const handleCategoryClick = e => {
+		e.stopPropagation();
+		return history.push(`/discussions/category/${ category_id }`);
+	};
+	const handleUserClick = e => {
+		e.stopPropagation();
+		return history.push(`/profile/${ user_id }`);
+	};
 	const handleVote = (e, type) => {
 		e.stopPropagation();
 		return voteOnDiscussion(id, type);
@@ -125,28 +168,37 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 			<BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
 			<InfoWrapper>
 				<div className = 'user-info'>
-					<Avatar
-						height = '20px'
-						width = '20px'
-						src = { avatar }
-					/>
-					&nbsp;
-					<UsernameWrapper>{ username }</UsernameWrapper>
+					<div className = 'user' onClick = { handleUserClick }>
+						<Avatar
+							height = '20px'
+							width = '20px'
+							src = { avatar }
+						/>
+						&nbsp;
+						<UsernameWrapper>{ username }</UsernameWrapper>
+					</div>
 				</div>
-				<VotesWrapper>
-					<VoteCount
-						upvotes = { upvotes }
-						downvotes = { downvotes }
-						user_vote = { user_vote }
-						handleVote = { handleVote }
-					/>
-				</VotesWrapper>
-				<i className = { category_icon } />
-				<span className = 'category-name'>{ category_name }</span>
-				<div className = 'date-views-comment'>
-					<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-					<span>{ views } View{ views !== 1 && 's' }</span>
-					<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
+				<div className = 'discussion-info'>
+					<VotesWrapper>
+						<VoteCount
+							upvotes = { upvotes }
+							downvotes = { downvotes }
+							user_vote = { user_vote }
+							handleVote = { handleVote }
+						/>
+					</VotesWrapper>
+					<div className = 'category-wrapper'>
+						<i className = { category_icon } />
+						<span className = 'category-name'>{ category_name }</span>
+					</div>
+					<i className = 'fas fa-circle' />
+					<div className = 'date-views-comment'>
+						<span>{moment(new Date(Number(created_at))).fromNow()}</span>
+						<i className = 'fas fa-circle' />
+						<span>{ views } View{ views !== 1 && 's' }</span>
+						<i className = 'fas fa-circle' />
+						<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
+					</div>
 				</div>
 			</InfoWrapper>
 		</DiscussionWrapper>
