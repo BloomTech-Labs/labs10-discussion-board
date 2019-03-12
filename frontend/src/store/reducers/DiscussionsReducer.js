@@ -40,7 +40,21 @@ import {
 const initialState = {
   topDiscussions: [],
   discussion: {
-    posts: []
+    avatar: '',
+    body: '',
+    category_icon: '',
+    category_id: 0,
+    category_name: '',
+    created_at: '',
+    downvotes: '',
+    id: 0,
+    post_count: '',
+    upvotes: '',
+    user_vote: '',
+    username: '',
+    user_id: 0,
+    views: '',
+    posts: [],
   },
   category: '',
   discussions: [{

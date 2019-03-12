@@ -26,12 +26,6 @@ exports.up = function (knex, Promise) {
 
     // Date in milliseconds
     tbl.bigInteger('last_edited_at');
-
-    tbl
-      .integer('reply_to')
-      .references('id')
-      .inTable('posts')
-      .onDelete('SET NULL');
   });
 };
 

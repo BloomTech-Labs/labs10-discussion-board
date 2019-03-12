@@ -10,7 +10,7 @@ const getCategories = async (order, orderType) => {
   const postCountQuery = db('discussions as d')
     .select('d.category_id')
     .sum('p.post_count as post_count')
-    .join(postsQuery.as('p'), function () {
+    .join(postsQuery.as('p'), function() {
       this.on('p.discussion_id', '=', 'd.id');
     })
     .groupBy('d.category_id')
@@ -85,7 +85,7 @@ const getFollowedCategoryNames = user_id => {
 
   return db('categories as c')
     .select('c.id', 'c.name', 'c.icon')
-    .join(categoryFollowsQuery.as('cf'), function () {
+    .join(categoryFollowsQuery.as('cf'), function() {
       this.on('cf.category_id', '=', 'c.id');
     })
     .orderBy('c.name');

@@ -95,6 +95,16 @@ import {
 } from './PostVotesActions';
 
 import {
+  //Actions
+  HANDLE_REPLY_VOTE_LOADING,
+  HANDLE_REPLY_VOTE_SUCCESS,
+  HANDLE_REPLY_VOTE_FAILURE,
+
+  //Action Creators
+  handleReplyVote
+} from './ReplyVotesActions';
+
+import {
   // Actions
   ADD_POST_LOADING,
   ADD_POST_SUCCESS,
@@ -320,6 +330,10 @@ export {
   HANDLE_POST_VOTE_SUCCESS,
   HANDLE_POST_VOTE_FAILURE,
 
+  //Reply Vote Actions
+  HANDLE_REPLY_VOTE_LOADING,
+  HANDLE_REPLY_VOTE_SUCCESS,
+  HANDLE_REPLY_VOTE_FAILURE,
 
   // Users Actions
   USER_LOGIN_LOADING,
@@ -456,6 +470,9 @@ export {
 
   // Post Vote Action Creators
   handlePostVote,
+
+  // Post Vote Action Creators
+  handleReplyVote,
 
   // Users Action Creators
   register,

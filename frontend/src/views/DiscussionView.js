@@ -16,7 +16,7 @@ const DiscussionView = ({ history, match, scrollTo }) => {
 	const historyPush = history.push;
 	return(
 		<DiscussionViewWrapper>
-			<Discussion id = { id } scrollTo = {scrollTo} historyPush = { historyPush } history = { history } />
+			<Discussion id = { id } scrollTo = {scrollTo} history = { history } historyPush = { historyPush } history = { history } />
 		</DiscussionViewWrapper>
 	);
 };
