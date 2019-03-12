@@ -51,6 +51,7 @@ const ProfileWrapper = styled.div`
     align-self: flex-start;
   }
   .username-style { 
+    margin-left: -70px;
     font-size: 18px;
     // margin-top: -60px;
     // margin-right: 80%;
@@ -65,11 +66,11 @@ const ProfileWrapper = styled.div`
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
-    width: 380px;
+    width: 90%;
     @media ${phoneP} {
       display: flex;
       flex-direction: column;
-      width: 240px;
+      width: 90%;
     }
   }
   .discussion-title {
@@ -86,55 +87,35 @@ const HeaderStyle = styled.div `
   `;
 
 const WrappedDiv = styled.div`
-  margin: 5px;
-  padding: 2%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 3px;
-  padding: 3px;
-  .property-title {
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    margin: 3px;
-    padding: 3px;
-    color: ${props => props.theme.profileTitleColor};
+display: flex;
+flex-direction: row;
+width: 90%;
+margin: 0 auto;
+color: ${props => props.theme.discussionPostColor};
+.back {
+  margin-right: 5px;
+  width: 7%;
+  height: 50px;
+  font-size: 30px;
+  color: black;
+  
+  &:hover{
+    cursor: pointer;
   }
-  .property-titleC {
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    margin: 3px;
-    padding: 3px;
-    color: ${props => props.theme.profileTitleContentColor};
-      @media ${phoneP} {
-        display: none;
-      }
-    }
-  .property-content {
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    justify-content: space-around;
-    margin: 3px;
-    padding: 3px;
-    color: ${props => props.theme.profileTitleContentColor};
-  }
+}
 `;
 
 const ContentDiv = styled.div`
-margin: 5px;
-padding: 2%;
-display: flex;
-flex-direction: column;
-align-self: center;
-margin: 3px;
-padding: 3px;
+margin: 20px 0px 10px 0px;
+  display: flex;
+  border-bottom: 1px solid black;
+  a {
+    text-decoration: none;
+  }
+  p {
+    font-size: 22px;
+    margin-top: 16px;
+  }
 color: ${props => props.theme.profileTitleContentDColor};
 `;
 
@@ -186,6 +167,79 @@ const Elip = styled.div`
   -webkit-box-orient: vertical;
   word-wrap: break-word;
 `;
+const DiscussionTitle = styled.div`
+  color: black;
+`;
+
+const PostedBy = styled.div`
+  width: 120%;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: auto;
+  align-items: center;
+  max-width: 120%;
+  .c-name {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 150px;
+  }
+  .c-time {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 150px;
+    width: 50%
+  }
+  span {
+    margin-left: 5px;
+    
+    @media (max-width: 525px) {
+      display: none;
+    }
+  }
+
+    @media (max-width: 525px) {
+      display: none;
+    }
+}
+`;
+
+const PostHeader = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 12px;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+	color: #a7a7a7;
+  .d-creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 150px;
+    img{
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 23px;
+    }
+
+    .username{
+      font-size: 0.8rem;
+      color: ${props => props.theme.discussionPostColor};
+    }
+  }
+`;
+
+const SubWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -236,15 +290,36 @@ class Profile extends Component {
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
+                    <SubWrapper>
                       {profile.discussionFollows.map((discussionFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
-                          <img alt='user' src={discussionFollowed.avatar} />
-                            <p className='property-content'> {discussionFollowed.username}</p>
-                            <p className='property-content'> {discussionFollowed.body}</p>
-                            <i className = {discussionFollowed.category_icon}/>
-                            <p className='property-content'> {discussionFollowed.category_name}</p></Link>
+                          <PostHeader>
+                            <DiscussionTitle>
+                              <div className='content'>
+                                <p> {discussionFollowed.body}</p>
+                              </div>
+                            </DiscussionTitle>
+                            <PostedBy>
+                              <div className = 'd-creator'>
+                                <img alt='user' src={discussionFollowed.avatar} />
+                                <p className = 'username' to = {`/discussion/${discussionFollowed.discussion_id}`}> 
+                                  {discussionFollowed.username}
+                                </p>
+                              </div>
+                              &nbsp;
+                              &nbsp;
+                              <div className='c-name'>
+                              <i className={discussionFollowed.category_icon} />
+                              <span>
+                                {discussionFollowed.category_name}
+                              </span>
+                            </div>
+                            </PostedBy>
+                            </PostHeader>
+                            </Link>
                         </ContentDiv>)}
+                        </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
               {/*<TabPanel>
@@ -269,25 +344,68 @@ class Profile extends Component {
                 </TabPanel> */}
                 <TabPanel>
                 <WrappedDiv>
-                      <Elip>{profile.posts.map((post, index) => 
-                        <SubContentDiv key={index}>
-                          <p className='property-content'> {post.username}</p>
-                          <p className='property-content'> {post.body}</p>
-                          <p className='property-content'> {moment(new Date(Number(post.created_at))).fromNow()}</p>
-                          <img alt='user' src = {post.avatar} />
-                          </SubContentDiv>)}
-                      </Elip>
+                    <SubWrapper>
+                      {profile.posts.map((post, index) => 
+                        <ContentDiv key={index}>
+                          <Link to={`/discussion/${post.discussion_id}`}>
+                          <PostHeader>
+                          <DiscussionTitle>
+                              <div className='content'>
+                                <p> {post.body}</p>
+                              </div>
+                            </DiscussionTitle>
+                            <PostedBy>
+                            <div className = 'd-creator'>
+                                <img alt='user' src={post.avatar} />
+                                <p className = 'username' to = {`/discussion/${post.discussion_id}`}> 
+                                  {post.username}
+                                </p>
+                              </div>
+                              &nbsp;
+                              &nbsp;
+                              <div className='c-time'>
+                              <span>
+                              {moment(new Date(Number(post.created_at))).fromNow()}
+                              </span>
+                            </div>
+                          </PostedBy>
+                          </PostHeader>
+                          </Link>
+                        </ContentDiv>)}
+                    </SubWrapper>
                 </WrappedDiv>
                 </TabPanel>
                 <TabPanel>
                   <WrappedDiv>
+                  <SubWrapper>
                       {profile.replies.map((reply, index) => 
-                        <SubContentDiv key={index}>
-                          <p className='property-content'> {reply.username}</p>
-                          <p className='property-content'> {reply.body}</p>
-                          <p className='property-content'> {moment(new Date(Number(reply.created_at))).fromNow()}</p>
-                          <img alt='user' src = {reply.avatar}/>
-                        </SubContentDiv>)}
+                        <ContentDiv key={index}>
+                          <Link to={`/discussion/${reply.discussion_id}`}>
+                          <PostHeader>
+                          <DiscussionTitle>
+                              <div className='content'>
+                                <p> {reply.body}</p>
+                              </div>
+                            </DiscussionTitle>
+                            <PostedBy>
+                            <div className = 'd-creator'>
+                                <img alt='user' src={reply.avatar} />
+                                <p className = 'username' to = {`/discussion/${reply.discussion_id}`}> 
+                                  {reply.username}
+                                </p>
+                              </div>
+                              &nbsp;
+                              &nbsp;
+                              <div className='c-time'>
+                              <span>
+                              {moment(new Date(Number(reply.created_at))).fromNow()}
+                              </span>
+                            </div>
+                          </PostedBy>
+                          </PostHeader>
+                          </Link>
+                        </ContentDiv>)}
+                    </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
               </Tabs>

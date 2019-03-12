@@ -52,7 +52,8 @@ const findById = id => {
     'u.username',
     'us.avatar',
     'c.id as category_id',
-    'c.name as category_name'
+    'c.name as category_name',
+    'p.discussion_id'
   )
   .leftOuterJoin('reply_votes as rv', 'rv.reply_id', 'r.id')
   .leftOuterJoin('users as u', 'u.id', 'r.user_id')
