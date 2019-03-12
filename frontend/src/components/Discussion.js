@@ -68,7 +68,6 @@ const SubWrapper = styled.div`
 const DiscussionContent = styled.div`
   @media ${phoneL}{
     width: 100%;
-    border-bottom: 2px solid lightgray;
   }
 
   p {
@@ -80,11 +79,15 @@ const DiscussionContent = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+
+    button {
+      width: 117px;
+    }
 
     @media ${phoneL} {
-      width: 100%;
       display: flex;
-      justify-content: space-between;
+
     }
   }
 `;
@@ -112,7 +115,7 @@ const PostedBy = styled.div`
     @media ${phoneL} {
       width: 100%;
       justify-content: space-between;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
   }
 
@@ -155,7 +158,7 @@ flex-direction: column;
   }
 
   @media ${phoneL}{
-    text-align: flex-start;
+    text-align: left;
   }
 `;
 
@@ -176,13 +179,12 @@ const CommentSort = styled.div`
     margin-top: 25px;
     margin-bottom: 25px;
 
-    @media ${phoneL} {
-      align-items: flex-start;
+    @media ${phoneL}{
+      flex-direction: row;
     }
 
     .title {
-      font-weight: bold;
-
+      font-weight: bold;  
     }
   }
 `;
@@ -195,45 +197,18 @@ justify-content: space-between;
 
 @media ${tabletP} {
 
-  @media ${phoneP}{
-  display: none;
+  @media ${phoneL}{
+    display: none;
   }
 }
 
+.title {
 
-// .sortName {
-//   margin: 5px;
-// }
-
-// .sorted {
-//   font-weight: bold;
-//   padding: 5px;
-//   color: ${props => props.theme.discussionPostColor};
-// }
-
-//   button{
-//     margin-top: 10px;
-
-//     @media ${phoneL} {
-//       font-size: 17px;
-//       padding: 11px 0px;
-//       width: 110px;
-//     }
-//   }
-
-// .dropDowns {
-//   display: flex;
-//   flex-direction: row;
-
-//   @media ${phoneP}{
-//     flex-direction: column;
-//     margin: 0 auto;
-//   }
-//   @media ${phoneL}{
-//     flex-direction: column;
-//   }
-// }
-// `;
+  @media ${phoneL}{
+    text-align: left;
+  }
+}
+ `;
 
 class Discussion extends Component {
   state = {

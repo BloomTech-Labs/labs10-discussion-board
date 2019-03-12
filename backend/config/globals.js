@@ -12,6 +12,27 @@ const maxNumOfNotifications = 5;
 const numOfReplies = 50;
 const numOfReplyVotes = 500;
 
+const categoryIcons = [
+  'fas fa-book-open',
+  'fas fa-scroll',
+  'fas fa-map-marked-alt',
+  'fas fa-comment',
+  'fas fa-cog',
+  'fas fa-bullhorn',
+  'fas fa-archive',
+  'fab fa-angular',
+  'fas fa-pager',
+  'fab fa-android',
+  'fab fa-apple',
+  'fas fa-atom',
+  'fas fa-laptop',
+  'fas fa-award',
+  'fas fa-bell',
+  'fas fa-chart-line',
+  'fas fa-male',
+  'fas fa-camera',
+];
+
 const allowedAvatarTypes = [
   'image/jpeg',
   'image/jpg',
@@ -114,6 +135,7 @@ module.exports = {
   tokenOptionExpiration,
   tokenTimeLeftRefresh,
   allowedAvatarTypes,
+  categoryIcons,
 
   // methods
   getRandomIntInclusive,

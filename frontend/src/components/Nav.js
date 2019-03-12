@@ -51,6 +51,7 @@ const DivAuth = styled.div`
   }
 
   i {
+    color: ${props => props.theme.notificationFontColor};
     margin-left: 10px;
     display: flex;
     align-items: center;
