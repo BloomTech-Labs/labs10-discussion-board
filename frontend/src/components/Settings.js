@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {phoneP, tabletP, } from '../globals/globals';
+
+// globals
+import { phoneP, tabletP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
 
 // action creators
 import { getProfile, editUser, } from '../store/actions/index.js';
@@ -132,10 +134,42 @@ const UserProperties = styled.form`
       }
     }
 `;
-const Buttons = styled.div`
+const SaveButton = styled.div`
   display:flex;
   flex-wrap: initial;
-  width: 72%;
+  width: 50%;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 12px;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -29px;
+  @media ${tabletP}{
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    width: 104%;
+  }
+  @media ${phoneP}{
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+    justify-content: center;
+    align-items: center;
+  }
+  @media(max-width: 480px){
+    margin-top: -40px;
+  }
+  button {
+    min-width: 193px;
+  }
+`;
+const DeleteButton = styled.div`
+  display:flex;
+  flex-wrap: initial;
+  width: 50%;
   border-radius: 5px;
   height: 30px;
   font-size: 12px;
@@ -147,6 +181,8 @@ const Buttons = styled.div`
     margin-bottom: 50px;
     justify-content: center;
     align-items: center;
+    justify-content: flex-start;
+    width: 104%;
   }
   @media ${phoneP}{
     flex-wrap: wrap;
@@ -154,7 +190,10 @@ const Buttons = styled.div`
     justify-content: center;
     align-items: center;
   }
-  `;
+  button {
+    min-width: 193px;
+  }
+`;
 const UserSettings = styled.div`
   width: 92%;
   display: flex;
@@ -189,20 +228,20 @@ const ProfileSettings = styled.div`
 `;
 
 const EmailAndAvatar = styled.div`
-    width: 100%;
-    font-size: 20px;
+  width: 100%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media ${tabletP}{
+    font-size: 16px;
+  }
+  @media (max-width: 680px){
+    font-size: 18px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    @media ${tabletP}{
-      font-size: 16px;
-    }
-    @media (max-width: 680px){
-      font-size: 18px;
-      display: flex;
-      flex-wrap: wrap;
-    }
+    flex-wrap: wrap;
+  }
 `;
 
 const AvatarPic = styled.div`
@@ -252,7 +291,7 @@ const EditAvatarMenu = styled.div`
   }
 `;
 
-const FirstName = styled.div `
+const FirstName = styled.div`
   font-size: 14px;
   width: 50%;
   display: flex;
@@ -301,113 +340,188 @@ const Password = styled.div`
     width: 95%;
   }
 `;
+const DivSubscriptionPlan = styled.div`
+  display: flex;
+  font-size: 14px;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 50%;
+  margin-top: -58px;
+  p {
+    margin: 0px 0px 7px 0px;
+  }
+  button {
+    margin: 0;
+    width: 30%;
+    min-width: 193px;
+    color: white;
+    background-color: steelblue;
+    cursor: pointer;
+    &:hover{
+      background-color: rgb(0, 80, 0);
+    }
+    @media ${tabletP}{
+      width: 156%;
+    }
+    @media ${phoneP}{
+      width: 98%;
+      margin-left: 3px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 15px 0px 30px 0px;
+      border-radius: 5px;
+    }
+  }
+  @media ${tabletP}{
+    margin: 0;
+  }
+  @media ${phoneP}{
+    width: 95%;
+  }
+`;
+const SpanSubPlan = styled.span`
+font-weight: bold;
+  color: red;
+  color: ${props => { console.log('foo', props.subplan === subscriptionPlans[0]); return props.subplan === subscriptionPlans[0] && 'black' }};
+  color: ${props => props.subplan === subscriptionPlans[1] && '#ca620d'};
+  color: ${props => props.subplan === subscriptionPlans[2] && '#848795'};
+  color: ${props => props.subplan === subscriptionPlans[3] && 'gold'};
+`;
 class Settings extends Component {
-  state = { showForm: '',
-            showDeleteModal: '',
-            firstName: '',
-            lastName: '', 
-            email: '',
-            oldPassword: '',
-            newPassword: '',};
+  state = {
+    showForm: '',
+    showDeleteModal: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    oldPassword: '',
+    newPassword: '',
+    user_type: ''
+  };
 
   getProfile = () => this.props.getProfile(this.props.match.params.id, this.props.history);
   toggleForm = formName => this.setState({ showForm: formName });
   toggleDeleteModal = () => this.setState({ showDeleteModal: !this.state.showDeleteModal });
   onUploadAvatarSuccess = () => this.setState({ showForm: '' }, () => this.getProfile());
-  componentDidMount = () => this.getProfile().then(() => this.setState({ 
+  componentDidMount = () => this.getProfile().then(() => this.setState({
     firstName: this.props.profile.username.split(' ')[0] || '',
     lastName: this.props.profile.username.split(' ')[1] || '',
     email: this.props.profile.email || '',
-}));
-  handleInputChange = e => this.setState({[e.target.name]: e.target.value})
+    user_type: this.props.user_type || ''
+  }));
+  componentDidUpdate(prevProps) {
+    if (prevProps.user_type !== this.props.user_type) {
+      this.setState({
+        user_type: this.props.user_type || ''
+      })
+    }
+  }
+  handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
   handleSubmit = e => {
     e.preventDefault()
-    const {firstName, lastName, email, oldPassword, newPassword} = this.state
+    const { firstName, lastName, email, oldPassword, newPassword } = this.state
     const username = firstName + ' ' + lastName;
     this.props.editUser(username, email, oldPassword, newPassword).then(() => this.getProfile())
   };
   goBack = () => this.props.history.goBack()
   render() {
-    const { showForm, showDeleteModal } = this.state;
+    const { showForm, showDeleteModal, user_type } = this.state;
+    console.log(this.props);
+    console.log('user_typeProps', this.props.user_type);
+    console.log('user_typeState', user_type);
+    console.log('accountUserTypes', accountUserTypes);
+    console.log('subscriptionPlans', subscriptionPlans);
+    console.log('user_typeIndex', accountUserTypes.indexOf(user_type));
+    const subPlan = (accountUserTypes.indexOf(user_type) !== -1) ? subscriptionPlans[accountUserTypes.indexOf(this.props.user_type)] : '';
+    console.log('subPlan', subPlan);
+    console.log('(subPlan === subscriptionPlans[0])', (subPlan === subscriptionPlans[0]));
     const { profile } = this.props;
     const { username, email, avatar, isAuth0, } = profile;
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
-        <i onClick = {this.goBack} className = "far fa-arrow-alt-circle-left"/>
+        <i onClick={this.goBack} className="far fa-arrow-alt-circle-left" />
         {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
         <UserSettings>
           <ProfileSettings>
             <EmailAndAvatar>
-            <AvatarPic>
+              <AvatarPic>
                 <Avatar height='150px' width='150px' src={avatar} />
-            </AvatarPic>
-                  <p className = 'avatar-change' onClick={() => this.toggleForm('avatar-btns')}>
-                    (change)
+              </AvatarPic>
+              <p className='avatar-change' onClick={() => this.toggleForm('avatar-btns')}>
+                (change)
                   </p>
             </EmailAndAvatar>
           </ProfileSettings>
-          <UserProperties onSubmit = {this.handleSubmit}>
-            <FirstName><p> First Name <input className = 'input-style' name = 'firstName' placeholder = {splitUsername[0]} value = {this.state.firstName} onChange = {this.handleInputChange}/></p></FirstName>
-            <FirstName><p> Last Name <input className = 'input-style' name = 'lastName' placeholder = {splitUsername[1]} value = {this.state.lastName} onChange = {this.handleInputChange} /></p></FirstName>
+          <UserProperties onSubmit={this.handleSubmit}>
+            <FirstName><p> First Name <input className='input-style' name='firstName' placeholder={splitUsername[0]} value={this.state.firstName} onChange={this.handleInputChange} /></p></FirstName>
+            <FirstName><p> Last Name <input className='input-style' name='lastName' placeholder={splitUsername[1]} value={this.state.lastName} onChange={this.handleInputChange} /></p></FirstName>
             <Email>
-              <p>Email {isAuth0 ? 
-                <p>{email}</p> 
-                  : 
-                  <input 
-                    className = 'input-style' 
-                    name = 'email' 
-                    type = 'email' 
-                    placeholder = {email} 
-                    value = {this.state.email} 
-                    onChange = {this.handleInputChange} 
-                    /> }
-                  </p>
+              <p>Email {isAuth0 ?
+                <p>{email}</p>
+                :
+                <input
+                  className='input-style'
+                  name='email'
+                  type='email'
+                  placeholder={email}
+                  value={this.state.email}
+                  onChange={this.handleInputChange}
+                />}
+              </p>
             </Email>
-              {
-                !isAuth0 &&
-                <Password>
-                  <p>Old Password <input name = 'oldPassword' className = 'input-style' type = 'password' placeholder = 'enter old password' value = {this.state.oldPassword} onChange = {this.handleInputChange} /></p>
-                  <p>New Password <input name = 'newPassword' className = 'input-style' type = 'password' placeholder = 'enter new password' value = {this.state.newPassword} onChange = {this.handleInputChange} /></p>
-                </Password>
-              }
-              <Buttons>
-                <button className = 'save-settings' type = 'submit' >
-                  Save settings
+            {
+              !isAuth0 &&
+              <Password>
+                <p>Old Password <input name='oldPassword' className='input-style' type='password' placeholder='enter old password' value={this.state.oldPassword} onChange={this.handleInputChange} /></p>
+                <p>New Password <input name='newPassword' className='input-style' type='password' placeholder='enter new password' value={this.state.newPassword} onChange={this.handleInputChange} /></p>
+              </Password>
+            }
+            <DivSubscriptionPlan>
+              <p>Subscription&nbsp;Plan:&nbsp;{(subPlan) ? <SpanSubPlan subplan={subPlan}>{subPlan.toUpperCase()}</SpanSubPlan> : <SpanSubPlan>{user_type.toUpperCase()}</SpanSubPlan>}</p>
+              <button type='button'>Change:&nbsp;Subscription&nbsp;Plan</button>
+            </DivSubscriptionPlan>
+            <DeleteButton>
+              <button className='delete-btn' type='button' onClick={this.toggleDeleteModal}>
+                Delete account
+              </button>
+            </DeleteButton>
+            <SaveButton>
+              <button className='save-settings' type='submit' >
+                Save settings
+              </button>
+            </SaveButton>
+            {showDeleteModal && (
+              <DeleteAccountModal toggleDeleteModal={this.toggleDeleteModal} />
+            )}
+            {showForm === 'avatar-pc-form' && (
+              <EditAvatarForm
+                toggleForm={this.toggleForm}
+                onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+              />
+            )}
+            {showForm === 'avatar-url-form' && (
+              <EditAvatarUrlForm
+                toggleForm={this.toggleForm}
+                onUploadAvatarSuccess={this.onUploadAvatarSuccess}
+              />
+            )}
+            {showForm === 'avatar-btns' && (
+              <AvatarContainer>
+                <EditAvatarMenu>
+                  <h1 className='changeavatar'>Upload new avatar</h1>
+                  <button onClick={() => this.toggleForm('avatar-pc-form')}>
+                    Upload from PC
                 </button>
-                <button className = 'delete-btn' type = 'button' onClick={ this.toggleDeleteModal }>
-                  Delete account
+                  <button onClick={() => this.toggleForm('avatar-url-form')}>
+                    Upload from URL
                 </button>
-              </Buttons>
-              {showDeleteModal && (
-                <DeleteAccountModal toggleDeleteModal = { this.toggleDeleteModal } />
-                )}
-              {showForm === 'avatar-pc-form' && (
-            <EditAvatarForm
-              toggleForm={this.toggleForm}
-              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-            />
-          )}
-          {showForm === 'avatar-url-form' && (
-            <EditAvatarUrlForm
-              toggleForm={this.toggleForm}
-              onUploadAvatarSuccess={this.onUploadAvatarSuccess}
-            />
-          )}
-          {showForm === 'avatar-btns' && (
-            <AvatarContainer>
-              <EditAvatarMenu>
-                <h1 className = 'changeavatar'>Upload new avatar</h1>
-                <button onClick={() => this.toggleForm('avatar-pc-form')}>
-                  Upload from PC
-                </button>
-                <button onClick={() => this.toggleForm('avatar-url-form')}>
-                  Upload from URL
-                </button>
-                <button onClick={() => this.toggleForm('')}>Cancel</button>
-              </EditAvatarMenu>
-            </AvatarContainer>
-          )}
+                  <button onClick={() => this.toggleForm('')}>Cancel</button>
+                </EditAvatarMenu>
+              </AvatarContainer>
+            )}
           </UserProperties>
         </UserSettings>
       </SettingsWrapper>
