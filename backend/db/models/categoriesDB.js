@@ -19,21 +19,18 @@ const getCategories = async (order, orderType) => {
   const latestPostQuery = db.raw(`
     SELECT *
     FROM(
-      SELECT	p.latest_post_id,
-          p.latest_post_discussion_id,
+      SELECT	p.latest_post_discussion_id,
           p.latest_post_body,
           p.latest_post_created_at,
           d.category_id,
           ROW_NUMBER() OVER (PARTITION BY d.category_id ORDER BY p.latest_post_created_at DESC) AS row_id
       FROM discussions AS d
       JOIN(
-        SELECT	latest_post_id,
-            latest_post_discussion_id,
+        SELECT	latest_post_discussion_id,
             latest_post_body,
             latest_post_created_at
         FROM (
-          SELECT	id AS latest_post_id,
-              discussion_id AS latest_post_discussion_id,
+          SELECT	discussion_id AS latest_post_discussion_id,
               body AS latest_post_body,
               created_at AS latest_post_created_at,
               ROW_NUMBER() OVER (PARTITION BY discussion_id ORDER BY created_at DESC) AS row_id
@@ -56,7 +53,6 @@ const getCategories = async (order, orderType) => {
       'c.user_id',
       'c.created_at',
       'pc.post_count',
-      'lp.latest_post_id',
       'lp.latest_post_discussion_id',
       'lp.latest_post_body',
       'lp.latest_post_created_at',
@@ -64,16 +60,15 @@ const getCategories = async (order, orderType) => {
     .count('d.id as discussion_count')
     .leftOuterJoin('users as u', 'u.id', 'c.user_id')
     .leftOuterJoin('discussions as d', 'd.category_id', 'c.id')
-    .leftOuterJoin(postCountQuery.as('pc'), function() {
+    .leftOuterJoin(postCountQuery.as('pc'), function () {
       this.on('pc.category_id', '=', 'c.id');
     })
-    .joinRaw(`LEFT OUTER JOIN(${ latestPostQuery }) AS lp ON lp.category_id = c.id`)
+    .joinRaw(`LEFT OUTER JOIN(${latestPostQuery}) AS lp ON lp.category_id = c.id`)
     .groupBy(
       'c.name',
       'c.id',
       'u.username',
       'pc.post_count',
-      'lp.latest_post_id',
       'lp.latest_post_discussion_id',
       'lp.latest_post_body',
       'lp.latest_post_created_at',

@@ -7,9 +7,8 @@ import { Avatar, VoteCount } from './index.js';
 
 // globals
 import {
-	phoneP,
-	tabletP,
-	phoneL,
+  tabletP,
+  phoneL,
 } from '../globals/globals.js';
 
 const DiscussionWrapper = styled.div`
