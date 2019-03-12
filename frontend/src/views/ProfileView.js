@@ -47,6 +47,7 @@ const ProfileWrapper = styled.div`
     width: 10%;
     display: flex;
     align-self: flex-start;
+    
     @media ${phoneP} {
       width: 20%;
       }
@@ -55,6 +56,13 @@ const ProfileWrapper = styled.div`
     margin-left: 0px;
     font-size: 18px;
     justify-content: flex-start
+    
+    &:hover {
+      cursor: pointer;
+      color: steelblue;
+      text-decoration: underline;
+    }
+
     @media ${tabletP} {
       margin-left: 0px;
       display: flex;
@@ -139,6 +147,7 @@ const PostedBy = styled.div`
   margin-left: auto;
   align-items: center;
   max-width: 120%;
+
   .c-name {
   font-size: 0.8rem;
   display: flex;
@@ -146,6 +155,7 @@ const PostedBy = styled.div`
   align-items: center;
   margin-left: 150px;
   }
+  
   .c-time {
     font-size: 0.8rem;
     display: flex;

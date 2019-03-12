@@ -161,6 +161,12 @@ const InfoWrapper = styled.div`
 
 const UsernameWrapper = styled.span`
   color: ${props => props.theme.discussionPostColor};
+
+  &:hover {
+		cursor: pointer;
+		color: steelblue;
+		text-decoration: underline;
+	}
 `;
 
 const Post = ({

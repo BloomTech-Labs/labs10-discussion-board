@@ -49,11 +49,6 @@ const InfoWrapper = styled.div`
 		.user {
 			width: fit-content;
 			color: black;
-
-			&:hover {
-				text-decoration: underline;
-				cursor: pointer;
-			}
 		}
 
 		@media (max-width: 530px) {
@@ -144,6 +139,12 @@ const InfoWrapper = styled.div`
 
 const UsernameWrapper = styled.span`
 	color: ${props => props.theme.discussionPostColor};
+
+	&:hover {
+		cursor: pointer;
+		color: steelblue;
+		text-decoration: underline;
+	}
 `;
 
 const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion }) => {
