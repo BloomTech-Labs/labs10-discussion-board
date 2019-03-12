@@ -384,7 +384,7 @@ const DivSubscriptionPlan = styled.div`
 const SpanSubPlan = styled.span`
 font-weight: bold;
   color: red;
-  color: ${props => { console.log('foo', props.subplan === subscriptionPlans[0]); return props.subplan === subscriptionPlans[0] && 'black' }};
+  color: ${props => props.subplan === subscriptionPlans[0] && 'black'};
   color: ${props => props.subplan === subscriptionPlans[1] && '#ca620d'};
   color: ${props => props.subplan === subscriptionPlans[2] && '#848795'};
   color: ${props => props.subplan === subscriptionPlans[3] && 'gold'};
@@ -428,15 +428,7 @@ class Settings extends Component {
   goBack = () => this.props.history.goBack()
   render() {
     const { showForm, showDeleteModal, user_type } = this.state;
-    console.log(this.props);
-    console.log('user_typeProps', this.props.user_type);
-    console.log('user_typeState', user_type);
-    console.log('accountUserTypes', accountUserTypes);
-    console.log('subscriptionPlans', subscriptionPlans);
-    console.log('user_typeIndex', accountUserTypes.indexOf(user_type));
     const subPlan = (accountUserTypes.indexOf(user_type) !== -1) ? subscriptionPlans[accountUserTypes.indexOf(this.props.user_type)] : '';
-    console.log('subPlan', subPlan);
-    console.log('(subPlan === subscriptionPlans[0])', (subPlan === subscriptionPlans[0]));
     const { profile } = this.props;
     const { username, email, avatar, isAuth0, } = profile;
     const splitUsername = username.split(' ');
