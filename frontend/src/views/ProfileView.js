@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP, tabletP, } from '../globals/globals';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
 
 // components
@@ -222,61 +223,70 @@ class Profile extends Component {
                 </WrappedDiv>
                 <WrappedDiv className = 'username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  <p className='property-content'> ({profile.status})</p>
+                  {/* <p className='property-content'> ({profile.status})</p> */}
                 </WrappedDiv>
               </HeaderStyle>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
-                  <Tab>Followed Categories</Tab>
-                  <Tab>Posts</Tab>
+                  {/* <Tab>Followed Categories</Tab> */}
+                  {/* <Tab>Posts</Tab> */}
                   <Tab>Comments</Tab>
                   <Tab>Replies</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
-                    <p className='property-title'> Followed Posts </p>
                       {profile.discussionFollows.map((discussionFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
-                            <p className='property-content'> {discussionFollowed.body}</p></Link>
+                          <img alt='user' src={discussionFollowed.avatar} />
+                            <p className='property-content'> {discussionFollowed.username}</p>
+                            <p className='property-content'> {discussionFollowed.body}</p>
+                            <i className = {discussionFollowed.category_icon}/>
+                            <p className='property-content'> {discussionFollowed.category_name}</p></Link>
                         </ContentDiv>)}
                   </WrappedDiv>
                 </TabPanel>
-                <TabPanel>
+              {/*<TabPanel>
                   <WrappedDiv>
-                    <p className='property-title'> Followed Categories: </p>
                       {profile.categoryFollows.map((categoryFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussions/category/${categoryFollowed.category_id}`}>
                             <p className='property-content'> {categoryFollowed.name}</p></Link>
                         </ContentDiv>)}
-                  </WrappedDiv>
-                </TabPanel>
-                <TabPanel>
+                  </WrappedDiv> 
+                </TabPanel>*/}
+                {/* <TabPanel>
                   <WrappedDiv>
-                    <p className='property-titleC'> Posts: </p>
                       {profile.discussions.map((discussion, index) => 
                         <SubContentDiv key={index}>
-                          {discussion.body}
+                          <p className='property-content'> {discussion.username}</p>
+                          <p className='property-content'> {discussion.body}</p>
+                          <p className='property-content'> {moment(new Date(Number(discussion.created_at))).fromNow()}</p>
+                          <img alt='user' src = {discussion.avatar} />
                         </SubContentDiv>)}
                   </WrappedDiv>
-                </TabPanel>
+                </TabPanel> */}
                 <TabPanel>
                 <WrappedDiv>
-                    <p className='property-titleC'> Comments: </p>
                       <Elip>{profile.posts.map((post, index) => 
                         <SubContentDiv key={index}>
-                          {post.body}</SubContentDiv>)}
+                          <p className='property-content'> {post.username}</p>
+                          <p className='property-content'> {post.body}</p>
+                          <p className='property-content'> {moment(new Date(Number(post.created_at))).fromNow()}</p>
+                          <img alt='user' src = {post.avatar} />
+                          </SubContentDiv>)}
                       </Elip>
                 </WrappedDiv>
                 </TabPanel>
                 <TabPanel>
                   <WrappedDiv>
-                    <p className='property-titleC'> Replies: </p>
                       {profile.replies.map((reply, index) => 
                         <SubContentDiv key={index}>
-                          {reply.body}
+                          <p className='property-content'> {reply.username}</p>
+                          <p className='property-content'> {reply.body}</p>
+                          <p className='property-content'> {moment(new Date(Number(reply.created_at))).fromNow()}</p>
+                          <img alt='user' src = {reply.avatar}/>
                         </SubContentDiv>)}
                   </WrappedDiv>
                 </TabPanel>
