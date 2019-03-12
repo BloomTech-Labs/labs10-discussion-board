@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, defaultAvatar, tabletL, phoneL } from '../globals/globals.js';
+import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, defaultAvatar, phoneL } from '../globals/globals.js';
 import {
   register,
   displayError,

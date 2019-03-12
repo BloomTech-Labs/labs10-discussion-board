@@ -59,11 +59,11 @@ export const followCategory = (category_id, user_id, historyPush) => dispatch =>
     .catch(err => handleError(err, FOLLOW_CATEGORY_FAILURE)(dispatch));
 };
 
-export const addCategory = (name, historyPush) => dispatch => {
+export const addCategory = (newCategory, historyPush) => dispatch => {
   const user_id = localStorage.getItem('symposium_user_id');
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
-  const body = { name };
+  const body = { newCategory };
   dispatch({ type: ADD_CATEGORY_LOADING });
   return axios.post(`${backendUrl}/categories/${user_id}`, body, headers)
     .then(async res => {

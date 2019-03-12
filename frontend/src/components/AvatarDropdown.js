@@ -23,12 +23,13 @@ const DivModalCloser = styled.div`
 `;
 
 const DivAvatarDropdown = styled.div`
+  color: ${props => props.theme.notificationFontColor};
   display: flex;
   flex-direction: column;
   z-index: 9999;
   position: fixed;
   right: 0;
-  background-color: white;
+  background-color: ${props => props.theme.notificationBackgroundColor};
   margin-top: -2px;
   width: 140px;
   border-bottom-left-radius: 10px;
@@ -54,7 +55,8 @@ const LinkItem = styled(Link)`
   user-select: none;
   width: 100%;
   text-decoration: none;
-  color: black;
+  color: ${props => props.theme.notificationFontColor};
+  background-color: ${props => props.theme.notificationBackgroundColor};
   width: 100%;
   cursor: pointer;
   text-align: center;

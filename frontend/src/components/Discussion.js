@@ -40,12 +40,12 @@ const DiscussionWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   margin: 0 auto;
-  margin-left: 10px;
   color: ${props => props.theme.discussionPostColor};
   .back {
+    margin-right: 5px;
+    width: 7%;
+    height: 50px;
     font-size: 30px;
-    padding-right: 35px;
-    padding-top: 15px;
     color: black;
     
     &:hover{
@@ -54,12 +54,15 @@ const DiscussionWrapper = styled.div`
   }
 `;
 const SubWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 const DiscussionContent = styled.div`
-  // color: darkgray;
+  margin: 20px 0px 10px 0px;
+  display: flex;
+  border-bottom: 1px solid black;
 
   p {
     font-size: 22px;
@@ -67,11 +70,12 @@ const DiscussionContent = styled.div`
   }
 `;
 
-const PostedBy = styled.div`
+const PostHeader = styled.div`
+  width: 90%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   font-size: 12px;
   margin-bottom: 15px;
   font-size: 0.8rem;
@@ -94,17 +98,6 @@ const PostedBy = styled.div`
       color: ${props => props.theme.discussionPostColor};
     }
   }
-
-.c-name {
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  span {
-    margin-left: 5px;
-  }
-}
 `;
 
 const CommentWrapper = styled.div`
@@ -125,13 +118,18 @@ const Posts = styled.div``;
 const AddPostBtn = styled.div``;
 
 const CommentSort = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px; 
+  margin: 15px 0px; 
  
+
+  .title {
+    font-weight: bold;
+    font-size: 18px;
+  }
 `;
 
 const Sort = styled.span`
@@ -187,14 +185,44 @@ justify-content: space-between;
 // }
 // `;
 
+const DiscussionTitle = styled.div`
+color: black;
+`;
+
+const PostedBy = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: -25px;
+
+  .c-name {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  span {
+    margin-left: 5px;
+    
+    @media (max-width: 525px) {
+      display: none;
+    }
+  }
+
+    @media (max-width: 525px) {
+      display: none;
+    }
+}
+`;
+
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
-    order: 'created_at', // possible values: 'created_at', 'post_votes'
-    orderType: 'asc', // possible values: 'desc', 'asc'
+    order: 'created_at', // possible values: 'created_at', 'upvotes'
+    orderType: 'desc', // possible values: 'desc', 'asc'
   };
   handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
     return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
@@ -267,13 +295,16 @@ class Discussion extends Component {
 
     return (
       <DiscussionWrapper>
-        <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
         <SubWrapper>
           <DiscussionContent>
-            <div className='content'>
-              <p>{body}</p>
-            </div>
-            <PostedBy>
+          <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
+            <PostHeader>
+              <DiscussionTitle>
+                <div className='content'>
+                  <p>{body}</p>
+                </div>
+              </DiscussionTitle>
+              <PostedBy>
               <div className='d-creator'>
                 <img alt='user' src={avatar} />
                 {
@@ -304,7 +335,8 @@ class Discussion extends Component {
               &nbsp;
               &nbsp;
               <Follow discussion_id={id} historyPush={historyPush} />
-            </PostedBy>
+              </PostedBy>
+            </PostHeader>
           </DiscussionContent>
           <CommentWrapper>
             <CommentSort>
@@ -316,7 +348,7 @@ class Discussion extends Component {
                   &nbsp;
                   <select className='sortName' onChange={this.handleSelectChange} name='order'>
                     <option value='created_at'>date created</option>
-                    <option value='post_votes'>votes</option>
+                    <option value='upvotes'>votes</option>
                   </select>
                   &nbsp;
                   &nbsp;

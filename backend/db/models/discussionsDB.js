@@ -379,6 +379,12 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
     });
 };
 
+const addViewToDiscussion = id => {
+  return db('discussions')
+    .increment('views', 1)
+    .where({ id });
+};
+
 //AUTHORIZED ACCESS
 
 //Add Discussion into the Discussion table
@@ -399,6 +405,7 @@ module.exports = {
   getTopDailyDiscussions,
   getDiscussions,
   getAllDiscussionsByFollowedCategories,
+  addViewToDiscussion,
   search,
   findById,
   findByUserId,

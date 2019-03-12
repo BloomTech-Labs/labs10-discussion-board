@@ -8,6 +8,7 @@ const DiscussionViewWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
+	width: 90%;
 `;
 
 const DiscussionView = ({ history, match, scrollTo }) => {

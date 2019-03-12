@@ -3,9 +3,12 @@
  **************************************************************************************************/
 require('dotenv').config();
 const express = require('express');
-const { categoriesDB, categoryFollowsDB } = require('../db/models/index.js');
+const { categoriesDB } = require('../db/models/index.js');
 
 const router = express.Router();
+
+// globals
+const { categoryIcons } = require('../config/globals.js');
 
 /***************************************************************************************************
  ******************************************* middleware ******************************************
@@ -47,6 +50,8 @@ router.get('/search', (req, res) => {
     .catch(err => res.status(500).json({ error: `Failed to search(): ${err}` }));
 });
 
+router.get('/category-icons/:user_id', authenticate, (req, res) => res.status(200).json(categoryIcons));
+
 // //GET Category by Category ID
 // router.get('/:id', (req, res) => {
 //   const id = req.params.id
@@ -66,14 +71,14 @@ router.get('/search', (req, res) => {
 //Add Category
 router.post('/:user_id', authenticate, authorizeCreateCat, (req, res) => {
   const { user_id } = req.params;
-  let { name } = req.body;
-  name = name.trim();
-  return categoriesDB.getCategoryByName(name)
+  let { newCategory } = req.body;
+  newCategory.name = newCategory.name.trim();
+  newCategory.user_id = user_id;
+  return categoriesDB.getCategoryByName(newCategory.name)
     .then(cats => {
       if (cats) return res.status(400).json({ error: `Category ${cats.name} already exists.` });
-      let category = { name, user_id };
-      category.created_at = Date.now();
-      return categoriesDB.insert(category)
+      newCategory.created_at = Date.now();
+      return categoriesDB.insert(newCategory)
         .then(newId => res.status(201).json(newId))
         .catch(err => res.status(500).json({ error: `Failed to insert(): ${err}` }));
     })
