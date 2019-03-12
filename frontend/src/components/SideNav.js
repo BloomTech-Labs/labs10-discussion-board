@@ -242,10 +242,12 @@ const DivWindows = styled.div`
   flex-wrap: wrap;
   margin: 0 6px;
   background-color: inherit;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   padding-top: 1.8px;
-
+  margin-left: 64px;
+  margin-right: 11px;
+  margin-bottom: 6px;
   div {
     background-color: black;
     border-radius: 2px;
@@ -289,7 +291,6 @@ const LiCategoryFollowed = styled.li`
   border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
   list-style-position: inside;
   &::before{
-    content: "";
     background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
     font-weight: bold;
     display: inline-block; 
@@ -433,8 +434,10 @@ class SideNav extends Component {
         <DivCategoriesFollowed>
           <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle>
           <DivCatFollowItems>
-            <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+          <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
               <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
+            </H4AllPosts>
+            <ul>
               <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
                 <DivWindows>
                   <div className='div-window' />
@@ -442,10 +445,20 @@ class SideNav extends Component {
                   <div className='div-window' />
                   <div className='div-window' />
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
-            </H4AllPosts>
-            <ul>
               {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
-                <LiCategoryFollowed isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} key={index} islinkselected={(this.state.linkSelected === category.name).toString()}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={(this.state.linkSelected === category.name).toString()} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={(this.state.linkSelected === category.name).toString()} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
+                <LiCategoryFollowed 
+                  isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} 
+                  key={index} islinkselected={(this.state.linkSelected === category.name).toString()}>
+                    <LinkSideNav onClick={() => this.selectLink(category.name)} 
+                      islinkselected={(this.state.linkSelected === category.name).toString()} 
+                      to={`/discussions/category/${category.id}`}>
+                        <span>
+                          <i className={category.icon} 
+                            islinkselected={(this.state.linkSelected === category.name).toString()} />
+                        </span>
+                          {category.name}
+                    </LinkSideNav>
+                </LiCategoryFollowed>
               )))}
             </ul>
           </DivCatFollowItems>
