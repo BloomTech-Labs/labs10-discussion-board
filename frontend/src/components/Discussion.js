@@ -41,12 +41,19 @@ const DiscussionWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   margin: 0 auto;
+  margin-left: 10px;
   color: ${props => props.theme.discussionPostColor};
+
+  @media ${phoneL}{
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+  }
+
   .back {
-    margin-right: 5px;
-    width: 7%;
-    height: 50px;
     font-size: 30px;
+    padding-right: 35px;
+    padding-top: 15px;
     color: black;
     
     &:hover{
@@ -55,50 +62,8 @@ const DiscussionWrapper = styled.div`
   }
 `;
 const SubWrapper = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
-`;
-
-const DiscussionContent = styled.div`
-  margin: 20px 0px 10px 0px;
-  display: flex;
-  border-bottom: 1px solid black;
-
-  p {
-    font-size: 22px;
-    margin-top: 16px;
-  }
-`;
-
-const PostHeader = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  font-size: 12px;
-  margin-bottom: 15px;
-  font-size: 0.8rem;
-	color: #a7a7a7;
-
-  .d-creator {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    img{
-      border-radius: 50%;
-      margin-right: 10px;
-      width: 23px;
-    }
-
-    .username{
-      text-decoration: none;
-      font-size: 0.8rem;
-      color: ${props => props.theme.discussionPostColor};
-    }
-  }
 `;
 
 const CommentWrapper = styled.div`
@@ -110,7 +75,7 @@ flex-direction: column;
   }
 
   @media ${phoneL}{
-    text-align: center;
+    text-align: left;
   }
 `;
 
@@ -119,16 +84,16 @@ const Posts = styled.div``;
 const AddPostBtn = styled.div``;
 
 const CommentSort = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin: 15px 0px; 
 
-  .title {
-    font-weight: bold;
-    font-size: 18px;
+    .title {
+      font-weight: bold;  
+    }
   }
 
   .sort {
@@ -158,36 +123,6 @@ const CommentSort = styled.div`
       }
     }
   }
-`;
-
-const DiscussionTitle = styled.div`
-color: black;
-`;
-
-const PostedBy = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  margin-left: -25px;
-
-  .c-name {
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  span {
-    margin-left: 5px;
-    
-    @media (max-width: 525px) {
-      display: none;
-    }
-  }
-
-    @media (max-width: 525px) {
-      display: none;
-    }
-}
 `;
 
 const newest = 'newest';
@@ -270,7 +205,7 @@ class Discussion extends Component {
       // downvotes,
       // avatar,
       // category_name,
-      // category_id,
+      category_id,
       // category_icon,
       id,
       posts,
@@ -281,6 +216,7 @@ class Discussion extends Component {
     } = discussion;
     return (
       <DiscussionWrapper>
+        <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
         <SubWrapper>
           <DiscussionByFollowedCats
             discussion={discussion}

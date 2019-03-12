@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
-import Lambda from '../assets/img/Lambda.png';
+import Symp from '../assets/img/symposium6.png';
 
 // Globals
 import { topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
@@ -17,8 +17,9 @@ const StyledHeader = styled.div`
   width: 100%;
   z-index: 9000;
   align-self: center;
-  background-color: ${props => props.theme.headerBg};
+  background-color: ${props => props.theme.headerBg};;
   border-bottom: 2px solid ${props => props.theme.borderColor};
+
   @media ${tabletL}{
     width: 100%;
   }
@@ -26,7 +27,7 @@ const StyledHeader = styled.div`
     width: 100%;
   }
   @media ${phoneL} {
-      width: 100%;
+    width: 100%;
   }
   @media ${phoneP}{
     width: 100%;
@@ -41,6 +42,10 @@ const StyledHeader = styled.div`
     border-right: 2px solid ${props => props.theme.borderColor};
       &:hover {
         cursor: pointer;
+      }
+
+      @media ${phoneL} {
+        width: 35%;
       }
   }
 `;
@@ -58,10 +63,10 @@ const NavContainer = styled.div`
   }
 `;
 
-const LambdaLogo = styled.span`
-  width: 130px;
+const SympLogo = styled.div`
+  width: 150px;
   height: 50px;
-  background-image: url(${Lambda});
+  background-image: url(${Symp});
     &:hover {
       cursor: pointer;
     }
@@ -70,7 +75,7 @@ const LambdaLogo = styled.span`
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised }) => {
   return (
     <StyledHeader>
-      <Link className='LogoContainer' to='/home'><LambdaLogo /></Link>
+      <Link className='LogoContainer' to='/home'><SympLogo /></Link>
       <NavContainer>
         <Nav showSearch={showSearch}
           scrollTo={scrollTo}

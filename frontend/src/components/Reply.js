@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { phoneL} from '../globals/globals.js'
 
 import { Deleted, AddReplyForm } from './index.js'
 
@@ -53,6 +54,13 @@ const PostedBy = styled.div`
           color: steelblue;
         };
     }  
+
+    .timestamp {
+      @media ${phoneL}{
+        display: none;
+      }    
+    }
+
 `;
 
 //components
@@ -102,31 +110,33 @@ const Reply = ({
         <ReplyWrapper>
             <p>{body}</p>
             <PostedBy>
-                <div className = 'r-creator'>
-                    <img alt='user' src={avatar} />              
-                    {
-                        username ?
-                        <Link className='username' to={`/profile/${user_id}`}>
-                            {username}
-                        </Link> :
-                        <Deleted />
-                    }
-                
-                    {
-                        loggedInUserId !== 0 &&
-                        <span onClick={handleAddReply}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
-                    }
-                </div>
-                    {/* &nbsp;
-                    &nbsp; */}
-                {/* <VoteCount
-                    handleVote={handleVote}
-                    vote_count={upvotes}
-                    user_vote={user_vote}
-                />
-                    &nbsp;
-                    &nbsp; */}
+              <div className = 'r-creator'>
+                  <img alt='user' src={avatar} />              
+                  {
+                      username ?
+                      <Link className='username' to={`/profile/${user_id}`}>
+                          {username}
+                      </Link> :
+                      <Deleted />
+                  }
+              
+                  {
+                      loggedInUserId !== 0 &&
+                      <span onClick={handleAddReply}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
+                  }
+              </div>
+                  {/* &nbsp;
+                  &nbsp; */}
+              {/* <VoteCount
+                  handleVote={handleVote}
+                  vote_count={post_votes}
+                  user_vote={user_vote}
+              />
+                  &nbsp;
+                  &nbsp; */}
+              <div className='timestamp'>
                 {timeStamp(last_edited_at, created_at)}
+              </div>
             </PostedBy>
             {  
             showAddReplyForm === id &&
