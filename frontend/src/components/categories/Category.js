@@ -38,13 +38,13 @@ const DivIcon = styled.div`
 
   i {
     display: block;
-    font-size: 42px;
+    font-size: 26px;
   }
 
   img {
     display: block;
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 38px;
+    max-height: 38px;
   }
 `;
 
@@ -75,9 +75,8 @@ const SpanCategory = styled.span`
   display: inline-block;
   align-self: flex-start;
   text-decoration: none;
-  font-weight: bold;
   padding: 7px 15px 10px 0;
-  font-size: 24px;
+  font-size: 22px;
   cursor: pointer;
 
   &:hover {
@@ -99,7 +98,11 @@ const DivCategoryInfo = styled.div`
     }
 
     span {
-      font-weight: bold;
+      color: rgb(150,150,150);
+    }
+
+    .span-moment {
+      color: black;
     }
 
     &:last-child {
@@ -119,8 +122,8 @@ const DivCategoryInfo = styled.div`
 const DivRowInfo = styled.div``;
 
 const H5CreatedAt = styled.h5`
-  font-weight: bold;
-
+  color: rgb(150,150,150);
+  font-weight: normal;
   @media (max-width: 878px) {
     display: none;
   }
@@ -129,7 +132,6 @@ const H5CreatedAt = styled.h5`
 const SpanSuperModerator = styled.span`
   display: inline-block;
   text-decoration: none;
-  font-weight: bold;
   cursor: pointer;
   color: black;
   width: 290px;
@@ -149,7 +151,7 @@ const SpanSuperModerator = styled.span`
  **************************************************************************************************/
 const Category = ({ category, history }) => {
   const { id, user_username, name, created_at, user_id, discussion_count, post_count, latest_post_body, latest_post_created_at, latest_post_discussion_id } = category;
-  const latestPostBodyElipsis = (latest_post_body) ? `${latest_post_body.slice(0, 15)}...` : 'none';
+  const latestPostBodyElipsis = (latest_post_body) ? `${latest_post_body.slice(0, 25)}...` : 'none';
   const goToCategory = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
@@ -177,7 +179,7 @@ const Category = ({ category, history }) => {
           <DivCategoryInfo>
             <p><span>Discussions:</span>&nbsp;{discussion_count}</p>
             {(post_count) ? <p><span>Posts:</span>&nbsp;{post_count}</p> : <p><span>Posts:</span>&nbsp;0</p>}
-            {(latest_post_body) ? <p onClick={(ev) => lastPost(ev)}><span>Latest:</span>&nbsp;{latestPostBodyElipsis},&nbsp;{moment(new Date(Number(latest_post_created_at))).fromNow()}</p> : <p><span>Latest:</span>&nbsp;empty</p>}
+            {(latest_post_body) ? <p onClick={(ev) => lastPost(ev)}><span>Latest:</span>&nbsp;<span className='span-moment'>{moment(new Date(Number(latest_post_created_at))).fromNow()}</span>,&nbsp;{latestPostBodyElipsis}</p> : <p><span>Latest:</span>&nbsp;empty</p>}
           </DivCategoryInfo>
         </DivCategory>
       </DivCategoryContainer>
