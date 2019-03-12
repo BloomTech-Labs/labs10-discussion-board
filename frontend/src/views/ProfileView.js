@@ -47,10 +47,26 @@ const ProfileWrapper = styled.div`
     width: 10%;
     display: flex;
     align-self: flex-start;
+    @media ${phoneP} {
+      width: 20%;
+      }
   }
   .username-style { 
-    margin-left: -70px;
+    margin-left: 0px;
     font-size: 18px;
+    justify-content: flex-start
+    @media ${tabletP} {
+      margin-left: 0px;
+      display: flex;
+      justify-content: flex-start;
+      width: 80%;
+      }
+  }
+    @media ${phoneP} {
+      margin-left: 0px;
+      display: flex;
+      justify-content: flex-start;
+      }
   }
   .status-style {
     font-size: 10px;
