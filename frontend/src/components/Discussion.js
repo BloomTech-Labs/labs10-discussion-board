@@ -14,6 +14,7 @@ import {
   PostCount,
   VoteCount,
   Deleted,
+  DiscussionByFollowedCats,
 } from './index.js';
 
 // views
@@ -124,66 +125,40 @@ const CommentSort = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 15px 0px; 
- 
 
   .title {
     font-weight: bold;
     font-size: 18px;
   }
-`;
 
-const Sort = styled.span`
-display: flex;
-flex-direction: row;
-align-items: baseline;
-justify-content: space-between;
+  .sort {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
 
-@media ${tabletP} {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // margin: 0 auto;
-
-  @media ${phoneP}{
-  margin: 0 auto;
-  align-items: center;
-  width: 70%;
+    .filter-wrapper {
+      i {
+        margin-right: 5px;
+        color: ${props => props.theme.discussionPostColor};
+      }
+      .filter-by{
+        color: ${props => props.theme.discussionPostColor};
+      }
+  
+      .filter {
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        padding: 6px;
+        border-radius: 5px;
+        color: ${props => props.theme.discussionPostColor};
+        &:focus {
+          outline: none;
+        }
+      }
+    }
   }
-}
-
-// .sortName {
-//   margin: 5px;
-// }
-
-// .sorted {
-//   font-weight: bold;
-//   padding: 5px;
-//   color: ${props => props.theme.discussionPostColor};
-// }
-
-//   button{
-//     margin-top: 10px;
-
-//     @media ${phoneL} {
-//       font-size: 17px;
-//       padding: 11px 0px;
-//       width: 110px;
-//     }
-//   }
-
-// .dropDowns {
-//   display: flex;
-//   flex-direction: row;
-
-//   @media ${phoneP}{
-//     flex-direction: column;
-//     margin: 0 auto;
-//   }
-//   @media ${phoneL}{
-//     flex-direction: column;
-//   }
-// }
-// `;
+`;
 
 const DiscussionTitle = styled.div`
 color: black;
@@ -215,18 +190,38 @@ const PostedBy = styled.div`
 }
 `;
 
+const newest = 'newest';
+const oldest = 'oldest';
+const mostUpvotes = 'most upvotes';
+
 class Discussion extends Component {
   state = {
     showAddPostForm: false, // boolean
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
-    order: 'created_at', // possible values: 'created_at', 'upvotes'
-    orderType: 'desc', // possible values: 'desc', 'asc'
+    filter: newest,
   };
-  handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
-    return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
-  });
+  handleSelectChange = e => this.setState({
+    [e.target.name]: e.target.value,
+  }, () => this.handleFilterChange());
+  handleFilterChange = () => {
+    const { filter } = this.state;
+    const { getDiscussionById, id } = this.props;
+    switch (filter) {
+      case newest: {
+        return getDiscussionById(id, 'created_at', 'desc');
+      }
+      case oldest: {
+        return getDiscussionById(id, 'created_at', 'asc');
+      }
+      case mostUpvotes: {
+        return getDiscussionById(id, 'upvotes', 'desc');
+      }
+      default:
+        return;
+    }
+  };
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
   toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id || null });
@@ -245,123 +240,72 @@ class Discussion extends Component {
     return removeDiscussion(id, category_id, historyPush);
   };
   handleDiscussionVote = (discussion_id, type) => {
-    const { order, orderType } = this.state;
-    const { id, getDiscussionById, handleDiscussionVote } = this.props;
+    const { handleDiscussionVote } = this.props;
     return handleDiscussionVote(discussion_id, type)
-      .then(() => getDiscussionById(id, order, orderType));
+      .then(() => this.handleFilterChange());
   };
   componentDidMount = () => {
-    const { getDiscussionById, id, scrollTo } = this.props;
-    const { order, orderType } = this.state;
-    return getDiscussionById(id, order, orderType).then(() => scrollTo());
+    const { scrollTo } = this.props;
+    return this.handleFilterChange().then(() => scrollTo());
   };
   componentDidUpdate = prevProps => {
-    const { getDiscussionById, id, scrollTo } = this.props;
-    const { order, orderType } = this.state;
-    if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
+    const { id, scrollTo } = this.props;
+    if (prevProps.id !== id) return this.handleFilterChange().then(() => scrollTo());
   };
-
-
+  handleVote = (id, type) => {
+    this.handleDiscussionVote(id, type);
+  };
   render() {
-
     const {
-      order,
-      // orderType,
       showAddPostForm,
       showEditPostForm,
       showAddReplyForm,
     } = this.state;
-    const { discussion, historyPush, loggedInUserId } = this.props;
-
+    const { discussion, history, historyPush, loggedInUserId } = this.props;
     const {
-      body,
+      // body,
       // created_at,
       // last_edited_at,
-      upvotes,
-      downvotes,
-      avatar,
-      category_name,
-      category_id,
-      category_icon,
+      // upvotes,
+      // downvotes,
+      // avatar,
+      // category_name,
+      // category_id,
+      // category_icon,
       id,
       posts,
-      post_count,
-      user_id,
-      username,
-      user_vote,
+      // post_count,
+      // user_id,
+      // username,
+      // user_vote,
     } = discussion;
-
-    const handleVote = (e, type) => this.handleDiscussionVote(id, type);
-
     return (
       <DiscussionWrapper>
         <SubWrapper>
-          <DiscussionContent>
-          <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
-            <PostHeader>
-              <DiscussionTitle>
-                <div className='content'>
-                  <p>{body}</p>
-                </div>
-              </DiscussionTitle>
-              <PostedBy>
-              <div className='d-creator'>
-                <img alt='user' src={avatar} />
-                {
-                  username ?
-                    <Link className='username' to={`/profile/${user_id}`}>
-                      {username}
-                    </Link> :
-                    <Deleted />
-                }
-              </div>
-              &nbsp;
-              &nbsp;
-              <div className='c-name'>
-                <i className={category_icon} />
-                <span>
-                  {category_name}
-                </span>
-              </div>
-              <VoteCount
-                upvotes={upvotes}
-                downvotes={downvotes}
-                user_vote={user_vote}
-                handleVote={handleVote}
-              />
-              &nbsp;
-              &nbsp;
-              <PostCount post_count={post_count || 0} />
-              &nbsp;
-              &nbsp;
-              <Follow discussion_id={id} historyPush={historyPush} />
-              </PostedBy>
-            </PostHeader>
-          </DiscussionContent>
+          <DiscussionByFollowedCats
+            discussion={discussion}
+            history={history}
+            voteOnDiscussion={this.handleVote}
+            singleDiscussion = { true }
+          />
           <CommentWrapper>
             <CommentSort>
               <span className='title'>Comments</span>
-              <Sort>
-                <div className='dropDowns'>
-                  <span className='sorted'>Sort</span>
-                  &nbsp;
-                  &nbsp;
-                  <select className='sortName' onChange={this.handleSelectChange} name='order'>
-                    <option value='created_at'>date created</option>
-                    <option value='upvotes'>votes</option>
-                  </select>
-                  &nbsp;
-                  &nbsp;
-                  <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
-                    <option value='desc'>
-                      {order === 'created_at' ? 'most recent first' : 'most first'}
-                    </option>
-                    <option value='asc'>
-                      {order === 'created_at' ? 'least recent first' : 'least first'}
-                    </option>
+              <div className = 'sort'>
+                <div className='filter-wrapper'>
+                  <i className='fab fa-mix' />
+                  <span className = 'filter-by'>Filter by &nbsp;</span>
+                  <select
+                    className='filter'
+                    onChange={this.handleSelectChange}
+                    name='filter'
+                  >
+                    <option value={newest}>{newest}</option>
+                    <option value={oldest}>{oldest}</option>
+                    <option value={mostUpvotes}>{mostUpvotes}</option>
                   </select>
                 </div>
-              </Sort>
+              </div>
             </CommentSort>
             <Posts>
               <PostsView

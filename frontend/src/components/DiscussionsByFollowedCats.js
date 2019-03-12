@@ -85,9 +85,9 @@ const DiscussionHeader = styled.div`
 		background-color: #418DCF;
 		color: white;
 
-		@media ${ phoneP} {
-			width: 100%;
-			margin-left: 0;
+		@media (max-width: 530px) {
+      width: 100%;
+      margin-left: 0;
 		}
 
 		&:hover {

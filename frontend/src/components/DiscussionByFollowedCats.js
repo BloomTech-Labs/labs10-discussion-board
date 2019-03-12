@@ -23,8 +23,7 @@ const DiscussionWrapper = styled.div`
 	border-radius: 5px;
 
 	&:hover {
-		background-color: #ddd;
-		cursor: pointer;
+		${ ({ singleDiscussion }) => !singleDiscussion && 'background-color: #ddd;cursor: pointer;' }
 	}
 `;
 
@@ -41,12 +40,6 @@ const InfoWrapper = styled.div`
 	font-size: 0.9rem;
 	color: #a7a7a7;
 
-	@media ${ phoneL } {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		}
-
 	.user-info {
 		display: flex;
 		justify-content: flex-start;
@@ -60,19 +53,30 @@ const InfoWrapper = styled.div`
 
 			&:hover {
 				text-decoration: underline;
+				cursor: pointer;
 			}
 		}
 
-		@media ${ phoneL } {
-			width: 40%;
+		@media (max-width: 530px) {
+			width: 100%;
 		}
 	}
 
 	.discussion-info {
 		display: flex;
 		width: 75%;
-		@media ${ phoneL } {
-			width: 60%;
+
+		.votes-wrapper {
+			margin-right: 10px;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			i {
+				padding-left: 10px;
+				padding-right: 5px;
+				padding-top: 2px;
+			}
 		}
 
 		.category-wrapper {
@@ -85,26 +89,31 @@ const InfoWrapper = styled.div`
 				margin-left: 10px;
 				margin-right: 5px;
 			}
-
-			.category-name {
-				@media ${ tabletP } {
-					display: none;
-				}
-			}
 		}
 
 		.date-views-comment {
 			display: flex;
-			width: 50%;
+		}
 
-			@media (max-width: 755px) {
-				width: 35%;
-			}
+		@media (max-width: 830px) {
+			justify-content: center;
 
-			@media ${ phoneL } {
-				margin-top: 20px;
-				width: 90%;
+			.desktop {
+				display: none;
 			}
+		}
+
+		@media (max-width: 630px) {
+			.tablet {
+				display: none;
+			}
+		}
+
+		@media (max-width: 530px) {
+			width: 100%;
+			justify-content: flex-start;
+			padding-top: 10px;
+			margin-left: -10px;
 		}
 	}
 
@@ -114,26 +123,31 @@ const InfoWrapper = styled.div`
 		margin-left: 8px;
 		margin-right: 8px;
 	}
+
+	@media (max-width: 830px) {
+		.desktop {
+			display: none;
+		}
+	}
+
+	@media (max-width: 630px) {
+		.tablet, .desktop {
+			display: none;
+		}
+	}
+
+	@media (max-width: 530px) {
+		flex-wrap: wrap;
+		flex-direction: column;
+		align-items: flex-start;
+	}
 `;
 
 const UsernameWrapper = styled.span`
 	color: ${props => props.theme.discussionPostColor};
 `;
 
-const VotesWrapper = styled.div`
-	margin-right: 10px;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-
-	i {
-		padding-left: 10px;
-		padding-right: 5px;
-		padding-top: 2px;
-	}
-`;
-
-const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => {
+const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion }) => {
 	const {
 		avatar,
 		body,
@@ -164,7 +178,7 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 		return voteOnDiscussion(id, type);
 	};
 	return(
-		<DiscussionWrapper onClick = { handleDiscussionClick }>
+		<DiscussionWrapper singleDiscussion = { singleDiscussion } onClick = { handleDiscussionClick }>
 			<BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
 			<InfoWrapper>
 				<div className = 'user-info'>
@@ -179,24 +193,24 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 					</div>
 				</div>
 				<div className = 'discussion-info'>
-					<VotesWrapper>
+					<div className = 'votes-wrapper'>
 						<VoteCount
 							upvotes = { upvotes }
 							downvotes = { downvotes }
 							user_vote = { user_vote }
 							handleVote = { handleVote }
 						/>
-					</VotesWrapper>
-					<div className = 'category-wrapper'>
+					</div>
+					<div className = 'category-wrapper' onClick = { handleCategoryClick }>
 						<i className = { category_icon } />
 						<span className = 'category-name'>{ category_name }</span>
 					</div>
-					<i className = 'fas fa-circle' />
-					<div className = 'date-views-comment'>
+					<i className = 'fas fa-circle tablet' />
+					<div className = 'date-views-comment tablet'>
 						<span>{moment(new Date(Number(created_at))).fromNow()}</span>
 						<i className = 'fas fa-circle' />
-						<span>{ views } View{ views !== 1 && 's' }</span>
-						<i className = 'fas fa-circle' />
+						<span className = 'desktop'>{ views } View{ views !== 1 && 's' }</span>
+						<i className = 'fas fa-circle desktop' />
 						<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
 					</div>
 				</div>
