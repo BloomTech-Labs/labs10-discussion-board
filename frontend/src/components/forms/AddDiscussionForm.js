@@ -9,7 +9,7 @@ import { addDiscussion, displayError } from '../../store/actions/index.js';
 // globals
 import {
 	tabletP,
-	// phoneP,
+	phoneP,
 } from '../../globals/globals.js';
 
 const AddDiscussionFormWrapper = styled.div`
@@ -38,6 +38,10 @@ const AddDiscussionFormBox = styled.form`
 	width: 80%;
 	background-color: white;
 
+	@media ${phoneP} {
+		flex-direction: initial;
+	}
+
 	.body-input, .categories-select {
 		border-radius: 5px;
 		padding: 5px 10px;
@@ -56,27 +60,52 @@ const AddDiscussionFormBox = styled.form`
 		justify-content: space-between;
 		margin-bottom: 15px;
 
-		span{
+		i{
 			font-size: 30px;
-		}
+
+			&:hover {
+					cursor: pointer;
+					color: steelblue;
+				}
+		}			
 	}
 
 	.below-input {
 		display: flex;
+		flex-direction: row;
 		justify-content: space-around;
-		width: 80%;
+		width: 599px;
 		margin-top: 10px;
+
+		@media ${tabletP} {
+			width: 380px;
+		}
+
+		@media ${phoneP} {
+			flex-direction: column;
+			align-items: center;
+		}
 
 		.user {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: flex-start;
-			font-size: 0.8rem;
+			font-size: 1.0rem;
+
+			@media ${phoneP} {
+				font-size: 1.4rem;
+				margin-bottom: 10px;
+			}
 
 			.username {
 				color: black;
 				text-decoration: none;
+
+				&:hover {
+					color: steelblue;
+					text-decoration: underline;
+				}
 			}
 
 			img {
@@ -89,8 +118,13 @@ const AddDiscussionFormBox = styled.form`
 			border: 1px solid white;
 			border-radius: 5px;
 			padding: 10px 15px;
-			width: 30%;
+			width: 100px;
 			color: white;
+
+			@media ${phoneP} {
+				margin-top: 10px;
+				width: 156px;
+			}
 
 			&:hover {
 				cursor: pointer;
@@ -104,16 +138,6 @@ const AddDiscussionFormBox = styled.form`
 			&:hover {
 				color: #418DCF;
 				border: 1px solid #418DCF;
-			}
-		}
-
-		.back {
-			background-color: #4a4a4a;
-			font-size: 30px;
-
-			&:hover {
-				color: #4a4a4a;
-				border: 1px solid #4a4a4a;
 			}
 		}
 	}
@@ -144,6 +168,27 @@ class AddDiscussionForm extends Component {
 							className='back'
 							onClick={toggleAddDiscussionForm}		
 						><i className="far fa-arrow-alt-circle-left"></i></span>
+						<span></span>
+					</div>
+          <textarea
+            rows='10'
+            cols='80'
+            className='body-input'
+            type='text'
+            placeholder='Add a post...'
+            name='body'
+            onChange={this.handleInputChange}
+            value={body}
+          />
+          <div className='below-input'>
+						<div className='user'>
+							<Link className='username' to={`/profile/${user_id}`}>
+								<img alt='pic' src = { avatar } />
+							</Link>
+							<Link className='username' to={`/profile/${user_id}`}>
+								{username}
+							</Link>
+						</div>
 						<select
 							className='categories-select'
 							onChange={this.handleInputChange}
@@ -156,25 +201,6 @@ class AddDiscussionForm extends Component {
 								)
 							}
 						</select>
-						<span></span>
-					</div>
-          <textarea
-            rows='10'
-            cols='50'
-            className='body-input'
-            type='text'
-            placeholder='Add a post...'
-            name='body'
-            onChange={this.handleInputChange}
-            value={body}
-          />
-          <div className='below-input'>
-						<div className='user'>
-							<img alt='pic' src = { avatar } />
-							<Link className='username' to={`/profile/${user_id}`}>
-								{username}
-							</Link>
-						</div>
             <button className='submit-btn' type='submit'>Post</button>  
           </div>
         </AddDiscussionFormBox>
