@@ -7,9 +7,8 @@ import { Avatar, VoteCount } from './index.js';
 
 // globals
 import {
-	phoneP,
-	tabletP,
-	phoneL,
+  tabletP,
+  phoneL,
 } from '../globals/globals.js';
 
 const DiscussionWrapper = styled.div`
@@ -20,11 +19,10 @@ const DiscussionWrapper = styled.div`
 	width: 98%;
 	margin-bottom: 20px;
 	padding: 5px;
-	border-bottom: 1px solid black;
+	border-radius: 5px;
 
 	&:hover {
-		background-color: white;
-		cursor: pointer;
+		${ ({ singleDiscussion }) => !singleDiscussion && 'background-color: #ddd;cursor: pointer;' }
 	}
 `;
 
@@ -41,70 +39,119 @@ const InfoWrapper = styled.div`
 	font-size: 0.9rem;
 	color: #a7a7a7;
 
-	@media ${ phoneL } {
+	.user-info {
 		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
+		justify-content: flex-start;
+		align-items: center;
+		width: 25%;
+		margin-right: 20px;
+
+		.user {
+			width: fit-content;
+			color: black;
+
+			&:hover {
+				text-decoration: underline;
+				cursor: pointer;
+			}
 		}
 
-	.user-info {
-		width: 25%;
-		@media ${ phoneL } {
-			width: 38%;
+		@media (max-width: 530px) {
+			width: 100%;
+		}
+	}
+
+	.discussion-info {
+		display: flex;
+		width: 75%;
+
+		.votes-wrapper {
+			margin-right: 10px;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			i {
+				padding-left: 10px;
+				padding-right: 5px;
+				padding-top: 2px;
+			}
+		}
+
+		.category-wrapper {
+			&:hover {
+				color: black;
+				cursor: pointer;
+			}
+
+			i {
+				margin-left: 10px;
+				margin-right: 5px;
+			}
+		}
+
+		.date-views-comment {
+			display: flex;
+		}
+
+		@media (max-width: 830px) {
+			justify-content: center;
+
+			.desktop {
+				display: none;
+			}
+		}
+
+		@media (max-width: 630px) {
+			.tablet {
+				display: none;
+			}
+		}
+
+		@media (max-width: 530px) {
+			width: 100%;
+			justify-content: flex-start;
+			padding-top: 10px;
+			margin-left: -10px;
 		}
 	}
 
 	.fa-circle {
 		font-size: 0.4rem;
-		margin-top: 7px;
-		margin-left: 4px;
-		margin-right: 4px;
+		margin-top: 9px;
+		margin-left: 8px;
+		margin-right: 8px;
 	}
 
-	.category-name {
-		margin-left: 5px;
-		
-		@media ${ tabletP } {
+	@media (max-width: 830px) {
+		.desktop {
 			display: none;
 		}
 	}
 
-	.date-views-comment {
-		display: flex;
-		justify-content: space-between;
-		width: 25%;
-
-		@media (max-width: 755px) {
-      	width: 35%;
-    	}
-
-		@media ${ phoneL } {
-			margin-top: 20px;
-			width: 90%;
+	@media (max-width: 630px) {
+		.tablet, .desktop {
+			display: none;
 		}
+	}
+
+	@media (max-width: 530px) {
+		flex-wrap: wrap;
+		flex-direction: column;
+		align-items: flex-start;
 	}
 `;
 
 const UsernameWrapper = styled.span`
-	margin-right: 20px;
 	color: ${props => props.theme.discussionPostColor};
 `;
 
-const VotesWrapper = styled.div`
-	margin-right: 10px;
-
-	i {
-		padding-left: 10px;
-		padding-right: 5px;
-	}
-`;
-
-const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => {
+const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singleDiscussion }) => {
 	const {
 		avatar,
 		body,
 		category_icon,
-		// category_id,
+		category_id,
 		category_name,
 		created_at,
 		downvotes,
@@ -113,40 +160,58 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion }) => 
 		upvotes,
 		user_vote,
 		username,
+		user_id,
 		views,
 	} = discussion;
 	const handleDiscussionClick = () => history.push(`/discussion/${ id }`);
+	const handleCategoryClick = e => {
+		e.stopPropagation();
+		return history.push(`/discussions/category/${ category_id }`);
+	};
+	const handleUserClick = e => {
+		e.stopPropagation();
+		return history.push(`/profile/${ user_id }`);
+	};
 	const handleVote = (e, type) => {
 		e.stopPropagation();
 		return voteOnDiscussion(id, type);
 	};
 	return(
-		<DiscussionWrapper onClick = { handleDiscussionClick }>
+		<DiscussionWrapper singleDiscussion = { singleDiscussion } onClick = { handleDiscussionClick }>
 			<BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
 			<InfoWrapper>
 				<div className = 'user-info'>
-					<Avatar
-						height = '20px'
-						width = '20px'
-						src = { avatar }
-					/>
-					&nbsp;
-					<UsernameWrapper>{ username }</UsernameWrapper>
+					<div className = 'user' onClick = { handleUserClick }>
+						<Avatar
+							height = '20px'
+							width = '20px'
+							src = { avatar }
+						/>
+						&nbsp;
+						<UsernameWrapper>{ username }</UsernameWrapper>
+					</div>
 				</div>
-				<VotesWrapper>
-					<VoteCount
-						upvotes = { upvotes }
-						downvotes = { downvotes }
-						user_vote = { user_vote }
-						handleVote = { handleVote }
-					/>
-				</VotesWrapper>
-				<i className = { category_icon } />
-				<span className = 'category-name'>{ category_name }</span>
-				<div className = 'date-views-comment'>
-					<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-					<span>{ views } View{ views !== 1 && 's' }</span>
-					<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
+				<div className = 'discussion-info'>
+					<div className = 'votes-wrapper'>
+						<VoteCount
+							upvotes = { upvotes }
+							downvotes = { downvotes }
+							user_vote = { user_vote }
+							handleVote = { handleVote }
+						/>
+					</div>
+					<div className = 'category-wrapper' onClick = { handleCategoryClick }>
+						<i className = { category_icon } />
+						<span className = 'category-name'>{ category_name }</span>
+					</div>
+					<i className = 'fas fa-circle tablet' />
+					<div className = 'date-views-comment tablet'>
+						<span>{moment(new Date(Number(created_at))).fromNow()}</span>
+						<i className = 'fas fa-circle' />
+						<span className = 'desktop'>{ views } View{ views !== 1 && 's' }</span>
+						<i className = 'fas fa-circle desktop' />
+						<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
+					</div>
 				</div>
 			</InfoWrapper>
 		</DiscussionWrapper>

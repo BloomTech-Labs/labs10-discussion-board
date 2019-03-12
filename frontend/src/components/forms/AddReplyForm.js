@@ -18,10 +18,10 @@ const AddReplyFormWrapper = styled.form`
 		height: 150px;
 		padding: 12px 20px;
 		box-sizing: border-box;
-		border: 1px solid #f8f8f8;
+		border: 1px solid #ddd;
 		border-radius: 4px;
 		background-color: #f8f8f8;
-		resize: none; 
+		resize: none;
 	}
 `;
 
@@ -52,7 +52,8 @@ const UserActions = styled.div`
 
 	button {
 		color: steelblue;
-		background: clear;
+		background: none;
+		border:none;
 		
 		&:hover {
 			cursor: pointer;

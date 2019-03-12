@@ -13,7 +13,7 @@ const VoteCountWrapper = styled.div`
 		padding-right: 5px;
 	}
 
-	.fa-arrow-alt-circle-up {
+	.upvote {
 		${ ({ user_vote }) => user_vote === 1 && 'color: blue;' }
 
 		&:hover {
@@ -21,7 +21,8 @@ const VoteCountWrapper = styled.div`
 		color: #3898d1;
 		}
 	}
-	.fa-arrow-alt-circle-down {
+
+	.downvote {
 		${ ({ user_vote }) => user_vote === -1 && 'color: red;' }
 
 		&:hover {
@@ -43,10 +44,14 @@ const VoteCount = ({
 	const handleClick = (e, type) => handleVote(e, type);
 	return (
 		<VoteCountWrapper user_vote = { user_vote }>
-			<i onClick = { e => handleClick(e, 1) } className = 'fas fa-arrow-alt-circle-up' />
-			<span>{ upvotes || 0 }</span>
-			<i onClick = { e => handleClick(e, -1) } className = 'fas fa-arrow-alt-circle-down' />
-			<span>{ downvotes || 0 }</span>
+			<div className = 'upvote' onClick = { e => handleClick(e, 1) }>
+				<i className = 'fas fa-arrow-alt-circle-up' />
+				<span>{ upvotes || 0 }</span>
+			</div>
+			<div className = 'downvote' onClick = { e => handleClick(e, -1) }>
+				<i className = 'fas fa-arrow-alt-circle-down' />
+				<span>{ downvotes || 0 }</span>
+			</div>
 		</VoteCountWrapper>
 	);
 };

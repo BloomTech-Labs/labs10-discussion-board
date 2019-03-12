@@ -14,6 +14,7 @@ import {
   PostCount,
   VoteCount,
   Deleted,
+  DiscussionByFollowedCats,
 } from './index.js';
 
 // views
@@ -35,19 +36,13 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 // box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 // background-color: ${props => props.theme.topDiscussionWrapperBgHov};
 
-const DiscussionWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  flex-direction: column;
   width: 100%;
   margin: 0 auto;
   margin-left: 10px;
-  color: ${props => props.theme.discussionPostColor};
-
-  @media ${phoneL}{
-    flex-direction: column;
-    width: 90%;
-    margin: 0 auto;
-  }
 
   .back {
     font-size: 30px;
@@ -60,93 +55,19 @@ const DiscussionWrapper = styled.div`
     }
   }
 `;
+
+const DiscussionWrapper = styled.div`
+  color: ${props => props.theme.discussionPostColor};
+
+  @media ${phoneL}{
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+  }
+`;
 const SubWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const DiscussionContent = styled.div`
-  @media ${phoneL}{
-    width: 100%;
-  }
-
-  p {
-    font-size: 22px;
-    margin-top: 16px;
-  }
-
-  .sub-div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-
-    button {
-      width: 117px;
-    }
-
-    @media ${phoneL} {
-      display: flex;
-
-    }
-  }
-`;
-
-const PostedBy = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 12px;
-  margin-bottom: 15px;
-  font-size: 0.8rem;
-  color: #a7a7a7;
-
-  @media ${phoneL} {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .mobile-div {
-      display: flex;
-      flex-direction: row;
-
-    @media ${phoneL} {
-      width: 100%;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-  }
-
-  .d-creator {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    img{
-      border-radius: 50%;
-      margin-right: 10px;
-      width: 23px;
-    }
-
-    .username{
-      text-decoration: none;
-      font-size: 0.8rem;
-      color: ${props => props.theme.discussionPostColor};
-    }
-  }
-
-.c-name {
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  span {
-    margin-left: 5px;
-  }
-}
 `;
 
 const CommentWrapper = styled.div`
@@ -164,51 +85,106 @@ flex-direction: column;
 
 const Posts = styled.div``;
 
-const AddPostBtn = styled.div``;
-
 const CommentSort = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px; 
+  margin: 15px 0px;
 
-  @media ${tabletP} {
+  .comment-sort-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .title-add-wrapper {
+    display: flex;
+    width: 30%;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+
+    @media (max-width: 530px) {
+      width: 30%;
+    }
+  }
+
+  .add-post-btn {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #418DCF;
+    color: white;
+
+    &:hover {
+      cursor: pointer;
+      background-color: white;
+      color: #418DCF;
+      border: 1px solid #418DCF;
+    }
+  }
+
+  .tablet, .tablet-btn {
+    display: none;
+  }
+
+  @media (max-width: 590px) {
+    align-items; center;
+    .desktop {
+      display: none;
+    }
+
+    .tablet-btn {
+      display: inline-block;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+
+  .sort {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+
+    .filter-wrapper {
+      i {
+        margin-right: 5px;
+        color: ${props => props.theme.discussionPostColor};
+      }
+      .filter-by{
+        color: ${props => props.theme.discussionPostColor};
+      }
+  
+      .filter {
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        padding: 6px;
+        border-radius: 5px;
+        color: ${props => props.theme.discussionPostColor};
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 590px) {
+    flex-wrap: wrap;
     flex-direction: column;
-    margin-top: 25px;
-    margin-bottom: 25px;
-
-    @media ${phoneL}{
-      flex-direction: row;
-    }
-
-    .title {
-      font-weight: bold;  
-    }
+    align-items: flex-start;
   }
 `;
 
-const Sort = styled.span`
-display: flex;
-flex-direction: row;
-align-items: baseline;
-justify-content: space-between;
-
-@media ${tabletP} {
-
-  @media ${phoneL}{
-    display: none;
-  }
-}
-
-.title {
-
-  @media ${phoneL}{
-    text-align: left;
-  }
-}
- `;
+const newest = 'newest';
+const oldest = 'oldest';
+const mostUpvotes = 'most upvotes';
 
 class Discussion extends Component {
   state = {
@@ -216,12 +192,28 @@ class Discussion extends Component {
     showEditDiscussionForm: false, // boolean
     showEditPostForm: null, // post_id
     showAddReplyForm: null, // post_id
-    order: 'created_at', // possible values: 'created_at', 'post_votes'
-    orderType: 'asc', // possible values: 'desc', 'asc'
+    filter: newest,
   };
-  handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
-    return this.props.getDiscussionById(this.props.id, this.state.order, this.state.orderType);
-  });
+  handleSelectChange = e => this.setState({
+    [e.target.name]: e.target.value,
+  }, () => this.handleFilterChange());
+  handleFilterChange = () => {
+    const { filter } = this.state;
+    const { getDiscussionById, id } = this.props;
+    switch (filter) {
+      case newest: {
+        return getDiscussionById(id, 'created_at', 'desc');
+      }
+      case oldest: {
+        return getDiscussionById(id, 'created_at', 'asc');
+      }
+      case mostUpvotes: {
+        return getDiscussionById(id, 'upvotes', 'desc');
+      }
+      default:
+        return;
+    }
+  };
   toggleAddPostForm = () => this.setState({ showAddPostForm: !this.state.showAddPostForm });
   toggleEditDiscussionForm = () => this.setState({ showEditDiscussionForm: !this.state.showEditDiscussionForm });
   toggleAddReplyForm = (id) => this.setState({ showAddReplyForm: id || null });
@@ -240,124 +232,93 @@ class Discussion extends Component {
     return removeDiscussion(id, category_id, historyPush);
   };
   handleDiscussionVote = (discussion_id, type) => {
-    const { order, orderType } = this.state;
-    const { id, getDiscussionById, handleDiscussionVote } = this.props;
+    const { handleDiscussionVote } = this.props;
     return handleDiscussionVote(discussion_id, type)
-      .then(() => getDiscussionById(id, order, orderType));
+      .then(() => this.handleFilterChange());
   };
   componentDidMount = () => {
-    const { getDiscussionById, id, scrollTo } = this.props;
-    const { order, orderType } = this.state;
-    return getDiscussionById(id, order, orderType).then(() => scrollTo());
+    const { scrollTo } = this.props;
+    return this.handleFilterChange().then(() => scrollTo());
   };
   componentDidUpdate = prevProps => {
-    const { getDiscussionById, id, scrollTo } = this.props;
-    const { order, orderType } = this.state;
-    if (prevProps.id !== id) return getDiscussionById(id, order, orderType).then(() => scrollTo());
+    const { id, scrollTo } = this.props;
+    if (prevProps.id !== id) return this.handleFilterChange().then(() => scrollTo());
   };
-
-
+  handleVote = (id, type) => {
+    this.handleDiscussionVote(id, type);
+  };
   render() {
-
     const {
-      order,
-      // orderType,
       showAddPostForm,
       showEditPostForm,
       showAddReplyForm,
     } = this.state;
-    const { discussion, historyPush, loggedInUserId } = this.props;
-
+    const { discussion, history, historyPush, loggedInUserId, scrollTo } = this.props;
     const {
-      body,
+      // body,
       // created_at,
       // last_edited_at,
-      upvotes,
-      downvotes,
-      avatar,
-      category_name,
+      // upvotes,
+      // downvotes,
+      // avatar,
+      // category_name,
       category_id,
-      category_icon,
+      // category_icon,
       id,
       posts,
-      post_count,
-      user_id,
-      username,
-      user_vote,
+      // post_count,
+      // user_id,
+      // username,
+      // user_vote,
     } = discussion;
-
-    const handleVote = (e, type) => this.handleDiscussionVote(id, type);
-
     return (
+      <Wrapper>
+      <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
       <DiscussionWrapper>
-        <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
         <SubWrapper>
-          <DiscussionContent>
-            <div className='content'>
-              <p>{body}</p>
-            </div>
-            <PostedBy>
-              <div className = 'mobile-div'>
-                <div className='d-creator'>
-                  <img alt='user' src={avatar} />
-                  {
-                    username ?
-                      <Link className='username' to={`/profile/${user_id}`}>
-                        {username}
-                      </Link> :
-                      <Deleted />
-                  }
-                </div>
-                &nbsp;
-                &nbsp;
-                <div className='c-name'>
-                  <i className={category_icon} />
-                  <span>
-                    {category_name}
-                  </span>
-                </div>
-                </div>
-                <div className='sub-div'>
-                  <VoteCount
-                    upvotes={upvotes}
-                    downvotes={downvotes}
-                    user_vote={user_vote}
-                    handleVote={handleVote}
-                  />
-                  &nbsp;
-                  &nbsp;
-                  <PostCount post_count={post_count || 0} />
-                  &nbsp;
-                  &nbsp;
-                  <Follow discussion_id={id} historyPush={historyPush} />
-                </div>
-            </PostedBy>
-          </DiscussionContent>
+          <DiscussionByFollowedCats
+            discussion={discussion}
+            history={history}
+            voteOnDiscussion={this.handleVote}
+            singleDiscussion = { true }
+          />
           <CommentWrapper>
             <CommentSort>
-              <span className='title'>Comments</span>
-              <Sort>
-                <div className='dropDowns'>
-                  <span className='sorted'>Sort</span>
-                  &nbsp;
-                  &nbsp;
-                  <select className='sortName' onChange={this.handleSelectChange} name='order'>
-                    <option value='created_at'>date created</option>
-                    <option value='post_votes'>votes</option>
-                  </select>
-                  &nbsp;
-                  &nbsp;
-                  <select className='sortName' onChange={this.handleSelectChange} name='orderType'>
-                    <option value='desc'>
-                      {order === 'created_at' ? 'most recent first' : 'most first'}
-                    </option>
-                    <option value='asc'>
-                      {order === 'created_at' ? 'least recent first' : 'least first'}
-                    </option>
-                  </select>
+              <div className = 'comment-sort-wrapper'>
+                <div className = 'title-add-wrapper'>
+                  <span className='title'>Comments</span>
+                  <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
+                    <i className='fas fa-plus-circle' />&nbsp;Add Comment
+                  </button>
                 </div>
-              </Sort>
+                <div className = 'sort'>
+                  <div className='filter-wrapper'>
+                    <i className='fab fa-mix' />
+                    <span className = 'filter-by'>Filter by &nbsp;</span>
+                    <select
+                      className='filter'
+                      onChange={this.handleSelectChange}
+                      name='filter'
+                    >
+                      <option value={newest}>{newest}</option>
+                      <option value={oldest}>{oldest}</option>
+                      <option value={mostUpvotes}>{mostUpvotes}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button onClick={this.toggleAddPostForm} className='add-post-btn tablet-btn'>
+                <i className='fas fa-plus-circle' />&nbsp;Add Comment
+              </button>
             </CommentSort>
+            {showAddPostForm && (
+              <AddPostForm
+                user_id={loggedInUserId}
+                discussion_id={id}
+                historyPush={historyPush}
+                toggleAddPostForm={this.toggleAddPostForm}
+              />
+            )}
             <Posts>
               <PostsView
                 posts={posts}
@@ -369,31 +330,14 @@ class Discussion extends Component {
                 discussion_id={id}
                 historyPush={historyPush}
                 repliedPost={posts.find(post => post.id === showAddReplyForm)}
+                handleFilterChange = {this.handleFilterChange}
+                scrollTo = {scrollTo}
               />
-              {/* {
-                  showAddReplyForm &&
-                  <AddReplyForm
-                    toggleAddReplyForm={this.toggleAddReplyForm}
-                    discussion_id={id}
-                    historyPush={historyPush}
-                    toggleAddPostForm={this.toggleAddPostForm}
-                  />
-                } */}
-              <AddPostBtn>
-                {loggedInUserId !== 0 && <button onClick={this.toggleAddPostForm}>Add Comment</button>}
-                {showAddPostForm && (
-                  <AddPostForm
-                    user_id={loggedInUserId}
-                    discussion_id={id}
-                    historyPush={historyPush}
-                    toggleAddPostForm={this.toggleAddPostForm}
-                  />
-                )}
-              </AddPostBtn>
             </Posts>
           </CommentWrapper>
         </SubWrapper>
       </DiscussionWrapper>
+      </Wrapper>
     );
   }
 };

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { phoneP, tabletP, } from '../globals/globals';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
 
 // components
@@ -28,9 +29,7 @@ const ProfileWrapper = styled.div`
   align-self: center;
   margin: 10px;
   padding: 10px;
-  // border: ${props => props.theme.profileBorder};
   width: 92%;
-  // box-shadow: ${props => props.theme.profileBxShdw};
   color: ${props => props.theme.discussionPostColor};
   @media ${tabletP} {
     .react-tabs__tab {
@@ -48,27 +47,39 @@ const ProfileWrapper = styled.div`
     width: 10%;
     display: flex;
     align-self: flex-start;
+    @media ${phoneP} {
+      width: 20%;
+      }
   }
   .username-style { 
+    margin-left: 0px;
     font-size: 18px;
-    // margin-top: -60px;
-    // margin-right: 80%;
-
+    justify-content: flex-start
+    @media ${tabletP} {
+      margin-left: 0px;
+      display: flex;
+      justify-content: flex-start;
+      width: 80%;
+      }
+  }
+    @media ${phoneP} {
+      margin-left: 0px;
+      display: flex;
+      justify-content: flex-start;
+      }
   }
   .status-style {
-    // margin-right: 80%;
     font-size: 10px;
     font-style: italic;
-    // margin-top: -20px;
   }
   @media ${tabletP}{
     display: flex;
     flex-direction: column;
-    width: 380px;
+    width: 90%;
     @media ${phoneP} {
       display: flex;
       flex-direction: column;
-      width: 240px;
+      width: 90%;
     }
   }
   .discussion-title {
@@ -85,105 +96,114 @@ const HeaderStyle = styled.div `
   `;
 
 const WrappedDiv = styled.div`
-  margin: 5px;
-  padding: 2%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 3px;
-  padding: 3px;
-  .property-title {
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    margin: 3px;
-    padding: 3px;
-    color: ${props => props.theme.profileTitleColor};
-  }
-  .property-titleC {
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    margin: 3px;
-    padding: 3px;
-    color: ${props => props.theme.profileTitleContentColor};
-      @media ${phoneP} {
-        display: none;
-      }
-    }
-  .property-content {
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    justify-content: space-around;
-    margin: 3px;
-    padding: 3px;
-    color: ${props => props.theme.profileTitleContentColor};
-  }
-`;
-
-const ContentDiv = styled.div`
-margin: 5px;
-padding: 2%;
 display: flex;
-flex-direction: column;
-align-self: center;
-margin: 3px;
-padding: 3px;
-color: ${props => props.theme.profileTitleContentDColor};
-`;
-
-const SubContentDiv = styled.div`
-margin: 5px;
-padding: 2%;
-display: flex;
-flex-direction: column;
-align-self: center;
-margin: 3px;
-padding: 3px;
-display: inline;
--webkit-line-clamp: 3;
-text-overflow: ellipsis;
-overflow: hidden;
-display: -webkit-box;
--webkit-box-orient: vertical;
-word-break: break-word;
-color: ${props => props.theme.profileTitleSubContentDColor};
-
-@media ${tabletP}{
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  margin: 3px;
-  padding: 3px;
-  @media ${phoneP} {
-    display: none;
+flex-direction: row;
+width: 90%;
+margin: 0 auto;
+color: ${props => props.theme.discussionPostColor};
+.back {
+  margin-right: 5px;
+  width: 7%;
+  height: 50px;
+  font-size: 30px;
+  color: black;
+  
+  &:hover{
+    cursor: pointer;
   }
 }
 `;
 
-// const ProfileTitle = styled.div`
-//   margin: 5px;
-//   padding: 2%;
-//   display: flex;
-//   font-weight: bold;
-//   justify-content: space-around;
-//   color: black;
-//   font-size: 36px;
-// `;
+const ContentDiv = styled.div`
+margin: 20px 0px 10px 0px;
+  display: flex;
+  border-bottom: 1px solid black;
+  a {
+    text-decoration: none;
+  }
+  p {
+    font-size: 22px;
+    margin-top: 16px;
+  }
+color: ${props => props.theme.profileTitleContentDColor};
+`;
 
-const Elip = styled.div`
-  display: inline;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
+const DiscussionTitle = styled.div`
+  color: black;
+`;
+
+const PostedBy = styled.div`
+  width: 120%;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: auto;
+  align-items: center;
+  max-width: 120%;
+  .c-name {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 150px;
+  }
+  .c-time {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 150px;
+    width: 50%
+    @media (max-width: 800px) {
+      display: none;
+    }
+  }
+  }
+  span {
+    margin-left: 5px;
+    
+    @media (max-width: 525px) {
+      display: none;
+    }
+  }
+
+    @media (max-width: 525px) {
+      display: none;
+    }
+}
+`;
+
+const PostHeader = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 12px;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+	color: #a7a7a7;
+  .d-creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 150px;
+    img{
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 23px;
+    }
+
+    .username{
+      font-size: 0.8rem;
+      color: ${props => props.theme.discussionPostColor};
+    }
+  }
+`;
+
+const SubWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 /***************************************************************************************************
@@ -222,62 +242,140 @@ class Profile extends Component {
                 </WrappedDiv>
                 <WrappedDiv className = 'username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  <p className='property-content'> ({profile.status})</p>
+                  {/* <p className='property-content'> ({profile.status})</p> */}
                 </WrappedDiv>
               </HeaderStyle>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
-                  <Tab>Followed Categories</Tab>
-                  <Tab>Posts</Tab>
+                  {/* <Tab>Followed Categories</Tab> */}
+                  {/* <Tab>Posts</Tab> */}
                   <Tab>Comments</Tab>
                   <Tab>Replies</Tab>
                 </TabList>
                 <TabPanel>
                   <WrappedDiv>
-                    <p className='property-title'> Followed Posts </p>
+                    <SubWrapper>
                       {profile.discussionFollows.map((discussionFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
-                            <p className='property-content'> {discussionFollowed.body}</p></Link>
+                            <PostHeader>
+                              <DiscussionTitle>
+                                <div className='content'>
+                                  <p> {discussionFollowed.body}</p>
+                                </div>
+                              </DiscussionTitle>
+                              <PostedBy>
+                                <div className = 'd-creator'>
+                                  <img alt='user' src={discussionFollowed.avatar} />
+                                  <p className = 'username' to = {`/discussion/${discussionFollowed.discussion_id}`}> 
+                                    {discussionFollowed.username}
+                                  </p>
+                                </div>
+                                  &nbsp;
+                                  &nbsp;
+                                <div className='c-name'>
+                                  <i className={discussionFollowed.category_icon} />
+                                  <span>
+                                    {discussionFollowed.category_name}
+                                  </span>
+                                </div>
+                                <div className='c-time'>
+                                  <span>
+                                    {moment(new Date(Number(discussionFollowed.created_at))).fromNow()}
+                                  </span>
+                                </div>
+                              </PostedBy>
+                            </PostHeader>
+                          </Link>
                         </ContentDiv>)}
+                        </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
-                <TabPanel>
+              {/*<TabPanel>
                   <WrappedDiv>
-                    <p className='property-title'> Followed Categories: </p>
                       {profile.categoryFollows.map((categoryFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussions/category/${categoryFollowed.category_id}`}>
                             <p className='property-content'> {categoryFollowed.name}</p></Link>
                         </ContentDiv>)}
-                  </WrappedDiv>
-                </TabPanel>
-                <TabPanel>
+                  </WrappedDiv> 
+                </TabPanel>*/}
+                {/* <TabPanel>
                   <WrappedDiv>
-                    <p className='property-titleC'> Posts: </p>
                       {profile.discussions.map((discussion, index) => 
                         <SubContentDiv key={index}>
-                          {discussion.body}
+                          <p className='property-content'> {discussion.username}</p>
+                          <p className='property-content'> {discussion.body}</p>
+                          <p className='property-content'> {moment(new Date(Number(discussion.created_at))).fromNow()}</p>
+                          <img alt='user' src = {discussion.avatar} />
                         </SubContentDiv>)}
                   </WrappedDiv>
-                </TabPanel>
+                </TabPanel> */}
                 <TabPanel>
                 <WrappedDiv>
-                    <p className='property-titleC'> Comments: </p>
-                      <Elip>{profile.posts.map((post, index) => 
-                        <SubContentDiv key={index}>
-                          {post.body}</SubContentDiv>)}
-                      </Elip>
+                    <SubWrapper>
+                      {profile.posts.map((post, index) => 
+                        <ContentDiv key={index}>
+                          <Link to={`/discussion/${post.discussion_id}`}>
+                          <PostHeader>
+                            <DiscussionTitle>
+                              <div className='content'>
+                                <p> {post.body}</p>
+                              </div>
+                            </DiscussionTitle>
+                            <PostedBy>
+                              <div className = 'd-creator'>
+                                  <img alt='user' src={post.avatar} />
+                                  <p className = 'username' to = {`/discussion/${post.discussion_id}`}> 
+                                    {post.username}
+                                  </p>
+                                </div>
+                                  &nbsp;
+                                  &nbsp;
+                                <div className='c-time'>
+                                  <span>
+                                    {moment(new Date(Number(post.created_at))).fromNow()}
+                                  </span>
+                                </div>
+                            </PostedBy>
+                          </PostHeader>
+                          </Link>
+                        </ContentDiv>)}
+                    </SubWrapper>
                 </WrappedDiv>
                 </TabPanel>
                 <TabPanel>
                   <WrappedDiv>
-                    <p className='property-titleC'> Replies: </p>
+                    <SubWrapper>
                       {profile.replies.map((reply, index) => 
-                        <SubContentDiv key={index}>
-                          {reply.body}
-                        </SubContentDiv>)}
+                        <ContentDiv key={index}>
+                          <Link to={`/discussion/${reply.discussion_id}`}>
+                            <PostHeader>
+                              <DiscussionTitle>
+                                  <div className='content'>
+                                    <p> {reply.body}</p>
+                                  </div>
+                              </DiscussionTitle>
+                              <PostedBy>
+                                <div className = 'd-creator'>
+                                  <img alt='user' src={reply.avatar} />
+                                  <p className = 'username' to = {`/discussion/${reply.discussion_id}`}> 
+                                    {reply.username}
+                                  </p>
+                                </div>
+                                  &nbsp;
+                                  &nbsp;
+                                <div className='c-time'>
+                                  <span>
+                                    {moment(new Date(Number(reply.created_at))).fromNow()}
+                                  </span>
+                                </div>
+                              </PostedBy>
+                            </PostHeader>
+                          </Link>
+                        </ContentDiv>)}
+                    </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
               </Tabs>

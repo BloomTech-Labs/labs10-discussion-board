@@ -96,6 +96,7 @@ const getAllDiscussionsByFollowedCategories = user_id => {
       'dv.downvotes',
       'u.username',
       'u.avatar',
+      'u.id as user_id',
       'c.name as category_name',
       'c.icon as category_icon',
       'd.views',
@@ -199,7 +200,6 @@ const findById = (id, user_id, order, orderType) => {
       'p.body',
       'p.created_at',
       'p.last_edited_at',
-      'p.reply_to',
       'uv.type as user_vote',
       'pv.upvotes',
       'pv.downvotes',
@@ -225,6 +225,16 @@ const findById = (id, user_id, order, orderType) => {
     const [discussionResults, postsResults] = results;
     if (!discussionResults.length) throw `No discussion found with ID ${id}`;
     const postIDs = postsResults.map(post => post.id);
+    const userReplyVoteQuery = db('reply_votes as rv')
+      .select('rv.type', 'rv.reply_id')
+      .where({ user_id });
+    const replyVotesQuery = db('reply_votes')
+    .select(
+      db.raw('COUNT(CASE WHEN type = 1 THEN 1 END) AS upvotes'),
+      db.raw('COUNT(CASE WHEN type = -1 THEN 1 END) AS downvotes'),
+      'reply_id',
+    )
+    .groupBy('reply_id');
     const repliesQuery = db('replies as r')
       .select(
         'r.user_id', 
@@ -234,14 +244,23 @@ const findById = (id, user_id, order, orderType) => {
         'u.username',
         'r.id',
         'us.avatar',
-        'd.id as discussion_id'
-        )
-        .join('users as u', 'u.id', 'r.user_id')
-        .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
-        .leftOuterJoin('posts as p', 'p.id', 'r.post_id')
-        .leftOuterJoin('discussions as d', 'd.id', 'p.discussion_id')
+        'd.id as discussion_id',
+        'uv.type as user_vote',
+        'rv.upvotes',
+        'rv.downvotes',
+      )
+      .join('users as u', 'u.id', 'r.user_id')
+      .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+      .leftOuterJoin('posts as p', 'p.id', 'r.post_id')
+      .leftOuterJoin('discussions as d', 'd.id', 'p.discussion_id')
+      .leftOuterJoin(userReplyVoteQuery.as('uv'), function () {
+        this.on('uv.reply_id', '=', 'r.id');
+      })
+      .leftOuterJoin(replyVotesQuery.as('rv'), function() {
+        this.on('rv.reply_id', '=', 'r.id');
+      })
       .whereIn('r.post_id', postIDs)
-      .groupBy('r.id','u.username', 'us.avatar', 'u.id', 'd.id')
+      .groupBy('r.id','u.username', 'us.avatar', 'u.id', 'd.id', 'rv.upvotes', 'rv.downvotes', 'uv.type')
       .orderBy('r.created_at');
 
 
