@@ -29,9 +29,7 @@ const ProfileWrapper = styled.div`
   align-self: center;
   margin: 10px;
   padding: 10px;
-  // border: ${props => props.theme.profileBorder};
   width: 92%;
-  // box-shadow: ${props => props.theme.profileBxShdw};
   color: ${props => props.theme.discussionPostColor};
   @media ${tabletP} {
     .react-tabs__tab {
@@ -53,15 +51,10 @@ const ProfileWrapper = styled.div`
   .username-style { 
     margin-left: -70px;
     font-size: 18px;
-    // margin-top: -60px;
-    // margin-right: 80%;
-
   }
   .status-style {
-    // margin-right: 80%;
     font-size: 10px;
     font-style: italic;
-    // margin-top: -20px;
   }
   @media ${tabletP}{
     display: flex;
@@ -118,17 +111,6 @@ margin: 20px 0px 10px 0px;
   }
 color: ${props => props.theme.profileTitleContentDColor};
 `;
-
-
-// const ProfileTitle = styled.div`
-//   margin: 5px;
-//   padding: 2%;
-//   display: flex;
-//   font-weight: bold;
-//   justify-content: space-around;
-//   color: black;
-//   font-size: 36px;
-// `;
 
 const DiscussionTitle = styled.div`
   color: black;
