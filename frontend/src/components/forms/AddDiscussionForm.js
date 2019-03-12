@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // action creators
 import { addDiscussion, displayError } from '../../store/actions/index.js';
@@ -48,11 +49,41 @@ const AddDiscussionFormBox = styled.form`
 		}
 	}
 
-	.buttons-wrapper {
+	.above-input {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		justify-content: space-between;
+		margin-bottom: 15px;
+
+		span{
+			font-size: 30px;
+		}
+	}
+
+	.below-input {
 		display: flex;
 		justify-content: space-around;
 		width: 80%;
 		margin-top: 10px;
+
+		.user {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			font-size: 0.8rem;
+
+			.username {
+				color: black;
+				text-decoration: none;
+			}
+
+			img {
+				width: 23px;
+				margin-right: 10px;
+			}
+		}
 
 		button {
 			border: 1px solid white;
@@ -76,8 +107,9 @@ const AddDiscussionFormBox = styled.form`
 			}
 		}
 
-		.cancel-btn {
+		.back {
 			background-color: #4a4a4a;
+			font-size: 30px;
 
 			&:hover {
 				color: #4a4a4a;
@@ -102,10 +134,30 @@ class AddDiscussionForm extends Component {
   componentDidMount = () => this.getCategoryNames();
   render() {
     const { body, categoryNames, category_id } = this.state;
-    const { toggleAddDiscussionForm } = this.props;
+		const { toggleAddDiscussionForm, username, avatar, user_id } = this.props;
+
     return (
       <AddDiscussionFormWrapper onSubmit={this.handleSubmit}>
         <AddDiscussionFormBox>
+					<div className='above-input'>
+						<span
+							className='back'
+							onClick={toggleAddDiscussionForm}		
+						><i className="far fa-arrow-alt-circle-left"></i></span>
+						<select
+							className='categories-select'
+							onChange={this.handleInputChange}
+							name='category_id'
+							value = {category_id}
+						>
+							{
+								categoryNames.map((cat, i) =>
+									<option key={i} value={cat.id}>{cat.name}</option>
+								)
+							}
+						</select>
+						<span></span>
+					</div>
           <textarea
             rows='10'
             cols='50'
@@ -116,30 +168,14 @@ class AddDiscussionForm extends Component {
             onChange={this.handleInputChange}
             value={body}
           />
-
-          <span>in</span>
-
-          <select
-            className='categories-select'
-            onChange={this.handleInputChange}
-						name='category_id'
-						value = {category_id}
-          >
-            {
-              categoryNames.map((cat, i) =>
-                <option key={i} value={cat.id}>{cat.name}</option>
-              )
-            }
-          </select>
-
-          <div className='buttons-wrapper'>
-            <button className='submit-btn' type='submit'>Post</button>
-
-            <button
-              className='cancel-btn'
-              onClick={toggleAddDiscussionForm}
-              type='button' // prevents form submission
-            >Cancel</button>
+          <div className='below-input'>
+						<div className='user'>
+							<img alt='pic' src = { avatar } />
+							<Link className='username' to={`/profile/${user_id}`}>
+								{username}
+							</Link>
+						</div>
+            <button className='submit-btn' type='submit'>Post</button>  
           </div>
         </AddDiscussionFormBox>
       </AddDiscussionFormWrapper>
@@ -148,7 +184,10 @@ class AddDiscussionForm extends Component {
 };
 
 const mapStateToProps = state => ({
-  categoriesFollowed: state.categories.categoriesFollowed,
+	categoriesFollowed: state.categories.categoriesFollowed,
+	username: state.users.username,
+	user_id: state.users.user_id,
+	avatar: state.users.avatar,
 });
 
 export default connect(mapStateToProps, { addDiscussion, displayError })(AddDiscussionForm);
