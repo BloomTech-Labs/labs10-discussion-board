@@ -24,10 +24,10 @@ const AddPostFormWrapper = styled.form`
 		height: 150px;
 		padding: 12px 20px;
 		box-sizing: border-box;
-		border: 1px solid #f8f8f8;
+		border: 1px solid #ddd;
 		border-radius: 4px;
 		background-color: #f8f8f8;
-		resize: none; 
+		resize: none;
 	}
 `;
 
@@ -52,10 +52,11 @@ const UserActions = styled.div`
 	justify-content: space-between;
 	align-items: center;
 
-	button {
+	.submit-btn {
 		color: steelblue;
-		background: clear;
-		
+		background: white;
+		border: none;
+
 		&:hover {
 			cursor: pointer;
 			color: black;
@@ -273,7 +274,7 @@ class AddPostForm extends Component {
 							{username}
 						</Link>
 					</div>
-					<button type = 'submit'>Post comment</button>	
+					<button className = 'submit-btn' type = 'submit'>Post comment</button>	
 				</UserActions>
 			</AddPostFormWrapper>
 		);

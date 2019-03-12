@@ -37,6 +37,7 @@ const DivAuth = styled.div`
   width: 35%;
   height: 100%;
 
+
   @media ${tabletL}{
     width: 50%;
     display: flex;
@@ -86,10 +87,13 @@ class Nav extends Component {
         <SearchContainer>
           <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
         </SearchContainer>
-        <DivAuth>{this.props.isDay ?
-          <i onClick={this.props.switchTheme} className='fas fa-sun' /> :
-          <i onClick={this.props.switchTheme} className='fas fa-moon' />
-        }
+        <DivAuth>
+
+          {this.props.isDay ?
+            <i onClick={this.props.switchTheme} className='fas fa-sun' /> :
+            <i onClick={this.props.switchTheme} className='fas fa-moon' />
+          }
+
           {(this.props.isLoggedIn) ? (
             <DisplayUser history={this.props.history} isAvatarModalRaised={this.props.isAvatarModalRaised} setAvatarModalRaised={this.props.setAvatarModalRaised} isNotificationsModalRaised={this.props.isNotificationsModalRaised} setNotificationsModalRaised={this.props.setNotificationsModalRaised} />
           ) : (
