@@ -48,7 +48,7 @@ const DiscussionHeader = styled.div`
 	width: 100%;
 
 	.all-posts {
-		font-size: 36px;
+		font-size: 24px;
 		flex-grow: 2;
     color: ${props => props.theme.discussionPostColor};
 		@media ${ tabletP} {
@@ -67,8 +67,9 @@ const DiscussionHeader = styled.div`
 
 		.filter {
 			border: none;
-			background-color: rgba(0, 0, 0, 0);
-			padding: 5px;
+      background-color: rgba(0, 0, 0, 0);
+      padding: 6px;
+      border-radius: 5px;
       color: ${props => props.theme.discussionPostColor};
 			&:focus {
 				outline: none;
@@ -84,9 +85,9 @@ const DiscussionHeader = styled.div`
 		background-color: #418DCF;
 		color: white;
 
-		@media ${ phoneP} {
-			width: 100%;
-			margin-left: 0;
+		@media (max-width: 530px) {
+      width: 100%;
+      margin-left: 0;
 		}
 
 		&:hover {
@@ -155,7 +156,7 @@ class AllDiscussionsByFollowedCats extends Component {
           <h2 className='all-posts'>All Posts</h2>
           <div className='filter-wrapper'>
             <i className='fab fa-mix' />
-            <span className = 'filter-by'>Filter by</span>
+            <span className = 'filter-by'>Filter by &nbsp;</span>
             <select
               className='filter'
               onChange={this.handleSelectChange}

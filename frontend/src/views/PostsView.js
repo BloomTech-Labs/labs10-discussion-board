@@ -16,8 +16,8 @@ const PostsView = ({
 	updateEditPostForm,
 	handleRemovePost,
 	toggleAddReplyForm,
-	order,
-	orderType,
+	handleFilterChange,
+	scrollTo,
 }) => {
 	return(
 		<PostsViewWrapper>
@@ -31,8 +31,8 @@ const PostsView = ({
 					updateEditPostForm = { updateEditPostForm }
 					handleRemovePost = { handleRemovePost }
 					toggleAddReplyForm = { toggleAddReplyForm }
-					order = { order }
-					orderType = { orderType }
+					handleFilterChange = { handleFilterChange }
+					scrollTo = { scrollTo }
 				/>)
 			}
 		</PostsViewWrapper>

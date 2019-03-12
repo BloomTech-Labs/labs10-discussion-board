@@ -39,6 +39,7 @@ const {
   discussionFollowsRouter,
   categoryFollowsRouter,
   userNotificationsRouter,
+  replyVoteRouter,
 } = require('./routes/index.js');
 
 server.use('/auth', authRouter);
@@ -47,6 +48,7 @@ server.use('/discussions', discussionsRouter);
 server.use('/discussion-votes', discussionVotesRouter);
 server.use('/posts', postsRouter);
 server.use('/post-votes', postVoteRouter);
+server.use('/reply-votes', replyVoteRouter);
 server.use('/replies', repliesRouter);
 server.use('/tests', testRouter);
 server.use('/users', usersRouter);
