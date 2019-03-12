@@ -96,6 +96,7 @@ const getAllDiscussionsByFollowedCategories = user_id => {
       'dv.downvotes',
       'u.username',
       'u.avatar',
+      'u.id as user_id',
       'c.name as category_name',
       'c.icon as category_icon',
       'd.views',
