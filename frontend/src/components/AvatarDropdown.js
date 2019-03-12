@@ -50,8 +50,6 @@ const DivAvatarDropdown = styled.div`
 
 const LinkItem = styled(Link)`
   margin-bottom: 5px;
-  font-weight: bold;
-  font-size: 24px;
   user-select: none;
   width: 100%;
   text-decoration: none;
@@ -74,8 +72,6 @@ const LinkItem = styled(Link)`
 
 const Item = styled.a`
   margin-bottom: 5px;
-  font-weight: bold;
-  font-size: 24px;
   user-select: none;
   width: 100%;
   cursor: pointer;

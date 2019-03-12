@@ -3,7 +3,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 // components
-import { Avatar, VoteCount } from './index.js';
+import { Avatar, VoteCount, Follow } from './index.js';
 
 // globals
 import {

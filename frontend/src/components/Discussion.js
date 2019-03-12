@@ -44,14 +44,21 @@ const Wrapper = styled.div`
   margin: 0 auto;
   margin-left: 10px;
 
-  .back {
-    font-size: 30px;
-    padding-right: 35px;
-    padding-top: 15px;
-    color: black;
-    
-    &:hover{
-      cursor: pointer;
+  .back-follow-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .back {
+      font-size: 30px;
+      margin-right: 35px;
+      margin-top: 15px;
+      color: black;
+
+      &:hover{
+        cursor: pointer;
+        color: #418DCF;
+      }
     }
   }
 `;
@@ -120,6 +127,7 @@ const CommentSort = styled.div`
     border: none;
     background-color: #418DCF;
     color: white;
+    border: 1px solid #418DCF;
 
     &:hover {
       cursor: pointer;
@@ -273,70 +281,76 @@ class Discussion extends Component {
     } = discussion;
     return (
       <Wrapper>
-      <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
-      <DiscussionWrapper>
-        <SubWrapper>
-          <DiscussionByFollowedCats
-            discussion={discussion}
-            history={history}
-            voteOnDiscussion={this.handleVote}
-            singleDiscussion = { true }
+        <div className = 'back-follow-wrapper'>
+          <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
+          <Follow
+            discussion_id = { id }
+            historyPush = { historyPush }
           />
-          <CommentWrapper>
-            <CommentSort>
-              <div className = 'comment-sort-wrapper'>
-                <div className = 'title-add-wrapper'>
-                  <span className='title'>Comments</span>
-                  <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
-                    <i className='fas fa-plus-circle' />&nbsp;Add Comment
-                  </button>
-                </div>
-                <div className = 'sort'>
-                  <div className='filter-wrapper'>
-                    <i className='fab fa-mix' />
-                    <span className = 'filter-by'>Filter by &nbsp;</span>
-                    <select
-                      className='filter'
-                      onChange={this.handleSelectChange}
-                      name='filter'
-                    >
-                      <option value={newest}>{newest}</option>
-                      <option value={oldest}>{oldest}</option>
-                      <option value={mostUpvotes}>{mostUpvotes}</option>
-                    </select>
+        </div>
+        <DiscussionWrapper>
+          <SubWrapper>
+            <DiscussionByFollowedCats
+              discussion={discussion}
+              history={history}
+              voteOnDiscussion={this.handleVote}
+              singleDiscussion = { true }
+            />
+            <CommentWrapper>
+              <CommentSort>
+                <div className = 'comment-sort-wrapper'>
+                  <div className = 'title-add-wrapper'>
+                    <span className='title'>Comments</span>
+                    <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
+                      <i className='fas fa-plus-circle' />&nbsp;Add Comment
+                    </button>
+                  </div>
+                  <div className = 'sort'>
+                    <div className='filter-wrapper'>
+                      <i className='fab fa-mix' />
+                      <span className = 'filter-by'>Filter by &nbsp;</span>
+                      <select
+                        className='filter'
+                        onChange={this.handleSelectChange}
+                        name='filter'
+                      >
+                        <option value={newest}>{newest}</option>
+                        <option value={oldest}>{oldest}</option>
+                        <option value={mostUpvotes}>{mostUpvotes}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <button onClick={this.toggleAddPostForm} className='add-post-btn tablet-btn'>
-                <i className='fas fa-plus-circle' />&nbsp;Add Comment
-              </button>
-            </CommentSort>
-            {showAddPostForm && (
-              <AddPostForm
-                user_id={loggedInUserId}
-                discussion_id={id}
-                historyPush={historyPush}
-                toggleAddPostForm={this.toggleAddPostForm}
-              />
-            )}
-            <Posts>
-              <PostsView
-                posts={posts}
-                showEditPostForm={showEditPostForm}
-                updateEditPostForm={this.updateEditPostForm}
-                handleRemovePost={this.handleRemovePost}
-                showAddReplyForm={showAddReplyForm}
-                toggleAddReplyForm={this.toggleAddReplyForm}
-                discussion_id={id}
-                historyPush={historyPush}
-                repliedPost={posts.find(post => post.id === showAddReplyForm)}
-                handleFilterChange = {this.handleFilterChange}
-                scrollTo = {scrollTo}
-              />
-            </Posts>
-          </CommentWrapper>
-        </SubWrapper>
-      </DiscussionWrapper>
+                <button onClick={this.toggleAddPostForm} className='add-post-btn tablet-btn'>
+                  <i className='fas fa-plus-circle' />&nbsp;Add Comment
+                </button>
+              </CommentSort>
+              {showAddPostForm && (
+                <AddPostForm
+                  user_id={loggedInUserId}
+                  discussion_id={id}
+                  historyPush={historyPush}
+                  toggleAddPostForm={this.toggleAddPostForm}
+                />
+              )}
+              <Posts>
+                <PostsView
+                  posts={posts}
+                  showEditPostForm={showEditPostForm}
+                  updateEditPostForm={this.updateEditPostForm}
+                  handleRemovePost={this.handleRemovePost}
+                  showAddReplyForm={showAddReplyForm}
+                  toggleAddReplyForm={this.toggleAddReplyForm}
+                  discussion_id={id}
+                  historyPush={historyPush}
+                  repliedPost={posts.find(post => post.id === showAddReplyForm)}
+                  handleFilterChange = {this.handleFilterChange}
+                  scrollTo = {scrollTo}
+                />
+              </Posts>
+            </CommentWrapper>
+          </SubWrapper>
+        </DiscussionWrapper>
       </Wrapper>
     );
   }
