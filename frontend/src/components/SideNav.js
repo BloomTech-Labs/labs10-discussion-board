@@ -85,7 +85,8 @@ const H4BrowseCategories = styled.h4`
 
 
 const LinkBrowseCategories = styled(Link)`
-  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  // text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
   i {
@@ -200,7 +201,8 @@ const H4AllPosts = styled.h4`
 
 const LinkAllPosts = styled(Link)`
   display: flex;
-  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  // text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
   &:hover {
@@ -325,7 +327,8 @@ const LiCategoryFollowed = styled.li`
 `;
 
 const LinkSideNav = styled(Link)`
-  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  // text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
   span {
