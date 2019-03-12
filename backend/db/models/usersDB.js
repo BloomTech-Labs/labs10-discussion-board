@@ -7,12 +7,74 @@ const getUsers = () => {
 
 //Gets a user by their id
 const findById = id => {
-  const getDiscussions = db('discussions').where('user_id', id);
-  const getPosts = db('posts').where('user_id', id);
-  const getReplies = db('replies').where('user_id', id);
+  const getDiscussions = db('discussions as d')
+  .select(
+    'd.id',
+    'd.user_id',
+    'u.username',
+    'd.category_id',
+    'c.name as category_name',
+    'c.id as category_id',
+    'c.icon as category_icon',
+    'us.avatar',
+    'us.signature',
+    'd.body',
+    'd.created_at',
+    'd.last_edited_at'
+  )
+  .leftOuterJoin('users as u', 'u.id', 'd.user_id')
+  .join('categories as c', 'c.id', 'd.category_id')
+  .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+  .where('d.user_id', id);
+  const getPosts = db('posts as p')
+  .select(
+    'p.id',
+    'p.discussion_id',
+    'p.created_at',
+    'p.body',
+    'p.user_id',
+    'u.username',
+    'us.avatar',
+    'c.id as category_id',
+    'c.name as category_name',
+    'd.body as discussion_body'
+  )
+  .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
+  .leftOuterJoin('users as u', 'u.id', 'p.user_id')
+  .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+  .join('discussions as d', 'd.id', 'p.discussion_id')
+  .join('categories as c', 'c.id', 'd.category_id').where('p.user_id', id);
+  const getReplies = db('replies as r').select(
+    'r.id',
+    'r.post_id',
+    'r.created_at',
+    'r.body',
+    'u.username',
+    'us.avatar',
+    'c.id as category_id',
+    'c.name as category_name',
+    'p.discussion_id'
+  )
+  .leftOuterJoin('reply_votes as rv', 'rv.reply_id', 'r.id')
+  .leftOuterJoin('users as u', 'u.id', 'r.user_id')
+  .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+  .join('posts as p', 'p.id', 'r.post_id')
+  .join('discussions as d', 'd.id', 'p.discussion_id')
+  .join('categories as c', 'c.id', 'd.category_id').where('r.user_id', id);
   const getDiscussionFollows = db('discussion_follows as df')
-    .select('df.discussion_id', 'd.body')
+    .select(
+      'df.discussion_id', 
+      'd.created_at',
+      'd.body', 'd.user_id', 
+      'u.username', 
+      'us.avatar',
+      'c.id as category_id',
+      'c.name as category_name', 
+      'c.icon as category_icon')
     .join('discussions as d', 'd.id', 'df.discussion_id')
+    .join('categories as c', 'c.id', 'd.category_id')
+    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
+    .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
     .where('df.user_id', id);
   const getCategoryFollows = db('category_follows as cf')
     .select('cf.category_id', 'c.name')
