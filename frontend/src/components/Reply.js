@@ -12,6 +12,8 @@ const ReplyWrapper = styled.div`
     flex-direction: column;
     width: 90%;
     margin-left: 50px;
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
 `;
 
 const BodyWrapper = styled.p`
@@ -54,6 +56,11 @@ const InfoWrapper = styled.div`
 
     .reply {
       margin-right: 10px;
+
+      &:hover {
+        cursor: pointer;
+        color: black;
+      }
     }
 
     .votes-wrapper {
@@ -81,6 +88,10 @@ const InfoWrapper = styled.div`
       }
     }
 
+    @media (max-width: 675px) {
+      width: 50%;
+    }
+
     @media (max-width: 630px) {
       .tablet {
         display: none;
@@ -91,7 +102,6 @@ const InfoWrapper = styled.div`
       width: 100%;
       justify-content: flex-start;
       padding-top: 10px;
-      margin-left: -10px;
     }
   }
 
@@ -199,36 +209,6 @@ const Reply = ({
               </div>
             </div>
           </InfoWrapper>
-            {/* <p>{body}</p>
-            <PostedBy>
-              <div className = 'r-creator'>
-                  <img alt='user' src={avatar} />              
-                  {
-                      username ?
-                      <Link className='username' to={`/profile/${user_id}`}>
-                          {username}
-                      </Link> :
-                      <Deleted />
-                  }
-              
-                  {
-                      loggedInUserId !== 0 &&
-                      <span onClick={handleAddReply}><i className="fas fa-reply"></i>{' '} Reply {' '}</span>
-                  }
-              </div>
-                  {/* &nbsp;
-                  &nbsp; */}
-              {/* <VoteCount
-                  handleVote={handleVote}
-                  vote_count={post_votes}
-                  user_vote={user_vote}
-              />
-                  &nbsp;
-                  &nbsp; */}
-              {/* <div className='timestamp'>
-                {timeStamp(last_edited_at, created_at)}
-              </div>
-            </PostedBy> */}
             {  
               showAddReplyForm === id &&
               <AddReplyForm

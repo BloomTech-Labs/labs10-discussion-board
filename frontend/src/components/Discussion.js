@@ -36,19 +36,13 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 // box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
 // background-color: ${props => props.theme.topDiscussionWrapperBgHov};
 
-const DiscussionWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  flex-direction: column;
   width: 100%;
   margin: 0 auto;
   margin-left: 10px;
-  color: ${props => props.theme.discussionPostColor};
-
-  @media ${phoneL}{
-    flex-direction: column;
-    width: 90%;
-    margin: 0 auto;
-  }
 
   .back {
     font-size: 30px;
@@ -59,6 +53,16 @@ const DiscussionWrapper = styled.div`
     &:hover{
       cursor: pointer;
     }
+  }
+`;
+
+const DiscussionWrapper = styled.div`
+  color: ${props => props.theme.discussionPostColor};
+
+  @media ${phoneL}{
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
   }
 `;
 const SubWrapper = styled.div`
@@ -89,31 +93,57 @@ const CommentSort = styled.div`
   align-items: center;
   margin: 15px 0px;
 
+  .comment-sort-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .title-add-wrapper {
     display: flex;
     width: 30%;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    width: 50%;
 
-    .add-post-btn {
-      margin-left: 10px;
-      padding: 10px 15px;
-      border-radius: 5px;
-      border: none;
-      background-color: #418DCF;
-      color: white;
-  
-      @media ${ phoneP} {
-        width: 100%;
-        margin-left: 0;
-      }
-  
-      &:hover {
-        cursor: pointer;
-        background-color: white;
-        color: #418DCF;
-        border: 1px solid #418DCF;
-      }
+    @media (max-width: 530px) {
+      width: 30%;
+    }
+  }
+
+  .add-post-btn {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #418DCF;
+    color: white;
+
+    &:hover {
+      cursor: pointer;
+      background-color: white;
+      color: #418DCF;
+      border: 1px solid #418DCF;
+    }
+  }
+
+  .tablet, .tablet-btn {
+    display: none;
+  }
+
+  @media (max-width: 590px) {
+    align-items; center;
+    .desktop {
+      display: none;
+    }
+
+    .tablet-btn {
+      display: inline-block;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 10px;
     }
   }
 
@@ -143,6 +173,12 @@ const CommentSort = styled.div`
         }
       }
     }
+  }
+
+  @media (max-width: 590px) {
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -236,8 +272,9 @@ class Discussion extends Component {
       // user_vote,
     } = discussion;
     return (
+      <Wrapper>
+      <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
       <DiscussionWrapper>
-        <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
         <SubWrapper>
           <DiscussionByFollowedCats
             discussion={discussion}
@@ -247,27 +284,32 @@ class Discussion extends Component {
           />
           <CommentWrapper>
             <CommentSort>
-              <div className = 'title-add-wrapper'>
-                <span className='title'>Comments</span>
-                <button onClick={this.toggleAddPostForm} className='add-post-btn'>
-                  <i className='fas fa-plus-circle' />&nbsp;Add Comment
-              </button>
-              </div>
-              <div className = 'sort'>
-                <div className='filter-wrapper'>
-                  <i className='fab fa-mix' />
-                  <span className = 'filter-by'>Filter by &nbsp;</span>
-                  <select
-                    className='filter'
-                    onChange={this.handleSelectChange}
-                    name='filter'
-                  >
-                    <option value={newest}>{newest}</option>
-                    <option value={oldest}>{oldest}</option>
-                    <option value={mostUpvotes}>{mostUpvotes}</option>
-                  </select>
+              <div className = 'comment-sort-wrapper'>
+                <div className = 'title-add-wrapper'>
+                  <span className='title'>Comments</span>
+                  <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
+                    <i className='fas fa-plus-circle' />&nbsp;Add Comment
+                  </button>
+                </div>
+                <div className = 'sort'>
+                  <div className='filter-wrapper'>
+                    <i className='fab fa-mix' />
+                    <span className = 'filter-by'>Filter by &nbsp;</span>
+                    <select
+                      className='filter'
+                      onChange={this.handleSelectChange}
+                      name='filter'
+                    >
+                      <option value={newest}>{newest}</option>
+                      <option value={oldest}>{oldest}</option>
+                      <option value={mostUpvotes}>{mostUpvotes}</option>
+                    </select>
+                  </div>
                 </div>
               </div>
+              <button onClick={this.toggleAddPostForm} className='add-post-btn tablet-btn'>
+                <i className='fas fa-plus-circle' />&nbsp;Add Comment
+              </button>
             </CommentSort>
             {showAddPostForm && (
               <AddPostForm
@@ -295,6 +337,7 @@ class Discussion extends Component {
           </CommentWrapper>
         </SubWrapper>
       </DiscussionWrapper>
+      </Wrapper>
     );
   }
 };

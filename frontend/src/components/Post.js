@@ -90,6 +90,15 @@ const InfoWrapper = styled.div`
 
     .reply {
       margin-right: 10px;
+
+      &:hover {
+        cursor: pointer;
+        color: black;
+      }
+
+      @media (max-width: 530px) {
+        margin-left: 10px;
+      }
     }
 
     .votes-wrapper {
@@ -250,6 +259,15 @@ const Post = ({
           </div>
         </div>
       </InfoWrapper>
+      {
+        showAddReplyForm === id &&
+        <AddReplyForm
+          post_id = { id }
+          historyPush = { historyPush }
+          discussion_id = { discussion_id }
+          toggleAddReplyForm = { toggleAddReplyForm }
+        />
+      }
       <div>
         {
           replies.map((reply, i) =>
@@ -264,15 +282,6 @@ const Post = ({
           )
         }
       </div>
-      {
-          showAddReplyForm === id &&
-          <AddReplyForm
-            post_id = { id }
-            historyPush = { historyPush }
-            discussion_id = { discussion_id }
-            toggleAddReplyForm = { toggleAddReplyForm }
-          />
-        }
   </PostWrapper>
   );
 };
