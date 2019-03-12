@@ -119,34 +119,6 @@ margin: 20px 0px 10px 0px;
 color: ${props => props.theme.profileTitleContentDColor};
 `;
 
-const SubContentDiv = styled.div`
-margin: 5px;
-padding: 2%;
-display: flex;
-flex-direction: column;
-align-self: center;
-margin: 3px;
-padding: 3px;
-display: inline;
--webkit-line-clamp: 3;
-text-overflow: ellipsis;
-overflow: hidden;
-display: -webkit-box;
--webkit-box-orient: vertical;
-word-break: break-word;
-color: ${props => props.theme.profileTitleSubContentDColor};
-
-@media ${tabletP}{
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  margin: 3px;
-  padding: 3px;
-  @media ${phoneP} {
-    display: none;
-  }
-}
-`;
 
 // const ProfileTitle = styled.div`
 //   margin: 5px;
@@ -158,15 +130,6 @@ color: ${props => props.theme.profileTitleSubContentDColor};
 //   font-size: 36px;
 // `;
 
-const Elip = styled.div`
-  display: inline;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-`;
 const DiscussionTitle = styled.div`
   color: black;
 `;
@@ -192,6 +155,10 @@ const PostedBy = styled.div`
     align-items: center;
     margin-left: 150px;
     width: 50%
+    @media (max-width: 800px) {
+      display: none;
+    }
+  }
   }
   span {
     margin-left: 5px;
@@ -294,30 +261,35 @@ class Profile extends Component {
                       {profile.discussionFollows.map((discussionFollowed, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
-                          <PostHeader>
-                            <DiscussionTitle>
-                              <div className='content'>
-                                <p> {discussionFollowed.body}</p>
-                              </div>
-                            </DiscussionTitle>
-                            <PostedBy>
-                              <div className = 'd-creator'>
-                                <img alt='user' src={discussionFollowed.avatar} />
-                                <p className = 'username' to = {`/discussion/${discussionFollowed.discussion_id}`}> 
-                                  {discussionFollowed.username}
-                                </p>
-                              </div>
-                              &nbsp;
-                              &nbsp;
-                              <div className='c-name'>
-                              <i className={discussionFollowed.category_icon} />
-                              <span>
-                                {discussionFollowed.category_name}
-                              </span>
-                            </div>
-                            </PostedBy>
+                            <PostHeader>
+                              <DiscussionTitle>
+                                <div className='content'>
+                                  <p> {discussionFollowed.body}</p>
+                                </div>
+                              </DiscussionTitle>
+                              <PostedBy>
+                                <div className = 'd-creator'>
+                                  <img alt='user' src={discussionFollowed.avatar} />
+                                  <p className = 'username' to = {`/discussion/${discussionFollowed.discussion_id}`}> 
+                                    {discussionFollowed.username}
+                                  </p>
+                                </div>
+                                  &nbsp;
+                                  &nbsp;
+                                <div className='c-name'>
+                                  <i className={discussionFollowed.category_icon} />
+                                  <span>
+                                    {discussionFollowed.category_name}
+                                  </span>
+                                </div>
+                                <div className='c-time'>
+                                  <span>
+                                    {moment(new Date(Number(discussionFollowed.created_at))).fromNow()}
+                                  </span>
+                                </div>
+                              </PostedBy>
                             </PostHeader>
-                            </Link>
+                          </Link>
                         </ContentDiv>)}
                         </SubWrapper>
                   </WrappedDiv>
@@ -349,26 +321,26 @@ class Profile extends Component {
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${post.discussion_id}`}>
                           <PostHeader>
-                          <DiscussionTitle>
+                            <DiscussionTitle>
                               <div className='content'>
                                 <p> {post.body}</p>
                               </div>
                             </DiscussionTitle>
                             <PostedBy>
-                            <div className = 'd-creator'>
-                                <img alt='user' src={post.avatar} />
-                                <p className = 'username' to = {`/discussion/${post.discussion_id}`}> 
-                                  {post.username}
-                                </p>
-                              </div>
-                              &nbsp;
-                              &nbsp;
-                              <div className='c-time'>
-                              <span>
-                              {moment(new Date(Number(post.created_at))).fromNow()}
-                              </span>
-                            </div>
-                          </PostedBy>
+                              <div className = 'd-creator'>
+                                  <img alt='user' src={post.avatar} />
+                                  <p className = 'username' to = {`/discussion/${post.discussion_id}`}> 
+                                    {post.username}
+                                  </p>
+                                </div>
+                                  &nbsp;
+                                  &nbsp;
+                                <div className='c-time'>
+                                  <span>
+                                    {moment(new Date(Number(post.created_at))).fromNow()}
+                                  </span>
+                                </div>
+                            </PostedBy>
                           </PostHeader>
                           </Link>
                         </ContentDiv>)}
@@ -377,32 +349,32 @@ class Profile extends Component {
                 </TabPanel>
                 <TabPanel>
                   <WrappedDiv>
-                  <SubWrapper>
+                    <SubWrapper>
                       {profile.replies.map((reply, index) => 
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${reply.discussion_id}`}>
-                          <PostHeader>
-                          <DiscussionTitle>
-                              <div className='content'>
-                                <p> {reply.body}</p>
-                              </div>
-                            </DiscussionTitle>
-                            <PostedBy>
-                            <div className = 'd-creator'>
-                                <img alt='user' src={reply.avatar} />
-                                <p className = 'username' to = {`/discussion/${reply.discussion_id}`}> 
-                                  {reply.username}
-                                </p>
-                              </div>
-                              &nbsp;
-                              &nbsp;
-                              <div className='c-time'>
-                              <span>
-                              {moment(new Date(Number(reply.created_at))).fromNow()}
-                              </span>
-                            </div>
-                          </PostedBy>
-                          </PostHeader>
+                            <PostHeader>
+                              <DiscussionTitle>
+                                  <div className='content'>
+                                    <p> {reply.body}</p>
+                                  </div>
+                              </DiscussionTitle>
+                              <PostedBy>
+                                <div className = 'd-creator'>
+                                  <img alt='user' src={reply.avatar} />
+                                  <p className = 'username' to = {`/discussion/${reply.discussion_id}`}> 
+                                    {reply.username}
+                                  </p>
+                                </div>
+                                  &nbsp;
+                                  &nbsp;
+                                <div className='c-time'>
+                                  <span>
+                                    {moment(new Date(Number(reply.created_at))).fromNow()}
+                                  </span>
+                                </div>
+                              </PostedBy>
+                            </PostHeader>
                           </Link>
                         </ContentDiv>)}
                     </SubWrapper>

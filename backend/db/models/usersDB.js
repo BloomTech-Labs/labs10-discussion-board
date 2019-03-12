@@ -64,6 +64,7 @@ const findById = id => {
   const getDiscussionFollows = db('discussion_follows as df')
     .select(
       'df.discussion_id', 
+      'd.created_at',
       'd.body', 'd.user_id', 
       'u.username', 
       'us.avatar',
