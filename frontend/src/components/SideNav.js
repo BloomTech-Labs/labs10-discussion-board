@@ -453,7 +453,7 @@ export default connect(
   mapStateToProps,
   { getCategoriesFollowed }
 )(SideNav);
-Collapse
+
 
 
 
