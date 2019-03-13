@@ -121,6 +121,10 @@ const DivCategoriesFollowed = styled.div`
     padding-top: 8px;
     margin-left: -10px;
   }
+
+  @media (max-width: 600px) {
+    padding-top: 24px;
+  }
 `;
 
 const DivCatFollowItems = styled.div`

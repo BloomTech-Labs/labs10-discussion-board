@@ -33,7 +33,7 @@ const IconListBox = styled.div`
 	align-items: center;
 	background: rgb(248,249,254);
 	padding: 25px;
-	border-radius: 10px;
+	border-radius: 5px;
 	box-sizing: border-box;
 	width: 590px;
 
@@ -46,25 +46,28 @@ const IconListBox = styled.div`
 		border-radius: 0;
 	}
 
+	.above-input {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		justify-content: space-between;
+		margin-bottom: 15px;
+	
+		i{
+			font-size: 30px;
+
+			&:hover {
+				cursor: pointer;
+				color: steelblue;
+			}
+		}			
+	}
+
 	.icons {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
-	}
-
-	.cancel-btn {
-		padding: 10px;
-		border-radius: 5px;
-		background-color: #444;
-		border:1px solid #444;
-		color: white;
-
-		&:hover {
-			background-color: white;
-			color: #444;
-			cursor: pointer;
-		}
 	}
 `;
 
@@ -72,6 +75,13 @@ const IconList = ({ selectedIcon, iconList, toggleIconList, setIcon }) => {
 	return(
 		<IconListWrapper>
 			<IconListBox>
+				<div className='above-input'>
+					<span
+					className='back'
+					onClick={toggleIconList}		
+					><i className="far fa-arrow-alt-circle-left"></i></span>
+					<span></span>
+				</div>
 				<div className = 'icons'>
 					{
 						iconList.map((icon, i) =>
@@ -83,7 +93,7 @@ const IconList = ({ selectedIcon, iconList, toggleIconList, setIcon }) => {
 						/>)
 					}
 				</div>
-				<button className = 'cancel-btn' onClick = { toggleIconList }>Cancel</button>
+				{/* <button className = 'cancel-btn' onClick = { toggleIconList }>Cancel</button> */}
 			</IconListBox>
 		</IconListWrapper>
 	);
