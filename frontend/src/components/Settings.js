@@ -26,7 +26,7 @@ const SettingsWrapper = styled.div`
   border-radius: 30px;
   width: 90%;
   margin-top: 10px;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     display: flex;
     flex-directon: column;      
     justify-content: space-between;
@@ -39,7 +39,7 @@ const SettingsWrapper = styled.div`
     align-self: flex-start;
     margin-left: 20px;
     cursor: pointer;
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       margin-left: 40px;
     }
     @media ${phoneP}{
@@ -54,7 +54,7 @@ const UserProperties = styled.form`
   display:flex;
   flex-wrap: wrap;
   color: ${props => props.theme.discussionPostColor};
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-direction: column;
     width: 60%;  
     p {
@@ -74,7 +74,7 @@ const UserProperties = styled.form`
     height: 20px;
     border-radius: 5px;
     padding: 5px;
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 150%;      
     }
     @media ${phoneP}{
@@ -86,7 +86,7 @@ const UserProperties = styled.form`
     background-color: ${props => props.theme.settingsDeleteButtonBg};
     color: ${props => props.theme.settingsDeleteButtonColor};
 
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 75%;
       margin-bottom: 25px;      
     }
@@ -102,7 +102,7 @@ const UserProperties = styled.form`
   .save-settings {
     background-color: ${props => props.theme.settingsButtonBgColor};
     color: ${props => props.theme.settingsDeleteButtonColor};
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 75%;      
     }
     @media ${phoneP}{
@@ -126,7 +126,7 @@ const UserProperties = styled.form`
       &:focus {
         outline: none;
       }
-      @media ${tabletP}{
+      @media(max-width: 1024px) {
         font-size: 14px;
       }
       @media ${phoneP}{
@@ -145,7 +145,7 @@ const SaveButton = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: -29px;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-wrap: wrap;
     margin-bottom: 50px;
     justify-content: center;
@@ -176,7 +176,7 @@ const DeleteButton = styled.div`
   color: black;
   justify-content: space-between;
   align-items: center;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-wrap: wrap;
     margin-bottom: 50px;
     justify-content: center;
@@ -207,8 +207,8 @@ const UserSettings = styled.div`
 `;
 
 const ProfileSettings = styled.div`
+  margin-right: 25px;
   width: 30%;
-  margin-left: 0px;
   align-items: center;
   justify-content: center;
   .avatar-change{
@@ -218,11 +218,11 @@ const ProfileSettings = styled.div`
     align-items: center;
     justify-content: center;
   }
-  @media ${tabletP}{
-    margin-left: 0px;  
+  @media(max-width: 1024px) {
     width: 40%;  
   }
   @media ${phoneP}{
+    margin-right: 0px;
     width: 100%;
   }
 `;
@@ -234,7 +234,7 @@ const EmailAndAvatar = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     font-size: 16px;
   }
   @media (max-width: 680px){
@@ -301,7 +301,7 @@ const FirstName = styled.div`
   p {
     margin: 0px 0px 7px 0px;
   }  
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-direction: column;      
   }
   @media ${phoneP}{
@@ -317,7 +317,7 @@ const Email = styled.div`
   p {
     margin: 0px 0px 7px 0px;
   }  
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-direction: column;      
   }
   @media ${phoneP}{
@@ -334,7 +334,7 @@ const Password = styled.div`
   p {
     margin: 0px 0px 7px 0px;
   }  
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-direction: column;      
   }
   @media ${phoneP}{
@@ -362,7 +362,7 @@ const DivSubscriptionPlan = styled.div`
     &:hover{
       background-color: rgb(0, 80, 0);
     }
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 156%;
     }
     @media ${phoneP}{
@@ -375,7 +375,7 @@ const DivSubscriptionPlan = styled.div`
       border-radius: 5px;
     }
   }
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     margin: 0;
   }
   @media ${phoneP}{
