@@ -10,7 +10,7 @@ import { addCategory, displayError } from '../../store/actions/index.js';
 import { IconList } from '../index.js';
 
 // globals
-import { phoneL, topHeaderHeight, backendUrl } from '../../globals/globals.js';
+import { phoneL, phoneP, topHeaderHeight, backendUrl } from '../../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -27,43 +27,57 @@ const ModalBackground = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   user-select: none;
-
-  @media ${phoneL} {
-    z-index: 9950;
-    margin-top: ${topHeaderHeight};
-  }
 `;
 
 const DivModal = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   z-index: 8003;
   background: rgb(248,249,254);
   padding: 25px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-sizing: border-box;
   width: 590px;
 
-  h1 {
-    width: 100%;
-    text-align: center;
-    margin: 0 0 0.67em 0;
+  .btn {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #418DCF;
+    background-color: #418DCF;
+    color: white;
 
-    @media ${phoneL} {
-      height: 10%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    &:hover {
+      cursor: pointer;
+      background-color: white;
+      color: #418DCF;
+      border: 1px solid #418DCF;
+    }
+
+    @media (max-width: 600px) {
+      width: 60vw;
+      margin-top: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
   }
 
-  @media ${phoneL} {
+  .above-input {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    border-radius: 0;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    i{
+      font-size: 30px;
+
+      &:hover {
+          cursor: pointer;
+          color: steelblue;
+        }
+    }			
   }
 `;
 
@@ -74,15 +88,14 @@ const DivModalCloser = styled.div`
   top: 0;
   right: 0;
   z-index: 8002;
-
-  @media ${phoneL} {
-    display: none;
-  }
 `;
 
 const FormContent = styled.form`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
 
   @media ${phoneL} {
     height: 90%;
@@ -99,48 +112,27 @@ const DivLeft = styled.div`
   flex-direction: column;
   width: 34%;
   align-items: center;
-  pointer-events: none;
-
-  button {
-    padding: 7px 0px;
-    width: 100%;
-    border-radius: 4px;
-    outline: none;
-    cursor: pointer;
-    pointer-events: auto;
-
-    &:not(:last-child) {
-      margin-bottom: 20px;
-    }
-
-    @media ${phoneL} {
-      padding: 15px 0;
-      width: 50%;
-    }
-  }
-
-  @media ${phoneL} {
-    align-items: center;
-    width: 100%;
-    height: 40%;
-    padding-top: 20px;
-  }
 `;
 
 const ImgPreview = styled.i`
   max-width: 50px;
   max-height: 50px;
-  font-size: 2.5rem;
+  font-size: 2rem;
   width: auto;
   height: auto;
   margin-bottom: 20px;
+
+  @media (max-width: 600px) {
+    margin-top: 20px;
+  }
 `;
 
 const DivRight = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 
   @media ${phoneL} {
     width: 100%;
@@ -151,32 +143,9 @@ const DivRight = styled.div`
 `;
 
 const DivName = styled.div`
-
-  label {
-    margin-right: 15px;
-    @media ${phoneL} {
-      align-self: flex-start;
-      margin: 0;
-    }
-  }
-
-  input {
-    outline: none;
-    padding: 5px;
-    width: 240px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    &:focus {
-      border-top: 2px solid rgb(0, 94, 160);
-      border-left: 2px solid rgb(0, 94, 160);
-      border-bottom: 2px solid rgba(63, 168, 234, 0.1);
-      border-right: 2px solid rgba(63, 168, 234, 0.1);
-    }
-
-    @media ${phoneL} {
-      padding: 10px;
-      width: 100%;
-    }
+  .body-input, .categories-select {
+    border-radius: 5px;
+    padding: 5px 10px;
   }
 
   @media ${phoneL} {
@@ -192,75 +161,8 @@ const DivName = styled.div`
 const DivButtons = styled.div`
   align-self: flex-end;
 
-  button {
-    padding: 7px 0px;
-    width: 100px;
-    border-radius: 4px;
-    outline: none;
-    cursor: pointer;
-    pointer-events: auto;
-    font-weight: bold;
-    font-size: 18px;
-    &:last-child{
-      background-color: rgb(0, 200, 0);
-      border-top: 2px solid rgb(0, 179, 0);
-      border-left: 2px solid rgb(0, 179, 0);
-      border-bottom: 2px solid rgb(0, 95, 0);
-      border-right: 2px solid rgb(0, 95, 0);
-
-      &:active {
-        background-color: rgb(0, 200, 0)!important;
-        border-bottom: 2px solid rgb(0, 179, 0);
-        border-right: 2px solid rgb(0, 179, 0);
-        border-top: 2px solid rgb(0, 95, 0);
-        border-left: 2px solid rgb(0, 95, 0);
-      }
-
-      &:hover {
-        background-color: rgb(0, 255, 0);
-      }
-    }
-    
-
-    &:not(:last-child) {
-      margin-right: 25px;
-      background-color: rgb(210, 0, 0);
-      border-top: 2px solid rgb(189, 0, 0);
-      border-left: 2px solid rgb(189, 0, 0);
-      border-bottom: 2px solid rgb(115, 0, 0);
-      border-right: 2px solid rgb(115, 0, 0);
-
-      &:active {
-        background-color: rgb(210, 0, 0)!important;
-        border-bottom: 2px solid rgb(189, 0, 0);
-        border-right: 2px solid rgb(189, 0, 0);
-        border-top: 2px solid rgb(115, 0, 0);
-        border-left: 2px solid rgb(115, 0, 0);
-      }
-
-      &:hover {
-        background-color: rgb(255, 0, 0);
-      }
-
-      @media ${phoneL} {
-        margin: 0;
-      }
-    }
-
-    @media ${phoneL} {
-      width: 100%;
-      padding: 20px;
-      border-radius: 0;
-    }
-  }
-
-  @media ${phoneL} {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column-reverse;
+  @media (max-width: 600px) {
+    align-self: center;
   }
 `;
 
@@ -307,31 +209,34 @@ class AddCategoryModal extends Component {
       <ModalBackground>
         <DivModalCloser onClick={(ev) => setAddCatModalRaised(ev, false)} />
         <DivModal>
-          <h1>Add&nbsp;Category</h1>
+          <div className='above-input'>
+            <span
+              className='back'
+              onClick={(ev) => setAddCatModalRaised(ev, false)}		
+            ><i className="far fa-arrow-alt-circle-left"></i></span>
+            <span></span>
+          </div>
           <FormContent onSubmit={this.handleSubmit}>
-            <DivLeft>
-              <ImgPreview className = { icon } alt='icon' />
-              <button type='button' onClick={this.toggleIconList}>Select Icons From List</button>
-              {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From File</button> */}
-              {/* <button onClick={(ev) => setAddCatModalRaised(ev, false)}>Select Icons From URL</button> */}
-            </DivLeft>
             <DivRight>
               <DivName>
-                <label>Name:</label>
                 <input
                   type='text'
-                  placeholder='Enter category name'
+                  placeholder='Add a category...'
                   name='name'
                   value={name}
+                  className = 'body-input'
                   onChange={this.handleInputChange}
                   autoComplete='off'
                 />
               </DivName>
-              <DivButtons>
-                <button type='button' onClick={(ev) => setAddCatModalRaised(ev, false)}>Cancel</button>
-                <button type='submit'>Submit</button>
-              </DivButtons>
             </DivRight>
+            <DivLeft>
+              <ImgPreview className = { icon } alt='icon' />
+              <button className = 'btn' type='button' onClick={this.toggleIconList}>Select Icon From List</button>
+            </DivLeft>
+            <DivButtons>
+                <button className = 'btn' type='submit'>Add</button>
+              </DivButtons>
           </FormContent>
           {
             showIconListComponent &&

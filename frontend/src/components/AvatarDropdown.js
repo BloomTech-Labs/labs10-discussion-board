@@ -38,10 +38,6 @@ const DivAvatarDropdown = styled.div`
   border-top: 2px solid white;
   padding: 10px 0;
 
-  @media(max-width: 750px){
-    height: 60px;
-    width: 100px;
-  }
   @media (max-width: 450px){
     padding-right: 15px;
     padding-top: 0px;
