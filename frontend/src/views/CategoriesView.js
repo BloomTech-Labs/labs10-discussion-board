@@ -155,14 +155,6 @@ class CategoriesView extends Component {
           </div>
         </CategoriesHeader>
         <DivCategoriesComponent>
-          {/* <CategoriesNav
-            sortHandler={this.sortHandler}
-            order={this.order}
-            orderType={this.orderType}
-            user_id={user_id}
-            setAddCatModalRaised={setAddCatModalRaised}
-            user_type={user_type}
-          /> */}
           <Categories categories={this.props.categories} history={this.props.history} />
         </DivCategoriesComponent>
       </CategoriesWrapper>

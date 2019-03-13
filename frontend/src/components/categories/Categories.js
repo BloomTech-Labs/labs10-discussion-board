@@ -64,11 +64,6 @@ const DivCategoryRows = styled.div`
 const Categories = ({ categories, history }) => {
   return (
     <DivCategories>
-      {/* <DivCategoryListTitles>
-        <h2>Category</h2>
-        <h2>Created</h2>
-        <h2>Super&nbsp;Moderator</h2>
-      </DivCategoryListTitles> */}
       <DivCategoryRows>
         {
           categories.map((category, index) =>

@@ -2,8 +2,11 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
+// components
+import { FollowCat } from '../index.js';
+
 // Globals
-import { tabletL } from '../../globals/globals.js';
+// import { tabletL } from '../../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -69,12 +72,28 @@ const DivCategory = styled.div`
   flex-direction: column;
   width: 100%;
 
+  .category-name-follow-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 480px) {
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      * {
+        width: 90%;
+      }
+    }
+  }
+
   @media (max-width: 1024px) {
     justify-content: center;
   }
 
   @media (max-width: 910px) {
-    width: 50%;
+    width: 100%;
   }
 `;
 
@@ -85,6 +104,7 @@ const SpanCategory = styled.span`
   padding: 7px 15px 10px 0;
   font-size: 22px;
   cursor: pointer;
+  text-align: center;
 
   &:hover {
     color: blue;
@@ -164,7 +184,7 @@ const Category = ({ category, history }) => {
     ev.stopPropagation();
     history.push(`/discussion/${latest_post_discussion_id}`);
   }
-
+  const stopPropagation = e => e.stopPropagation();
   return (
     <DivRow onClick={() => history.push(`/discussions/category/${id}`)}>
       <DivCategoryContainer>
@@ -172,7 +192,14 @@ const Category = ({ category, history }) => {
           {(category.icon) ? <i className={category.icon} /> : <img src={require('../../assets/img/CategoryBook2.png')} alt='Emoji' />}
         </DivIcon>
         <DivCategory>
-          <SpanCategory className='link' onClick={(ev) => goToCategory(ev)}>{name}</SpanCategory>
+          <div className = 'category-name-follow-wrapper' onClick = {stopPropagation}>
+            <SpanCategory className='link' onClick={(ev) => goToCategory(ev)}>{name}!!</SpanCategory>
+            <FollowCat
+              category_id={category.id}
+              historyPush={history.push}
+              onCategoriesPage={true}
+            />
+          </div>
           <DivCategoryInfo>
             <p><span>Created:</span>&nbsp;{moment(new Date(Number(created_at))).fromNow()}</p>
             <p><span>Discussions:</span>&nbsp;{discussion_count || 0}</p>
