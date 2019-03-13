@@ -144,7 +144,7 @@ const PostedBy = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 150px;
+  margin-left: 160px;
   min-width: 100px;
   }
   .c-time {
