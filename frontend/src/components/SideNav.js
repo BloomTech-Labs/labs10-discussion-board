@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getCategoriesFollowed } from '../store/actions/index.js';
 
 // globals
-import { phoneL, accountUserTypes, addCatPermStartIndex } from '../globals/globals.js';
+import { phoneL, accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -405,14 +405,14 @@ class SideNav extends Component {
               onClick={() => this.selectLink('BrowseCategories')}
             ><i className="fas fa-book-open" />Browse&nbsp;</LinkBrowseCategories>
           </H4BrowseCategories>
-          {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
+          {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
             <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
           }
         </DivHeader>
         <DivCategoriesFollowed>
           {/* <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle> */}
           <DivCatFollowItems>
-          <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+            <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
               <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
               <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
                 <DivWindows>
@@ -421,21 +421,21 @@ class SideNav extends Component {
                   <div className='div-window' />
                   <div className='div-window' />
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
-          </H4AllPosts>
+            </H4AllPosts>
             <ul>
               {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
-                <LiCategoryFollowed 
-                  isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} 
+                <LiCategoryFollowed
+                  isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}
                   key={index} islinkselected={(this.state.linkSelected === category.name).toString()}>
-                    <LinkSideNav onClick={() => this.selectLink(category.name)} 
-                      islinkselected={(this.state.linkSelected === category.name).toString()} 
-                      to={`/discussions/category/${category.id}`}>
-                        <span>
-                          <i className={category.icon} 
-                            islinkselected={(this.state.linkSelected === category.name).toString()} />
-                        </span>
-                          {category.name}
-                    </LinkSideNav>
+                  <LinkSideNav onClick={() => this.selectLink(category.name)}
+                    islinkselected={(this.state.linkSelected === category.name).toString()}
+                    to={`/discussions/category/${category.id}`}>
+                    <span>
+                      <i className={category.icon}
+                        islinkselected={(this.state.linkSelected === category.name).toString()} />
+                    </span>
+                    {category.name}
+                  </LinkSideNav>
                 </LiCategoryFollowed>
               )))}
             </ul>
