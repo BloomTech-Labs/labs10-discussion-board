@@ -428,8 +428,8 @@ class Settings extends Component {
   goBack = () => this.props.history.goBack()
   render() {
     const { showForm, showDeleteModal, user_type } = this.state;
+    const { profile, setChangeSubModalRaised } = this.props;
     const subPlan = (accountUserTypes.indexOf(user_type) !== -1) ? subscriptionPlans[accountUserTypes.indexOf(this.props.user_type)] : '';
-    const { profile } = this.props;
     const { username, email, avatar, isAuth0, } = profile;
     const splitUsername = username.split(' ');
     return (
@@ -473,7 +473,7 @@ class Settings extends Component {
             }
             <DivSubscriptionPlan>
               <p>Subscription&nbsp;Plan:&nbsp;{(subPlan) ? <SpanSubPlan subplan={subPlan}>{subPlan.toUpperCase()}</SpanSubPlan> : <SpanSubPlan>{user_type.toUpperCase()}</SpanSubPlan>}</p>
-              <button type='button'>Change:&nbsp;Subscription&nbsp;Plan</button>
+              <button type='button' onClick={(ev) => setChangeSubModalRaised(ev, true)}>Change:&nbsp;Subscription&nbsp;Plan</button>
             </DivSubscriptionPlan>
             <DeleteButton>
               <button className='delete-btn' type='button' onClick={this.toggleDeleteModal}>
