@@ -45,13 +45,13 @@ const DivHeader = styled.div`
     @media(max-width: 1345px) {
       align-self: flex-start;
       margin: 0 10px 10px 10px;
-      margin-top: 35px;
+      margin-top: 15px;
     }
 
     @media ${phoneL} {
       margin: 0 10px;
       padding: 10px;
-      margin-top: 10px;
+      margin-top: 0px;
     }
   }
 
@@ -75,7 +75,7 @@ const H4BrowseCategories = styled.h4`
       width: auto;
       border: none;
       margin: 0 20px;
-      margin-top: -63px;
+      margin-top: -47px;
       margin-left: 60px;
       margin-right: 0px;
     }
@@ -120,6 +120,7 @@ const LinkBrowseCategories = styled(Link)`
     border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
     color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
     border-radius: 20px;
+    height: 12px;
 
     &:hover {
       border: 2px solid blue;
@@ -129,6 +130,7 @@ const LinkBrowseCategories = styled(Link)`
   @media ${phoneL} {
     padding: 5px;
     font-size: 12px;
+    margin-top: 8px;
   }
 `;
 
@@ -137,20 +139,20 @@ const DivCategoriesFollowed = styled.div`
   flex-direction: column;
 `
 
-const H4CategoriesFollowedTitle = styled.h4`
-  display: none;
+// const H4CategoriesFollowedTitle = styled.h4`
+//   display: none;
 
-  @media (max-width: 1345px) {
-    display: block;
-    margin: 8px 0 0 0;
-    color: gray;
-  }
+//   @media (max-width: 1345px) {
+//     display: block;
+//     margin: 8px 0 0 0;
+//     color: gray;
+//   }
 
-  @media ${phoneL} {
-    font-size: 12px;
-    margin: 9px 0
-  }
-`;
+//   @media ${phoneL} {
+//     font-size: 12px;
+//     margin: 9px 0
+//   }
+// `;
 
 const DivCatFollowItems = styled.div`
   ul {
@@ -234,6 +236,10 @@ const LinkAllPosts = styled(Link)`
     border-radius: 20px;
     padding: 15px;
     margin-right: 20px;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
       border: 2px solid blue;
@@ -367,7 +373,7 @@ const LinkSideNav = styled(Link)`
     white-space: pre;
     justify-content: center;
     align-items: center;
-    height: 38px;
+    height: 18px;
     border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
     padding: 7px 12px 7px 15px;
     border-radius: 20px;
