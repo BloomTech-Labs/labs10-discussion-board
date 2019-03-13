@@ -1,229 +1,95 @@
 
 # Symposium Discussion Board
 
-Symposium is a place where like-minded people can come together to share and discuss ideas.
+Symposium is a web application that organizes communication in a way that like-minded people can come together to share and discuss ideas.
 
-# Table of Contents
+## Table of Contents
 
-# Setup, Install and Execute
+## Getting Started
 
-## Folders/Files Naming
+git clone https://github.com/Lambda-School-Labs/labs10-discussion-board.git  
+cd labs10-discussion-board  
 
-- javascript file names - camelcase (except migration files... use snakecase)
-- folder names - all lower case (snake case where needed)
+#### Prerequisites
+`cd frontend` to get into the Frontend Folder 
+`yarn` to install the Frontend Dependencies  
+`cd ..` to exit out of the Frontend Folder  
+`cd backend` to get into the Backend Folder  
+`yarn` to install the Backend Dependencies
+  
+`knex migrate:rollback` to reset all the migrations (tables)  
+`knex migrate:latest` to activate all the migrations (tables)  
+`knex seed:run` to activate all the seeds that belong in those migrations
 
-## Folders/Files Structure
+#### Starting Server  
+##### Option 1: Concurrently  
+While in the Backend Folder use `yarn symposium` to "concurrently" start the backend and frontend servers  
 
-- Note: we wanted to seperate frontend/backend into different repos... but they said no
+##### Option 2: Start the servers separately  
+In the Frontend Folder, use `yarn start`  
+In another terminal, in the Backend Folder, use `yarn start`  
 
-- backend
+## Project Links  
 
-  - \_\_tests\_\_
-  - config
-    - middleware
-      - errorHandler.js
-  - db
-    - migrations
-      - #####\_create_name.js
-    - models
-      - users.js
-      - categories.js
-      - ect...
-    - seeds
-      - 001-users.js
-      - ect...
-    - dbConfig.js
-  - assets
-    - img
-      - img1.jpeg
-      - img2.jpeg
-      - img3.jpeg
-  - routes
-    - usersRouter.js
-    - categoriesRouter.js
-    - ect...
-  - index.js
-  - server.js
-  - package.json
-  - knexfile.js
-  - .gitigno.lock
-  - README.md
+#### Folder Structure and Table Schema
+Folder Structure and backend table schema is located in a file called [Structures](./STRUCTURES.md) in this Repository.
 
-- frontend
-  - design_files
-  - public
-  - src
-    - components
-      - Nav.js
-      - Logindropdown.js
-      - CategoryList.js
-      - Buttons.js
-      - Ect...
-    - store
-      - actions
-        - actions1.js
-        - actions2.js
-        - actions3.js
-        - ect...
-        - index.js
-      - reducers
-        - reducers1.js
-        - reducers2.js
-        - reducers3.js
-        - ect...
-        - index.js
-    - pages
-      - landing.js
-      - register.js
-      - login.js
-      - ect...
-    - \_\_tests\_\_
-    - App.js
-    - index.js
-  - .gitignore
-  - package-lock.json
-  - package.json
-  - README.md
-- README.md
-- LICENSE (MIT)
+#### Lambda School Labs Guidelines for Discussion Board
+Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p1jIRjf7sgpsJKtFQhmnBK3LK3w6c/edit
 
-# Use Cases
-
-## Backend (Use Cases)
-
----
-
-## Frontend (Use Cases)
-
----
-
-# Tech Stack
-
-# Project Links
-
-- Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p1jIRjf7sgpsJKtFQhmnBK3LK3w6c/edit
+#### Backend Deployment Using Heroku
 - Heroku Deployment (Developer View) - https://dashboard.heroku.com/apps/symposium-backend/deploy/github
 - Heroku Deployment (Customer View) - https://symposium-backend.herokuapp.com/
+
+#### Frontend Deployment Using Netlify
 - Netlify Deployment (Customer VIew) - https://symposium-frontend.netlify.com/
-- Setup Gatsby - https://www.youtube.com/watch?v=5VGu6NWzLs4
+
+#### Planning and Documentation
 - Labs10 Discussion Board - Technical Design Document - https://docs.google.com/document/d/13MCUOP53DrHHWy-G0qtAStnRc2uKt9hD3mWdxzUUarI/edit#
-- Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
-- Balsamiq - https://balsamiq.cloud/snv27r3/pryeqxi/r2278
-- Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
 - Lambda Capstone Defense Rubric - https://docs.google.com/spreadsheets/d/1r3kOKVvkILBalLkNLTJFQ-gXf2FoPoaWooLcw2nifUk/edit#gid=0
 - Labs10 project Tracking Document - https://docs.google.com/spreadsheets/d/1oIw5MHPLv-zJxscj4Pks7YDlydZNqxrCAmra07q2GWk/edit#gid=1885109639
 - Sprint Planning and Check-In - https://www.notion.so/Sprint-Planning-and-Check-In-0ded8fd0bc2c483fa3bb7e8a32d5ba57
 - Understanding Scope and Planning - https://docs.google.com/document/d/1ZAQ9mlPf0rFto_DWoGEUjptC23Iu1ra7wVjoon9gebw/edit
+- Balsamiq - https://balsamiq.cloud/snv27r3/pryeqxi/r2278
 
-# Table Schema's
+#### Communication
+- Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
+- Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
 
-> Single Tables
+## Built With
+#### Backend
+* Bcrypt JS  
+* Concurrently  
+* Express  
+* Faker  
+* JSON Web Token  
+* Knex  
+* Stripe  
 
-## users
+#### Frontend
+* React JS
+* Redux JS
+* Auth0 JS
+* Axios
+* styled-components
 
-| Field        | Data Type                  |
-| ------------ | -------------------------- |
-| id           | Int (auto increment)       |
-| username     | String (unique) (required) |
-| password     | String (required)          |
-| email        | String (optional) (unique) |
-| status       | String (required)          |
-| created_at   | bigInteger (required)      |
+## Authors
 
-## categories
-
-| Field        | Data Type                                                  |
-| ------------ | ---------------------------------------------------------- |
-| user_id      | foreign Key (id in users table)(user who created category) |
-| id           | int (auto increment)                                       |
-| name         | string (required)                                          |
-| created_at   | bigInteger (required)                                      |
-
-## discussions
-
-| Field       | Data Type                          |
-| ----------- | ---------------------------------- |
-| id          | int (auto increment)               |
-| user_id     | foreign key (id in users table)    |
-| category_id | foreign key (id in category table) |
-| title       | string(required)                   |
-| created_at   | bigInteger (required)      |
-
-## posts
-
-| Field            | Data Type                            |
-| ---------------- | ------------------------------------ |
-| id               | int (auto increment)                 |
-| user_id          | foreign key (id in users table)      |
-| discussion_id    | foreign Key (id in discussion table) |
-| body             | text (required)                      |
-| created_at       | bigInteger (required)                |
-| last_edited_at   | bigInteger (required)                |
-
-## user_settings
-
-| Field           | Data Type (note, mods are individual roles assigned to a specific category)     |
-| --------------- | ------------------------------------------------------------------------------- |
-| user_id         | foreign Key (id in users table)                                                 |
-| avatar          | Text (optional)(base64)                                                         |
-| user_type       | String (required) (user, bronze_member, silver_member, gold_member, and admin)  |
-| signature       | string (255, optional)                                                          |
-| subscribed_at   | bigInteger (required)                                                           |
-
-> Relational Tables
-
-## discussion_votes
-
-- many user_id's can vote on many discussion_id's
-- many discussion_id's can have many user_id's vote on it
-- one vote per relationship/row between user_id and discussion_id
-
-| Field         | Data Type                         |
-| ------------- | --------------------------------- |
-| discussion_id | int(foreign key)                  |
-| user_id       | int(foreign key)                  |
-| type          | bool(1 for upvote 0 for downvote) |
-
-## post_votes
-
-- many user_id's can vote on many post_id's
-- many post_id's can have many user_id's vote on it
-- one vote per relationship/row between user_id and post_id
-
-| Field   | Data Type                             |
-| ------- | ------------------------------------- |
-| post_id | int(foreign key)                      |
-| user_id | int(foreign key)                      |
-| type    | integer(1 for upvote -1 for downvote) |
-
-## category_follows
-
-- many user_id's can have/follow many categories_id's
-- many categories_id's can have many user_id's/followers
-
-| Field       | Data Type        |
-| ----------- | ---------------- |
-| category_id | int(foreign key) |
-| user_id     | int(foreign key) |
-
-## discussion_follows
-
-- many user_id's can have/follow many discussion_id's
-- many discussion_id's can have many user_id's/followers
-
-| Field         | Data Type        |
-| ------------- | ---------------- |
-| discussion_id | int(foreign key) |
-| user_id       | int(foreign key) |
-
-## users_role_categories
-
-- Many user_id's can have many category_id's
-- Many category_id's can have many user_id's
-- One role per relationship/row between category_id and user_id
-
-| Field       | Data Type                            |
-| ----------- | ------------------------------------ |
-| role        | string (required) (super mod, mod)   |
-| user_id     | foreign Key (id in users table)      |
-| category_id | Foreign Key (id in categories table) |
+[Carlos Andrade](https://github.com/cornielleandres)  
+<img src="https://avatars0.githubusercontent.com/u/35614736?s=400&v=4" width="200">  
+    
+[James Page](https://github.com/jamespagedev)  
+<img src="https://avatars1.githubusercontent.com/u/43793595?s=400&v=4" width="200">  
+    
+[Huthman King](https://github.com/kinghuthman)  
+<img src="https://avatars0.githubusercontent.com/u/41485997?s=400&v=4" width="200">  
+    
+[David Situ](https://github.com/Codechiha)  
+<img src="https://avatars2.githubusercontent.com/u/42251292?s=400&v=4" width="200">  
+    
+[Lucas Beemer](https://github.com/lucasbeemer)  
+<img src="https://avatars2.githubusercontent.com/u/40898328?s=400&v=4" width="200">  
+  
+### License
+  
+Copyright 2019 © Symposium Discussion Board
