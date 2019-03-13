@@ -55,6 +55,7 @@ const WrappedDiv = styled.div`
     padding: 0 0 0 5%;
     display: flex;
     justify-content: space-around;
+    
   }
 `;
 
