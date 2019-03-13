@@ -17,6 +17,9 @@ const DivSideNav = styled.div`
   flex-direction: column;
   width: 100%;
   user-select:none;
+  overflow-y: scroll;
+  height: calc(100% - 170px);
+  min-height: 10%;
 
   @media(max-width: 1345px) {
     flex-direction: row;
@@ -267,6 +270,8 @@ const DivWindows = styled.div`
   margin-bottom: 6px;
   @media (max-width: 1345px) {
     margin-left: 0px;
+    justify-content: center
+    align-items: center
   }
   div {
     background-color: black;
