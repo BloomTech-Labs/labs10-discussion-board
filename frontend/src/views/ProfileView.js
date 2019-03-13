@@ -54,7 +54,7 @@ const ProfileWrapper = styled.div`
   }
   .username-style { 
     margin-left: 0px;
-    font-size: 18px;
+    font-size: .8rem;
     justify-content: flex-start
     
     &:hover {
@@ -113,7 +113,7 @@ color: ${props => props.theme.discussionPostColor};
   margin-right: 5px;
   width: 7%;
   height: 50px;
-  font-size: 30px;
+  font-size: 1rem;
   color: black;
   
   &:hover{
@@ -125,12 +125,12 @@ color: ${props => props.theme.discussionPostColor};
 const ContentDiv = styled.div`
 margin: 20px 0px 10px 0px;
   display: flex;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #ccc;
   a {
     text-decoration: none;
   }
   p {
-    font-size: 22px;
+    font-size: 1rem;
     margin-top: 16px;
   }
 color: ${props => props.theme.profileTitleContentDColor};
