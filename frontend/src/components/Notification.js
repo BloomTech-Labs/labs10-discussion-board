@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+// import moment from 'moment';
 import styled from 'styled-components';
 
 // globals
@@ -8,11 +8,17 @@ import { maxLengthInNotifications } from '../globals/globals.js';
 const NotificationWrapper = styled.div`
 	margin: 5px;
 	border-radius: 5px;
-	border: 1px solid black;
-	padding: 5px;
+	border: 1px solid #ccc;
+	padding: 10px;
 	position: relative;
   z-index: 9999;
-
+  color: #aaa;
+  
+  &:hover {
+    background-color: #418DCF;
+    cursor: pointer;
+    color: white;
+  }
 	* {
 		margin: 0;
 	}
@@ -29,10 +35,9 @@ const NotificationWrapper = styled.div`
 	}
 
 	.links {
-		font-weight: bold;
+    font-weight: bold;
 
 		&:hover {
-			text-decoration: underline;
 			cursor: pointer;
 		}
 	}
@@ -46,7 +51,7 @@ const Notification = ({ notification, goTo, removeNotification }) => {
     discussion_id,
     post_id,
     reply_id,
-    created_at
+    // created_at
   } = notification;
   let {
     discussion_body,
@@ -63,10 +68,17 @@ const Notification = ({ notification, goTo, removeNotification }) => {
   if (reply_body && reply_body.length > maxLengthInNotifications) {
     reply_body = reply_body.slice(0, maxLengthInNotifications) + '...';
   }
+  const handleClick = (ev) => {
+    if (category_id) {
+     return goTo(ev, `/discussion/${discussion_id}`)
+    } else {
+      return goTo(ev, `/discussion/${discussion_id}#${post_id}`)
+    }
+  }
   return (
-    <NotificationWrapper>
+    <NotificationWrapper onClick = {handleClick}> 
       <i onClick={handleRemove} className='far fa-times-circle remove-btn' />
-      <p>New {category_id ? 'post' : reply_id ? 'reply' : 'comment'} added {moment(new Date(Number(created_at))).fromNow()} in</p>
+      {/* <p>New {category_id ? 'post' : reply_id ? 'reply' : 'comment'} added {moment(new Date(Number(created_at))).fromNow()} in</p> */}
       <p>{category_id ? `/d/${category_name}` : reply_id ? `${post_body}` : `${discussion_body}`}:</p>
       {
         category_id ?

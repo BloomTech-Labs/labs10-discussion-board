@@ -52,54 +52,55 @@ const DiscussionHeader = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
+  width: 100%;
+  
+  .name-follow-wrapper {
+    display: flex;
+    align-items: center;
+    .name {
+      font-size: 24px;
+    }
+  }
 
-	.all-posts {
-		font-size: 36px;
-		flex-grow: 2;
+  @media (max-width: 910px) {
+    flex-direction: column;
+  }
 
-		@media ${ tabletP} {
-			flex-grow: 0;
-		}
-	}
+	.filter-add-btn-wrapper {
+    display: flex;
+    .filter-wrapper {
+      i {
+        margin-right: 5px;
+        color: ${props => props.theme.discussionPostColor};
+      }
+  
+      .filter {
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        padding: 5px;
+        color: ${props => props.theme.discussionPostColor};
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  
+    .add-post-btn {
+      margin-left: 10px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      background-color: #418DCF;
+      color: white;
 
-	.filter-wrapper {
-		i {
-			margin-right: 5px;
-			color: ${props => props.theme.discussionPostColor};
-		}
-
-		.filter {
-			border: none;
-			background-color: rgba(0, 0, 0, 0);
-			padding: 5px;
-			color: ${props => props.theme.discussionPostColor};
-			&:focus {
-				outline: none;
-			}
-		}
-	}
-
-	.add-post-btn {
-		margin-left: 10px;
-		padding: 10px 15px;
-		border-radius: 5px;
-		border: none;
-		background-color: #418DCF;
-		color: white;
-
-		@media ${ phoneP} {
-			width: 100%;
-			margin-left: 0;
-		}
-
-		&:hover {
-			cursor: pointer;
-			background-color: white;
-			color: #418DCF;
-			border: 1px solid #418DCF;
-		}
-	}
+      &:hover {
+        cursor: pointer;
+        background-color: white;
+        color: #418DCF;
+        border: 1px solid #418DCF;
+      }
+    }
+  }
 `;
 
 const newest = 'newest';
@@ -178,30 +179,34 @@ class DiscussionsByCats extends Component {
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
-          <FollowCat
-            category_id={match.params.category_id}
-            historyPush={history.push}
-          />
-          <h2 className='all-posts'>{category_name}</h2>
-          <div className='filter-wrapper'>
-            <i className='fab fa-mix' />
-            <span>Filter by</span>
-            <select
-              className='filter'
-              onChange={this.handleSelectChange}
-              name='filter'
-            >
-              <option value={newest}>{newest}</option>
-              <option value={oldest}>{oldest}</option>
-              <option value={mostUpvotes}>{mostUpvotes}</option>
-              <option value={mostViews}>{mostViews}</option>
-              <option value={mostComments}>{mostComments}</option>
-            </select>
+          <div className = 'name-follow-wrapper'>
+            <h2 className='name'>{category_name}</h2>
+            <FollowCat
+              category_id={match.params.category_id}
+              historyPush={history.push}
+            />
           </div>
-          {(accountUserTypes.indexOf(user_type) >= addPostPermStartIndex) &&
-            <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-              <i className='fas fa-plus-circle' />&nbsp;Add Post
-					</button>}
+          <div className = 'filter-add-btn-wrapper'>
+            <div className='filter-wrapper'>
+              <i className='fab fa-mix' />
+              <span>Filter by</span>
+              <select
+                className='filter'
+                onChange={this.handleSelectChange}
+                name='filter'
+              >
+                <option value={newest}>{newest}</option>
+                <option value={oldest}>{oldest}</option>
+                <option value={mostUpvotes}>{mostUpvotes}</option>
+                <option value={mostViews}>{mostViews}</option>
+                <option value={mostComments}>{mostComments}</option>
+              </select>
+            </div>
+            {(accountUserTypes.indexOf(user_type) >= addPostPermStartIndex) &&
+              <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+                <i className='fas fa-plus-circle' />&nbsp;Add Post
+            </button>}
+          </div>
         </DiscussionHeader>
         <hr />
         <div className='content'>
@@ -230,7 +235,7 @@ class DiscussionsByCats extends Component {
 const mapStateToProps = state => ({
   user_type: state.users.user_type,
   discussions: state.discussions.discussions,
-  category_name: state.categories.category.name,
+  category_name: state.discussions.category.name,
 });
 
 export default connect(mapStateToProps, { getDiscussionsByCat, handleDiscussionVote })(DiscussionsByCats);

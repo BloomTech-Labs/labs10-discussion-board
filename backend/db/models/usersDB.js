@@ -8,42 +8,42 @@ const getUsers = () => {
 //Gets a user by their id
 const findById = id => {
   const getDiscussions = db('discussions as d')
-  .select(
-    'd.id',
-    'd.user_id',
-    'u.username',
-    'd.category_id',
-    'c.name as category_name',
-    'c.id as category_id',
-    'c.icon as category_icon',
-    'us.avatar',
-    'us.signature',
-    'd.body',
-    'd.created_at',
-    'd.last_edited_at'
-  )
-  .leftOuterJoin('users as u', 'u.id', 'd.user_id')
-  .join('categories as c', 'c.id', 'd.category_id')
-  .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
-  .where('d.user_id', id);
+    .select(
+      'd.id',
+      'd.user_id',
+      'u.username',
+      'd.category_id',
+      'c.name as category_name',
+      'c.id as category_id',
+      'c.icon as category_icon',
+      'us.avatar',
+      'us.signature',
+      'd.body',
+      'd.created_at',
+      'd.last_edited_at'
+    )
+    .leftOuterJoin('users as u', 'u.id', 'd.user_id')
+    .join('categories as c', 'c.id', 'd.category_id')
+    .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+    .where('d.user_id', id);
   const getPosts = db('posts as p')
-  .select(
-    'p.id',
-    'p.discussion_id',
-    'p.created_at',
-    'p.body',
-    'p.user_id',
-    'u.username',
-    'us.avatar',
-    'c.id as category_id',
-    'c.name as category_name',
-    'd.body as discussion_body'
-  )
-  .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
-  .leftOuterJoin('users as u', 'u.id', 'p.user_id')
-  .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
-  .join('discussions as d', 'd.id', 'p.discussion_id')
-  .join('categories as c', 'c.id', 'd.category_id').where('p.user_id', id);
+    .select(
+      'p.id',
+      'p.discussion_id',
+      'p.created_at',
+      'p.body',
+      'p.user_id',
+      'u.username',
+      'us.avatar',
+      'c.id as category_id',
+      'c.name as category_name',
+      'd.body as discussion_body'
+    )
+    .leftOuterJoin('post_votes as pv', 'pv.post_id', 'p.id')
+    .leftOuterJoin('users as u', 'u.id', 'p.user_id')
+    .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+    .join('discussions as d', 'd.id', 'p.discussion_id')
+    .join('categories as c', 'c.id', 'd.category_id').where('p.user_id', id);
   const getReplies = db('replies as r').select(
     'r.id',
     'r.post_id',
@@ -55,21 +55,21 @@ const findById = id => {
     'c.name as category_name',
     'p.discussion_id'
   )
-  .leftOuterJoin('reply_votes as rv', 'rv.reply_id', 'r.id')
-  .leftOuterJoin('users as u', 'u.id', 'r.user_id')
-  .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
-  .join('posts as p', 'p.id', 'r.post_id')
-  .join('discussions as d', 'd.id', 'p.discussion_id')
-  .join('categories as c', 'c.id', 'd.category_id').where('r.user_id', id);
+    .leftOuterJoin('reply_votes as rv', 'rv.reply_id', 'r.id')
+    .leftOuterJoin('users as u', 'u.id', 'r.user_id')
+    .leftOuterJoin('user_settings as us', 'us.user_id', 'u.id')
+    .join('posts as p', 'p.id', 'r.post_id')
+    .join('discussions as d', 'd.id', 'p.discussion_id')
+    .join('categories as c', 'c.id', 'd.category_id').where('r.user_id', id);
   const getDiscussionFollows = db('discussion_follows as df')
     .select(
-      'df.discussion_id', 
+      'df.discussion_id',
       'd.created_at',
-      'd.body', 'd.user_id', 
-      'u.username', 
+      'd.body', 'd.user_id',
+      'u.username',
       'us.avatar',
       'c.id as category_id',
-      'c.name as category_name', 
+      'c.name as category_name',
       'c.icon as category_icon')
     .join('discussions as d', 'd.id', 'df.discussion_id')
     .join('categories as c', 'c.id', 'd.category_id')
@@ -170,6 +170,14 @@ const getUserType = user_id => {
     .first();
 };
 
+// change user_type in user_settings for matching user ID
+const changeUserType = (user_id, user_type) => {
+  return db('user_settings')
+    .select('user_type')
+    .where({ user_id })
+    .update('user_type', user_type, ['user_type']);
+};
+
 //Gets a user by their username
 const findByUsername = username => {
   return db('users as u')
@@ -204,7 +212,7 @@ const findByEmail = email => {
 // search through categories, discussions and posts
 const searchAll = (searchText, orderType) => {
   const categoriesQuery = db('categories as c')
-    .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at')
+    .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at', 'c.icon')
     .leftOuterJoin('users as u', 'u.id', 'c.user_id')
     .whereRaw('LOWER(c.name) LIKE ?', `%${searchText.toLowerCase()}%`);
 
@@ -250,7 +258,7 @@ const searchAll = (searchText, orderType) => {
     .then(results => {
       const [categoriesResults, discussionsResults, postsResults] = results;
       const resultArr = [];
-      categoriesResults.forEach(cat => resultArr.push({ type: 'categoriy', result: cat }));
+      categoriesResults.forEach(cat => resultArr.push({ type: 'category', result: cat }));
       discussionsResults.forEach(dis => resultArr.push({ type: 'discussion', result: dis }));
       postsResults.forEach(post => resultArr.push({ type: 'comment', result: post }));
       resultArr.sort((a, b) => {
@@ -379,6 +387,7 @@ module.exports = {
   getPassword,
   getUserName,
   findById,
+  changeUserType,
   findByUsername,
   findByEmail,
   searchAll,

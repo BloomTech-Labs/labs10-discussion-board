@@ -17,10 +17,13 @@ const DivSideNav = styled.div`
   flex-direction: column;
   width: 100%;
   user-select:none;
+  overflow-y: auto;
+  height: calc(100% - 170px);
+  min-height: 10%;
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
   }
 `;
@@ -34,59 +37,51 @@ const DivHeader = styled.div`
     font-size: 21px;
     cursor: pointer;
     padding: 10px;
-    color: red;
+    color: #418DCF;
     margin: 10px;
 
     &:hover {
-      color: green;
+      color: #aaa;
     }
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       align-self: flex-start;
-      margin: 0 10px 10px 10px;
-    }
-
-    @media ${phoneL} {
-      margin: 0 10px;
-      padding: 10px;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 29px;
+      left: 17px;
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     flex-direction: column-reverse;
     margin: 0 20px 20px 20px;
-  }
-
-  @media ${phoneL} {
-    margin: 0 10px;
-    justify-content: flex-end;
+    position: relative;
   }
 `;
 
 const H4BrowseCategories = styled.h4`
     width: 95%;
-    border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
+    border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: flex;
       width: auto;
       border: none;
       margin: 0 20px;
-    }
-
-    @media ${phoneL} {
-      display: flex;
-      width: auto;
-      border: none;
-      margin: 0 0 0 20px;
+      margin-top: 18px;
+      margin-left: 60px;
+      margin-right: 0px;
     }
 `;
 
 
 
 const LinkBrowseCategories = styled(Link)`
-  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
-  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+  text-decoration: none;
+  color: ${props => props.islinkselected === 'true' ? '#418DCF' : 'black'};
+  font-weight: normal;
 
   i {
     cursor: pointer;
@@ -94,7 +89,7 @@ const LinkBrowseCategories = styled(Link)`
     color: inherit;
     margin-left: 12px;
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       padding: 10px 8px 6px 0;
       margin: 0;
     }
@@ -104,42 +99,31 @@ const LinkBrowseCategories = styled(Link)`
     color: blue;
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-    border-radius: 20px;
+    padding: 4px 10px;
+    border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
+    color: ${props => props.islinkselected === 'true' ? '#418DCF' : '#aaa'};
+    border-radius: 10px;
 
     &:hover {
-      border: 2px solid blue;
+      border: 1px solid #418DCF;
     }
-  }
-
-  @media ${phoneL} {
-    padding: 5px;
-    font-size: 12px;
   }
 `;
 
 const DivCategoriesFollowed = styled.div`
   display: flex;
   flex-direction: column;
-`
 
-const H4CategoriesFollowedTitle = styled.h4`
-  display: none;
-
-  @media (max-width: 1345px) {
-    display: block;
-    margin: 8px 0 0 0;
-    color: gray;
+  @media (max-width: 800px) {
+    padding-top: 8px;
+    margin-left: -10px;
   }
 
-  @media ${phoneL} {
-    font-size: 12px;
-    margin: 9px 0
+  @media (max-width: 600px) {
+    padding-top: 24px;
   }
 `;
 
@@ -148,7 +132,7 @@ const DivCatFollowItems = styled.div`
     list-style: none;
     padding-left: 0;
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: flex;
       margin: 0 20px 0 0;
     }
@@ -158,7 +142,7 @@ const DivCatFollowItems = styled.div`
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
   }
 
@@ -170,7 +154,7 @@ const DivCatFollowItems = styled.div`
 const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
-  border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
+  border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
 
   i {
     cursor: pointer;
@@ -183,55 +167,57 @@ const H4AllPosts = styled.h4`
       opacity: 1;
     }
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: none;
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     border: none;
-    margin-right: 20px;
-  }
-
-  @media ${phoneL} {
-    margin-right: 10px;
+    margin-right: 0px;
+    padding: 10px;
+    margin: 0;
+    padding-right: 0;
   }
 `;
 
 const LinkAllPosts = styled(Link)`
   display: flex;
-  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
-  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+  text-decoration: none;
+  color: ${props => props.islinkselected === 'true' ? '#418DCF' : 'black'};
+  font-weight: normal;
 
   &:hover {
-    color: blue;
+    color: #418DCF;
+
     .div-window {
-      background-color:blue;
+      background-color: #418DCF;
     }
   }
 
   .div-window {
-    background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+    background-color: ${props => props.islinkselected === 'true' ? '#418DCF' : 'black'};
 
-    @media(max-width: 1345px) {
-      background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    @media(max-width: 800px) {
+      background-color: ${props => props.islinkselected === 'true' ? '#418DCF' : '#aaa'};
     }
   }
 
-  @media(max-width: 1345px) {
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    border-radius: 20px;
-    padding: 15px;
+  @media(max-width: 800px) {
+    color: ${props => props.islinkselected === 'true' ? '#418DCF' : '#aaa'};
+    border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-right: 20px;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 
     &:hover {
-      border: 2px solid blue;
+      border: 1px solid #418DCF;
     }
-  }
-
-  @media ${phoneL} {
-    padding: 11px 10px 11px 6px;
-    font-size: 12px;
   }
 `;
 
@@ -242,10 +228,17 @@ const DivWindows = styled.div`
   flex-wrap: wrap;
   margin: 0 6px;
   background-color: inherit;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   padding-top: 1.8px;
-
+  margin-left: 21px;
+  margin-right: 11px;
+  margin-bottom: 6px;
+  @media (max-width: 800px) {
+    margin-left: 0px;
+    justify-content: center
+    align-items: center
+  }
   div {
     background-color: black;
     border-radius: 2px;
@@ -253,17 +246,17 @@ const DivWindows = styled.div`
     height: 40%;
   }
 
-  @media ${phoneL} {
-    width: 10px;
-    height: 10px;
-    padding-top: 5px;
+  // @media ${phoneL} {
+  //   width: 10px;
+  //   height: 10px;
+  //   padding-top: 5px;
 
-    div {
-      border-radius: 1.5px;
-      width: 42%;
-      height: 32%;
-    }
-  }
+  //   div {
+  //     border-radius: 1.5px;
+  //     width: 42%;
+  //     height: 32%;
+  //   }
+  // }
 `;
 
 const PNoCatFollowMessage = styled.p`
@@ -274,12 +267,8 @@ const PNoCatFollowMessage = styled.p`
   color: red;
   justify-content: center;
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     margin: 20px 0 0 60px;
-  }
-
-  @media ${phoneL} {
-    margin: 20px 0 0 5px;
   }
 `;
 
@@ -289,7 +278,6 @@ const LiCategoryFollowed = styled.li`
   border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
   list-style-position: inside;
   &::before{
-    content: "";
     background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
     font-weight: bold;
     display: inline-block; 
@@ -299,12 +287,12 @@ const LiCategoryFollowed = styled.li`
     margin-right: 16px;
     margin-bottom: 3px;
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: none;
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
     margin: 0;
     padding: 0;
@@ -315,16 +303,10 @@ const LiCategoryFollowed = styled.li`
       margin-right: 20px;
     }
   }
-
-  @media ${phoneL} {
-    &:not(:last-child) {
-      margin-right: 10px;
-    }
-  }
 `;
 
 const LinkSideNav = styled(Link)`
-  text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
+  text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
   span {
@@ -336,38 +318,35 @@ const LinkSideNav = styled(Link)`
       padding: 10px 10px 10px 0;
       color: inherit;
       margin-left: 15px;
-      @media(max-width: 1345px) {
+
+      @media(max-width: 800px) {
         margin-left: 0;
       }
     }
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       width: auto;
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
     white-space: pre;
     justify-content: center;
     align-items: center;
     height: 38px;
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    padding: 7px 12px 7px 15px;
-    border-radius: 20px;
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-  }
-
-  @media ${phoneL} {
-    padding: 0 7px 0 10px;
-    font-size: 12px;
+    border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    color: ${props => props.islinkselected === 'true' ? 'blue' : '#aaa'};
   }
 
   &:hover {
     color: blue;
 
-    @media(max-width: 1345px) {
-      border: 2px solid blue;
+    @media(max-width: 800px) {
+      border: 1px solid #418DCF;
     }
   }
 `;
@@ -431,9 +410,9 @@ class SideNav extends Component {
           }
         </DivHeader>
         <DivCategoriesFollowed>
-          <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle>
+          {/* <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle> */}
           <DivCatFollowItems>
-            <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
+          <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
               <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
               <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
                 <DivWindows>
@@ -442,10 +421,22 @@ class SideNav extends Component {
                   <div className='div-window' />
                   <div className='div-window' />
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
-            </H4AllPosts>
+          </H4AllPosts>
             <ul>
               {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
-                <LiCategoryFollowed isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} key={index} islinkselected={(this.state.linkSelected === category.name).toString()}><LinkSideNav onClick={() => this.selectLink(category.name)} islinkselected={(this.state.linkSelected === category.name).toString()} to={`/discussions/category/${category.id}`}><span><i className={category.icon} islinkselected={(this.state.linkSelected === category.name).toString()} /></span>{category.name}</LinkSideNav></LiCategoryFollowed>
+                <LiCategoryFollowed 
+                  isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} 
+                  key={index} islinkselected={(this.state.linkSelected === category.name).toString()}>
+                    <LinkSideNav onClick={() => this.selectLink(category.name)} 
+                      islinkselected={(this.state.linkSelected === category.name).toString()} 
+                      to={`/discussions/category/${category.id}`}>
+                        <span>
+                          <i className={category.icon} 
+                            islinkselected={(this.state.linkSelected === category.name).toString()} />
+                        </span>
+                          {category.name}
+                    </LinkSideNav>
+                </LiCategoryFollowed>
               )))}
             </ul>
           </DivCatFollowItems>
@@ -466,3 +457,7 @@ export default connect(
   mapStateToProps,
   { getCategoriesFollowed }
 )(SideNav);
+
+
+
+

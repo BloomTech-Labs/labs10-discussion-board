@@ -54,7 +54,7 @@ const UserActions = styled.div`
 
 	.submit-btn {
 		color: steelblue;
-		background: white;
+		background: none;
 		border: none;
 
 		&:hover {

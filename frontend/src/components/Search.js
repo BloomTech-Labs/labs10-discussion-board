@@ -34,6 +34,10 @@ const SearchBox = styled.div`
 	}
 
 	.search-by-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
 		/* The container */
 		.container {
 			display: inline-block;
@@ -47,8 +51,6 @@ const SearchBox = styled.div`
 			-moz-user-select: none;
 			-ms-user-select: none;
 			user-select: none;
-			border: 1px solid black;
-			border-radius: 5px;
 		}
 
 		/* Hide the browser's default radio button */
@@ -110,9 +112,25 @@ const SearchBox = styled.div`
 		align-items: center;
 		padding: 5px;
 
-		select {
-			border-radius: 5px;
-			padding: 5px;
+		.filter-wrapper {
+			i {
+				margin-right: 5px;
+				color: ${props => props.theme.discussionPostColor};
+			}
+			.filter-by{
+				color: ${props => props.theme.discussionPostColor};
+			}
+		
+			.filter {
+				border: none;
+				background-color: rgba(0, 0, 0, 0);
+				padding: 6px;
+				border-radius: 5px;
+				color: ${props => props.theme.discussionPostColor};
+				&:focus {
+				outline: none;
+				}
+			}
 		}
 	}
 
@@ -142,18 +160,27 @@ const SearchBox = styled.div`
 	}
 
 	.search-results-wrapper {
-		height: 50vh;
+		max-height: 80vh;
 		overflow: auto;
 		position: absolute;
-		right: -34%;
-		top: 32px;
+		right: -50px;
+		top: 44px;
 		z-index: 9001;
 		border-radius: 5px;
 		background-color: ${props => props.theme.searchBoxBgColor};
 		color: black;
 		width: 350px;
-		border: 1px solid #bababa;
+		border: 1px solid #ddd;
 		padding: 10px;
+
+		@media (max-width: 1000px) {
+			right: -93px;
+		}
+
+		@media (max-width: 450px) {
+			right: 0;
+			left: -186px;
+		}
 
 		.results-length {
 			text-align: center;
@@ -171,6 +198,8 @@ const votes = 'votes';
 const name = 'name';
 const desc = 'desc';
 const asc = 'asc';
+const newest = 'newest';
+const oldest = 'oldest';
 
 class Search extends Component {
 	state = {
@@ -260,9 +289,20 @@ class Search extends Component {
 				return;
 		};
 	};
-	handleSelectChange = e => this.setState({ [e.target.name]: e.target.value }, () => {
-		return this.handleSearch();
-	});
+	handleSelectChange = e => {
+		switch(e.target.value) {
+			case newest:
+				return this.setState({ order: created_at, orderType: desc }, () => {
+					return this.handleSearch();
+				});
+			case oldest:
+				return this.setState({ order: created_at, orderType: asc }, () => {
+					return this.handleSearch();
+				});
+			default:
+				return;
+		};
+	};
 	handleInputChange = e => {
 		return this.setState({ [e.target.name]: e.target.value, searchResults: [] }, () => {
 			const { searchBy, order } = this.state;
@@ -279,7 +319,7 @@ class Search extends Component {
 		});
 	};
 	render() {
-		const { searchBy, searchText, searchResults, loading, order } = this.state;
+		const { searchBy, searchText, searchResults, loading } = this.state;
 		const { showSearch, pathname, scrollTo } = this.props;
 		return(
 			<SearchBox>
@@ -345,33 +385,18 @@ class Search extends Component {
 					</div>
 
 					<div className = 'order-type-wrapper'>
-						<span>Sort by:&nbsp;</span>
-						{
-							searchBy === all ?
-							<span>date created &nbsp;</span> :
-							<>
-								<select onChange = { this.handleSelectChange } name = 'order'>
-									<option value = { created_at }>date created</option>
-									<option value = { searchBy === categories ? name : votes }>
-										{ searchBy === categories ? name : votes }
-									</option>
-								</select>
-							</>
-						}
-						<select onChange = { this.handleSelectChange } name = 'orderType'>
-							<option value = { desc }>
-								{
-									order === created_at ? 'most recent first' :
-									order === name ? 'reverse alphabetical order' : 'most first'
-								}
-							</option>
-							<option value = { asc }>
-								{
-									order === created_at ? 'least recent first' :
-									order === name ? 'alphabetical order' : 'least first'
-								}
-							</option>
-						</select>
+						<div className='filter-wrapper'>
+							<i className='fab fa-mix' />
+							<span className = 'filter-by'>Filter by &nbsp;</span>
+							<select
+								className='filter'
+								onChange={this.handleSelectChange}
+								name='filter'
+							>
+								<option value={newest}>{newest}</option>
+								<option value={oldest}>{oldest}</option>
+							</select>
+						</div>
 					</div>
 					<p
 						className = 'results-length'
@@ -416,7 +441,6 @@ class Search extends Component {
 												category = { result.result }
 												goTo = { this.goTo }
 												searchText = { searchText }
-												type = { result.type }
 											/>
 										);
 									}
@@ -426,7 +450,6 @@ class Search extends Component {
 											discussion = { result.result }
 											goTo = { this.goTo }
 											searchText = { searchText }
-											type = { result.type }
 										/>
 									}
 									if (result.type === 'comment') {
@@ -437,7 +460,6 @@ class Search extends Component {
 											searchText = { searchText }
 											scrollTo = { scrollTo }
 											pathname = { pathname }
-											type = { result.type }
 										/>
 									}
 								}

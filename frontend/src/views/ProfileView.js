@@ -141,19 +141,19 @@ const DiscussionTitle = styled.div`
 `;
 
 const PostedBy = styled.div`
-  width: 120%;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   margin-left: auto;
   align-items: center;
-  max-width: 120%;
-
+  max-width: 100%;
   .c-name {
   font-size: 0.8rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 150px;
+  margin-left: 160px;
+  min-width: 100px;
   }
   
   .c-time {
@@ -163,6 +163,7 @@ const PostedBy = styled.div`
     align-items: center;
     margin-left: 150px;
     width: 50%
+    min-width: 150px;
     @media (max-width: 800px) {
       display: none;
     }
