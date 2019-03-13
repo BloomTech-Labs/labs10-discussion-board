@@ -1,6 +1,7 @@
-# labs10-discussion-board
 
-## Project Name: Symposium
+# Symposium Discussion Board
+
+The purpose of the Symposium Discussion Board is to simplify online communication between employees of a single compnay
 
 # Table of Contents
 
