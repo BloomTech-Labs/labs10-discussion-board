@@ -54,7 +54,7 @@ const DivChangeSub = styled.div`
   display: flex;
   background-color: white;
   z-index: 9999;
-  width: 80%;
+  width: 70%;
   height: 70%;
   flex-direction: column;
 
@@ -79,8 +79,14 @@ const FormChangeSub = styled.form`
 
 const DivHeaderTitle = styled.div`
   display: flex;
-  width: 100%;
+  width: 86%;
   justify-content: center;
+  border-bottom: 1px solid black;
+  margin: 0 auto 25px;
+  @media ${phoneL} {
+    margin: 0;
+    border: none;
+  }
 `;
 
 const H1HeaderTitle = styled.h1`
@@ -181,10 +187,9 @@ const DivBronzePlan = styled.div`
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[1]
-      ? '5px solid lime'
-      : '5px solid transparent'};
+      ? '1px solid black'
+      : '1px solid silver'};
   border-radius: 10px;
-  background-color: #ca620d;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -215,7 +220,7 @@ const DivBronzePlan = styled.div`
   }
 
   &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.6')};
+    opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.7')};
   }
 
   @media(max-width: 1080px) {
@@ -232,10 +237,9 @@ const DivSilverPlan = styled.div`
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[2]
-      ? '5px solid lime'
-      : '5px solid transparent'};
+      ? '1px solid black'
+      : '1px solid silver'};
   border-radius: 10px;
-  background-color: silver;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -266,7 +270,7 @@ const DivSilverPlan = styled.div`
   }
 
   &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.6')};
+    opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.7')};
   }
 
   @media(max-width: 1080px) {
@@ -283,10 +287,9 @@ const DivGoldPlan = styled.div`
   flex-direction: column;
   border: ${props =>
     props.subPlan === subscriptionPlans[3]
-      ? '5px solid lime'
-      : '5px solid transparent'};
+      ? '1px solid black'
+      : '1px solid silver'};
   border-radius: 10px;
-  background-color: gold;
   font-weight: bold;
   height: 100%;
   position: relative;
@@ -317,7 +320,7 @@ const DivGoldPlan = styled.div`
   }
 
   &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.4')};
+    opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.7')};
   }
 
   @media(max-width: 1080px) {
@@ -352,7 +355,8 @@ const CancelButton = styled.button`
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  color: black;
+  border-radius: 4px;
+  color: white;
   width: 200px;
   padding: 5px;
   background: rgb(242, 0, 0);
