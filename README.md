@@ -1,7 +1,7 @@
 
 # Symposium Discussion Board
 
-The purpose of the Symposium Discussion Board is to simplify online communication between employees of a single compnay
+Symposium is a place where like-minded people can come together to share and discuss ideas.
 
 # Table of Contents
 
