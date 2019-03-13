@@ -9,6 +9,9 @@ import {
   USER_LOG_BACK_IN_SUCCESS,
   USER_LOG_BACK_IN_FAILURE,
   USER_SIGNOUT_SUCCESS,
+  CHANGE_USER_TYPE_LOADING,
+  CHANGE_USER_TYPE_SUCCESS,
+  CHANGE_USER_TYPE_FAILURE,
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
   USER_AUTH0_LOGIN_FAILURE,
@@ -105,6 +108,7 @@ const initialState = {
   newNotifications: false,
   newNotificationCount: 0,
   last_login: '',
+  user_type: '',
   uuid: '',
   signature: null,
   stripePaymentInfo: []
@@ -215,6 +219,12 @@ export const UsersReducer = (state = initialState, action) => {
 
     case USER_SIGNOUT_SUCCESS:
       return initialState;
+
+    case CHANGE_USER_TYPE_SUCCESS:
+      return {
+        ...state,
+        user_type: action.payload.user_type
+      }
 
     case DELETE_ACCOUNT_SUCCESS:
       return {

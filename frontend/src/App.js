@@ -163,8 +163,7 @@ class App extends Component {
   }
 
   setChangeSubModalRaised = (ev, status) => {
-    ev.stopPropagation();
-    console.log('closeModal')
+    (ev) && ev.stopPropagation();
     this.setState({ isChangeSubModalRaised: status });
   }
 
@@ -217,7 +216,7 @@ class App extends Component {
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
             <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
             <Notifications history={history} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
-            <ChangeSubscriptionModal history={history} isChangeSubModalRaised={this.state.isChangeSubModalRaised} setChangeSubModalRaised={this.setChangeSubModalRaised} />
+            <ChangeSubscriptionModal isChangeSubModalRaised={this.state.isChangeSubModalRaised} setChangeSubModalRaised={this.setChangeSubModalRaised} />
             <DivBody isLoggedIn>
               <DivSideNav isLoggedIn>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />

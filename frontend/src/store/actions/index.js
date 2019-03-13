@@ -127,9 +127,9 @@ import {
 import {
   //Actions
   ADD_REPLY_LOADING,
-	ADD_REPLY_SUCCESS,
+  ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
-  
+
   //Action Creators
   addReply,
 } from './RepliesActions.js';
@@ -160,6 +160,10 @@ import {
   USER_LOG_BACK_IN_FAILURE,
 
   USER_SIGNOUT_SUCCESS,
+
+  CHANGE_USER_TYPE_LOADING,
+  CHANGE_USER_TYPE_SUCCESS,
+  CHANGE_USER_TYPE_FAILURE,
 
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
@@ -240,6 +244,7 @@ import {
   // Action Creators
   login,
   signout,
+  changeUserType,
   logBackIn,
   auth0Login,
   register,
@@ -346,6 +351,10 @@ export {
 
   USER_SIGNOUT_SUCCESS,
 
+  CHANGE_USER_TYPE_LOADING,
+  CHANGE_USER_TYPE_SUCCESS,
+  CHANGE_USER_TYPE_FAILURE,
+
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
   USER_AUTH0_LOGIN_FAILURE,
@@ -446,7 +455,7 @@ export {
 
   //Reply Actions
   ADD_REPLY_LOADING,
-	ADD_REPLY_SUCCESS,
+  ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
 
   // Categories Action Creators
@@ -478,6 +487,7 @@ export {
   register,
   login,
   signout,
+  changeUserType,
   logBackIn,
   auth0Login,
   updatePassword,

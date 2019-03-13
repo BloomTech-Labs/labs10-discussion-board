@@ -26,6 +26,11 @@ export const USER_LOG_BACK_IN_FAILURE = 'USER_LOG_BACK_IN_FAILURE';
 // Signout
 export const USER_SIGNOUT_SUCCESS = 'USER_SIGNOUT_SUCCESS';
 
+// changeUserType
+export const CHANGE_USER_TYPE_LOADING = 'CHANGE_USER_TYPE_LOADING';
+export const CHANGE_USER_TYPE_SUCCESS = 'CHANGE_USER_TYPE_SUCCESS';
+export const CHANGE_USER_TYPE_FAILURE = 'CHANGE_USER_TYPE_FAILURE';
+
 // Auth-0 Login
 export const USER_AUTH0_LOGIN_LOADING = 'USER_AUTH0_LOGIN_LOADING';
 export const USER_AUTH0_LOGIN_SUCCESS = 'USER_AUTH0_LOGIN_SUCCESS';
@@ -250,6 +255,18 @@ export const signout = (uuid, history) => dispatch => {
   history.push('/');
   return Promise.resolve();
 };
+
+export const changeUserType = (user_id, user_type) => dispatch => {
+  dispatch({ type: CHANGE_USER_TYPE_LOADING })
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token } };
+
+  axios
+    .put(`${backendUrl}/users/type/${user_id}`, { user_type }, headers)
+    .then(res => dispatch({ type: CHANGE_USER_TYPE_SUCCESS, payload: res.data }))
+    .catch(err => handleError(err, CHANGE_USER_TYPE_FAILURE)(dispatch));
+  return Promise.resolve();
+}
 
 // prettier-ignore
 export const uploadAvatar = (user_id, avatarData, onUploadAvatarSuccess) => dispatch => {
