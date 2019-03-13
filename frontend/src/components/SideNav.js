@@ -17,13 +17,13 @@ const DivSideNav = styled.div`
   flex-direction: column;
   width: 100%;
   user-select:none;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: calc(100% - 170px);
   min-height: 10%;
 
   @media(max-width: 800px) {
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
   }
 `;
@@ -117,8 +117,9 @@ const DivCategoriesFollowed = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${ phoneL } {
-    padding-top: 15px;
+  @media (max-width: 800px) {
+    padding-top: 8px;
+    margin-left: -10px;
   }
 `;
 
@@ -170,11 +171,10 @@ const H4AllPosts = styled.h4`
   @media(max-width: 800px) {
     border: none;
     margin-right: 0px;
+    padding: 10px;
+    margin: 0;
+    padding-right: 0;
   }
-
-  // @media ${phoneL} {
-  //   margin-right: -10px;
-  // }
 `;
 
 const LinkAllPosts = styled(Link)`
@@ -209,16 +209,12 @@ const LinkAllPosts = styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 
     &:hover {
       border: 1px solid #418DCF;
     }
   }
-
-  // @media ${phoneL} {
-  //   padding: 11px 10px 11px 6px;
-  //   font-size: 12px;
-  // }
 `;
 
 const DivWindows = styled.div`
@@ -270,10 +266,6 @@ const PNoCatFollowMessage = styled.p`
   @media(max-width: 800px) {
     margin: 20px 0 0 60px;
   }
-
-  // @media ${phoneL} {
-  //   margin: 20px 0 0 5px;
-  // }
 `;
 
 const LiCategoryFollowed = styled.li`
@@ -305,12 +297,6 @@ const LiCategoryFollowed = styled.li`
 
     &:not(:last-child) {
       margin-right: 20px;
-    }
-  }
-
-  @media ${phoneL} {
-    &:not(:last-child) {
-      margin-right: 10px;
     }
   }
 `;
