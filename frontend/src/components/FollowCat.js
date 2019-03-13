@@ -29,9 +29,15 @@ const Followed = styled.div`
     margin-left: 10px;
     padding: 10px 15px;
 		border-radius: 5px;
-		border: none;
+		border: 1px solid #418DCF;
 		background-color: #418DCF;
-		color: white;
+    color: white;
+    
+    &:hover {
+      background-color: white;
+      color: #418DCF;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -51,37 +57,25 @@ class FollowCat extends Component {
 	  };
     
     render() {
-        const { user_id } = this.props;
         const isFollowing = this.props.categoriesFollowed.some(follow => follow.id === Number(this.props.category_id));
-        const followUnfollow = () => {
-          if(isFollowing === true){
-            return 'Unfollow'
-          } else {
-            return 'Follow'
-          }
-        }
         return (
-          <FollowWrapper>
-            <Followed>
-              <button
-                  className="follow"
-                  onClick={this.handleFollowClick}
-                  onChange = { this.handleChange }
-                  style={{backgroundColor: isFollowing ? 'lightsteelblue' : 'steelblue'}}
-              >
-              
-                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;{followUnfollow()}
-              </button>
-            </Followed>
+          <>
             {
-                !user_id &&
-                <ToolTip
-                  text = 'You must be logged in to follow a category.' // must  be any string
-                  arrow = 'left' // must be string that says 'top', 'right', 'left', or 'bottom'
-                  width = { 200 } // must be a number
-                />
-              }
-          </FollowWrapper>
+              isFollowing ?
+              null :
+              <FollowWrapper>
+                <Followed>
+                  <button
+                    className="follow"
+                    onClick={this.handleFollowClick}
+                    onChange = { this.handleChange }
+                  >
+                    <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Follow
+                  </button>
+                </Followed>
+              </FollowWrapper>
+            }
+          </>
         );
     }
 };
