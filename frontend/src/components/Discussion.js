@@ -53,7 +53,7 @@ const Wrapper = styled.div`
       font-size: 30px;
       margin-right: 35px;
       margin-top: 15px;
-      color: black;
+      color: ${props => props.theme.defaultColor};
 
       &:hover{
         cursor: pointer;
