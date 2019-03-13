@@ -17,13 +17,13 @@ const DivSideNav = styled.div`
   flex-direction: column;
   width: 100%;
   user-select:none;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: calc(100% - 170px);
   min-height: 10%;
 
   @media(max-width: 800px) {
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
   }
 `;
@@ -46,30 +46,12 @@ const DivHeader = styled.div`
 
     @media(max-width: 800px) {
       align-self: flex-start;
-<<<<<<< HEAD
-      margin: 0 10px 10px 10px;
-      margin-top: 15px;
-    }
-
-    @media ${phoneL} {
-      margin: 0 10px;
-      padding: 10px;
-      margin-top: 0px;
-    }
-=======
       margin: 0;
       padding: 0;
       position: absolute;
       top: 29px;
       left: 17px;
     }
-
-    // @media ${phoneL} {
-    //   margin: 0 10px;
-    //   padding: 10px;
-    //   margin-top: 10px;
-    // }
->>>>>>> 87d48f609849546d564eccd21014f933407c66e4
   }
 
   @media(max-width: 800px) {
@@ -77,11 +59,6 @@ const DivHeader = styled.div`
     margin: 0 20px 20px 20px;
     position: relative;
   }
-
-  // @media ${phoneL} {
-  //   margin: 0 10px;
-  //   justify-content: flex-end;
-  // }
 `;
 
 const H4BrowseCategories = styled.h4`
@@ -93,23 +70,10 @@ const H4BrowseCategories = styled.h4`
       width: auto;
       border: none;
       margin: 0 20px;
-<<<<<<< HEAD
-      margin-top: -47px;
-=======
       margin-top: 18px;
->>>>>>> 87d48f609849546d564eccd21014f933407c66e4
       margin-left: 60px;
       margin-right: 0px;
     }
-
-    // @media ${phoneL} {
-    //   display: flex;
-    //   width: auto;
-    //   border: none;
-    //   margin: 0 0 0 20px;
-    //   margin-top: -42px;
-    //   margin-left: 50px;
-    // }
 `;
 
 
@@ -138,80 +102,26 @@ const LinkBrowseCategories = styled(Link)`
   @media(max-width: 800px) {
     display: flex;
     align-items: center;
-<<<<<<< HEAD
-    padding: 10px;
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-    border-radius: 20px;
-    height: 12px;
-=======
     padding: 4px 10px;
     border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
     color: ${props => props.islinkselected === 'true' ? '#418DCF' : '#aaa'};
     border-radius: 10px;
->>>>>>> 87d48f609849546d564eccd21014f933407c66e4
 
     &:hover {
       border: 1px solid #418DCF;
     }
   }
-
-<<<<<<< HEAD
-  @media ${phoneL} {
-    padding: 5px;
-    font-size: 12px;
-    margin-top: 8px;
-  }
-=======
-  // @media ${phoneL} {
-  //   padding: 5px;
-  //   font-size: 12px;
-  // }
->>>>>>> 87d48f609849546d564eccd21014f933407c66e4
 `;
 
 const DivCategoriesFollowed = styled.div`
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-`
 
-// const H4CategoriesFollowedTitle = styled.h4`
-//   display: none;
-
-//   @media (max-width: 1345px) {
-//     display: block;
-//     margin: 8px 0 0 0;
-//     color: gray;
-//   }
-
-//   @media ${phoneL} {
-//     font-size: 12px;
-//     margin: 9px 0
-//   }
-// `;
-=======
-
-  @media ${ phoneL } {
-    padding-top: 15px;
+  @media (max-width: 800px) {
+    padding-top: 8px;
+    margin-left: -10px;
   }
 `;
->>>>>>> 87d48f609849546d564eccd21014f933407c66e4
-
-// const H4CategoriesFollowedTitle = styled.h4`
-//   display: none;
-
-//   @media (max-width: 800px) {
-//     display: block;
-//     margin: 8px 0 0 0;
-//     color: #aaa;
-//   }
-
-//   @media ${phoneL} {
-//     font-size: 12px;
-//     margin: 9px 0
-//   }
-// `;
 
 const DivCatFollowItems = styled.div`
   ul {
@@ -261,11 +171,10 @@ const H4AllPosts = styled.h4`
   @media(max-width: 800px) {
     border: none;
     margin-right: 0px;
+    padding: 10px;
+    margin: 0;
+    padding-right: 0;
   }
-
-  // @media ${phoneL} {
-  //   margin-right: -10px;
-  // }
 `;
 
 const LinkAllPosts = styled(Link)`
@@ -300,16 +209,12 @@ const LinkAllPosts = styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 
     &:hover {
       border: 1px solid #418DCF;
     }
   }
-
-  // @media ${phoneL} {
-  //   padding: 11px 10px 11px 6px;
-  //   font-size: 12px;
-  // }
 `;
 
 const DivWindows = styled.div`
@@ -361,10 +266,6 @@ const PNoCatFollowMessage = styled.p`
   @media(max-width: 800px) {
     margin: 20px 0 0 60px;
   }
-
-  // @media ${phoneL} {
-  //   margin: 20px 0 0 5px;
-  // }
 `;
 
 const LiCategoryFollowed = styled.li`
@@ -398,12 +299,6 @@ const LiCategoryFollowed = styled.li`
       margin-right: 20px;
     }
   }
-
-  @media ${phoneL} {
-    &:not(:last-child) {
-      margin-right: 10px;
-    }
-  }
 `;
 
 const LinkSideNav = styled(Link)`
@@ -435,26 +330,13 @@ const LinkSideNav = styled(Link)`
     white-space: pre;
     justify-content: center;
     align-items: center;
-<<<<<<< HEAD
-    height: 18px;
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    padding: 7px 12px 7px 15px;
-    border-radius: 20px;
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-=======
     height: 38px;
     border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
     color: ${props => props.islinkselected === 'true' ? 'blue' : '#aaa'};
->>>>>>> 87d48f609849546d564eccd21014f933407c66e4
   }
-
-  // @media ${phoneL} {
-  //   padding: 0 7px 0 10px;
-  //   font-size: 12px;
-  // }
 
   &:hover {
     color: blue;
@@ -571,3 +453,7 @@ export default connect(
   mapStateToProps,
   { getCategoriesFollowed }
 )(SideNav);
+Collapse
+
+
+
