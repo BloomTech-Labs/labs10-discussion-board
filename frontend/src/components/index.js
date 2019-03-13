@@ -2,6 +2,7 @@ import Categories from './categories/Categories.js';
 import CategoriesNav from './categories/CategoriesNav.js';
 import Category from './categories/Category.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
+import ChangeSubscriptionModal from './ChangeSubscriptionModal.js';
 import Discussion from './Discussion.js';
 import DiscussionsByCats from './DiscussionsByCats.js';
 import Reply from './Reply.js';
@@ -63,6 +64,7 @@ export {
   Categories,
   CategoriesNav,
   Category,
+  ChangeSubscriptionModal,
   AddCategoryModal,
   Discussion,
   DiscussionsByCats,
