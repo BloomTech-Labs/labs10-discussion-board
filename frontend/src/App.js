@@ -24,7 +24,8 @@ import {
   AddCategoryModal,
   LoginDropdown,
   AvatarDropdown,
-  Notifications
+  Notifications,
+  ChangeSubscriptionModal
 } from './components/index.js';
 
 // views
@@ -78,7 +79,7 @@ const DivBody = styled.div`
   align-items: flex-start;
   margin: ${props => props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'}  ;
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     width: 100%;
     margin: 0 0 40px 0;
     flex-direction: column;
@@ -88,7 +89,7 @@ const DivBody = styled.div`
 
 const DivSideNav = styled.div`
   display: ${props => props.isLoggedIn ? 'flex' : 'none'};
-  min-width: ${sideNavWidth};
+  width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
   left: 0;
@@ -96,8 +97,9 @@ const DivSideNav = styled.div`
   z-index: 7801;
   box-sizing: border-box;
   border-right: 2px solid rgb(243, 245, 248);
+  height: 100%;
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     position: relative;
     height: auto;
     width: 99.9%;
@@ -129,6 +131,7 @@ class App extends Component {
       isLoginDropdownModalRaised: false,
       isAvatarModalRaised: false,
       isNotificationsModalRaised: false,
+      isChangeSubModalRaised: false,
       isAddCatModalRaised: false
     };
   }
@@ -157,6 +160,12 @@ class App extends Component {
     ev.stopPropagation();
     this.setState({ isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead());
+  }
+
+  setChangeSubModalRaised = (ev, status) => {
+    ev.stopPropagation();
+    console.log('closeModal')
+    this.setState({ isChangeSubModalRaised: status });
   }
 
   setAddCatModalRaised = (ev, status) => {
@@ -208,6 +217,7 @@ class App extends Component {
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
             <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
             <Notifications history={history} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
+            <ChangeSubscriptionModal history={history} isChangeSubModalRaised={this.state.isChangeSubModalRaised} setChangeSubModalRaised={this.setChangeSubModalRaised} />
             <DivBody isLoggedIn>
               <DivSideNav isLoggedIn>
                 <SideNav setAddCatModalRaised={this.setAddCatModalRaised} />
@@ -220,7 +230,7 @@ class App extends Component {
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
-                <Route path='/settings/:id' component={Settings} />
+                <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
               </DivPage>

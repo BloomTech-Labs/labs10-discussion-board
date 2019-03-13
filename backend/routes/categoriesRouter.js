@@ -73,6 +73,7 @@ router.post('/:user_id', authenticate, authorizeCreateCat, (req, res) => {
   const { user_id } = req.params;
   let { newCategory } = req.body;
   newCategory.name = newCategory.name.trim();
+  if (!newCategory.name) return res.status(401).json({ error: 'Category name must not be blank.' });
   newCategory.user_id = user_id;
   return categoriesDB.getCategoryByName(newCategory.name)
     .then(cats => {

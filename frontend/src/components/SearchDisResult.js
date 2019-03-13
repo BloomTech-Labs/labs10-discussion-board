@@ -9,56 +9,61 @@ import { searchCharLimit } from '../globals/globals.js';
 import { Highlight, Deleted } from './index.js';
 
 const SearchDisResultWrapper = styled.div`
-	border: 1px solid red;
+	border: 1px solid #ddd;
 	border-radius: 5px;
-	padding: 5px 10px;
-	margin: 5px;
+	margin: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 0.9rem;
 
-	.type {
-		border-radius: 5px;
-		margin: 0;
-		background-color: ${props => props.theme.searchDisResultWrapperTypeBgColor};
-		text-align: center;
-		color: ${props => props.theme.searchDisResultWrapperTypeColor};
-		padding: 7px;
-	}
+	&:hover {
+		cursor: pointer;
+		background-color: #ccc;
 
-	.discussion-wrapper, .username-wrapper, .category-wrapper {
-		font-weight: bold;
-		border-radius: 5px;
-		padding: 10px;
-
-		&:hover {
-			cursor: pointer;
-			background-color: ${props => props.theme.searchDisResultWrapperUsernameBgColorHov};
-			color: ${props => props.theme.searchDisResultWrapperUsernameColorHov};
+		.created {
+			color: black;
 		}
 	}
 
-	hr {
-		border: 1px solid black;
+	.discussion-wrapper {
+		border-radius: 5px;
+		display: flex;
+		justify-content: center;
+		align-itens: center;
+
+		i {
+			margin-top: 19px;
+			margin-right: 10px;
+		}
+	}
+
+	.created {
+		margin: 0;
+		color: #aaa;
+		font-size: .7rem;
+		text-align: center;
+		margin-bottom: 5px;
 	}
 `;
 
-const SearchDisResult = ({ discussion, goTo, searchText, type }) => {
+const SearchDisResult = ({ discussion, goTo, searchText }) => {
 	const {
 		id,
 		body,
-		user_id,
-		username,
+		// user_id,
+		// username,
 		created_at,
-		votes,
+		// votes,
 		category_id,
 		category_name,
 	} = discussion;
-	const handleCategoryClick = () => goTo(`/discussions/category/${ category_id }`);
+	// const handleCategoryClick = () => goTo(`/discussions/category/${ category_id }`);
 	const handleDiscussionClick = () => goTo(`/discussion/${ id }`);
-	const handleUsernameClick = () => goTo(`/profile/${ user_id }`);
+	// const handleUsernameClick = () => goTo(`/profile/${ user_id }`);
 	searchText = searchText.toLowerCase();
 	const lowerCaseBody = body.toLowerCase();
 	return(
 		<SearchDisResultWrapper>
-			{ type && <p className = 'type'>{ type }</p> }
 			<div className = 'discussion-wrapper' onClick = { handleDiscussionClick }>
 				{
 					// if it includes the searchText
@@ -78,7 +83,6 @@ const SearchDisResult = ({ discussion, goTo, searchText, type }) => {
 									<Highlight
 										// highlight the searchText
 										text = { body.substr(lowerCaseBody.indexOf(searchText)).slice(0, searchText.length) }
-										color = 'red'
 									/>
 									{
 										// render a substring of all the chars to the right
@@ -100,7 +104,6 @@ const SearchDisResult = ({ discussion, goTo, searchText, type }) => {
 									<Highlight
 										// highlight the searchText
 										text = { body.substr(lowerCaseBody.indexOf(searchText)).slice(0, searchText.length) }
-										color = 'red'
 									/>
 									{
 										// if searchText is not at the end, place an ellipsis at the end
@@ -123,27 +126,7 @@ const SearchDisResult = ({ discussion, goTo, searchText, type }) => {
 					)
 				}
 			</div>
-			<hr />
-			<p>{ votes } vote{ votes !== '1' && 's' }</p>
-			<p>Posted by &nbsp;
-				{
-					username ?
-					<span
-						className = 'username-wrapper'
-						onClick = { handleUsernameClick }
-					>{ username }</span> :
-					<Deleted />
-				}
-				<br />
-				<br />
-				{moment(new Date(Number(created_at))).fromNow()}
-			</p>
-			<p>In category
-				<span
-					onClick = { handleCategoryClick }
-					className = 'category-wrapper'
-				>{ category_name }</span>
-			</p>
+			<p className = 'created'>Created {moment(new Date(Number(created_at))).fromNow()}</p>
 		</SearchDisResultWrapper>
 	);
 };

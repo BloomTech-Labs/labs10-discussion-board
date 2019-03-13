@@ -181,7 +181,7 @@ const Reply = ({
 
     return(
         <ReplyWrapper>
-          <BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
+          <BodyWrapper>{ body }</BodyWrapper>
           <InfoWrapper>
             <div className = 'user-info'>
               <div className = 'user' onClick = { handleUserClick }>

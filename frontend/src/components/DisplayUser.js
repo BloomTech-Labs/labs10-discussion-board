@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import chevron from '../assets/img/chevron.png';
 
 // globals
 import {
@@ -61,7 +60,8 @@ const PWelcomeMessage = styled.p`
         top: 0;
         right: -10px;
         font-size: 0.7rem;
-        background-color: yellow;
+        background-color: #418DCF;
+        color: white;
         border-radius: 50%;
         padding: 0 5px;
       }
@@ -106,7 +106,6 @@ class DisplayUser extends Component {
           >
 
             <Avatar height={'40px'} width={'40px'} src={avatar} />
-            <img src={chevron} alt='chevron' height={'13px'} width={'13px'} />
           </DivAvatar>
         </DivUser>
       </DivWrapper>
