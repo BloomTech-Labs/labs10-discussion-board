@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
-import Symp from '../assets/img/symposium6.png';
+import Symp from '../assets/img/symposiumLight.png';
 
 // Globals
 import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';

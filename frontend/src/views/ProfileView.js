@@ -17,7 +17,7 @@ import { Avatar, Deleted } from '../components/index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const ProfileStyle = styled.div `
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   justify-content: center;
   `;
@@ -29,17 +29,17 @@ const ProfileWrapper = styled.div`
   align-self: center;
   margin: 10px;
   padding: 10px;
-  width: 92%;
+  width: 100%;
   color: ${props => props.theme.discussionPostColor};
-  @media ${tabletP} {
+  @media (max-width: 1080px) {
     .react-tabs__tab {
-      width: 93%;
+      width: 100%;
       text-align: center;
     }
   }
   @media ${phoneP} {
     .react-tabs__tab {
-      width: 93%;
+      width: 100%;
       text-align: center;
     }
   }
@@ -47,15 +47,23 @@ const ProfileWrapper = styled.div`
     width: 10%;
     display: flex;
     align-self: flex-start;
+    
     @media ${phoneP} {
       width: 20%;
       }
   }
   .username-style { 
     margin-left: 0px;
-    font-size: 18px;
+    font-size: .8rem;
     justify-content: flex-start
-    @media ${tabletP} {
+    
+    &:hover {
+      cursor: pointer;
+      color: steelblue;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 1080px) {
       margin-left: 0px;
       display: flex;
       justify-content: flex-start;
@@ -72,7 +80,7 @@ const ProfileWrapper = styled.div`
     font-size: 10px;
     font-style: italic;
   }
-  @media ${tabletP}{
+  @media (max-width: 1080px){
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -105,7 +113,7 @@ color: ${props => props.theme.discussionPostColor};
   margin-right: 5px;
   width: 7%;
   height: 50px;
-  font-size: 30px;
+  font-size: 1rem;
   color: black;
   
   &:hover{
@@ -117,12 +125,12 @@ color: ${props => props.theme.discussionPostColor};
 const ContentDiv = styled.div`
 margin: 20px 0px 10px 0px;
   display: flex;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #ccc;
   a {
     text-decoration: none;
   }
   p {
-    font-size: 22px;
+    font-size: 1rem;
     margin-top: 16px;
   }
 color: ${props => props.theme.profileTitleContentDColor};
@@ -146,7 +154,11 @@ const PostedBy = styled.div`
   align-items: center;
   margin-left: 160px;
   min-width: 100px;
+  @media (max-width: 525px) {
+    display: none;
   }
+  }
+  
   .c-time {
     font-size: 0.8rem;
     display: flex;
@@ -155,7 +167,7 @@ const PostedBy = styled.div`
     margin-left: 150px;
     width: 50%
     min-width: 150px;
-    @media (max-width: 800px) {
+    @media (max-width: 1080px) {
       display: none;
     }
   }
@@ -167,12 +179,9 @@ const PostedBy = styled.div`
       display: none;
     }
   }
-
-    @media (max-width: 525px) {
-      display: none;
-    }
 }
 `;
+
 
 const PostHeader = styled.div`
   width: 90%;
@@ -231,7 +240,6 @@ class Profile extends Component {
     } else {
       if (this.props.profile) {
         profileItems = this.props.profile.map((profile, index) => (
-          
           <ProfileStyle key={index}>
             <ProfileWrapper className = 'prowrap'>
               <HeaderStyle>
@@ -383,6 +391,7 @@ class Profile extends Component {
               </Tabs>
             </ProfileWrapper>
           </ProfileStyle>
+          
         ));
       } else {
         profileItems = <h4>No profiles found...</h4>;

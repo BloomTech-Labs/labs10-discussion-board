@@ -48,14 +48,15 @@ export const getCategoriesFollowed = () => dispatch => {
     .catch(err => handleError(err, GET_CATEGORIES_FOLLOWED_FAILURE)(dispatch));
 };
 
-export const followCategory = (category_id, user_id, historyPush) => dispatch => {
+export const followCategory = (category_id, user_id, historyPush, onCategoriesPage) => dispatch => {
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   dispatch({ type: FOLLOW_CATEGORY_LOADING });
+  console.log("ONCATeREPAGE", onCategoriesPage);
   return axios.post(`${backendUrl}/category-follows/${user_id}/${category_id}`, {}, headers)
     .then(res => dispatch({ type: FOLLOW_CATEGORY_SUCCESS, payload: res.data }))
-    .then(() => historyPush('/'))
-    .then(() => historyPush(`/discussions/category/${category_id}`))
+    .then(() => !onCategoriesPage && console.log("GOING") && historyPush('/'))
+    .then(() => !onCategoriesPage && historyPush(`/discussions/category/${category_id}`))
     .catch(err => handleError(err, FOLLOW_CATEGORY_FAILURE)(dispatch));
 };
 
