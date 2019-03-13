@@ -6,42 +6,47 @@ import styled from 'styled-components';
 import { searchCharLimit } from '../globals/globals.js';
 
 // components
-import { Highlight, Deleted } from './index.js';
+import { Highlight } from './index.js';
 
 const SearchPostResultWrapper = styled.div`
-	border: 1px solid green;
+	border: 1px solid #ddd;
 	border-radius: 5px;
-	padding: 5px 10px;
-	margin: 5px;
+	margin: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 0.9rem;
 
-	.type {
-		border-radius: 5px;
-		margin: 0;
-		background-color: ${props => props.theme.searchPostResultWrapperTypeBgColor};
-		text-align: center;
-		color: ${props => props.theme.searchPostResultWrapperTypeColor};
-		padding: 7px;
-	}
+	&:hover {
+		cursor: pointer;
+		background-color: #ccc;
 
-	.post-body-wrapper, .username-wrapper, .category-wrapper, .discussion-wrapper {
-		border-radius: 5px;
-		margin: 0;
-		padding: 10px;
-		font-weight: bold;
-
-		&:hover {
-			cursor: pointer;
-			background-color: ${props => props.theme.searchPostResultWrapperUsernameBgColorHov};
-			color: ${props => props.theme.searchPostResultWrapperUsernameColorHov};
+		.created {
+			color: black;
 		}
 	}
 
-	hr {
-		border: 1px solid black;
+	.post-body-wrapper {
+		border-radius: 5px;
+		display: flex;
+		justify-content: center;
+		align-itens: center;
+
+		i {
+			margin-top: 19px;
+			margin-right: 10px;
+		}
+	}
+
+	.created {
+		margin: 0;
+		color: #aaa;
+		font-size: .7rem;
+		text-align: center;
+		margin-bottom: 5px;
 	}
 `;
 
-const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) => {
+const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname }) => {
 	const {
 		id,
 		discussion_id,
@@ -66,7 +71,6 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 	const lowerCaseBody = body.toLowerCase();
 	return(
 		<SearchPostResultWrapper>
-			{ type && <p className = 'type'>{ type }</p> }
 			<p className = 'post-body-wrapper' onClick = { handlePostBodyClick }>
 				{
 					// if the portion after the searchText is longer than or equal to
@@ -81,7 +85,6 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 						<Highlight
 							// highlight the searchText
 							text = { body.substr(lowerCaseBody.indexOf(searchText)).slice(0, searchText.length) }
-							color = 'green'
 						/>
 						{
 							// render a substring of all the chars to the right
@@ -103,7 +106,6 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 						<Highlight
 							// highlight the searchText
 							text = { body.substr(lowerCaseBody.indexOf(searchText)).slice(0, searchText.length) }
-							color = 'green'
 						/>
 						{
 							// if searchText is not at the end, place an ellipsis at the end
@@ -112,37 +114,7 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname, type }) 
 					</>
 				}
 			</p>
-			<hr />
-			<p>{ votes } vote{ votes !== '1' && 's' }</p>
-			<p>Posted by &nbsp;
-				{
-					username ?
-					<span
-						className = 'username-wrapper'
-						onClick = { handleUsernameClick }
-					>{ username }</span> :
-					<Deleted />
-				}
-				<br />
-				<br />
-				{moment(new Date(Number(created_at))).fromNow()}
-			</p>
-			<div>In post &nbsp;
-				<div onClick = { handleDiscussionClick } className = 'discussion-wrapper'>
-					{
-						// if discussion_body is longer than limit,
-						// slice first chars up to limit, and include an ellipsis at the end.
-						// else if shorter than limit, render the entirety of it
-						discussion_body.length > searchCharLimit ? discussion_body.slice(0, searchCharLimit) + ' ...' : discussion_body
-					}
-				</div>
-			</div>
-			<p>In category
-				<span
-					onClick = { handleCategoryClick }
-					className = 'category-wrapper'
-				>{ category_name }</span>
-			</p>
+			<p className = 'created'>Created {moment(new Date(Number(created_at))).fromNow()}</p>
 		</SearchPostResultWrapper>
 	);
 };

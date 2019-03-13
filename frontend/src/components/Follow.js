@@ -55,18 +55,23 @@ const Followed = styled.div`
         const isFollowing = this.props.discussionFollows.some(follow => follow.discussion_id === Number(this.props.discussion_id));
         return (
           <FollowWrapper>
-            {
-              !isFollowing &&
-              <Followed isFollowing = { isFollowing }>
+            <Followed isFollowing = { isFollowing }>
               <button
                 className = 'follow-btn'
                 onClick={this.handleFollowClick}
                 onChange = { this.handleChange }
               >
-                <i className='fas fa-plus-circle' />&nbsp;Follow Post
+              {
+                isFollowing ?
+                <>
+                  <i className='fas fa-minus-circle' />&nbsp;Unfollow Post
+                </> :
+                <>
+                  <i className='fas fa-plus-circle' />&nbsp;Follow Post
+                </>
+              }
               </button>
             </Followed>
-            }
           </FollowWrapper>
         );
     }

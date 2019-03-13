@@ -5,7 +5,7 @@ import { Nav } from '../components/index.js';
 import Symp from '../assets/img/symposium6.png';
 
 // Globals
-import { topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
+import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
 
 const StyledHeader = styled.div`
   position: sticky;
@@ -34,7 +34,7 @@ const StyledHeader = styled.div`
   }
 
   .LogoContainer {
-    width: 300px;
+    width: ${ sideNavWidth };
     display: flex;
     justify-content: center;
     align-items: center;
