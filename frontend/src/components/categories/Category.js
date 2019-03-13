@@ -13,18 +13,20 @@ const DivRow = styled.div`
   align-items: center;
   justify-content: space-between;
   user-select: none;
+  border-radius: 5px;
+  padding: 5px;
 
   &:not(:last-child) {
-    border-bottom: 1px solid black;
-  }
-
-  .link {
-    color: black;
+    border-bottom: 1px solid #ccc;
   }
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
+
+    .black-on-hover {
+      color: black;
+    }
   }
 `;
 
@@ -50,13 +52,13 @@ const DivIcon = styled.div`
 
 const DivCategoryContainer = styled.div`
   display: flex;
-  width: 450px;
+  width: 100%;
 
-  @media (max-width: 1024px) {
-    width: 310px;
+  @media (max-width: 910px) {
+    justify-content: center;
+    align-items: center;
   }
 
-  
   @media (max-width: 775px) {
     width: 100%;
   }
@@ -65,9 +67,14 @@ const DivCategoryContainer = styled.div`
 const DivCategory = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   @media (max-width: 1024px) {
     justify-content: center;
+  }
+
+  @media (max-width: 910px) {
+    width: 50%;
   }
 `;
 
@@ -87,10 +94,11 @@ const SpanCategory = styled.span`
 const DivCategoryInfo = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  color: #aaa;
 
   p {
     font-size: 11px;
-    color: black;
     margin: 0 0 15px 0;
 
     &:not(:last-child) {
@@ -100,12 +108,16 @@ const DivCategoryInfo = styled.div`
     span {
       color: rgb(150,150,150);
     }
+  }
 
-    .span-moment {
-      color: black;
+  .moderator-wrapper {
+    @media (max-width: 1060px) {
+      display: none;
     }
 
-    &:last-child {
+    .moderator {
+      display: inline-block;
+      text-decoration: none;
       cursor: pointer;
 
       &:hover {
@@ -114,34 +126,19 @@ const DivCategoryInfo = styled.div`
     }
   }
 
-  @media ${tabletL} {
-    display: none;
-  }
-`;
-
-const DivRowInfo = styled.div``;
-
-const H5CreatedAt = styled.h5`
-  color: rgb(150,150,150);
-  font-weight: normal;
-  @media (max-width: 878px) {
-    display: none;
-  }
-`;
-
-const SpanSuperModerator = styled.span`
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-  width: 290px;
-
-  &:hover {
-    color: blue;
+  .latest {
+    &:hover {
+      color: blue;
+    }
   }
 
-  
-  @media (max-width: 775px) {
+  @media (max-width: 910px) {
+    .latest-wrapper {
+      display: none;
+    }
+  }
+
+  @media (max-width: 580px) {
     display: none;
   }
 `;
@@ -177,18 +174,14 @@ const Category = ({ category, history }) => {
         <DivCategory>
           <SpanCategory className='link' onClick={(ev) => goToCategory(ev)}>{name}</SpanCategory>
           <DivCategoryInfo>
-            <p><span>Discussions:</span>&nbsp;{discussion_count}</p>
+            <p><span>Created:</span>&nbsp;{moment(new Date(Number(created_at))).fromNow()}</p>
+            <p><span>Discussions:</span>&nbsp;{discussion_count || 0}</p>
             {(post_count) ? <p><span>Posts:</span>&nbsp;{post_count}</p> : <p><span>Posts:</span>&nbsp;0</p>}
-            {(latest_post_body) ? <p onClick={(ev) => lastPost(ev)}><span>Latest:</span>&nbsp;<span className='span-moment'>{moment(new Date(Number(latest_post_created_at))).fromNow()}</span>,&nbsp;{latestPostBodyElipsis}</p> : <p><span>Latest:</span>&nbsp;empty</p>}
+            <p className = 'moderator-wrapper'><span>Moderator:</span>&nbsp;<span className = 'moderator black-on-hover' onClick={(ev) => profileSuperModerator(ev)}>{user_username}</span></p>
+            {(latest_post_body) ? <p className = 'latest-wrapper'><span>Latest post:</span>&nbsp;(<span className='span-moment'>{moment(new Date(Number(latest_post_created_at))).fromNow()}</span>)&nbsp;<span className = 'latest black-on-hover' onClick={(ev) => lastPost(ev)}>{latestPostBodyElipsis}</span></p> : <p className = 'latest-wrapper'><span>Latest post:</span>&nbsp;None</p>}
           </DivCategoryInfo>
         </DivCategory>
       </DivCategoryContainer>
-      <DivRowInfo>
-        <H5CreatedAt>{moment(new Date(Number(created_at))).fromNow()}</H5CreatedAt>
-      </DivRowInfo>
-      <DivRowInfo>
-        <SpanSuperModerator onClick={(ev) => profileSuperModerator(ev)}>{user_username}</SpanSuperModerator>
-      </DivRowInfo>
     </DivRow>
   );
 }
