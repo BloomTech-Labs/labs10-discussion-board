@@ -89,7 +89,7 @@ const DiscussionHeader = styled.div`
       margin-left: 10px;
       padding: 10px 15px;
       border-radius: 5px;
-      border: none;
+      border: 1px solid #418DCF;
       background-color: #418DCF;
       color: white;
 
@@ -97,7 +97,6 @@ const DiscussionHeader = styled.div`
         cursor: pointer;
         background-color: white;
         color: #418DCF;
-        border: 1px solid #418DCF;
       }
     }
   }
