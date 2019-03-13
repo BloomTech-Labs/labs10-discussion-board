@@ -17,6 +17,9 @@ const DivSideNav = styled.div`
   flex-direction: column;
   width: 100%;
   user-select:none;
+  overflow-y: scroll;
+  height: calc(100% - 170px);
+  min-height: 10%;
 
   @media(max-width: 800px) {
     flex-direction: row;
@@ -49,12 +52,6 @@ const DivHeader = styled.div`
       top: 29px;
       left: 17px;
     }
-
-    // @media ${phoneL} {
-    //   margin: 0 10px;
-    //   padding: 10px;
-    //   margin-top: 10px;
-    // }
   }
 
   @media(max-width: 800px) {
@@ -62,11 +59,6 @@ const DivHeader = styled.div`
     margin: 0 20px 20px 20px;
     position: relative;
   }
-
-  // @media ${phoneL} {
-  //   margin: 0 10px;
-  //   justify-content: flex-end;
-  // }
 `;
 
 const H4BrowseCategories = styled.h4`
@@ -82,15 +74,6 @@ const H4BrowseCategories = styled.h4`
       margin-left: 60px;
       margin-right: 0px;
     }
-
-    // @media ${phoneL} {
-    //   display: flex;
-    //   width: auto;
-    //   border: none;
-    //   margin: 0 0 0 20px;
-    //   margin-top: -42px;
-    //   margin-left: 50px;
-    // }
 `;
 
 
@@ -128,11 +111,6 @@ const LinkBrowseCategories = styled(Link)`
       border: 1px solid #418DCF;
     }
   }
-
-  // @media ${phoneL} {
-  //   padding: 5px;
-  //   font-size: 12px;
-  // }
 `;
 
 const DivCategoriesFollowed = styled.div`
@@ -143,21 +121,6 @@ const DivCategoriesFollowed = styled.div`
     padding-top: 15px;
   }
 `;
-
-// const H4CategoriesFollowedTitle = styled.h4`
-//   display: none;
-
-//   @media (max-width: 800px) {
-//     display: block;
-//     margin: 8px 0 0 0;
-//     color: #aaa;
-//   }
-
-//   @media ${phoneL} {
-//     font-size: 12px;
-//     margin: 9px 0
-//   }
-// `;
 
 const DivCatFollowItems = styled.div`
   ul {
@@ -242,6 +205,10 @@ const LinkAllPosts = styled(Link)`
     border-radius: 10px;
     padding: 5px 10px;
     margin-right: 20px;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
       border: 1px solid #418DCF;
@@ -269,6 +236,8 @@ const DivWindows = styled.div`
   margin-bottom: 6px;
   @media (max-width: 800px) {
     margin-left: 0px;
+    justify-content: center
+    align-items: center
   }
   div {
     background-color: black;
@@ -382,11 +351,6 @@ const LinkSideNav = styled(Link)`
     border-radius: 10px;
     color: ${props => props.islinkselected === 'true' ? 'blue' : '#aaa'};
   }
-
-  // @media ${phoneL} {
-  //   padding: 0 7px 0 10px;
-  //   font-size: 12px;
-  // }
 
   &:hover {
     color: blue;
