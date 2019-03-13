@@ -15,7 +15,11 @@ import {
   subscriptionFreeFeatures,
   subscriptionBronzeFeatures,
   subscriptionSilverFeatures,
-  subscriptionGoldFeatures
+  subscriptionGoldFeatures,
+  subFreeStartIndex,
+  subBronzeStartIndex,
+  subSilverStartIndex,
+  subGoldStartIndex,
 } from '../globals/globals.js';
 
 // actions
@@ -1137,9 +1141,14 @@ class RegisterView extends Component {
               <DivAccoutProperties>
                 <H3InvoiceEntry>Username:<span>{this.state.username}</span></H3InvoiceEntry>
                 <H3InvoiceEntry>Email:<span>{(this.state.email) ? this.state.email : 'NONE'}</span></H3InvoiceEntry>
-                <H3InvoiceEntry>Ads:<SpanBoolColor subPlan={this.state.subPlan !== subscriptionPlans[0]}>{this.state.subPlan === subscriptionPlans[0] ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
-                <H3InvoiceEntry>Signature:<SpanBoolColor subPlan={(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3])}>{(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3]) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
-                <H3InvoiceEntry>Avatar:<SpanBoolColor subPlan={this.state.subPlan === subscriptionPlans[3]}>{this.state.subPlan === subscriptionPlans[3] ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Account Profile:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Account Settings:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Add Categories:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex}>{subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Add Posts to Categories:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subBronzeStartIndex}>{(subscriptionPlans.indexOf(this.state.subPlan) >= subBronzeStartIndex) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Add Comments to Posts:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Add Replies to Comments:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Signature:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex}>{(subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Avatar:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subGoldStartIndex}>{(subscriptionPlans.indexOf(this.state.subPlan) >= subGoldStartIndex) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
               </DivAccoutProperties>
               <DivFees>
                 <H3PaymentEntry>Payment Plan Cost:<span>{paymentPlanCost}</span></H3PaymentEntry>

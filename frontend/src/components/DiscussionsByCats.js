@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from './index.
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
 
 // globals
-import { tabletP, phoneP, accountUserTypes, addPostPermStartIndex } from '../globals/globals.js';
+import { tabletP, phoneP, accountUserTypes, subBronzeStartIndex } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -40,7 +40,7 @@ const DiscussionsWrapper = styled.div`
 		align-items: center;
 		width: 95%;
 		color: ${props => props.theme.discussionPostColor};
-		@media ${ tabletP } {
+		@media ${ tabletP} {
 			width: 100%;
 		}
 	}
@@ -181,14 +181,14 @@ class DiscussionsByCats extends Component {
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
-          <div className = 'name-follow-wrapper'>
+          <div className='name-follow-wrapper'>
             <h2 className='name'>{category_name}</h2>
             <FollowCat
               category_id={match.params.category_id}
               historyPush={history.push}
             />
           </div>
-          <div className = 'filter-add-btn-wrapper'>
+          <div className='filter-add-btn-wrapper'>
             <div className='filter-wrapper'>
               <i className='fab fa-mix' />
               <span>Filter by</span>
@@ -204,7 +204,7 @@ class DiscussionsByCats extends Component {
                 <option value={mostComments}>{mostComments}</option>
               </select>
             </div>
-            {(accountUserTypes.indexOf(user_type) >= addPostPermStartIndex) &&
+            {(accountUserTypes.indexOf(user_type) >= subBronzeStartIndex) &&
               <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
                 <i className='fas fa-plus-circle' />&nbsp;Add Post
             </button>}

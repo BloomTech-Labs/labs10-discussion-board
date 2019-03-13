@@ -9,7 +9,7 @@ import { getAllDiscussionsByFollowedCategories, handleDiscussionVote } from '../
 import { DiscussionByFollowedCats, AddDiscussionForm } from './index.js';
 
 // globals
-import { phoneP, tabletP, accountUserTypes, addPostPermStartIndex } from '../globals/globals.js';
+import { phoneP, tabletP, accountUserTypes, subBronzeStartIndex } from '../globals/globals.js';
 
 const DiscussionsWrapper = styled.div`
 	display: flex;
@@ -158,7 +158,7 @@ class AllDiscussionsByFollowedCats extends Component {
           <h2 className='all-posts'>All Posts</h2>
           <div className='filter-wrapper'>
             <i className='fab fa-mix' />
-            <span className = 'filter-by'>Filter by &nbsp;</span>
+            <span className='filter-by'>Filter by &nbsp;</span>
             <select
               className='filter'
               onChange={this.handleSelectChange}
@@ -171,7 +171,7 @@ class AllDiscussionsByFollowedCats extends Component {
               <option value={mostComments}>{mostComments}</option>
             </select>
           </div>
-          {(accountUserTypes.indexOf(user_type) >= addPostPermStartIndex) &&
+          {(accountUserTypes.indexOf(user_type) >= subBronzeStartIndex) &&
             <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
               <i className='fas fa-plus-circle' />&nbsp;Add Post
           </button>}
