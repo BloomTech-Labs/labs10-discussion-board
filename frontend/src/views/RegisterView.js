@@ -3,13 +3,28 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import { subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken, defaultAvatar, phoneL } from '../globals/globals.js';
+
+// globals
+import {
+  subscriptionPlans,
+  subscriptionPrices,
+  stripePayFormat,
+  stripeToken,
+  defaultAvatar,
+  phoneL,
+  subscriptionFreeFeatures,
+  subscriptionBronzeFeatures,
+  subscriptionSilverFeatures,
+  subscriptionGoldFeatures
+} from '../globals/globals.js';
+
+// actions
 import {
   register,
   displayError,
   isUsernameTaken,
   isEmailTaken,
-  stripePayment,
+  stripePayment
 } from '../store/actions/index';
 import { Avatar, ToolTip } from '../components/index.js';
 
@@ -1164,10 +1179,9 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[0]}>
                         <h2>Free Plan</h2>
                         <ul>
-                          <li>Account Profile</li>
-                          <li>Account Settings</li>
-                          <li>Add Comments to Posts</li>
-                          <li>Add Replies to Comments</li>
+                          {
+                            subscriptionFreeFeatures.map(feature => <li>{feature}</li>)
+                          }
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[0]}</h4>
@@ -1190,11 +1204,9 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[1]}>
                         <h2>Bronze Plan</h2>
                         <ul>
-                          <li>Account Profile</li>
-                          <li>Account Settings</li>
-                          <li>Add Posts to Categories</li>
-                          <li>Add Comments to Posts</li>
-                          <li>Add Replies to Comments</li>
+                          {
+                            subscriptionBronzeFeatures.map(feature => <li>{feature}</li>)
+                          }
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[1]}</h4>
@@ -1217,13 +1229,9 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[2]}>
                         <h2>Silver Plan</h2>
                         <ul>
-                          <li>Account Profile</li>
-                          <li>Account Settings</li>
-                          <li>Gets Signature</li>
-                          <li>Add Categories</li>
-                          <li>Add Posts to Categories</li>
-                          <li>Add Comments to Posts</li>
-                          <li>Add Replies to Comments</li>
+                          {
+                            subscriptionSilverFeatures.map(feature => <li>{feature}</li>)
+                          }
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[2]}</h4>
@@ -1246,14 +1254,9 @@ class RegisterView extends Component {
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[3]}>
                         <h2>Gold Plan</h2>
                         <ul>
-                          <li>Account Profile</li>
-                          <li>Account Settings</li>
-                          <li>Gets Signature</li>
-                          <li>Gets Avatar</li>
-                          <li>Add Categories</li>
-                          <li>Add Posts to Categories</li>
-                          <li>Add Comments to Posts</li>
-                          <li>Add Replies to Comments</li>
+                          {
+                            subscriptionGoldFeatures.map(feature => <li>{feature}</li>)
+                          }
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[3]}</h4>
