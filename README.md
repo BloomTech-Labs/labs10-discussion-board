@@ -1,6 +1,7 @@
-# labs10-discussion-board
 
-## Project Name: Symposium
+# Symposium Discussion Board
+
+Symposium is a place where like-minded people can come together to share and discuss ideas.
 
 # Table of Contents
 

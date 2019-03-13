@@ -47,6 +47,7 @@ const ProfileWrapper = styled.div`
     width: 10%;
     display: flex;
     align-self: flex-start;
+    
     @media ${phoneP} {
       width: 20%;
       }
@@ -55,6 +56,13 @@ const ProfileWrapper = styled.div`
     margin-left: 0px;
     font-size: 18px;
     justify-content: flex-start
+    
+    &:hover {
+      cursor: pointer;
+      color: steelblue;
+      text-decoration: underline;
+    }
+
     @media (max-width: 1080px) {
       margin-left: 0px;
       display: flex;
@@ -150,6 +158,7 @@ const PostedBy = styled.div`
     display: none;
   }
   }
+  
   .c-time {
     font-size: 0.8rem;
     display: flex;
