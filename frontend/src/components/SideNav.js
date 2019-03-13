@@ -403,7 +403,7 @@ class SideNav extends Component {
               to={`/categories`}
               islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
               onClick={() => this.selectLink('BrowseCategories')}
-            ><i className="fas fa-book-open" />Browse&nbsp;Categories</LinkBrowseCategories>
+            ><i className="fas fa-book-open" />Browse&nbsp;</LinkBrowseCategories>
           </H4BrowseCategories>
           {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
             <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
