@@ -71,7 +71,7 @@ class FollowCat extends Component {
                   onClick={this.handleFollowClick}
                   onChange = { this.handleChange }
                 >
-                  <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Un-Follow
+                  <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Unfollow
                 </button>
               </Followed>
             </FollowWrapper> : null :

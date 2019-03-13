@@ -59,7 +59,6 @@ const InfoWrapper = styled.div`
       color: black;
 
       &:hover {
-        text-decoration: underline;
         cursor: pointer;
       }
     }
@@ -78,7 +77,7 @@ const InfoWrapper = styled.div`
 
       &:hover {
         cursor: pointer;
-        color: black;
+        color: #418DCF;
       }
 
       @media (max-width: 530px) {
@@ -149,8 +148,7 @@ const UsernameWrapper = styled.span`
 
   &:hover {
 		cursor: pointer;
-		color: steelblue;
-		text-decoration: underline;
+		color: #418DCF;
 	}
 `;
 

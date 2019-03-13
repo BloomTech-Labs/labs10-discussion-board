@@ -75,7 +75,7 @@ const InfoWrapper = styled.div`
 
 		.category-wrapper {
 			&:hover {
-				color: black;
+				color: #418DCF;
 				cursor: pointer;
 			}
 
@@ -142,8 +142,7 @@ const UsernameWrapper = styled.span`
 
 	&:hover {
 		cursor: pointer;
-		color: steelblue;
-		text-decoration: underline;
+		color: #418DCF;
 	}
 `;
 
