@@ -325,6 +325,7 @@ const Email = styled.div`
   }
 `;
 const Password = styled.div`
+  visibility: ${props => props.hide ? 'hidden' : 'visible'};
   font-size: 14px;
   width: 50%;
   display: flex;
@@ -465,11 +466,15 @@ class Settings extends Component {
               </p>
             </Email>
             {
-              !isAuth0 &&
-              <Password>
-                <p>Old Password <input name='oldPassword' className='input-style' type='password' placeholder='enter old password' value={this.state.oldPassword} onChange={this.handleInputChange} /></p>
-                <p>New Password <input name='newPassword' className='input-style' type='password' placeholder='enter new password' value={this.state.newPassword} onChange={this.handleInputChange} /></p>
-              </Password>
+              !isAuth0 ?
+                <Password>
+                  <p>Old Password <input name='oldPassword' className='input-style' type='password' placeholder='enter old password' value={this.state.oldPassword} onChange={this.handleInputChange} /></p>
+                  <p>New Password <input name='newPassword' className='input-style' type='password' placeholder='enter new password' value={this.state.newPassword} onChange={this.handleInputChange} /></p>
+                </Password> :
+                <Password hide>
+                  <p>Old Password <input name='oldPassword' className='input-style' type='password' placeholder='enter old password' value={this.state.oldPassword} onChange={this.handleInputChange} /></p>
+                  <p>New Password <input name='newPassword' className='input-style' type='password' placeholder='enter new password' value={this.state.newPassword} onChange={this.handleInputChange} /></p>
+                </Password>
             }
             <DivSubscriptionPlan>
               <p>Subscription&nbsp;Plan:&nbsp;{(subPlan) ? <SpanSubPlan subplan={subPlan}>{subPlan.toUpperCase()}</SpanSubPlan> : <SpanSubPlan>{user_type.toUpperCase()}</SpanSubPlan>}</p>

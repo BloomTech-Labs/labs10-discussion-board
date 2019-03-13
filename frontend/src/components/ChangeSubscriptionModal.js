@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
 
 // globals
-import { phoneL, tabletL, topHeaderHeight, subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken } from '../globals/globals.js';
+import { phoneL, topHeaderHeight, accountUserTypes, subscriptionPlans, subscriptionPrices, stripePayFormat, stripeToken } from '../globals/globals.js';
 
 // actions
-import { stripePayment } from '../store/actions/index';
+import { stripePayment, changeUserType } from '../store/actions/index';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -103,6 +103,11 @@ const DivBanner = styled.div`
     width: 2em;
     height: 2em;
     cursor: pointer;
+    visibility: hidden;
+
+    @media(max-width: 1080px) {
+      visibility: visible;
+    }
   }
 
   @media(max-width: 1080px) {
@@ -409,6 +414,10 @@ class ChangeSubscriptionModal extends Component {
     this.setState({ subPlan: sub });
   };
 
+  getUserTypeSelected = () => {
+    return accountUserTypes[subscriptionPlans.indexOf(this.state.subPlan)];
+  }
+
   getPaymentAmount = () => {
     switch (this.state.subPlan) {
       case subscriptionPlans[1]:
@@ -436,7 +445,6 @@ class ChangeSubscriptionModal extends Component {
   }
 
   onToken = (token) => {
-    console.log('first');
     const headersObj = {
       headers: {
         Accept: 'application/json',
@@ -449,18 +457,14 @@ class ChangeSubscriptionModal extends Component {
         email: this.state.email
       }
     }
-    console.log('foo');
-    this.props.stripePayment(headersObj).then(() => { console.log('bar') });
+    this.props.stripePayment(headersObj).then(() => this.props.changeUserType(this.props.profile.id, this.getUserTypeSelected()).then(() => this.props.setChangeSubModalRaised(null, false)));
   }
 
   render() {
-    const { history, setChangeSubModalRaised } = this.props;
+    const { setChangeSubModalRaised } = this.props;
     const stripeAmount = this.getStripePayment();
-    const stripeEmail = this.state.email;
+    const stripeEmail = this.props.profile.email;
     const subPlan = `${this.state.subPlan.toUpperCase()} Plan`;
-    console.log('stripeAmount', stripeAmount)
-    console.log('stripeEmail', stripeEmail)
-    console.log('subPlan', subPlan)
     return (
       <DivChangeSubModal ischangesubmodalraised={this.props.isChangeSubModalRaised.toString()}>
         <DivModalCloser onClick={(ev) => setChangeSubModalRaised(ev, false)} />
@@ -576,7 +580,13 @@ class ChangeSubscriptionModal extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    profile: state.profilesData.singleProfileData[0]
+  };
+};
+
 export default connect(
-  null,
-  { stripePayment }
+  mapStateToProps,
+  { stripePayment, changeUserType }
 )(ChangeSubscriptionModal);
