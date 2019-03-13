@@ -94,7 +94,7 @@ const InfoWrapper = styled.div`
 			display: flex;
 		}
 
-		@media (max-width: 830px) {
+		@media (max-width: 1075px) {
 			justify-content: center;
 
 			.desktop {
@@ -102,7 +102,7 @@ const InfoWrapper = styled.div`
 			}
 		}
 
-		@media (max-width: 630px) {
+		@media (max-width: 970px) {
 			.tablet {
 				display: none;
 			}
@@ -123,13 +123,13 @@ const InfoWrapper = styled.div`
 		margin-right: 8px;
 	}
 
-	@media (max-width: 830px) {
+	@media (max-width: 1075px) {
 		.desktop {
 			display: none;
 		}
 	}
 
-	@media (max-width: 630px) {
+	@media (max-width: 970px) {
 		.tablet, .desktop {
 			display: none;
 		}
@@ -210,7 +210,7 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 					<div className = 'date-views-comment tablet'>
 						<span>{moment(new Date(Number(created_at))).fromNow()}</span>
 						<i className = 'fas fa-circle' />
-						<span className = 'desktop'>{ views } View{ views !== 1 && 's' }</span>
+						<span className = 'desktop'>{ views || 0 } View{ views !== 1 && 's' }</span>
 						<i className = 'fas fa-circle desktop' />
 						<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
 					</div>

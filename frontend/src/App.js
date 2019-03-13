@@ -78,7 +78,7 @@ const DivBody = styled.div`
   align-items: flex-start;
   margin: ${props => props.isLoggedIn ? '0 0 40px ' + sideNavWidth : '0 0 40px 0'}  ;
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     width: 100%;
     margin: 0 0 40px 0;
     flex-direction: column;
@@ -88,7 +88,7 @@ const DivBody = styled.div`
 
 const DivSideNav = styled.div`
   display: ${props => props.isLoggedIn ? 'flex' : 'none'};
-  min-width: ${sideNavWidth};
+  width: ${sideNavWidth};
   min-height: 100%;
   position: fixed;
   left: 0;
@@ -97,7 +97,7 @@ const DivSideNav = styled.div`
   box-sizing: border-box;
   border-right: 2px solid rgb(243, 245, 248);
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     position: relative;
     height: auto;
     width: 99.9%;

@@ -3,13 +3,6 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
 
-//globals
-import {
-  // phoneP,
-  phoneL,
-  // tabletP,
-} from '../globals/globals.js'
-
 // components
 import {
   AddReplyForm,
@@ -22,15 +15,7 @@ import {
   Reply,
 } from './index.js';
 
-// import { RepliesView } from '../views/index.js';
-
 import { handlePostVote, handleReplyVote } from '../store/actions/index.js';
-
-//Styled Divs 
-// const H5signature = styled.h5`
-//   border-top: 1px solid black;
-//   padding: 15px;
-// `;
 
 const PostWrapper = styled.div`
   display: flex;
@@ -165,11 +150,11 @@ const UsernameWrapper = styled.span`
 
 const Post = ({
   post,
-  loggedInUserId,
+  // loggedInUserId,
   historyPush,
-  showEditPostForm,
-  updateEditPostForm,
-  handleRemovePost,
+  // showEditPostForm,
+  // updateEditPostForm,
+  // handleRemovePost,
   showAddReplyForm,
   handlePostVote,
   toggleAddReplyForm,
@@ -183,7 +168,7 @@ const Post = ({
     created_at,
     discussion_id,
     id,
-    last_edited_at,
+    // last_edited_at,
     downvotes,
     replies,
     user_id,
@@ -209,20 +194,6 @@ const Post = ({
       return toggleAddReplyForm(id)
     }
   };
-
-  //Shows Created timestamp, then Edited Time stamp overrides it once post is edited
-  // const timeStamp =() => {
-  //   if(last_edited_at){
-  //     return (
-  //           <span>
-  //             Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-  //           </span>
-  //         )
-  //   } else if(created_at) {
-  //     return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-  //     )
-  //   }
-  // };
 
   const handleUserClick = e => {
     e.stopPropagation();

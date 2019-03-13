@@ -18,11 +18,10 @@ const DivSideNav = styled.div`
   width: 100%;
   user-select:none;
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
-    margin-top: 20px;
   }
 `;
 
@@ -35,67 +34,71 @@ const DivHeader = styled.div`
     font-size: 21px;
     cursor: pointer;
     padding: 10px;
-    color: red;
+    color: #418DCF;
     margin: 10px;
 
     &:hover {
-      color: green;
+      color: #aaa;
     }
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       align-self: flex-start;
-      margin: 0 10px 10px 10px;
-      margin-top: 35px;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 29px;
+      left: 17px;
     }
 
-    @media ${phoneL} {
-      margin: 0 10px;
-      padding: 10px;
-      margin-top: 10px;
-    }
+    // @media ${phoneL} {
+    //   margin: 0 10px;
+    //   padding: 10px;
+    //   margin-top: 10px;
+    // }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     flex-direction: column-reverse;
     margin: 0 20px 20px 20px;
+    position: relative;
   }
 
-  @media ${phoneL} {
-    margin: 0 10px;
-    justify-content: flex-end;
-  }
+  // @media ${phoneL} {
+  //   margin: 0 10px;
+  //   justify-content: flex-end;
+  // }
 `;
 
 const H4BrowseCategories = styled.h4`
     width: 95%;
-    border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
+    border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: flex;
       width: auto;
       border: none;
       margin: 0 20px;
-      margin-top: -63px;
+      margin-top: 18px;
       margin-left: 60px;
       margin-right: 0px;
     }
 
-    @media ${phoneL} {
-      display: flex;
-      width: auto;
-      border: none;
-      margin: 0 0 0 20px;
-      margin-top: -42px;
-      margin-left: 50px;
-    }
+    // @media ${phoneL} {
+    //   display: flex;
+    //   width: auto;
+    //   border: none;
+    //   margin: 0 0 0 20px;
+    //   margin-top: -42px;
+    //   margin-left: 50px;
+    // }
 `;
 
 
 
 const LinkBrowseCategories = styled(Link)`
-  // text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
   text-decoration: none;
-  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+  color: ${props => props.islinkselected === 'true' ? '#418DCF' : 'black'};
+  font-weight: normal;
 
   i {
     cursor: pointer;
@@ -103,7 +106,7 @@ const LinkBrowseCategories = styled(Link)`
     color: inherit;
     margin-left: 12px;
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       padding: 10px 8px 6px 0;
       margin: 0;
     }
@@ -113,51 +116,55 @@ const LinkBrowseCategories = styled(Link)`
     color: blue;
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-    border-radius: 20px;
+    padding: 4px 10px;
+    border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
+    color: ${props => props.islinkselected === 'true' ? '#418DCF' : '#aaa'};
+    border-radius: 10px;
 
     &:hover {
-      border: 2px solid blue;
+      border: 1px solid #418DCF;
     }
   }
 
-  @media ${phoneL} {
-    padding: 5px;
-    font-size: 12px;
-  }
+  // @media ${phoneL} {
+  //   padding: 5px;
+  //   font-size: 12px;
+  // }
 `;
 
 const DivCategoriesFollowed = styled.div`
   display: flex;
   flex-direction: column;
-`
 
-const H4CategoriesFollowedTitle = styled.h4`
-  display: none;
-
-  @media (max-width: 1345px) {
-    display: block;
-    margin: 8px 0 0 0;
-    color: gray;
-  }
-
-  @media ${phoneL} {
-    font-size: 12px;
-    margin: 9px 0
+  @media ${ phoneL } {
+    padding-top: 15px;
   }
 `;
+
+// const H4CategoriesFollowedTitle = styled.h4`
+//   display: none;
+
+//   @media (max-width: 800px) {
+//     display: block;
+//     margin: 8px 0 0 0;
+//     color: #aaa;
+//   }
+
+//   @media ${phoneL} {
+//     font-size: 12px;
+//     margin: 9px 0
+//   }
+// `;
 
 const DivCatFollowItems = styled.div`
   ul {
     list-style: none;
     padding-left: 0;
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: flex;
       margin: 0 20px 0 0;
     }
@@ -167,7 +174,7 @@ const DivCatFollowItems = styled.div`
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
   }
 
@@ -179,7 +186,7 @@ const DivCatFollowItems = styled.div`
 const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
-  border-left: ${props => props.islinkselected === 'true' ? '5px solid blue' : '5px solid transparent'};
+  border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
 
   i {
     cursor: pointer;
@@ -192,58 +199,59 @@ const H4AllPosts = styled.h4`
       opacity: 1;
     }
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: none;
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     border: none;
     margin-right: 0px;
   }
 
-  @media ${phoneL} {
-    margin-right: -10px;
-  }
+  // @media ${phoneL} {
+  //   margin-right: -10px;
+  // }
 `;
 
 const LinkAllPosts = styled(Link)`
   display: flex;
-  // text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
   text-decoration: none;
-  color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+  color: ${props => props.islinkselected === 'true' ? '#418DCF' : 'black'};
+  font-weight: normal;
 
   &:hover {
-    color: blue;
+    color: #418DCF;
+
     .div-window {
-      background-color:blue;
+      background-color: #418DCF;
     }
   }
 
   .div-window {
-    background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
+    background-color: ${props => props.islinkselected === 'true' ? '#418DCF' : 'black'};
 
-    @media(max-width: 1345px) {
-      background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    @media(max-width: 800px) {
+      background-color: ${props => props.islinkselected === 'true' ? '#418DCF' : '#aaa'};
     }
   }
 
-  @media(max-width: 1345px) {
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    border-radius: 20px;
-    padding: 15px;
+  @media(max-width: 800px) {
+    color: ${props => props.islinkselected === 'true' ? '#418DCF' : '#aaa'};
+    border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
+    border-radius: 10px;
+    padding: 5px 10px;
     margin-right: 20px;
 
     &:hover {
-      border: 2px solid blue;
+      border: 1px solid #418DCF;
     }
   }
 
-  @media ${phoneL} {
-    padding: 11px 10px 11px 6px;
-    font-size: 12px;
-  }
+  // @media ${phoneL} {
+  //   padding: 11px 10px 11px 6px;
+  //   font-size: 12px;
+  // }
 `;
 
 const DivWindows = styled.div`
@@ -259,7 +267,7 @@ const DivWindows = styled.div`
   margin-left: 21px;
   margin-right: 11px;
   margin-bottom: 6px;
-  @media (max-width: 1345px) {
+  @media (max-width: 800px) {
     margin-left: 0px;
   }
   div {
@@ -269,17 +277,17 @@ const DivWindows = styled.div`
     height: 40%;
   }
 
-  @media ${phoneL} {
-    width: 10px;
-    height: 10px;
-    padding-top: 5px;
+  // @media ${phoneL} {
+  //   width: 10px;
+  //   height: 10px;
+  //   padding-top: 5px;
 
-    div {
-      border-radius: 1.5px;
-      width: 42%;
-      height: 32%;
-    }
-  }
+  //   div {
+  //     border-radius: 1.5px;
+  //     width: 42%;
+  //     height: 32%;
+  //   }
+  // }
 `;
 
 const PNoCatFollowMessage = styled.p`
@@ -290,13 +298,13 @@ const PNoCatFollowMessage = styled.p`
   color: red;
   justify-content: center;
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     margin: 20px 0 0 60px;
   }
 
-  @media ${phoneL} {
-    margin: 20px 0 0 5px;
-  }
+  // @media ${phoneL} {
+  //   margin: 20px 0 0 5px;
+  // }
 `;
 
 const LiCategoryFollowed = styled.li`
@@ -314,12 +322,12 @@ const LiCategoryFollowed = styled.li`
     margin-right: 16px;
     margin-bottom: 3px;
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       display: none;
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
     margin: 0;
     padding: 0;
@@ -339,7 +347,6 @@ const LiCategoryFollowed = styled.li`
 `;
 
 const LinkSideNav = styled(Link)`
-  // text-decoration: ${props => props.islinkselected === 'true' ? 'underline' : 'none'};
   text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
 
@@ -352,38 +359,40 @@ const LinkSideNav = styled(Link)`
       padding: 10px 10px 10px 0;
       color: inherit;
       margin-left: 15px;
-      @media(max-width: 1345px) {
+
+      @media(max-width: 800px) {
         margin-left: 0;
       }
     }
 
-    @media(max-width: 1345px) {
+    @media(max-width: 800px) {
       width: auto;
     }
   }
 
-  @media(max-width: 1345px) {
+  @media(max-width: 800px) {
     display: flex;
     white-space: pre;
     justify-content: center;
     align-items: center;
     height: 38px;
-    border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
-    padding: 7px 12px 7px 15px;
-    border-radius: 20px;
-    color: ${props => props.islinkselected === 'true' ? 'blue' : 'gray'};
+    border: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid #aaa'};
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    color: ${props => props.islinkselected === 'true' ? 'blue' : '#aaa'};
   }
 
-  @media ${phoneL} {
-    padding: 0 7px 0 10px;
-    font-size: 12px;
-  }
+  // @media ${phoneL} {
+  //   padding: 0 7px 0 10px;
+  //   font-size: 12px;
+  // }
 
   &:hover {
     color: blue;
 
-    @media(max-width: 1345px) {
-      border: 2px solid blue;
+    @media(max-width: 800px) {
+      border: 1px solid #418DCF;
     }
   }
 `;
