@@ -178,7 +178,9 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 	};
 	return(
 		<DiscussionWrapper singleDiscussion = { singleDiscussion } onClick = { handleDiscussionClick }>
-			<BodyWrapper>{ body.length > 183 ? body.substr(0, 183) + '...' : body }</BodyWrapper>
+			<BodyWrapper>{
+				!singleDiscussion ? body.length > 183 ? body.substr(0, 183) + '...' : body : body
+			}</BodyWrapper>
 			<InfoWrapper>
 				<div className = 'user-info'>
 					<div className = 'user' onClick = { handleUserClick }>
