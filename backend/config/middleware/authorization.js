@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { secureKey, accountUserTypes, addCatPermStartIndex, addPostPermStartIndex } = require('../globals.js');
+const { secureKey, accountUserTypes, subSilverStartIndex, subBronzeStartIndex } = require('../globals.js');
 const { usersDB } = require('../../db/models/index.js');
 
 const authorizeCreateCat = async (req, res, next) => {
@@ -11,7 +11,7 @@ const authorizeCreateCat = async (req, res, next) => {
       req.decoded = decoded;
       const loggedInUserID = req.decoded.id;
       const accountSettings = await usersDB.getUserType(loggedInUserID);
-      if (accountUserTypes.indexOf(accountSettings.user_type) < addCatPermStartIndex) throw { code: 403 };
+      if (accountUserTypes.indexOf(accountSettings.user_type) < subSilverStartIndex) throw { code: 403 };
       next();
     });
   } catch (err) {
@@ -33,7 +33,7 @@ const authorizeAddPost = async (req, res, next) => {
       req.decoded = decoded;
       const loggedInUserID = req.decoded.id;
       const accountSettings = await usersDB.getUserType(loggedInUserID);
-      if (accountUserTypes.indexOf(accountSettings.user_type) < addPostPermStartIndex) throw { code: 403 };
+      if (accountUserTypes.indexOf(accountSettings.user_type) < subBronzeStartIndex) throw { code: 403 };
       next();
     });
   } catch (err) {

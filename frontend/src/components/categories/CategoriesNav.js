@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // globals
-import { phoneL, accountUserTypes, addCatPermStartIndex } from '../../globals/globals.js';
+import { phoneL, accountUserTypes, subSilverStartIndex } from '../../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -144,7 +144,7 @@ const CategoriesNav = ({ setAddCatModalRaised, sortHandler, order, user_id, user
           </option>
         </SelectSortDropdown>
       </DivSort>
-      {(accountUserTypes.indexOf(user_type) >= addCatPermStartIndex) &&
+      {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
         <DivButtons>
           <ButtonAddCategory onClick={(ev) => setAddCatModalRaised(ev, true)} user_id={user_id}>
             Add&nbsp;Category
