@@ -164,10 +164,10 @@ const CommentSort = styled.div`
     .filter-wrapper {
       i {
         margin-right: 5px;
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
       }
       .filter-by{
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
       }
   
       .filter {
@@ -175,7 +175,10 @@ const CommentSort = styled.div`
         background-color: rgba(0, 0, 0, 0);
         padding: 6px;
         border-radius: 5px;
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
+        option {
+          color: black;
+        }
         &:focus {
           outline: none;
         }

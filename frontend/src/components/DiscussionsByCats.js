@@ -79,6 +79,9 @@ const DiscussionHeader = styled.div`
         background-color: rgba(0, 0, 0, 0);
         padding: 5px;
         color: ${props => props.theme.discussionPostColor};
+        option {
+          color: black;
+        }
         &:focus {
           outline: none;
         }

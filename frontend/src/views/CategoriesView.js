@@ -5,25 +5,14 @@ import { connect } from 'react-redux';
 // actions
 import { getCategories } from '../store/actions/index.js';
 
-// globals
-// import { phoneP, tabletP, tabletL } from '../globals/globals';
-
 // components
 import {
   Categories,
-  // CategoriesNav,
-  // AddCategoryModal
 } from '../components/index.js';
 
 const CategoriesWrapper = styled.div`
   width: 95%;
 `;
-
-// const H1Categories = styled.h1`
-//   user-select: none;
-//   width: 100%;
-//   text-align: center;
-// `;
 
 const DivCategoriesComponent = styled.div`
   display: flex;
@@ -62,6 +51,9 @@ const CategoriesHeader = styled.div`
       background-color: rgba(0, 0, 0, 0);
       padding: 5px;
       color: ${props => props.theme.discussionPostColor};
+      option {
+        color: black;
+      }
       &:focus {
         outline: none;
       }
