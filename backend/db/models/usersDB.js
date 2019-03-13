@@ -204,7 +204,7 @@ const findByEmail = email => {
 // search through categories, discussions and posts
 const searchAll = (searchText, orderType) => {
   const categoriesQuery = db('categories as c')
-    .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at')
+    .select('c.id', 'c.name', 'c.user_id', 'u.username', 'c.created_at', 'c.icon')
     .leftOuterJoin('users as u', 'u.id', 'c.user_id')
     .whereRaw('LOWER(c.name) LIKE ?', `%${searchText.toLowerCase()}%`);
 
@@ -250,7 +250,7 @@ const searchAll = (searchText, orderType) => {
     .then(results => {
       const [categoriesResults, discussionsResults, postsResults] = results;
       const resultArr = [];
-      categoriesResults.forEach(cat => resultArr.push({ type: 'categoriy', result: cat }));
+      categoriesResults.forEach(cat => resultArr.push({ type: 'category', result: cat }));
       discussionsResults.forEach(dis => resultArr.push({ type: 'discussion', result: dis }));
       postsResults.forEach(post => resultArr.push({ type: 'comment', result: post }));
       resultArr.sort((a, b) => {

@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 //globals
-import { phoneL, phoneP, tabletP } from '../globals/globals.js'
+import { phoneL, tabletP } from '../globals/globals.js'
 
 // components
 import {
   // AddReplyForm,
   AddPostForm,
   Follow,
-  PostCount,
-  VoteCount,
-  Deleted,
+  // PostCount,
+  // VoteCount,
+  // Deleted,
   DiscussionByFollowedCats,
 } from './index.js';
 

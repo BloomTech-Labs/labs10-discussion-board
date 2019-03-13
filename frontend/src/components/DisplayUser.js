@@ -60,7 +60,8 @@ const PWelcomeMessage = styled.p`
         top: 0;
         right: -10px;
         font-size: 0.7rem;
-        background-color: yellow;
+        background-color: #418DCF;
+        color: white;
         border-radius: 50%;
         padding: 0 5px;
       }
