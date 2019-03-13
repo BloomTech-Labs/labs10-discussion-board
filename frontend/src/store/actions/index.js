@@ -241,6 +241,8 @@ import {
   EDIT_SIGNATURE_SUCCESS,
   EDIT_SIGNATURE_FAILURE,
 
+  TOGGLE_THEME,
+
   // Action Creators
   login,
   signout,
@@ -266,6 +268,7 @@ import {
   markNotificationsAsRead,
   editSignature,
   editUser,
+  toggleTheme,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -416,6 +419,8 @@ export {
   EDIT_SIGNATURE_SUCCESS,
   EDIT_SIGNATURE_FAILURE,
 
+  TOGGLE_THEME,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -508,6 +513,7 @@ export {
   markNotificationsAsRead,
   editSignature,
   editUser,
+  toggleTheme,
 
   // Profile Action Creators
   getProfiles,
