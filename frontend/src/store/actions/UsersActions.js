@@ -117,6 +117,8 @@ export const EDIT_USER_LOADING = 'EDIT_USER_LOADING';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 
+export const TOGGLE_THEME = 'TOGGLE_THEME';
+
 /***************************************************************************************************
  ****************************************** Action Creators ****************************************
  **************************************************************************************************/
@@ -485,4 +487,9 @@ export const editUser = (username, email, oldPassword, newPassword) => dispatch 
       return displayMessage('You have successfully updated your profile.')(dispatch);
     })
     .catch(err => handleError(err, EDIT_USER_FAILURE)(dispatch))
+};
+
+export const toggleTheme = () => dispatch => {
+  dispatch({ type: TOGGLE_THEME });
+  return Promise.resolve();
 };

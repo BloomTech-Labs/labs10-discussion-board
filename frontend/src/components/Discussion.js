@@ -53,7 +53,7 @@ const Wrapper = styled.div`
       font-size: 30px;
       margin-right: 35px;
       margin-top: 15px;
-      color: black;
+      color: ${props => props.theme.defaultColor};
 
       &:hover{
         cursor: pointer;
@@ -164,10 +164,10 @@ const CommentSort = styled.div`
     .filter-wrapper {
       i {
         margin-right: 5px;
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
       }
       .filter-by{
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
       }
   
       .filter {
@@ -175,7 +175,10 @@ const CommentSort = styled.div`
         background-color: rgba(0, 0, 0, 0);
         padding: 6px;
         border-radius: 5px;
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
+        option {
+          color: black;
+        }
         &:focus {
           outline: none;
         }

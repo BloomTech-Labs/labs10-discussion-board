@@ -38,7 +38,7 @@ import {
 } from './views/index.js';
 
 // action creators
-import { logBackIn, markNotificationsAsRead } from './store/actions/index.js';
+import { logBackIn, markNotificationsAsRead, toggleTheme } from './store/actions/index.js';
 
 const GlobalStyle = createGlobalStyle`
 	html,
@@ -124,7 +124,7 @@ class App extends Component {
 
     // Initial state: day time!
     this.state = {
-      isDay: true,
+      // isDay: true,
       theme: dayTheme,
       showSearch: false,
       showNotifications: false,
@@ -138,12 +138,8 @@ class App extends Component {
 
   switchTheme = () => {
     // Toggle day / night on click
-    const isDay = !this.state.isDay;
-
-    this.setState({
-      isDay: isDay,
-      theme: isDay ? dayTheme : nightTheme,
-    });
+    const { toggleTheme } = this.props;
+    return toggleTheme().then(() => this.setState({ theme: this.props.isDay ? dayTheme : nightTheme }));
   }
 
   setLoginDropdownModalRaised = (ev, status) => {
@@ -204,14 +200,14 @@ class App extends Component {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
   render() {
-    const { showSearch, isDay } = this.state;
-    const { error, history, message, location } = this.props;
+    const { showSearch } = this.state;
+    const { error, history, message, location, isDay } = this.props;
     if (this.isAuthenticated() || localStorage.getItem('symposium_user_id')) {
       if ((this.isAuthenticated() || localStorage.getItem('symposium_user_id'))) {
       }
       return (
         <ThemeProvider theme={this.state.theme}>
-          <AppWrapper>
+          <AppWrapper isDay = { isDay }>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
             <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
@@ -275,10 +271,11 @@ class App extends Component {
 const mapStateToProps = state => ({
   error: state.users.error,
   message: state.users.message,
-  newNotifications: state.users.newNotifications
+  newNotifications: state.users.newNotifications,
+  isDay: state.users.isDay,
 });
 
 export default connect(
   mapStateToProps,
-  { logBackIn, markNotificationsAsRead }
+  { logBackIn, markNotificationsAsRead, toggleTheme }
 )(App);

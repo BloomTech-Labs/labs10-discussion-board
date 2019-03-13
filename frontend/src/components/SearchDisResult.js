@@ -19,6 +19,7 @@ const SearchDisResultWrapper = styled.div`
 	&:hover {
 		cursor: pointer;
 		background-color: #ccc;
+		color: black;
 
 		.created {
 			color: black;

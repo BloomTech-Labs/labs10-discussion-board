@@ -84,6 +84,8 @@ import {
   EDIT_SIGNATURE_LOADING,
   EDIT_SIGNATURE_SUCCESS,
   EDIT_SIGNATURE_FAILURE,
+
+  TOGGLE_THEME,
 } from '../actions/index.js';
 
 const initialState = {
@@ -111,7 +113,8 @@ const initialState = {
   user_type: '',
   uuid: '',
   signature: null,
-  stripePaymentInfo: []
+  stripePaymentInfo: [],
+  isDay: true,
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -122,6 +125,12 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingInLoadingMessage: true,
+      };
+
+    case TOGGLE_THEME:
+      return {
+        ...state,
+        isDay: !state.isDay,
       };
 
     case RESET_PASSWORD_SUCCESS:
