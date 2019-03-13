@@ -22,6 +22,7 @@ const DivSideNav = styled.div`
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
+    margin-top: 20px;
   }
 `;
 
@@ -44,11 +45,13 @@ const DivHeader = styled.div`
     @media(max-width: 1345px) {
       align-self: flex-start;
       margin: 0 10px 10px 10px;
+      margin-top: 35px;
     }
 
     @media ${phoneL} {
       margin: 0 10px;
       padding: 10px;
+      margin-top: 10px;
     }
   }
 
@@ -72,6 +75,9 @@ const H4BrowseCategories = styled.h4`
       width: auto;
       border: none;
       margin: 0 20px;
+      margin-top: -63px;
+      margin-left: 60px;
+      margin-right: 0px;
     }
 
     @media ${phoneL} {
@@ -79,6 +85,8 @@ const H4BrowseCategories = styled.h4`
       width: auto;
       border: none;
       margin: 0 0 0 20px;
+      margin-top: -42px;
+      margin-left: 50px;
     }
 `;
 
@@ -191,11 +199,11 @@ const H4AllPosts = styled.h4`
 
   @media(max-width: 1345px) {
     border: none;
-    margin-right: 20px;
+    margin-right: 0px;
   }
 
   @media ${phoneL} {
-    margin-right: 10px;
+    margin-right: -10px;
   }
 `;
 
@@ -225,6 +233,7 @@ const LinkAllPosts = styled(Link)`
     border: ${props => props.islinkselected === 'true' ? '2px solid blue' : '2px solid gray'};
     border-radius: 20px;
     padding: 15px;
+    margin-right: 20px;
 
     &:hover {
       border: 2px solid blue;
@@ -247,9 +256,12 @@ const DivWindows = styled.div`
   width: 18px;
   height: 18px;
   padding-top: 1.8px;
-  margin-left: 64px;
+  margin-left: 21px;
   margin-right: 11px;
   margin-bottom: 6px;
+  @media (max-width: 1345px) {
+    margin-left: 0px;
+  }
   div {
     background-color: black;
     border-radius: 2px;
@@ -435,12 +447,10 @@ class SideNav extends Component {
           }
         </DivHeader>
         <DivCategoriesFollowed>
-          <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle>
+          {/* <H4CategoriesFollowedTitle>Categories&nbsp;you&nbsp;follow</H4CategoriesFollowedTitle> */}
           <DivCatFollowItems>
           <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
               <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
-            </H4AllPosts>
-            <ul>
               <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
                 <DivWindows>
                   <div className='div-window' />
@@ -448,6 +458,8 @@ class SideNav extends Component {
                   <div className='div-window' />
                   <div className='div-window' />
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
+          </H4AllPosts>
+            <ul>
               {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
                 <LiCategoryFollowed 
                   isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()} 
