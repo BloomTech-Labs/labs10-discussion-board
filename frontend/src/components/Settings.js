@@ -21,9 +21,7 @@ const SettingsWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.settingsBgColor};
   box-shadow: ${props => props.theme.settingsBxShdw};
-  border-radius: 30px;
   width: 90%;
   margin-top: 10px;
   @media(max-width: 1024px) {
@@ -511,7 +509,7 @@ class Settings extends Component {
             <FirstName><p> Last Name <input className='input-style' name='lastName' placeholder={splitUsername[1]} value={this.state.lastName} onChange={this.handleInputChange} /></p></FirstName>
             <Email>
               <p>Email {isAuth0 ?
-                <span className = 'email'>{email}</span>
+                <span className='email'>{email}</span>
                 :
                 <input
                   className='input-style'
@@ -536,7 +534,7 @@ class Settings extends Component {
             }
             <DivSubscriptionPlan>
               <p>Subscription&nbsp;Plan:&nbsp;{(subPlan) ? <SpanSubPlan subplan={subPlan}>{subPlan.toUpperCase()}</SpanSubPlan> : <SpanSubPlan>{user_type.toUpperCase()}</SpanSubPlan>}</p>
-              <button className = 'btn' type='button' onClick={(ev) => setChangeSubModalRaised(ev, true)}>Change:&nbsp;Subscription&nbsp;Plan</button>
+              <button className='btn' type='button' onClick={(ev) => setChangeSubModalRaised(ev, true)}>Change:&nbsp;Subscription&nbsp;Plan</button>
             </DivSubscriptionPlan>
             <DeleteButton>
               <button className='delete-btn btn' type='button' onClick={this.toggleDeleteModal}>
@@ -568,12 +566,12 @@ class Settings extends Component {
                 <EditAvatarMenu>
                   <span
                     className='back'
-                    onClick={() => this.toggleForm('')}		
+                    onClick={() => this.toggleForm('')}
                   ><i className="far fa-arrow-alt-circle-left"></i></span>
-                  <button className = 'btn' onClick={() => this.toggleForm('avatar-pc-form')}>
+                  <button className='btn' onClick={() => this.toggleForm('avatar-pc-form')}>
                     Upload&nbsp;from&nbsp;PC
                   </button>
-                  <button className = 'btn' onClick={() => this.toggleForm('avatar-url-form')}>
+                  <button className='btn' onClick={() => this.toggleForm('avatar-url-form')}>
                     Upload&nbsp;from&nbsp;URL
                   </button>
                 </EditAvatarMenu>
