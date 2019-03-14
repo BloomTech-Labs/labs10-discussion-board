@@ -495,6 +495,17 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | searchText  | text          | yes       |  
 
+# New Table Here
+
+| Name            | Data Type (note, mods are individual roles assigned to a specific category)     |
+| --------------- | ------------------------------------------------------------------------------- |
+| user_id         | foreign Key (id in users table)                                                 |
+| avatar          | Text (optional)(base64)                                                         |
+| user_type       | String (required) (user,  silver_member, gold_member, and admin)                |
+| signature       | string (255, optional)                                                          |
+| subscribed_at   | bigInteger (required)                                                           |
+
+
 <a name="putusersinfo"></a>
 ### PUT Update User Info
 

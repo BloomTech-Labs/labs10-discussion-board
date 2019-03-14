@@ -7,23 +7,98 @@ import styled from 'styled-components';
 import { displayError, sendPWResetEmail } from '../../store/actions/index.js';
 
 const RequestResetPWFormWrapper = styled.form`
+	width: 30%
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	padding-top: 50px;
-
+	margin-top: 10%;
+	padding: 30px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	@media(max-width: 1080px) {
+		width:40%
+	  }
 	.enter-email-text {
-		padding: 10px;
+		color: lightgrey;
+		font-size: .8rem;
 	}
 
 	input {
+		width: 40%
 		padding: 5px 10px;
 		border-radius: 5px;
 		margin: 10px;
+		color: lightgrey;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media(max-width: 1080px) {
+			width:45%
+		  }
+	}
+
+	.fa-arrow-alt-circle-left {
+		font-size: 2rem;
+		align-self: flex-start;
+		margin-left: 20px;
+		cursor: pointer;
+		text-decoration: none;
+		position: absolute;
+		top: 55%;
+		left: 33%;
+		color: ${props => props.theme.defaultColor};
+  
+  		&:hover {
+    		color: ${props => props.theme.defaultColorOnHover};
+		}
+		  
+		@media(max-width: 1350px) {
+			top: 51%
+			left: 35%;
+		}
+		@media(max-width: 1080px) {
+			top: 46%
+			left: 30%;
+		}
+		@media(max-width: 800px) {
+			top: 41%
+			left: 26%;
+		}
+		@media(max-width: 600px) {
+			top: 35%
+			left: 23%;
+		}
+		@media(max-width: 450px) {
+			top: 31%
+			left: 21%;
+		}
+	  }
+
+	.reset-button {
+		width: 45%;
+      	padding: 10px 15px;
+      	border-radius: 5px;
+      	border: 1px solid #418DCF;
+      	background-color: #418DCF;
+		color: lightgrey;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media(max-width: 1080px) {
+			width:50%
+		  }
+		  @media(max-width: 600px) {
+			width:62%
+		  }
 	}
 `;
+
+const ArrowLink = styled.div `
+	width: 100%;
+	`;
 
 class RequestResetPWForm extends Component {
 	state = { email: '' };
@@ -39,6 +114,9 @@ class RequestResetPWForm extends Component {
 		const { email } = this.state;
 		return(
 			<RequestResetPWFormWrapper onSubmit = { this.handleSubmit }>
+				<ArrowLink>
+					<Link className = 'far fa-arrow-alt-circle-left' to = '/'></Link>
+				</ArrowLink>
 				<p className = 'enter-email-text'>
 					Enter your email:
 				</p>
@@ -53,8 +131,8 @@ class RequestResetPWForm extends Component {
 					onChange = { this.handleInputChange }
 				/>
 
-				<button type = 'submit'>Send reset PW email</button>
-				<Link to = '/'>Back to log in</Link>
+				<button className = 'reset-button' type = 'submit'>Send&nbsp;Reset&nbsp;PW</button>
+				
 			</RequestResetPWFormWrapper>
 		);
 	}

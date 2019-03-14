@@ -6,15 +6,14 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const pusherKey = process.env.REACT_APP_PUSHER_KEY;
 const pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
 const sideNavWidth = '250px';
-const stripePayFormat = [999, 1999, 2999]; // matching subscriptionPrices
+const stripePayFormat = [999, 1999]; // matching subscriptionPrices
 const stripeToken = process.env.REACT_APP_STRIPE_TOKEN;
-const accountUserTypes = ['user', 'bronze_member', 'silver_member', 'gold_member', 'admin']; // Must match with globals on front end
+const accountUserTypes = ['user', 'silver_member', 'gold_member', 'admin']; // Must match with globals on front end
 const subFreeStartIndex = 0;
-const subBronzeStartIndex = 1;
-const subSilverStartIndex = 2;
-const subGoldStartIndex = 3;
-const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
-const subscriptionPrices = ['$0.00', '$9.99/yr', '$19.99/yr', '$29.99/yr']; // same order as subscriptionPlans
+const subSilverStartIndex = 1;
+const subGoldStartIndex = 2;
+const subscriptionPlans = ['free', 'silver', 'gold']; // same order as subscriptionPrices
+const subscriptionPrices = ['$0.00', '$9.99/yr', '$19.99/yr']; // same order as subscriptionPlans
 const searchCharLimit = 64; // limits the max number of characters to return in a search
 const topHeaderHeight = '60px';
 const maxLengthInNotifications = 32;
@@ -27,34 +26,16 @@ const defaultAvatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAY
 const subscriptionFreeFeatures = [
   'Account Profile',
   'Account Settings',
-  'Add Comments to Posts',
-  'Add Replies to Comments'
-];
-const subscriptionBronzeFeatures = [
-  'Account Profile',
-  'Account Settings',
   'Add Posts to Categories',
   'Add Comments to Posts',
   'Add Replies to Comments'
 ];
 const subscriptionSilverFeatures = [
-  'Account Profile',
-  'Account Settings',
   'Gets Signature',
-  'Add Categories',
-  'Add Posts to Categories',
-  'Add Comments to Posts',
-  'Add Replies to Comments'
+  'Add Categories'
 ];
 const subscriptionGoldFeatures = [
-  'Account Profile',
-  'Account Settings',
-  'Gets Signature',
-  'Gets Avatar',
-  'Add Categories',
-  'Add Posts to Categories',
-  'Add Comments to Posts',
-  'Add Replies to Comments'
+  'Gets Avatar'
 ];
 
 // mixins
@@ -173,6 +154,7 @@ const dayTheme = {
   topDiscussionNameDateColor: 'black',
   topDiscussionNameDateBgColor: 'rgba(255, 255, 255, 0.13)',
   topDiscussionElipBgColor: 'rgba(60, 57, 57)',
+  settingsBgColor: 'white',
   skyColor: '#37d8e6',
   symposiumBorderColor: '#f1c40f',
 
@@ -291,7 +273,6 @@ module.exports = {
   accountStatusTypes,
   accountUserTypes,
   subFreeStartIndex,
-  subBronzeStartIndex,
   subSilverStartIndex,
   subGoldStartIndex,
   auth0ClientID,
@@ -307,7 +288,6 @@ module.exports = {
   subscriptionPlans,
   subscriptionPrices,
   subscriptionFreeFeatures,
-  subscriptionBronzeFeatures,
   subscriptionSilverFeatures,
   subscriptionGoldFeatures,
   searchCharLimit,

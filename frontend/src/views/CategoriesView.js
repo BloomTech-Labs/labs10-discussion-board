@@ -121,11 +121,6 @@ class CategoriesView extends Component {
   };
   componentDidMount = () => this.props.getCategories(this.state.order, this.state.orderType);
   render() {
-    const {
-      user_id,
-      user_type,
-      setAddCatModalRaised,
-    } = this.props;
     return (
       <CategoriesWrapper>
         <CategoriesHeader>
@@ -155,8 +150,6 @@ class CategoriesView extends Component {
 }
 
 const mapStateToProps = state => ({
-  user_id: state.users.user_id,
-  user_type: state.users.user_type,
   categories: state.categories.categories,
 });
 

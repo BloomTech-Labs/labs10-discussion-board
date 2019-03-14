@@ -25,7 +25,8 @@ import {
   LoginDropdown,
   AvatarDropdown,
   Notifications,
-  ChangeSubscriptionModal
+  ChangeSubscriptionModal,
+  RegisterDropdown,
 } from './components/index.js';
 
 // views
@@ -132,7 +133,8 @@ class App extends Component {
       isAvatarModalRaised: false,
       isNotificationsModalRaised: false,
       isChangeSubModalRaised: false,
-      isAddCatModalRaised: false
+      isAddCatModalRaised: false,
+      showRegisterModal: false,
     };
   }
 
@@ -145,6 +147,11 @@ class App extends Component {
   setLoginDropdownModalRaised = (ev, status) => {
     ev.stopPropagation();
     this.setState({ isLoginDropdownModalRaised: status });
+  }
+
+  toggleRegisterModal = ev => {
+    ev.stopPropagation();
+    this.setState({ showRegisterModal: !this.state.showRegisterModal });
   }
 
   setAvatarModalRaised = (ev, status) => {
@@ -199,6 +206,7 @@ class App extends Component {
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
+
   render() {
     const { showSearch } = this.state;
     const { error, history, message, location, isDay } = this.props;
@@ -207,7 +215,7 @@ class App extends Component {
       }
       return (
         <ThemeProvider theme={this.state.theme}>
-          <AppWrapper isDay = { isDay }>
+          <AppWrapper isDay={isDay}>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
             <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />
@@ -242,9 +250,10 @@ class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           <AppWrapper>
             <GlobalStyle />
-            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
+            <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} toggleRegisterModal={this.toggleRegisterModal} />
             <DivBody>
               <LoginDropdown history={history} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} />
+              <RegisterDropdown history={history} showRegisterModal={this.state.showRegisterModal} toggleRegisterModal={this.toggleRegisterModal} />
               <DivSideNav>
                 {/* <SideNav /> */}
               </DivSideNav>

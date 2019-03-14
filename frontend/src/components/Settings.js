@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // globals
-import { phoneP, tabletP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
+import { phoneP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
 
 // action creators
 import { getProfile, editUser, } from '../store/actions/index.js';
@@ -99,7 +99,7 @@ const UserProperties = styled.form`
       cursor: pointer;
     }
   }
-  .save-settings {
+  .save-settings-btn {
     background-color: ${props => props.theme.settingsButtonBgColor};
     color: ${props => props.theme.settingsDeleteButtonColor};
     @media(max-width: 1024px) {
@@ -113,6 +113,9 @@ const UserProperties = styled.form`
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
     }
+  }
+  .btn {
+    border: 1px solid ${props => props.theme.defaultColorOnHover};
   }
   button {
     width: 30%;
@@ -316,7 +319,10 @@ const Email = styled.div`
   flex-wrap: wrap;
   p {
     margin: 0px 0px 7px 0px;
-  }  
+  }
+  .email {
+    display: block;
+  }
   @media(max-width: 1024px) {
     flex-direction: column;      
   }
@@ -386,9 +392,8 @@ const SpanSubPlan = styled.span`
 font-weight: bold;
   color: red;
   color: ${props => props.subplan === subscriptionPlans[0] && 'black'};
-  color: ${props => props.subplan === subscriptionPlans[1] && '#ca620d'};
-  color: ${props => props.subplan === subscriptionPlans[2] && '#848795'};
-  color: ${props => props.subplan === subscriptionPlans[3] && 'gold'};
+  color: ${props => props.subplan === subscriptionPlans[1] && '#848795'};
+  color: ${props => props.subplan === subscriptionPlans[2] && 'gold'};
 `;
 class Settings extends Component {
   state = {
@@ -453,7 +458,7 @@ class Settings extends Component {
             <FirstName><p> Last Name <input className='input-style' name='lastName' placeholder={splitUsername[1]} value={this.state.lastName} onChange={this.handleInputChange} /></p></FirstName>
             <Email>
               <p>Email {isAuth0 ?
-                <p>{email}</p>
+                <span className = 'email'>{email}</span>
                 :
                 <input
                   className='input-style'
@@ -478,15 +483,15 @@ class Settings extends Component {
             }
             <DivSubscriptionPlan>
               <p>Subscription&nbsp;Plan:&nbsp;{(subPlan) ? <SpanSubPlan subplan={subPlan}>{subPlan.toUpperCase()}</SpanSubPlan> : <SpanSubPlan>{user_type.toUpperCase()}</SpanSubPlan>}</p>
-              <button type='button' onClick={(ev) => setChangeSubModalRaised(ev, true)}>Change:&nbsp;Subscription&nbsp;Plan</button>
+              <button className = 'btn' type='button' onClick={(ev) => setChangeSubModalRaised(ev, true)}>Change:&nbsp;Subscription&nbsp;Plan</button>
             </DivSubscriptionPlan>
             <DeleteButton>
-              <button className='delete-btn' type='button' onClick={this.toggleDeleteModal}>
+              <button className='delete-btn btn' type='button' onClick={this.toggleDeleteModal}>
                 Delete account
               </button>
             </DeleteButton>
             <SaveButton>
-              <button className='save-settings' type='submit' >
+              <button className='save-settings-btn btn' type='submit' >
                 Save settings
               </button>
             </SaveButton>

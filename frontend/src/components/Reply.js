@@ -143,7 +143,6 @@ const Reply = ({
     const {
         body, 
         created_at,
-        last_edited_at,
         post_id,
         avatar,
         username,
@@ -164,19 +163,6 @@ const Reply = ({
     };
 
     const replyVote = (e, type) => handleReplyVote(id, type);
-
-    const timeStamp =() => {
-        if(last_edited_at){
-          return (
-                <span>
-                  Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-                </span>
-              )
-        } else if(created_at) {
-          return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-          )
-        }
-      };
 
     const handleUserClick = e => {
       e.stopPropagation();

@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from './index.
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
 
 // globals
-import { tabletP, phoneP, accountUserTypes, subBronzeStartIndex } from '../globals/globals.js';
+import { tabletP } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -176,7 +176,7 @@ class DiscussionsByCats extends Component {
     };
   };
   render() {
-    const { discussions, history, category_name, match, user_type } = this.props;
+    const { discussions, history, category_name, match } = this.props;
     const { showAddDiscussionForm } = this.state;
     return (
       <DiscussionsWrapper>
@@ -204,10 +204,9 @@ class DiscussionsByCats extends Component {
                 <option value={mostComments}>{mostComments}</option>
               </select>
             </div>
-            {(accountUserTypes.indexOf(user_type) >= subBronzeStartIndex) &&
-              <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-                <i className='fas fa-plus-circle' />&nbsp;Add Post
-            </button>}
+            <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+              <i className='fas fa-plus-circle' />&nbsp;Add Post
+            </button>
           </div>
         </DiscussionHeader>
         <hr />
@@ -235,7 +234,6 @@ class DiscussionsByCats extends Component {
 };
 
 const mapStateToProps = state => ({
-  user_type: state.users.user_type,
   discussions: state.discussions.discussions,
   category_name: state.discussions.category.name,
 });
