@@ -23,16 +23,16 @@ const { authorizeAddPost } = require('../config/middleware/authorization.js');
 
 
 // get top (limit 10) daily discussions ordered by vote_count
-router.get('/top-daily/:user_id', authenticate, (req, res) => {
-  const order = req.get('order');
-  const orderType = req.get('orderType');
-  let { user_id } = req.params;
-  if (user_id === 'null') user_id = 0;
-  return discussionsDB
-    .getTopDailyDiscussions(user_id, order, orderType)
-    .then(topDailyDiscussions => res.status(200).json(topDailyDiscussions))
-    .catch(err => res.status(500).json({ error: `Failed to getTopDailyDiscussions(): ${err}` }));
-});
+// router.get('/top-daily/:user_id', authenticate, (req, res) => {
+//   const order = req.get('order');
+//   const orderType = req.get('orderType');
+//   let { user_id } = req.params;
+//   if (user_id === 'null') user_id = 0;
+//   return discussionsDB
+//     .getTopDailyDiscussions(user_id, order, orderType)
+//     .then(topDailyDiscussions => res.status(200).json(topDailyDiscussions))
+//     .catch(err => res.status(500).json({ error: `Failed to getTopDailyDiscussions(): ${err}` }));
+// });
 
 //GET All Discussions
 router.get('/', (req, res) => {
