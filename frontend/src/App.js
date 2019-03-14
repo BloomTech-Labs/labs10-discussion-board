@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
+import HomeFive from './HomeFive.js';
+
 // globals
 import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
 
@@ -262,7 +264,8 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  <Route component={NonUserLandingView} />
+                  {/* <Route component={NonUserLandingView} /> */}
+                  <Route component={HomeFive}/>
                 </Switch>
               </DivPage>
             </DivBody>
