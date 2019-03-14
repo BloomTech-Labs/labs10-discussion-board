@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // globals
-import { phoneP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
+import { phoneP, accountUserTypes, subscriptionPlans, topHeaderHeight } from '../globals/globals.js';
 
 // action creators
 import { getProfile, editUser, } from '../store/actions/index.js';
@@ -217,7 +217,7 @@ const ProfileSettings = styled.div`
   .avatar-change{
     font-size: 12px;
     cursor: pointer;
-    color: blue;
+    color: #418DCF;
     align-items: center;
     justify-content: center;
   }
@@ -258,34 +258,87 @@ const AvatarPic = styled.div`
 `;
 
 const AvatarContainer = styled.div`
-	width: 100%;
-	height: auto;
-	display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100vw;
+  height: calc(100vh - ${topHeaderHeight});
+  left: 0;
+  top: ${topHeaderHeight};
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+
+  @media (max-height: 500px) {
+    padding: 0;
+  }
+
+  @media (max-width: 485px) {
+    padding: 0;
+  }
 `;
 
 const EditAvatarMenu = styled.div`
-  background-color: #54BDFF;
-  width: 95%;
-  height: 250px;
+  border-radius: 5px;
+	padding: 40px;
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border-radius: 10px;
-  button {
-          margin: 7px;
-          border-radius: 10px;
-          width: 200px;
-          height: 30px;
-          font-size: 16px;
-          &:hover {
-            background-color: ${props => props.theme.settingsEditAvatarButtonBgHov};
-            cursor: pointer;
-          }
-          &:focus {
-            outline: none;
-          }
-        }
+	background-color: ${props => props.theme.settingsBgColor};
+	height: 30vh;
+  width: 30vw;
+  position: relative;
+
+	@media (max-height: 500px) {
+		height: 100vh;
+	}
+
+	@media (max-width: 485px) {
+    height: 100vh;
+    width: 80vw;
+  }
+  .back {
+    font-size: 30px;
+    color: ${props => props.theme.defaultColor};
+    position: absolute;
+    top: 30px;
+    left: 0;
+
+    &:hover {
+      cursor: pointer;
+      color: ${props => props.theme.defaultColorOnHover};
+    }
+  }
+  .btn {
+    padding: 10px 15px 25px;
+    border-radius: 5px;
+    background-color: #418DCF;
+    color: white;
+    border: 1px solid #418DCF;
+    width: 50%;
+    font-weight: bold;
+
+    @media (max-width: 1024px) {
+      width: 80%;
+    }
+
+    @media (max-width: 700px) {
+      width: 100%;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: white;
+      color: #418DCF;
+      border: 1px solid #418DCF;
+    }
+  }
   .changeavatar {
     text-align: center;
     font-weight: bold;
@@ -514,14 +567,16 @@ class Settings extends Component {
             {showForm === 'avatar-btns' && (
               <AvatarContainer>
                 <EditAvatarMenu>
-                  <h1 className='changeavatar'>Upload new avatar</h1>
-                  <button onClick={() => this.toggleForm('avatar-pc-form')}>
-                    Upload from PC
-                </button>
-                  <button onClick={() => this.toggleForm('avatar-url-form')}>
-                    Upload from URL
-                </button>
-                  <button onClick={() => this.toggleForm('')}>Cancel</button>
+                  <span
+                    className='back'
+                    onClick={() => this.toggleForm('')}		
+                  ><i className="far fa-arrow-alt-circle-left"></i></span>
+                  <button className = 'btn' onClick={() => this.toggleForm('avatar-pc-form')}>
+                    Upload&nbsp;from&nbsp;PC
+                  </button>
+                  <button className = 'btn' onClick={() => this.toggleForm('avatar-url-form')}>
+                    Upload&nbsp;from&nbsp;URL
+                  </button>
                 </EditAvatarMenu>
               </AvatarContainer>
             )}
