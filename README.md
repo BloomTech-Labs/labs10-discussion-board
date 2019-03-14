@@ -11,6 +11,7 @@ Symposium is a web application that organizes communication in a way that like-m
  
   >> [Prerequisites ](#prereq)
   >> [Starting Server](#server)  
+  >> [Folder Structure and Table Schema](#structures)
   
 [Endpoints](#endpoints)
   >> [Auth Endpoint](#auth)
@@ -56,6 +57,12 @@ Symposium is a web application that organizes communication in a way that like-m
 [Profile Links](#profilelinks)  
 [Tech Stack](#techstack)  
 [Authors](#authors)  
+  >> [Carlos Andrade](#carlos)  
+  >> [James Page](#james)  
+  >> [Huthman King](#huth)  
+  >> [David Situ](#david)  
+  >> [Lucas Beemer](#lucas)  
+  
 [License](#license)  
 
 ---
@@ -92,8 +99,13 @@ While in the Backend Folder use `yarn symposium` to "concurrently" start the bac
 ##### Option 2: Start the servers separately  
 In the Frontend Folder, use `yarn start`  
 In another terminal, in the Backend Folder, use `yarn start`  
+  
+<a name="structures"></a>  
+#### Folder Structure and Table Schema  
+Folder Structure and backend table schema is located in a file called [Structures](./STRUCTURES.md) in this Repository.  
 
----
+---  
+
 <a name="endpoints"></a>
 ## Endpoints  
 
@@ -548,9 +560,6 @@ On Success: Message: "User has been deleted"
 <a name="profilelinks"></a>
 ## Project Links  
 
-#### Folder Structure and Table Schema
-Folder Structure and backend table schema is located in a file called [Structures](./STRUCTURES.md) in this Repository.
-
 #### Lambda School Labs Guidelines for Discussion Board
 Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p1jIRjf7sgpsJKtFQhmnBK3LK3w6c/edit
 
@@ -594,18 +603,23 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 <a name="authors"></a>
 ## Authors
 
+<a name="carlos"></a>
 [Carlos Andrade](https://github.com/cornielleandres)  
 <img src="https://avatars0.githubusercontent.com/u/35614736?s=400&v=4" width="200">  
-    
+
+<a name="james"></a>
 [James Page](https://github.com/jamespagedev)  
-<img src="https://avatars1.githubusercontent.com/u/43793595?s=400&v=4" width="200">  
-    
+<img src="https://avatars1.githubusercontent.com/u/43793595?s=400&v=4" width="200">    
+
+<a name="huth"></a>
 [Huthman King](https://github.com/kinghuthman)  
 <img src="https://avatars0.githubusercontent.com/u/41485997?s=400&v=4" width="200">  
-    
+
+<a name="david"></a>    
 [David Situ](https://github.com/Codechiha)  
 <img src="https://avatars2.githubusercontent.com/u/42251292?s=400&v=4" width="200">  
-    
+
+<a name="lucas"></a>    
 [Lucas Beemer](https://github.com/lucasbeemer)  
 <img src="https://avatars2.githubusercontent.com/u/40898328?s=400&v=4" width="200">  
 
