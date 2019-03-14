@@ -17,7 +17,7 @@ const Woah = styled.div `
   background-position: left;
   background-size: contain;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1240px) {
     background-image: none;
     background-color: white;
   }
@@ -31,7 +31,7 @@ const LandingText = styled.div `
   width: 50%;
   margin-right: 30px;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1240px) {
     width: 100%;
     background-color: white;
   }
@@ -41,13 +41,14 @@ const LandingText = styled.div `
   .blurb{
     font-size: 1.4rem;
     font-weight: bold;
+    margin: 15px;
   }
 `;
 
 const VideoPlayer = styled.div `
   position: relative;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1240px) {
     position: absolute;
     top: 40%;
     left: 0;
@@ -65,7 +66,7 @@ const VideoPlayer = styled.div `
     top: 0;
     right: 30px;
 
-    @media (max-width: 700px) {
+    @media (max-width: 1240px) {
       left: 0;
       right: 0;
       margin-left: auto;
