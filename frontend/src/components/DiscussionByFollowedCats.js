@@ -66,6 +66,9 @@ const DiscussionWrapper = styled.div`
 					padding-top: 2px;
 				}
 			}
+			.breaking {
+				// margin-top: 100px;
+			}
 	
 			.category-wrapper {
 				&:hover {
@@ -218,12 +221,12 @@ const DiscussionByFollowedCats = ({ discussion, history, voteOnDiscussion, singl
 						<i className = { category_icon } />
 						<span className = 'category-name'>{ category_name }</span>
 					</div>
-					<i className = 'fas fa-circle tablet' />
+					&nbsp;&nbsp;&nbsp;&nbsp;
 					<div className = 'date-views-comment tablet'>
 						<span>{moment(new Date(Number(created_at))).fromNow()}</span>
-						<i className = 'fas fa-circle' />
+						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span className = 'desktop'>{ views || 0 } View{ views !== 1 && 's' }</span>
-						<i className = 'fas fa-circle desktop' />
+						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span>{ post_count } Comment{ Number(post_count) !== 1 && 's' }</span>
 					</div>
 				</div>

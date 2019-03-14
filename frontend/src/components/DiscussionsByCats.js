@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from './index.
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
 
 // globals
-import { tabletP, phoneP, accountUserTypes, subBronzeStartIndex } from '../globals/globals.js';
+import { tabletP } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -204,10 +204,9 @@ class DiscussionsByCats extends Component {
                 <option value={mostComments}>{mostComments}</option>
               </select>
             </div>
-            {(accountUserTypes.indexOf(user_type) >= subBronzeStartIndex) &&
-              <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-                <i className='fas fa-plus-circle' />&nbsp;Add Post
-            </button>}
+            <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+              <i className='fas fa-plus-circle' />&nbsp;Add Post
+            </button>
           </div>
         </DiscussionHeader>
         <hr />

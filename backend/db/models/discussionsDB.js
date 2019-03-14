@@ -349,6 +349,7 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
       'u.avatar',
       'd.category_id',
       'c.name as category_name',
+      'c.icon as category_icon',
       'd.body',
       'd.created_at',
       'dv.upvotes',
@@ -372,7 +373,7 @@ const findByCategoryId = (category_id, user_id, order, orderType) => {
       this.on('uv.discussion_id', '=', 'd.id');
     })
     .where('c.id', category_id)
-    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type', 'dv.upvotes', 'dv.downvotes', 'u.avatar')
+    .groupBy('d.id', 'u.username', 'c.name', 'pc.post_count', 'uv.type', 'dv.upvotes', 'dv.downvotes', 'u.avatar', 'c.icon')
     // order by given order and orderType variables
     // else default to ordering by created_at descending
     .orderBy(`${order ? order : 'created_at'}`, `${orderType ? orderType : 'desc'}`);
