@@ -1,7 +1,10 @@
 
 # Symposium Discussion Board
 
-Symposium is a web application that organizes communication in a way that like-minded people can come together to share and discuss ideas.
+Symposium is a web application that organizes communication in a way that like-minded people can come together to share and discuss ideas.  
+
+---
+  >>>>>>>>>>>> ![Testing](/frontend/src/assets/img/symposiumgit.png "Symposium Logo Enlarged") 
 
 ---
 
@@ -9,8 +12,8 @@ Symposium is a web application that organizes communication in a way that like-m
 
 [Getting Started](#start)  
  
-  >> [Prerequisites ](#prereq)
-  >> [Starting Server](#server)  
+  >> [Prerequisites ](#prereq)  
+  >> [Starting Server](#server)    
   >> [Folder Structure and Table Schema](#structures)
   
 [Endpoints](#endpoints)
@@ -55,7 +58,9 @@ Symposium is a web application that organizes communication in a way that like-m
 >> 8. [Users Notifications API](#usersnoti)  
 
 [Profile Links](#profilelinks)  
+  
 [Tech Stack](#techstack)  
+  
 [Authors](#authors)  
   >> [Carlos Andrade](#carlos)  
   >> [James Page](#james)  
