@@ -392,9 +392,8 @@ const SpanSubPlan = styled.span`
 font-weight: bold;
   color: red;
   color: ${props => props.subplan === subscriptionPlans[0] && 'black'};
-  color: ${props => props.subplan === subscriptionPlans[1] && '#ca620d'};
-  color: ${props => props.subplan === subscriptionPlans[2] && '#848795'};
-  color: ${props => props.subplan === subscriptionPlans[3] && 'gold'};
+  color: ${props => props.subplan === subscriptionPlans[1] && '#848795'};
+  color: ${props => props.subplan === subscriptionPlans[2] && 'gold'};
 `;
 class Settings extends Component {
   state = {
