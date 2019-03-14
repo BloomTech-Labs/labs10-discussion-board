@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // action creators
@@ -11,13 +10,6 @@ import { ToolTip } from './index.js';
 
 //globals
 import { phoneL } from '../globals/globals.js';
-
-// globals
-import {
-//   auth0Domain,
-//   auth0ClientID,
-//   auth0RedirectUri
-} from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
