@@ -23,6 +23,11 @@ const RequestResetPWFormWrapper = styled.form`
 		border-radius: 5px;
 		margin: 10px;
 	}
+
+	.back-to {
+		margin-top: 10px;
+		text-decoration: none;
+	}
 `;
 
 class RequestResetPWForm extends Component {
@@ -54,7 +59,7 @@ class RequestResetPWForm extends Component {
 				/>
 
 				<button type = 'submit'>Send reset PW email</button>
-				<Link to = '/'>Back to log in</Link>
+				<Link className = 'back-to' to = '/'>Back to log in</Link>
 			</RequestResetPWFormWrapper>
 		);
 	}
