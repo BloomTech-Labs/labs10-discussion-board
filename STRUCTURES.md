@@ -132,11 +132,11 @@ Naming Conventions:
 
 ### user_settings
 
-| Field           | Data Type (note, mods are individual roles assigned to a specific category)     |
+| Name            | Data Type (note, mods are individual roles assigned to a specific category)     |
 | --------------- | ------------------------------------------------------------------------------- |
 | user_id         | foreign Key (id in users table)                                                 |
 | avatar          | Text (optional)(base64)                                                         |
-| user_type       | String (required) (user, bronze_member, silver_member, gold_member, and admin)  |
+| user_type       | String (required) (user,  silver_member, gold_member, and admin)                |
 | signature       | string (255, optional)                                                          |
 | subscribed_at   | bigInteger (required)                                                           |
 
