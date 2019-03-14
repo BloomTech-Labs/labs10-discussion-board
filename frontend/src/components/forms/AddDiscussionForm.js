@@ -27,6 +27,14 @@ const AddDiscussionFormWrapper = styled.div`
 	top: ${topHeaderHeight};
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 9999;
+
+	@media (max-height: 500px) {
+		padding: 0;
+	}
+
+	@media (max-width: 485px) {
+		padding: 0;
+	}
 `;
 
 const AddDiscussionFormBox = styled.form`
@@ -40,6 +48,14 @@ const AddDiscussionFormBox = styled.form`
 	background-color: ${props => props.theme.settingsBgColor};
 	height: 60vh;
 	width: 60vw;
+
+	@media (max-height: 500px) {
+		height: 100vh;
+	}
+
+	@media (max-width: 485px) {
+		height: 100vh;
+	}
 
 	.body-input, .categories-select {
 		border-radius: 5px;
@@ -58,10 +74,14 @@ const AddDiscussionFormBox = styled.form`
 		width: 100%;
 		justify-content: space-between;
 		margin-bottom: 15px;
+		position: relative;
 
 		.back {
 			font-size: 30px;
 			color: ${props => props.theme.defaultColor};
+			position: absolute;
+			top: -30px;
+			left: 0;
 
 			&:hover {
 				cursor: pointer;
