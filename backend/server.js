@@ -42,18 +42,25 @@ const {
   replyVoteRouter,
 } = require('./routes/index.js');
 
+//Auth Route
 server.use('/auth', authRouter);
+//Categories Routes
 server.use('/categories', categoriesRouter);
+server.use('/category-follows', categoryFollowsRouter);
+//Discussion Routes
 server.use('/discussions', discussionsRouter);
+server.use('/discussion-follows', discussionFollowsRouter);
 server.use('/discussion-votes', discussionVotesRouter);
+//Posts Routes
 server.use('/posts', postsRouter);
 server.use('/post-votes', postVoteRouter);
+//Reply Routes
 server.use('/reply-votes', replyVoteRouter);
 server.use('/replies', repliesRouter);
+//Tests Routes
 server.use('/tests', testRouter);
+//Users Routes
 server.use('/users', usersRouter);
-server.use('/discussion-follows', discussionFollowsRouter);
-server.use('/category-follows', categoryFollowsRouter);
 server.use('/user-notifications', userNotificationsRouter);
 
 server.use(errorHandler); // This line needs to be after all routes
