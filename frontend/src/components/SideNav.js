@@ -39,6 +39,7 @@ const DivHeader = styled.div`
     padding: 10px;
     color: ${ props => props.theme.defaultColor };
     margin: 10px;
+    margin-bottom: 45px;
 
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover };
@@ -64,7 +65,7 @@ const DivHeader = styled.div`
 const H4BrowseCategories = styled.h4`
     width: 95%;
     border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
-    margin-bottom: 27px;
+    margin-bottom: 57px;
 
     @media(max-width: 800px) {
       display: flex;

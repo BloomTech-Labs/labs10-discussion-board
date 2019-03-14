@@ -44,7 +44,7 @@ const Footer = ({ toggleSearch, switchTheme }) => {
   return (
     <DivWrapper>
       <FooterContents>
-        <p>Symposium Discussion Board <i className="far fa-copyright"></i> 2018</p>
+        <p>Symposium Forums <i className="far fa-copyright"></i> 2018</p>
       </FooterContents>
     </DivWrapper>
   );
