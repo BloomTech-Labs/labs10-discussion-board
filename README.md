@@ -4,7 +4,7 @@
 Symposium is a web application that organizes communication in a way that like-minded people can come together to share and discuss ideas.  
 
 ---
-  >>>>>>>>>>>> ![Testing](/frontend/src/assets/img/symposiumgit.png "Symposium Logo Enlarged") 
+ ![Testing](/frontend/src/assets/img/symposiumgit.png "Symposium Logo Enlarged") 
 
 ---
 
@@ -591,20 +591,21 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 <a name="techstack"></a>
 ## Built With (Tech Stack)
 #### Backend
-* Bcrypt JS  
-* Concurrently  
-* Express  
-* Faker  
-* JSON Web Token  
-* Knex  
-* Stripe  
+* [Bcrypt JS](https://www.npmjs.com/package/bcryptjs)  
+
+* [Express](http://www.react.express/)  
+* [Faker](https://faker.readthedocs.io/en/master/)  
+* [JSON Web Token](https://jwt.io/)  
+* [Knex](https://knexjs.org/) 
+* [Stripe](https://stripe.com/docs/quickstart)
+* [Concurrently](https://www.npmjs.com/package/concurrently)  
 
 #### Frontend
-* React JS
-* Redux JS
-* Auth0 JS
-* Axios
-* styled-components
+* [React JS](https://reactjs.org/)
+* [Redux JS](https://redux.js.org/)
+* [Auth0 JS](https://auth0.com/)
+* [Axios](https://www.axios.com/)
+* [styled-components](https://www.styled-components.com/)
 
 <a name="authors"></a>
 ## Authors
