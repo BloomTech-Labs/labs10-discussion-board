@@ -125,7 +125,6 @@ class App extends Component {
 
     // Initial state: day time!
     this.state = {
-      // isDay: true,
       theme: dayTheme,
       showSearch: false,
       showNotifications: false,

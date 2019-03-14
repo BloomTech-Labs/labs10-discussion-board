@@ -28,24 +28,25 @@ const DivWrapper = styled.div`
       width: 95%;
   }
   @media ${phoneP}{
+    justify-content: space-between;
   }
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 35%;
+  width: 100%;
   height: 100%;
+  justify-content: flex-end;
 
 
   @media ${tabletL}{
-    width: 50%;
+    width: ${ ({ user_id }) => user_id !== 0 ? '50%' : '100%'};
     display: flex;
-    justify-content: space-between;
+    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'space-between' : 'flex-end'};
   }
 
   @media ${phoneL}{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -84,10 +85,13 @@ class Nav extends Component {
   render() {
     return (
       <DivWrapper>
-        <SearchContainer>
-          <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
-        </SearchContainer>
-        <DivAuth>
+        {
+          this.props.user_id !== 0 &&
+          <SearchContainer>
+            <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
+          </SearchContainer>
+        }
+        <DivAuth user_id={this.props.user_id}>
 
           {this.props.isDay ?
             <i onClick={this.props.switchTheme} className='fas fa-sun' /> :
@@ -103,12 +107,12 @@ class Nav extends Component {
       </DivWrapper>
     );
   }
-}
-
+};
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.users.isLoggedIn
+    user_id: state.users.user_id,
+    isLoggedIn: state.users.isLoggedIn,
   };
 };
 

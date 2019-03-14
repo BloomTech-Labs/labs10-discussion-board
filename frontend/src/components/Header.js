@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
 
 // assets
-import { symposiumDark, symposiumLight} from '../assets/index.js';
+import { symposiumDark, symposiumLight } from '../assets/index.js';
 
 // Globals
 import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
@@ -36,7 +36,7 @@ const StyledHeader = styled.div`
   }
 
   .LogoContainer {
-    width: ${ sideNavWidth };
+    width: ${ sideNavWidth};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,7 +47,7 @@ const StyledHeader = styled.div`
       }
 
       @media ${phoneL} {
-        width: 40%;
+        width: 42%;
       }
   }
 `;
@@ -69,7 +69,7 @@ const NavContainer = styled.div`
 const SympLogo = styled.div`
   width: 150px;
   height: 50px;
-  background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark });
+  background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark});
     &:hover {
       cursor: pointer;
     }
@@ -78,7 +78,7 @@ const SympLogo = styled.div`
 const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised, toggleRegisterModal }) => {
   return (
     <StyledHeader>
-      <Link className='LogoContainer' to='/home'><SympLogo isDay = { isDay } /></Link>
+      <Link className='LogoContainer' to='/home'><SympLogo isDay={isDay} /></Link>
       <NavContainer>
         <Nav showSearch={showSearch}
           scrollTo={scrollTo}
