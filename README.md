@@ -5,17 +5,18 @@ Symposium is a web application that organizes communication in a way that like-m
 
 ## Table of Contents
 
-## Getting Started
+## Getting Started  
 
-git clone https://github.com/Lambda-School-Labs/labs10-discussion-board.git  
-cd labs10-discussion-board  
+`git clone https://github.com/Lambda-School-Labs/labs10-discussion-board.git` 
 
-#### Prerequisites
-`cd frontend` to get into the Frontend Folder 
-`yarn` to install the Frontend Dependencies  
-`cd ..` to exit out of the Frontend Folder  
-`cd backend` to get into the Backend Folder  
-`yarn` to install the Backend Dependencies
+`cd labs10-discussion-board`  
+
+#### Prerequisites  
+`cd frontend` to get into the Frontend Folder   
+`yarn` to install the Frontend Dependencies    
+`cd ..` to exit out of the Frontend Folder    
+`cd backend` to get into the Backend Folder    
+`yarn` to install the Backend Dependencies  
   
 `knex migrate:rollback` to reset all the migrations (tables)  
 `knex migrate:latest` to activate all the migrations (tables)  
@@ -29,6 +30,121 @@ While in the Backend Folder use `yarn symposium` to "concurrently" start the bac
 In the Frontend Folder, use `yarn start`  
 In another terminal, in the Backend Folder, use `yarn start`  
 
+## Backend Endpoints  
+
+### Auth API  
+  
+|Method    |Endpoint                      |Requires                |Description                                      |
+| :------  | :--------------------------: | :--------------------: | :---------------------------------------------: |
+| POST     | `/auth/register`             | `requirements`         | explains the importance of this endpoint        |  
+| POST     | `/auth/login`                | `username`, `password` | allows user to register a username and password |
+| POST     | `/auth/log-back-in/:user_id` | `username`, `password` | allows users to log in                          |
+| POST     | `/auth/auth0-login`          | user must be logged in | logged in user can see all users                |
+| POST     | `/auth/stripe`               | `requirement`          | explains the importance of this endpoint        |  
+
+### Categories API  
+  
+|Method   |Endpoint                               |Requires                            |Description                                 |
+| :------ | :-----------------------------------: | :--------------------------------: | :----------------------------------------: |
+| GET     | `/categories/`                        |                                    | Used to show all the categories in the api |  
+| POST    | `/categories/followed/:user_id`       | `user_id`                          | Used to allow a user to follow a category  |
+| POST    | `/categories/search`                  | `searchText`, `order`, `orderType` | Used to search category by letter/word     |
+| GET     | `/categories/category-icons/:user_id` | `categories_icon`, `user_id`       | Used to get specific category icon         |  
+| POST    | `/categories/:user_id`                | `user_id`,`name`                   | Used to create a new UNIQUE Category       |  
+
+  
+### Discussions API  
+  
+|Method   |Endpoint                                           |Requires                |Description                         |
+| :------ | :----------------------------------------------:  | :--------------------: | :--------------------------------: |
+| GET     | `/discussions/`                                   | no requirements        | Used to get all discussions        |  
+| GET     | `/discussions/all-by-followed-categories/:user_id`| `user_id`              | Used to get discussions by followed category|
+| GET     | `/discussions/discussion/:id/:user_id`            | `id`,`user_id`         | Used to get discussion by discussion ID     |
+| GET     | `/discussions/search`                             | `searchText`           | Used to locate discussions for letter/word  |  
+| GET     | `/discussions/user/:user_id`                      | `discussion_id`,`user_id`| Used to get discussion by user (moderator)|  
+| GET     | `/discussions/category/:category_id/:user_id`     | `category_id`,`user_id`  | Used to get discussions by category       | 
+| POST    | `/discussions/:user_id`                           | `discussion_id`,`user_id`| Used to post a new discussion    |  
+| PUT     | `/discussions/:user_id`                           | `discussion_id`,`user_id`| Used to edit a discussion        |  
+| DELETE  | `/discussions/:user_id`                           | `discussion_id`,`user_id`| Used to delete a discussion      |  
+
+### Discussion Follows API  
+  
+|Method |Endpoint                                      |Requires                   |Description                                      |
+| :---- | :------------------------------------------: | :-----------------------: | :---------------------------------------------: |
+| POST  | `/discussion-follows/:user_id/:discussion_id`| `discussion_id`, `user_id`| Used so users can follow many discussions       |  
+ 
+  
+### Discussion Votes API  
+  
+|Method    |Endpoint                      |Requires                         |Description                                      |
+| :------- | :--------------------------: | :-----------------------------: | :---------------------------------------------: |
+| POST     | `/discussion-votes/:user_id` | `discussion_id`,`type`,`user_id`| Used to upvote / downvote a discussion          |  
+
+### Posts API  
+  
+|Method  |Endpoint           |Requires                |Description                                      |
+| :----- | :---------------: | :--------------------: | :---------------------------------------------: |
+| GET    | `/posts/search`   | `searchText`           | text to show port and endpoint are up           |  
+| POST   | `/posts/:user_id` | `username`, `password` | allows user to register a username and password |
+| PUT    | `/posts/:user_id` | `username`, `password` | allows users to log in                          |
+| DELETE | `/posts/:user_id` | user must be logged in | logged in user can see all users                |  
+  
+### Post Votes API  
+  
+|Method   |Endpoint       |Requires                |Description                                      |
+| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
+| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
+| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
+| POST    | `/login`      | `username`, `password` | allows users to log in                          |
+| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+  
+### Replies API  
+  
+|Method   |Endpoint       |Requires                |Description                                      |
+| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
+| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
+| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
+| POST    | `/login`      | `username`, `password` | allows users to log in                          |
+| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+
+### Reply Votes API  
+  
+|Method   |Endpoint       |Requires                |Description                                      |
+| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
+| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
+| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
+| POST    | `/login`      | `username`, `password` | allows users to log in                          |
+| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+
+### Tests API  
+  
+|Method   |Endpoint       |Requires                |Description                                      |
+| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
+| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
+| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
+| POST    | `/login`      | `username`, `password` | allows users to log in                          |
+| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+
+### Users API  
+  
+|Method   |Endpoint       |Requires                |Description                                      |
+| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
+| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
+| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
+| POST    | `/login`      | `username`, `password` | allows users to log in                          |
+| GET     | `/users`      | user must be logged in | logged in user can see all users                |     
+
+### Users Notifications API  
+  
+|Method   |Endpoint       |Requires                |Description                                      |
+| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
+| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
+| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
+| POST    | `/login`      | `username`, `password` | allows users to log in                          |
+| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+
+
+  
 ## Project Links  
 
 #### Folder Structure and Table Schema
