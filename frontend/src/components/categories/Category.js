@@ -28,7 +28,7 @@ const DivRow = styled.div`
     cursor: pointer;
 
     .black-on-hover {
-      color: black;
+      color: rgb(150,150,150);
     }
   }
 `;
@@ -107,7 +107,7 @@ const SpanCategory = styled.span`
   text-align: center;
 
   &:hover {
-    color: blue;
+    color: ${props => props.theme.defaultColorOnHover};
   }
 `;
 
@@ -141,14 +141,14 @@ const DivCategoryInfo = styled.div`
       cursor: pointer;
 
       &:hover {
-        color: blue;
+        color: ${props => props.theme.defaultColorOnHover};
       }
     }
   }
 
   .latest {
     &:hover {
-      color: blue;
+      color: ${props => props.theme.defaultColorOnHover};
     }
   }
 
