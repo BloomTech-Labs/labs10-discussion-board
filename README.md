@@ -113,39 +113,35 @@ In another terminal, in the Backend Folder, use `yarn start`
 
 ### Users API  
   
-|Method   |Endpoint       |Requires                |Description                                      |
-| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
-| GET     | `/users`           | `api running`          | Used to get all users |  
-| POST    | `/users/discussions/:user_id`   | `user_id` | Used to get a list of discussions created by the user |
-| POST    | `/users/user/:user_id`      | `user_id` | Used to get user by their ID |
-| GET     | `/users/username/:username`  |    | Used to return true if username is already in the database  |
-| GET     | `/users/email/:email`       |  | Used to return true if email is in the database|
-| GET     | `/users/confirm-email`      | `email_confirm_token` | Used to confirm a user's email |  
-| GET     | `/users/send-reset-pw-email`      | `email`,`clientIP`| Used to send a reset-pw email to user |  
-| GET     | `/users/reset-password`      | `id`,`password` | Used to reset password |  
-| GET     | `/users/edit-signature/:user_id`      | user must be logged in | logged in user can see all users                |  
-| GET     | `/users/token-info`      | `id`, `username`, `email` | Used to get info from reset-pw-token |  
-| GET     | `/users/search-all`      | `searchText` | Used to search for letter/words through whole website            |  
-| PUT     | `/users/user/:user_id`      | `user_id`,`username`,`oldPassword`,`newPassword`,`email` |Used to update user info|  
-| PUT     | `/users/password/:user_id`      | `user_id`, `oldPassword`,`newPassword` | Used to update password |  
-| PUT     | `/users/update-email/:user_id`      | `user_id`, `email`, `clientIP` | Used to update user's email|  
-| PUT     | `/users/type/:user_id`      |`user_id`, `user_type`| Used to change the user_type of a user|  
-| PUT     | `/users/avatar/:user_id`      | `user_id`, `avatarData` | Used to update a user's avatar |  
-| PUT     | `/users/avatar-url/:user_id`      | `user_id`, `avatarURL`| Used to update a user's avatar via URL|  
-| PUT     | `/users/last-login/:user_id`      | `user_id` | Used to update last login |  
-| DELETE  | `/users/:user_id`      | `user_id` | Used to delete a user|  
-
+|Method   |Endpoint                         |Requires                     |Description                                                 |
+| :------ | :-----------------------------: | :-------------------------: | :--------------------------------------------------------: |
+| GET     | `/users`                        | `api running`               | Used to get all users                                      |
+| GET     | `/users/discussions/:user_id`   | `user_id`                   | Used to get a list of discussions created by the user      |
+| GET     | `/users/user/:user_id`          | `user_id`                   | Used to get user by their ID                               |
+| GET     | `/users/username/:username`     |  n/a                        | Used to return true if username is already in the database |
+| GET     | `/users/email/:email`           |                                  | Used to return true if email is in the database       |
+| POST    | `/users/confirm-email`          | `email_confirm_token`            | Used to confirm a user's email                        | 
+| POST    | `/users/send-reset-pw-email`    | `email`,`clientIP`               | Used to send a reset-pw email to user                 | 
+| PUT     | `/users/reset-password`         | `id`,`password`                  | Used to reset password                                | 
+| PUT     | `/users/edit-signature/:user_id`| `user_id`,`signature`,`user_type`| Used to change signature                              | 
+| GET     | `/users/token-info`             | `id`, `username`, `email`        | Used to get info from reset-pw-token                  |
+| GET     | `/users/search-all`             | `searchText`                     | Used to search for letter/words through whole website | 
+| PUT     | `/users/user/:user_id`          | `user_id`,`username`,`oldPassword`,`newPassword`,`email` | Used to update user info      | 
+| PUT     | `/users/password/:user_id`      | `user_id`, `oldPassword`,`newPassword` | Used to update password                         | 
+| PUT     | `/users/update-email/:user_id`  | `user_id`, `email`, `clientIP`         | Used to update user's email                     | 
+| PUT     | `/users/type/:user_id`          |`user_id`, `user_type`                  | Used to change the user_type of a user          | 
+| PUT     | `/users/avatar/:user_id`        | `user_id`, `avatarData`                | Used to update a user's avatar                  | 
+| PUT     | `/users/avatar-url/:user_id`    | `user_id`, `avatarURL`                 | Used to update a user's avatar via URL          | 
+| PUT     | `/users/last-login/:user_id`    | `user_id`                              | Used to update last login                       | 
+| DELETE  | `/users/:user_id`               | `user_id`                              | Used to delete a user                           |
+  
 ### Users Notifications API  
   
-|Method   |Endpoint       |Requires                |Description                                      |
-| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
-| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
-| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
-| POST    | `/login`      | `username`, `password` | allows users to log in                          |
-| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+|Method   |Endpoint       |Requires              |Description                                                           |
+| :------ | :-----------: | :------------------: | :------------------------------------------------------------------: |
+| GET     | `/user-notifications/user/:user_id`  | `user_id` | Used to get notification by what user has followed       |  
+| DELETE  | `/user-notifications/:id/:user_id`   | `id`,`user_id` | Used to delete notification from what user followed |  
 
-
-  
 ## Project Links  
 
 #### Folder Structure and Table Schema
