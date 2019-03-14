@@ -34,6 +34,9 @@ const RequestResetPWFormWrapper = styled.form`
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		@media(max-width: 1080px) {
+			width:45%
+		  }
 	}
 
 	.fa-arrow-alt-circle-left {
@@ -42,7 +45,34 @@ const RequestResetPWFormWrapper = styled.form`
 		margin-left: 20px;
 		cursor: pointer;
 		text-decoration: none;
-		@media(max-width: 1024px) {
+		position: absolute;
+		top: 55%;
+		left: 33%;
+		color: ${props => props.theme.defaultColor};
+  
+  		&:hover {
+    		color: ${props => props.theme.defaultColorOnHover};
+		  }
+		  
+		@media(max-width: 1350px) {
+			top: 51%
+			left: 35%;
+		}
+		@media(max-width: 1080px) {
+			top: 46%
+			left: 30%;
+		}
+		@media(max-width: 800px) {
+			top: 41%
+			left: 26%;
+		}
+		@media(max-width: 600px) {
+			top: 35%
+			left: 23%;
+		}
+		@media(max-width: 450px) {
+			top: 31%
+			left: 21%;
 		}
 	  }
 
@@ -54,8 +84,21 @@ const RequestResetPWFormWrapper = styled.form`
       	background-color: #418DCF;
 		color: lightgrey;
 		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media(max-width: 1080px) {
+			width:50%
+		  }
+		  @media(max-width: 600px) {
+			width:62%
+		  }
 	}
 `;
+
+const ArrowLink = styled.div `
+	width: 100%;
+	`;
 
 class RequestResetPWForm extends Component {
 	state = { email: '' };
@@ -71,7 +114,9 @@ class RequestResetPWForm extends Component {
 		const { email } = this.state;
 		return(
 			<RequestResetPWFormWrapper onSubmit = { this.handleSubmit }>
-				<Link className = 'far fa-arrow-alt-circle-left' to = '/'></Link>
+				<ArrowLink>
+					<Link className = 'far fa-arrow-alt-circle-left' to = '/'></Link>
+				</ArrowLink>
 				<p className = 'enter-email-text'>
 					Enter your email:
 				</p>
@@ -86,7 +131,7 @@ class RequestResetPWForm extends Component {
 					onChange = { this.handleInputChange }
 				/>
 
-				<button className = 'reset-button' type = 'submit'>Send reset PW</button>
+				<button className = 'reset-button' type = 'submit'>Send&nbsp;Reset&nbsp;PW</button>
 				
 			</RequestResetPWFormWrapper>
 		);
