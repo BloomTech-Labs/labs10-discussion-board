@@ -58,7 +58,7 @@ const DivChangeSub = styled.div`
   height: 70%;
   flex-direction: column;
 
-  @media(max-width: 1080px) {
+  @media(max-width: 1200px) {
     width: 100%;
     height: 100%;
     align-items: center;
@@ -68,7 +68,7 @@ const DivChangeSub = styled.div`
 const FormChangeSub = styled.form`
   display: flex;
 
-  @media(max-width:1080px) {
+  @media(max-width:1200px) {
     width: 70%;
   }
 
@@ -83,9 +83,10 @@ const DivHeaderTitle = styled.div`
   justify-content: center;
   border-bottom: 1px solid black;
   margin: 0 auto 25px;
-  @media ${phoneL} {
-    margin: 0;
+
+  @media(max-width: 1200px){
     border: none;
+    margin: 0;
   }
 `;
 
@@ -102,7 +103,7 @@ const DivSelectBanners = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
 
-  @media(max-width: 1080px) {
+  @media(max-width: 1200px) {
     flex-direction: column;
   }
 `;
@@ -122,12 +123,12 @@ const DivBanner = styled.div`
     cursor: pointer;
     visibility: hidden;
 
-    @media(max-width: 1080px) {
+    @media(max-width: 1200px) {
       visibility: visible;
     }
   }
 
-  @media(max-width: 1080px) {
+  @media(max-width: 1200px) {
     height: ${props =>
     props.subPlan
       ? 'auto'
@@ -166,7 +167,7 @@ const DivFeatures = styled.div`
     user-select: none;
   }
 
-  @media(max-width: 1080px) {
+  @media(max-width: 1200px) {
     overflow: ${props =>
     props.subPlan
       ? 'visible'
@@ -201,7 +202,7 @@ const DivBronzePlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: 1080px) {
+    @media(max-width: 1200px) {
       display: ${props =>
     props.subPlan === subscriptionPlans[1]
       ? 'visible'
@@ -223,7 +224,7 @@ const DivBronzePlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.7')};
   }
 
-  @media(max-width: 1080px) {
+  @media(max-width: 1200px) {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -251,7 +252,7 @@ const DivSilverPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: 1080px) {
+    @media(max-width: 1200px) {
       display: ${props =>
     props.subPlan === subscriptionPlans[2]
       ? 'visible'
@@ -273,7 +274,7 @@ const DivSilverPlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.7')};
   }
 
-  @media(max-width: 1080px) {
+  @media(max-width: 1200px) {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -301,7 +302,7 @@ const DivGoldPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: 1080px) {
+    @media(max-width: 1200px) {
       display: ${props =>
     props.subPlan === subscriptionPlans[3]
       ? 'visible'
@@ -323,7 +324,7 @@ const DivGoldPlan = styled.div`
     opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.7')};
   }
 
-  @media(max-width: 1080px) {
+  @media(max-width: 1200px) {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -339,7 +340,7 @@ const DivButtons = styled.div`
   width: 100%;
   justify-content: space-around;
 
-  @media (max-width: 1080px){
+  @media (max-width: 1200px){
     width: 70%;
     justify-content: space-between;
   }
