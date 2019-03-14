@@ -127,6 +127,9 @@ const SearchBox = styled.div`
 				padding: 6px;
 				border-radius: 5px;
 				color: ${props => props.theme.discussionPostColor};
+				option {
+					color: black;
+				  }
 				&:focus {
 				outline: none;
 				}
@@ -167,8 +170,8 @@ const SearchBox = styled.div`
 		top: 44px;
 		z-index: 9001;
 		border-radius: 5px;
-		background-color: ${props => props.theme.searchBoxBgColor};
-		color: black;
+		background-color: ${props => props.theme.appBgColor};
+		color: ${props => props.theme.defaultColor};
 		width: 350px;
 		border: 1px solid #ddd;
 		padding: 10px;

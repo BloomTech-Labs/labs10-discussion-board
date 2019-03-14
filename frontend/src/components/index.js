@@ -1,5 +1,4 @@
 import Categories from './categories/Categories.js';
-import CategoriesNav from './categories/CategoriesNav.js';
 import Category from './categories/Category.js';
 import AddCategoryModal from './categories/AddCategoryModal.js';
 import ChangeSubscriptionModal from './ChangeSubscriptionModal.js';
@@ -43,6 +42,7 @@ import DiscussionsByFollowedCats from './DiscussionsByFollowedCats.js';
 import DiscussionByFollowedCats from './DiscussionByFollowedCats.js';
 import IconList from './categories/IconList.js';
 import Icon from './categories/Icon.js';
+import RegisterDropdown from './RegisterDropdown.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -62,7 +62,6 @@ export {
   Reply,
   Auth,
   Categories,
-  CategoriesNav,
   Category,
   ChangeSubscriptionModal,
   AddCategoryModal,
@@ -103,6 +102,7 @@ export {
   DiscussionByFollowedCats,
   IconList,
   Icon,
+  RegisterDropdown,
 
   // forms
   AddPostForm,

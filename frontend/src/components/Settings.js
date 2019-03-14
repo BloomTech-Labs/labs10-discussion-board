@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // globals
-import { phoneP, tabletP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
+import { phoneP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
 
 // action creators
 import { getProfile, editUser, } from '../store/actions/index.js';
@@ -26,7 +26,7 @@ const SettingsWrapper = styled.div`
   border-radius: 30px;
   width: 90%;
   margin-top: 10px;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     display: flex;
     flex-directon: column;      
     justify-content: space-between;
@@ -39,7 +39,7 @@ const SettingsWrapper = styled.div`
     align-self: flex-start;
     margin-left: 20px;
     cursor: pointer;
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       margin-left: 40px;
     }
     @media ${phoneP}{
@@ -54,7 +54,7 @@ const UserProperties = styled.form`
   display:flex;
   flex-wrap: wrap;
   color: ${props => props.theme.discussionPostColor};
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-direction: column;
     width: 60%;  
     p {
@@ -74,7 +74,7 @@ const UserProperties = styled.form`
     height: 20px;
     border-radius: 5px;
     padding: 5px;
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 150%;      
     }
     @media ${phoneP}{
@@ -86,7 +86,7 @@ const UserProperties = styled.form`
     background-color: ${props => props.theme.settingsDeleteButtonBg};
     color: ${props => props.theme.settingsDeleteButtonColor};
 
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 75%;
       margin-bottom: 25px;      
     }
@@ -99,10 +99,10 @@ const UserProperties = styled.form`
       cursor: pointer;
     }
   }
-  .save-settings {
+  .save-settings-btn {
     background-color: ${props => props.theme.settingsButtonBgColor};
     color: ${props => props.theme.settingsDeleteButtonColor};
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 75%;      
     }
     @media ${phoneP}{
@@ -113,6 +113,9 @@ const UserProperties = styled.form`
       background-color: ${props => props.theme.settingsButtonHov};
       cursor: pointer;
     }
+  }
+  .btn {
+    border: 1px solid ${props => props.theme.defaultColorOnHover};
   }
   button {
     width: 30%;
@@ -126,7 +129,7 @@ const UserProperties = styled.form`
       &:focus {
         outline: none;
       }
-      @media ${tabletP}{
+      @media(max-width: 1024px) {
         font-size: 14px;
       }
       @media ${phoneP}{
@@ -145,7 +148,7 @@ const SaveButton = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: -29px;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-wrap: wrap;
     margin-bottom: 50px;
     justify-content: center;
@@ -176,7 +179,7 @@ const DeleteButton = styled.div`
   color: black;
   justify-content: space-between;
   align-items: center;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-wrap: wrap;
     margin-bottom: 50px;
     justify-content: center;
@@ -207,8 +210,8 @@ const UserSettings = styled.div`
 `;
 
 const ProfileSettings = styled.div`
+  margin-right: 25px;
   width: 30%;
-  margin-left: 0px;
   align-items: center;
   justify-content: center;
   .avatar-change{
@@ -218,11 +221,11 @@ const ProfileSettings = styled.div`
     align-items: center;
     justify-content: center;
   }
-  @media ${tabletP}{
-    margin-left: 0px;  
+  @media(max-width: 1024px) {
     width: 40%;  
   }
   @media ${phoneP}{
+    margin-right: 0px;
     width: 100%;
   }
 `;
@@ -234,7 +237,7 @@ const EmailAndAvatar = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     font-size: 16px;
   }
   @media (max-width: 680px){
@@ -301,7 +304,7 @@ const FirstName = styled.div`
   p {
     margin: 0px 0px 7px 0px;
   }  
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-direction: column;      
   }
   @media ${phoneP}{
@@ -316,8 +319,11 @@ const Email = styled.div`
   flex-wrap: wrap;
   p {
     margin: 0px 0px 7px 0px;
-  }  
-  @media ${tabletP}{
+  }
+  .email {
+    display: block;
+  }
+  @media(max-width: 1024px) {
     flex-direction: column;      
   }
   @media ${phoneP}{
@@ -325,6 +331,7 @@ const Email = styled.div`
   }
 `;
 const Password = styled.div`
+  visibility: ${props => props.hide ? 'hidden' : 'visible'};
   font-size: 14px;
   width: 50%;
   display: flex;
@@ -333,7 +340,7 @@ const Password = styled.div`
   p {
     margin: 0px 0px 7px 0px;
   }  
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     flex-direction: column;      
   }
   @media ${phoneP}{
@@ -361,7 +368,7 @@ const DivSubscriptionPlan = styled.div`
     &:hover{
       background-color: rgb(0, 80, 0);
     }
-    @media ${tabletP}{
+    @media(max-width: 1024px) {
       width: 156%;
     }
     @media ${phoneP}{
@@ -374,7 +381,7 @@ const DivSubscriptionPlan = styled.div`
       border-radius: 5px;
     }
   }
-  @media ${tabletP}{
+  @media(max-width: 1024px) {
     margin: 0;
   }
   @media ${phoneP}{
@@ -452,7 +459,7 @@ class Settings extends Component {
             <FirstName><p> Last Name <input className='input-style' name='lastName' placeholder={splitUsername[1]} value={this.state.lastName} onChange={this.handleInputChange} /></p></FirstName>
             <Email>
               <p>Email {isAuth0 ?
-                <p>{email}</p>
+                <span className = 'email'>{email}</span>
                 :
                 <input
                   className='input-style'
@@ -465,23 +472,27 @@ class Settings extends Component {
               </p>
             </Email>
             {
-              !isAuth0 &&
-              <Password>
-                <p>Old Password <input name='oldPassword' className='input-style' type='password' placeholder='enter old password' value={this.state.oldPassword} onChange={this.handleInputChange} /></p>
-                <p>New Password <input name='newPassword' className='input-style' type='password' placeholder='enter new password' value={this.state.newPassword} onChange={this.handleInputChange} /></p>
-              </Password>
+              !isAuth0 ?
+                <Password>
+                  <p>Old Password <input name='oldPassword' className='input-style' type='password' placeholder='enter old password' value={this.state.oldPassword} onChange={this.handleInputChange} /></p>
+                  <p>New Password <input name='newPassword' className='input-style' type='password' placeholder='enter new password' value={this.state.newPassword} onChange={this.handleInputChange} /></p>
+                </Password> :
+                <Password hide>
+                  <p>Old Password <input name='oldPassword' className='input-style' type='password' placeholder='enter old password' value={this.state.oldPassword} onChange={this.handleInputChange} /></p>
+                  <p>New Password <input name='newPassword' className='input-style' type='password' placeholder='enter new password' value={this.state.newPassword} onChange={this.handleInputChange} /></p>
+                </Password>
             }
             <DivSubscriptionPlan>
               <p>Subscription&nbsp;Plan:&nbsp;{(subPlan) ? <SpanSubPlan subplan={subPlan}>{subPlan.toUpperCase()}</SpanSubPlan> : <SpanSubPlan>{user_type.toUpperCase()}</SpanSubPlan>}</p>
-              <button type='button' onClick={(ev) => setChangeSubModalRaised(ev, true)}>Change:&nbsp;Subscription&nbsp;Plan</button>
+              <button className = 'btn' type='button' onClick={(ev) => setChangeSubModalRaised(ev, true)}>Change:&nbsp;Subscription&nbsp;Plan</button>
             </DivSubscriptionPlan>
             <DeleteButton>
-              <button className='delete-btn' type='button' onClick={this.toggleDeleteModal}>
+              <button className='delete-btn btn' type='button' onClick={this.toggleDeleteModal}>
                 Delete account
               </button>
             </DeleteButton>
             <SaveButton>
-              <button className='save-settings' type='submit' >
+              <button className='save-settings-btn btn' type='submit' >
                 Save settings
               </button>
             </SaveButton>

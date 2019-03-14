@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from './index.
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
 
 // globals
-import { tabletP, phoneP, accountUserTypes, addPostPermStartIndex } from '../globals/globals.js';
+import { tabletP } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
@@ -40,7 +40,7 @@ const DiscussionsWrapper = styled.div`
 		align-items: center;
 		width: 95%;
 		color: ${props => props.theme.discussionPostColor};
-		@media ${ tabletP } {
+		@media ${ tabletP} {
 			width: 100%;
 		}
 	}
@@ -79,6 +79,9 @@ const DiscussionHeader = styled.div`
         background-color: rgba(0, 0, 0, 0);
         padding: 5px;
         color: ${props => props.theme.discussionPostColor};
+        option {
+          color: black;
+        }
         &:focus {
           outline: none;
         }
@@ -89,7 +92,7 @@ const DiscussionHeader = styled.div`
       margin-left: 10px;
       padding: 10px 15px;
       border-radius: 5px;
-      border: none;
+      border: 1px solid #418DCF;
       background-color: #418DCF;
       color: white;
 
@@ -97,7 +100,6 @@ const DiscussionHeader = styled.div`
         cursor: pointer;
         background-color: white;
         color: #418DCF;
-        border: 1px solid #418DCF;
       }
     }
   }
@@ -174,19 +176,19 @@ class DiscussionsByCats extends Component {
     };
   };
   render() {
-    const { discussions, history, category_name, match, user_type } = this.props;
+    const { discussions, history, category_name, match } = this.props;
     const { showAddDiscussionForm } = this.state;
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
-          <div className = 'name-follow-wrapper'>
+          <div className='name-follow-wrapper'>
             <h2 className='name'>{category_name}</h2>
             <FollowCat
               category_id={match.params.category_id}
               historyPush={history.push}
             />
           </div>
-          <div className = 'filter-add-btn-wrapper'>
+          <div className='filter-add-btn-wrapper'>
             <div className='filter-wrapper'>
               <i className='fab fa-mix' />
               <span>Filter by</span>
@@ -202,10 +204,9 @@ class DiscussionsByCats extends Component {
                 <option value={mostComments}>{mostComments}</option>
               </select>
             </div>
-            {(accountUserTypes.indexOf(user_type) >= addPostPermStartIndex) &&
-              <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-                <i className='fas fa-plus-circle' />&nbsp;Add Post
-            </button>}
+            <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+              <i className='fas fa-plus-circle' />&nbsp;Add Post
+            </button>
           </div>
         </DiscussionHeader>
         <hr />
@@ -233,7 +234,6 @@ class DiscussionsByCats extends Component {
 };
 
 const mapStateToProps = state => ({
-  user_type: state.users.user_type,
   discussions: state.discussions.discussions,
   category_name: state.discussions.category.name,
 });

@@ -16,26 +16,42 @@ const Followed = styled.div`
   width: 100%;
   position: relative;
 
-  .follow-btn {
-    margin-left: 10px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #418DCF;
-    border: 1px solid #418DCF;
-    color: white;
-    width: 100%;
+  // .follow-btn {
+  //   margin-left: 10px;
+  //   padding: 10px 15px;
+  //   border-radius: 5px;
+  //   border: none;
+  //   background-color: #418DCF;
+  //   border: 1px solid #418DCF;
+  //   color: white;
+  //   width: 100%;
 
-    &:hover {
-      cursor: pointer;
-      background-color: white;
-      color: #418DCF;
-      border: 1px solid #418DCF;
-    }
-  }
+  //   &:hover {
+  //     cursor: pointer;
+  //     background-color: white;
+  //     color: #418DCF;
+  //     border: 1px solid #418DCF;
+  //   }
+  // }
 
   @media (max-width: 525px) {
     width: 100%;
+  }
+
+  .follow {
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 10px 15px;
+		border-radius: 5px;
+		border: 1px solid #418DCF;
+		background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#418DCF' };
+    color: white;
+    
+    &:hover {
+      background-color: white;
+      color: #418DCF;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -57,7 +73,7 @@ const Followed = styled.div`
           <FollowWrapper>
             <Followed isFollowing = { isFollowing }>
               <button
-                className = 'follow-btn'
+                className = 'follow'
                 onClick={this.handleFollowClick}
                 onChange = { this.handleChange }
               >

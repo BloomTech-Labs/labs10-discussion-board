@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Nav } from '../components/index.js';
-import Symp from '../assets/img/symposium6.png';
+
+// assets
+import { symposiumDark, symposiumLight} from '../assets/index.js';
 
 // Globals
 import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
@@ -66,16 +68,16 @@ const NavContainer = styled.div`
 const SympLogo = styled.div`
   width: 150px;
   height: 50px;
-  background-image: url(${Symp});
+  background-image: url(${ ({ isDay }) => isDay ? symposiumLight : symposiumDark });
     &:hover {
       cursor: pointer;
     }
 `;
 
-const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised }) => {
+const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthenticated, toggleSearch, switched, isLoginDropdownModalRaised, setLoginDropdownModalRaised, isAvatarModalRaised, setAvatarModalRaised, isNotificationsModalRaised, setNotificationsModalRaised, toggleRegisterModal }) => {
   return (
     <StyledHeader>
-      <Link className='LogoContainer' to='/home'><SympLogo /></Link>
+      <Link className='LogoContainer' to='/home'><SympLogo isDay = { isDay } /></Link>
       <NavContainer>
         <Nav showSearch={showSearch}
           scrollTo={scrollTo}
@@ -92,6 +94,7 @@ const Header = ({ showSearch, scrollTo, pathname, goTo, isDay, history, isAuthen
           setAvatarModalRaised={setAvatarModalRaised}
           isNotificationsModalRaised={isNotificationsModalRaised}
           setNotificationsModalRaised={setNotificationsModalRaised}
+          toggleRegisterModal={toggleRegisterModal}
         />
       </NavContainer>
     </StyledHeader >

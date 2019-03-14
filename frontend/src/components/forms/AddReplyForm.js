@@ -54,6 +54,7 @@ const UserActions = styled.div`
 		color: steelblue;
 		background: none;
 		border:none;
+		outline: none;
 		
 		&:hover {
 			cursor: pointer;

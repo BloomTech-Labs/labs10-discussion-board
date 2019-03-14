@@ -1,6 +1,7 @@
-# labs10-discussion-board
 
-## Project Name: Symposium
+# Symposium Discussion Board
+
+Symposium is a place where like-minded people can come together to share and discuss ideas.
 
 # Table of Contents
 
@@ -165,7 +166,7 @@
 | --------------- | ------------------------------------------------------------------------------- |
 | user_id         | foreign Key (id in users table)                                                 |
 | avatar          | Text (optional)(base64)                                                         |
-| user_type       | String (required) (user, bronze_member, silver_member, gold_member, and admin)  |
+| user_type       | String (required) (user,  silver_member, gold_member, and admin)                |
 | signature       | string (255, optional)                                                          |
 | subscribed_at   | bigInteger (required)                                                           |
 

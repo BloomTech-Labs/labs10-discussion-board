@@ -9,6 +9,9 @@ import {
   USER_LOG_BACK_IN_SUCCESS,
   USER_LOG_BACK_IN_FAILURE,
   USER_SIGNOUT_SUCCESS,
+  CHANGE_USER_TYPE_LOADING,
+  CHANGE_USER_TYPE_SUCCESS,
+  CHANGE_USER_TYPE_FAILURE,
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
   USER_AUTH0_LOGIN_FAILURE,
@@ -81,6 +84,8 @@ import {
   EDIT_SIGNATURE_LOADING,
   EDIT_SIGNATURE_SUCCESS,
   EDIT_SIGNATURE_FAILURE,
+
+  TOGGLE_THEME,
 } from '../actions/index.js';
 
 const initialState = {
@@ -105,9 +110,11 @@ const initialState = {
   newNotifications: false,
   newNotificationCount: 0,
   last_login: '',
+  user_type: '',
   uuid: '',
   signature: null,
-  stripePaymentInfo: []
+  stripePaymentInfo: [],
+  isDay: true,
 };
 
 export const UsersReducer = (state = initialState, action) => {
@@ -118,6 +125,12 @@ export const UsersReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingInLoadingMessage: true,
+      };
+
+    case TOGGLE_THEME:
+      return {
+        ...state,
+        isDay: !state.isDay,
       };
 
     case RESET_PASSWORD_SUCCESS:
@@ -215,6 +228,12 @@ export const UsersReducer = (state = initialState, action) => {
 
     case USER_SIGNOUT_SUCCESS:
       return initialState;
+
+    case CHANGE_USER_TYPE_SUCCESS:
+      return {
+        ...state,
+        user_type: action.payload.user_type
+      }
 
     case DELETE_ACCOUNT_SUCCESS:
       return {
@@ -346,6 +365,8 @@ export const UsersReducer = (state = initialState, action) => {
         signature: action.payload.signature,
       };
 
+    case CHANGE_USER_TYPE_LOADING:
+    case CHANGE_USER_TYPE_FAILURE:
     case EDIT_SIGNATURE_LOADING:
     case EDIT_SIGNATURE_FAILURE:
     case UPDATE_LAST_LOGIN_LOADING:

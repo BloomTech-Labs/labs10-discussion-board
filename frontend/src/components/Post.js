@@ -59,7 +59,6 @@ const InfoWrapper = styled.div`
       color: black;
 
       &:hover {
-        text-decoration: underline;
         cursor: pointer;
       }
     }
@@ -78,7 +77,7 @@ const InfoWrapper = styled.div`
 
       &:hover {
         cursor: pointer;
-        color: black;
+        color: #418DCF;
       }
 
       @media (max-width: 530px) {
@@ -146,6 +145,11 @@ const InfoWrapper = styled.div`
 
 const UsernameWrapper = styled.span`
   color: ${props => props.theme.discussionPostColor};
+
+  &:hover {
+		cursor: pointer;
+		color: #418DCF;
+	}
 `;
 
 const Post = ({

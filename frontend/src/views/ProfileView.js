@@ -5,7 +5,7 @@ import Spinner from '../assets/gif/spinner/Spinner'; //need to move to assets fo
 import { getProfile } from '../store/actions/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { phoneP, tabletP, } from '../globals/globals';
+import { phoneP } from '../globals/globals';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import "react-tabs/style/react-tabs.css";
@@ -17,10 +17,11 @@ import { Avatar, Deleted } from '../components/index.js';
  ********************************************** Styles **********************************************
  **************************************************************************************************/
 const ProfileStyle = styled.div `
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   justify-content: center;
-  `;
+`;
+
 const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,17 +30,17 @@ const ProfileWrapper = styled.div`
   align-self: center;
   margin: 10px;
   padding: 10px;
-  width: 92%;
-  color: ${props => props.theme.discussionPostColor};
-  @media ${tabletP} {
+  width: 100%;
+  color: ${props => props.theme.defaultColor};
+  @media (max-width: 1080px) {
     .react-tabs__tab {
-      width: 93%;
+      width: 100%;
       text-align: center;
     }
   }
   @media ${phoneP} {
     .react-tabs__tab {
-      width: 93%;
+      width: 100%;
       text-align: center;
     }
   }
@@ -47,15 +48,23 @@ const ProfileWrapper = styled.div`
     width: 10%;
     display: flex;
     align-self: flex-start;
+    
     @media ${phoneP} {
       width: 20%;
       }
   }
   .username-style { 
     margin-left: 0px;
-    font-size: 18px;
+    font-size: .8rem;
     justify-content: flex-start
-    @media ${tabletP} {
+    
+    &:hover {
+      cursor: pointer;
+      color: ${props => props.theme.defaultColorOnHover};
+      text-decoration: underline;
+    }
+
+    @media (max-width: 1080px) {
       margin-left: 0px;
       display: flex;
       justify-content: flex-start;
@@ -72,7 +81,7 @@ const ProfileWrapper = styled.div`
     font-size: 10px;
     font-style: italic;
   }
-  @media ${tabletP}{
+  @media (max-width: 1080px){
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -93,20 +102,20 @@ const HeaderStyle = styled.div `
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
-  `;
+`;
 
 const WrappedDiv = styled.div`
 display: flex;
 flex-direction: row;
 width: 90%;
 margin: 0 auto;
-color: ${props => props.theme.discussionPostColor};
+color: ${props => props.theme.defaultColor};
 .back {
   margin-right: 5px;
   width: 7%;
   height: 50px;
-  font-size: 30px;
-  color: black;
+  font-size: 1rem;
+  color: ${props => props.theme.defaultColor};
   
   &:hover{
     cursor: pointer;
@@ -115,63 +124,83 @@ color: ${props => props.theme.discussionPostColor};
 `;
 
 const ContentDiv = styled.div`
-margin: 20px 0px 10px 0px;
+  margin: 20px 0px 10px 0px;
   display: flex;
-  border-bottom: 1px solid black;
+  color: ${props => props.theme.defaultColor};
+  padding: 5px;
+  border-radius: 5px;
+
   a {
     text-decoration: none;
   }
+
   p {
-    font-size: 22px;
+    font-size: 1rem;
     margin-top: 16px;
   }
-color: ${props => props.theme.profileTitleContentDColor};
-`;
 
-const DiscussionTitle = styled.div`
-  color: black;
-`;
-
-const PostedBy = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: auto;
-  align-items: center;
-  max-width: 100%;
-  .c-name {
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 160px;
-  min-width: 100px;
+  .discussion-title {
+    color: ${props => props.theme.defaultColor};
+    font-weight: normal;
   }
-  .c-time {
-    font-size: 0.8rem;
+
+  .posted-by {
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: auto;
     align-items: center;
-    margin-left: 150px;
-    width: 50%
-    min-width: 150px;
-    @media (max-width: 800px) {
-      display: none;
+    max-width: 100%;
+
+    .c-name {
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 160px;
+      min-width: 100px;
+      
+      @media (max-width: 525px) {
+        display: none;
+      }
     }
-  }
-  }
-  span {
-    margin-left: 5px;
-    
-    @media (max-width: 525px) {
-      display: none;
+
+    .c-time {
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 150px;
+      width: 50%
+      min-width: 150px;
+      
+      @media (max-width: 1080px) {
+        display: none;
+      }
+    }
+
+    span {
+      margin-left: 5px;
+      
+      @media (max-width: 525px) {
+        display: none;
+      }
     }
   }
 
-    @media (max-width: 525px) {
-      display: none;
+  .username{
+    font-size: 0.8rem;
+    color: ${props => props.theme.defaultColor};
+  }
+
+  &:hover {
+    background-color: #ccc;
+    color: black;
+
+    .discussion-title, .posted-by, .username {
+      color: black;
     }
-}
+  }
 `;
 
 const PostHeader = styled.div`
@@ -193,11 +222,6 @@ const PostHeader = styled.div`
       border-radius: 50%;
       margin-right: 10px;
       width: 23px;
-    }
-
-    .username{
-      font-size: 0.8rem;
-      color: ${props => props.theme.discussionPostColor};
     }
   }
 `;
@@ -231,7 +255,6 @@ class Profile extends Component {
     } else {
       if (this.props.profile) {
         profileItems = this.props.profile.map((profile, index) => (
-          
           <ProfileStyle key={index}>
             <ProfileWrapper className = 'prowrap'>
               <HeaderStyle>
@@ -244,14 +267,11 @@ class Profile extends Component {
                 </WrappedDiv>
                 <WrappedDiv className = 'username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
-                  {/* <p className='property-content'> ({profile.status})</p> */}
                 </WrappedDiv>
               </HeaderStyle>
               <Tabs>
                 <TabList>
                   <Tab> Followed Posts</Tab>
-                  {/* <Tab>Followed Categories</Tab> */}
-                  {/* <Tab>Posts</Tab> */}
                   <Tab>Comments</Tab>
                   <Tab>Replies</Tab>
                 </TabList>
@@ -262,12 +282,12 @@ class Profile extends Component {
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
                             <PostHeader>
-                              <DiscussionTitle>
+                              <div className = 'discussion-title'>
                                 <div className='content'>
                                   <p> {discussionFollowed.body}</p>
                                 </div>
-                              </DiscussionTitle>
-                              <PostedBy>
+                              </div>
+                              <div className = 'posted-by'>
                                 <div className = 'd-creator'>
                                   <img alt='user' src={discussionFollowed.avatar} />
                                   <p className = 'username' to = {`/discussion/${discussionFollowed.discussion_id}`}> 
@@ -287,33 +307,13 @@ class Profile extends Component {
                                     {moment(new Date(Number(discussionFollowed.created_at))).fromNow()}
                                   </span>
                                 </div>
-                              </PostedBy>
+                              </div>
                             </PostHeader>
                           </Link>
                         </ContentDiv>)}
                         </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
-              {/*<TabPanel>
-                  <WrappedDiv>
-                      {profile.categoryFollows.map((categoryFollowed, index) =>
-                        <ContentDiv key={index}>
-                          <Link to={`/discussions/category/${categoryFollowed.category_id}`}>
-                            <p className='property-content'> {categoryFollowed.name}</p></Link>
-                        </ContentDiv>)}
-                  </WrappedDiv> 
-                </TabPanel>*/}
-                {/* <TabPanel>
-                  <WrappedDiv>
-                      {profile.discussions.map((discussion, index) => 
-                        <SubContentDiv key={index}>
-                          <p className='property-content'> {discussion.username}</p>
-                          <p className='property-content'> {discussion.body}</p>
-                          <p className='property-content'> {moment(new Date(Number(discussion.created_at))).fromNow()}</p>
-                          <img alt='user' src = {discussion.avatar} />
-                        </SubContentDiv>)}
-                  </WrappedDiv>
-                </TabPanel> */}
                 <TabPanel>
                 <WrappedDiv>
                     <SubWrapper>
@@ -321,12 +321,12 @@ class Profile extends Component {
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${post.discussion_id}`}>
                           <PostHeader>
-                            <DiscussionTitle>
+                            <div className = 'discussion-title'>
                               <div className='content'>
                                 <p> {post.body}</p>
                               </div>
-                            </DiscussionTitle>
-                            <PostedBy>
+                            </div>
+                            <div className = 'posted-by'>
                               <div className = 'd-creator'>
                                   <img alt='user' src={post.avatar} />
                                   <p className = 'username' to = {`/discussion/${post.discussion_id}`}> 
@@ -340,7 +340,7 @@ class Profile extends Component {
                                     {moment(new Date(Number(post.created_at))).fromNow()}
                                   </span>
                                 </div>
-                            </PostedBy>
+                            </div>
                           </PostHeader>
                           </Link>
                         </ContentDiv>)}
@@ -354,12 +354,12 @@ class Profile extends Component {
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${reply.discussion_id}`}>
                             <PostHeader>
-                              <DiscussionTitle>
+                              <div className = 'discussion-title'>
                                   <div className='content'>
                                     <p> {reply.body}</p>
                                   </div>
-                              </DiscussionTitle>
-                              <PostedBy>
+                              </div>
+                              <div className = 'posted-by'>
                                 <div className = 'd-creator'>
                                   <img alt='user' src={reply.avatar} />
                                   <p className = 'username' to = {`/discussion/${reply.discussion_id}`}> 
@@ -373,7 +373,7 @@ class Profile extends Component {
                                     {moment(new Date(Number(reply.created_at))).fromNow()}
                                   </span>
                                 </div>
-                              </PostedBy>
+                              </div>
                             </PostHeader>
                           </Link>
                         </ContentDiv>)}
@@ -383,9 +383,10 @@ class Profile extends Component {
               </Tabs>
             </ProfileWrapper>
           </ProfileStyle>
+          
         ));
       } else {
-        profileItems = <h4>No profiles found...</h4>;
+        profileItems = <h4>No profile found...</h4>;
       }
     }
     return (

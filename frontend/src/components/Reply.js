@@ -40,7 +40,6 @@ const InfoWrapper = styled.div`
       color: black;
 
       &:hover {
-        text-decoration: underline;
         cursor: pointer;
       }
     }
@@ -59,7 +58,7 @@ const InfoWrapper = styled.div`
 
       &:hover {
         cursor: pointer;
-        color: black;
+        color: #418DCF;
       }
     }
 
@@ -126,6 +125,11 @@ const InfoWrapper = styled.div`
 
 const UsernameWrapper = styled.span`
   color: ${props => props.theme.discussionPostColor};
+  
+  &:hover {
+		cursor: pointer;
+		color: #418DCF;
+	}
 `;
 
 const Reply = ({
@@ -139,7 +143,6 @@ const Reply = ({
     const {
         body, 
         created_at,
-        last_edited_at,
         post_id,
         avatar,
         username,
@@ -160,19 +163,6 @@ const Reply = ({
     };
 
     const replyVote = (e, type) => handleReplyVote(id, type);
-
-    const timeStamp =() => {
-        if(last_edited_at){
-          return (
-                <span>
-                  Last edited: {moment(new Date(Number(last_edited_at))).fromNow()}
-                </span>
-              )
-        } else if(created_at) {
-          return (<span>Created: {moment(new Date(Number(created_at))).fromNow()}</span>
-          )
-        }
-      };
 
     const handleUserClick = e => {
       e.stopPropagation();

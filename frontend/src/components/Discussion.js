@@ -53,7 +53,7 @@ const Wrapper = styled.div`
       font-size: 30px;
       margin-right: 35px;
       margin-top: 15px;
-      color: black;
+      color: ${props => props.theme.defaultColor};
 
       &:hover{
         cursor: pointer;
@@ -142,7 +142,7 @@ const CommentSort = styled.div`
   }
 
   @media (max-width: 590px) {
-    align-items; center;
+    align-items: center;
     .desktop {
       display: none;
     }
@@ -164,10 +164,10 @@ const CommentSort = styled.div`
     .filter-wrapper {
       i {
         margin-right: 5px;
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
       }
       .filter-by{
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
       }
   
       .filter {
@@ -175,7 +175,10 @@ const CommentSort = styled.div`
         background-color: rgba(0, 0, 0, 0);
         padding: 6px;
         border-radius: 5px;
-        color: ${props => props.theme.discussionPostColor};
+        color: ${props => props.theme.defaultColor};
+        option {
+          color: black;
+        }
         &:focus {
           outline: none;
         }
@@ -281,11 +284,11 @@ class Discussion extends Component {
     } = discussion;
     return (
       <Wrapper>
-        <div className = 'back-follow-wrapper'>
+        <div className='back-follow-wrapper'>
           <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
           <Follow
-            discussion_id = { id }
-            historyPush = { historyPush }
+            discussion_id={id}
+            historyPush={historyPush}
           />
         </div>
         <DiscussionWrapper>
@@ -294,21 +297,21 @@ class Discussion extends Component {
               discussion={discussion}
               history={history}
               voteOnDiscussion={this.handleVote}
-              singleDiscussion = { true }
+              singleDiscussion={true}
             />
             <CommentWrapper>
               <CommentSort>
-                <div className = 'comment-sort-wrapper'>
-                  <div className = 'title-add-wrapper'>
+                <div className='comment-sort-wrapper'>
+                  <div className='title-add-wrapper'>
                     <span className='title'>Comments</span>
                     <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
                       <i className='fas fa-plus-circle' />&nbsp;Add Comment
                     </button>
                   </div>
-                  <div className = 'sort'>
+                  <div className='sort'>
                     <div className='filter-wrapper'>
                       <i className='fab fa-mix' />
-                      <span className = 'filter-by'>Filter by &nbsp;</span>
+                      <span className='filter-by'>Filter by &nbsp;</span>
                       <select
                         className='filter'
                         onChange={this.handleSelectChange}
@@ -344,8 +347,8 @@ class Discussion extends Component {
                   discussion_id={id}
                   historyPush={historyPush}
                   repliedPost={posts.find(post => post.id === showAddReplyForm)}
-                  handleFilterChange = {this.handleFilterChange}
-                  scrollTo = {scrollTo}
+                  handleFilterChange={this.handleFilterChange}
+                  scrollTo={scrollTo}
                 />
               </Posts>
             </CommentWrapper>

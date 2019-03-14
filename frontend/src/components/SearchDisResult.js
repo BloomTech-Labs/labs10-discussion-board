@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { searchCharLimit } from '../globals/globals.js';
 
 // components
-import { Highlight, Deleted } from './index.js';
+import { Highlight } from './index.js';
 
 const SearchDisResultWrapper = styled.div`
 	border: 1px solid #ddd;
@@ -19,6 +19,7 @@ const SearchDisResultWrapper = styled.div`
 	&:hover {
 		cursor: pointer;
 		background-color: #ccc;
+		color: black;
 
 		.created {
 			color: black;
@@ -54,12 +55,10 @@ const SearchDisResult = ({ discussion, goTo, searchText }) => {
 		// username,
 		created_at,
 		// votes,
-		category_id,
-		category_name,
+		// category_id,
+		// category_name,
 	} = discussion;
-	// const handleCategoryClick = () => goTo(`/discussions/category/${ category_id }`);
 	const handleDiscussionClick = () => goTo(`/discussion/${ id }`);
-	// const handleUsernameClick = () => goTo(`/profile/${ user_id }`);
 	searchText = searchText.toLowerCase();
 	const lowerCaseBody = body.toLowerCase();
 	return(

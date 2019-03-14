@@ -127,9 +127,9 @@ import {
 import {
   //Actions
   ADD_REPLY_LOADING,
-	ADD_REPLY_SUCCESS,
+  ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
-  
+
   //Action Creators
   addReply,
 } from './RepliesActions.js';
@@ -160,6 +160,10 @@ import {
   USER_LOG_BACK_IN_FAILURE,
 
   USER_SIGNOUT_SUCCESS,
+
+  CHANGE_USER_TYPE_LOADING,
+  CHANGE_USER_TYPE_SUCCESS,
+  CHANGE_USER_TYPE_FAILURE,
 
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
@@ -237,9 +241,12 @@ import {
   EDIT_SIGNATURE_SUCCESS,
   EDIT_SIGNATURE_FAILURE,
 
+  TOGGLE_THEME,
+
   // Action Creators
   login,
   signout,
+  changeUserType,
   logBackIn,
   auth0Login,
   register,
@@ -261,6 +268,7 @@ import {
   markNotificationsAsRead,
   editSignature,
   editUser,
+  toggleTheme,
 } from './UsersActions.js';
 
 //*************************************************************************************************
@@ -346,6 +354,10 @@ export {
 
   USER_SIGNOUT_SUCCESS,
 
+  CHANGE_USER_TYPE_LOADING,
+  CHANGE_USER_TYPE_SUCCESS,
+  CHANGE_USER_TYPE_FAILURE,
+
   USER_AUTH0_LOGIN_LOADING,
   USER_AUTH0_LOGIN_SUCCESS,
   USER_AUTH0_LOGIN_FAILURE,
@@ -407,6 +419,8 @@ export {
   EDIT_SIGNATURE_SUCCESS,
   EDIT_SIGNATURE_FAILURE,
 
+  TOGGLE_THEME,
+
   // Profile Actions
   GET_PROFILES_LOADING,
   GET_PROFILES_SUCCESS,
@@ -446,7 +460,7 @@ export {
 
   //Reply Actions
   ADD_REPLY_LOADING,
-	ADD_REPLY_SUCCESS,
+  ADD_REPLY_SUCCESS,
   ADD_REPLY_FAILURE,
 
   // Categories Action Creators
@@ -478,6 +492,7 @@ export {
   register,
   login,
   signout,
+  changeUserType,
   logBackIn,
   auth0Login,
   updatePassword,
@@ -498,6 +513,7 @@ export {
   markNotificationsAsRead,
   editSignature,
   editUser,
+  toggleTheme,
 
   // Profile Action Creators
   getProfiles,

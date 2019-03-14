@@ -61,11 +61,10 @@ const safePwdSqlLetters = [
 ];
 
 const accountStatusTypes = ['inactive', 'active', 'banned']; // be careful when adding new things or changing order
-const subscriptionPlans = ['free', 'bronze', 'silver', 'gold']; // same order as subscriptionPrices
+const subscriptionPlans = ['free', 'silver', 'gold']; // same order as subscriptionPrices
 // prettier-ignore
-const accountUserTypes = ['user', 'bronze_member', 'silver_member', 'gold_member', 'admin']; // Must match with globals on front end
-const addCatPermStartIndex = 2; // Must match with globals on front end
-const addPostPermStartIndex = 1; // Must match with globals on front end
+const accountUserTypes = ['user', 'silver_member', 'gold_member', 'admin']; // Must match with globals on front end
+const subSilverStartIndex = 1; // Must match with globals on front end
 // prettier-ignore
 const permissionTypes = ['basic', accountUserTypes[0], accountUserTypes[1], accountUserTypes[2], accountUserTypes[3], 'super_moderator', 'moderator', accountUserTypes[accountUserTypes.length - 1]];
 // prettier-ignore
@@ -115,8 +114,7 @@ const pusherCluster = process.env.PUSHER_CLUSTER;
 
 module.exports = {
   // variables
-  addCatPermStartIndex,
-  addPostPermStartIndex,
+  subSilverStartIndex,
   numOfDiscussions,
   numOfDefaultCategories,
   numOfPosts,

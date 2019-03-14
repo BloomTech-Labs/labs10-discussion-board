@@ -19,6 +19,7 @@ const SearchPostResultWrapper = styled.div`
 	&:hover {
 		cursor: pointer;
 		background-color: #ccc;
+		color: black;
 
 		.created {
 			color: black;
@@ -52,16 +53,13 @@ const SearchPostResult = ({ post, goTo, searchText, scrollTo, pathname }) => {
 		discussion_id,
 		body,
 		created_at,
-		votes,
-		user_id,
-		username,
-		discussion_body,
-		category_id,
-		category_name,
+		// votes,
+		// user_id,
+		// username,
+		// discussion_body,
+		// category_id,
+		// category_name,
 	} = post;
-	const handleDiscussionClick = () => goTo(`/discussion/${ discussion_id }`);
-	const handleCategoryClick = () => goTo(`/discussions/category/${ category_id }`);
-	const handleUsernameClick = () => goTo(`/profile/${ user_id }`);
 	const handlePostBodyClick = () => goTo(`/discussion/${ discussion_id }#${ id }`).then(() => {
 		if (parseInt(pathname.slice(pathname.lastIndexOf('/') + 1)) === discussion_id) {
 			return scrollTo(id);

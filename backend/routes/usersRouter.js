@@ -24,9 +24,9 @@ const {
 const { authenticate, generateToken, validateToken } = require('../config/middleware/authenticate.js');
 const requestClientIP = require('../config/middleware/requestClientIP.js');
 const {
-	transporter,
-	getMailOptions,
-}					= require('../config/nodeMailerConfig.js');
+  transporter,
+  getMailOptions,
+} = require('../config/nodeMailerConfig.js');
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************
@@ -95,21 +95,21 @@ router.get('/email/:email', (req, res) => {
 
 // confirm a user's email
 router.post('/confirm-email', (req, res) => {
-	const { email_confirm_token } = req.body;
-	return usersDB
-		.confirmEmail(email_confirm_token)
-		.then(result => {
-			if (result === 0) {
-				return res.status(401).json({ error: 'E-mail confirmation token is invalid.' });
-			}
-			return res.status(201).json({ message: 'Your e-mail has been confirmed. Thank you.' });
-		})
-		.catch(err => res.status(500).json({ error: `Failed to confirmEmail(): ${ err }` }));
+  const { email_confirm_token } = req.body;
+  return usersDB
+    .confirmEmail(email_confirm_token)
+    .then(result => {
+      if (result === 0) {
+        return res.status(401).json({ error: 'E-mail confirmation token is invalid.' });
+      }
+      return res.status(201).json({ message: 'Your e-mail has been confirmed. Thank you.' });
+    })
+    .catch(err => res.status(500).json({ error: `Failed to confirmEmail(): ${err}` }));
 });
 
 // send a reset-pw email to user
 router.post('/send-reset-pw-email', requestClientIP, (req, res) => {
-	const { email, clientIP } = req.body;
+  const { email, clientIP } = req.body;
   return usersDB
     .getUserFromConfirmedEmail(email)
     .then(async user => {
@@ -123,21 +123,21 @@ router.post('/send-reset-pw-email', requestClientIP, (req, res) => {
         email,
       );
       const mailOptions = getMailOptions('reset-pw', email, reset_pw_token, clientIP);
-			return transporter.sendMail(mailOptions, function(error, info){
-				if (error) {
-					return res.status(500).json({ error: `Failed to send e-mail: ${ error }` });
-				} else {
-					return res.status(201).json({ message: `Success! An e-mail was sent to ${ email } with a link to reset your password. Please check your inbox (You may also want to check your spam folder).` });
-				}
-			});
+      return transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          return res.status(500).json({ error: `Failed to send e-mail: ${error}` });
+        } else {
+          return res.status(201).json({ message: `Success! An e-mail was sent to ${email} with a link to reset your password. Please check your inbox (You may also want to check your spam folder).` });
+        }
+      });
     })
-    .catch(err => res.status(500).json({ error: `Failed to getUserFromConfirmedEmail(): ${ err }` }));
+    .catch(err => res.status(500).json({ error: `Failed to getUserFromConfirmedEmail(): ${err}` }));
 });
 
 // reset password
 router.put('/reset-password', validateToken, (req, res) => {
   const { id } = req.decoded;
-	let { password } = req.body;
+  let { password } = req.body;
   if (!password) return res.status(401).json({ error: 'Password must not be empty.' });
   password = bcrypt.hashSync(password, numOfHashes);
   return usersDB
@@ -171,7 +171,7 @@ router.put('/reset-password', validateToken, (req, res) => {
         })
         .catch(err => res.status(500).json({ error: `Failed to findById(): ${err}` }));
     })
-    .catch(err => res.status(500).json({ error: `Failed to updatePassword(): ${ err }` }));
+    .catch(err => res.status(500).json({ error: `Failed to updatePassword(): ${err}` }));
 });
 
 // change signature
@@ -185,7 +185,7 @@ router.put('/edit-signature/:user_id', authenticate, async (req, res) => {
   return usersDB
     .updateSignature(user_id, signature)
     .then(signature => res.status(201).json(signature))
-    .catch(err => res.status(500).json({ error: `Failed to updateSignature(): ${ err }` }));
+    .catch(err => res.status(500).json({ error: `Failed to updateSignature(): ${err}` }));
 });
 
 // get info from reset-pw-token
@@ -227,7 +227,7 @@ router.put('/user/:user_id', async (req, res) => {
         return res.status(400).json({ error: 'Old password is wrong.' });
       }
     }
-    catch(err) {
+    catch (err) {
       res.status(500).json({ error: `Failed to compare, hash, and get password: ${err}` })
     }
   }
@@ -276,39 +276,52 @@ router.put('/password/:user_id', authenticate, (req, res) => {
 
 // update email
 router.put('/update-email/:user_id', authenticate, requestClientIP, (req, res) => {
-	const { user_id } = req.params;
-	const { email, clientIP } = req.body;
+  const { user_id } = req.params;
+  const { email, clientIP } = req.body;
 
-	if (!email) return res.status(401).json({ error: 'E-mail must not be empty.' });
+  if (!email) return res.status(401).json({ error: 'E-mail must not be empty.' });
 
-	return usersDB
-		.getUserByEmail(email)
-		.then(user => {
-			if (user.length) {
-				return res.status(401).json({ error: `E-mail "${ email }" already in use.` });
-			}
+  return usersDB
+    .getUserByEmail(email)
+    .then(user => {
+      if (user.length) {
+        return res.status(401).json({ error: `E-mail "${email}" already in use.` });
+      }
 
-			// generate a random uuid for email confirmation URL
-			const email_confirm = uuidv4();
+      // generate a random uuid for email confirmation URL
+      const email_confirm = uuidv4();
 
-			return usersDB
-				.updateEmail(user_id, email, email_confirm)
-				.then(() => {
-					const mailOptions = getMailOptions('update-email', email, email_confirm, clientIP);
+      return usersDB
+        .updateEmail(user_id, email, email_confirm)
+        .then(() => {
+          const mailOptions = getMailOptions('update-email', email, email_confirm, clientIP);
 
-					return transporter.sendMail(mailOptions, function(err, info){
-						if (err) {
-							return res.status(500).json({ error: `Server failed to send e-mail confirmation: ${ err }` });
-						} else {
-							const message = `Success! An e-mail was sent to ${ email }. Please confirm your e-mail address in order to be able to reset your password in the future (You might want to check your spam folder).`;
-							return res.status(201).json(message);
-						}
-					});
-				})
-				.catch(err => res.status(500).json({ error: `Server failed to update email: ${ err }`}));
-		})
-		.catch(err => res.status(500).json({ error: `Server failed to get user by email: ${ err }`}));
+          return transporter.sendMail(mailOptions, function (err, info) {
+            if (err) {
+              return res.status(500).json({ error: `Server failed to send e-mail confirmation: ${err}` });
+            } else {
+              const message = `Success! An e-mail was sent to ${email}. Please confirm your e-mail address in order to be able to reset your password in the future (You might want to check your spam folder).`;
+              return res.status(201).json(message);
+            }
+          });
+        })
+        .catch(err => res.status(500).json({ error: `Server failed to update email: ${err}` }));
+    })
+    .catch(err => res.status(500).json({ error: `Server failed to get user by email: ${err}` }));
 });
+
+// Change the user_type of a user given their ID
+router.put('/type/:user_id', authenticate, (req, res) => {
+  const user_id = Number(req.params.user_id);
+  const { user_type } = req.body;
+
+  return usersDB.changeUserType(user_id, user_type).then(userType => {
+    res.status(201).json(userType[0]);
+  }).catch(err => {
+    res.status(500).json({ error: `Server failed to changeUserType(): ${err}` });
+  })
+
+})
 
 // Update the avatar of a user given their ID
 router.put('/avatar/:user_id', authenticate, fileUpload(), async (req, res) => {
@@ -393,7 +406,7 @@ router.put('/last-login/:user_id', authenticate, (req, res) => {
   return usersDB
     .updateLastLogin(user_id)
     .then(last_login => res.status(201).json(last_login))
-    .catch(err => res.status(500).json({ error: `Failed to updateLastLogin(): ${ err }` }));
+    .catch(err => res.status(500).json({ error: `Failed to updateLastLogin(): ${err}` }));
 });
 
 // Delete a user by their ID
@@ -407,7 +420,7 @@ router.delete('/:user_id', authenticate, (req, res) => {
       }
       return res.status(200).json(removed);
     })
-    .catch(err => res.status(500).json({ error: `Failed to remove(): ${ err }` }));
+    .catch(err => res.status(500).json({ error: `Failed to remove(): ${err}` }));
 });
 
 module.exports = router;
