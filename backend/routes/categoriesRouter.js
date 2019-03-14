@@ -21,7 +21,7 @@ const { authorizeCreateCat } = require('../config/middleware/authorization.js');
  **************************************************************************************************/
 
 //GET All Categories
-router.get('/:user_id', authenticate, (req, res) => {
+router.get('/:user_id', (req, res) => {
   let order = req.get('order');
   let orderType = req.get('orderType');
   if (order === 'undefined') order = null;

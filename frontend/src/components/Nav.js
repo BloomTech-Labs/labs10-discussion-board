@@ -28,24 +28,25 @@ const DivWrapper = styled.div`
       width: 95%;
   }
   @media ${phoneP}{
+    justify-content: space-between;
   }
 `;
 
 const DivAuth = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 35%;
+  width: 100%;
   height: 100%;
+  justify-content: flex-end;
 
 
   @media ${tabletL}{
-    width: ${ ({ user_id }) => user_id!== 0 ? '50%' : '100%' };
+    width: ${ ({ user_id }) => user_id !== 0 ? '50%' : '100%'};
     display: flex;
-    justify-content: ${ ({ user_id }) => user_id!== 0 ? 'space-between' : 'flex-end' };
+    justify-content: ${ ({ user_id }) => user_id !== 0 ? 'space-between' : 'flex-end'};
   }
 
   @media ${phoneL}{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -90,11 +91,14 @@ class Nav extends Component {
             <Search showSearch={this.props.showSearch} scrollTo={this.props.scrollTo} pathname={this.props.pathname} goTo={this.props.goTo} toggleSearch={this.props.toggleSearch} />
           </SearchContainer>
         }
-        <DivAuth user_id = { this.props.user_id }>
+        <DivAuth user_id={this.props.user_id}>
 
-          {this.props.isDay ?
+          {
+            this.props.user_id !== 0 && (
+              this.props.isDay ?
             <i onClick={this.props.switchTheme} className='fas fa-sun' /> :
             <i onClick={this.props.switchTheme} className='fas fa-moon' />
+            )
           }
 
           {(this.props.isLoggedIn) ? (
