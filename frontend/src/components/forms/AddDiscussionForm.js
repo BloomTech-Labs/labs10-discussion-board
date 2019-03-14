@@ -8,7 +8,6 @@ import { addDiscussion, displayError } from '../../store/actions/index.js';
 
 // globals
 import {
-	tabletP,
 	phoneP,
 	topHeaderHeight,
 } from '../../globals/globals.js';

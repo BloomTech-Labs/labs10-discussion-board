@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // globals
-import { phoneP, tabletP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
+import { phoneP, accountUserTypes, subscriptionPlans } from '../globals/globals.js';
 
 // action creators
 import { getProfile, editUser, } from '../store/actions/index.js';

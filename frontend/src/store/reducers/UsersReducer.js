@@ -365,6 +365,8 @@ export const UsersReducer = (state = initialState, action) => {
         signature: action.payload.signature,
       };
 
+    case CHANGE_USER_TYPE_LOADING:
+    case CHANGE_USER_TYPE_FAILURE:
     case EDIT_SIGNATURE_LOADING:
     case EDIT_SIGNATURE_FAILURE:
     case UPDATE_LAST_LOGIN_LOADING:
