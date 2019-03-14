@@ -1385,7 +1385,7 @@ class RegisterView extends Component {
                           />
                         )}
                     </DivEmail>
-                    <DivSignature subPlan={this.state.subPlan}>
+                    {/* <DivSignature subPlan={this.state.subPlan}>
                       <LabelSignature>Signature</LabelSignature>
                       {(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3]) ? (
                         <TextareaSignature
@@ -1405,9 +1405,9 @@ class RegisterView extends Component {
                             disabled
                           />
                         )}
-                    </DivSignature>
+                    </DivSignature> */}
                   </DivLeftSide>
-                  <DivRightSide subPlan={this.state.subPlan === subscriptionPlans[3]}>
+                  {/* <DivRightSide subPlan={this.state.subPlan === subscriptionPlans[3]}>
                     <DivAvatar subPlan={this.state.subPlan}>
                       <DivAvatarImg>
                         <Avatar height={'72px'} width={'72px'} src={this.state.avatar} />
@@ -1434,7 +1434,7 @@ class RegisterView extends Component {
                         Avatar From File
                       </button>
                     </DivAvatar>
-                  </DivRightSide>
+                  </DivRightSide> */}
                 </DivAccountDetails>
               </DivRegisterForm>
               <DivRegistryButtons>

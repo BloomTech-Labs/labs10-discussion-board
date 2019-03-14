@@ -122,7 +122,7 @@ router.post('/register', requestClientIP, (req, res) => {
       };
 
       // set account type
-      if (req.body.subPlan === subscriptionPlans[0]) {
+      if (req.body.subPlan === subscriptionPlans[0] || !req.body.subPlan) {
         userSettings.user_type = accountUserTypes[0];
         userSettings.subscribed_at = accountCreatedAt;
       } else if (req.body.subPlan === subscriptionPlans[1]) {
