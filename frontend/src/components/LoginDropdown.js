@@ -19,6 +19,7 @@ import {
 /***************************************************************************************************
  ********************************************** Styles *********************************************
  **************************************************************************************************/
+
 const DivWrapper = styled.div`
   display: ${props => props.isLoginDropdownModalRaised === 'true' ? 'flex' : 'none'};
 `;
@@ -26,43 +27,54 @@ const DivWrapper = styled.div`
 const FormLogin = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 9999;
   position: fixed;
   right: 0;
   width: 270px;
-  border: 2px solid ${props => props.theme.borderColor};
-  background-color: white;
-  border-radius: 10px;
+  border: 1px solid ${props => props.theme.borderColor};
+  background-color: ${props => props.isDay ? 'white' : '#555' };
+  border-radius: 5px;
   padding: 20px;
 
   input {
     height: 22px;
-    font-size: 14px;
     margin-bottom: 5px;
+    border-radius: 5px;
+    width: 100%;
     background-color: ${props => props.theme.borderColor};
     color: black;
-    
-    &:focus {
-    	outline: none;
-  	}
-  }
+    padding: 5px;
 
-  button {
-    font-size: 14px;
-    height: 25px;
-    border-radius: 10px;
-    &:hover {
-      cursor: pointer;
-      background-color: ${props => props.theme.borderColor}
+    &:focus {
+      outline: none;
     }
-    &:focus {
-    	outline: none;
-  	}
   }
 
-  @media ${tabletP}{
-  }
-  @media ${phoneL}{
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+
+    .btn {
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      background-color: #418DCF;
+      color: white;
+      border: 1px solid #418DCF;
+      width: 100%;
+      margin-bottom: 5px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: white;
+        color: #418DCF;
+        border: 1px solid #418DCF;
+      }
+    }
   }
 `;
 
@@ -80,11 +92,14 @@ const DivModalCloser = styled.div`
 `;
 
 const LinkForgotUserPass = styled(Link)`
-  margin: 20px 0px;
   text-align: center;
-  color: black;
+  color: ${props => props.theme.defaultColor};
   font-size: 16px;
   text-decoration: none;
+
+  &:hover {
+    color: ${props => props.theme.defaultColorOnHover};
+  }
 `;
 
 /***************************************************************************************************
@@ -158,7 +173,7 @@ class LoginDropdown extends Component {
     return (
       <DivWrapper isLoginDropdownModalRaised={this.props.isLoginDropdownModalRaised.toString()}>
         <DivModalCloser onClick={(ev) => this.props.setLoginDropdownModalRaised(ev, false)} />
-        <FormLogin>
+        <FormLogin isDay = { this.props.isDay }>
           <input
             onChange={this.handleInputChange}
             placeholder='Name'
@@ -174,14 +189,17 @@ class LoginDropdown extends Component {
             name='password'
             autoComplete='off'
           />
-          <button
-            type='submit'
-            onClick={ev => this.normalLogin(ev)}
-          >
-            Login
-          </button>
+          <div className = 'buttons'>
+            <button
+              type='submit'
+              className = 'btn'
+              onClick={ev => this.normalLogin(ev)}
+            >
+              Login
+            </button>
+            <button type='button' className = 'btn' onClick={this.handleAuth0Login}>Login with social media</button>
+          </div>
           <LinkForgotUserPass to='/request-reset-pw'>Forgot your username/password?</LinkForgotUserPass>
-          <button type='button' onClick={this.handleAuth0Login}>Login via Auth0</button>
         </FormLogin>
       </DivWrapper>
     );
@@ -190,7 +208,8 @@ class LoginDropdown extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggingInLoadingMessage: state.users.loggingInLoadingMessage
+    loggingInLoadingMessage: state.users.loggingInLoadingMessage,
+    isDay: state.users.isDay,
   };
 };
 

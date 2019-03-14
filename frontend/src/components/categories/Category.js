@@ -193,7 +193,7 @@ const Category = ({ category, history }) => {
         </DivIcon>
         <DivCategory>
           <div className = 'category-name-follow-wrapper' onClick = {stopPropagation}>
-            <SpanCategory className='link' onClick={(ev) => goToCategory(ev)}>{name}!!</SpanCategory>
+            <SpanCategory className='link' onClick={(ev) => goToCategory(ev)}>{name}</SpanCategory>
             <FollowCat
               category_id={category.id}
               historyPush={history.push}
