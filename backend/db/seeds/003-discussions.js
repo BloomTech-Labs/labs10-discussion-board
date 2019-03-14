@@ -57,63 +57,63 @@ exports.seed = function(knex, Promise) {
             )
           )},
         {user_id: '2', category_id: '2',
-          body: '', created_at: Date.parse(
+          body: 'Dev Team RULES OF CONDUCT: Codes of Conduct, Rules of Effective Communication', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-          body: 'Im thinking that Steph Curry and the GSW aint losing steam with their all star line-up, while Lebron and the Lakers not doing so well even with their A-list Lineup, what you all thinking?', created_at: Date.parse(
+          body: 'Dev Team News: This channel will be for any world news that you think will be affecting our company\'s Dev Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-          body: 'Liverpool sitting high and untouched with 20 wins and 1 loss', created_at: Date.parse(
+          body: 'Dev Team Announcements: This channel will be used for major company announcements that will be affecting the Dev Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-          body: 'How about that freaking Kazunoko, Who has won 4 out of the 7 tournaments. Next favorites are Sonic Fox and GO1(pronounced Go ichi).', created_at: Date.parse(
+          body: 'Dev Team Projects: Please locate your team\'s project and communicate within that channel with your team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-        body: 'Largest prize pool was Dota 2018 at $24.6 million, while Fortnite literally just eclipsed that announcing a $100 million prize pool over the 2017-2018 Competitive Season', created_at: Date.parse(
+        body: 'Dev Team General: This channel will be a general chat for anything within the scope of the rules of communication.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '3',
-          body: 'This means that Lamborghini sees electrification as a must, something it needs to survive even if powerful engines are still the main reason that customers buy Lamborghinis', created_at: Date.parse(
+          body: 'Design Team RULES OF CONDUCT: This channel contains the rules of communication and code of conduct. Questions will be answered by a Design Team Leader.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '3',
-          body: 'Corvette Lovers are anticipating the new release, and a lot of dealers are sitting on their old Corvettes, Are we going to See a Price Drop? What ya think?', created_at: Date.parse(
+          body: 'Design Team Announcements: This channel will be used for any company changes that affects the Design Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '3',
-          body: 'A few months ago, Elon Musk announced TESLA will drop all their patents opening up the tech for anyone who wants to use it. It was an incredible step for humanity and environment. But what does this mean for the Car World in terms of Technology?', created_at: Date.parse(
+          body: 'Design Team Projects: This channel will be used for communication between your team. Find your team\'s chat within in this channel', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '4',
-          body: 'In the last few issues, The Big Mom Pirates have arrived in Wano, likely to seek revenge from the Straw Hat Pirates, but in a clash, Big Mom now suffers from Amnesia, How do you think this is going to play out in the scheme of things?', created_at: Date.parse(
+          body: '', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
