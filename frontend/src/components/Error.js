@@ -25,29 +25,51 @@ const ErrorBox = styled.div`
 	justify-content: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	background-color: ${props => props.theme.errorBoxBgColor};
+	background-color: ${props => props.theme.settingsBgColor};
 	padding: 10px;
 	border-radius: 5px;
-	border: 1px solid black;
+	border: 1px solid ${props => props.theme.settingsBgColor};
 	width: 300px;
+	position: relative;
+
+	.back {
+		font-size: 30px;
+		color: ${ ({ isDay }) => isDay ? '#444' : '#ddd' };
+		position: absolute;
+		top: 12px;
+		left: 15px;
+
+		&:hover {
+			cursor: pointer;
+			color: ${props => props.theme.defaultColorOnHover};
+		}
+	}
 
 	p {
-		color: ${props => props.theme.errorBoxPColor};
+		color: ${ ({ isDay }) => isDay ? '#444' : '#ddd' };
 		font-weight: 700;
-		text-align: center;
+		text-align: justify;
 		margin: 10px;
+		margin-top: 45px;
 	}
 `;
 
-const Error = ({ error, displayError }) => {
+const Error = ({ error, displayError, isDay }) => {
 	return(
 		<ErrorWrapper>
-			<ErrorBox>
+			<ErrorBox isDay = { isDay }>
+				<span
+					className='back'
+					onClick={() => displayError('')}		
+				><i className="far fa-arrow-alt-circle-left"></i></span>
 				<p>{ error }</p>
-				<button onClick = { () => displayError('') }>OK</button>
 			</ErrorBox>
 		</ErrorWrapper>
 	);
 };
 
-export default connect(null, { displayError })(Error);
+const mapStateToProps = state => ({
+	isDay: state.users.isDay,
+});
+
+export default connect(mapStateToProps, { displayError })(Error);
