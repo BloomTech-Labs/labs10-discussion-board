@@ -107,6 +107,11 @@ const DivBack = styled.div`
     font-size: 30px;
     cursor: pointer;
   }
+
+  @media ${phoneL} {
+    margin-left: 10px;
+    margin-top: 10px;
+  }
 `;
 
 const DivHeaderTitle = styled.div`
@@ -114,6 +119,10 @@ const DivHeaderTitle = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+
+  @media ${phoneL} {
+    margin-bottom: 25px;
+  }
 `;
 
 const H1HeaderTitle = styled.h1`
@@ -125,7 +134,7 @@ const H1HeaderTitle = styled.h1`
   }
 
   @media ${phoneL} {
-    font-size: 16px;
+    font-size: 18px;
   }
 `;
 
@@ -249,6 +258,10 @@ const IAsterisk = styled.i`
     color: ${props => props.silver && '#848795'};
     color: ${props => props.gold && 'gold'};
   }
+
+  @media ${phoneL} {
+    font-size: 16px;
+  }
 `;
 
 const DivFreePlan = styled.div`
@@ -290,7 +303,7 @@ const DivFreePlan = styled.div`
   }
 
   &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.7')};
+    opacity: ${props => (props.subPlan === subscriptionPlans[0] ? '1' : '0.7')};
   }
 
   @media(max-width: 1200px) {
@@ -340,7 +353,7 @@ const DivSilverPlan = styled.div`
   }
 
   &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.7')};
+    opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.7')};
   }
 
   @media(max-width: 1200px) {
@@ -390,7 +403,7 @@ const DivGoldPlan = styled.div`
   }
 
   &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[3] ? '1' : '0.7')};
+    opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.7')};
   }
 
   @media(max-width: 1200px) {
@@ -414,7 +427,7 @@ const DivButtons = styled.div`
   }
 
   @media ${phoneL} {
-    margin-top: 130px;
+    margin-top: 45px;
   }
 `;
 
@@ -437,15 +450,15 @@ const ButtonSubmit = styled.button`
   }
 
   @media ${phoneL} {
-    width: 100%;
+    width: 80%;
+    height: 62px;
     padding: 15px 0;
   }
 `;
 
 const DivStripeCheckout = styled.div`
   @media ${phoneL} {
-    width: 100%;
-    margin-top: 25px;
+    width: 80%;
   }
 `;
 
