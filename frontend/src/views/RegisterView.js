@@ -1303,7 +1303,7 @@ class RegisterView extends Component {
                           />
                         )}
                     </DivEmail>
-                    <DivSignature subPlan={this.state.subPlan}>
+                    {/* <DivSignature subPlan={this.state.subPlan}>
                       <LabelSignature>Signature</LabelSignature>
                       {(subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex) ? (
                         <TextareaSignature
@@ -1323,7 +1323,7 @@ class RegisterView extends Component {
                             disabled
                           />
                         )}
-                    </DivSignature>
+                    </DivSignature> */}
                   </DivLeftSide>
                   <DivRightSide subPlan={this.state.subPlan === subscriptionPlans[2]}>
                     <DivAvatar subPlan={this.state.subPlan}>
@@ -1352,7 +1352,7 @@ class RegisterView extends Component {
                         Avatar From File
                       </button>
                     </DivAvatar>
-                  </DivRightSide>
+                  </DivRightSide> */}
                 </DivAccountDetails>
               </DivRegisterForm>
               <DivRegistryButtons>
