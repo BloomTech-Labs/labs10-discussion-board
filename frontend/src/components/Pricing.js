@@ -25,6 +25,10 @@ class Pricing extends React.Component {
                                     <p>Posts: <b className="text-custom">Unlimited</b></p>
                                     <p>Comments: <b className="text-custom">Unlimited</b></p>
                                     <p>Replies: <b className="text-custom">Unlimited</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
                                     <p><b className="text-custom">1</b> Profile</p>
                                     <p><b className="text-custom">No</b> Hidden Fees</p>
                                 </div>
@@ -32,30 +36,38 @@ class Pricing extends React.Component {
                         </div>
                         <div className="col-lg-4">
                             <div className="text-center pricing-box bg-white hover-effect price-active">
-                                <h4 className="text-uppercase">Deluxe</h4>
-                                <h1>$19.90</h1>
-                                <h6 className="text-uppercase text-muted">Billing Per Month</h6>
+                                <h4 className="text-uppercase">Silver</h4>
+                                <h1>$9.99</h1>
+                                <h6 className="text-uppercase text-muted">Billing Per Year</h6>
                                 <div className="pricing-border"></div>
                                 <div className="plan-features margin-t-30">
-                                    <p>Bandwidth: <b className="text-custom">10GB</b></p>
-                                    <p>Onlinespace: <b className="text-custom">500MB</b></p>
-                                    <p>Support: <b className="text-custom">Yes</b></p>
-                                    <p><b className="text-custom">10</b> Domain</p>
+                                    <p>Posts: <b className="text-custom">Unlimited</b></p>
+                                    <p>Comments: <b className="text-custom">Unlimited</b></p>
+                                    <p>Replies: <b className="text-custom">Unlimited</b></p>
+                                    <p>Categories: <b className="text-custom">Unlimited</b></p>
+                                    <p>Signature: <b className="text-custom">YES</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
+                                    <p><b className="text-custom">1</b> Profile</p>
                                     <p><b className="text-custom">No</b> Hidden Fees</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4">
                             <div className="text-center pricing-box hover-effect">
-                                <h4 className="text-uppercase">Ultimate</h4>
-                                <h1>$29.90</h1>
-                                <h6 className="text-uppercase text-muted">Billing Per Month</h6>
+                                <h4 className="text-uppercase">Gold</h4>
+                                <h1>$19.99</h1>
+                                <h6 className="text-uppercase text-muted">Billing Per Year</h6>
                                 <div className="pricing-border"></div>
                                 <div className="plan-features margin-t-30">
-                                    <p>Bandwidth: <b className="text-custom">100GB</b></p>
-                                    <p>Onlinespace: <b className="text-custom">2 GB</b></p>
-                                    <p>Support: <b className="text-custom">Yes</b></p>
-                                    <p><b className="text-custom">Unlimited</b> Domain</p>
+                                    <p>Posts: <b className="text-custom">Unlimited</b></p>
+                                    <p>Comments: <b className="text-custom">Unlimited</b></p>
+                                    <p>Replies: <b className="text-custom">Unlimited</b></p>
+                                    <p>Categories: <b className="text-custom">Unlimited</b></p>
+                                    <p>Signature: <b className="text-custom">YES</b></p>
+                                    <p>Avatar: <b className="text-custom">YES</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
+                                    <p><b className="text-custom">1</b> Profile</p>
                                     <p><b className="text-custom">No</b> Hidden Fees</p>
                                 </div>
                             </div>
