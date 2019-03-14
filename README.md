@@ -34,13 +34,30 @@ Symposium is a web application that organizes communication in a way that like-m
 >> 7. [Discussions "Posts" Follows API](#discfollows)  
 >> 8. [Discussions "Posts" Votes API](#discvotes)
     
-  >> [Posts Endpoint](#posts)
+  >> [Posts Endpoint](#posts)  
+>> 1. [GET Posts "Comments"](#getposts)  
+>> 2. [POST Posts "Comments"](#postposts)  
+>> 3. [Posts "Comments" Votes API](#postsvotes)  
     
-  >> [Replies Endpoint](#repl)
+  >> [Replies Endpoint](#repl)  
+>> 1. [POST Replies](#postrepl)  
+>> 2. [Replies Votes API](#replvotes)  
     
-  >> [Users Endpoint](#users)
-    
-  
+  >> [Users Endpoint](#users)  
+>> 1. [GET Users](#getusers)  
+>> 2. [GET Users By User ID](#getusersbyid)  
+>> 3. [SEARCH Users](#searchusers)  
+>> 4. [PUT Update Users Info](#putusersinfo)  
+>> 5. [PUT Update Users E-mail](#putusersemail)  
+>> 6. [PUT Update Users Password](#putuserspw)  
+>> 7. [DELETE Users](#deleteusers)  
+>> 8. [Users Notifications API](#usersnoti)  
+
+[Profile Links](#profilelinks)  
+[Tech Stack](#techstack)  
+[Authors](#authors)  
+[License](#license)  
+
 ---
 <a name="start"></a>
 ## Getting Started  
@@ -330,7 +347,7 @@ Parameters:
 | PUT    | `/posts/:user_id` | `post_id`,`body`                              | Used to edit a post                  |
 | DELETE | `/posts/:user_id` | `post_id`                                     | Used to delete a post                |  
   
-  
+<a name="getposts"></a>
 ### GET Post ("Comments") Search
 
 Method: **[GET]** `/posts/search`
@@ -341,7 +358,7 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | searchText  | text          | yes       |  
                                   
-     
+<a name="postposts"></a>    
 ### POST Post ("Comments")
 
 Method: **[POST]** `/posts/:user_id`
@@ -362,7 +379,7 @@ Parameters:
 ### Note: DELETE Post ("Comments") created for future developers to utilize
 
 ---
-
+<a name="postsvotes"></a>
 ### Post ("Comments") Votes API  
   
 |Method   |Endpoint       |Requires                   |Description                                      |
@@ -379,7 +396,7 @@ Parameters:
 | PUT     | `/replies/:user_id`      | `body`,`reply_id`                       | Used to edit a reply           |
 | DELETE  | `/replies/:user_id`      | `reply_id`                              | Used to delete a created reply |   
   
-   
+<a name="postrepl"></a>    
 ### POST Reply
 
 Method: **[POST]** `/replies/:user_id`
@@ -395,7 +412,7 @@ Parameters:
 | created_at    | bigInteger  | yes       |  
 
 ---
-
+<a name="replvotes"></a> 
 ### Reply Votes API  
   
 |Method   |Endpoint                 |Requires                     |Description                         |
@@ -426,10 +443,12 @@ Parameters:
 | PUT     | `/users/avatar/:user_id`        | `user_id`, `avatarData`                | Used to update a user's avatar                  | 
 | PUT     | `/users/avatar-url/:user_id`    | `user_id`, `avatarURL`                 | Used to update a user's avatar via URL          | 
 | PUT     | `/users/last-login/:user_id`    | `user_id`                              | Used to update last login                       | 
-| DELETE  | `/users/:user_id`               | `user_id`                              | Used to delete a user                           |   
+| DELETE  | `/users/:user_id`               | `user_id`                              | Used to delete a user                           | 
+
+<a name="getusers"></a>
 ### GET All Discussions ("Posts") created by User ID
 
-Method: **[GET]** `/user/discussions/:user_id``
+Method: **[GET]** `/user/discussions/:user_id`
 
 Parameters:
 
@@ -437,9 +456,10 @@ Parameters:
 | :------------ | :-----------: | :-------: | :----------------------------------------------------------: |
 | user_id       | integer       | yes       | this user id refers to the creator of the discussion         |
 
+<a name="getusersbyid"></a>
 ### GET User by User ID
 
-Method: **[GET]** `/users/user/:user_id``
+Method: **[GET]** `/users/user/:user_id`
 
 Parameters:
 
@@ -447,7 +467,8 @@ Parameters:
 | :------------ | :-----------: | :-------: | :----------------------------------------------------------: |
 | user_id       | integer       | yes       | this user id refers to the creator of the discussion         |  
 
-### GET Users Search
+<a name="searchusers"></a>
+### SEARCH Users
 
 Method: **[GET]** `/users/search-all`
 
@@ -457,6 +478,7 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | searchText  | text          | yes       |  
 
+<a name="putusersinfo"></a>
 ### PUT Update User Info
 
 Method: **[PUT]** `/users/user/:user_id`
@@ -471,6 +493,7 @@ Parameters:
 | newPassword   | string        | yes       | 
 | email         | email string  | yes       |  
 
+<a name="putusersemail"></a>
 ### PUT Update Email
 
 Method: **[PUT]** `/users/password/:user_id`
@@ -484,6 +507,7 @@ Parameters:
 | oldPassword   | string        | yes       |
 | newPassword   | string        | yes       | 
 
+<a name="putuserspw"></a>
 ### PUT Update Password
 
 Method: **[PUT]** `/users/update-email/:user_id`
@@ -497,7 +521,8 @@ Parameters:
 | clientIP      | string        | yes       |
 
 A new email confirmation is sent to the client's new email  
-  
+
+<a name="deleteusers"></a>
 ### Delete User
 
 Method: **[Delete]**  `/users/:user_id
@@ -511,7 +536,7 @@ On Success: Message: "User has been deleted"
 | /users/:user_id | endpoint      | yes       |
 
 ---
-
+<a name="usersnoti"></a>
 ### Users Notifications API  
   
 |Method   |Endpoint       |Requires              |Description                                                           |
@@ -520,7 +545,7 @@ On Success: Message: "User has been deleted"
 | DELETE  | `/user-notifications/:id/:user_id`   | `id`,`user_id` | Used to delete notification from what user followed |  
 
 ---
-
+<a name="profilelinks"></a>
 ## Project Links  
 
 #### Folder Structure and Table Schema
@@ -548,7 +573,8 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 - Github - https://github.com/Lambda-School-Labs/labs10-discussion-board
 - Trello - https://trello.com/b/stxWpBla/labs10-discussion-board
 
-## Built With
+<a name="techstack"></a>
+## Built With (Tech Stack)
 #### Backend
 * Bcrypt JS  
 * Concurrently  
@@ -565,6 +591,7 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 * Axios
 * styled-components
 
+<a name="authors"></a>
 ## Authors
 
 [Carlos Andrade](https://github.com/cornielleandres)  
@@ -581,7 +608,8 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
     
 [Lucas Beemer](https://github.com/lucasbeemer)  
 <img src="https://avatars2.githubusercontent.com/u/40898328?s=400&v=4" width="200">  
-  
+
+<a name="license"></a>
 ### License
   
 Copyright 2019 © Symposium Discussion Board
