@@ -66,7 +66,6 @@ const Login = styled.a`
   margin-left: 5px;
   user-select: none;
   cursor: pointer;
-  color: ${props => props.theme.defaultColor};
   font-size: 18px;
   &:hover {
     cursor: pointer;
@@ -75,6 +74,10 @@ const Login = styled.a`
 
   img {
     transform: ${props => props.isLoginDropdownModalRaised && 'rotate(180deg)'};
+  }
+
+  #register {
+    color: ${props => props.theme.defaultColor};
   }
 `;
 
@@ -87,19 +90,19 @@ const Auth = (props) => {
       <DivAuthRegLog>
         <Login onClick={ev => props.toggleRegisterModal(ev)}
           >
-            Register
+            <span id = 'register'>Register</span>
           </Login>
         <div className="line">&nbsp;|&nbsp;</div>
         <DivLogin>
           <Login onClick={ev => props.setLoginDropdownModalRaised(ev, !props.isLoginDropdownModalRaised)}
             isLoginDropdownModalRaised={props.isLoginDropdownModalRaised}
           >
-            Login
+            <span id = 'register'>Login</span>
           </Login>
         </DivLogin>
       </DivAuthRegLog>
     </LogInContainer>
   );
-}
+};
 
 export default connect(null, {})(Auth);

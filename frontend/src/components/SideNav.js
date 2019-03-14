@@ -76,9 +76,11 @@ const H4BrowseCategories = styled.h4`
       margin-left: 60px;
       margin-right: 0px;
     }
+
+    .browse-categories {
+      font-size: 0.9rem;
+    }
 `;
-
-
 
 const LinkBrowseCategories = styled(Link)`
   text-decoration: none;
@@ -195,6 +197,7 @@ const LinkAllPosts = styled(Link)`
   font-weight: normal;
   margin-right: 41px;
   margin-top: -65px;
+  font-size: 0.9rem;
 
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
@@ -404,7 +407,8 @@ class SideNav extends Component {
               to={`/categories`}
               islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
               onClick={() => this.selectLink('BrowseCategories')}
-            ><i className="fas fa-book-open" />Browse Categories&nbsp;</LinkBrowseCategories>
+              className = 'browse-categories'
+            ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
           </H4BrowseCategories>
           {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
             <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
