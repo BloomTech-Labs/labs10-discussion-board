@@ -35,7 +35,6 @@ const DivChangeSubModal = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   user-select: none;
-
   @media ${phoneL} {
     margin-top: ${topHeaderHeight};
   }
@@ -50,25 +49,37 @@ const DivModalCloser = styled.div`
   z-index: 9997;
 `;
 
+const DivScroller = styled.div`
+display: flex;
+background-color: white;
+z-index: 9999;
+width: 75%;
+height: 70%;
+overflow-y: auto;
+
+@media(max-width: 1200px) {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+`;
+
 const DivChangeSub = styled.div`
-  display: flex;
-  background-color: white;
-  z-index: 9999;
-  width: 68%;
-  height: 70%;
-  flex-direction: column;
-  padding: 0 50px;
-  border-radius: 5px;
+display: flex;
+width: 100%;
+height: 630px;
+flex-direction: column;
+padding: 0 50px;
+border-radius: 5px;
 
-  @media(max-width: 1200px) {
-    width: 100%;
-    height: 100%;
-    align-items: center;
-  }
-
-  @media ${phoneL} {
-    padding: 0;
-  }
+@media(max-width: 1200px) {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+@media ${phoneL} {
+  padding: 0;
+}
 `;
 
 const FormChangeSub = styled.form`
@@ -84,7 +95,6 @@ const DivHeader = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-
   @media(max-width: 1200px){
     border: none;
     margin: 0;
@@ -97,17 +107,14 @@ const DivBack = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-
   @media(max-width: 1200px) {
     margin-top: 24px;
   }
-
   i {
     align-self: flex-start;
     font-size: 30px;
     cursor: pointer;
   }
-
   @media ${phoneL} {
     margin-left: 10px;
     margin-top: 10px;
@@ -119,7 +126,6 @@ const DivHeaderTitle = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-
   @media ${phoneL} {
     margin-bottom: 25px;
   }
@@ -128,11 +134,9 @@ const DivHeaderTitle = styled.div`
 const H1HeaderTitle = styled.h1`
   display: flex;
   font-weight: normal;
-
   @media(max-width: 1200px) {
     font-size: 28px;
   }
-
   @media ${phoneL} {
     font-size: 18px;
   }
@@ -144,7 +148,6 @@ const DivSelectBanners = styled.div`
   width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
-
   @media(max-width: 1200px) {
     flex-direction: column;
   }
@@ -157,19 +160,16 @@ const DivBanner = styled.div`
   align-items: center;
   height: 410px;
   cursor: pointer;
-
   input {
     margin-top: 20px;
     width: 2em;
     height: 2em;
     cursor: pointer;
     visibility: hidden;
-
     @media(max-width: 1200px) {
       visibility: visible;
     }
   }
-
   @media(max-width: 1200px) {
     height: ${props =>
     props.subPlan
@@ -177,7 +177,6 @@ const DivBanner = styled.div`
       : '45px'};
     width: 100%;
     position: relative;
-
     input {
       margin-top: 0;
       position: absolute;
@@ -194,7 +193,6 @@ const DivFeatures = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
-
   h2 {
     display: flex;
     width: 100%;
@@ -203,40 +201,33 @@ const DivFeatures = styled.div`
     user-select: none;
     font-weight: normal;
   }
-
   ul {
     padding-right: 20px;
     user-select: none;
     font-weight: normal;
     margin: 0;
-
     @media(max-width: 1200px) {
       list-style: none;
-
       hr {
         display: none;
       }
     }
-
     &:not(:last-child) {
       @media(max-width: 1200px) {
         margin-bottom: 20px;
       }
     }
-
     &:last-child {
       @media(max-width: 1200px) {
         margin-bottom: 10px;
       }
     }
   }
-
   @media(max-width: 1200px) {
     overflow: ${props =>
     props.subPlan
       ? 'visible'
       : 'hidden'};
-
     h2 {
       justify-content: flex-start;
       text-decoration: none;
@@ -251,14 +242,12 @@ const DivFeatures = styled.div`
 
 const IAsterisk = styled.i`
   display: none;
-
   @media(max-width: 1200px) {
     display: inline-block;
     margin-left: -20px;
     color: ${props => props.silver && '#848795'};
     color: ${props => props.gold && 'gold'};
   }
-
   @media ${phoneL} {
     font-size: 16px;
   }
@@ -276,7 +265,6 @@ const DivFreePlan = styled.div`
   font-weight: bold;
   height: 100%;
   position: relative;
-
   h4 {
     position: absolute;
     bottom: 0;
@@ -301,11 +289,9 @@ const DivFreePlan = styled.div`
     margin-top: 23px;
     }
   }
-
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[0] ? '1' : '0.7')};
   }
-
   @media(max-width: 1200px) {
     width: 100%;
     border-radius: 0;
@@ -326,7 +312,6 @@ const DivSilverPlan = styled.div`
   font-weight: bold;
   height: 100%;
   position: relative;
-
   h4 {
     position: absolute;
     bottom: 0;
@@ -351,11 +336,9 @@ const DivSilverPlan = styled.div`
     margin-top: 23px;
     }
   }
-
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.7')};
   }
-
   @media(max-width: 1200px) {
     width: 100%;
     border-radius: 0;
@@ -376,7 +359,6 @@ const DivGoldPlan = styled.div`
   font-weight: bold;
   height: 100%;
   position: relative;
-
   h4 {
     position: absolute;
     bottom: 0;
@@ -401,11 +383,9 @@ const DivGoldPlan = styled.div`
     margin-top: 23px;
     }
   }
-
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.7')};
   }
-
   @media(max-width: 1200px) {
     width: 100%;
     border-radius: 0;
@@ -415,20 +395,29 @@ const DivGoldPlan = styled.div`
   }
 `;
 
+const DivBottom = styled.div`
+display: flex;
+flex-wrap: wrap;
+margin-top: 25px;
+width: 100%;
+justify-content: flex-end;
+
+@media (max-width: 1200px){
+  justify-content: center;
+}
+@media ${phoneL} {
+  margin-top: 45px;
+}
+`;
+
 const DivButtons = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 25px;
-  width: 100%;
   justify-content: flex-end;
+  width: 100%;
 
   @media (max-width: 1200px){
-    justify-content: center;
-  }
-
-  @media ${phoneL} {
-    margin-top: 45px;
-  }
+  justify-content: center;
+}
 `;
 
 const ButtonSubmit = styled.button`
@@ -441,14 +430,12 @@ const ButtonSubmit = styled.button`
   width: 200px;
   outline: none;
   height: 42px;
-
   &:hover {
     cursor: pointer;
     background-color: white;
     color: #418DCF;
     border: 1px solid #418DCF;
   }
-
   @media ${phoneL} {
     width: 80%;
     height: 62px;
@@ -464,7 +451,6 @@ const DivStripeCheckout = styled.div`
 
 const ButtonStripeCheckout = styled(StripeCheckout)`
   width: 200px;
-
   * {
     display: flex!important;
     height: 40px!important;
@@ -473,11 +459,9 @@ const ButtonStripeCheckout = styled(StripeCheckout)`
     font-size: 14px!important;
     font-weight: normal!important;
   }
-
   @media ${phoneL} {
     width: 100%;
     border-radius: 0!important;
-
     * {
       padding: 15px 0!important;
       height: auto!important;
@@ -563,128 +547,132 @@ class ChangeSubscriptionModal extends Component {
     return (
       <DivChangeSubModal ischangesubmodalraised={this.props.isChangeSubModalRaised.toString()}>
         <DivModalCloser onClick={(ev) => setChangeSubModalRaised(ev, false)} />
-        <DivChangeSub>
-          <DivHeader>
-            <DivBack>
-              <i className='far fa-arrow-alt-circle-left' onClick={(ev) => setChangeSubModalRaised(ev, false)} />
-            </DivBack>
-            <DivHeaderTitle>
-              <H1HeaderTitle>Change&nbsp;Account&nbsp;Subscription</H1HeaderTitle>
-            </DivHeaderTitle>
-          </DivHeader>
-          <FormChangeSub>
-            <DivSelectBanners>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[0])}
-                subPlan={this.state.subPlan === subscriptionPlans[0]}
-              >
-                <DivFreePlan subPlan={this.state.subPlan}>
-                  <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[0]}>
-                    <h2>Free Plan</h2>
-                    <ul>
-                      {
-                        subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
-                      }
-                    </ul>
-                  </DivFeatures>
-                  <h4>{subscriptionPrices[0]}</h4>
-                </DivFreePlan>
-                <input
-                  type='radio'
-                  value='free-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[0]
-                  }
-                  readOnly
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[1])}
-                subPlan={this.state.subPlan === subscriptionPlans[1]}
-              >
-                <DivSilverPlan subPlan={this.state.subPlan}>
-                  <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[1]}>
-                    <h2>Silver Plan</h2>
-                    <ul>
-                      {
-                        subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
-                      }
-                      <hr />
-                    </ul>
-                    <ul>
-                      {
-                        subscriptionSilverFeatures.map((feature, i) => <li key={i}><IAsterisk silver className='fas fa-asterisk' />&nbsp;{feature}</li>)
-                      }
-                    </ul>
-                  </DivFeatures>
-                  <h4>{subscriptionPrices[1]}</h4>
-                </DivSilverPlan>
-                <input
-                  type='radio'
-                  value='silver-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[1]
-                  }
-                  readOnly
-                />
-              </DivBanner>
-              <DivBanner
-                onClick={() => this.selectSubPlan(subscriptionPlans[2])}
-                subPlan={this.state.subPlan === subscriptionPlans[2]}
-              >
-                <DivGoldPlan subPlan={this.state.subPlan}>
-                  <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[2]}>
-                    <h2>Gold Plan</h2>
-                    <ul>
-                      {
-                        subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
-                      }
-                      <hr />
-                    </ul>
-                    <ul>
-                      {
-                        subscriptionSilverFeatures.map((feature, i) => <li key={i}><IAsterisk silver className='fas fa-asterisk' />&nbsp;{feature}</li>)
-                      }
-                      <hr />
-                    </ul>
-                    <ul>
-                      {
-                        subscriptionGoldFeatures.map((feature, i) => <li key={i}><IAsterisk gold className='fas fa-asterisk' />&nbsp;{feature}</li>)
-                      }
-                    </ul>
-                  </DivFeatures>
-                  <h4>{subscriptionPrices[2]}</h4>
-                </DivGoldPlan>
-                <input
-                  type='radio'
-                  value='gold-plan'
-                  name='sub-plan'
-                  checked={
-                    this.state.subPlan === subscriptionPlans[2]
-                  }
-                  readOnly
-                />
-              </DivBanner>
-            </DivSelectBanners>
-          </FormChangeSub>
-          <DivButtons>
-            {this.state.subPlan === subscriptionPlans[0] ? (
-              <ButtonSubmit onClick={ev => this.submitHandler(ev)}>Submit</ButtonSubmit>
-            ) : (
-                <DivStripeCheckout>
-                  <ButtonStripeCheckout
-                    token={this.onToken}
-                    stripeKey={stripeToken}
-                    email={stripeEmail}
-                    description={subPlan}
-                    amount={stripeAmount}
+        <DivScroller>
+          <DivChangeSub>
+            <DivHeader>
+              <DivBack>
+                <i className='far fa-arrow-alt-circle-left' onClick={(ev) => setChangeSubModalRaised(ev, false)} />
+              </DivBack>
+              <DivHeaderTitle>
+                <H1HeaderTitle>Change&nbsp;Account&nbsp;Subscription</H1HeaderTitle>
+              </DivHeaderTitle>
+            </DivHeader>
+            <FormChangeSub>
+              <DivSelectBanners>
+                <DivBanner
+                  onClick={() => this.selectSubPlan(subscriptionPlans[0])}
+                  subPlan={this.state.subPlan === subscriptionPlans[0]}
+                >
+                  <DivFreePlan subPlan={this.state.subPlan}>
+                    <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[0]}>
+                      <h2>Free Plan</h2>
+                      <ul>
+                        {
+                          subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
+                        }
+                      </ul>
+                    </DivFeatures>
+                    <h4>{subscriptionPrices[0]}</h4>
+                  </DivFreePlan>
+                  <input
+                    type='radio'
+                    value='free-plan'
+                    name='sub-plan'
+                    checked={
+                      this.state.subPlan === subscriptionPlans[0]
+                    }
+                    readOnly
                   />
-                </DivStripeCheckout>
-              )}
-          </DivButtons>
-        </DivChangeSub>
+                </DivBanner>
+                <DivBanner
+                  onClick={() => this.selectSubPlan(subscriptionPlans[1])}
+                  subPlan={this.state.subPlan === subscriptionPlans[1]}
+                >
+                  <DivSilverPlan subPlan={this.state.subPlan}>
+                    <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[1]}>
+                      <h2>Silver Plan</h2>
+                      <ul>
+                        {
+                          subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
+                        }
+                        <hr />
+                      </ul>
+                      <ul>
+                        {
+                          subscriptionSilverFeatures.map((feature, i) => <li key={i}><IAsterisk silver className='fas fa-asterisk' />&nbsp;{feature}</li>)
+                        }
+                      </ul>
+                    </DivFeatures>
+                    <h4>{subscriptionPrices[1]}</h4>
+                  </DivSilverPlan>
+                  <input
+                    type='radio'
+                    value='silver-plan'
+                    name='sub-plan'
+                    checked={
+                      this.state.subPlan === subscriptionPlans[1]
+                    }
+                    readOnly
+                  />
+                </DivBanner>
+                <DivBanner
+                  onClick={() => this.selectSubPlan(subscriptionPlans[2])}
+                  subPlan={this.state.subPlan === subscriptionPlans[2]}
+                >
+                  <DivGoldPlan subPlan={this.state.subPlan}>
+                    <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[2]}>
+                      <h2>Gold Plan</h2>
+                      <ul>
+                        {
+                          subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
+                        }
+                        <hr />
+                      </ul>
+                      <ul>
+                        {
+                          subscriptionSilverFeatures.map((feature, i) => <li key={i}><IAsterisk silver className='fas fa-asterisk' />&nbsp;{feature}</li>)
+                        }
+                        <hr />
+                      </ul>
+                      <ul>
+                        {
+                          subscriptionGoldFeatures.map((feature, i) => <li key={i}><IAsterisk gold className='fas fa-asterisk' />&nbsp;{feature}</li>)
+                        }
+                      </ul>
+                    </DivFeatures>
+                    <h4>{subscriptionPrices[2]}</h4>
+                  </DivGoldPlan>
+                  <input
+                    type='radio'
+                    value='gold-plan'
+                    name='sub-plan'
+                    checked={
+                      this.state.subPlan === subscriptionPlans[2]
+                    }
+                    readOnly
+                  />
+                </DivBanner>
+              </DivSelectBanners>
+            </FormChangeSub>
+            <DivBottom>
+              <DivButtons>
+                {this.state.subPlan === subscriptionPlans[0] ? (
+                  <ButtonSubmit onClick={ev => this.submitHandler(ev)}>Submit</ButtonSubmit>
+                ) : (
+                    <DivStripeCheckout>
+                      <ButtonStripeCheckout
+                        token={this.onToken}
+                        stripeKey={stripeToken}
+                        email={stripeEmail}
+                        description={subPlan}
+                        amount={stripeAmount}
+                      />
+                    </DivStripeCheckout>
+                  )}
+              </DivButtons>
+            </DivBottom>
+          </DivChangeSub>
+        </DivScroller>
       </DivChangeSubModal>
     );
   }
