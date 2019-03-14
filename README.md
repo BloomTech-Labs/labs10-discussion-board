@@ -55,17 +55,17 @@ In another terminal, in the Backend Folder, use `yarn start`
   
 ### Discussions API  
   
-|Method   |Endpoint                                           |Requires                |Description                         |
-| :------ | :----------------------------------------------:  | :--------------------: | :--------------------------------: |
-| GET     | `/discussions/`                                   | no requirements        | Used to get all discussions        |  
+|Method   |Endpoint                                           |Requires                |Description                                  |
+| :------ | :----------------------------------------------:  | :--------------------: | :-----------------------------------------: |
+| GET     | `/discussions/`                                   | no requirements        | Used to get all discussions                 |  
 | GET     | `/discussions/all-by-followed-categories/:user_id`| `user_id`              | Used to get discussions by followed category|
 | GET     | `/discussions/discussion/:id/:user_id`            | `id`,`user_id`         | Used to get discussion by discussion ID     |
 | GET     | `/discussions/search`                             | `searchText`           | Used to locate discussions for letter/word  |  
 | GET     | `/discussions/user/:user_id`                      | `discussion_id`,`user_id`| Used to get discussion by user (moderator)|  
 | GET     | `/discussions/category/:category_id/:user_id`     | `category_id`,`user_id`  | Used to get discussions by category       | 
-| POST    | `/discussions/:user_id`                           | `discussion_id`,`user_id`| Used to post a new discussion    |  
-| PUT     | `/discussions/:user_id`                           | `discussion_id`,`user_id`| Used to edit a discussion        |  
-| DELETE  | `/discussions/:user_id`                           | `discussion_id`,`user_id`| Used to delete a discussion      |  
+| POST    | `/discussions/:user_id`                           | `discussion_id`,`user_id`,`body`| Used to post a new discussion    |  
+| PUT     | `/discussions/:user_id`                           | `discussion_id`,`user_id`       | Used to edit a discussion        |  
+| DELETE  | `/discussions/:user_id`                           | `discussion_id`,`user_id`       | Used to delete a discussion      |  
 
 ### Discussion Follows API  
   
@@ -82,57 +82,58 @@ In another terminal, in the Backend Folder, use `yarn start`
 
 ### Posts API  
   
-|Method  |Endpoint           |Requires                |Description                                      |
-| :----- | :---------------: | :--------------------: | :---------------------------------------------: |
-| GET    | `/posts/search`   | `searchText`           | text to show port and endpoint are up           |  
-| POST   | `/posts/:user_id` | `username`, `password` | allows user to register a username and password |
-| PUT    | `/posts/:user_id` | `username`, `password` | allows users to log in                          |
-| DELETE | `/posts/:user_id` | user must be logged in | logged in user can see all users                |  
+|Method  |Endpoint           |Requires                                       |Description                           |
+| :----- | :---------------: | :-------------------------------------------: | :----------------------------------: |
+| GET    | `/posts/search`   | `searchText`                                  | text to show port and endpoint are up|  
+| POST   | `/posts/:user_id` | `body`,`created_at`, `user_id`,`discussion_id`| Used to create a new post            |
+| PUT    | `/posts/:user_id` | `post_id`,`body`                              | Used to edit a post                  |
+| DELETE | `/posts/:user_id` | `post_id`                                     | Used to delete a post                |  
+  
   
 ### Post Votes API  
   
-|Method   |Endpoint       |Requires                |Description                                      |
-| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
-| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
-| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
-| POST    | `/login`      | `username`, `password` | allows users to log in                          |
-| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+|Method   |Endpoint       |Requires                   |Description                                      |
+| :------ | :-----------: | :-----------------------: | :---------------------------------------------: |
+| POST    | `/post-votes` | `post_id`,`type`,`user_id`| Used to upvote / downvote a post                |  
+ 
   
 ### Replies API  
-  
-|Method   |Endpoint       |Requires                |Description                                      |
-| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
-| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
-| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
-| POST    | `/login`      | `username`, `password` | allows users to log in                          |
-| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+   
+|Method   |Endpoint                  |Requires                                 |Description                     |
+| :------ | :----------------------: | :-------------------------------------: | :----------------------------: |
+| POST    | `/replies/:user_id`      | `body`,`created_at`,`post_id`,`user_id` | Used to reply to post          |
+| PUT     | `/replies/:user_id`      | `body`,`reply_id`                       | Used to edit a reply           |
+| DELETE  | `/replies/:user_id`      | `reply_id`                              | Used to delete a created reply |   
 
 ### Reply Votes API  
   
-|Method   |Endpoint       |Requires                |Description                                      |
-| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
-| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
-| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
-| POST    | `/login`      | `username`, `password` | allows users to log in                          |
-| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
-
-### Tests API  
-  
-|Method   |Endpoint       |Requires                |Description                                      |
-| :------ | :-----------: | :--------------------: | :---------------------------------------------: |
-| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
-| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
-| POST    | `/login`      | `username`, `password` | allows users to log in                          |
-| GET     | `/users`      | user must be logged in | logged in user can see all users                |   
+|Method   |Endpoint                 |Requires                     |Description                         |
+| :------ | :---------------------: | :-------------------------: | :--------------------------------: |
+| POST    | `/reply-votes/:user_id` | `reply_id`,`type`,`user_id` | Used to upvote / downvote a Reply  |    
 
 ### Users API  
   
 |Method   |Endpoint       |Requires                |Description                                      |
 | :------ | :-----------: | :--------------------: | :---------------------------------------------: |
-| GET     | `/`           | `api running`          | text to show port and endpoint are up           |  
-| POST    | `/register`   | `username`, `password` | allows user to register a username and password |
-| POST    | `/login`      | `username`, `password` | allows users to log in                          |
-| GET     | `/users`      | user must be logged in | logged in user can see all users                |     
+| GET     | `/users`           | `api running`          | Used to get all users |  
+| POST    | `/users/discussions/:user_id`   | `user_id` | Used to get a list of discussions created by the user |
+| POST    | `/users/user/:user_id`      | `user_id` | Used to get user by their ID |
+| GET     | `/users/username/:username`  |    | Used to return true if username is already in the database  |
+| GET     | `/users/email/:email`       |  | Used to return true if email is in the database|
+| GET     | `/users/confirm-email`      | `email_confirm_token` | Used to confirm a user's email |  
+| GET     | `/users/send-reset-pw-email`      | `email`,`clientIP`| Used to send a reset-pw email to user |  
+| GET     | `/users/reset-password`      | `id`,`password` | Used to reset password |  
+| GET     | `/users/edit-signature/:user_id`      | user must be logged in | logged in user can see all users                |  
+| GET     | `/users/token-info`      | `id`, `username`, `email` | Used to get info from reset-pw-token |  
+| GET     | `/users/search-all`      | `searchText` | Used to search for letter/words through whole website            |  
+| PUT     | `/users/user/:user_id`      | `user_id`,`username`,`oldPassword`,`newPassword`,`email` |Used to update user info|  
+| PUT     | `/users/password/:user_id`      | `user_id`, `oldPassword`,`newPassword` | Used to update password |  
+| PUT     | `/users/update-email/:user_id`      | `user_id`, `email`, `clientIP` | Used to update user's email|  
+| PUT     | `/users/type/:user_id`      |`user_id`, `user_type`| Used to change the user_type of a user|  
+| PUT     | `/users/avatar/:user_id`      | `user_id`, `avatarData` | Used to update a user's avatar |  
+| PUT     | `/users/avatar-url/:user_id`      | `user_id`, `avatarURL`| Used to update a user's avatar via URL|  
+| PUT     | `/users/last-login/:user_id`      | `user_id` | Used to update last login |  
+| DELETE  | `/users/:user_id`      | `user_id` | Used to delete a user|  
 
 ### Users Notifications API  
   
