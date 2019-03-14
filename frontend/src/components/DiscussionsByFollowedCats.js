@@ -171,10 +171,9 @@ class AllDiscussionsByFollowedCats extends Component {
               <option value={mostComments}>{mostComments}</option>
             </select>
           </div>
-          {(accountUserTypes.indexOf(user_type) >= subBronzeStartIndex) &&
-            <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-              <i className='fas fa-plus-circle' />&nbsp;Add Post
-          </button>}
+          <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+            <i className='fas fa-plus-circle' />&nbsp;Add Post
+          </button>
         </DiscussionHeader>
         <hr />
         <div className='content'>
