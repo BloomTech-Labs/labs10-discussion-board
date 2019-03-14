@@ -6,7 +6,41 @@ Symposium is a web application that organizes communication in a way that like-m
 ---
 
 ## Table of Contents
-1. [Getting Started. ](#start)
+
+[Getting Started](#start)  
+ 
+  >> [Prerequisites ](#prereq)
+  >> [Starting Server](#server)  
+  
+[Endpoints](#endpoints)
+  >> [Auth Endpoint](#auth)
+>> 1. [Auth Registration](#authreg)  
+>> 2. [Auth Login](#authlog)  
+>> 3. [Auth Auth0 Login](#auth0)
+  
+  >> [Categories Endpoint](#cat)  
+>> 1. [POST Categories](#postcat)
+>> 2. [GET Categories](#getcat)  
+>> 3. [SEARCH Categories](#searchcat)  
+>> 4. [GET Categories Icon](#getcaticon)  
+
+  >> [Discussions "Posts" Endpoint](#disc)  
+>> 1. [GET All Discussions "Posts"](#getdisc)  
+>> 2. [GET Discussions "Posts" By Followed-Category](#getdiscbyfollowedcat)  
+>> 3. [SEARCH Discussions "Posts"](#searchdisc)  
+>> 4. [GET Discussions "Posts" By User ID](#getdiscbyuserid)  
+>> 5. [GET Discussions "Posts" By Category ID](#getdiscbycatid)  
+>> 6. [POST Discussions "Posts"](#postdisc)  
+>> 7. [Discussions "Posts" Follows API](#discfollows)  
+>> 8. [Discussions "Posts" Votes API](#discvotes)
+    
+  >> [Posts Endpoint](#posts)
+    
+  >> [Replies Endpoint](#repl)
+    
+  >> [Users Endpoint](#users)
+    
+  
 ---
 <a name="start"></a>
 ## Getting Started  
@@ -15,6 +49,7 @@ Symposium is a web application that organizes communication in a way that like-m
 
 `cd labs10-discussion-board`  
 
+<a name="prereq"></a>
 #### Prerequisites  
 `cd frontend` to get into the Frontend Folder 
   
@@ -31,7 +66,8 @@ Symposium is a web application that organizes communication in a way that like-m
 `knex migrate:latest` to activate all the migrations (tables)  
   
 `knex seed:run` to activate all the seeds that belong in those migrations  
-  
+
+<a name="server"></a>
 #### Starting Server  
 ##### Option 1: Concurrently  
 While in the Backend Folder use `yarn symposium` to "concurrently" start the backend and frontend servers  
@@ -41,9 +77,10 @@ In the Frontend Folder, use `yarn start`
 In another terminal, in the Backend Folder, use `yarn start`  
 
 ---
-
+<a name="endpoints"></a>
 ## Endpoints  
 
+<a name="auth"></a>
 ### Auth API  
   
 |Method    |Endpoint                      |Requires                   |Description                                            |
@@ -54,6 +91,7 @@ In another terminal, in the Backend Folder, use `yarn start`
 | POST     | `/auth/auth0-login`          | `email`, `name`, `picture`| User logs in using credentials from accepted platforms|
 | POST     | `/auth/stripe`               | `requirement`             | explains the importance of this endpoint              |  
 
+<a name="authreg"></a>
 ### Auth Registration
 
 Method: **[Post]** `/auth/register`
@@ -68,6 +106,7 @@ Parameters:
 | password | string        | yes                    | credentials to log in, in combo with username   |
 | status   | string        | no                     | gives access to pages not given to other users  |  
 
+<a name="authlog"></a>
 ### Auth Login
 
 Method: **[Post]** `/auth/login`
@@ -81,6 +120,7 @@ Parameters:
 | username | string        | yes, unique            |
 | password | string        | yes                    |  
 
+<a name="auth0"></a>
 ### Auth0 Login
 
 Method: **[Post]** `/auth/auth0-login`
@@ -102,7 +142,7 @@ User uses credentials from an accepted platform to log-in, such as:
 - Twitter  
 
 ---
-
+<a name="cat"></a>
 ### Categories API  
   
 |Method   |Endpoint                               |Requires                            |Description                                 |
@@ -113,7 +153,7 @@ User uses credentials from an accepted platform to log-in, such as:
 | POST    | `/categories/search`                  | `searchText`, `order`, `orderType` | Used to search category by letter/word     |
 | GET     | `/categories/category-icons/:user_id` | `categories_icon`, `user_id`       | Used to get specific category icon         |   
   
-  
+<a name="postcat"></a>
 ### POST Category
 
 Method: **[POST]** `/categories/:user_id`
@@ -128,7 +168,7 @@ Parameters:
 | name       | string        | yes       | story input                                                      |
 | created_at | bigInteger    | yes       | a UNIX ms timestamp is automatically generated                   |  
   
-  
+<a name="getcat"></a> 
 ### GET Categories
 
 Method: **[GET]** `/categories/`
@@ -142,7 +182,8 @@ Parameters:
 | created_at | bigInteger    | yes       |
 | icon       |               | no        |  
 
-### POST Category Search
+<a name="searchcat"></a>
+### SEARCH Categories
 
 Method: **[POST]** `/categories/search`
 
@@ -156,6 +197,7 @@ Parameters:
 | order      | asc, desc     | yes       |
 | orderType  | string        | yes       |  
 
+<a name="getcaticon"></a>
 ### GET Category Icons
 
 Method: **[GET]** `/categories/category-icons/:user_id`
@@ -168,7 +210,7 @@ Parameters:
 | category_icon | iamge         | yes       |  
 
 ---
-
+<a name="disc"></a>
 ### Discussions ("Posts") API
 ### Discussions are referred to as Posts, and Posts as Comments (Due to last minute design changes)
   
@@ -184,7 +226,7 @@ Parameters:
 | PUT     | `/discussions/:user_id`                           | `discussion_id`,`user_id`       | Used to edit a discussion          |  
 | DELETE  | `/discussions/:user_id`                           | `discussion_id`,`user_id`       | Used to delete a discussion        | 
   
-  
+<a name="getdisc"></a>
 ### GET All Discussions ("Posts")
 ### Note: This is rendered under the page "All Posts" 
 
@@ -199,6 +241,7 @@ Parameters:
 | body        | text          | yes       |
 | created_at  | bigInteger    | yes       |
 
+<a name="getdiscbyfollowedcat"></a>
 ### GET Discussions ("Posts") by Followed Category
 
 Method: **[GET]** `/discussions/all-by-followed-categories/:user_id`
@@ -209,7 +252,8 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | user_id     | integer       | yes       |  
 
-### GET Discussions ("Posts") Search
+<a name="searchdisc"></a>
+### SEARCH Discussions ("Posts")
 
 Method: **[GET]** `/discussions/search`
 
@@ -219,9 +263,10 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | searchText  | text          | yes       |  
 
+<a name="getdiscbyuserid"></a>
 ### GET Discussions ("Posts") by User ID (Moderator ID)
 
-Method: **[GET]** `/discussions/user/:user_id``
+Method: **[GET]** `/discussions/user/:user_id`
 
 Parameters:
 
@@ -230,7 +275,7 @@ Parameters:
 | user_id       | integer       | yes       | this user id refers to the creator of the discussion         |
 | discussion_id | integer       | yes       |   |                                     
   
-  
+<a name="getdiscbycatid"></a>
 ### GET Discussions ("Posts") by Category ID
 
 Method: **[GET]** `/discussions/category/:category_id/:user_id`
@@ -242,6 +287,7 @@ Parameters:
 | user_id     | integer       | yes       |
 | category_id | integer       | yes       |  
 
+<a name="postdisc"></a>
 ### POST Discussions ("Posts")
 
 Method: **[POST]** `/discussions/:user_id`
@@ -257,7 +303,7 @@ Parameters:
 | body          | text        | yes       |  
 
 ---
-
+<a name="discfollows"></a>
 ### Discussion ("Posts") Follows API  
   
 |Method |Endpoint                                      |Requires                   |Description                                      |
@@ -265,7 +311,7 @@ Parameters:
 | POST  | `/discussion-follows/:user_id/:discussion_id`| `discussion_id`, `user_id`| Used so users can follow many discussions       | 
 
 ---
- 
+<a name="discvotes"></a>
 ### Discussion ("Posts") Votes API  
   
 |Method    |Endpoint                      |Requires                         |Description                                      |
@@ -273,7 +319,7 @@ Parameters:
 | POST     | `/discussion-votes/:user_id` | `discussion_id`,`type`,`user_id`| Used to upvote / downvote a discussion          |  
 
 ---
-
+<a name="posts"></a>
 ### Posts ("Comments") API 
 ### Posts are referred to as "Comments", Due to last minute design changes
   
@@ -324,7 +370,7 @@ Parameters:
 | POST    | `/post-votes` | `post_id`,`type`,`user_id`| Used to upvote / downvote a post                |  
 
 ---
-  
+<a name="repl"></a>  
 ### Replies API
    
 |Method   |Endpoint                  |Requires                                 |Description                     |
@@ -357,7 +403,7 @@ Parameters:
 | POST    | `/reply-votes/:user_id` | `reply_id`,`type`,`user_id` | Used to upvote / downvote a Reply  |    
 
 ---
-
+<a name="users"></a>
 ### Users API  
   
 |Method   |Endpoint                         |Requires                     |Description                                                 |
