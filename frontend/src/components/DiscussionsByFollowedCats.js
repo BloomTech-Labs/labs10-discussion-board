@@ -9,7 +9,7 @@ import { getAllDiscussionsByFollowedCategories, handleDiscussionVote } from '../
 import { DiscussionByFollowedCats, AddDiscussionForm } from './index.js';
 
 // globals
-import { phoneP, tabletP } from '../globals/globals.js';
+import { tabletP } from '../globals/globals.js';
 
 const DiscussionsWrapper = styled.div`
 	display: flex;
@@ -151,7 +151,7 @@ class AllDiscussionsByFollowedCats extends Component {
   componentDidMount = () => this.getDiscussions();
   render() {
     const { followedDiscussions, showAddDiscussionForm } = this.state;
-    const { history, match, user_type } = this.props;
+    const { history, match } = this.props;
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
@@ -200,7 +200,6 @@ class AllDiscussionsByFollowedCats extends Component {
 };
 
 const mapStateToProps = state => ({
-  user_type: state.users.user_type,
   followedDiscussions: state.discussions.followedDiscussions,
 });
 

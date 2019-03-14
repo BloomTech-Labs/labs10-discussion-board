@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-// import chevron from '../assets/img/chevron.png';
 
 // globals
-import { phoneP, phoneL, tabletP } from '../globals/globals.js';
+import { phoneP, phoneL } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************
@@ -62,19 +60,6 @@ const DivLogin = styled.div`
   display: flex;
   position: relative;
   justify-content: flex-end;
-`;
-
-const LinkRegister = styled(Link)`
-  text-decoration: none;
-  margin-right: 0px;
-  user-select: none;
-  cursor: pointer;
-  color: ${props => props.theme.defaultColor};
-  font-size: 18px;
-  &:hover {
-    cursor: pointer;
-    color: ${props => props.theme.defaultColorOnHover};
-  }
 `;
 
 const Login = styled.a`
