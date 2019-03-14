@@ -4,7 +4,7 @@
 Symposium is a web application that organizes communication in a way that like-minded people can come together to share and discuss ideas.  
 
 ---
-  >>>>>>>>>>>> ![Testing](/frontend/src/assets/img/symposiumgit.png "Symposium Logo Enlarged") 
+ ![Testing](/frontend/src/assets/img/symposiumgit.png "Symposium Logo Enlarged") 
 
 ---
 
