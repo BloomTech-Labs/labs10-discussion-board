@@ -54,35 +54,36 @@ const DivChangeSub = styled.div`
   display: flex;
   background-color: white;
   z-index: 9999;
-  width: 70%;
+  width: 68%;
   height: 70%;
   flex-direction: column;
+  padding: 0 50px;
+  border-radius: 5px;
 
   @media(max-width: 1200px) {
     width: 100%;
     height: 100%;
     align-items: center;
   }
+
+  @media ${phoneL} {
+    padding: 0;
+  }
 `;
 
 const FormChangeSub = styled.form`
   display: flex;
-
-  @media(max-width:1200px) {
-    width: 70%;
-  }
-
-  @media ${phoneL} {
     width: 100%;
-  }
 `;
 
-const DivHeaderTitle = styled.div`
+const DivHeader = styled.div`
   display: flex;
-  width: 86%;
-  justify-content: center;
+  width: 100%;
+  margin-bottom: 25px;
   border-bottom: 1px solid black;
-  margin: 0 auto 25px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
   @media(max-width: 1200px){
     border: none;
@@ -90,9 +91,41 @@ const DivHeaderTitle = styled.div`
   }
 `;
 
+const DivBack = styled.div`
+  display: flex;
+  margin-top: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  @media(max-width: 1200px) {
+    margin-top: 24px;
+  }
+
+  i {
+    align-self: flex-start;
+    font-size: 30px;
+    cursor: pointer;
+  }
+`;
+
+const DivHeaderTitle = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
 const H1HeaderTitle = styled.h1`
+  display: flex;
+  font-weight: normal;
+
+  @media(max-width: 1200px) {
+    font-size: 28px;
+  }
+
   @media ${phoneL} {
-    font-size: 24px;
+    font-size: 16px;
   }
 `;
 
@@ -100,7 +133,7 @@ const DivSelectBanners = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 
   @media(max-width: 1200px) {
@@ -113,7 +146,7 @@ const DivBanner = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 390px;
+  height: 410px;
   cursor: pointer;
 
   input {
@@ -159,12 +192,34 @@ const DivFeatures = styled.div`
     justify-content: center;
     align-items: center;
     user-select: none;
-    text-decoration: underline;
+    font-weight: normal;
   }
 
   ul {
     padding-right: 20px;
     user-select: none;
+    font-weight: normal;
+    margin: 0;
+
+    @media(max-width: 1200px) {
+      list-style: none;
+
+      hr {
+        display: none;
+      }
+    }
+
+    &:not(:last-child) {
+      @media(max-width: 1200px) {
+        margin-bottom: 20px;
+      }
+    }
+
+    &:last-child {
+      @media(max-width: 1200px) {
+        margin-bottom: 10px;
+      }
+    }
   }
 
   @media(max-width: 1200px) {
@@ -176,9 +231,23 @@ const DivFeatures = styled.div`
     h2 {
       justify-content: flex-start;
       text-decoration: none;
+      margin-bottom: 20px;
+      margin-top: 20px;
       margin-left: 25px;
       width: 150px;
+      font-size: 22px;
     }
+  }
+`;
+
+const IAsterisk = styled.i`
+  display: none;
+
+  @media(max-width: 1200px) {
+    display: inline-block;
+    margin-left: -20px;
+    color: ${props => props.silver && '#848795'};
+    color: ${props => props.gold && 'gold'};
   }
 `;
 
@@ -338,11 +407,10 @@ const DivButtons = styled.div`
   flex-wrap: wrap;
   margin-top: 25px;
   width: 100%;
-  justify-content: space-around;
+  justify-content: flex-end;
 
   @media (max-width: 1200px){
-    width: 70%;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   @media ${phoneL} {
@@ -350,58 +418,22 @@ const DivButtons = styled.div`
   }
 `;
 
-const CancelButton = styled.button`
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  border-radius: 4px;
+const ButtonSubmit = styled.button`
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #418DCF;
   color: white;
+  border: 1px solid #418DCF;
   width: 200px;
-  padding: 5px;
-  background: rgb(242, 0, 0);
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
-  border-top: 3px solid rgb(221, 0, 0);
-  border-left: 3px solid rgb(221, 0, 0);
-  border-bottom: 3px solid rgb(137, 0, 0);
-  border-right: 3px solid rgb(137, 0, 0);
   outline: none;
+  height: 42px;
 
-  &:active {
-    border-bottom: 3px solid rgb(221, 0, 0);
-    border-right: 3px solid rgb(221, 0, 0);
-    border-top: 3px solid rgb(137, 0, 0);
-    border-left: 3px solid rgb(137, 0, 0);
-  }
-
-  @media ${phoneL} {
-    width: 100%;
-    padding: 15px 0;
-    margin-left: 0;
-  }
-`;
-
-const ButtonConfirm = styled.button`
-  width: 200px;
-  padding: 5px;
-  background: lime;
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
-  border-top: 2px solid rgb(0, 234, 0);
-  border-left: 2px solid rgb(0, 234, 0);
-  border-bottom: 2px solid rgb(0, 150, 0);
-  border-right: 2px solid rgb(0, 150, 0);
-  outline: none;
-
-  &:active {
-    border-bottom: 2px solid rgb(0, 234, 0);
-    border-right: 2px solid rgb(0, 234, 0);
-    border-top: 2px solid rgb(0, 150, 0);
-    border-left: 2px solid rgb(0, 150, 0);
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #418DCF;
+    border: 1px solid #418DCF;
   }
 
   @media ${phoneL} {
@@ -425,7 +457,8 @@ const ButtonStripeCheckout = styled(StripeCheckout)`
     height: 40px!important;
     justify-content: center;
     align-items: center;
-    font-size: 20px!important;
+    font-size: 14px!important;
+    font-weight: normal!important;
   }
 
   @media ${phoneL} {
@@ -518,9 +551,14 @@ class ChangeSubscriptionModal extends Component {
       <DivChangeSubModal ischangesubmodalraised={this.props.isChangeSubModalRaised.toString()}>
         <DivModalCloser onClick={(ev) => setChangeSubModalRaised(ev, false)} />
         <DivChangeSub>
-          <DivHeaderTitle>
-            <H1HeaderTitle>Change&nbsp;Account&nbsp;Subscription</H1HeaderTitle>
-          </DivHeaderTitle>
+          <DivHeader>
+            <DivBack>
+              <i className='far fa-arrow-alt-circle-left' onClick={(ev) => setChangeSubModalRaised(ev, false)} />
+            </DivBack>
+            <DivHeaderTitle>
+              <H1HeaderTitle>Change&nbsp;Account&nbsp;Subscription</H1HeaderTitle>
+            </DivHeaderTitle>
+          </DivHeader>
           <FormChangeSub>
             <DivSelectBanners>
               <DivBanner
@@ -532,7 +570,7 @@ class ChangeSubscriptionModal extends Component {
                     <h2>Free Plan</h2>
                     <ul>
                       {
-                        subscriptionFreeFeatures.map(feature => <li>{feature}</li>)
+                        subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
                       }
                     </ul>
                   </DivFeatures>
@@ -557,7 +595,13 @@ class ChangeSubscriptionModal extends Component {
                     <h2>Silver Plan</h2>
                     <ul>
                       {
-                        subscriptionSilverFeatures.map(feature => <li>{feature}</li>)
+                        subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
+                      }
+                      <hr />
+                    </ul>
+                    <ul>
+                      {
+                        subscriptionSilverFeatures.map((feature, i) => <li key={i}><IAsterisk silver className='fas fa-asterisk' />&nbsp;{feature}</li>)
                       }
                     </ul>
                   </DivFeatures>
@@ -582,7 +626,19 @@ class ChangeSubscriptionModal extends Component {
                     <h2>Gold Plan</h2>
                     <ul>
                       {
-                        subscriptionGoldFeatures.map(feature => <li>{feature}</li>)
+                        subscriptionFreeFeatures.map((feature, i) => <li key={i}>{feature}</li>)
+                      }
+                      <hr />
+                    </ul>
+                    <ul>
+                      {
+                        subscriptionSilverFeatures.map((feature, i) => <li key={i}><IAsterisk silver className='fas fa-asterisk' />&nbsp;{feature}</li>)
+                      }
+                      <hr />
+                    </ul>
+                    <ul>
+                      {
+                        subscriptionGoldFeatures.map((feature, i) => <li key={i}><IAsterisk gold className='fas fa-asterisk' />&nbsp;{feature}</li>)
                       }
                     </ul>
                   </DivFeatures>
@@ -601,9 +657,8 @@ class ChangeSubscriptionModal extends Component {
             </DivSelectBanners>
           </FormChangeSub>
           <DivButtons>
-            <CancelButton type='button' onClick={(ev) => setChangeSubModalRaised(ev, false)}>Cancel</CancelButton>
             {this.state.subPlan === subscriptionPlans[0] ? (
-              <ButtonConfirm onClick={ev => this.submitHandler(ev)}>Confirm</ButtonConfirm>
+              <ButtonSubmit onClick={ev => this.submitHandler(ev)}>Submit</ButtonSubmit>
             ) : (
                 <DivStripeCheckout>
                   <ButtonStripeCheckout

@@ -31,23 +31,11 @@ const subscriptionFreeFeatures = [
   'Add Replies to Comments'
 ];
 const subscriptionSilverFeatures = [
-  'Account Profile',
-  'Account Settings',
   'Gets Signature',
-  'Add Categories',
-  'Add Posts to Categories',
-  'Add Comments to Posts',
-  'Add Replies to Comments'
+  'Add Categories'
 ];
 const subscriptionGoldFeatures = [
-  'Account Profile',
-  'Account Settings',
-  'Gets Signature',
-  'Gets Avatar',
-  'Add Categories',
-  'Add Posts to Categories',
-  'Add Comments to Posts',
-  'Add Replies to Comments'
+  'Gets Avatar'
 ];
 
 // mixins
