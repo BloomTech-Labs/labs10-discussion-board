@@ -35,7 +35,7 @@ class Switcher extends React.Component {
                 </ul>
             </div>
             <div className="bottom">
-            <a href="#" className="settings"><i className="mdi mdi-settings mdi-spin"></i></a>
+            <a href="" className="settings"><i className="mdi mdi-settings mdi-spin"></i></a>
             </div>
         </div>
   	);

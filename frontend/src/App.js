@@ -228,7 +228,7 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
-                <Route exact path='/' component={NonUserLandingView} />
+                <Route exact path='/' component={LandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
