@@ -12,46 +12,6 @@ const DivCategories = styled.div`
   width: 100%;
 `;
 
-const DivCategoryListTitles = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  justify-content: space-between;
-
-  h2 {
-    margin: 5px 0;
-
-    &:first-child {
-      padding: 0 340px 0 78px;
-
-      // @media (max-width: 1024px) {
-      //   padding: 0 200px 0 78px;
-      // }
-
-      @media (max-width: 775px) {
-        padding: 0 20px;
-      }
-    }
-
-    &:nth-child(2) {
-      @media (max-width: 878px) {
-        display: none;
-      }
-    }
-
-    &:last-child {
-      padding: 0 98px 0 56px;
-      @media (max-width: 775px) {
-        display: none;
-      }
-    }
-  }
-
-  @media (max-width: 775px) {
-    justify-content: center;
-  }
-`;
-
 const DivCategoryRows = styled.div`
   display: flex;
   flex-direction: column;

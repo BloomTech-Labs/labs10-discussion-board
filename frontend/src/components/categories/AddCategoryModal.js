@@ -10,7 +10,7 @@ import { addCategory, displayError } from '../../store/actions/index.js';
 import { IconList } from '../index.js';
 
 // globals
-import { phoneL, phoneP, topHeaderHeight, backendUrl } from '../../globals/globals.js';
+import { phoneL, topHeaderHeight, backendUrl } from '../../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles *********************************************

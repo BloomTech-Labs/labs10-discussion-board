@@ -176,7 +176,7 @@ class DiscussionsByCats extends Component {
     };
   };
   render() {
-    const { discussions, history, category_name, match, user_type } = this.props;
+    const { discussions, history, category_name, match } = this.props;
     const { showAddDiscussionForm } = this.state;
     return (
       <DiscussionsWrapper>
@@ -234,7 +234,6 @@ class DiscussionsByCats extends Component {
 };
 
 const mapStateToProps = state => ({
-  user_type: state.users.user_type,
   discussions: state.discussions.discussions,
   category_name: state.discussions.category.name,
 });

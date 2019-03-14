@@ -472,34 +472,34 @@ const InputEmail = styled.input`
   }
 `;
 
-const DivSignature = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 320px;
-`;
+// const DivSignature = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   width: 320px;
+// `;
 
-const LabelSignature = styled.label`
-  font-size: 20px;
-  text-decoration: underline;
-  margin-bottom: 5px;
-  user-select: none;
-`;
+// const LabelSignature = styled.label`
+//   font-size: 20px;
+//   text-decoration: underline;
+//   margin-bottom: 5px;
+//   user-select: none;
+// `;
 
-const TextareaSignature = styled.textarea`
-  width: 100%;
-  height: 100px;
-  resize: none;
-  border: 1px solid black;
-  padding: 10px;
-  user-select: ${props => props.disabled ? 'none' : 'auto'};
-  background: ${props => props.disabled ? '#c0c0c0' : 'white'};
+// const TextareaSignature = styled.textarea`
+//   width: 100%;
+//   height: 100px;
+//   resize: none;
+//   border: 1px solid black;
+//   padding: 10px;
+//   user-select: ${props => props.disabled ? 'none' : 'auto'};
+//   background: ${props => props.disabled ? '#c0c0c0' : 'white'};
 
-  &:focus {
-    outline: none;
-  }
-`;
+//   &:focus {
+//     outline: none;
+//   }
+// `;
 
 const DivRightSide = styled.div`
   display: flex;
