@@ -16,16 +16,22 @@ Symposium is a web application that organizes communication in a way that like-m
 `cd labs10-discussion-board`  
 
 #### Prerequisites  
-`cd frontend` to get into the Frontend Folder   
+`cd frontend` to get into the Frontend Folder 
+  
 `yarn` to install the Frontend Dependencies    
+  
 `cd ..` to exit out of the Frontend Folder    
+  
 `cd backend` to get into the Backend Folder    
+  
 `yarn` to install the Backend Dependencies  
   
 `knex migrate:rollback` to reset all the migrations (tables)  
+  
 `knex migrate:latest` to activate all the migrations (tables)  
-`knex seed:run` to activate all the seeds that belong in those migrations
-
+  
+`knex seed:run` to activate all the seeds that belong in those migrations  
+  
 #### Starting Server  
 ##### Option 1: Concurrently  
 While in the Backend Folder use `yarn symposium` to "concurrently" start the backend and frontend servers  
@@ -60,16 +66,7 @@ Parameters:
 | :------- | :-----------: | :--------------------: | :---------------------------------------------: |
 | username | string        | yes, unique            | username used to log in, no 2 of the same       |  
 | password | string        | yes                    | credentials to log in, in combo with username   |
-| status   | string        | no                     | gives access to pages not given to other users  |
-
-Example: 
-
-```
-{
-  "username": "dummy",
-  "password": "dummy"
-}
-```
+| status   | string        | no                     | gives access to pages not given to other users  |  
 
 ### Auth Login
 
@@ -77,22 +74,12 @@ Method: **[Post]** `/auth/login`
 
 On Success: Redirects the User to the All Posts Page
 
-Parameters:
-
+Parameters:  
 
 |Name      |Type           |Required                |
 | :------- | :-----------: | :--------------------: |
 | username | string        | yes, unique            |
-| password | string        | yes                    |
-
-Example: 
-
-```
-{
-  "username": "dummy",
-  "password": "dummy"
-}
-```
+| password | string        | yes                    |  
 
 ### Auth0 Login
 
@@ -102,7 +89,6 @@ On Success: Redirects the User to the All Posts Page
 
 Parameters:
 
-
 |Name      |Type           |Required                |
 | :------- | :-----------: | :--------------------: |
 | name     | string        | yes                    |
@@ -110,10 +96,10 @@ Parameters:
 | picture  | image         | yes                    |
 
 User uses credentials from an accepted platform to log-in, such as:  
-Facebook  
-Github  
-Google  
-Twitter  
+- Facebook  
+- Github  
+- Google  
+- Twitter  
 
 ---
 
@@ -126,8 +112,8 @@ Twitter
 | POST    | `/categories/followed/:user_id`       | `user_id`                          | Used to allow a user to follow a category  |
 | POST    | `/categories/search`                  | `searchText`, `order`, `orderType` | Used to search category by letter/word     |
 | GET     | `/categories/category-icons/:user_id` | `categories_icon`, `user_id`       | Used to get specific category icon         |   
-
----
+  
+  
 ### POST Category
 
 Method: **[POST]** `/categories/:user_id`
@@ -140,17 +126,9 @@ Parameters:
 | :--------- | :-----------: | :-------: | :--------------------------------------------------------------: |
 | user_id    | integer       | no        | used to choose a name/ no name for story post                    |  
 | name       | string        | yes       | story input                                                      |
-| created_at | bigInteger    | yes       | a UNIX ms timestamp is automatically generated                   |
-
-Example: 
-
-```
-{
-  "user_id": "10",
-  "name": "Announcements",
-  "created_at": "1558903890"
-}
-```
+| created_at | bigInteger    | yes       | a UNIX ms timestamp is automatically generated                   |  
+  
+  
 ### GET Categories
 
 Method: **[GET]** `/categories/`
@@ -178,16 +156,6 @@ Parameters:
 | order      | asc, desc     | yes       |
 | orderType  | string        | yes       |  
 
-Example: 
-
-```
-{
-  "user_id": "10",
-  "name": "Announcements",
-  "created_at": "1558903890"
-}
-```  
-
 ### GET Category Icons
 
 Method: **[GET]** `/categories/category-icons/:user_id`
@@ -200,8 +168,9 @@ Parameters:
 | category_icon | iamge         | yes       |  
 
 ---
-  
-### Discussions API  
+
+### Discussions ("Posts") API
+### Discussions are referred to as Posts, and Posts as Comments (Due to last minute design changes)
   
 |Method   |Endpoint                                           |Requires                                   |Description               |
 | :------ | :----------------------------------------------:  | :---------------------------------------: | :----------------------: |
@@ -214,9 +183,10 @@ Parameters:
 | POST    | `/discussions/:user_id`                           | `discussion_id`,`user_id`,`body`| Used to post a new discussion      |  
 | PUT     | `/discussions/:user_id`                           | `discussion_id`,`user_id`       | Used to edit a discussion          |  
 | DELETE  | `/discussions/:user_id`                           | `discussion_id`,`user_id`       | Used to delete a discussion        | 
-
----
-### GET Discussions
+  
+  
+### GET All Discussions ("Posts")
+### Note: This is rendered under the page "All Posts" 
 
 Method: **[GET]** `/discussions//discussions/category/:category_id/:user_id`
 
@@ -226,10 +196,10 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | user_id     | integer       | yes       |
 | category_id | integer       | yes       | 
-| name        | string        | yes       |
-| created_at  | bigInteger    | yes       |  
+| body        | text          | yes       |
+| created_at  | bigInteger    | yes       |
 
-### GET Discussions
+### GET Discussions ("Posts") by Followed Category
 
 Method: **[GET]** `/discussions/all-by-followed-categories/:user_id`
 
@@ -239,7 +209,7 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | user_id     | integer       | yes       |  
 
-### GET Discussions Search
+### GET Discussions ("Posts") Search
 
 Method: **[GET]** `/discussions/search`
 
@@ -249,7 +219,7 @@ Parameters:
 | :---------- | :-----------: | :-------: |
 | searchText  | text          | yes       |  
 
-### GET Discussions by User ID (Moderator ID)
+### GET Discussions ("Posts") by User ID (Moderator ID)
 
 Method: **[GET]** `/discussions/user/:user_id``
 
@@ -258,9 +228,21 @@ Parameters:
 |Name           |Type           |Required   |Notes                                                         |
 | :------------ | :-----------: | :-------: | :----------------------------------------------------------: |
 | user_id       | integer       | yes       | this user id refers to the creator of the discussion         |
-| discussion_id | integer       | yes       |   |                                   
-     
-### POST Discussions
+| discussion_id | integer       | yes       |   |                                     
+  
+  
+### GET Discussions ("Posts") by Category ID
+
+Method: **[GET]** `/discussions/category/:category_id/:user_id`
+
+Parameters:
+
+|Name         |Type           |Required   |
+| :---------- | :-----------: | :-------: |
+| user_id     | integer       | yes       |
+| category_id | integer       | yes       |  
+
+### POST Discussions ("Posts")
 
 Method: **[POST]** `/discussions/:user_id`
 
@@ -276,7 +258,7 @@ Parameters:
 
 ---
 
-### Discussion Follows API  
+### Discussion ("Posts") Follows API  
   
 |Method |Endpoint                                      |Requires                   |Description                                      |
 | :---- | :------------------------------------------: | :-----------------------: | :---------------------------------------------: |
@@ -284,7 +266,7 @@ Parameters:
 
 ---
  
-### Discussion Votes API  
+### Discussion ("Posts") Votes API  
   
 |Method    |Endpoint                      |Requires                         |Description                                      |
 | :------- | :--------------------------: | :-----------------------------: | :---------------------------------------------: |
@@ -292,7 +274,8 @@ Parameters:
 
 ---
 
-### Posts API  
+### Posts ("Comments") API 
+### Posts are referred to as "Comments", Due to last minute design changes
   
 |Method  |Endpoint           |Requires                                       |Description                           |
 | :----- | :---------------: | :-------------------------------------------: | :----------------------------------: |
@@ -300,10 +283,9 @@ Parameters:
 | POST   | `/posts/:user_id` | `discussion_id`,`body`,`created_at`, `user_id`| Used to create a new post            |
 | PUT    | `/posts/:user_id` | `post_id`,`body`                              | Used to edit a post                  |
 | DELETE | `/posts/:user_id` | `post_id`                                     | Used to delete a post                |  
-
----
-
-### GET Post Search
+  
+  
+### GET Post ("Comments") Search
 
 Method: **[GET]** `/posts/search`
 
@@ -314,11 +296,11 @@ Parameters:
 | searchText  | text          | yes       |  
                                   
      
-### POST Discussions
+### POST Post ("Comments")
 
 Method: **[POST]** `/posts/:user_id`
 
-On Success: The New Discussion will be rendered in the list of Discussions, console will return the Discussion ID
+On Success: The New Comment will be rendered under the Post which "Add Comment" was clicked, console will return the Discussion ID
 
 Parameters: 
 
@@ -327,27 +309,32 @@ Parameters:
 | discussion_id | integer     | yes       |
 | user_id       | integer     | yes       |
 | body          | text        | yes       |
-| created_at    | bigInteger  | yes       |   
+| created_at    | bigInteger  | yes       |  
+
+### Note: PUT Post ("Comments") created for future developers to utilize
+
+### Note: DELETE Post ("Comments") created for future developers to utilize
 
 ---
 
-### Post Votes API  
+### Post ("Comments") Votes API  
   
 |Method   |Endpoint       |Requires                   |Description                                      |
 | :------ | :-----------: | :-----------------------: | :---------------------------------------------: |
 | POST    | `/post-votes` | `post_id`,`type`,`user_id`| Used to upvote / downvote a post                |  
 
+### Comment Votes are used in each Comment
+
 ---
   
-### Replies API  
+### Replies API
    
 |Method   |Endpoint                  |Requires                                 |Description                     |
 | :------ | :----------------------: | :-------------------------------------: | :----------------------------: |
 | POST    | `/replies/:user_id`      | `body`,`created_at`,`post_id`,`user_id` | Used to reply to post          |
 | PUT     | `/replies/:user_id`      | `body`,`reply_id`                       | Used to edit a reply           |
 | DELETE  | `/replies/:user_id`      | `reply_id`                              | Used to delete a created reply |   
-
----
+  
    
 ### POST Reply
 
@@ -395,7 +382,89 @@ Parameters:
 | PUT     | `/users/avatar/:user_id`        | `user_id`, `avatarData`                | Used to update a user's avatar                  | 
 | PUT     | `/users/avatar-url/:user_id`    | `user_id`, `avatarURL`                 | Used to update a user's avatar via URL          | 
 | PUT     | `/users/last-login/:user_id`    | `user_id`                              | Used to update last login                       | 
-| DELETE  | `/users/:user_id`               | `user_id`                              | Used to delete a user                           |
+| DELETE  | `/users/:user_id`               | `user_id`                              | Used to delete a user                           |   
+### GET All Discussions ("Posts") created by User ID
+
+Method: **[GET]** `/user/discussions/:user_id``
+
+Parameters:
+
+|Name           |Type           |Required   |Notes                                                         |
+| :------------ | :-----------: | :-------: | :----------------------------------------------------------: |
+| user_id       | integer       | yes       | this user id refers to the creator of the discussion         |
+
+### GET User by User ID
+
+Method: **[GET]** `/users/user/:user_id``
+
+Parameters:
+
+|Name           |Type           |Required   |Notes                                                         |
+| :------------ | :-----------: | :-------: | :----------------------------------------------------------: |
+| user_id       | integer       | yes       | this user id refers to the creator of the discussion         |  
+
+### GET Users Search
+
+Method: **[GET]** `/users/search-all`
+
+Parameters:
+
+|Name         |Type           |Required   |
+| :---------- | :-----------: | :-------: |
+| searchText  | text          | yes       |  
+
+### PUT Update User Info
+
+Method: **[PUT]** `/users/user/:user_id`
+
+Parameters:
+
+|Name           |Type           |Required   |
+| :------------ | :-----------: | :-------: |
+| user_id       | integer       | yes       |
+| username      | string        | yes       |
+| oldPassword   | string        | yes       |
+| newPassword   | string        | yes       | 
+| email         | email string  | yes       |  
+
+### PUT Update Email
+
+Method: **[PUT]** `/users/password/:user_id`
+
+Parameters:
+
+|Name           |Type           |Required   |
+| :------------ | :-----------: | :-------: |
+| user_id       | integer       | yes       |
+| username      | string        | yes       |
+| oldPassword   | string        | yes       |
+| newPassword   | string        | yes       | 
+
+### PUT Update Password
+
+Method: **[PUT]** `/users/update-email/:user_id`
+
+Parameters:
+
+|Name           |Type           |Required   |
+| :------------ | :-----------: | :-------: |
+| user_id       | integer       | yes       |
+| email         | email string  | yes       |
+| clientIP      | string        | yes       |
+
+A new email confirmation is sent to the client's new email  
+  
+### Delete User
+
+Method: **[Delete]**  `/users/:user_id
+
+Requires Login
+
+On Success: Message: "User has been deleted"
+
+|Name             |Type           |Required   |
+| :-------------- | :-----------: | :-------: |
+| /users/:user_id | endpoint      | yes       |
 
 ---
 
