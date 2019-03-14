@@ -124,7 +124,11 @@ class LoginDropdown extends Component {
   };
 
   authLockOptions = {
-    rememberLastLogin: false
+    rememberLastLogin: false,
+    theme: {
+      logo: 'https://i.imgur.com/yrFJL5z.png',
+      primaryColor: '#418DCF',
+    },
   };
 
   lock = new Auth0Lock(auth0ClientID, auth0Domain, this.authLockOptions);
