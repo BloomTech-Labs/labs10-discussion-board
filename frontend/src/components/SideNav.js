@@ -154,6 +154,7 @@ const DivCatFollowItems = styled.div`
 const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
+  margin-bottom: -15px;
   border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '1px solid transparent'};
 
   i {
@@ -186,6 +187,7 @@ const LinkAllPosts = styled(Link)`
   text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
   font-weight: normal;
+  margin-right: 41px;
 
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
@@ -232,8 +234,8 @@ const DivWindows = styled.div`
   width: 18px;
   height: 18px;
   padding-top: 1.8px;
-  margin-left: 21px;
-  margin-right: 11px;
+  margin-left: 61px;
+  margin-right: 13px;
   margin-bottom: 6px;
   @media (max-width: 800px) {
     margin-left: 0px;
@@ -403,7 +405,7 @@ class SideNav extends Component {
         <DivCategoriesFollowed>
           <DivCatFollowItems>
             <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
-              <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
+              
               <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
                 <DivWindows>
                   <div className='div-window' />
@@ -411,6 +413,7 @@ class SideNav extends Component {
                   <div className='div-window' />
                   <div className='div-window' />
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
+                <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
             </H4AllPosts>
             <ul>
               {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
