@@ -18,6 +18,7 @@ const DivCategoriesComponent = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 5px;
+  color: ${props => props.theme.defaultColor};
 `;
 
 const CategoriesHeader = styled.div`
@@ -27,7 +28,8 @@ const CategoriesHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-
+  color: ${props => props.theme.discussionPostColor};
+  
   .name-wrapper {
     display: flex;
     align-items: center;
