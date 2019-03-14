@@ -9,7 +9,7 @@ import { getAllDiscussionsByFollowedCategories, handleDiscussionVote } from '../
 import { DiscussionByFollowedCats, AddDiscussionForm } from './index.js';
 
 // globals
-import { phoneP, tabletP, accountUserTypes, subBronzeStartIndex } from '../globals/globals.js';
+import { tabletP } from '../globals/globals.js';
 
 const DiscussionsWrapper = styled.div`
 	display: flex;
@@ -151,7 +151,7 @@ class AllDiscussionsByFollowedCats extends Component {
   componentDidMount = () => this.getDiscussions();
   render() {
     const { followedDiscussions, showAddDiscussionForm } = this.state;
-    const { history, match, user_type } = this.props;
+    const { history, match } = this.props;
     return (
       <DiscussionsWrapper>
         <DiscussionHeader>
@@ -171,10 +171,9 @@ class AllDiscussionsByFollowedCats extends Component {
               <option value={mostComments}>{mostComments}</option>
             </select>
           </div>
-          {(accountUserTypes.indexOf(user_type) >= subBronzeStartIndex) &&
-            <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-              <i className='fas fa-plus-circle' />&nbsp;Add Post
-          </button>}
+          <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
+            <i className='fas fa-plus-circle' />&nbsp;Add Post
+          </button>
         </DiscussionHeader>
         <hr />
         <div className='content'>
@@ -201,7 +200,6 @@ class AllDiscussionsByFollowedCats extends Component {
 };
 
 const mapStateToProps = state => ({
-  user_type: state.users.user_type,
   followedDiscussions: state.discussions.followedDiscussions,
 });
 

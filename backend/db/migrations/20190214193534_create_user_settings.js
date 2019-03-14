@@ -21,7 +21,7 @@ exports.up = function (knex, Promise) {
     // avatar: base64
     tbl.text('avatar').defaultTo(defaultAvatar);
 
-    // Account type: user, bronze_member, silver_member, gold_member, and admin
+    // Account type: user, silver_member, gold_member, and admin
     // Note: admin can be set only by postgress query command
     tbl.string('user_type', 32).defaultTo(accountUserTypes[0]);
 

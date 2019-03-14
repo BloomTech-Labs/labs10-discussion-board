@@ -142,7 +142,7 @@ const CommentSort = styled.div`
   }
 
   @media (max-width: 590px) {
-    align-items; center;
+    align-items: center;
     .desktop {
       display: none;
     }
@@ -284,11 +284,11 @@ class Discussion extends Component {
     } = discussion;
     return (
       <Wrapper>
-        <div className = 'back-follow-wrapper'>
+        <div className='back-follow-wrapper'>
           <Link className='back' to={`/discussions/category/${category_id}`}><i className="far fa-arrow-alt-circle-left"></i></Link>
           <Follow
-            discussion_id = { id }
-            historyPush = { historyPush }
+            discussion_id={id}
+            historyPush={historyPush}
           />
         </div>
         <DiscussionWrapper>
@@ -297,21 +297,21 @@ class Discussion extends Component {
               discussion={discussion}
               history={history}
               voteOnDiscussion={this.handleVote}
-              singleDiscussion = { true }
+              singleDiscussion={true}
             />
             <CommentWrapper>
               <CommentSort>
-                <div className = 'comment-sort-wrapper'>
-                  <div className = 'title-add-wrapper'>
+                <div className='comment-sort-wrapper'>
+                  <div className='title-add-wrapper'>
                     <span className='title'>Comments</span>
                     <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
                       <i className='fas fa-plus-circle' />&nbsp;Add Comment
                     </button>
                   </div>
-                  <div className = 'sort'>
+                  <div className='sort'>
                     <div className='filter-wrapper'>
                       <i className='fab fa-mix' />
-                      <span className = 'filter-by'>Filter by &nbsp;</span>
+                      <span className='filter-by'>Filter by &nbsp;</span>
                       <select
                         className='filter'
                         onChange={this.handleSelectChange}
@@ -347,8 +347,8 @@ class Discussion extends Component {
                   discussion_id={id}
                   historyPush={historyPush}
                   repliedPost={posts.find(post => post.id === showAddReplyForm)}
-                  handleFilterChange = {this.handleFilterChange}
-                  scrollTo = {scrollTo}
+                  handleFilterChange={this.handleFilterChange}
+                  scrollTo={scrollTo}
                 />
               </Posts>
             </CommentWrapper>

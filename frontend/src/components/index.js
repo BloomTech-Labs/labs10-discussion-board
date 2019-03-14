@@ -42,6 +42,7 @@ import DiscussionsByFollowedCats from './DiscussionsByFollowedCats.js';
 import DiscussionByFollowedCats from './DiscussionByFollowedCats.js';
 import IconList from './categories/IconList.js';
 import Icon from './categories/Icon.js';
+import RegisterDropdown from './RegisterDropdown.js';
 
 // forms
 import AddPostForm from './forms/AddPostForm.js';
@@ -101,6 +102,7 @@ export {
   DiscussionByFollowedCats,
   IconList,
   Icon,
+  RegisterDropdown,
 
   // forms
   AddPostForm,

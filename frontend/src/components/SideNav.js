@@ -39,6 +39,7 @@ const DivHeader = styled.div`
     padding: 10px;
     color: ${ props => props.theme.defaultColor };
     margin: 10px;
+    margin-bottom: 45px;
 
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover };
@@ -64,6 +65,7 @@ const DivHeader = styled.div`
 const H4BrowseCategories = styled.h4`
     width: 95%;
     border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
+    margin-bottom: 57px;
 
     @media(max-width: 800px) {
       display: flex;
@@ -131,14 +133,18 @@ const DivCatFollowItems = styled.div`
   ul {
     list-style: none;
     padding-left: 0;
+    margin-left: -50px;
+    margin-top: -25px;
 
     @media(max-width: 800px) {
       display: flex;
       margin: 0 20px 0 0;
+      margin-bottom: -53px;
     }
 
     @media ${phoneL} {
       margin: 0 10px 0 0;
+      margin-bottom: -53px;
     }
   }
 
@@ -154,6 +160,7 @@ const DivCatFollowItems = styled.div`
 const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
+  margin-bottom: 9px;
   border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '1px solid transparent'};
 
   i {
@@ -186,6 +193,8 @@ const LinkAllPosts = styled(Link)`
   text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
   font-weight: normal;
+  margin-right: 41px;
+  margin-top: -65px;
 
   &:hover {
     color: ${props => props.theme.defaultColorOnHover};
@@ -196,7 +205,7 @@ const LinkAllPosts = styled(Link)`
   }
 
   .div-window {
-    background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : '#aaa'};
+    background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : 'black'};
 
     @media(max-width: 800px) {
       background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : '#aaa'};
@@ -214,6 +223,7 @@ const LinkAllPosts = styled(Link)`
     justify-content: center;
     align-items: center;
     padding: 20px;
+    margin-bottom: -115px;
 
     &:hover {
       border: 1px solid ${props => props.theme.defaultColorOnHover};
@@ -232,9 +242,9 @@ const DivWindows = styled.div`
   width: 18px;
   height: 18px;
   padding-top: 1.8px;
-  margin-left: 21px;
-  margin-right: 11px;
-  margin-bottom: 6px;
+  margin-left: 12px;
+  margin-right: 13px;
+  margin-bottom: 0px;
   @media (max-width: 800px) {
     margin-left: 0px;
     justify-content: center
@@ -394,7 +404,7 @@ class SideNav extends Component {
               to={`/categories`}
               islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
               onClick={() => this.selectLink('BrowseCategories')}
-            ><i className="fas fa-book-open" />Browse&nbsp;</LinkBrowseCategories>
+            ><i className="fas fa-book-open" />Browse Categories&nbsp;</LinkBrowseCategories>
           </H4BrowseCategories>
           {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
             <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
@@ -403,7 +413,7 @@ class SideNav extends Component {
         <DivCategoriesFollowed>
           <DivCatFollowItems>
             <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
-              <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} />
+              
               <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
                 <DivWindows>
                   <div className='div-window' />
@@ -411,6 +421,7 @@ class SideNav extends Component {
                   <div className='div-window' />
                   <div className='div-window' />
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
+                {/* <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} /> */}
             </H4AllPosts>
             <ul>
               {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
