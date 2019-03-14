@@ -6,9 +6,9 @@ Symposium is a web application that organizes communication in a way that like-m
 ---
 
 ## Table of Contents
-
+1. [Getting Started. ](#start)
 ---
-
+<a name="start"></a>
 ## Getting Started  
 
 `git clone https://github.com/Lambda-School-Labs/labs10-discussion-board.git` 
@@ -322,8 +322,6 @@ Parameters:
 |Method   |Endpoint       |Requires                   |Description                                      |
 | :------ | :-----------: | :-----------------------: | :---------------------------------------------: |
 | POST    | `/post-votes` | `post_id`,`type`,`user_id`| Used to upvote / downvote a post                |  
-
-### Comment Votes are used in each Comment
 
 ---
   
