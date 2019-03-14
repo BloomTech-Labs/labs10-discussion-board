@@ -166,6 +166,7 @@ const dayTheme = {
   topDiscussionNameDateColor: 'black',
   topDiscussionNameDateBgColor: 'rgba(255, 255, 255, 0.13)',
   topDiscussionElipBgColor: 'rgba(60, 57, 57)',
+  settingsBgColor: 'white',
   skyColor: '#37d8e6',
   symposiumBorderColor: '#f1c40f',
 

@@ -10,21 +10,24 @@ import { addDiscussion, displayError } from '../../store/actions/index.js';
 import {
 	tabletP,
 	phoneP,
+	topHeaderHeight,
 } from '../../globals/globals.js';
 
 const AddDiscussionFormWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
-	position: absolute;
+	position: fixed;
 	padding: 10px;
-	padding-top: 40px;
 	border-radius: 5px;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: calc(100vh - ${topHeaderHeight});
+	left: 0;
+	top: ${topHeaderHeight};
 	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
 `;
 
 const AddDiscussionFormBox = styled.form`
@@ -35,22 +38,19 @@ const AddDiscussionFormBox = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 80%;
-	background-color: white;
-
-	@media ${phoneP} {
-		flex-direction: initial;
-	}
+	background-color: ${props => props.theme.settingsBgColor};
+	height: 60vh;
+	width: 60vw;
 
 	.body-input, .categories-select {
 		border-radius: 5px;
 		padding: 5px 10px;
+		background-color: ${props => props.isDay ? 'white': '#ddd'};
 	}
 
 	.body-input {
-		@media ${ tabletP} {
-			width: 20em;
-		}
+		width: 80%;
+		height: 40%;
 	}
 
 	.above-input {
@@ -60,30 +60,51 @@ const AddDiscussionFormBox = styled.form`
 		justify-content: space-between;
 		margin-bottom: 15px;
 
-		i{
+		.back {
 			font-size: 30px;
+			color: ${props => props.theme.defaultColor};
 
 			&:hover {
-					cursor: pointer;
-					color: steelblue;
-				}
-		}			
+				cursor: pointer;
+				color: ${props => props.theme.defaultColorOnHover};
+			}
+		}
 	}
 
 	.below-input {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
-		width: 599px;
+		width: 80%;
 		margin-top: 10px;
+		align-items: center;
 
-		@media ${tabletP} {
-			width: 380px;
+		* {
+			margin: 5px 0;
+		}
+
+		@media (max-width: 900px) {
+			flex-direction: column;
+			justify-content: center;
+
+			.categories-select, .submit-btn {
+				width: 44%;
+			}
+		}
+
+		@media (max-width: 600px) {
+			.categories-select, .submit-btn {
+				width: 60%;
+			}
 		}
 
 		@media ${phoneP} {
 			flex-direction: column;
 			align-items: center;
+
+			.categories-select, .submit-btn {
+				width: 80%;
+			}
 		}
 
 		.user {
@@ -99,12 +120,11 @@ const AddDiscussionFormBox = styled.form`
 			}
 
 			.username {
-				color: black;
+				color: ${props => props.theme.defaultColor};
 				text-decoration: none;
 
 				&:hover {
-					color: steelblue;
-					text-decoration: underline;
+					color: ${props => props.theme.defaultColorOnHover};
 				}
 			}
 
@@ -158,11 +178,11 @@ class AddDiscussionForm extends Component {
   componentDidMount = () => this.getCategoryNames();
   render() {
     const { body, categoryNames, category_id } = this.state;
-		const { toggleAddDiscussionForm, username, avatar, user_id } = this.props;
+		const { toggleAddDiscussionForm, username, avatar, user_id, isDay } = this.props;
 
     return (
       <AddDiscussionFormWrapper onSubmit={this.handleSubmit}>
-        <AddDiscussionFormBox>
+        <AddDiscussionFormBox isDay = { isDay }>
 					<div className='above-input'>
 						<span
 							className='back'
@@ -171,8 +191,8 @@ class AddDiscussionForm extends Component {
 						<span></span>
 					</div>
           <textarea
-            rows='10'
-            cols='80'
+            // rows='10'
+            // cols='80'
             className='body-input'
             type='text'
             placeholder='Add a post...'
@@ -214,6 +234,7 @@ const mapStateToProps = state => ({
 	username: state.users.username,
 	user_id: state.users.user_id,
 	avatar: state.users.avatar,
+	isDay: state.users.isDay,
 });
 
 export default connect(mapStateToProps, { addDiscussion, displayError })(AddDiscussionForm);
