@@ -52,10 +52,9 @@ export const followCategory = (category_id, user_id, historyPush, onCategoriesPa
   const token = localStorage.getItem('symposium_token');
   const headers = { headers: { Authorization: token } };
   dispatch({ type: FOLLOW_CATEGORY_LOADING });
-  console.log("ONCATeREPAGE", onCategoriesPage);
   return axios.post(`${backendUrl}/category-follows/${user_id}/${category_id}`, {}, headers)
     .then(res => dispatch({ type: FOLLOW_CATEGORY_SUCCESS, payload: res.data }))
-    .then(() => !onCategoriesPage && console.log("GOING") && historyPush('/'))
+    .then(() => !onCategoriesPage && historyPush('/'))
     .then(() => !onCategoriesPage && historyPush(`/discussions/category/${category_id}`))
     .catch(err => handleError(err, FOLLOW_CATEGORY_FAILURE)(dispatch));
 };
