@@ -7,26 +7,53 @@ import styled from 'styled-components';
 import { displayError, sendPWResetEmail } from '../../store/actions/index.js';
 
 const RequestResetPWFormWrapper = styled.form`
+	width: 30%
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	padding-top: 50px;
-
+	margin-top: 10%;
+	padding: 30px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	@media(max-width: 1080px) {
+		width:40%
+	  }
 	.enter-email-text {
-		padding: 10px;
+		color: lightgrey;
+		font-size: .8rem;
 	}
 
 	input {
+		width: 40%
 		padding: 5px 10px;
 		border-radius: 5px;
 		margin: 10px;
+		color: lightgrey;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
-	.back-to {
-		margin-top: 10px;
+	.fa-arrow-alt-circle-left {
+		font-size: 2rem;
+		align-self: flex-start;
+		margin-left: 20px;
+		cursor: pointer;
 		text-decoration: none;
+		@media(max-width: 1024px) {
+		}
+	  }
+
+	.reset-button {
+		width: 45%;
+      	padding: 10px 15px;
+      	border-radius: 5px;
+      	border: 1px solid #418DCF;
+      	background-color: #418DCF;
+		color: lightgrey;
+		cursor: pointer;
 	}
 `;
 
@@ -44,6 +71,7 @@ class RequestResetPWForm extends Component {
 		const { email } = this.state;
 		return(
 			<RequestResetPWFormWrapper onSubmit = { this.handleSubmit }>
+				<Link className = 'far fa-arrow-alt-circle-left' to = '/'></Link>
 				<p className = 'enter-email-text'>
 					Enter your email:
 				</p>
@@ -58,8 +86,8 @@ class RequestResetPWForm extends Component {
 					onChange = { this.handleInputChange }
 				/>
 
-				<button type = 'submit'>Send reset PW email</button>
-				<Link className = 'back-to' to = '/'>Back to log in</Link>
+				<button className = 'reset-button' type = 'submit'>Send reset PW</button>
+				
 			</RequestResetPWFormWrapper>
 		);
 	}
