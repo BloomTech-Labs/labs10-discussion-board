@@ -57,154 +57,154 @@ exports.seed = function(knex, Promise) {
             )
           )},
         {user_id: '2', category_id: '2',
-          body: '', created_at: Date.parse(
+          body: 'Dev Team RULES OF CONDUCT: Codes of Conduct, Rules of Effective Communication', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-          body: 'Im thinking that Steph Curry and the GSW aint losing steam with their all star line-up, while Lebron and the Lakers not doing so well even with their A-list Lineup, what you all thinking?', created_at: Date.parse(
+          body: 'Dev Team News: This channel will be for any world news that you think will be affecting our company\'s Dev Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-          body: 'Liverpool sitting high and untouched with 20 wins and 1 loss', created_at: Date.parse(
+          body: 'Dev Team Announcements: This channel will be used for major company announcements that will be affecting the Dev Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-          body: 'How about that freaking Kazunoko, Who has won 4 out of the 7 tournaments. Next favorites are Sonic Fox and GO1(pronounced Go ichi).', created_at: Date.parse(
+          body: 'Dev Team Projects: Please locate your team\'s project and communicate within that channel with your team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-        body: 'Largest prize pool was Dota 2018 at $24.6 million, while Fortnite literally just eclipsed that announcing a $100 million prize pool over the 2017-2018 Competitive Season', created_at: Date.parse(
+        body: 'Dev Team General: This channel will be a general chat for anything within the scope of the rules of communication.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '3',
-          body: 'This means that Lamborghini sees electrification as a must, something it needs to survive even if powerful engines are still the main reason that customers buy Lamborghinis', created_at: Date.parse(
+          body: 'Design Team RULES OF CONDUCT: This channel contains the rules of communication and code of conduct. Questions will be answered by a Design Team Leader.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '3',
-          body: 'Corvette Lovers are anticipating the new release, and a lot of dealers are sitting on their old Corvettes, Are we going to See a Price Drop? What ya think?', created_at: Date.parse(
+          body: 'Design Team Announcements: This channel will be used for any company changes that affects the Design Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '3',
-          body: 'A few months ago, Elon Musk announced TESLA will drop all their patents opening up the tech for anyone who wants to use it. It was an incredible step for humanity and environment. But what does this mean for the Car World in terms of Technology?', created_at: Date.parse(
+          body: 'Design Team Projects: This channel will be used for communication between your team. Find your team\'s chat within in this channel', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '4',
-          body: 'In the last few issues, The Big Mom Pirates have arrived in Wano, likely to seek revenge from the Straw Hat Pirates, but in a clash, Big Mom now suffers from Amnesia, How do you think this is going to play out in the scheme of things?', created_at: Date.parse(
+          body: 'Marketing Team RULES OF CONDUCT: This channel contains the rules of communication and code of conduct. Questions will be answered by a Marketing Team Leader.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '4',
-          body: 'Tips, Tricks, Reviews, How is everyone enjoying this epic game?? I would love some feedback before I purchase', created_at: Date.parse(
+          body: 'Marketing Team Announcements: This channel will be used for any company changes that affects the Marketing Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '4',
-          body: 'I feel like the writer just going all out from one OP event to the next, how do you think Ban will stop Meliodas? Some new Transformation? What is he capable of now? Theories PLEASE!', created_at: Date.parse(
+          body: 'Marketing Team Projects: This channel will be used for communication between your team. Find your team\'s chat within in this channel.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '4',
-          body: 'I recently came upon this Anime on Hulu, but have not had much time to look into it, what are your thoughts on this?', created_at: Date.parse(
+          body: 'Marketing Team General: This channel will be a general chat for anything within the scope of the rules of communication.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '5',
-          body: 'Game of Thrones is drawing closer and I cant wait, Post your Theories HERE!!!', created_at: Date.parse(
+          body: 'HR Team RULES OF CONDUCT: This channel contains the rules of communication and code of conduct. Questions will be answered by a Senior HR team member.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '5',
-          body: 'Seriously, this franchise is so successful I dont see a future there WILL NOT be some sort of spinoff, or prequel, what ya think? Any leaked news about this?', created_at: Date.parse(
+          body: 'HR Team Announcements: This channel will be used for any company changes that affects the HR Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '4', category_id: '5',
-          body: 'Provide your opinions and your thoughts on this Netflix series', created_at: Date.parse(
+          body: 'HR Projects: This channel will be used to separate current projects, so relevant communication should be in the appropriate sub-channel.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '4', category_id: '5',
-          body: 'This man is hillarious, but also has a very creative and unique worldview, I am excited to see him as the creator and host, what you all think?', created_at: Date.parse(
+          body: 'HR Ideas Channel: This channel will be used to promote new ideas, or elaboration on current ones.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '6',
-          body: 'The whole franchise was a huge success, and this movie was brilliantly put together to WRAP UP everything, OR WAS IT? Will there be a sequel? Prequel? Thoughts?', created_at: Date.parse(
+          body: 'Product Managers Team RULES OF CONDUCT: This channel contains the rules of communication and code of conduct. Questions will be answered by a Senior Product Managers team member.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '5', category_id: '6',
-          body: 'What do you think of the live action adaptation of ALITA? I personally have not read the manga.', created_at: Date.parse(
+          body: 'Product Managers Team Announcements: This channel will be used for any company changes that affects the Product Managers Team.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '6', category_id: '6',
-          body: 'This movie is about a girl who lives the same day over and over, then her friend gets something similar. This movie seemed so dumb, if you have seen it, was it good?', created_at: Date.parse(
+          body: 'Product Managers Team Projects: This channel will be used for communicating in specific projects. Please locate the appropriate channel to post your comments in.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '5', category_id: '7',
-          body: 'Ariana Grande is a great music artist, and I understand her reason for writing this song. But ladies, please stop singing this in the car with your current bf! My girl hates her ex, but sings this song. Is this weird? Am I tripping, what ya think?', created_at: Date.parse(
+          body: 'QA RULES OF CONDUCT: This channel contains the rules of communication and code of conduct for Questions and Answers.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '3', category_id: '7',
-          body: 'This is a beautiful song, what\'s more is freaking Bradley Cooper wins an Oscar his first musical performance. This guy... Anyway. Share your thoughts on this. I think its awesome. This song got some feel feels', created_at: Date.parse(
+          body: 'Questions and Answers Topic: Company - Please ask questions that is related to the company. Questions will be answered by Senior team personnel. ', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '4', category_id: '7',
-          body: 'This was wicked! The range of Adam Lambert with the showmanship of Queen. I loved every minute of it. Any critiques?', created_at: Date.parse(
+          body: 'Questions and Answers Topic: General - This channel is for general questions. Questions can be answered by any employee.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
