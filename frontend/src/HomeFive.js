@@ -102,7 +102,7 @@ class HomeFive extends React.Component {
                 {/* <FooterLinks /> */}
 
                 {/* Switcher Component */}
-                <Switcher /> 
+                {/* <Switcher />  */}
             </Wrapper>
         </Aux>
   	);
