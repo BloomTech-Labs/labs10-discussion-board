@@ -482,7 +482,7 @@ router.post('/auth0-login', async (req, res) => {
     );
 });
 
-router.post('/stripe', (req, res, next) => {
+router.post('/stripe', (req, res) => {
   const stripeToken = req.body.data.stripeToken;
   const payment = Number(req.body.data.payment);
   const subPlan = req.body.data.description;
