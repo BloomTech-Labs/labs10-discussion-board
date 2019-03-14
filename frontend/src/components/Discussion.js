@@ -305,7 +305,7 @@ class Discussion extends Component {
                   <div className='title-add-wrapper'>
                     <span className='title'>Comments</span>
                     <button onClick={this.toggleAddPostForm} className='add-post-btn desktop'>
-                      {/* <i className='fas fa-plus-circle' />&nbsp;Add Comment */}
+                      <i className='fas fa-plus-circle' />&nbsp;Add Comment
                     </button>
                   </div>
                   <div className='sort'>

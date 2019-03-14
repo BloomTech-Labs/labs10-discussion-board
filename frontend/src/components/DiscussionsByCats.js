@@ -9,7 +9,7 @@ import { DiscussionByFollowedCats, AddDiscussionForm, FollowCat } from './index.
 import { getDiscussionsByCat, handleDiscussionVote } from '../store/actions/index.js';
 
 // globals
-import { tabletP, phoneP, accountUserTypes } from '../globals/globals.js';
+import { tabletP } from '../globals/globals.js';
 
 /***************************************************************************************************
  ********************************************** Styles **********************************************
