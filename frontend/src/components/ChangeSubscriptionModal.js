@@ -40,15 +40,6 @@ const DivChangeSubModal = styled.div`
   }
 `;
 
-const DivModalCloser = styled.div`
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 9997;
-`;
-
 const DivScroller = styled.div`
 display: flex;
 background-color: white;
@@ -546,7 +537,6 @@ class ChangeSubscriptionModal extends Component {
     const subPlan = `${this.state.subPlan.toUpperCase()} Plan`;
     return (
       <DivChangeSubModal ischangesubmodalraised={this.props.isChangeSubModalRaised.toString()}>
-        <DivModalCloser onClick={(ev) => setChangeSubModalRaised(ev, false)} />
         <DivScroller>
           <DivChangeSub>
             <DivHeader>
