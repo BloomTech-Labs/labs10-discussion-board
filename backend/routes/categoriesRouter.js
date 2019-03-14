@@ -39,7 +39,6 @@ router.get('/followed/:user_id', authenticate, (req, res) => {
 });
 
 router.get('/search', (req, res) => {
-  console.log(req.body);
   const searchText = req.get('searchText');
   let order = req.get('order');
   let orderType = req.get('orderType');
