@@ -8,56 +8,56 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('discussions').insert([
         {user_id: '1', category_id: '1',
-          body: 'The basic idea is that, finally, developers can build without worrying about physical or virtual servers or even containers. Instead, devs can simply assemble services from small building blocks of code called functions, and all that messy infrastructure stuff under the hood takes care of itself.', created_at: Date.parse(
+          body: 'RULES OF CONDUCT: Please refer to this channel for the proper code of conduct. Our HR will be ready to answer any questions posted.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '1', category_id: '1',
-          body: 'The blockchain is an undeniably ingenious invention – the brainchild of a person or group of people known by the pseudonym, Satoshi Nakamoto. But since then, it has evolved into something greater.By allowing digital information to be distributed but not copied, blockchain technology created the backbone of a new type of internet. Originally devised for the digital currency, Bitcoin,  (Buy Bitcoin) the tech community is now finding other potential uses for the technology.', created_at: Date.parse(
+          body: 'All of our programming will now be done solely by Lambda School. They are the most incredible development program we\'ve ever experienced and they are incredibly generous.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '1', category_id: '1',
-          body: 'MicroSD cards are about to get a whole lot faster, thanks to the newly announced microSD Express format that the SD Association announced at MWC 2019. The new cards will rely on the far faster PCIe and NVMe interfaces commonly used on modern SSDs to reach speeds of up to 985 megabytes per second.', created_at: Date.parse(
+          body: 'We are currently looking to hire 10 new marketing interns. Applicant must currently be in college majoring in business finance, business management, graphic arts, psychology, or sociology. Please post your recommendations here with a copy of their Resume.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '1', category_id: '1',
-          body: 'Twitter retains direct messages for years, including messages you and others have deleted, but also data sent to and from accounts that have been deactivated and suspended, according to security researcher Karan Saini.', created_at: Date.parse(
+          body: 'Office Game of Thrones Watch Party. Where: David Situ\'s House. Time: 5PM Pacific. There will be a raffle for best and funniest costumes. Valar morghulis.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '1', category_id: '1',
-          body: ' the Weather Poster, a Kickstarter project from designer Oli Woods and his company, Typified. The project looks to merge traditional art (in this case, a screen-printed poster) with modern technology to create a smart display that’s more limited in function, but far nicer-looking and less obtrusive than just hanging a screen on your wall.', created_at: Date.parse(
+          body: 'We are going to begin implementing a yoga program in the morning before work at 7:00AM for those of you who would like to attend. Please post any concerns or questions here.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '1',
-          body: 'it’s the exact same marketing scam that AT&T pulled when it began rolling out its 5G E logo on Android phones last month, with an extra dose of Apple’s complicity in pulling this scam on its own customers. It appears that Apple even helped AT&T design a new version of its 5G E logo to match the iPhone’s menubar, down to the smaller “E” that AT&T seems to hope you’ll confuse with real 5G.', created_at: Date.parse(
+          body: 'Starting April 1st, 2019, we will be implementing a 24/7 open bar in the marketing department to enhance creativity. April Fools! Please keep your pranks this year to a minimum. No repeat of what happened last year.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '1',
-          body: 'There were more than 1.52 billion people using Facebook every day in December 2018, a 9 percent increase year over year. Monthly active users were also up 9 percent year over year, with 2.32 billion as of December 31st.', created_at: Date.parse(
+          body: 'All Communication will now be held in Symposium. Urgent matters will be posted in Anouncements, please turn notifications on for this channel.', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago
             )
           )},
         {user_id: '2', category_id: '2',
-          body: 'He got 5 championship rings, Dunk Champion, Multiple MVP awards, and a Frickin Grammy Folks, What is the mamba doing now?', created_at: Date.parse(
+          body: '', created_at: Date.parse(
             faker.date.between(
               new Date(Date.now() - (1000 * 60 * 60 * 24 * 2)), // from 2 days ago
               new Date(Date.now() - (1000 * 60 * 60 * 6)) // to 6 hours ago

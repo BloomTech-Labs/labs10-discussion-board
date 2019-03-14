@@ -205,7 +205,7 @@ const LinkAllPosts = styled(Link)`
   }
 
   .div-window {
-    background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : 'black'};
+    background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
 
     @media(max-width: 800px) {
       background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : '#aaa'};
