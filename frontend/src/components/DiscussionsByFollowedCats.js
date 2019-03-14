@@ -9,7 +9,7 @@ import { getAllDiscussionsByFollowedCategories, handleDiscussionVote } from '../
 import { DiscussionByFollowedCats, AddDiscussionForm } from './index.js';
 
 // globals
-import { phoneP, tabletP, accountUserTypes, subBronzeStartIndex } from '../globals/globals.js';
+import { phoneP, tabletP, accountUserTypes } from '../globals/globals.js';
 
 const DiscussionsWrapper = styled.div`
 	display: flex;
