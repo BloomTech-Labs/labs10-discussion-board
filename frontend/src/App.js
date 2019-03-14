@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
+import HomeFive from './HomeFive.js';
+
 // globals
 import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
 
@@ -226,7 +228,7 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
-                <Route exact path='/' component={NonUserLandingView} />
+                <Route exact path='/' component={LandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
@@ -262,7 +264,8 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  <Route component={NonUserLandingView} />
+                  {/* <Route component={NonUserLandingView} /> */}
+                  <Route render = { props => <HomeFive { ...props } toggleRegisterModal = { this.toggleRegisterModal } /> } />
                 </Switch>
               </DivPage>
             </DivBody>
