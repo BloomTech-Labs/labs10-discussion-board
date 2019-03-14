@@ -25,7 +25,7 @@ const DivWrapper = styled.div`
     width: 90%;
   }
     @media ${phoneL}{
-      width: 75%;
+      width: 95%;
   }
   @media ${phoneP}{
   }
