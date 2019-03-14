@@ -52,7 +52,7 @@ const RequestResetPWFormWrapper = styled.form`
   
   		&:hover {
     		color: ${props => props.theme.defaultColorOnHover};
-		  }
+		}
 		  
 		@media(max-width: 1350px) {
 			top: 51%
