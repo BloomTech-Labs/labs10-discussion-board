@@ -23,30 +23,52 @@ const MessageBox = styled.div`
 	justify-content: center;
 	flex-wrap: wrap;
 	flex-direction: column;
-	background-color: ${props => props.theme.messageBoxBgColor};
+	background-color: ${props => props.theme.settingsBgColor};
 	margin-top: 40vh;
 	padding: 10px;
 	border-radius: 5px;
-	border: ${props => props.theme.messageBoxBorder};
+	border: 1px solid ${props => props.theme.settingsBgColor};
 	width: 300px;
+	position: relative;
+
+	.back {
+		font-size: 30px;
+		color: ${ ({ isDay }) => isDay ? '#444' : '#ddd' };
+		position: absolute;
+		top: 12px;
+		left: 15px;
+
+		&:hover {
+			cursor: pointer;
+			color: ${props => props.theme.defaultColorOnHover};
+		}
+	}
 
 	p {
-		color: ${props => props.theme.messageBoxPColor};
+		color: ${ ({ isDay }) => isDay ? '#444' : '#ddd' };
 		font-weight: 700;
-		text-align: center;
+		text-align: justify;
 		margin: 10px;
+		margin-top: 45px;
 	}
 `;
 
-const Message = ({ message, displayMessage }) => {
+const Message = ({ message, displayMessage, isDay }) => {
 	return(
 		<MessageWrapper>
-			<MessageBox>
+			<MessageBox isDay = { isDay }>
+				<span
+					className='back'
+					onClick={() => displayMessage('')}		
+				><i className="far fa-arrow-alt-circle-left"></i></span>
 				<p>{ message }</p>
-				<button onClick = { () => displayMessage('') }>OK</button>
 			</MessageBox>
 		</MessageWrapper>
 	);
 };
 
-export default connect(null, { displayMessage })(Message);
+const mapStateToProps = state => ({
+	isDay: state.users.isDay,
+});
+
+export default connect(mapStateToProps, { displayMessage })(Message);
