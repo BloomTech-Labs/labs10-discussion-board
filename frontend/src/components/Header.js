@@ -47,7 +47,7 @@ const StyledHeader = styled.div`
       }
 
       @media ${phoneL} {
-        width: 35%;
+        width: 40%;
       }
   }
 `;
@@ -62,6 +62,7 @@ const NavContainer = styled.div`
   }
   @media ${phoneL} {
       width: 60%;
+      justify-content: space-between;
   }
 `;
 
