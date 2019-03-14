@@ -14,7 +14,6 @@ const pusher = require('../config/pusherConfig.js');
  ******************************************** middleware ********************************************
  **************************************************************************************************/
 const { authenticate } = require('../config/middleware/authenticate.js');
-// const { authorizeAddPost } = require('../config/middleware/authorization.js'); // converting into free plan
 
 /***************************************************************************************************
  ********************************************* Endpoints *******************************************

@@ -13,11 +13,9 @@ import {
   defaultAvatar,
   phoneL,
   subscriptionFreeFeatures,
-  subscriptionBronzeFeatures,
   subscriptionSilverFeatures,
   subscriptionGoldFeatures,
   subFreeStartIndex,
-  subBronzeStartIndex,
   subSilverStartIndex,
   subGoldStartIndex,
 } from '../globals/globals.js';
@@ -242,62 +240,12 @@ const DivFreePlan = styled.div`
   }
 `;
 
-const DivBronzePlan = styled.div`
-  display: flex;
-  width: 255px;
-  flex-direction: column;
-  border: ${props =>
-    props.subPlan === subscriptionPlans[1]
-      ? '5px solid lime'
-      : '5px solid transparent'};
-  border-radius: 10px;
-  background-color: #ca620d;
-  font-weight: bold;
-  height: 100%;
-  position: relative;
-
-  h4 {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-    user-select: none;
-    
-    @media ${phoneL} {
-      display: ${props =>
-    props.subPlan === subscriptionPlans[1]
-      ? 'visible'
-      : 'none'};
-      top: ${props =>
-    props.subPlan === subscriptionPlans[1]
-    && '1px'};
-      text-align: ${props =>
-    props.subPlan === subscriptionPlans[1]
-    && 'right'};
-      right: ${props =>
-    props.subPlan === subscriptionPlans[1]
-    && '50px'};
-    }
-  }
-
-  &:hover {
-    opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.6')};
-  }
-
-  @media ${phoneL} {
-    width: 100%;
-    border-radius: 0;
-    border: none; /* remove lime selection border first */
-    border-top: 4px solid black;
-  }
-`;
-
 const DivSilverPlan = styled.div`
   display: flex;
   width: 255px;
   flex-direction: column;
   border: ${props =>
-    props.subPlan === subscriptionPlans[2]
+    props.subPlan === subscriptionPlans[1]
       ? '5px solid lime'
       : '5px solid transparent'};
   border-radius: 10px;
@@ -315,17 +263,17 @@ const DivSilverPlan = styled.div`
     
     @media ${phoneL} {
       display: ${props =>
-    props.subPlan === subscriptionPlans[2]
+    props.subPlan === subscriptionPlans[1]
       ? 'visible'
       : 'none'};
       top: ${props =>
-    props.subPlan === subscriptionPlans[2]
+    props.subPlan === subscriptionPlans[1]
     && '1px'};
       text-align: ${props =>
-    props.subPlan === subscriptionPlans[2]
+    props.subPlan === subscriptionPlans[1]
     && 'right'};
       right: ${props =>
-    props.subPlan === subscriptionPlans[2]
+    props.subPlan === subscriptionPlans[1]
     && '50px'};
     }
   }
@@ -347,7 +295,7 @@ const DivGoldPlan = styled.div`
   width: 255px;
   flex-direction: column;
   border: ${props =>
-    props.subPlan === subscriptionPlans[3]
+    props.subPlan === subscriptionPlans[2]
       ? '5px solid lime'
       : '5px solid transparent'};
   border-radius: 10px;
@@ -365,17 +313,17 @@ const DivGoldPlan = styled.div`
     
     @media ${phoneL} {
       display: ${props =>
-    props.subPlan === subscriptionPlans[3]
+    props.subPlan === subscriptionPlans[2]
       ? 'visible'
       : 'none'};
       top: ${props =>
-    props.subPlan === subscriptionPlans[3]
+    props.subPlan === subscriptionPlans[2]
     && '1px'};
       text-align: ${props =>
-    props.subPlan === subscriptionPlans[3]
+    props.subPlan === subscriptionPlans[2]
     && 'right'};
       right: ${props =>
-    props.subPlan === subscriptionPlans[3]
+    props.subPlan === subscriptionPlans[2]
     && '50px'};
     }
   }
@@ -1043,7 +991,7 @@ class RegisterView extends Component {
     try {
       let newAccount;
       // prettier-ignore
-      if (this.state.subPlan === subscriptionPlans[2]) { // silver
+      if (this.state.subPlan === subscriptionPlans[1]) { // silver
         newAccount = {
           subPlan: this.state.subPlan,
           username: this.state.username,
@@ -1051,7 +999,7 @@ class RegisterView extends Component {
           email: this.state.email,
           signature: this.state.signature
         };
-      } else if (this.state.subPlan === subscriptionPlans[3]) { // gold
+      } else if (this.state.subPlan === subscriptionPlans[2]) { // gold
         newAccount = {
           subPlan: this.state.subPlan,
           username: this.state.username,
@@ -1061,9 +1009,8 @@ class RegisterView extends Component {
           avatarData: this.state.avatarData,
           avatarURL: this.state.avatarURL
         };
-      } else if ( // free or bronze
-        this.state.subPlan === subscriptionPlans[0] ||
-        this.state.subPlan === subscriptionPlans[1]
+      } else if ( // free
+        this.state.subPlan === subscriptionPlans[0]
       ) {
         newAccount = {
           subPlan: this.state.subPlan,
@@ -1083,24 +1030,20 @@ class RegisterView extends Component {
   getPaymentAmount = () => {
     switch (this.state.subPlan) {
       case subscriptionPlans[1]:
-        return subscriptionPrices[1];
+        return subscriptionPrices[1]; // Silver
       case subscriptionPlans[2]:
-        return subscriptionPrices[2];
-      case subscriptionPlans[3]:
-        return subscriptionPrices[3];
+        return subscriptionPrices[2]; // Gold
       default:
-        return subscriptionPrices[0];
+        return subscriptionPrices[0]; // Free
     }
   }
 
   getStripePayment = () => {
     switch (this.state.subPlan) {
-      case subscriptionPlans[1]: // Bronze
+      case subscriptionPlans[1]: // Silver
         return stripePayFormat[0];
-      case subscriptionPlans[2]: // Silver
+      case subscriptionPlans[2]: // Gold
         return stripePayFormat[1];
-      case subscriptionPlans[3]: // Gold
-        return stripePayFormat[2];
       default:
         return 0;
     }
@@ -1144,7 +1087,7 @@ class RegisterView extends Component {
                 <H3InvoiceEntry>Account Profile:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
                 <H3InvoiceEntry>Account Settings:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
                 <H3InvoiceEntry>Add Categories:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex}>{subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
-                <H3InvoiceEntry>Add Posts to Categories:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subBronzeStartIndex}>{(subscriptionPlans.indexOf(this.state.subPlan) >= subBronzeStartIndex) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
+                <H3InvoiceEntry>Add Posts to Categories:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
                 <H3InvoiceEntry>Add Comments to Posts:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
                 <H3InvoiceEntry>Add Replies to Comments:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subFreeStartIndex}>YES</SpanBoolColor></H3InvoiceEntry>
                 <H3InvoiceEntry>Signature:<SpanBoolColor subPlan={subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex}>{(subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex) ? 'YES' : 'NO'}</SpanBoolColor></H3InvoiceEntry>
@@ -1209,20 +1152,20 @@ class RegisterView extends Component {
                     onClick={() => this.selectSubPlan(subscriptionPlans[1])}
                     subPlan={this.state.subPlan === subscriptionPlans[1]}
                   >
-                    <DivBronzePlan subPlan={this.state.subPlan}>
+                    <DivSilverPlan subPlan={this.state.subPlan}>
                       <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[1]}>
-                        <h2>Bronze Plan</h2>
+                        <h2>Silver Plan</h2>
                         <ul>
                           {
-                            subscriptionBronzeFeatures.map(feature => <li>{feature}</li>)
+                            subscriptionSilverFeatures.map(feature => <li>{feature}</li>)
                           }
                         </ul>
                       </DivFeatures>
                       <h4>{subscriptionPrices[1]}</h4>
-                    </DivBronzePlan>
+                    </DivSilverPlan>
                     <input
                       type='radio'
-                      value='bronze-plan'
+                      value='silver-plan'
                       name='sub-plan'
                       checked={
                         this.state.subPlan === subscriptionPlans[1]
@@ -1234,33 +1177,8 @@ class RegisterView extends Component {
                     onClick={() => this.selectSubPlan(subscriptionPlans[2])}
                     subPlan={this.state.subPlan === subscriptionPlans[2]}
                   >
-                    <DivSilverPlan subPlan={this.state.subPlan}>
-                      <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[2]}>
-                        <h2>Silver Plan</h2>
-                        <ul>
-                          {
-                            subscriptionSilverFeatures.map(feature => <li>{feature}</li>)
-                          }
-                        </ul>
-                      </DivFeatures>
-                      <h4>{subscriptionPrices[2]}</h4>
-                    </DivSilverPlan>
-                    <input
-                      type='radio'
-                      value='silver-plan'
-                      name='sub-plan'
-                      checked={
-                        this.state.subPlan === subscriptionPlans[2]
-                      }
-                      readOnly
-                    />
-                  </DivBanner>
-                  <DivBanner
-                    onClick={() => this.selectSubPlan(subscriptionPlans[3])}
-                    subPlan={this.state.subPlan === subscriptionPlans[3]}
-                  >
                     <DivGoldPlan subPlan={this.state.subPlan}>
-                      <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[3]}>
+                      <DivFeatures subPlan={this.state.subPlan === subscriptionPlans[2]}>
                         <h2>Gold Plan</h2>
                         <ul>
                           {
@@ -1268,14 +1186,14 @@ class RegisterView extends Component {
                           }
                         </ul>
                       </DivFeatures>
-                      <h4>{subscriptionPrices[3]}</h4>
+                      <h4>{subscriptionPrices[2]}</h4>
                     </DivGoldPlan>
                     <input
                       type='radio'
                       value='gold-plan'
                       name='sub-plan'
                       checked={
-                        this.state.subPlan === subscriptionPlans[3]
+                        this.state.subPlan === subscriptionPlans[2]
                       }
                       readOnly
                     />
@@ -1387,7 +1305,7 @@ class RegisterView extends Component {
                     </DivEmail>
                     {/* <DivSignature subPlan={this.state.subPlan}>
                       <LabelSignature>Signature</LabelSignature>
-                      {(this.state.subPlan === subscriptionPlans[2] || this.state.subPlan === subscriptionPlans[3]) ? (
+                      {(subscriptionPlans.indexOf(this.state.subPlan) >= subSilverStartIndex) ? (
                         <TextareaSignature
                           onChange={this.handleInputChange}
                           placeholder='Optional...'
@@ -1407,7 +1325,7 @@ class RegisterView extends Component {
                         )}
                     </DivSignature> */}
                   </DivLeftSide>
-                  {/* <DivRightSide subPlan={this.state.subPlan === subscriptionPlans[3]}>
+                  <DivRightSide subPlan={this.state.subPlan === subscriptionPlans[2]}>
                     <DivAvatar subPlan={this.state.subPlan}>
                       <DivAvatarImg>
                         <Avatar height={'72px'} width={'72px'} src={this.state.avatar} />

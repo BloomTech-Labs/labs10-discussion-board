@@ -67,7 +67,7 @@ router.get('/', (req, res, next) => {
       const charge = await stripe.charges.create({
         amount: payment,
         currency: 'usd',
-        description: 'bronze plan',
+        description: 'silver plan',
         source: stripeToken
       });
       res.status(201).json([{ charge }]);
