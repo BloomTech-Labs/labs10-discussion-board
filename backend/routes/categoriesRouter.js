@@ -21,7 +21,7 @@ const { authorizeCreateCat } = require('../config/middleware/authorization.js');
  **************************************************************************************************/
 
 //GET All Categories
-router.get('/', (req, res) => {
+router.get('/:user_id', authenticate, (req, res) => {
   let order = req.get('order');
   let orderType = req.get('orderType');
   if (order === 'undefined') order = null;
@@ -52,22 +52,6 @@ router.get('/search', (req, res) => {
 
 router.get('/category-icons/:user_id', authenticate, (req, res) => res.status(200).json(categoryIcons));
 
-// //GET Category by Category ID
-// router.get('/:id', (req, res) => {
-//   const id = req.params.id
-//   return categoriesDB.findById(id)
-//     .then(categoryMap => res.status(200).json(categoryMap))
-//     .catch(err => res.status(500).json({ error: `Failed to findById(): ${err}` }));
-// });
-
-// //GET Category by User ID (Super-Mod/Creator)
-// router.get('/user/:user_id', (req, res) => {
-//   const { user_id } = req.params
-//   return categoriesDB.findByUserId(user_id)
-//     .then(categoryMap => res.status(200).json(categoryMap))
-//     .catch(err => res.status(500).json({ error: `Failed to findByUserId(): ${err}` }));
-// });
-
 //Add Category
 router.post('/:user_id', authenticate, authorizeCreateCat, (req, res) => {
   const { user_id } = req.params;
@@ -85,24 +69,5 @@ router.post('/:user_id', authenticate, authorizeCreateCat, (req, res) => {
     })
     .catch(err => res.status(500).json({ error: `Failed to getCategoryByName(): ${err}` }));
 });
-
-// //Update Category
-// //Note: add Modal for this feature
-// router.put('/update/:id', (req, res) => {
-//   const id = req.params.id
-//   const category = req.body
-//   return categoriesDB.update(category, id)
-//     .then(() => res.status(200).json([{ message: 'Your category topic has been updated!' }]))
-//     .catch(err => res.status(500).json({ error: `Failed to update(): ${err}` }));
-// });
-
-// //Delete Category 
-// //Note: add Modal for this feature
-// router.delete('/delete/:id', (req, res) => {
-//   const id = req.params.id
-//   return categoriesDB.remove(id)
-//     .then(() => res.status(200).json([{ message: 'Your category topic has been deleted!' }]))
-//     .catch(err => res.status(500).json({ error: `Failed to remove(): ${err}` }));
-// })
 
 module.exports = router;

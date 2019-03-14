@@ -31,9 +31,11 @@ export const ADD_CATEGORY_FAILURE = 'ADD_CATEGORY_FAILURE';
  **************************************************************************************************/
 
 export const getCategories = (order, orderType) => dispatch => {
-  const headers = { headers: { order, orderType } };
+  const user_id = localStorage.getItem('symposium_user_id');
+  const token = localStorage.getItem('symposium_token');
+  const headers = { headers: { Authorization: token, order, orderType } };
   dispatch({ type: GET_CATEGORIES_LOADING });
-  return axios.get(`${backendUrl}/categories`, headers)
+  return axios.get(`${backendUrl}/categories/${user_id}`, headers)
     .then(res => dispatch({ type: GET_CATEGORIES_SUCCESS, payload: res.data }))
     .catch(err => handleError(err, GET_CATEGORIES_FAILURE)(dispatch));
 };
