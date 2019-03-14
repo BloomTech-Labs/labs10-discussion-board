@@ -199,6 +199,7 @@ class App extends Component {
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   };
+
   render() {
     const { showSearch } = this.state;
     const { error, history, message, location, isDay } = this.props;
@@ -207,7 +208,7 @@ class App extends Component {
       }
       return (
         <ThemeProvider theme={this.state.theme}>
-          <AppWrapper isDay = { isDay }>
+          <AppWrapper isDay={isDay}>
             <GlobalStyle />
             <Header showSearch={showSearch} scrollTo={this.scrollTo} pathname={location.pathname} goTo={this.goTo} isDay={isDay} history={history} isAuthenticated={this.isAuthenticated} toggleSearch={this.toggleSearch} switched={this.switchTheme} isLoginDropdownModalRaised={this.state.isLoginDropdownModalRaised} setLoginDropdownModalRaised={this.setLoginDropdownModalRaised} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} isNotificationsModalRaised={this.state.isNotificationsModalRaised} setNotificationsModalRaised={this.setNotificationsModalRaised} />
             <AvatarDropdown history={history} isAvatarModalRaised={this.state.isAvatarModalRaised} setAvatarModalRaised={this.setAvatarModalRaised} />

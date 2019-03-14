@@ -498,6 +498,17 @@ class ChangeSubscriptionModal extends Component {
     this.props.stripePayment(headersObj).then(() => this.props.changeUserType(this.props.profile.id, this.getUserTypeSelected()).then(() => this.props.setChangeSubModalRaised(null, false)));
   }
 
+
+
+  submitHandler = ev => {
+    ev && ev.preventDefault();
+    try {
+      this.props.changeUserType(this.props.profile.id, this.getUserTypeSelected()).then(() => this.props.setChangeSubModalRaised(null, false));
+    } catch (err) {
+      this.props.displayError(err);
+    }
+  };
+
   render() {
     const { setChangeSubModalRaised } = this.props;
     const stripeAmount = this.getStripePayment();
