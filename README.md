@@ -6,7 +6,34 @@ Symposium is a web application that organizes communication in a way that like-m
 ---
  ![Testing](/frontend/src/assets/img/symposiumgit.png "Symposium Logo Enlarged") 
 
----
+---  
+
+## Discussion Schema 
+
+Discussions are organized under several Categories. (e.g. Anouncements, Marketing, Development)  
+
+Users can create a Discussion (e.g. Our company hit record sales!, We will be off on Monday!) under the Category it is relevant in.  
+
+Users can create a Post (e.g. Great Job Everyone!, Shoutout to Marketing!) to a Discussion to further the dialogue.  
+
+Users can Reply (e.g. I agree everyone did great!, I disagree I was the best) to a Post to answer/support the dialogue.
+
+Replies to a Reply will be in the same indentation, with the same purpose of answering/supporting the dialogue  
+  
+##### Due to some design changes, some technical terms were translated differently from development to production  
+
+Categories   
+> Discussions ("Posts") - Discussions are rendered as "Posts" (e.g. "All Posts" page)  
+>> Posts ("Comments") - Posts are rendered as "Comments" (e.g. "Comments" section under a post)  
+>>> Replies  
+>>> Replies  
+
+---  
+GIF demonstrates the Discussion Schema  
+  
+
+![Discussion Schema](/frontend/src/assets/img/symposiumDiscussionSchema.gif "Discussion Schema")
+
 
 ## Table of Contents
 
