@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 const PrivacyPolicyWrapper = styled.div`
 	padding: 10px;
+
+	color: ${props => props.theme.defaultColor};
 `;
 
 const EnglishPrivacyPolicy = () => {
