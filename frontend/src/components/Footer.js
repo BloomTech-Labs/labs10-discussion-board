@@ -32,23 +32,37 @@ const FooterContents = styled.div`
     display: inline;
     margin: 0 auto;
 
+    p {
+      text-align: center;
+    }
+
+    .privacy {
+      color: white;
+
+      &:hover {
+        color: ${props => props.theme.defaultColorOnHover};
+        cursor: pointer;
+      }
+    }
+
     i {
-        font-size: 11px;
+      font-size: 11px;
     }
 `
 
 /***************************************************************************************************
  ********************************************* Component *******************************************
  **************************************************************************************************/
-const Footer = ({ toggleSearch, switchTheme }) => {
+const Footer = ({ history }) => {
+  const handlePrivacyClick = () => history.push('/privacy-policy');
   return (
     <DivWrapper>
       <FooterContents>
-        <p>Symposium Forums <i className="far fa-copyright"></i> 2018</p>
+        <p>Symposium Forums <i className="far fa-copyright"></i> 2019</p>
+        <p onClick = { handlePrivacyClick } className = 'privacy'>Privacy Policy</p>
       </FooterContents>
     </DivWrapper>
   );
-
-}
+};
 
 export default Footer;
