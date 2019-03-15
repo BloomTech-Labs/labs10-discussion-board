@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import HomeFive from './HomeFive.js';
-
 // globals
 import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/globals.js';
 
@@ -44,21 +42,21 @@ import {
 import { logBackIn, markNotificationsAsRead, toggleTheme } from './store/actions/index.js';
 
 const GlobalStyle = createGlobalStyle`
-	html,
-	body,
-	#root {
-    	margin: 0 auto;
-    	padding: 0;
-		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-		  display: flex;
-      align-items: center;
-      justify-content: center;
-		  flex-wrap: wrap;
-      flex-direction: column;
-      background: ${props => props.theme.appBgColor};
-      width: 100%;
-      min-height: 100vh;
-	}
+  html,
+  body,
+  #root {
+    margin: 0 auto;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background: ${props => props.theme.appBgColor};
+    width: 100%;
+    min-height: 100vh;
+  }
 `;
 
 const AppWrapper = styled.div`
@@ -228,7 +226,7 @@ class App extends Component {
               </DivSideNav>
               <DivPage>
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
-                <Route exact path='/' component={LandingView} />
+                <Route exact path='/' component={NonUserLandingView} />
                 <Route exact path='/home' component={LandingView} />
                 <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
@@ -264,8 +262,7 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  {/* <Route component={NonUserLandingView} /> */}
-                  <Route render = { props => <HomeFive { ...props } toggleRegisterModal = { this.toggleRegisterModal } /> } />
+                  <Route component={NonUserLandingView} />
                 </Switch>
               </DivPage>
             </DivBody>

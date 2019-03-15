@@ -16,7 +16,7 @@ import { Avatar, Deleted } from '../components/index.js';
 /***************************************************************************************************
  ********************************************** Styles **********************************************
  **************************************************************************************************/
-const ProfileStyle = styled.div `
+const ProfileStyle = styled.div`
   width: 90%;
   flex-direction: column;
   justify-content: center;
@@ -56,7 +56,7 @@ const ProfileWrapper = styled.div`
   .username-style { 
     margin-left: 0px;
     font-size: .8rem;
-    justify-content: flex-start
+    justify-content: flex-start;
     
     &:hover {
       cursor: pointer;
@@ -69,13 +69,12 @@ const ProfileWrapper = styled.div`
       display: flex;
       justify-content: flex-start;
       width: 80%;
-      }
+    }
   }
-    @media ${phoneP} {
-      margin-left: 0px;
-      display: flex;
-      justify-content: flex-start;
-      }
+  @media ${phoneP} {
+    margin-left: 0px;
+    display: flex;
+    justify-content: flex-start;
   }
   .status-style {
     font-size: 10px;
@@ -96,7 +95,7 @@ const ProfileWrapper = styled.div`
   }
 `;
 
-const HeaderStyle = styled.div `
+const HeaderStyle = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -171,7 +170,7 @@ const ContentDiv = styled.div`
       flex-direction: row;
       align-items: center;
       margin-left: 150px;
-      width: 50%
+      width: 50%;
       min-width: 150px;
       
       @media (max-width: 1080px) {
@@ -248,7 +247,7 @@ class Profile extends Component {
   profileItems displays our spinner component, however if our props contains a profile we display that profile
   by mapping through our data received and choosing what properties we want to display with our profile parameter*/
   render() {
-    
+
     let profileItems;
     if (this.props.profile.length === 0) {
       profileItems = <Spinner />;
@@ -256,16 +255,16 @@ class Profile extends Component {
       if (this.props.profile) {
         profileItems = this.props.profile.map((profile, index) => (
           <ProfileStyle key={index}>
-            <ProfileWrapper className = 'prowrap'>
+            <ProfileWrapper className='prowrap'>
               <HeaderStyle>
-                <WrappedDiv className = 'avatar-style'>
+                <WrappedDiv className='avatar-style'>
                   <Avatar
                     height='50px'
                     width='50px'
                     src={profile.avatar}
                   />
                 </WrappedDiv>
-                <WrappedDiv className = 'username-style'>
+                <WrappedDiv className='username-style'>
                   <p className='property-content'> {profile.username ? profile.username : <Deleted />}</p>
                 </WrappedDiv>
               </HeaderStyle>
@@ -282,20 +281,20 @@ class Profile extends Component {
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${discussionFollowed.discussion_id}`}>
                             <PostHeader>
-                              <div className = 'discussion-title'>
+                              <div className='discussion-title'>
                                 <div className='content'>
                                   <p> {discussionFollowed.body}</p>
                                 </div>
                               </div>
-                              <div className = 'posted-by'>
-                                <div className = 'd-creator'>
+                              <div className='posted-by'>
+                                <div className='d-creator'>
                                   <img alt='user' src={discussionFollowed.avatar} />
-                                  <p className = 'username' to = {`/discussion/${discussionFollowed.discussion_id}`}> 
+                                  <p className='username' to={`/discussion/${discussionFollowed.discussion_id}`}>
                                     {discussionFollowed.username}
                                   </p>
                                 </div>
-                                  &nbsp;
-                                  &nbsp;
+                                &nbsp;
+                                &nbsp;
                                 <div className='c-name'>
                                   <i className={discussionFollowed.category_icon} />
                                   <span>
@@ -311,63 +310,63 @@ class Profile extends Component {
                             </PostHeader>
                           </Link>
                         </ContentDiv>)}
-                        </SubWrapper>
+                    </SubWrapper>
                   </WrappedDiv>
                 </TabPanel>
                 <TabPanel>
-                <WrappedDiv>
+                  <WrappedDiv>
                     <SubWrapper>
-                      {profile.posts.map((post, index) => 
+                      {profile.posts.map((post, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${post.discussion_id}`}>
-                          <PostHeader>
-                            <div className = 'discussion-title'>
-                              <div className='content'>
-                                <p> {post.body}</p>
+                            <PostHeader>
+                              <div className='discussion-title'>
+                                <div className='content'>
+                                  <p> {post.body}</p>
+                                </div>
                               </div>
-                            </div>
-                            <div className = 'posted-by'>
-                              <div className = 'd-creator'>
+                              <div className='posted-by'>
+                                <div className='d-creator'>
                                   <img alt='user' src={post.avatar} />
-                                  <p className = 'username' to = {`/discussion/${post.discussion_id}`}> 
+                                  <p className='username' to={`/discussion/${post.discussion_id}`}>
                                     {post.username}
                                   </p>
                                 </div>
-                                  &nbsp;
-                                  &nbsp;
+                                &nbsp;
+                                &nbsp;
                                 <div className='c-time'>
                                   <span>
                                     {moment(new Date(Number(post.created_at))).fromNow()}
                                   </span>
                                 </div>
-                            </div>
-                          </PostHeader>
+                              </div>
+                            </PostHeader>
                           </Link>
                         </ContentDiv>)}
                     </SubWrapper>
-                </WrappedDiv>
+                  </WrappedDiv>
                 </TabPanel>
                 <TabPanel>
                   <WrappedDiv>
                     <SubWrapper>
-                      {profile.replies.map((reply, index) => 
+                      {profile.replies.map((reply, index) =>
                         <ContentDiv key={index}>
                           <Link to={`/discussion/${reply.discussion_id}`}>
                             <PostHeader>
-                              <div className = 'discussion-title'>
-                                  <div className='content'>
-                                    <p> {reply.body}</p>
-                                  </div>
+                              <div className='discussion-title'>
+                                <div className='content'>
+                                  <p> {reply.body}</p>
+                                </div>
                               </div>
-                              <div className = 'posted-by'>
-                                <div className = 'd-creator'>
+                              <div className='posted-by'>
+                                <div className='d-creator'>
                                   <img alt='user' src={reply.avatar} />
-                                  <p className = 'username' to = {`/discussion/${reply.discussion_id}`}> 
+                                  <p className='username' to={`/discussion/${reply.discussion_id}`}>
                                     {reply.username}
                                   </p>
                                 </div>
-                                  &nbsp;
-                                  &nbsp;
+                                &nbsp;
+                                &nbsp;
                                 <div className='c-time'>
                                   <span>
                                     {moment(new Date(Number(reply.created_at))).fromNow()}
@@ -383,7 +382,7 @@ class Profile extends Component {
               </Tabs>
             </ProfileWrapper>
           </ProfileStyle>
-          
+
         ));
       } else {
         profileItems = <h4>No profile found...</h4>;
