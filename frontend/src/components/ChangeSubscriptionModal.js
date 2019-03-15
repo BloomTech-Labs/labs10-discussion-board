@@ -387,18 +387,15 @@ const DivGoldPlan = styled.div`
 `;
 
 const DivBottom = styled.div`
-display: flex;
-flex-wrap: wrap;
-padding-top: 45px;
-width: 100%;
-justify-content: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 45px;
+  width: 100%;
+  justify-content: flex-end;
 
-@media (max-width: 910px){
-  justify-content: center;
-}
-@media ${phoneL} {
-  margin-top: 45px;
-}
+  @media (max-width: 910px){
+    justify-content: center;
+  }
 `;
 
 const DivButtons = styled.div`

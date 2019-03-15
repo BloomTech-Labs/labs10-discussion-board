@@ -360,7 +360,7 @@ router.put('/avatar/:user_id', authenticate, fileUpload(), async (req, res) => {
   return Jimp.read(imageBuffer)
     .then(image => {
       return image
-        .scaleToFit(100, 100)
+        .scaleToFit(150, 150)
         .getBase64(Jimp.AUTO, (err, convertedImage) => {
           if (err) throw err;
           return usersDB
