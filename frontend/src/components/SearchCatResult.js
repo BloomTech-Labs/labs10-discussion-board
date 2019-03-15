@@ -26,7 +26,7 @@ const SearchCatResultWrapper = styled.div`
 		border-radius: 5px;
 		display: flex;
 		justify-content: center;
-		align-itens: center;
+		align-items: center;
 
 		i {
 			margin-top: 19px;
@@ -44,50 +44,50 @@ const SearchCatResultWrapper = styled.div`
 `;
 
 const SearchCatResult = ({ category, goTo, searchText }) => {
-	const {
-		id,
-		name,
-		icon,
-		// user_id,
-		// username,
-		created_at,
-	} = category;
-	const handleCategoryClick = () => goTo(`/discussions/category/${ id }`);
-	// const handleUsernameClick = () => goTo(`/profile/${ user_id }`);
-	searchText = searchText.toLowerCase();
-	const lowerCaseName = name.toLowerCase();
-	return(
-		<SearchCatResultWrapper onClick = { handleCategoryClick }>
-			<div className = 'category-wrapper'>
-				<i className = { icon } />
-				{
-					// if it includes the searchText
-					lowerCaseName.includes(searchText) ?
-					(
-						<p>
-							{
-								// render a substring of all the chars to the left of the searchText
-								name.substr(0, lowerCaseName.indexOf(searchText))
-							}
-							<Highlight
-								// highlight the searchText
-								text = { name.substr(lowerCaseName.indexOf(searchText)).slice(0, searchText.length) }
-							/>
-							{
-								// render a substring of all the chars to the right of the searchText
-								name.substr(lowerCaseName.indexOf(searchText) + searchText.length)
-							}
-						</p>
-					) :
-					(
-						// else if it doesnt include the searchText, render the entirety of it
-						<p>{ name }</p>
-					)
-				}
-			</div>
-			<p className = 'created'>Created {moment(new Date(Number(created_at))).fromNow()}</p>
-		</SearchCatResultWrapper>
-	);
+  const {
+    id,
+    name,
+    icon,
+    // user_id,
+    // username,
+    created_at,
+  } = category;
+  const handleCategoryClick = () => goTo(`/discussions/category/${id}`);
+  // const handleUsernameClick = () => goTo(`/profile/${ user_id }`);
+  searchText = searchText.toLowerCase();
+  const lowerCaseName = name.toLowerCase();
+  return (
+    <SearchCatResultWrapper onClick={handleCategoryClick}>
+      <div className='category-wrapper'>
+        <i className={icon} />
+        {
+          // if it includes the searchText
+          lowerCaseName.includes(searchText) ?
+            (
+              <p>
+                {
+                  // render a substring of all the chars to the left of the searchText
+                  name.substr(0, lowerCaseName.indexOf(searchText))
+                }
+                <Highlight
+                  // highlight the searchText
+                  text={name.substr(lowerCaseName.indexOf(searchText)).slice(0, searchText.length)}
+                />
+                {
+                  // render a substring of all the chars to the right of the searchText
+                  name.substr(lowerCaseName.indexOf(searchText) + searchText.length)
+                }
+              </p>
+            ) :
+            (
+              // else if it doesnt include the searchText, render the entirety of it
+              <p>{name}</p>
+            )
+        }
+      </div>
+      <p className='created'>Created {moment(new Date(Number(created_at))).fromNow()}</p>
+    </SearchCatResultWrapper>
+  );
 };
 
 export default SearchCatResult;

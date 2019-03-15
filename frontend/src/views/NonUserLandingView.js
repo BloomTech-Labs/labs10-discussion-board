@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { socrates } from '../assets/index.js';
 
-const Woah = styled.div `
+const Woah = styled.div`
   width: 100%;
   height: 67vh;
   display: flex;
@@ -22,11 +22,10 @@ const Woah = styled.div `
     background-color: white;
   }
 
-  ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {background-image: none;background-color: white;}' }
-  }}
+  ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {background-image: none;background-color: white;}'}
 `;
 
-const LandingText = styled.div `
+const LandingText = styled.div`
   height: 40%;
   width: 50%;
   margin-right: 30px;
@@ -36,7 +35,7 @@ const LandingText = styled.div `
     background-color: white;
   }
 
-  ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {width: 100%;background-color: white;}' }
+  ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {width: 100%;background-color: white;}'}
 
   .blurb{
     font-size: 1.4rem;
@@ -45,7 +44,7 @@ const LandingText = styled.div `
   }
 `;
 
-const VideoPlayer = styled.div `
+const VideoPlayer = styled.div`
   position: relative;
 
   @media (max-width: 1240px) {
@@ -57,7 +56,7 @@ const VideoPlayer = styled.div `
     margin-right: auto;
   }
 
-  ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {position: absolute;top: 40%;left: 0;right: 0;margin-left: auto;margin-right: auto;}' }
+  ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {position: absolute;top: 40%;left: 0;right: 0;margin-left: auto;margin-right: auto;}'}
 
   .vid-player{
     width: 1400px;
@@ -73,7 +72,7 @@ const VideoPlayer = styled.div `
       margin-right: auto;
     }
 
-    ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {left: 0;right: 0;margin-left: auto;margin-right: auto;}' }
+    ${ ({ loggedIn }) => loggedIn && '@media (max-width: 980px) {left: 0;right: 0;margin-left: auto;margin-right: auto;}'}
   }
 `;
 
@@ -86,26 +85,26 @@ const VideoPlayer = styled.div `
 
 
 class NonUserLandingView extends Component {
-  render () {
-    return(
+  render() {
+    return (
 
-        <Woah loggedIn = { this.props.user_id !== 0 }>
-          <LandingText loggedIn = { this.props.user_id !== 0 }>
-            <p className = 'blurb'>
-              Symposium is a place where like-minded people can come together to share and discuss ideas.
+      <Woah loggedIn={this.props.user_id !== 0}>
+        <LandingText loggedIn={this.props.user_id !== 0}>
+          <p className='blurb'>
+            Symposium is a place where like-minded people can come together to share and discuss ideas.
             </p>
-          </LandingText>
+        </LandingText>
 
-          <VideoPlayer loggedIn = { this.props.user_id !== 0 }>
-          <ReactPlayer 
-            className = 'vid-player' 
-            url='https://youtu.be/T-Dji780Ro0' 
-            width = '320px' height = '180px' 
-            controls = {true}
+        <VideoPlayer loggedIn={this.props.user_id !== 0}>
+          <ReactPlayer
+            className='vid-player'
+            url='https://youtu.be/T-Dji780Ro0'
+            width='320px' height='180px'
+            controls={true}
           />
-          </VideoPlayer>
-        </Woah>
-        )
+        </VideoPlayer>
+      </Woah>
+    )
   }
 };
 

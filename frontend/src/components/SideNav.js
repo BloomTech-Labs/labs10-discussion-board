@@ -37,12 +37,12 @@ const DivHeader = styled.div`
     font-size: 21px;
     cursor: pointer;
     padding: 10px;
-    color: ${ props => props.theme.defaultColor };
+    color: ${ props => props.theme.defaultColor};
     margin: 10px;
     margin-bottom: 45px;
 
     &:hover {
-      color: ${ props => props.theme.defaultColorOnHover };
+      color: ${ props => props.theme.defaultColorOnHover};
     }
 
     @media(max-width: 800px) {
@@ -84,7 +84,7 @@ const H4BrowseCategories = styled.h4`
 
 const LinkBrowseCategories = styled(Link)`
   text-decoration: none;
-  color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor };
+  color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
   font-weight: normal;
 
   i {
@@ -100,7 +100,7 @@ const LinkBrowseCategories = styled(Link)`
   }
 
   &:hover {
-    color: ${ props => props.theme.defaultColorOnHover };
+    color: ${ props => props.theme.defaultColorOnHover};
   }
 
   @media(max-width: 800px) {
@@ -168,7 +168,7 @@ const H4AllPosts = styled.h4`
   i {
     cursor: pointer;
     font-size: 21px;
-    color: ${ props => props.theme.defaultColor };
+    color: ${ props => props.theme.defaultColor};
     padding: 0 7px 2px 10px;
     opacity: 0.6;
 
@@ -250,7 +250,7 @@ const DivWindows = styled.div`
   margin-bottom: 0px;
   @media (max-width: 800px) {
     margin-left: 0px;
-    justify-content: center
+    justify-content: center;
     align-items: center
   }
   div {
@@ -407,7 +407,7 @@ class SideNav extends Component {
               to={`/categories`}
               islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
               onClick={() => this.selectLink('BrowseCategories')}
-              className = 'browse-categories'
+              className='browse-categories'
             ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
           </H4BrowseCategories>
           {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
@@ -417,7 +417,7 @@ class SideNav extends Component {
         <DivCategoriesFollowed>
           <DivCatFollowItems>
             <H4AllPosts islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
-              
+
               <LinkAllPosts onClick={() => this.selectLink('AllPosts')} to='/home' islinkselected={(this.state.linkSelected === 'AllPosts').toString()}>
                 <DivWindows>
                   <div className='div-window' />
@@ -425,7 +425,7 @@ class SideNav extends Component {
                   <div className='div-window' />
                   <div className='div-window' />
                 </DivWindows>All&nbsp;Posts</LinkAllPosts>
-                {/* <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} /> */}
+              {/* <i className={this.state.isFollowedCatsOpen ? "fas fa-minus-circle" : "fas fa-plus-circle"} onClick={this.toggleFollowedCats} /> */}
             </H4AllPosts>
             <ul>
               {(this.state.categories.length === 0) ? (<PNoCatFollowMessage isfollowedcatsopen={(this.state.isFollowedCatsOpen).toString()}>You are currently not following any categories</PNoCatFollowMessage>) : (this.state.categories.map((category, index) => (
