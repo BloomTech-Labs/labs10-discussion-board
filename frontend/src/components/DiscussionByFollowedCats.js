@@ -66,10 +66,7 @@ const DiscussionWrapper = styled.div`
 					padding-top: 2px;
 				}
 			}
-			.breaking {
-				// margin-top: 100px;
-			}
-	
+
 			.category-wrapper {
 				&:hover {
 					color: #418DCF;
@@ -94,7 +91,7 @@ const DiscussionWrapper = styled.div`
 				}
 			}
 	
-			@media (max-width: 970px) {
+			@media (max-width: 1015px) {
 				.tablet {
 					display: none;
 				}
