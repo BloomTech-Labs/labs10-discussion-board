@@ -36,10 +36,15 @@ const AddReplyTitle = styled.div`
 	}
 
 	.exit{
-		
+		background-color: initial;
+		border: none;
+		color: ${props => props.theme.defaultColor};
+		appearance: none;
+		-webkit-appearance: none!important;
+
 		&:hover {
 			cursor: pointer;
-			color: steelblue;
+			color: ${props => props.theme.defaultColorOnHover};
 		}
 	}
 `;

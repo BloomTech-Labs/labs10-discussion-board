@@ -12,6 +12,7 @@ import {
 
 const CategoriesWrapper = styled.div`
   width: 95%;
+  margin-top: 25px;
 `;
 
 const DivCategoriesComponent = styled.div`
@@ -60,22 +61,6 @@ const CategoriesHeader = styled.div`
         outline: none;
       }
     }
-  
-    // .add-post-btn {
-    //   margin-left: 10px;
-    //   padding: 10px 15px;
-    //   border-radius: 5px;
-    //   border: none;
-    //   background-color: #418DCF;
-    //   color: white;
-
-    //   &:hover {
-    //     cursor: pointer;
-    //     background-color: white;
-    //     color: #418DCF;
-    //     border: 1px solid #418DCF;
-    //   }
-    // }
   }
 `;
 

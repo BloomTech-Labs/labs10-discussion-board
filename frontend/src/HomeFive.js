@@ -1,18 +1,18 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Services from './components/Services';
-import Features from './components/Features';
+// import Features from './components/Features';
 import Descriptions from './components/Descriptions';
 import Pricing from './components/Pricing';
 import Team from './components/Team';
 import Process from './components/Process';
-import Testi from './components/Testi';
+// import Testi from './components/Testi';
 import Started from './components/Started';
-import Blog from './components/Blog';
-import Contact from './components/Contact';
-import SocialMedia from './components/SocialMedia';
-import Footer from './components/Footer';
-import FooterLinks from './components/FooterLinks';
+// import Blog from './components/Blog';
+// import Contact from './components/Contact';
+// import SocialMedia from './components/SocialMedia';
+// import Footer from './components/Footer';
+// import FooterLinks from './components/FooterLinks';
 import Switcher from './components/Switcher';
 import Aux from './components/hoc/Aux_';
 import { Link } from 'react-router-dom';
@@ -102,7 +102,7 @@ class HomeFive extends React.Component {
                 {/* <FooterLinks /> */}
 
                 {/* Switcher Component */}
-                <Switcher /> 
+                {/* <Switcher />  */}
             </Wrapper>
         </Aux>
   	);

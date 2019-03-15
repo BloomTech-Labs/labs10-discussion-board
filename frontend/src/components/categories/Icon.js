@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const IconWrapper = styled.div`
 	padding: 10px;
-	border: 1px solid ${ ({ selected }) => selected ? 'blue' : 'black' };
+	border: 1px solid ${ ({ selected }) => selected ? '#418DCF' : 'black' };
 	border-radius: 5px;
 	margin: 10px;
 	height: 18px;
@@ -11,9 +11,11 @@ const IconWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: ${props => props.theme.defaultColor};
 
 	&:hover {
-		background-color: #ddd;
+		background-color: ${props => props.theme.defaultColorOnHover};
+		color: black;
 		cursor: pointer;
 	}
 `;

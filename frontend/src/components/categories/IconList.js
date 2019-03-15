@@ -31,7 +31,7 @@ const IconListBox = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background: rgb(248,249,254);
+	background-color: ${props => props.theme.appBgColor};
 	padding: 25px;
 	border-radius: 5px;
 	box-sizing: border-box;

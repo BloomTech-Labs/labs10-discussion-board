@@ -36,16 +36,17 @@ const SettingsWrapper = styled.div`
   @media ${phoneP}{
       width: 85%;
   }
-  .fa-arrow-alt-circle-left {
-    font-size: 2rem;
-    align-self: flex-start;
-    margin-left: 20px;
-    cursor: pointer;
-    @media(max-width: 1024px) {
-      margin-left: 40px;
-    }
-    @media ${phoneP}{
-      margin-left: 10px;
+
+  .back {
+    font-size: 30px;
+    color: ${props => props.theme.defaultColor};
+    position: absolute;
+    top: 30px;
+    left: 20px;
+
+    &:hover {
+      cursor: pointer;
+      color: ${props => props.theme.defaultColorOnHover};
     }
   }
 `;
@@ -76,6 +77,7 @@ const UserProperties = styled.form`
     height: 20px;
     border-radius: 5px;
     padding: 5px;
+    box-sizing: initial;
     @media(max-width: 1024px) {
       width: 150%;      
     }
@@ -85,8 +87,8 @@ const UserProperties = styled.form`
     }
   }
   .delete-btn {
-    background-color: ${props => props.theme.settingsDeleteButtonBg};
-    color: ${props => props.theme.settingsDeleteButtonColor};
+    background-color: crimson;
+    color: white;
 
     @media(max-width: 1024px) {
       width: 75%;
@@ -97,13 +99,16 @@ const UserProperties = styled.form`
       padding: 15px 0px 30px 0px;    
     }
     &:hover {
-      background-color: ${props => props.theme.settingsDeleteButtonBgHov};
+      color: crimson;
+      border: 1px solid crimson;
+      background-color: ${props => props.theme.appBgColor};
       cursor: pointer;
     }
   }
   .save-settings-btn {
-    background-color: ${props => props.theme.settingsButtonBgColor};
-    color: ${props => props.theme.settingsDeleteButtonColor};
+    background-color: #418DCF;
+    color: white;
+
     @media(max-width: 1024px) {
       width: 75%;      
     }
@@ -112,33 +117,35 @@ const UserProperties = styled.form`
       padding: 15px 0px 30px 0px;    
     }
     &:hover {
-      background-color: ${props => props.theme.settingsButtonHov};
+      background-color: ${props => props.theme.appBgColor};
+      color: ${props => props.theme.defaultColorOnHover};
       cursor: pointer;
     }
   }
   .btn {
     border: 1px solid ${props => props.theme.defaultColorOnHover};
+    padding: 10px;
   }
   button {
     width: 30%;
     margin-top: 20px;
     border-radius: 5px;
-    height: 30px;
     font-size: 12px;
     color: black;
     justify-content: center;
     align-items: center;
-      &:focus {
-        outline: none;
-      }
-      @media(max-width: 1024px) {
-        font-size: 14px;
-      }
-      @media ${phoneP}{
-        font-size: 12px;
-      }
+    &:focus {
+      outline: none;
     }
+    @media(max-width: 1024px) {
+      font-size: 14px;
+    }
+    @media ${phoneP}{
+      font-size: 12px;
+    }
+  }
 `;
+
 const SaveButton = styled.div`
   display:flex;
   flex-wrap: initial;
@@ -149,7 +156,7 @@ const SaveButton = styled.div`
   color: black;
   justify-content: space-between;
   align-items: center;
-  margin-top: -29px;
+
   @media(max-width: 1024px) {
     flex-wrap: wrap;
     margin-bottom: 50px;
@@ -181,6 +188,7 @@ const DeleteButton = styled.div`
   color: black;
   justify-content: space-between;
   align-items: center;
+  margin-top: 25px;
   @media(max-width: 1024px) {
     flex-wrap: wrap;
     margin-bottom: 50px;
@@ -305,18 +313,7 @@ const EditAvatarMenu = styled.div`
     height: 100vh;
     width: 80vw;
   }
-  .back {
-    font-size: 30px;
-    color: ${props => props.theme.defaultColor};
-    position: absolute;
-    top: 30px;
-    left: 0;
 
-    &:hover {
-      cursor: pointer;
-      color: ${props => props.theme.defaultColorOnHover};
-    }
-  }
   .btn {
     padding: 10px 15px 25px;
     border-radius: 5px;
@@ -409,7 +406,7 @@ const DivSubscriptionPlan = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 50%;
-  margin-top: -58px;
+  // margin-top: -58px;
   p {
     margin: 0px 0px 7px 0px;
   }
@@ -418,10 +415,12 @@ const DivSubscriptionPlan = styled.div`
     width: 30%;
     min-width: 193px;
     color: white;
-    background-color: steelblue;
+    border: 1px solid ${props => props.theme.defaultColor};
+    background-color: #418DCF;
     cursor: pointer;
     &:hover{
-      background-color: rgb(0, 80, 0);
+      background-color: ${props => props.theme.appBgColor};
+      color: ${props => props.theme.defaultColorOnHover}
     }
     @media(max-width: 1024px) {
       width: 156%;
@@ -500,7 +499,7 @@ class Settings extends Component {
     const splitUsername = username.split(' ');
     return (
       <SettingsWrapper>
-        <i onClick={this.goBack} className="far fa-arrow-alt-circle-left" />
+        <i onClick={this.goBack} className="far fa-arrow-alt-circle-left back" />
         {/* <UsernameSettings><h1>{username}'s Settings</h1></UsernameSettings> */}
         <UserSettings>
           <ProfileSettings>

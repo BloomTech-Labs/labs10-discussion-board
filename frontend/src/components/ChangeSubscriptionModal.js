@@ -36,35 +36,46 @@ const DivChangeSubModal = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   user-select: none;
+  color: ${props => props.theme.defaultColor};
   @media ${phoneL} {
     margin-top: ${topHeaderHeight};
   }
+  font-size: 0.8rem;
 `;
 
 const DivScroller = styled.div`
 display: flex;
-background-color: white;
+background-color: ${props => props.theme.appBgColor};
 z-index: 9999;
 width: 75%;
-height: 70%;
+height: 75%;
 overflow-y: auto;
+border-radius: 5px;
 
-@media(max-width: 1200px) {
+@media (max-width: 1200px) {
+  width: 99%;
+}
+
+@media(max-width: 910px) {
   width: 100%;
   height: 100%;
   align-items: center;
+  padding-top: 80px;
+}
+
+@media ${phoneL} {
+  height: 108%;
 }
 `;
 
 const DivChangeSub = styled.div`
 display: flex;
 width: 100%;
-height: 630px;
 flex-direction: column;
 padding: 0 50px;
 border-radius: 5px;
 
-@media(max-width: 1200px) {
+@media(max-width: 910px) {
   width: 100%;
   height: 100%;
   align-items: center;
@@ -83,11 +94,10 @@ const DivHeader = styled.div`
   display: flex;
   width: 100%;
   margin-bottom: 25px;
-  border-bottom: 1px solid black;
   justify-content: center;
   align-items: center;
   position: relative;
-  @media(max-width: 1200px){
+  @media(max-width: 910px){
     border: none;
     margin: 0;
   }
@@ -97,9 +107,10 @@ const DivBack = styled.div`
   display: flex;
   margin-top: 30px;
   position: absolute;
-  top: 0;
-  left: 0;
-  @media(max-width: 1200px) {
+  top: -21px;
+  left: -40px;
+  
+  @media(max-width: 910px) {
     margin-top: 24px;
   }
   i {
@@ -110,27 +121,13 @@ const DivBack = styled.div`
   @media ${phoneL} {
     margin-left: 10px;
     margin-top: 10px;
+    top: -70px;
+    left: 6px;
   }
-`;
 
-const DivHeaderTitle = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  @media ${phoneL} {
-    margin-bottom: 25px;
-  }
-`;
-
-const H1HeaderTitle = styled.h1`
-  display: flex;
-  font-weight: normal;
-  @media(max-width: 1200px) {
-    font-size: 28px;
-  }
-  @media ${phoneL} {
-    font-size: 18px;
+  &:hover {
+    color: ${props => props.theme.defaultColorOnHover};
+    cursor: pointer;
   }
 `;
 
@@ -140,7 +137,7 @@ const DivSelectBanners = styled.div`
   width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     flex-direction: column;
   }
 `;
@@ -150,7 +147,7 @@ const DivBanner = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 410px;
+  height: 121%;
   cursor: pointer;
   input {
     margin-top: 20px;
@@ -158,11 +155,11 @@ const DivBanner = styled.div`
     height: 2em;
     cursor: pointer;
     visibility: hidden;
-    @media(max-width: 1200px) {
+    @media(max-width: 910px) {
       visibility: visible;
     }
   }
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     height: ${props =>
     props.subPlan
       ? 'auto'
@@ -198,24 +195,25 @@ const DivFeatures = styled.div`
     user-select: none;
     font-weight: normal;
     margin: 0;
-    @media(max-width: 1200px) {
+    padding-top: 10px;
+    @media(max-width: 910px) {
       list-style: none;
       hr {
         display: none;
       }
     }
     &:not(:last-child) {
-      @media(max-width: 1200px) {
+      @media(max-width: 910px) {
         margin-bottom: 20px;
       }
     }
     &:last-child {
-      @media(max-width: 1200px) {
+      @media(max-width: 910px) {
         margin-bottom: 10px;
       }
     }
   }
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     overflow: ${props =>
     props.subPlan
       ? 'visible'
@@ -234,7 +232,7 @@ const DivFeatures = styled.div`
 
 const IAsterisk = styled.i`
   display: none;
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     display: inline-block;
     margin-left: -20px;
     color: ${props => props.silver && '#848795'};
@@ -264,7 +262,7 @@ const DivFreePlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: 1200px) {
+    @media(max-width: 910px) {
       display: ${props =>
     props.subPlan === subscriptionPlans[0]
       ? 'visible'
@@ -284,7 +282,7 @@ const DivFreePlan = styled.div`
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[0] ? '1' : '0.7')};
   }
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -311,7 +309,7 @@ const DivSilverPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: 1200px) {
+    @media(max-width: 910px) {
       display: ${props =>
     props.subPlan === subscriptionPlans[1]
       ? 'visible'
@@ -331,7 +329,7 @@ const DivSilverPlan = styled.div`
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[1] ? '1' : '0.7')};
   }
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -358,7 +356,7 @@ const DivGoldPlan = styled.div`
     width: 100%;
     user-select: none;
     
-    @media(max-width: 1200px) {
+    @media(max-width: 910px) {
       display: ${props =>
     props.subPlan === subscriptionPlans[2]
       ? 'visible'
@@ -378,7 +376,7 @@ const DivGoldPlan = styled.div`
   &:hover {
     opacity: ${props => (props.subPlan === subscriptionPlans[2] ? '1' : '0.7')};
   }
-  @media(max-width: 1200px) {
+  @media(max-width: 910px) {
     width: 100%;
     border-radius: 0;
     border: none; /* remove lime selection border first */
@@ -390,11 +388,11 @@ const DivGoldPlan = styled.div`
 const DivBottom = styled.div`
 display: flex;
 flex-wrap: wrap;
-margin-top: 25px;
+padding-top: 45px;
 width: 100%;
 justify-content: flex-end;
 
-@media (max-width: 1200px){
+@media (max-width: 910px){
   justify-content: center;
 }
 @media ${phoneL} {
@@ -407,7 +405,7 @@ const DivButtons = styled.div`
   justify-content: flex-end;
   width: 100%;
 
-  @media (max-width: 1200px){
+  @media (max-width: 910px){
   justify-content: center;
 }
 `;
@@ -541,12 +539,9 @@ class ChangeSubscriptionModal extends Component {
         <DivScroller>
           <DivChangeSub>
             <DivHeader>
-              <DivBack>
+              <DivBack className = 'arrow'>
                 <i className='far fa-arrow-alt-circle-left' onClick={(ev) => setChangeSubModalRaised(ev, false)} />
               </DivBack>
-              <DivHeaderTitle>
-                <H1HeaderTitle>Change&nbsp;Account&nbsp;Subscription</H1HeaderTitle>
-              </DivHeaderTitle>
             </DivHeader>
             <FormChangeSub>
               <DivSelectBanners>

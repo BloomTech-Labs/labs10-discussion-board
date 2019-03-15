@@ -40,6 +40,7 @@ const DivHeader = styled.div`
     color: ${ props => props.theme.defaultColor };
     margin: 10px;
     margin-bottom: 45px;
+    visibility: ${ ({ showAddCategoriesBtn }) => showAddCategoriesBtn ? 'visible' : 'hidden' };
 
     &:hover {
       color: ${ props => props.theme.defaultColorOnHover };
@@ -66,6 +67,7 @@ const H4BrowseCategories = styled.h4`
     width: 95%;
     border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
     margin-bottom: 57px;
+    margin-top: 23px;
 
     @media(max-width: 800px) {
       display: flex;
@@ -122,12 +124,12 @@ const DivCategoriesFollowed = styled.div`
   flex-direction: column;
 
   @media (max-width: 800px) {
-    padding-top: 8px;
+    padding-top: 4px;
     margin-left: -10px;
   }
 
   @media (max-width: 600px) {
-    padding-top: 24px;
+    padding-top: 17px;
   }
 `;
 
@@ -141,12 +143,12 @@ const DivCatFollowItems = styled.div`
     @media(max-width: 800px) {
       display: flex;
       margin: 0 20px 0 0;
-      margin-bottom: -53px;
+      margin-bottom: -50px;
     }
 
     @media ${phoneL} {
       margin: 0 10px 0 0;
-      margin-bottom: -53px;
+      margin-bottom: -50px;
     }
   }
 
@@ -187,6 +189,7 @@ const H4AllPosts = styled.h4`
     padding: 10px;
     margin: 0;
     padding-right: 0;
+    margin-top: 2px;
   }
 `;
 
@@ -398,7 +401,7 @@ class SideNav extends Component {
 
     return (
       <DivSideNav>
-        <DivHeader>
+        <DivHeader showAddCategoriesBtn = { accountUserTypes.indexOf(user_type) >= subSilverStartIndex }>
           <H4BrowseCategories
             islinkselected={(this.state.linkSelected === 'BrowseCategories').toString()}
           >
@@ -410,9 +413,13 @@ class SideNav extends Component {
               className = 'browse-categories'
             ><i className="fas fa-book-open" />Browse&nbsp;Categories&nbsp;</LinkBrowseCategories>
           </H4BrowseCategories>
-          {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
+          {/* {(accountUserTypes.indexOf(user_type) >= subSilverStartIndex) &&
             <i className="fas fa-plus-circle" onClick={(ev) => this.props.setAddCatModalRaised(ev, true)} />
-          }
+          } */}
+          <i
+            className="fas fa-plus-circle show-add-cat-btn"
+            onClick={(ev) => this.props.setAddCatModalRaised(ev, true)}
+          />
         </DivHeader>
         <DivCategoriesFollowed>
           <DivCatFollowItems>
