@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 class Pricing extends React.Component {
     render() {
-        const { toggleRegisterModal } = this.props;
+
         return (
             <section className="section pt-5" id="pricing">
                 <div className="container">
@@ -19,7 +18,7 @@ class Pricing extends React.Component {
                             <div className="text-center pricing-box hover-effect">
                                 <h4 className="text-uppercase">Free</h4>
                                 <h1>$0.00</h1>
-                                <h6 className="text-uppercase text-muted"></h6>
+                                {/* <h6 className="text-uppercase text-muted"></h6> */}
                                 <div className="pricing-border"></div>
                                 <div className="plan-features margin-t-30">
                                     <p>Posts: <b className="text-custom">Unlimited</b></p>

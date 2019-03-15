@@ -13,7 +13,7 @@ import {
 import { Avatar } from './index.js';
 
 /***************************************************************************************************
- ********************************************** Styles *********************************************
+ ********************************************** Styles **********************************************
  **************************************************************************************************/
 const DivWrapper = styled.div`
   display: flex;
@@ -53,19 +53,23 @@ const DivAvatar = styled.div`
 const PWelcomeMessage = styled.p`
     margin-right: 20px;
     font-size: 20px;
+    margin-top: 18px;
+
     .notifications-icon-wrapper {
       position: relative;
       .notifications-count {
         position: absolute;
-        top: 0;
-        right: -10px;
-        font-size: 0.7rem;
+        top: -5px;
+        right: -20px;
+        font-size: 0.6rem;
         background-color: #418DCF;
         color: white;
         border-radius: 50%;
-        padding: 0 5px;
+        padding: 0 9px;
+        transform: scale(0.8);
+        z-index: 1;
       }
-      .notifications-icon {
+      &&&.notifications-icon {
         ${ ({ newNotifications }) => newNotifications && 'color: red;'}
         &:hover {
           color: #ddd;

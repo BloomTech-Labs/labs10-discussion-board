@@ -11,6 +11,10 @@ import { DiscussionByFollowedCats, AddDiscussionForm } from './index.js';
 // globals
 import { tabletP } from '../globals/globals.js';
 
+/***************************************************************************************************
+ ********************************************** Styles **********************************************
+ **************************************************************************************************/
+
 const DiscussionsWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;

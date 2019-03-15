@@ -5,6 +5,10 @@ import styled from 'styled-components';
 // action creators
 import { displayError } from '../store/actions/index.js';
 
+/***************************************************************************************************
+ ********************************************** Styles **********************************************
+ **************************************************************************************************/
+
 const ErrorWrapper = styled.div`
 	display: flex;
 	justify-content: center;

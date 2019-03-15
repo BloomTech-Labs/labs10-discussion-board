@@ -5,14 +5,11 @@ import styled from 'styled-components';
 // action creators
 import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
 
-// components
-import { ToolTip } from './index.js';
-
 //globals
 import { phoneL } from '../globals/globals.js';
 
 /***************************************************************************************************
- ********************************************** Styles *********************************************
+ ********************************************** Styles **********************************************
  **************************************************************************************************/
 
 const DivWrapper = styled.div`
@@ -62,6 +59,8 @@ const FormLogin = styled.form`
     background-color: ${props => props.theme.borderColor};
     color: black;
     padding: 5px;
+    width: 100%;
+    box-sizing: initial;
 
     &:focus {
       outline: none;
@@ -73,6 +72,7 @@ const FormLogin = styled.form`
     flex-wrap: wrap;
     flex-direction: column;
     width: 100%;
+    margin-top: 5px;
 
     .btn {
       padding: 10px 15px;
@@ -81,7 +81,7 @@ const FormLogin = styled.form`
       background-color: #418DCF;
       color: white;
       border: 1px solid #418DCF;
-      width: 85%;
+      width: 100%;
       margin: 5px 0;
 
       &:hover {
@@ -127,14 +127,14 @@ class RegisterDropdown extends Component {
         {
           email: chars
         },
-        () => this.props.isEmailTaken(this.state.email)
+        // () => this.props.isEmailTaken(this.state.email)
       );
     } else if (ev.target.name === 'username') {
       this.setState(
         {
           username: chars
         },
-        () => this.props.isUsernameTaken(this.state.username)
+        // () => this.props.isUsernameTaken(this.state.username)
       );
     } else {
       this.setState({
@@ -215,15 +215,15 @@ class RegisterDropdown extends Component {
 						name='username'
 						autoComplete='off'
 					/>
-					{this.state.username !== '' &&
+					{/* {this.state.username !== '' &&
 						this.props.userExistsLoadingMessage && (
 							<img
 								src={require('../assets/gif/spinner2.gif')}
 								alt='spinner'
 							/>
-						)}
+            )}
 						{
-						this.state.username === "" ?
+						this.state.username === '' ?
 							<span className='tooltip'>
 								<img src={require('../assets/img/redX.png')} alt='X' />
 								<ToolTip
@@ -233,7 +233,7 @@ class RegisterDropdown extends Component {
 								/>
 							</span> :
 							(!this.props.userExistsLoadingMessage &&
-								this.props.usernameTaken) && (
+								this.props.usernameTaken) && 
 								<span className='tooltip'>
 									<img src={require('../assets/img/redX.png')} alt='X' />
 									<ToolTip
@@ -242,7 +242,6 @@ class RegisterDropdown extends Component {
 										width={200} // must be a number
 									/>
 								</span>
-							)
 					}
 					{this.state.username !== '' &&
 						!this.props.userExistsLoadingMessage &&
@@ -251,7 +250,7 @@ class RegisterDropdown extends Component {
 								src={require('../assets/img/greenCheckmark.png')}
 								alt='checkMark'
 							/>
-						)}
+						)} */}
 				</div>
 
 				<div className = 'wrapper'>
@@ -274,7 +273,7 @@ class RegisterDropdown extends Component {
 					name='email'
 					autoComplete='on'
 				/>
-				{this.state.email !== '' &&
+				{/* {this.state.email !== '' &&
 							this.props.emailExistsLoadingMessage && (
 								<img
 									src={require('../assets/gif/spinner2.gif')}
@@ -300,7 +299,7 @@ class RegisterDropdown extends Component {
 									src={require('../assets/img/greenCheckmark.png')}
 									alt='checkMark'
 								/>
-							)}
+							)} */}
 				</div>
 
 				<div className = 'buttons'>
