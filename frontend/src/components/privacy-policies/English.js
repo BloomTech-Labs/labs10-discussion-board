@@ -1,8 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const PrivacyPolicyWrapper = styled.div`
+	padding: 10px;
+
+	color: ${props => props.theme.defaultColor};
+`;
 
 const EnglishPrivacyPolicy = () => {
 	return(
-		<div>
+		<PrivacyPolicyWrapper>
 			<h1>Privacy Policy</h1>
 
 
@@ -107,7 +114,7 @@ const EnglishPrivacyPolicy = () => {
 					<li>By email: cornielleandres@gmail.com</li>
 					
 					</ul>
-		</div>
+		</PrivacyPolicyWrapper>
 	);
 };
 

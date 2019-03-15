@@ -28,6 +28,7 @@ import {
   Notifications,
   ChangeSubscriptionModal,
   RegisterDropdown,
+  PrivacyPolicy,
 } from './components/index.js';
 
 // views
@@ -234,9 +235,10 @@ class App extends Component {
                 <Route path='/settings/:id' render={props => <Settings {...props} setChangeSubModalRaised={this.setChangeSubModalRaised} />} />
                 <Route path='/discussions/category/:category_id' component={DiscussionsByCats} />
                 <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
+                <Route path='/privacy-policy' component={PrivacyPolicy} />
               </DivPage>
             </DivBody>
-            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme} />
+            <Footer history = { history } />
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>
@@ -261,12 +263,12 @@ class App extends Component {
                   <Route path='/request-reset-pw' component={RequestResetPWForm} />
                   <Route path='/reset/:reset_pw_token' component={ResetPWForm} />
                   <Route path='/confirm-email/:email_confirm_token' component={ConfirmEmail} />
-                  {/* <Route component={NonUserLandingView} /> */}
+                  <Route path='/privacy-policy' component={PrivacyPolicy} />
                   <Route render = { props => <HomeFive { ...props } toggleRegisterModal = { this.toggleRegisterModal } /> } />
                 </Switch>
               </DivPage>
             </DivBody>
-            <Footer toggleSearch={this.toggleSearch} switched={this.switchTheme} />
+            <Footer history = { history } />
             {error && <Error error={error} />}
             {message && <Message message={message} />}
           </AppWrapper>

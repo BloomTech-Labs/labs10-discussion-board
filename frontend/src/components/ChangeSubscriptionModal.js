@@ -6,7 +6,6 @@ import StripeCheckout from 'react-stripe-checkout';
 // globals
 import {
   phoneL,
-  topHeaderHeight,
   accountUserTypes,
   subscriptionPlans,
   subscriptionPrices,
