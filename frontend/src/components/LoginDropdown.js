@@ -37,6 +37,7 @@ const FormLogin = styled.form`
   background-color: ${props => props.isDay ? 'white' : '#555' };
   border-radius: 5px;
   padding: 20px;
+  padding-bottom: 10px;
 
   input {
     height: 22px;
@@ -46,6 +47,7 @@ const FormLogin = styled.form`
     background-color: ${props => props.theme.borderColor};
     color: black;
     padding: 5px;
+    box-sizing: initial;
 
     &:focus {
       outline: none;
@@ -56,7 +58,8 @@ const FormLogin = styled.form`
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    width: 100%;
+    margin-top: 10px;
+    width: 106%;
 
     .btn {
       padding: 10px 15px;
@@ -94,7 +97,7 @@ const DivModalCloser = styled.div`
 const LinkForgotUserPass = styled(Link)`
   text-align: center;
   color: ${props => props.theme.defaultColor};
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
 
   &:hover {
@@ -126,8 +129,11 @@ class LoginDropdown extends Component {
   authLockOptions = {
     rememberLastLogin: false,
     theme: {
-      logo: 'https://i.imgur.com/yrFJL5z.png',
+      logo: 'https://i.imgur.com/RtG6mOT.png',
       primaryColor: '#418DCF',
+    },
+    languageDictionary: {
+      title: '',
     },
   };
 

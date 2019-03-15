@@ -40,7 +40,11 @@ const NotificationsWrapper = styled.div`
 	padding: 5px;
 	width: 310px;
 	top: 63px;
-	right: 110px;
+  right: 5px;
+  
+  .no-p {
+    text-align: center;
+  }
 `;
 
 class Notifications extends Component {
@@ -67,7 +71,7 @@ class Notifications extends Component {
                   removeNotification={removeNotification}
                 />
               ) :
-              <p>No notifications.</p>
+              <p className = 'no-p'>No notifications.</p>
           }
         </NotificationsWrapper>
       </DivNotificationsContainer>

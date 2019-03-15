@@ -26,7 +26,7 @@ const SearchCatResultWrapper = styled.div`
 		border-radius: 5px;
 		display: flex;
 		justify-content: center;
-		align-itens: center;
+		align-items: center;
 
 		i {
 			margin-top: 19px;
