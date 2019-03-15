@@ -36,7 +36,6 @@ import {
   CategoriesView,
   DiscussionView,
   RegisterView,
-  NonUserLandingView,
 } from './views/index.js';
 
 // action creators
