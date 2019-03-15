@@ -5,6 +5,10 @@ import styled from 'styled-components';
 // action creators
 import { deleteAccount } from '../store/actions/index.js';
 
+/***************************************************************************************************
+ ********************************************** Styles **********************************************
+ **************************************************************************************************/
+
 const DeleteAccountModalWrapper = styled.div`
 	display: flex;
 	justify-content: center;

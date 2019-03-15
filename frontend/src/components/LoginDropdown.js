@@ -17,7 +17,7 @@ import {
 } from '../globals/globals.js';
 
 /***************************************************************************************************
- ********************************************** Styles *********************************************
+ ********************************************** Styles **********************************************
  **************************************************************************************************/
 
 const DivWrapper = styled.div`
@@ -126,7 +126,7 @@ class LoginDropdown extends Component {
   authLockOptions = {
     rememberLastLogin: false,
     theme: {
-      logo: 'https://i.imgur.com/yrFJL5z.png',
+      logo: 'https://imgur.com/RtG6mOT',
       primaryColor: '#418DCF',
     },
   };
