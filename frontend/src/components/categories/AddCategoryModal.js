@@ -34,7 +34,7 @@ const DivModal = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   z-index: 8003;
-  background: rgb(248,249,254);
+  background: ${props => props.theme.appBgColor};
   padding: 25px;
   border-radius: 5px;
   box-sizing: border-box;
@@ -47,6 +47,7 @@ const DivModal = styled.div`
     border: 1px solid #418DCF;
     background-color: #418DCF;
     color: white;
+    width: 100%;
 
     &:hover {
       cursor: pointer;
@@ -70,14 +71,15 @@ const DivModal = styled.div`
     justify-content: space-between;
     margin-bottom: 15px;
 
-    i{
+    .back {
       font-size: 30px;
+      color: ${ ({ isDay }) => isDay ? '#444' : '#ddd' };
 
       &:hover {
-          cursor: pointer;
-          color: steelblue;
-        }
-    }			
+        cursor: pointer;
+        color: ${props => props.theme.defaultColorOnHover};
+      }
+    }
   }
 `;
 
@@ -120,7 +122,8 @@ const ImgPreview = styled.i`
   font-size: 2rem;
   width: auto;
   height: auto;
-  margin-bottom: 20px;
+  margin: 20px 0;
+  color: ${props => props.theme.defaultColor};
 
   @media (max-width: 600px) {
     margin-top: 20px;
@@ -160,6 +163,10 @@ const DivName = styled.div`
 
 const DivButtons = styled.div`
   align-self: flex-end;
+
+  @media (min-width: 601px) {
+    width: 25%;
+  }
 
   @media (max-width: 600px) {
     align-self: center;
@@ -203,12 +210,12 @@ class AddCategoryModal extends Component {
       });
   };
   render() {
-    const { setAddCatModalRaised } = this.props;
+    const { setAddCatModalRaised, isDay } = this.props;
     const { name, icon, iconList, showIconListComponent } = this.state;
     return (
       <ModalBackground>
         <DivModalCloser onClick={(ev) => setAddCatModalRaised(ev, false)} />
-        <DivModal>
+        <DivModal isDay = { isDay }>
           <div className='above-input'>
             <span
               className='back'
@@ -232,7 +239,7 @@ class AddCategoryModal extends Component {
             </DivRight>
             <DivLeft>
               <ImgPreview className = { icon } alt='icon' />
-              <button className = 'btn' type='button' onClick={this.toggleIconList}>Select Icon From List</button>
+              <button className = 'btn' type='button' onClick={this.toggleIconList}>Select&nbsp;Icon&nbsp;From&nbsp;List</button>
             </DivLeft>
             <DivButtons>
                 <button className = 'btn' type='submit'>Add</button>
@@ -253,4 +260,8 @@ class AddCategoryModal extends Component {
   }
 };
 
-export default connect(null, { addCategory, displayError })(AddCategoryModal);
+const mapStateToProps = state => ({
+  isDay: state.users.isDay,
+});
+
+export default connect(mapStateToProps, { addCategory, displayError })(AddCategoryModal);
