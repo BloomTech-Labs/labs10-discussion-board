@@ -13,7 +13,6 @@ import { dayTheme, nightTheme, sideNavWidth, topHeaderHeight } from './globals/g
 import {
   Header,
   SideNav,
-  Profiles,
   Profile,
   Settings,
   Error,
@@ -230,7 +229,6 @@ class App extends Component {
                 {(this.state.isAddCatModalRaised) && <AddCategoryModal history={history} historyPush={this.props.history.push} pathname={location.pathname} isAuthenticated={this.isAuthenticated} setAddCatModalRaised={this.setAddCatModalRaised} />}
                 <Route exact path='/' component={LandingView} />
                 <Route exact path='/home' component={LandingView} />
-                <Route path='/profiles' component={Profiles} />
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/categories' render={() => <CategoriesView history={history} historyPush={this.props.history.push} setAddCatModalRaised={this.setAddCatModalRaised} isAddCatModalRaised={this.state.isAddCatModalRaised} />} />
                 <Route path='/discussion/:id' render={props => <DiscussionView {...props} scrollTo={this.scrollTo} />} />
