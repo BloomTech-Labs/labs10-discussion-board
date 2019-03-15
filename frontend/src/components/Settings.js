@@ -184,7 +184,7 @@ const DeleteButton = styled.div`
   color: black;
   justify-content: space-between;
   align-items: center;
-  margin-top: 25px;
+  margin-top: 14px;
   @media(max-width: 1024px) {
     flex-wrap: wrap;
     margin-bottom: 50px;
