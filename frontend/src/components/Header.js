@@ -9,6 +9,10 @@ import { symposiumDark, symposiumLight } from '../assets/index.js';
 // Globals
 import { sideNavWidth, topHeaderHeight, phoneP, phoneL, tabletP, tabletL } from '../globals/globals.js';
 
+/***************************************************************************************************
+ ********************************************** Styles **********************************************
+ **************************************************************************************************/
+
 const StyledHeader = styled.div`
   position: sticky;
   top: 0;
