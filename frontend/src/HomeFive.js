@@ -13,7 +13,7 @@ import Started from './components/Started';
 // import SocialMedia from './components/SocialMedia';
 // import Footer from './components/Footer';
 // import FooterLinks from './components/FooterLinks';
-import Switcher from './components/Switcher';
+
 import Aux from './components/hoc/Aux_';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';

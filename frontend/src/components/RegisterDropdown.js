@@ -5,9 +5,6 @@ import styled from 'styled-components';
 // action creators
 import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
 
-// components
-import { ToolTip } from './index.js';
-
 //globals
 import { phoneL } from '../globals/globals.js';
 
