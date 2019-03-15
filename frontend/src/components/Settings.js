@@ -223,9 +223,13 @@ const ProfileSettings = styled.div`
   .avatar-change{
     font-size: 12px;
     cursor: pointer;
-    color: #418DCF;
+    color: ${props => props.theme.defaultColorOnHover};
     align-items: center;
     justify-content: center;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
   @media(max-width: 1024px) {
     width: 40%;  
@@ -298,7 +302,7 @@ const EditAvatarMenu = styled.div`
 	align-items: center;
 	background-color: ${props => props.theme.settingsBgColor};
 	height: 30vh;
-  width: 30vw;
+  width: 50vw;
   position: relative;
 
 	@media (max-height: 500px) {
@@ -311,13 +315,14 @@ const EditAvatarMenu = styled.div`
   }
 
   .btn {
-    padding: 10px 15px 25px;
+    padding: 15px;
     border-radius: 5px;
     background-color: #418DCF;
     color: white;
     border: 1px solid #418DCF;
     width: 50%;
     font-weight: bold;
+    font-size: 1rem;
 
     @media (max-width: 1024px) {
       width: 80%;

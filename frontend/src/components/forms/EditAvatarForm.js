@@ -43,7 +43,7 @@ justify-content: center;
 align-items: center;
 background-color: ${props => props.theme.settingsBgColor};
 height: 30vh;
-width: 30vw;
+width: 50vw;
 position: relative;
 
 @media (max-width: 625px) {
@@ -59,8 +59,10 @@ position: relative;
 	font-size: 30px;
 	color: ${props => props.theme.defaultColor};
 	position: absolute;
-	top: 15px;
-	left: -15px;
+	// top: 15px;
+	// left: -15px;
+	top: 30px;
+    left: 20px;
 
 	&:hover {
 		cursor: pointer;
@@ -68,7 +70,7 @@ position: relative;
 	}
 }
 .btn {
-	padding: 10px 15px 25px;
+	padding: 15px;
 	border-radius: 5px;
 	background-color: #418DCF;
 	color: white;
@@ -76,6 +78,7 @@ position: relative;
 	width: 50%;
 	margin: 15px 0px;
 	font-weight: bold;
+	font-size: 1rem;
 
 	@media (max-width: 1024px) {
 		width: 80%;
@@ -100,6 +103,7 @@ position: relative;
 		align-items: center;
 		margin-top: 10px;
 		text-align: center;
+		width: 50%;
 
 		@media (max-width: 1024px) {
 			width: 80%;
@@ -127,6 +131,8 @@ position: relative;
 			border-radius: 5px;
 			border: 1px solid #418DCF;
 			text-align: center;
+			width: 100%;
+			padding: 15px 0;
 
 			@media (max-width: 1024px) {
 				width: 100%;
