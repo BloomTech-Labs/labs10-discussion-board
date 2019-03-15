@@ -590,14 +590,13 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 <a name="techstack"></a>
 ## Built With (Tech Stack)
 #### Backend
-* [Bcrypt JS](https://www.npmjs.com/package/bcryptjs)  
-
-* [Express](http://www.react.express/)  
-* [Faker](https://faker.readthedocs.io/en/master/)  
-* [JSON Web Token](https://jwt.io/)  
-* [Knex](https://knexjs.org/) 
+* [Bcrypt JS](https://www.npmjs.com/package/bcryptjs)
+* [Express](http://www.react.express/)
+* [Faker](https://faker.readthedocs.io/en/master/)
+* [JSON Web Token](https://jwt.io/)
+* [Knex](https://knexjs.org/)
 * [Stripe](https://stripe.com/docs/quickstart)
-* [Concurrently](https://www.npmjs.com/package/concurrently)  
+* [Concurrently](https://www.npmjs.com/package/concurrently)
 
 #### Frontend
 * [React JS](https://reactjs.org/)
@@ -610,20 +609,20 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 ## Authors
 
 <a name="carlos"></a>
-[Carlos Andrade](https://github.com/cornielleandres)  
-<img src="https://avatars0.githubusercontent.com/u/35614736?s=400&v=4" width="200">  
+[Carlos Vargas](https://github.com/cornielleandres)  
+[<img src="https://avatars0.githubusercontent.com/u/35614736?s=400&v=4" width="200">](https://github.com/cornielleandres)  
 
 <a name="james"></a>
 [James Page](https://github.com/jamespagedev)  
-<img src="https://avatars1.githubusercontent.com/u/43793595?s=400&v=4" width="200">    
+[<img src="https://avatars1.githubusercontent.com/u/43793595?s=400&v=4" width="200">](https://github.com/jamespagedev)    
 
 <a name="huth"></a>
 [Huthman King](https://github.com/kinghuthman)  
-<img src="https://avatars0.githubusercontent.com/u/41485997?s=400&v=4" width="200">  
+[<img src="https://avatars0.githubusercontent.com/u/41485997?s=400&v=4" width="200">](https://github.com/kinghuthman)  
 
 <a name="david"></a>    
 [David Situ](https://github.com/Codechiha)  
-<img src="https://avatars2.githubusercontent.com/u/42251292?s=400&v=4" width="200">  
+[<img src="https://avatars2.githubusercontent.com/u/42251292?s=400&v=4" width="200">](https://github.com/Codechiha)  
 
 <a name="license"></a>
 ### License
