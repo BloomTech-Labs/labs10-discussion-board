@@ -26,15 +26,6 @@ import { getDiscussionById, removePost, removeDiscussion, handleDiscussionVote }
 /***************************************************************************************************
  ********************************************* Styles *********************************************
  **************************************************************************************************/
-//Example: how to use themes
-// ${props => props.theme.discussionAvatarUsernameColor};
-// display: flex;
-// flex-direction: column;
-// border-radius: 15px;
-// border-bottom: 16px;
-// padding: 10px;
-// box-shadow: ${props => props.theme.topDiscussionWrapperBxShdw};
-// background-color: ${props => props.theme.topDiscussionWrapperBgHov};
 
 const Wrapper = styled.div`
   display: flex;

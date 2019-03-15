@@ -5,6 +5,10 @@ import styled from 'styled-components';
 // components
 import { Highlight } from './index.js';
 
+/***************************************************************************************************
+ ********************************************** Styles **********************************************
+ **************************************************************************************************/
+
 const SearchCatResultWrapper = styled.div`
 	border: 1px solid #ddd;
 	border-radius: 5px;
@@ -26,7 +30,7 @@ const SearchCatResultWrapper = styled.div`
 		border-radius: 5px;
 		display: flex;
 		justify-content: center;
-		align-itens: center;
+		align-items: center;
 
 		i {
 			margin-top: 19px;
@@ -42,6 +46,10 @@ const SearchCatResultWrapper = styled.div`
 		margin-bottom: 5px;
 	}
 `;
+
+/***************************************************************************************************
+ ********************************************** Components ****************************************
+ **************************************************************************************************/
 
 const SearchCatResult = ({ category, goTo, searchText }) => {
 	const {

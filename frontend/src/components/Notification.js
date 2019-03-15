@@ -29,7 +29,7 @@ const NotificationWrapper = styled.div`
 		right: 5px;
 
 		&:hover {
-			color: red;
+			color: #444;
 			cursor: pointer;
 		}
 	}
@@ -76,17 +76,18 @@ const Notification = ({ notification, goTo, removeNotification }) => {
     }
   }
   return (
-    <NotificationWrapper onClick = {handleClick}> 
+    <NotificationWrapper>
       <i onClick={handleRemove} className='far fa-times-circle remove-btn' />
-      {/* <p>New {category_id ? 'post' : reply_id ? 'reply' : 'comment'} added {moment(new Date(Number(created_at))).fromNow()} in</p> */}
-      <p>{category_id ? `/d/${category_name}` : reply_id ? `${post_body}` : `${discussion_body}`}:</p>
-      {
-        category_id ?
-          <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}`)}>{discussion_body}</p> :
-          reply_id ?
-            <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}#${post_id}`)}>{reply_body}</p> :
-            <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}#${post_id}`)}>{post_body}</p>
-      }
+      <div onClick = {handleClick}>
+        <p>{category_id ? `/d/${category_name}` : reply_id ? `${post_body}` : `${discussion_body}`}:</p>
+        {
+          category_id ?
+            <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}`)}>{discussion_body}</p> :
+            reply_id ?
+              <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}#${post_id}`)}>{reply_body}</p> :
+              <p className='links' onClick={(ev) => goTo(ev, `/discussion/${discussion_id}#${post_id}`)}>{post_body}</p>
+        }
+      </div>
     </NotificationWrapper>
   );
 };
