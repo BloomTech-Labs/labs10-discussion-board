@@ -17,7 +17,7 @@ const router = express.Router();
 const uuidv4 = require('uuid/v4');
 const { check } = require('express-validator/check');
 const db = require('../db/models/usersDB.js');
-const { categoryFollowsDB } = require('../db/models/index.js');
+const { categoryFollowsDB, usersDB } = require('../db/models/index.js');
 const stripe = require('stripe')(backendStripePkToken);
 
 /***************************************************************************************************
@@ -72,7 +72,7 @@ const {
  ********************************************* Endpoints *******************************************
  **************************************************************************************************/
 
-router.post('/register', requestClientIP, (req, res) => {
+router.post('/register', requestClientIP, async (req, res) => {
   const accountCreatedAt = Date.now();
   // username and password must keep rules of syntax
   if (!req.body.username || !validateNewUsername(req.body.username)) {
@@ -99,6 +99,9 @@ router.post('/register', requestClientIP, (req, res) => {
   // user account created_at
   newUserCreds.created_at = accountCreatedAt;
   newUserCreds.last_login = accountCreatedAt;
+
+  const userNameTaken = usersDB.isUsernameTaken(newUserCreds.username);
+  if (userNameTaken) return res.status(401).json({ error: `Username '${ newUserCreds.username }' already taken.` });
 
   // add user
   return db
