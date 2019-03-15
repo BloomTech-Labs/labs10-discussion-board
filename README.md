@@ -66,7 +66,6 @@ Symposium is a web application that organizes communication in a way that like-m
   >> [James Page](#james)  
   >> [Huthman King](#huth)  
   >> [David Situ](#david)  
-  >> [Lucas Beemer](#lucas)  
   
 [License](#license)  
 
@@ -625,10 +624,6 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 <a name="david"></a>    
 [David Situ](https://github.com/Codechiha)  
 <img src="https://avatars2.githubusercontent.com/u/42251292?s=400&v=4" width="200">  
-
-<a name="lucas"></a>    
-[Lucas Beemer](https://github.com/lucasbeemer)  
-<img src="https://avatars2.githubusercontent.com/u/40898328?s=400&v=4" width="200">  
 
 <a name="license"></a>
 ### License
