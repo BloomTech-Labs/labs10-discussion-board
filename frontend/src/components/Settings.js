@@ -82,9 +82,14 @@ const UserProperties = styled.form`
       margin-left: 0px;
     }
   }
+  .btn {
+    border: 1px solid #418DCF;
+    padding: 10px;
+  }
   .delete-btn {
     background-color: crimson;
     color: white;
+    border: 1px solid crimson;
 
     @media(max-width: 1024px) {
       width: 75%;
@@ -117,10 +122,6 @@ const UserProperties = styled.form`
       color: ${props => props.theme.defaultColorOnHover};
       cursor: pointer;
     }
-  }
-  .btn {
-    border: 1px solid ${props => props.theme.defaultColorOnHover};
-    padding: 10px;
   }
   button {
     width: 30%;
