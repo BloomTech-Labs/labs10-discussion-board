@@ -65,7 +65,7 @@ const PWelcomeMessage = styled.p`
         border-radius: 50%;
         padding: 0 5px;
       }
-      .notifications-icon {
+      &&&.notifications-icon {
         ${ ({ newNotifications }) => newNotifications && 'color: red;'}
         &:hover {
           color: #ddd;

@@ -66,6 +66,7 @@ const H4BrowseCategories = styled.h4`
     width: 95%;
     border-left: ${props => props.islinkselected === 'true' ? '1px solid #418DCF' : '1px solid transparent'};
     margin-bottom: 57px;
+    margin-left: -13px;
 
     @media(max-width: 800px) {
       display: flex;
@@ -79,6 +80,8 @@ const H4BrowseCategories = styled.h4`
 
     .browse-categories {
       font-size: 0.9rem;
+      margin-left: 0px;
+
     }
 `;
 
