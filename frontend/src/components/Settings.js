@@ -306,7 +306,7 @@ const EditAvatarMenu = styled.div`
 	justify-content: center;
 	align-items: center;
 	background-color: ${props => props.theme.settingsBgColor};
-	height: 30vh;
+	height: 50vh;
   width: 50vw;
   position: relative;
 
