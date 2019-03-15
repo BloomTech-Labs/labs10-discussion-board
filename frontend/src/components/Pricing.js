@@ -10,7 +10,7 @@ class Pricing extends React.Component {
                         <div className="col-lg-8 offset-lg-2">
                             <h1 className="section-title text-center">Our Pricing</h1>
                             <div className="section-title-border margin-t-20"></div>
-                            <p className="section-subtitle font-secondary text-muted text-center padding-t-30">Choose from one of our amazin packages.</p>
+                            <p className="section-subtitle font-secondary text-muted text-center padding-t-30">Choose from one of our amazing plans.</p>
                         </div>
                     </div>
                     <div className="row margin-t-50">
@@ -24,6 +24,7 @@ class Pricing extends React.Component {
                                     <p>Posts: <b className="text-custom">Unlimited</b></p>
                                     <p>Comments: <b className="text-custom">Unlimited</b></p>
                                     <p>Replies: <b className="text-custom">Unlimited</b></p>
+                                    <p><b className="text-custom">&nbsp;</b></p>
                                     <p><b className="text-custom">&nbsp;</b></p>
                                     <p><b className="text-custom">&nbsp;</b></p>
                                     <p><b className="text-custom">&nbsp;</b></p>
