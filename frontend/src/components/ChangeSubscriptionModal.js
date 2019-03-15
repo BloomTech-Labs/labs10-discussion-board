@@ -50,6 +50,7 @@ width: 75%;
 height: 75%;
 overflow-y: auto;
 border-radius: 5px;
+align-items: center;
 
 @media (max-width: 1200px) {
   width: 99%;
