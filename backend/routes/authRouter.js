@@ -100,7 +100,7 @@ router.post('/register', requestClientIP, async (req, res) => {
   newUserCreds.created_at = accountCreatedAt;
   newUserCreds.last_login = accountCreatedAt;
 
-  const userNameTaken = usersDB.isUsernameTaken(newUserCreds.username);
+  const userNameTaken = await usersDB.isUsernameTaken(newUserCreds.username);
   if (userNameTaken) return res.status(401).json({ error: `Username '${ newUserCreds.username }' already taken.` });
 
   // add user
