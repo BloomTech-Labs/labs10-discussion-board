@@ -45,25 +45,14 @@ const ProfileWrapper = styled.div`
     }
   }
   .avatar-style {
-    width: 10%;
+    width: fit-content;
     display: flex;
     align-self: flex-start;
-    
-    @media ${phoneP} {
-      width: 20%;
-      }
   }
   .username-style { 
     margin-left: 0px;
     font-size: .8rem;
     justify-content: flex-start
-
-    
-    &:hover {
-      cursor: pointer;
-      color: ${props => props.theme.defaultColorOnHover};
-      text-decoration: none;
-    }
 
     @media (max-width: 1080px) {
       margin-left: 0px;
@@ -103,6 +92,7 @@ const HeaderStyle = styled.div `
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
+  padding: 10px;
 `;
 
 const WrappedDiv = styled.div`
