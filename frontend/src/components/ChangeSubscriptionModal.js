@@ -38,7 +38,8 @@ const DivChangeSubModal = styled.div`
   user-select: none;
   color: ${props => props.theme.defaultColor};
   @media ${phoneL} {
-    margin-top: ${topHeaderHeight};
+    margin-top: 24px;
+    border-radius: 0px;
   }
   font-size: 0.8rem;
 `;
@@ -108,11 +109,11 @@ const DivBack = styled.div`
   display: flex;
   margin-top: 30px;
   position: absolute;
-  top: -50px;
-  left: -25px;
+  top: 0px;
+  left: -40px;
   
   @media(max-width: 910px) {
-    margin-top: 24px;
+    margin-top: -5px;
   }
   i {
     align-self: flex-start;
