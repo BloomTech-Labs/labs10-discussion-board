@@ -57,11 +57,12 @@ const ProfileWrapper = styled.div`
     margin-left: 0px;
     font-size: .8rem;
     justify-content: flex-start
+
     
     &:hover {
       cursor: pointer;
       color: ${props => props.theme.defaultColorOnHover};
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     @media (max-width: 1080px) {

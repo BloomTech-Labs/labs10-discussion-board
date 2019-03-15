@@ -69,7 +69,7 @@ const PWelcomeMessage = styled.p`
         transform: scale(0.8);
         z-index: 1;
       }
-      .notifications-icon {
+      &&&.notifications-icon {
         ${ ({ newNotifications }) => newNotifications && 'color: red;'}
         &:hover {
           color: #ddd;

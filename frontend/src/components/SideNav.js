@@ -81,6 +81,8 @@ const H4BrowseCategories = styled.h4`
 
     .browse-categories {
       font-size: 0.9rem;
+      margin-left: 0px;
+
     }
 `;
 
