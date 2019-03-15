@@ -107,8 +107,8 @@ const DivBack = styled.div`
   display: flex;
   margin-top: 30px;
   position: absolute;
-  top: -21px;
-  left: -40px;
+  top: -50px;
+  left: -25px;
   
   @media(max-width: 910px) {
     margin-top: 24px;
