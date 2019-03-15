@@ -49,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
 	#root {
     	margin: 0 auto;
     	padding: 0;
-		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+		  font-family: -apple-system, BlinkMacSystemFont, 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 		  display: flex;
       align-items: center;
       justify-content: center;
@@ -164,7 +164,7 @@ class App extends Component {
     ev.stopPropagation();
     this.setState({ isNotificationsModalRaised: status },
       () => this.props.newNotifications && this.props.markNotificationsAsRead());
-  }
+  };
 
   setChangeSubModalRaised = (ev, status) => {
     (ev) && ev.stopPropagation();

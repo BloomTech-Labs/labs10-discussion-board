@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { displayError, sendPWResetEmail } from '../../store/actions/index.js';
 
 const RequestResetPWFormWrapper = styled.form`
-	width: 30%
+	width: 30%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -17,12 +17,20 @@ const RequestResetPWFormWrapper = styled.form`
 	padding: 30px;
 	border: 1px solid lightgrey;
 	border-radius: 5px;
-	@media(max-width: 1080px) {
-		width:40%
-	  }
+	position: relative;
+
+	@media (max-width: 800px) {
+		width: 80%;
+	}
+
+	@media(max-width: 600px) {
+		input, .reset-button {
+			width: 95%;
+		}
+	}
 	.enter-email-text {
-		color: lightgrey;
-		font-size: .8rem;
+		color: ${props => props.theme.defaultColor};
+		font-size: .9rem;
 	}
 
 	input {
@@ -34,9 +42,7 @@ const RequestResetPWFormWrapper = styled.form`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		@media(max-width: 1080px) {
-			width:45%
-		  }
+		width: 75%;
 	}
 
 	.fa-arrow-alt-circle-left {
@@ -46,52 +52,60 @@ const RequestResetPWFormWrapper = styled.form`
 		cursor: pointer;
 		text-decoration: none;
 		position: absolute;
-		top: 55%;
-		left: 33%;
+		top: 15px;
+		left: 0;
 		color: ${props => props.theme.defaultColor};
   
   		&:hover {
     		color: ${props => props.theme.defaultColorOnHover};
 		}
 		  
-		@media(max-width: 1350px) {
-			top: 51%
-			left: 35%;
-		}
-		@media(max-width: 1080px) {
-			top: 46%
-			left: 30%;
-		}
-		@media(max-width: 800px) {
-			top: 41%
-			left: 26%;
-		}
-		@media(max-width: 600px) {
-			top: 35%
-			left: 23%;
-		}
-		@media(max-width: 450px) {
-			top: 31%
-			left: 21%;
-		}
+		// @media(max-width: 1350px) {
+		// 	top: 51%
+		// 	left: 35%;
+		// }
+		// @media(max-width: 1080px) {
+		// 	top: 46%
+		// 	left: 30%;
+		// }
+		// @media(max-width: 800px) {
+		// 	top: 41%
+		// 	left: 26%;
+		// }
+		// @media(max-width: 600px) {
+		// 	top: 35%
+		// 	left: 23%;
+		// }
+		// @media(max-width: 450px) {
+		// 	top: 31%
+		// 	left: 21%;
+		// }
 	  }
 
 	.reset-button {
-		width: 45%;
+		// width: 45%;
       	padding: 10px 15px;
       	border-radius: 5px;
       	border: 1px solid #418DCF;
       	background-color: #418DCF;
-		color: lightgrey;
+		color: white;
 		cursor: pointer;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		margin-top: 5px;
+		width: 75%;
+
+		&:hover {
+			color: #418DCF;
+			background-color: white;
+			cursor: pointer;
+		}
 		@media(max-width: 1080px) {
-			width:50%
+			// width:50%
 		  }
 		  @media(max-width: 600px) {
-			width:62%
+			// width:62%
 		  }
 	}
 `;
