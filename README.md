@@ -6,7 +6,34 @@ Symposium is a web application that organizes communication in a way that like-m
 ---
  ![Testing](/frontend/src/assets/img/symposiumgit.png "Symposium Logo Enlarged") 
 
----
+---  
+
+## Discussion Schema 
+
+Discussions are organized under several Categories. (e.g. Anouncements, Marketing, Development)  
+
+Users can create a Discussion (e.g. Our company hit record sales!, We will be off on Monday!) under the Category it is relevant in.  
+
+Users can create a Post (e.g. Great Job Everyone!, Shoutout to Marketing!) to a Discussion to further the dialogue.  
+
+Users can Reply (e.g. I agree everyone did great!, I disagree I was the best) to a Post to answer/support the dialogue.
+
+Replies to a Reply will be in the same indentation, with the same purpose of answering/supporting the dialogue  
+  
+##### Due to some design changes, some technical terms were translated differently from development to production  
+
+Categories   
+> Discussions ("Posts") - Discussions are rendered as "Posts" (e.g. "All Posts" page)  
+>> Posts ("Comments") - Posts are rendered as "Comments" (e.g. "Comments" section under a post)  
+>>> Replies  
+>>> Replies  
+
+---  
+GIF demonstrates the Discussion Schema  
+  
+
+![Discussion Schema](/frontend/src/assets/img/symposiumDiscussionSchema.gif "Discussion Schema")
+
 
 ## Table of Contents
 
@@ -66,7 +93,6 @@ Symposium is a web application that organizes communication in a way that like-m
   >> [James Page](#james)  
   >> [Huthman King](#huth)  
   >> [David Situ](#david)  
-  >> [Lucas Beemer](#lucas)  
   
 [License](#license)  
 
@@ -591,14 +617,13 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 <a name="techstack"></a>
 ## Built With (Tech Stack)
 #### Backend
-* [Bcrypt JS](https://www.npmjs.com/package/bcryptjs)  
-
-* [Express](http://www.react.express/)  
-* [Faker](https://faker.readthedocs.io/en/master/)  
-* [JSON Web Token](https://jwt.io/)  
-* [Knex](https://knexjs.org/) 
+* [Bcrypt JS](https://www.npmjs.com/package/bcryptjs)
+* [Express](http://www.react.express/)
+* [Faker](https://faker.readthedocs.io/en/master/)
+* [JSON Web Token](https://jwt.io/)
+* [Knex](https://knexjs.org/)
 * [Stripe](https://stripe.com/docs/quickstart)
-* [Concurrently](https://www.npmjs.com/package/concurrently)  
+* [Concurrently](https://www.npmjs.com/package/concurrently)
 
 #### Frontend
 * [React JS](https://reactjs.org/)
@@ -611,24 +636,19 @@ Guidelines for Lambda Labs - https://docs.google.com/document/d/1KBLXucApsCGYJ2p
 ## Authors
 
 <a name="carlos"></a>
-[Carlos Andrade](https://github.com/cornielleandres)  
-<img src="https://avatars0.githubusercontent.com/u/35614736?s=400&v=4" width="200">  
+[Carlos Vargas](https://github.com/cornielleandres)  
+[<img src="https://avatars0.githubusercontent.com/u/35614736?s=400&v=4" width="200">](https://github.com/cornielleandres)  
 
 <a name="james"></a>
 [James Page](https://github.com/jamespagedev)  
-<img src="https://avatars1.githubusercontent.com/u/43793595?s=400&v=4" width="200">    
+[<img src="https://avatars1.githubusercontent.com/u/43793595?s=400&v=4" width="200">](https://github.com/jamespagedev)    
 
 <a name="huth"></a>
 [Huthman King](https://github.com/kinghuthman)  
-<img src="https://avatars0.githubusercontent.com/u/41485997?s=400&v=4" width="200">  
-
+[<img src="https://avatars0.githubusercontent.com/u/41485997?s=400&v=4" width="200">](https://github.com/kinghuthman)  
 <a name="david"></a>    
 [David Situ](https://github.com/Codechiha)  
-<img src="https://avatars2.githubusercontent.com/u/42251292?s=400&v=4" width="200">  
-
-<a name="lucas"></a>    
-[Lucas Beemer](https://github.com/lucasbeemer)  
-<img src="https://avatars2.githubusercontent.com/u/40898328?s=400&v=4" width="200">  
+[<img src="https://avatars2.githubusercontent.com/u/42251292?s=400&v=4" width="200">](https://github.com/Codechiha)  
 
 <a name="license"></a>
 ### License
