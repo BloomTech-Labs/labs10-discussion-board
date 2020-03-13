@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "auth0-js": "^9.10.0",
-    "auth0-lock": "^11.14.0",
+    "auth0-lock": "^11.21.0",
     "axios": "^0.18.0",
     "base64-img": "^1.0.4",
     "ckeditor4-react": "^0.1.0",
