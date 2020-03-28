@@ -89,7 +89,7 @@ GIF demonstrates the Discussion Schema
 [Tech Stack](#techstack)  
   
 [Authors](#authors)  
-  >> [Carlos Andrade](#carlos)  
+  >> [Carlos Vargas](#carlos)  
   >> [James Page](#james)  
   >> [Huthman King](#huth)  
   >> [David Situ](#david)  
