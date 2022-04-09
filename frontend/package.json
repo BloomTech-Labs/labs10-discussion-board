@@ -10,7 +10,7 @@
     "ckeditor4-react": "^0.1.0",
     "dotenv": "^6.2.0",
     "html-react-parser": "^0.6.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "prop-types": "^15.7.1",
     "pusher-js": "^4.4.0",
     "react": "^16.8.1",
